@@ -1,36 +1,585 @@
 # Repository Status
 
-Protocol snapshot: **`2.0.0-pre.2`**; immutable predecessor
-**`2.0.0-pre.1`** retained
+**S180 actual run active (2026-11-24,12:04 Moscow): original inputs9/36 generated.** The original7efa351 invocation remains active with zero restarts and no recorded failure; source397400 is running on CPU3. The window has elapsed about58minutes; qualification and all180 captures remain ahead, followed by scientific analysis/restoration/independent exit. Estimated completion remains about03:00 Moscow on25November, with the original service hard stop11:03:53 that day and no automatic retry. Raw stays on the stand. [Current observation and remaining plan](docs/evidence/stage17/PILOT-S180-POLL-20261124T090410Z/REPORT.md). Stage18 execution remains unauthorized.
 
-Repository state: **`STAGE_16_COMPLETE_READY_FOR_STAND_PREFLIGHT`**
+**Current EXT007 checkpoint (2026-11-20, 07:36:08 Moscow): scoped descriptive calibration COMPLETE and operationally ADMITTED.** Q16a **708**, Q16b **120** and Q16c **180** validated reports are preserved in the owner-signed descriptive freeze. The actual policy65/journal62 preview, canonical resolution007/journal000010 and final full replay passed. All six prior resolutions and three transitions are unchanged. The finite metadata service exited0 with no PID/control group; the native cgroup is absent and the restored guard remains1. [Completion report and actual proof](docs/evidence/stage17/EXT007-D309-ADMITTED-20261120-01/REPORT.md).
 
-Readiness verdict: **`READY_FOR_STAND_PREFLIGHT`**; **`BLOCKED_BEFORE_PILOT`**;
+No completed measurement, raw validation or qualification was repeated; raw stays on the stand. Q16b retains its two-repetition descriptive method and no59-run tolerance guarantee. Q16c retains86 UNRECORDED/94 VERIFIED_ZERO platform strata; separate zero-loss gates FAIL in3 measurement captures and25 warmups, with all valid FULL evidence retained. Final feasibility/scale and legacy statistical guarantees remain unresolved. **Full Stage17 is incomplete:** actual EXT008–010, pilot/exit await completion of the active approved S180 route and exact admission; Stage18 remains deferred. The two metadata failures, their original source, signed freeze and preview custody history remain preserved.
+
+**S180 APPROVED — native entry, planning, signatures and generated code verified; operational admission pending.** The owner approved all180 settings once,5s warmup/1s measurement, descriptive initial rates, one24h cap and stand-only lossless custody. [Exact D310 acceptance](docs/evidence/stage17/PILOT-D310-ACCEPTED-20261120-01/owner-acceptance.json). [D317](docs/evidence/stage17/PILOT-D317-WORKER-20261121-01/REPORT.md) verifies the native worker/archive entry; [D318](docs/evidence/stage17/PILOT-D318-PLANNING-20261121-01/REPORT.md) fixes R1 input and derives all180 prospective layouts; [D319](docs/evidence/stage17/PILOT-D319-AUTHORITY-20261121-01/REPORT.md) verifies the owner signature boundary and exact request construction (57 focused CTest entries, including11 new crypto/contract cases).
+
+[D320 clean-release/codegen proof](docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/REPORT.md) verifies the clean34247ce native candidate: eight existing gates pass; a separate dual-disassembler audit covers20 actual pilot plus42 formal workers and48 rejected machine mutants. Six report-binding tests pass. The optimized41-entry regression passed36 within the managed boundary; all six affected IPC cases pass unchanged outside its SO_PEERCRED restriction. The initial toolchain/provenance failures and corrections remain visible. This is software verification, not stand qualification.
+
+[D321 directory-admission proof](docs/evidence/stage17/PILOT-D321-RESERVATION-20261122-01/REPORT.md) removes the circular output-inode/EXT009 dependency: reserve one real FAMILY directory without capture authority, admit EXT008/009 using its identity, then bind actual EXT009 before capture. Eight filesystem,12 signature/contract and18 combined original/reserved broker tests pass, plus a targeted post-archive admission-drift case;11 related CTest entries also pass. The native34247ce bytes and D320 codegen proof remain unchanged. No real scoped resolution or stand reservation is issued by these software tests.
+
+[D322 journal proof](docs/evidence/stage17/PILOT-D322-JOURNAL-20261122-01/REPORT.md) verifies ordered signed S180 EXT008–010 persistence anchored in the unchanged original seven resolutions. Fifteen signature/filesystem/fault cases pass against the frozen release; five related CTest suites pass (45 cases). Independent semantic replay is mandatory, historical proof grants no live permission, and the legacy descriptive-only guard remains intact. Actual semantic fact producers and the qualified parent/profile are still pending; no real scoped admission or stand action occurred.
+
+[D323 original-source proof](docs/evidence/stage17/PILOT-D323-SOURCES-20261122-01/REPORT.md) verifies the full36-source S180 bank against its exact frozen plan and accepted generator, including PILOT/WARMUP roles and slash-separated namespaces. Fourteen S180 cases and the existing Q16c/planning suites pass (20 cases). Tests generate only a disjoint synthetic bank; actual sources, namespace freshness, resource admission and qualified producer/journal integration remain pending. No stand preparation or operational window started.
+
+[D324 owned-source proof](docs/evidence/stage17/PILOT-D324-OWNED-SOURCES-20261122-01/REPORT.md) connects once-verified original sources to sealed native inputs and short signed-journal replay in the same parent process. Fourteen new cases and four related suites pass (46 cases), including actual child reads and failure cleanup. Serialized success reports cannot construct the owner; original/descriptor changes block reuse. Full qualification/resource semantics remain pending. No stand action or pilot window started.
+
+[D325 namespace/history proof](docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/REPORT.md) freezes360 phase IDs,36 shared source declarations and52 namespaces. Candidate read-only previews pass over91,723 stand/36,812 local metadata files with no collisions;24 software cases pass. The original legacy diagnostic is preserved and its exact wrapper recognized; only1.73MB historical plan metadata was retrieved. No registration or pilot started. Stand timing suggests6.8h for serial generation/verification kernel work, before other overhead; it is not a whole-pilot ETA.
+
+[D326 resource/deadline proof](docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/REPORT.md) verifies the full180-setting prospective packet against unchanged native34247ce:584.8GB archive upper bound,164.7GB conservatively summed requested process/page caps and23h48m1s declared stage caps. The source owner now requires a separate setup-bounded loading deadline;67 affected registered cases and repository checks pass. Read-only locked replay finds no pending custody/reservations and579.6GB quota usage. These are prospective limits and selected observations, not qualified resource admission or a measured whole-run ETA. The parent/profile, semantic producers and independent pilot validator remain pending; no stand preparation or window started.
+
+[D327 parent handoff proof](docs/evidence/stage17/PILOT-D327-PARENT-20261122-01/REPORT.md) connects quota-accounted one-attempt consumption to the actual native channel, broker, independent ledger/archive checks and durable parent receipt before ACK. Failed/partial evidence receives only a stop ACK; other failures latch the parent/channel. Seven affected suites pass76 cases; all12 parent cases also pass Python debug/development checks. This is the attempt/archive portion of the parent, not the remaining outer launcher, semantic/resource admission or independent pilot validator. No stand action or window started.
+
+[D328 owned-launch proof](docs/evidence/stage17/PILOT-D328-LAUNCHER-20261123-01/REPORT.md) implements sealed native dispatch, child-only limits, bounded console/IPC, stop-ACK finalization, descendant reaping, mandatory restoration and original terminal gates. All106 affected registered cases,15 Python debug cases, targeted static checks and the new C++ endpoint’s ASan/UBSan case pass. Original native administrative metadata now counts in the S180 quota. Actual fixed operator/profile and semantic/restoration implementations plus independent scientific validation remain pending; no stand action or window started.
+
+[D329 stand-environment proof](docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/REPORT.md) implements the fixed Intel06_3EH CPU0/1/8 restorer, owned managed isolation and native placement before exec with independent kernel readback. Sixteen environment and18 launcher cases, including preparation-timeout cleanup, pass Python development/debug checks; all125 cases in10 affected registered suites pass. The corrected prospective monitoring packet retains all180 settings and the original limits. Read-only stand inspection confirms the original journal/core bytes; no actual preparation, qualification or operational window started. The fixed qualified operator/profile, semantic producers, exact admission and independent scientific validator remain pending.
+
+[D330 archive-package proof](docs/evidence/stage17/PILOT-D330-ARCHIVE-PACKAGE-20261123-01/REPORT.md) fixes the missing actual S180 broker in the historical profile’s closure through a separate fixed profile and clean-source component package. All134 cases in11 affected suites and11 development/debug cases pass, including a real sealed-broker/codec round trip for all eight originals. A clean35-file component from0f1b962 also passes exact package replay and runtime loading. The original archive profile, codec and frozen native remain unchanged. This is the archive portion of packaging; the qualified outer operator, actual semantic producers/live admission and independent scientific validator remain pending. No stand preparation, qualification, pilot or operational window started.
+
+[D331 live-resource proof](docs/evidence/stage17/PILOT-D331-RESOURCE-ADMISSION-20261123-01/REPORT.md) implements the owned EXT009 resource checker: exact cold native/layout/output arithmetic, actual source/image/prestate checks, physical/ancestor memory and parent-limit checks, locked original reservation/custody/capacity replay, and future metadata/inode/ledger budgets. All141 cases in11 affected suites pass. A failed live handle cannot retry; historical inspection preserves only its originally derived context. This is the mechanism, not an actual scoped admission: the qualified outer operator/EXT008 producer and independent scientific validator remain pending. Direct read-only SSH confirms no matching native process/S180 cgroup and the unchanged accepted journal; no preparation, qualification or window started.
+
+[D332 qualification-helper proof](docs/evidence/stage17/PILOT-D332-QUALIFICATION-HELPERS-20261123-01/REPORT.md) fixes a reproduced stale /2 self-test check in the auxiliary evidence tool whose accepted builder already emits /3. Its new registered regression, GCC ASan/UBSan round trip and six helper software diagnostics pass; the measurement worker remains unchanged. Generic06_55H hardware actions are excluded from the stand route. The corrected auxiliary also passes its regression in a clean3266ed3 Release build, separately from frozen native34247ce. The full qualified outer operator/EXT008 producer still precedes actual qualification; no stand run/window started.
+
+**D333/D334 implemented and software-verified.** The owner-approved [S180 compaction extension](docs/decisions/0333-s180-locked-compaction-extension-proposal.md) is bound by [its acceptance record](docs/evidence/stage17/PILOT-D333-ACCEPTED-20261123-01/owner-acceptance.json). The owned guard, fixed supervised recovery, checkpoint checks and exact restoration pass150 cases in10 related suites,21 debug guard cases and14 original guard cases. The recomputed archive ceiling rises1060380 bytes; time caps stay unchanged. A [follow-up regression](docs/evidence/stage17/PILOT-D334-RESTORATION-QUARANTINE-20261123-01/REPORT.md) fixes lease clearance after incomplete platform restoration; all73 affected integration cases and22 guard cases in Python debug mode pass. [Evidence](docs/evidence/stage17/PILOT-D334-COMPACTION-INTEGRATION-20261123-01/REPORT.md). Actual operator/profile, EXT008 producer and scientific validator remain pending; no stand control, qualification or window has started.
+
+[D335 clock-qualification proof](docs/evidence/stage17/PILOT-D335-CLOCK-QUALIFICATION-20261123-01/REPORT.md) completes the owned near/far clock portion of Step3: fixed sealed helper, ordered single-use placement, original deadlines, protected raw summaries, bounded console and independently verified child cleanup. All20 clock cases pass normally and in Python debug mode, alongside86 related integration cases; the separate endpoint passes GCC ASan/UBSan and targeted static analysis. Initial encoding, entry-budget and shell-umask defects are retained with corrections. Full Q15 qualification, EXT008 producer, qualified outer operator/profile and scientific validator remain pending. No stand control, qualification, source generation or operational window started.
+
+[D336 Q15 signed-input proof](docs/evidence/stage17/PILOT-D336-Q15-SIGNED-INPUTS-20261123-01/REPORT.md) completes the separate signed R/W request boundary for the current frozen worker, preserving original EXT003 and all seven resolutions. Actual SSHSIG, fixed CPU0/1/8 prestate/session scope, original qualification deadlines and legacy native request/context compatibility pass43 cases in3 suites; all16 new cases pass Python debug allocation. Reproduced missing root metadata and request-serialization defects are corrected; legacy serializers and schemas stay unchanged. Persistent Q15 collection/live facts, outer operator/profile, EXT008 admission and scientific validation remain pending. No stand action or operational window started.
+
+[D337 persistent-Q15 proof](docs/evidence/stage17/PILOT-D337-Q15-SESSION-20261123-01/REPORT.md) completes the owned R/W transport portion of Step3: one retained native process/buffer, independently checked R evidence before a separate W signature, actual private-pipe barrier, exact readbacks and bounded supervised cleanup. All25 new cases pass Python development/debug checks, including the separate GCC ASan/UBSan peer; six existing suites pass108 cases. A ready-file publication race is prevented by observing the actual control-pipe read; denied procfs access stops without fallback. An additional4MiB/40 inodes is explicitly required for Q15 metadata. Frozen native34247ce and completed calibration are unchanged. Read-only SSH confirms the accepted journal is unchanged and S180 is idle. Complete EXT008 semantics, qualified operator/profile and independent scientific validation remain pending; no actual qualification or operational window started.
+
+[D338 T0 codegen proof](docs/evidence/stage17/PILOT-D338-T0-CODEGEN-20261123-01/REPORT.md) fixes a qualification gap: the original standalone checker audited only the PREFETCHW mapping, while this stand uses approved T0-only. The explicit T0 target now verifies all three actual emitter sites and rejects five machine mutants under GNU and LLVM22 for both GCC16 and Clang22. Both original mapping audits remain passing; all10 targeted cases, both compiler ASan/UBSan T0 self-tests and repository checks pass. The emitter header matches frozen34247ce exactly; the measurement worker is unchanged. Both support probes are rebuilt from clean d024758 with actual compiler/command metadata; the unchanged typed builder also passes10 software envelopes and rejects2 missing-proof cases. This is software proof, not actual qualification or EXT008 admission; the operator/profile, semantic facts, calibration compatibility and independent scientific validator remain pending. No stand action or operational window started.
+
+[D339 dynamic-qualification proof](docs/evidence/stage17/PILOT-D339-QUALIFICATION-EVIDENCE-20261123-01/REPORT.md) completes owned Q15 evidence retention and its accepted-builder export:21 original files remain bound; ten near/far qualification envelopes preserve actual producer identities, original timestamps and source hashes. Completed proofs remain inspectable after action expiry within the original operational window and cannot start another run. All six registered suites pass; both optional sanitizer cases are separately exercised and pass. One hundred distinct cases are covered across registered/explicit runs. The actual D338 support and clean builder pass debug integration, including timeout/failure retention, tamper latching and original-seven/profile lineage. Existing4MiB/40-inode metadata bounds are unchanged. A local compatibility audit finds eight libraries identical, with three changed calibration capture objects and one added pilot object; compatibility admission remains pending. Completed calibration and frozen native34247ce are unchanged. Current platform/compatibility semantics, qualified operator/profile and independent pilot validator remain; no stand qualification or operational window started.
+
+[D340 software-compatibility proof](docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/REPORT.md) verifies the exact accepted calibration-release to frozen34247ce software edge: eight identical libraries, explicitly reviewed calibration archive changes and all193 current native source files. The original bundle has121 native files;54 omitted originals are separately pinned to identical Git blobs at both revisions, and18 pilot files are added. Actual original/current codegen report bindings pass. Six registered suites cover68 cases, six additional codegen-binding cases and19 Python debug cases pass; the real-artifact integration also passes in debug mode. The initial JSON/source-closure and test-fixture errors are retained. The owned proof rehashes files and ancestry, latches alteration and rejects inspection mirrors for execution; full EXT008 and execution authority remain false. Read-only SSH confirms idle services/native workers and the unchanged journal. Completed calibration and frozen native are unchanged. Current platform semantics, qualified operator/profile and independent scientific validator remain pending; no operational window started.
+
+[D341 current-geometry/regime proof](docs/evidence/stage17/PILOT-D341-PLATFORM-GEOMETRY-20261123-01/REPORT.md) connects fresh fixed kernel metadata to the owned qualification/environment and exact calibration-software edge. The pinned prospective request matches two read-only stand snapshots; all six full-footprint boundaries remain512 /65536 /1048576. Actual global NUMA balancing1, THP madvise and schedutil policies are recorded without changing them or claiming they are disabled. Original/current queue and workload archives are identical; the real D340 ABI check passes. Seven related suites collect134 cases:132 pass and2 optional native sanitizer cases skip; all22 new cases pass across registered/explicit runs, with debug coverage, two final targeted checks and an extra request-tamper regression. Original report identity is stable, current facts are freshly checked, and failure latches restoration only. Full platform inventory, full EXT008 and execution remain false. The stand is S180-inactive at12:49:43UTC; no operational window started. Full source/namespace/EXT008 semantics, qualified operator/profile and independent scientific validator remain before exact admission and the whole-run ETA.
+
+[D342 namespace/source-membership proof](docs/evidence/stage17/PILOT-D342-NAMESPACE-ADMISSION-20261123-01/REPORT.md) verifies a durable single-owner claim, strict fresh stand-history boundary, one source-generation consumption and all108 original source-file bindings through the actual sealed source owner. The actual PC audit preserves three exact ceiling-only software declaration matches and its original FAIL; a separate exact-byte review accepts no unknown consumption. Six registered suites pass79 cases, including18 new cases; all18 and two final affected cases pass Python debug checks. Original audit support is retained, with no recursive public JSON copy. No actual stand reservation, source generation or operational window started. The supervised source author, complete EXT008 semantics, qualified operator/profile and independent pilot validator remain before the whole-run ETA and exact admission.
+
+[D343 supervised-source-author proof](docs/evidence/stage17/PILOT-D343-SOURCE-AUTHOR-20261123-01/REPORT.md) verifies one owned serial generation child, concrete-plan construction, one independent accepted-generator verification and same-parent sealed source membership. All115 cases in nine registered suites pass; all14 new cases pass Python debug checks, including interruption immediately after fork, timeout, escaped descendants and retained partial outputs. Fixed source ceilings require1.443GB binary/1.519GB bank storage, plus explicit metadata commitments within the existing limits. The frozen native correctly rejects changed software fixture blueprints; its actual cold planning tests remain separate. No actual research source, stand preparation, qualification or window started. Complete EXT008 semantics, qualified outer operator/profile and independent pilot validator remain before the whole-run ETA and exact admission.
+
+[D344 scoped-EXT008 semantic proof](docs/evidence/stage17/PILOT-D344-PLAN-ADMISSION-20261123-01/REPORT.md) connects actual source/namespace, qualification, current platform, software compatibility and reserved FAMILY owners to the closed signed-journal context. Eight suites collect124 cases:123 pass and one optional native sanitizer case skips; all13 new cases pass Python debug checks, including actual signed-journal integration. The17:07Moscow read-only check confirms idle services, no S180 directory/cgroup and unchanged journal/controls. No operational preparation or admission occurred. Repeated historical custody replay is a concrete short-admission timing risk: the next integration must retain one actual locked programme owner and safely release it to launch. The qualified outer operator/profile, independent pilot validator, whole-run ETA and exact admission remain pending.
+
+[D345 held-custody admission proof](docs/evidence/stage17/PILOT-D345-ADMISSION-CUSTODY-20261123-01/REPORT.md) retains one actual programme replay/lock across scoped admission, verifies every original filesystem stamp and fresh capacity, publishes EXT009 once and releases only after exact authorization/native identity to the original relocking launcher. All84 cases in six registered suites pass; all12 new cases and two final handoff/signature cases pass Python debug checks. Actual read-only stand rechecks take about0.60s after one30.05s replay over79869 records/100295 objects. Existing UID1000 ownership is preserved. Distinct preparation/lifetime/admission deadlines keep the original caps. No source, qualification, actual admission or window started. The independent pilot validator, qualified outer operator/profile, full ETA/budgets and actual admission remain pending.
+
+[D346 exact numerical conventions are owner-approved](docs/evidence/stage17/PILOT-D346-ACCEPTED-20261123-01/REPORT.md), binding the unchanged proposal3563546e... and acceptanceb0ef4397.... This prospective amendment fixes the pilot autocorrelation/IPS numerical choices and retains all undefined/low-count/FULL outcomes, the180 settings and existing limits. An independent18324-comparison algebra check passes. No actual analysis, source, qualification or operational window was started; implementation, independent raw validation and the qualified operator/profile still precede complete ETA/budget/admission.
+
+[D347/D348 pilot-analysis software proof](docs/evidence/stage17/PILOT-D348-RAW-JOIN-20261123-01/REPORT.md) implements the approved exact tail numerics and an independent scheduled primary-join core. Five registered suites pass65 cases;49 related cases pass Python development/debug execution. Maximum-size synthetic stand numerics take2.26s and187864KiB RSS; this is not empirical latency or a whole-run ETA. FULL, undefined/low effective counts and normal drain are retained, with warmup separate. The extra unchanged-C++ lint pass was interrupted and is not claimed passing; targeted checks pass and frozen native34247ce is unchanged. Full controls/family validation, supervised durable analysis publication, qualified outer operator/profile and complete ETA/resource admission remain pending. No actual source, qualification, admission or operational window started; Stage17 remains incomplete and Stage18 execution deferred.
+
+[D349 nine-region capture-control proof](docs/evidence/stage17/PILOT-D349-CAPTURE-CONTROLS-20261123-01/REPORT.md) verifies the actual pilot lifecycle, all54 queries/environment evidence, exact admitted layout, private cleanup and later shared-context release. Eighteen new cases pass Python development/debug execution; eight registered suites pass123 distinct cases, and protocol/schema/canonical checks pass. The original seven-region route and frozen native are preserved. The19:07Moscow read-only stand check confirms idle services, no native runner/prospective directory and the unchanged journal. Full source/arena/node integration, raw joins and durable analysis publication, qualified outer operator/profile and complete ETA/resource admission remain before launch. No actual preparation, qualification or operational window started; Stage17 remains incomplete and Stage18 execution deferred.
+
+[D350 integrated capture/analysis proof](docs/evidence/stage17/PILOT-D350-CAPTURE-VALIDATION-20261123-01/REPORT.md) connects original-byte source/arena/node/control checks, both primary joins, approved tail numerics and exclusive durable publication with six normative stream envelopes. All21 new cases pass Python development/debug execution; seven registered suites pass104 cases and protocol/schema/canonical checks pass. FULL/all-FULL, drain and undefined/low counts remain retained; no source or measurement is repeated. Conservative joined output plus metadata is433.2GB logical before other workspace/physical charges; aggregate admission remains pending. The19:39Moscow read-only check confirms an idle stand and unchanged journal. Whole-family lineage/custody/restoration, supervised analysis, qualified operator/profile and full ETA/budget remain before launch. Stage17 is incomplete; no operational window or Stage18 execution started.
+
+[D351 whole-family validation proof](docs/evidence/stage17/PILOT-D351-FAMILY-VALIDATION-20261123-01/REPORT.md) checks the exact180 captures/1980 native references,36 paired sources,six shared contexts, both recorded restorations and complete analysis metadata. All14 new cases pass Python development/debug checks; five registered suites pass85 cases and protocol/schema/canonical checks pass. FULL, undefined and low counts remain retained. Actual provenance/custody, supervised analysis, live restoration and operational exit remain separate unverified gates. The read-only stand check confirms idle services and unchanged journal. Supervised archive inverse/analysis, qualified operator/profile and full ETA/resource admission remain before launch. No source, qualification or operational window started; Stage17 remains incomplete and Stage18 execution deferred.
+
+[D352 retained-analysis resource proof](docs/evidence/stage17/PILOT-D352-ANALYSIS-RESOURCES-20261123-01/REPORT.md) fixes the live gate to include all retained joined outputs and explicit other workspace/scratch commitments within unchanged limits. All17 resource cases pass Python development/debug checks; five affected registered suites pass72 cases and protocol/schema/canonical checks pass. Planned workspace under unchanged D334 ceilings is448.0GB before other commitments; actual census/allocation admission remains pending. Initial protected-root fixture errors are retained; isolated ownership-preserving tests pass. No stand action, source, qualification, raw reanalysis or operational window started. Supervised inverse/analysis timing, qualified operator/profile and complete ETA/admission remain before the conditional pilot; Stage17 remains incomplete and Stage18 execution deferred.
+
+[D353 measured analysis/resource-phase proof](docs/evidence/stage17/PILOT-D353-ANALYSIS-PHASE-20261123-01/REPORT.md) finds the four-worker join proposal exceeds the90-minute cap at conservative sizes. Twelve actual stand cores process six million synthetic events in14.399s including generation; the join-only projection is72.165minutes, with full analysis timing still pending. The owned transition requires source release without aliases, verified environment restoration, no remaining child, fresh memory/limits and distinct physical cores before the larger196GiB stage. Eight registered suites pass122 cases;47 ownership/restoration/phase cases pass Python development/debug checks. No research raw was read, scientific source generated, hardware changed or operational window started. Fixed complete analysis/supervision, qualified operator/profile and whole ETA/resources/admission remain; Stage17 is incomplete and Stage18 execution deferred.
+
+[D354 archive-analysis adapter proof](docs/evidence/stage17/PILOT-D354-ARCHIVE-ANALYSIS-20261123-01/REPORT.md) connects actual profile-bound eight-file inverse, all independent capture checks and permanent joined publication. Nine cases pass Python development/debug execution; seven registered suites pass105 cases and protocol/schema/canonical checks pass. Exact header run/phase/worker checks reject coherently relabelled archives; failed spools/results remain retained and successful synthetic spools are cleaned. Actual custody/provenance and worker completion remain separate unverified gates. Fixed twelve-worker supervision, full timing and the qualified outer operator/profile still precede complete ETA/census/admission and the conditional pilot. No research raw was read/copied, actual source/qualification or operational window started; Stage17 remains incomplete and Stage18 execution deferred.
+
+[D355 owned analysis-pool proof](docs/evidence/stage17/PILOT-D355-ANALYSIS-POOL-20261123-01/REPORT.md) implements12 bounded workers, two per shared context, without changing the180 measurements. Actual readiness, archive inverse/capture validation, output bindings, worker exit and descendant cleanup precede success; failures retain evidence and cannot retry. Fifteen cases pass Python development/debug checks; eight registered suites pass113 cases and format/protocol/schema/canonical checks pass. The single-child cleanup mismatch and fixture-budget errors are retained and fixed. New family metadata reserves4MiB within unchanged workspace; actual census remains pending. Read-only SSH confirms an idle unchanged stand. Actual custody/family integration, qualified operator/profile and whole timing/ETA/admission remain before the conditional pilot. No scientific source, qualification, research raw analysis or operational window started; Stage17 is incomplete and Stage18 execution deferred.
+
+[D356 original-custody/family analysis proof](docs/evidence/stage17/PILOT-D356-FAMILY-ANALYSIS-20261123-01/REPORT.md) connects actual retained native/parent records, fresh original ledger/custody, the owned worker pool and all180 family-consistency checks. Seven cases pass Python development/debug execution; five relevant registered suites pass64 cases and format/protocol/schema/canonical checks pass. The reopened storage-extension selection issue is fixed without creating a family or modifying its ledger; the failure remains retained. Completed report publication is bounded/durable and late failures keep uncommitted evidence. Full180-capture stand operation is unverified; final live restoration, operational exit and inference remain separate. Fixed qualified operator/profile, full timing/census/ETA/admission and the single pilot remain. No scientific source, qualification, research raw read/copy or operational window started; Stage17 is incomplete and Stage18 execution deferred.
+
+[D357 final environment readback proof](docs/evidence/stage17/PILOT-D357-FINAL-ENVIRONMENT-20261123-01/REPORT.md) adds the once-only read-only post-analysis restoration check. Fifteen new cases pass Python development/debug allocation; five affected registered suites pass74 cases and pinned format/protocol/schema/canonical checks pass. Actual complete MSRs, CPU root state, maintenance, recovery service and original empty compaction lease/control must match; changed state fails without repair or retry. Family analysis reports version2 and leaves signed operational exit/inference false. Read-only SSH confirms an idle unchanged stand. No research source, qualification, raw read/copy or operational window started. Fixed operator/profile, complete timing/census/ETA/admission and the single pilot remain; Stage17 is incomplete and Stage18 execution deferred.
+
+[D358 analysis timing/optimization proof](docs/evidence/stage17/PILOT-D358-ANALYSIS-TIMING-20261123-01/REPORT.md) measures actual stand synthetic archive-to-publication throughput. Twelve physical cores project107.25minutes at the conservative row ceiling, exceeding the90-minute analysis cap before maximum metadata/family overhead; this blocks a fitting ETA claim. The packed-row/clock optimization preserves the original checks and joined bytes. Eighteen debug cases and100 cases across seven registered suites pass, with format/protocol/schema/canonical checks. Optimized stand timing, maximum metadata/context timing, fixed operator/profile, census and whole ETA/admission remain. No experiment, scientific source, qualification, research raw read or operational window started; Stage17 remains incomplete and Stage18 execution deferred.
+
+[D359 optimized stand timing/runtime proof](docs/evidence/stage17/PILOT-D359-OPTIMIZED-STAND-20261123-01/REPORT.md) confirms a21.9percent improvement in the same12-core synthetic case and a larger24-million-event pass. Primary/page/context component projections total85.6minutes at conservative ceilings, excluding additional serial custody archive hashing and full family/final/outer overhead; complete90-minute accounting and whole ETA remain pending. Fresh locked replay preserves79869 records, the original tip, UID1000 and579.6GB quota usage;37.5GB candidate extents still need W/S classification. A clean877271c archive component loads against the exact accepted stand runtime, without qualification or native authority. No research source, raw read, qualification, pilot or operational window started; Stage17 is incomplete and Stage18 execution deferred.
+
+[D360 post-collection input proof](docs/evidence/stage17/PILOT-D360-ANALYSIS-INPUT-20261123-01/REPORT.md) removes the duplicate serial physical-archive read during analysis preparation. Actual original ledger/header checks produce explicitly pending inputs with no native-continuation permission; the owned inverse workers still verify every physical/canonical byte before publication. The strict collection registry remains unchanged. Twenty-three targeted debug cases and153 cases across ten registered suites pass; final failure-latch checks and format/protocol/schema/canonical checks pass. Family reports become version3 and preserve final live restoration/exit separation. D361's clean rebuild corrects the component assessment: all35 archive payload files remain identical; reuse D359's verified component and bind changed parent sources in the outer profile. Fixed operator/profile, W/S classification and exact whole ETA/budget/admission remain before the one pilot; no scientific source, qualification, raw read or operational window started. Stage17 remains incomplete and Stage18 execution deferred.
+
+[D361 original-owner replay proof](docs/evidence/stage17/PILOT-D361-OWNER-REPLAY-20261123-01/REPORT.md) connects unchanged original semantic/signature validation to the root controller through a supervised full-UID/GID1000 reader. Actual stand replay preserves all seven resolutions and three transitions in41seconds, with exit0, complete cleanup and unchanged root credentials/journal. Seventeen development/debug cases and58 cases across four registered suites pass; contract checks pass. No key permissions, native code, calibration or measurement changes. Fixed operator/recovery/exit wiring, W/S classification and whole ETA/budget/admission remain before the single pilot. No S180 namespace, source preparation, qualification or operational window has started; Stage17 remains incomplete and Stage18 execution deferred.
+
+[D362 stand packet/storage proof](docs/evidence/stage17/PILOT-D362-STAND-PACKET-20261123-01/REPORT.md) binds the verified stand runtime while preserving every scientific field and limit. Frozen native cold description and resource arithmetic pass;15 development/debug and75 cases across six registered suites pass, with contract checks. The complete retained-root stat survey finds previously omitted continuation scratch. Conservative88GiB commitments in each W/S pool plus8GiB future outside-pool obligations pass original policy arithmetic, with7.27GB workspace headroom; all historical/failed data remains preserved. Fresh census/programme/capacity admission is still required. Fixed qualified operator/profile/recovery/exit wiring and complete whole ETA/budget remain before the single pilot. No S180 namespace, source preparation, qualification or24-hour window started; Stage17 remains incomplete and Stage18 execution deferred.
+
+[Cold controller stand proof](docs/evidence/stage17/PILOT-COLD-CONTROLLER-20261123-01/REPORT.md) installs and verifies clean0919b87 common dependencies and the complete frozen34247ce source/tool closure under protected /opt roots. Actual stand native identity, original-seven semantic/signature replay,36-stream cold requirements and193-file native compatibility pass in43.30seconds. The accepted historical release locator and required verifier-tool closure are verified; initial packaging diagnostics remain retained. Verified duplicate PC software trees/transports are cleaned, with all stand research evidence preserved. No S180 namespace, research source bank, qualification or24-hour window starts. Fixed outer execution-service/profile/recovery/exit wiring and full whole-run ETA/fresh admission remain before the single pilot; full Stage17 remains incomplete and Stage18 execution deferred.
+
+[D363 execution coordinator proof](docs/evidence/stage17/PILOT-D363-EXECUTION-COORDINATOR-20261124-01/REPORT.md) joins once-only sources, fresh qualification, actual signed scoped admission, native/custody collection and post-restoration family analysis. Twenty final coordinator cases and94 unchanged affected cases pass, including real signatures/journal/programme bindings and explicit software physics boundaries. The actual stand cold import/archive-contract check passes; report-only entry cannot create a study namespace. No native code or scientific limits change. Qualified root entry/service/profile, complete whole ETA/fresh readiness and independent operational exit remain before the single pilot. No source preparation, qualification or24-hour window started; Stage17 remains incomplete and Stage18 execution deferred.
+
+[D364 fixed service and independent exit](docs/evidence/stage17/PILOT-D364-SERVICE-EXIT-20261124-01/REPORT.md) adds the qualified root entry, exact package/readiness checks, historical signed handoff and a separate read-only exit observer. All180 settings and native34247ce stay unchanged; completed measurements/inverses are not repeated for exit. Software-only metadata timing completes the estimated analysis budget at89m09s and the whole-pilot estimate at about16h, under the existing24h cap. Service packaging and actual live admission remain pending; no S180 source, qualification, capture or operational window has started. Scoped descriptive exit grants no inferential freeze or Stage18 execution authority.
+
+[D365 original-owner trust correction](docs/evidence/stage17/PILOT-D365-PUBLIC-TRUST-20261124-01/REPORT.md) fixes the actual root-controller/UID1000 public-trust mismatch found at the final read-only preflight check. An actual stand challenge now verifies and a changed message is rejected, with original trust bytes/owner/mode unchanged. Original journal replay and all experimental/native/archive methods stay fixed. Updated package/regression checks precede launch; no operational root, qualification, capture or24h window has started.
+
+Next implementation: connect the completed collector, custody readers and analysis components in the fixed qualified stand operator/profile, then finish complete analysis timing and the actual storage census. Present the whole ETA and pass exact budgets before source preparation or qualification starts the approved24-hour window; admit EXT008–010, conditionally run the one S180 family, preserve/validate results and verify restoration/scoped Stage17 exit. Stage18 requirements review follows; Stage18 execution remains deferred.
+
+**Historical stopped-family checkpoint:** **Current EXT007 checkpoint (2026-11-18,18:34Moscow): Q16c STOPPED after86 completed captures; restoration VERIFIED.** The87th capture (ordinal86, FAR/L1/capacity65536/L075) failed its mandatory observation gate before warmup: neither phase released and zero events attempted. All86completed captures and the failed capture evidence are archived/released (87sets,8artifacts each). Independent scientific validity remains NOT_ASSESSED; analysis did not start. Native workers are reaped, process group gone, exact three-CPU MSR recovery and CPU/maintenance restoration verified; owned services are stopped. No retry or new window occurred. Q16a708/Q16b120 remain preserved. Previous ETA withdrawn; original D282 deadline unchanged. [Failure and actual preserved progress](docs/evidence/stage17/Q16C-D285-NATIVE-STOP-20261118-01/REPORT.md). EXT007/Stage17 remain incomplete; Stage18 prohibited.
+
+**Historical handoff checkpoint:** **Current EXT007 checkpoint (2026-11-17,02:03Moscow): Q16b descriptive handoff VERIFIED.** The bounded read-only stand job exited0 after original signed-lifecycle/custody admission and exact recomposition from all120 reports. Both source histories, all708 Q16a reports and failed separate zero-loss gates remain preserved; no raw validation, measurement or qualification was repeated. [Handoff, exact planning basis and evidence](docs/evidence/stage17/Q16B-HANDOFF-20261117-01/REPORT.md). Q16c has not started: its count/duration and scientific claim need a prospective owner decision. [D270](docs/decisions/0270-q16c-descriptive-screen-proposal.md) proposes a180-setting descriptive screen within one24-hour window, explicitly without D036's formal probability claim; it is PROPOSED, not approved. Further Q16c execution, calibration freeze and EXT007/Stage17 exit remain; Stage18 remains prohibited.
+
+**Historical Q16b data completion (2026-11-17,00:50Moscow): collection, validation and descriptive composition COMPLETE.** All103 new captures passed independent raw validation; with the17 retained originals, all120 reports are VALID across60 settings (2 repetitions each), with0 invalid/missing reports. Supervisor/analysis exited0 and workers are reaped; hardware/CPU/maintenance restoration is verified. Exact descriptive min_mu_ref=1670571/1 records/s; every cell/global minimum and all120 report hashes were independently checked. Separate zero-loss gates are FAIL (20 measurement runs and34 warmups contain valid FULL outcomes); all data is retained, with no rerun or59-run guarantee. All708 Q16a reports remain preserved. [Frozen final reports, exact hashes, restoration and remaining gates](docs/evidence/stage17/Q16B-D268-COMPLETE-20261117-01/REPORT.md). Formal downstream handoff, Q16c, calibration freeze and EXT007/Stage17 exit remain; Stage18 remains prohibited.
+
+**Historical D268 startup checkpoint (2026-11-16,13:10UTC): Q16b continuation RUNNING on the stand.** Actual qualified worker PID253556/hash5497678d is verified under UID1000 in the reserved partition; root supervisor PID252643 owns the single attempt, cleanup and automatic validation. Final signed owner/resource admission passed. Only103 remaining captures are collecting; all17 original VALID/custodied Q16b captures and all708 Q16a reports are preserved, with no repeated qualification or completed measurement. New plan1ccafeba changes only the unused family watchdog to57600seconds within the original65040 ceiling; every capture/seed/scientific/per-capture/storage field is unchanged. At startup0/103 new custody receipts are complete and no failure is recorded. The original absolute deadline remains17November09:41:23UTC (12:41Moscow); no new window or retry. Estimate11–15hours for collection/archive/validation/restoration after launch. [Exact startup, plan, reviewed operators and remaining steps](docs/evidence/stage17/D268-COLLECTION-20261116-01/REPORT.md). EXT007/Stage17 remain incomplete; Stage18 remains prohibited.
+
+**Historical D265 admission stop (2026-11-16): STOPPED before new Q16b collection; restoration verified.** All 17 original Q16b captures are VALID with complete custody; all 708 Q16a reports and fresh near/far clocks and Q15-R/W remain preserved. The first input-admission check rejected elapsed-time diagnostics because it used the scientific integer-only JSON parser. Zero of the 103 new captures started. The waiting supervisor was stopped under the user's failure-stop rule; workers are reaped and CPU/maintenance restoration passed. [D265](docs/decisions/0265-d260-software-diagnostic-reader.md) corrects the exact hash-bound diagnostic locally, with regression tests; the fix is not deployed and no retry has started. [Failure and preserved-progress report](docs/evidence/stage17/D265-DIAGNOSTIC-ADMISSION-20261116-01/REPORT.md). The original window ends17 November09:41:23UTC (12:41 Moscow); reserved-budget latest collection start is16 November13:55:23UTC (16:55 Moscow). EXT007/Stage17 remain incomplete; Stage18 remains prohibited.
+
+**Historical D260 qualification checkpoint (2026-11-16): retained prefix17/17 VALID and custody COMPLETE; fresh qualification PASS.** Near/far clocks and Q15-R/W all passed for actual clean release07a93fb (worker5497678d); Q15-W verified restoration. The supervisor awaits a separately admitted103-capture collection. The approved absolute window began09:41:23UTC and ends09:41:23UTC on17 November (12:41 Moscow). All708 Q16a reports and all17 original Q16b reports remain preserved; no completed measurement was repeated. [D262 custody evidence](docs/evidence/stage17/D262-PREFIX-CUSTODY-20261116-01/REPORT.md) and [D264 execution/budget decision](docs/decisions/0264-d260-suffix-execution-budgets.md) record the completed gates and remaining signed source/namespace admission. EXT007/Stage17 remain incomplete; Stage18 remains prohibited.
+
+**Historical qualification package check (2026-11-16):** all eight generated-code gates passed; extracted-bundle verification exposed a missing executable mode on the new v34 preflight entry point. Its mode is corrected to match v33. A fresh clean package and complete bundle verification are required before deployment or qualification. No new measurement or 24-hour window has started.
+
+**Historical retained Q16b validation checkpoint (2026-11-16,08:45 UTC):17/17 VALID.** [D261](docs/decisions/0261-plan-sized-formal-control-reader.md) repaired the bounded control reader while preserving all scientific checks. The supervisor exited0 with its workers reaped; independent raw reconstruction/validation and final unchanged-ledger replay took33m33s. Original17 captures and all708 completed Q16a reports remain preserved. Capture16's final custody handoff is pending. [D263](docs/decisions/0263-d260-fresh-qualification-policy.md) prepares a separately source-bound qualification policy for the103-capture continuation; software checks pass, but no new qualification or measurement has started. D260's new24-hour experimental window remains unstarted. [Full retained reports and repair evidence](docs/evidence/stage17/D261-CONTROL-READER-20261116-01/REPORT.md). EXT007/Stage17 remain incomplete; Stage18 remains prohibited.
+
+**Previous Q16b checkpoint (2026-11-16): stopped at the raw-validation reader gate.**
+All17 retained native-complete captures passed original signed-plan/physical-archive
+inspection. Capture16's control archive is PUBLISHED, its original remains, and
+its final custody handoff is still incomplete. Independent raw validation stopped
+at07:33 UTC on the existing reader's256MiB cumulative packed-page ceiling; the
+signed plan requires approximately456–457MiB per capture. This is an unsupported
+reader capacity, with scientific validity unresolved and zero completed independent
+capture reports. The coordinator reaped its children; collection and validation
+both have MainPID0 and empty control groups. Original failure/data/ledger and all
+708 completed Q16a reports remain preserved. No measurements, qualification,
+custody mutation or scientific-validation retry occurred.
+
+The owner approved [D260's exact103-capture continuation and one new24-hour
+window](docs/STAGE17_EXT007_Q16B_CONTINUATION_V1_DECISION.md). That window has not
+started. Its versioned declaration and cold native parser are prepared; execution
+routing, clean release qualification and all17 prefix validity/custody gates remain
+required. The next step is a bounded reader correction, with stopped raw validation
+resumed only on further instruction under the failure-stop rule. See the
+[recovery report](docs/evidence/stage17/Q16B-PREFIX-RECOVERY-20261116-01/REPORT.md).
+EXT007 and Stage17 remain incomplete; Stage18 remains prohibited.
+
+**Previous supervision checkpoint:16/120 archived captures;17 checkpoints retained.** [D258](docs/decisions/0258-stage17-procfs-exit-race.md) repairs the reproduced supervisor process-exit race and adds bounded failure tracebacks. The fix is installed separately on the stand;14 targeted tests and22 supervision regressions passed there. Native identity, genuine worker-loss, signature, cleanup and deadline gates remain enforced. The old operator, all data, original qualification and Q16a708 remain unchanged. No experiment was restarted or repeated. Hardware/CPU/maintenance restoration is verified. EXT007/Stage17 remain incomplete.
+
+**Historical Q16b collection checkpoint (2026-11-15, 10:35 UTC): running at that time; stopped for D252 at 12:50 UTC.** The single formal attempt started at 10:33:56 UTC. Native worker PID 197428 is alive under UID 1000 in the reserved cgroup; its actual memfd executable SHA256 matches qualified release `42f2ebb`. The approved plan is unchanged: 3,540 captures (60 cells × 59), each with 5-second warmup and 1-second measurement. Namespace registration, owner signing and verified isolation are complete; detached supervisor PID 196134 owns cleanup and restoration. No failure or completion receipt exists; scientific validity is NOT_ASSESSED. Completed clocks/Q15 and all 708 validated Q16a reports remain preserved without reruns. [Startup proof and plan](docs/evidence/stage17/Q16B-ADMISSION-20261115-01/REPORT.txt). Next: finish collection and archival, independently validate Q16b, then Q16c, calibration freeze and EXT007/Stage17 exit. Stop at the first new experimental failure; no automatic retry.
+
+**Historical Q16b source-admission correction (2026-11-15):** [D251](docs/decisions/0251-formal-administration-verified-imports.md) closes a cached-module substitution gap found in review before any new authority or measurement. The separately versioned v2 loader compiles verified bytes and checks its admitted reentry. The original v1 packet and actual read-only qualification/input check remain preserved; the exact Q16b plan and measured release remain unchanged. Namespace auditing and supervised launch preparation continue.
+
+**Historical Q16b admission work (2026-11-15):** [D250](docs/decisions/0250-q16b-administrative-admission.md) supplies the separately bound CLI20/controller27 route for the exact stored plan. Focused tests pass; regressions, historical namespace audit/registration and Q16b-specific isolation/supervision preparation are in progress. No new Q16b collection, qualification or Q16a raw validation has run.
+
+**Historical Q16b preparation checkpoint (2026-11-15): Q16a downstream handoff COMPLETE; Q16b cold plan VERIFIED and stored on the stand.** Owner-approved [D248](docs/decisions/0248-q16b-prospective-duration-freeze.md) fixes 1-second measurement, 5-second warmup and 59 repetitions/cell (3,540 captures). The live [D247](docs/decisions/0247-completed-q16a-downstream-handoff.md) job completed at 08:18 UTC, exit0, with the child reaped. All 60 actual native layouts and the full plan passed verification; [D249](docs/decisions/0249-q16b-cold-plan-resource-boundaries.md) records finite resource bounds and remaining admission gates. Plan SHA256 `ba4f0eb1371d3a4dfb0945f9177c98993a08bd6c7ebcf188b4ab40cf5ac2f702`. Q16b is not running: namespace registration, explicit administrative wiring, signed phase admission and Q16b-specific isolation remain required. No completed experiment or raw validation was repeated. [Report](docs/evidence/stage17/Q16B-PREPARATION-20261115-01/REPORT.txt). EXT007 and Stage17 remain incomplete.
+
+
+**Historical EXT007 checkpoint (2026-11-15): 708-report authenticated Q16a composition VERIFIED; downstream calibration/admission pending.** The original attempt stopped on 2026-11-05 at 03:44:12 UTC after 177 native-complete captures. Capture ordinal 177 failed before warmup when five CPU-isolation reads returned ENODEV; all 178 capture evidence sets remain archived. The [failure investigation](docs/evidence/stage17/FORMAL-Q16A-V23-FAILURE-20261108-01/FAILURE-REPORT.txt) links the retained observations and update/reload timeline. All 177 preserved captures and all 531 continuation captures have passed independent validation. Their authenticated composition is verified; downstream calibration and operational admission remain incomplete.
+
+The owner instructed **“continue from the broken one”** after the bounded reuse proposal. The versioned 531-capture continuation for contexts 3–11 completed collection and archival after prefix validation, isolation repair and qualification. Contexts 0–2 and the original failed attempt remain preserved. Any new Q15/Q16 failure stops dependent work without another automatic retry. Stage 17 and EXT007 remain incomplete.
+
+**Actual composition checkpoint (2026-11-15, 07:03 UTC):** The bounded stand job completed with exit0 and its child reaped. Actual signed suffix/finalization, original prefix/compatibility and native geometry checks passed. Composition contains **708 VALID, 0 INVALID, 0 MISSING** reports, preserving both histories and all original run identities. All six contexts derive **d2=2 cache lines, 16 producer/consumer slots**. Independent arithmetic recomputation matched the saved result. Separate measurement/warmup zero-loss gates are FAIL, with125/352 valid FULL-bearing runs respectively; all outcomes are retained. No capture, raw validation or qualification was repeated. [Completed composition and geometry proof](docs/evidence/stage17/Q16A-COMPOSITION-ACTUAL-20261115-01/REPORT.txt). Formal downstream handoff/admission, Q16b/Q16c and EXT007 remain incomplete.
+
+**Validation completion checkpoint (2026-11-15):** All **531/531** suffix reports independently passed raw/execution validation. The last report finished at **17:30 UTC on Nov14**. The anticipated ledger-representation comparison produced the preserved original exit1; the separate metadata finalizer successfully published the suffix manifest at **17:57:32 UTC (20:57 Moscow)** without repeating raw decode. The ledger remained unchanged, all original analysis children were reaped, and both processes have exited. A fresh report-hash check and D245 finalization guard passed. The original **177/177** validated reports remain preserved. [Completed validation/finalization evidence](docs/evidence/stage17/Q16A-SUFFIX-VALIDATED-20261115-01/REPORT.txt). Actual authenticated composition, geometry provenance and EXT007 admission remain pending.
+
+**Historical composition implementation checkpoint (2026-11-13):** The running analysis has independently validated **4/531** suffix reports at the latest retained check, **08:31 UTC**, with no recorded error. [D245](docs/decisions/0245-q16a-composition-evidence-boundary.md) implements separate two-source mathematics and finished-suffix evidence admission; targeted and regression tests pass. Actual suffix admission/composition still requires the final analysis evidence. Review also found the active operator's final ledger comparison uses incompatible file-binding/summary shapes. A narrowly bounded metadata finalizer started at **08:54:51 UTC**, PID **162249**, and is waiting for the original terminal receipt at 30-minute intervals. It can finish only from all 531 retained reports, without repeating raw decode, and preserves the original process/error receipt with a separate exact correction record. Its UID1000/2 GiB bounds and the original analysis were verified active at 08:56 UTC. No new collection, prefix validation or qualification is authorized. [Implementation and verification](docs/evidence/stage17/Q16A-COMPOSITION-PREP-20261113-01/REPORT.txt).
+
+**Historical offline validation checkpoint (2026-11-13, 07:57 UTC):** Original signed-lifecycle preparation passed at **07:53 UTC**, including exact restoration/prestate and cleanup checks; the supervisor's historical reporting error is preserved. [D244](docs/decisions/0244-retained-q16a-suffix-validation.md) records the bounded offline implementation. The independent **531-capture suffix validation supervisor started at 07:54:17 UTC**, PID **161505**, after memory/disk admission. Four workers use the existing raw validator and D241 reader; aggregate scratch proof is 103.8 GB within 256 GiB. The running coordinator independently passed signed-lifecycle validation and is checking archive metadata; no capture report is complete yet. No startup error is recorded. No collection, prefix validation or qualification is repeated. [Analysis preparation and startup evidence](docs/evidence/stage17/Q16A-SUFFIX-ANALYSIS-20261113-01/REPORT.txt). Authenticated 177+531 composition and EXT007 admission remain pending.
+
+**Collection checkpoint (2026-11-13, 07:41 UTC):** All **531/531** continuation captures have native-complete checkpoints and archive-custody receipts with no archive failure; the original **177/177** independently validated captures remain preserved. The qualified executor completed at **00:36:47 UTC** with exit 0, workers reaped, no quarantine and matching hardware-restoration readbacks. CPU-isolation and maintenance restoration are verified. The external supervisor nevertheless records `success=false`: its reporting code expects `requested_hex`, while the qualified completion receipt uses `expected_hex`. The error is reproduced and original evidence is preserved. This collection is complete; raw validation and formal Q16a admission remain pending. [Completion and diagnosis](docs/evidence/stage17/Q16A-CONTINUATION-COLLECTED-20261113-01/REPORT.txt). No repeat collection or Stage18 authority.
+
+**Historical continuation recovery checkpoint (2026-11-08):** [D240](docs/decisions/0240-stage17-q16a-complete-context-continuation.md) records one incident-bound 531-capture suffix, with unchanged numeric seeds, scientific controls and limits. The managed-isolation cold test passed across an actual systemd reload at 12:35:21 UTC; all five control-file identities and CPU exclusions survived, then exact CPU and apt-timer restoration passed. [Original cold evidence](docs/evidence/stage17/Q16A-CONTINUATION-D240-20261108-01/inventory.json) is retained. The declaration, native admission, prefix/compatibility gate and targeted verification are implemented. Offline prefix analysis was launched at 12:51:48 UTC only after full original release/signature/journal preparation passed; accepted reuse still requires all 177 reports and the supervisor completion receipt. The earlier offline startup omitted release transport arguments and stopped before raw parsing; its evidence is preserved. That earlier checkpoint is superseded by the completed prefix validation, E25 qualification and D243 launch below.
+
+**Historical continuation launch checkpoint (2026-11-09, 10:43 UTC):** The **177/177** preserved captures, both clock pairs and Q15-R/W remain accepted on measured release `42f2ebb`. D242 administrative recovery completed; E25 journal **000009** is ready for phase authorization. The exact **531-capture continuation is registered and signed**. Owner-approved [D243](docs/decisions/0243-stage17-prelaunch-admission-allowance-proposal.md) isolation preparation passed at 10:21 UTC and full prelaunch admission passed at 10:26 UTC. The single detached supervisor started at **10:31:39 UTC**, PID **123370**. The formal attempt began at **10:41:38 UTC**; native Q16a worker **123944** was verified alive under UID1000 at 10:43 UTC. No failure or completion receipt exists at this checkpoint. Only the remaining 531 captures are authorized; the first new failure stops the run without automatic retry. No completed experiment or prefix validation was repeated. Reconciled FULL in 59 original captures remains retained and fails the separate zero-loss gate. [Current launch evidence](docs/evidence/stage17/D243-EXECUTION-20261109-01/REPORT.txt) and the earlier [prelaunch/restoration evidence](docs/evidence/stage17/Q16A-CONTINUATION-E25-20261109-01/prelaunch-inventory.json) are retained. EXT007 and Stage17 remain incomplete.
+
+**Historical EXT007 checkpoint (2026-11-03, 21:53:24 UTC): Steps 1–5 COMPLETE;
+Step 6 IN PROGRESS.** Clean release `dd981b4fdcf953386d4a7514fec381ff9be6e359`
+completed E23 qualification: both clock pairs and Q15-R/W passed, hardware
+restoration and owned-worker cleanup passed, and EXT001–006 are admitted at
+journal 000009 (six resolutions, three transitions). The signed Q16a family
+is now collecting. At the retained first-capture checkpoint, **1 of 708 captures
+is fully archived**: native completion/publication passed and all nine
+artifacts have durable `ARCHIVED_AND_RELEASED` custody. Scientific validity is
+**NOT_ASSESSED**; this count does not mean independently accepted calibration.
+See [the exact first-capture receipt, ledger and fresh qualification snapshot](docs/evidence/stage17/FORMAL-Q16A-V23-FIRST-CAPTURE-20261103-01/README.md).
+
+The fixed prospective plan SHA256 is
+`a9bef1239ea03d3871e40a0c52a0a3375d1eac7512d299443dd18405e89572f7`:
+708 captures (59 per context), 5 s warmup, 1 s measurement and minimum 100,000
+observations per series. D234 validated all 36 diagnostic captures and selected
+that duration; diagnostic data contributes zero formal runs. Raw evidence stays
+on the stand under D233. Q16a completion, independent validation and family
+admission, Q16b/Q16c, calibration freeze and EXT007 admission remain pending.
+**Stage 17 remains incomplete.** On any Q15/Q16 failure, stop dependent work,
+preserve evidence, reap owned workers and restore hardware/owned isolation;
+report without an automatic repair/retry cycle.
+
+Historical E22 release `c962fd757f0b215088e6a91e760af0616ab9636b` completed
+qualification but rejected the bundle-relative archive-profile locator before
+formal request publication/signature/native execution. Its registered family
+remains empty; the original plan SHA256 is
+`59898ca78f6b79c14e845859052027241c54298c9f65dcb1042b05b18be6af2e`.
+Cgroup restoration passed at 20:36:08 UTC. The locator correction subsequently
+passed integration and the stand read-only diagnostic, then received the fresh
+E23 qualification above. No scientific method, count or threshold changed.
+[The original E22 failure and public release receipt remain preserved](docs/evidence/stage17/FORMAL-Q16A-V22-PREPARATION-FAILURE-20261103-01/README.md).
+
+Historical `d45258f` evidence is preserved: full package verification and the
+nine-artifact stand archive fixture passed (18.655 s); v21 EXT001/002/003/006
+reached journal 000006 and both clock pairs passed. Q15-R preparation failed on
+missing controller26 legacy callbacks before request/signature/worker creation;
+Q15-W did not start and restoration passed at 19:44:55 UTC. Those clock passes
+remain bound to `d45258f`. The superseded serial D234 reader was stopped with
+SIGINT after full success at 19:37:29 UTC; its exit -2 record remains retained.
+See [the historical reports and inventory](docs/evidence/stage17/DISCOVERY-D234-COMPLETE-FORMAL-V21-20261103-01/README.md).
+
+Earlier EXT007 checkpoints (superseded by the current summary):
+
+Current Stage 17 completion roadmap:
+[all remaining requirements and exit gates](docs/STAGE17_COMPLETION_PLAN.md).
+Stage 17 is incomplete. The current owner priority is EXT007 only. The stand
+is dedicated to these experiments; under D206, the PC retains small results
+and provenance, while authoritative EXT007 raw data stays on the stand. **Step 2 is DONE; R1 STOPPED at its first warmup; R2 STOPPED at
+10:49 UTC on 2026-11-03, D206 stand-primary custody; PC cleanup complete.** R1 had no measurement phase or formal calibration;
+its MSR and cgroup restoration was verified. All 12 files (1,142,655,488 bytes) had SHA-verified
+two-copy custody. Independent validation reports `FAILED_STUDY_PREFIX_RECONCILED`:
+five million consumer attempts; elapsed prefix 1,472,506,585 ns; accepted and
+consumed both 4,199,692 including one drained event; FULL=0. Full-capture
+validation is rejected for the mandatory session stop. The failed prefix is
+reconciled, not a valid 36-capture study; duration selection remains unresolved.
+The [stopped-attempt evidence](docs/evidence/stage17/DISCOVERY-STOPPED-V19-20261103-01/README.md)
+retains the failure.
+The owner [accepted the working-set amendment and one R2 recovery family](docs/STAGE17_EXT007_WORKING_SET_AMENDMENT_V1_ACCEPTANCE.md).
+The bounded stand footprint helper confirmed capacities 512 / 65,536 / 1,048,576
+under the approved nominal-cache/sharing interpretation. Exact R2 bindings are
+prepared and live author-request validation passed. Isolation reapplication
+passed with the same boot and required controls. Exact signature verification
+passed. Fresh PC capacity was 392,758,439,936 bytes against the 388,544,851,990-byte
+requirement, and its custody probe passed. **R2 STOPPED at 10:49 UTC on
+2026-11-03 with exit 1**, after starting at 10:33:27 UTC under the single approved
+authority. Ten controls and 75 files totaling 52,465,834,715 bytes were retained;
+the restoration result reports true. The owner accepted
+[D206: EXT007 stand-primary raw custody](docs/decisions/0206-stage17-ext007-stand-primary-custody.md),
+with [the proposal and explicit acceptance retained](docs/evidence/stage17/STAND-CUSTODY-D206-20261103-01/owner-acceptance.json).
+For EXT007 diagnostic and calibration data only, one uncompressed stand raw copy
+(`m_dur=1`) replaces the second independent raw-copy requirement. Failed raw/control
+evidence remains on the stand; only small results and provenance go to the PC.
+There is no independent raw backup. PC raw copying is cancelled and scoped PC
+cleanup completed at 11:12:37 UTC: 16 PC files totaling 7,926,030,848 bytes
+were removed after stand-original verification; no stand raw file was deleted.
+The [D206 cleanup and capture-9 validation evidence](docs/evidence/stage17/STAND-CUSTODY-D206-20261103-01/README.md)
+records a required observation starting at 25.005774 ms and ending at
+188.537605 ms, beyond the 100 ms measurement window. The observer gate correctly
+stopped the session. Both retained phases reconcile: warmup accepted/consumed
+9,635,880 with FULL=4,059 and actual reset verified; measurement accepted/consumed
+187,535 with FULL=0. **Full capture remains invalid: `mandatory session stop`.**
+Captures 0–8 remain unassessed, no selector ran, and duration selection remains
+unresolved. Next gate: [ACCEPTED ADR0207](docs/decisions/0207-stage17-ext007-discovery-duration-revision.md),
+36 fresh captures across 1 s/2 s/5 s, approved by the owner on 2026-11-03. Versioned implementation and qualification are complete at clean release
+`a1ade11`. Both clock pairs and Q15-R/W passed; EXT001–006 are accepted at
+v5-20 journal 000009. The single D207 36-capture family launched at
+12:29:53 UTC on 2026-11-03 and completed all 36 captures at 13:55:31 UTC,
+exit 0 with verified CPU-isolation restoration. CLI17 custody admission passed.
+Independent validation rejected the native whole-plot action-log shape;
+[D213](docs/decisions/0213-discovery-whole-plot-readback-validation.md) records the
+checker repair and reanalysis of unchanged bytes. Duration selection remains unresolved;
+no formal calibration credit. [Original completion and rejection records](docs/evidence/stage17/DISCOVERY-D207-COLLECTED-20261103-01/README.md)
+retain this checkpoint.
+[Qualification evidence](docs/evidence/stage17/STAND-QUALIFICATION-V20-20261103-01/README.md)
+retains the new release and accepted prerequisite records. D207 permits only its bounded
+conditional qualification and one new family after exact admission. No automatic retry.
+The owner accepted the narrow [D211 completion-window clarification](docs/decisions/0211-stage17-q16b-completion-interval.md)
+for the later Q16b numerator. Native and independent raw-decoder components are
+implemented and targeted verification passes, including four sanitizer configurations.
+[Verification evidence](docs/evidence/stage17/LOCAL-VERIFICATION-EXT007-D210-D213-20261103-01/README.md)
+records one explicit Clang TSan allocation-hook skip. Formal integration remains required. They grant no
+new experiment and do not change D207. [D212](docs/decisions/0212-stage17-q16a-demand-window.md)
+is the separately owner-accepted Q16a demand-membership clarification. Its raw
+trace/independent decoder and persistent mapped runtime now have targeted
+software checks; the formal native input/publication boundary is implemented
+and undergoing verification. [D214](docs/decisions/0214-q16a-demand-trace-contract.md),
+[D215](docs/decisions/0215-caller-owned-termination-storage.md),
+[D216](docs/decisions/0216-shared-native-cold-observation-storage.md), and
+[D217](docs/decisions/0217-formal-native-input-contract.md) record those necessary
+engineering changes. The component checkpoint passed 185 development checks and
+all four sanitizer configurations (two explicit allocation-hook skips under
+Clang TSan). This checkpoint does not qualify later integration edits.
+[D224](docs/decisions/0224-parallel-retained-discovery-validation.md) adds bounded
+parallel reanalysis of the same discovery bytes; its independent 13-test suite
+passes. The corrected launcher (15 tests) and wrapper (13 tests) passed;
+[stand startup](docs/evidence/stage17/DISCOVERY-D224-PARALLEL-START-20261103-01/README.md)
+passed resource admission at 16:28:46 UTC. Full validation and selection are pending.
+[D226](docs/decisions/0226-q16c-native-input-and-retention.md) and
+[D227](docs/decisions/0227-formal-family-dispatch-boundary.md) integrate scheduled
+capture publication and explicit formal-family dispatch. The integration checkpoint
+passed 121 initial development checks and 120 checks under each ThreadSanitizer.
+Clang ASan passed its 117 native checks plus 52 process-boundary cases using a
+verified debug-stripped copy with identical allocated sections. GCC ASan passed
+118 integration checks and 21 later parser/family checks; three process-boundary
+checks remain blocked by instrumented worker size. This is not a full preset or
+qualified-release pass. All four sanitizer configurations passed both six-case
+publication bridges. [D230](docs/decisions/0230-formal-calibration-from-bound-capture-reports.md)
+adds exact bound-report calibration; [D231](docs/decisions/0231-formal-admission-custody-successor.md)
+and [D232](docs/decisions/0232-q16c-original-schedule-source-provenance.md)
+add signed formal execution/custody and accepted schedule provenance. Targeted
+Python and signed-process checks pass; successor release/policy integration is
+being verified. D224 stopped at 17:29 UTC after 18/36 capture checks because its
+monitor raced an exiting worker; all owned children were reaped and no duration
+was selected. [D234](docs/decisions/0234-offline-analysis-exit-race-and-bounded-pool.md)
+repairs that race. Its 20 supervisor tests and 13 wrapper tests pass; a bounded
+16-worker revalidation of all 36 original captures passed fresh stand admission
+and started at 17:45:42 UTC. At the historical 19:02:00 UTC checkpoint, 27/36 captures had validated;
+D234 subsequently completed all 36 and selected 1 s at 19:32:20 UTC. The owner accepted
+[D233](docs/decisions/0233-stage17-formal-lossless-archive-proposal.md): future formal
+captures may use verified lossless archives under one shared 6 TB quota, with
+512 GiB workspace, 256 GiB analysis scratch and 16 GiB reserve. Implementation
+and qualification are in progress; historical raw remains unchanged. One qualified
+complete release, feasible exact resource/retention plans, phase authority and
+formal collection remain required. These components authorize no experiment.
+D233 implementation checks now include exact C++ encoder/Python reconstruction
+against original publisher fixtures, bounded custody and ledger failure cases,
+versioned physical-storage plans with unchanged canonical output bounds, and
+durable per-capture final receipts. The integrated native checkpoint/channel slice
+passed 30 development checks and the same 30 under all four sanitizer configurations.
+The actual executor-to-broker-to-codec handoff passed four cases, including failure
+retention and deadline reaping; retained archive readback passed with nine archives
+and nine independent decoder jobs. Package/profile and registered archive checks
+also pass. These were the pre-release software checks. Clean `d45258f` subsequently
+passed full package verification and the actual stand archive fixture;
+both clocks passed on that source, followed by the pre-action Q15 preparation
+failure documented above; a clean corrected successor is pending. No formal family
+has started. The optional Q16c sealed-source extension is deferred under D238;
+all three existing inline paths must qualify together. Future actual schedule size
+and memory must fit their existing bounds before Q16c can execute.
+The Stage 18 primary practical-effect bound does not block EXT007.
+[R2 stopped-attempt and custody record](docs/evidence/stage17/DISCOVERY-RECOVERY-STOPPED-V19-20261103-01/README.md).
+
+Q16a parameter discovery: `R1_STOPPED_FIRST_WARMUP; R2_INVALID_PHASES_RECONCILED_D207_R3_COLLECTED_D213_REANALYSIS_PENDING; SELECTION_UNRESOLVED`.
+ADR-0178's accepted design remains distinct from authority for another study.
+A separate finite diagnostic study can support prospective parameter selection; it does
+not permit adaptive formal calibration or resolve EXT007. No scientific
+formal duration or execution authority has been frozen by that approval.
+ADR-0179 implements the offline design and count-only selector (13 synthetic
+tests pass). The implementation checkpoints below are historical: their
+no-capture and open-integration statements describe those earlier checkpoints,
+not the current stopped attempt. At the ADR-0179 checkpoint a read-only stand
+resource inventory was retained, with no capture, resource-budget freeze,
+operational resolution, or measurement yet performed.
+ADR-0180 implements the fixed-deadline C++ discovery worker and trace
+prefaulting component. It has no standalone action endpoint; live discovery
+and formal calibration remain blocked on integration and qualification.
+The 66 affected C++ tests pass under development GCC and restored pinned
+Clang/libc++; the affected suites also pass both compiler ASan/UBSan and
+TSan matrices. These checks contribute no experimental observations.
+ADR-0181 corrects failure-path accounting: completed queue operations remain
+counted even when demand timing fails. The capture still stops as invalid.
+ADR-0182 supplies time/attempt-bounded consumer drain with exact count and
+empty-state checks before optional ring reset. ADR-0183 adds persistent
+warm-up/reset/measurement coordination with eleven real-ring tests using
+synthetic time. The live backend, NUMA checks, watchdog, persistence, and
+operational admission remain open.
+The calibration suite now passes 46/46 under both development compilers and
+both ASan/UBSan and TSan matrices. See the
+[fresh software evidence](docs/evidence/stage17/LOCAL-VERIFICATION-EXT007-20261101-01/README.md).
+
+2026-11-01 development recovery: accepted compiler/build/test dependencies
+are restored in `build/ext007-toolchain-20261101/`. Host glibc 2.44 remains
+outside the accepted release matrix; no clean release is qualified by this
+recovery. Fresh stand status attempts fail during SSH banner exchange.
+The six-resolution operational state below was last validated on 2026-10-30.
+ADR-0184 repairs the reproduced baseline format/static diagnostics. The
+committed prospective policy v54 remains unchanged and is now stale against
+the repaired runner source; successor policy/release work remains required.
+The [2026-11-02 isolated runtime evidence](docs/evidence/stage17/LOCAL-VERIFICATION-EXT007-20261102-01/README.md)
+records accepted glibc 2.43 and tool versions, with no host-system changes.
+Timing/clock-pair cases pass 20/20 in both compiler sanitizer matrices.
+Full-suite historical fixture/external-archive failures remain; full static
+analysis is pending. The latest read-only SSH refresh still times out before
+the banner. No qualified release, capture, or external resolution is claimed.
+ADR-0185 adds an exact-snapshot fixture harness for four policy-18 historical
+regressions. All four original checks and six preservation/failure cases pass. The
+harness rejects current preserved-record drift before replay; it grants no
+current qualification and leaves the external archive requirement unchanged.
+ADR-0186 separates the D-100 hermetic proposal check from the unchanged default
+external integration gate. Nineteen proposal mutants and two boundary cases
+pass; the default still rejects the absent archive/sidecar. The fresh integrated
+Clang/libc++ CTest suite passes 410/410 in the accepted runtime. This supplies
+software verification, not current policy/release or stand qualification.
+ADR-0187 adds discovery dequeue-result retention for the ordinary consumer
+action, including after timing/trace failure. All 50 calibration cases pass
+both development compilers and both compiler sanitizer matrices. The prior
+111-unit static check completed successfully; the new unit passes strict
+focused analysis. All six dual-disassembler release codegen gates pass.
+SSH was restored by the owner on 2026-11-02. Existing journal hashes are
+unchanged, but its temporary wrapper disappeared after reboot and the retained
+CLI rejects a schema identity mismatch. Fresh journal validation is pending;
+no capture, operational resolution, or release authority is claimed.
+ADR-0188 supplies caller-owned ring storage for dedicated producer-home maps;
+constructor success is not residency verification. The 67 queue/calibration
+cases and queue stress pass both compiler sanitizer matrices. Fresh strict
+queue codegen and provenance checks pass with unchanged operation evidence.
+[The fresh stand audit](docs/evidence/stage17/STAND-AUDIT-CPU-PREFETCH-V5-20261102-01/README.md)
+retains nine journal-file and six artifact hashes. The latest journal and all
+six artifacts match the prior audit. Retained v47 replay additionally fails
+on a missing v46 dependency; no check was bypassed. That review found linked
+reset scratch allocation; ADR-0189 now repairs that lifecycle prerequisite.
+After ADR-0188, the integrated GCC CTest suite passes 419/419 and all six strict
+dual-disassembler codegen gates pass. No experimental observations follow.
+After ADR-0189, both development compilers pass 424/424 CTest entries. Reset
+preserves the frozen cycle without allocation and rejects corruption before
+mutation. All six strict codegen gates and supported allocation-counter checks
+pass; Clang TSan passes functional queue/reset coverage without conflicting
+allocator hooks. Live backend integration and current qualification remain open.
+ADR-0190 supplies caller-owned active event-order storage without changing
+seeded lookup or the ordinary consumer action. Both integrated development
+suites pass 427/427; all 14 workload cases pass all four sanitizer
+configurations, supported allocation-counter checks pass, and all six strict
+codegen gates pass. Actual mapping preparation/residency and the live capture
+backend remain open; no experimental capture occurred.
+ADR-0191 adds caller-owned sample buffers and separately placed mutable trace
+state, with nonoverlap checks before buffer preparation and own-worker views.
+Both integrated development suites pass 435/435, all 57 calibration cases
+pass all four sanitizer configurations, six supported allocation-hook cases
+and all six strict codegen gates pass. This does not supply observed page
+residency, the live backend, a qualified release, or experimental results.
+ADR-0192 supplies an allocation-free Linux residency-query path with exact
+caller-owned scratch and retained syscall/page failures. Both integrated
+development suites pass 442/442; 26 platform cases pass all four sanitizer
+configurations, seven allocation-hook cases pass supported matrices, and all
+six strict codegen gates pass. The new query has not supplied stand placement
+evidence; live integration and current release qualification remain open.
+ADR-0193 adds joint event/demand capture with actual partial readings and
+ordinary primary rows. It preserves completed queue operations/checksum
+actions after failure and prevents counting a pre-operation failure as an
+attempt. Unobserved clock statuses are optional facts. Both integrated suites
+pass 451/451; all 65 calibration cases pass all four sanitizer configurations,
+eight allocation-hook cases pass supported matrices, strict focused analysis
+and all six existing codegen gates pass. This is not a complete live backend
+or a qualification of the new exact clock-boundary sequence; no experiment ran.
+ADR-0194 adds exact-size caller-owned primary stream storage and byte
+requirements without changing the codec. Both supported compiler layouts
+preserve the original 192-byte stream objects and prior hot offsets. Both
+integrated suites pass 456/456; 20 storage cases pass all four sanitizer
+configurations, two storage allocation-hook cases pass supported matrices,
+and strict analysis plus all six codegen gates pass. Live worker preparation,
+observed drain/reconciliation and qualified execution remain open.
+ADR-0195 now composes those primitives into a real R0 phase backend. It joins
+independent primary sequences and replays the checksum without allocation,
+captures real drain boundaries, and refuses reset after failed final integrity.
+Failure prefixes and later drain ordinals remain distinct. Both integrated
+suites pass 471/471; 78 calibration and 21 storage cases pass four sanitizer
+configurations, three storage allocation-hook cases pass supported matrices,
+focused strict analysis and all six existing codegen gates pass. Tests use a
+software-only preparation provider. The actual Linux owner/mapping/monitoring
+provider, durable publication, watchdog/admission and qualification remain open.
+
+ADR-0196 adds explicit Linux owner mapping controls/readbacks and one-shot
+prefault/lock/cleanup, retaining actual failures separately from requested
+placement. Controller observations gate both phases and preserve bounded drain
+after failure. Late failures still prevent completion; complete raw integrity
+is retained separately. Both integrated suites pass 487/487; 37 platform and
+83 calibration cases pass all four sanitizer configurations. Five affected
+translation units, global format, provenance and six existing codegen gates
+pass. These are local software checks. Full mapped object/stack preparation and retained live
+residency/control monitoring still require integration before publication,
+watchdog/admission and qualified stand execution. No capture has run.
+
+ADR-0197 now retains planned residency observations through the controller
+hooks, with raw page status, syscall/errno and actual clock brackets. Full
+before/after coverage and explicit during-range coverage remain distinct;
+late/missed queries and worker completion invalidate observations. Both full
+compiler suites pass 499/499; 94 calibration and 37 platform cases pass all
+four sanitizer configurations. Four supported allocation-hook cases and strict
+analysis, global format, provenance and six existing codegen gates pass.
+No actual stand page query, new qualification or capture is
+claimed. Complete owner object/stack composition, other live controls,
+publication/watchdog and source-bound admission/release remain open.
+
+ADR-0198 integrates guarded caller-mapped pthread stacks with session
+preparation admission. Failed stack preparation cannot release warmup; a
+partial launch cancels and joins the existing worker. Actual local affinity,
+stack geometry, guard and live-frame preservation checks pass. NUMA binding
+is injected in tests and is not stand evidence. Both full compiler suites
+pass 506/506; 41 platform and 97 calibration cases pass all four sanitizer
+configurations. Complete mapped runtime objects, remaining live controls,
+publication/watchdog and qualified diagnostic admission/release remain open.
+Fresh SSH access again times out during banner exchange; the earlier retained
+stand observations are not a current operational replay.
+
+ADR-0199 integrates mapped arena/ring, owner-local trace/primary objects and
+buffers, phase state and drain retention with the persistent mapped workers.
+Producer construction protects records/order read-only. Bounded handoff and
+frozen geometry reject failed/missing peers and caller plan mutation. Both
+full compiler suites pass 513/513; 104 calibration cases pass all four
+sanitizer configurations. Focused strict analysis and global format pass.
+Injected binding and synthetic time grant no stand placement or run authority.
+The development PC's server-only VPN bypass restored SSH. A fresh read-only
+check finds the same boot ID and nine operational journals with unchanged
+head hash. This is not a fresh semantic replay. Complete controller/runtime
+footprint, live controls, publication/watchdog and qualified diagnostic
+admission remain open; no experimental capture has run.
+
+ADR-0200 adds one-shot caller-owned controller coordination/results and a
+complete mapped-controller/mapped-worker R0 integration test. Native cold TLS
+inventory retains actual per-thread payload ranges, FS base, loader generation
+and failures; truncated or mismatched snapshots cannot pass. This does not
+complete libc/runtime coverage or live qualification. The owner confirms
+exclusive stand use for these experiments; no extra deadline/storage cap was
+specified. `delta_star` remains unresolved for final precision sizing, without
+blocking independent engineering or the approved duration study. The latest
+read-only stand inventory again retains the same boot and operational journal
+head. No new semantic replay or capture is claimed.
+Both full development suites pass 519/519; all 107 calibration and 44 platform
+cases pass GCC and Clang/libc++ ASan/UBSan and TSan. These are local software
+checks, with no release or exact discovery-boundary qualification claim.
+
+Historical EXT007 checkpoint: `LOCAL_ENGINEERING_PROGRESS; EXECUTION_BLOCKED`.
+ADR-0201 integrates mapped runtime composition and native thread/hardware
+control readback. A reproduced producer-exit race is fixed: both workers remain
+alive through final observations. Both development suites pass 563/563; 124
+calibration and 71 platform cases pass all four sanitizers. Native publication
+and the separately authorized finite diagnostic action are being connected.
+No discovery capture has executed. D-115's operational Stage 17 exit remains
+the target; final scientific freezes, including `delta_star`, belong to the
+separate Stage 18 readiness gate.
+
+ADR-0202's two full development suites pass 631/631; all four sanitizers pass
+142 calibration, 85 platform and 24 targeted runner cases. Independent retained
+data validation and the C++ publisher bridge are implemented and tested, including
+deadline-crossing and capacity-limited in-flight consumer actions. Seven strict
+codegen gates pass against the current verification build. ADR-0203 adds tested
+caller-owned linked storage, with the allocation hook explicitly skipped only
+under Clang TSan. Clean release, current stand qualification and the finite
+36-capture plan remain before execution. No discovery capture has started.
+The owner now prioritizes EXT-007 only, requests an update after each of its
+six steps, and at that checkpoint selected the existing PC for the second
+uncompressed durable copy. D206 now supersedes that requirement for EXT007 only.
+
+ADR-0177 adds tested mapping-aware control/capability/admission successors;
+prospective policy v54 is not promoted or released. Missing D-037 prospective
+inputs and capture warm-up/duration/residency implementation still block
+Q16a. The [EXT007 readiness record](docs/STAGE17_EXT007_CALIBRATION_READINESS.md)
+records the exact open work. No new external resolution or stand run occurred.
+
+Operational update, 2026-10-30: `cpu-prefetch-v5`'s retained v5-12 journal
+freshly replays as `PREFLIGHT_ACCEPTED`, six resolutions (EXT001-006), two
+transitions, missing EXT007-010, `pilot_ready=false`. Stage 17 is incomplete.
+The [read-only stand audit](docs/evidence/stage17/STAND-AUDIT-CPU-PREFETCH-V5-20261030-01/README.md)
+records hashes and remaining whole-plot, software-prefetch, memory-preparation,
+and release blockers. ADR-0176 fixes only local mapping/prestate validation;
+it is not released or deployed. Historical zero-resolution claims below refer
+to checked-in genesis and earlier verification, not the external v5-12 journal.
+
+Protocol snapshot: **`2.0.0-pre.3`**; immutable predecessors
+**`2.0.0-pre.1`** and **`2.0.0-pre.2`** retained
+
+Repository state: **`STAGE17B2_LOCAL_ENGINEERING_CLOSED_EXTERNAL_INPUTS_REQUIRED`**
+
+Readiness verdict: **`PREPARED`**; **`NOT_READY_FOR_STAGE17_PILOT_EXECUTION`**;
 **`BLOCKED_BEFORE_CONFIRMATORY_EXECUTION`**
 
 ## Readiness by area
 
 | Area | State | Evidence or blocker |
 |---|---|---|
-| Stage 1 import/traceability | `COMPLETE_REVERIFIED` | Immutable `2.0.0-pre.1` is unchanged; Q11-authorized `2.0.0-pre.2` has a complete 18-artifact import manifest. Both snapshots pass all 36 sizes/SHA-256 values, exact inventories, eight authoritative hashes, and 14 Draft 2020-12 schema checks. |
-| Stage 2/16 implementation-decision record | `COMPLETE`; Q1 through Q13 recorded; Q14 awaiting | ADR-0001 through ADR-0043 are accepted. ADR-0042 records the preflight-only verification/bundle profile; Q13/ADR-0043 selects the static CPU pairs, one-`PAUSE` relax mapping, and fail-closed runner entry profile for implementation only. Proposed D-044 through D-046 define local closure, later qualification, and phase-scoped authorization policy but have no ADR or authority until Q14 is accepted. |
+| Stage 1 import/traceability | `COMPLETE_REVERIFIED` | Immutable `2.0.0-pre.1` and `2.0.0-pre.2` are unchanged; D-116-authorized `2.0.0-pre.3` has a complete 18-artifact import manifest. All three snapshots pass all 54 sizes/SHA-256 values, exact inventories, 12 authoritative hashes, and 21 imported Draft 2020-12 schema checks. |
+| Stage 2/16 implementation-decision record | `COMPLETE`; D-116 accepted | ADR-0001 through ADR-0123 are recorded. ADR-0113/policy v9 is `REJECTED_FAIL_OPEN_PREDECESSOR`; ADR-0114/policy v10 and ADR-0115/policy v11 are immutable incomplete predecessors. ADR-0116 accepts the pre-freeze warm-up bootstrap in protocol pre.3; ADR-0117/policy v12 remains the durable-pilot predecessor. ADR-0118 through ADR-0122 preserve earlier runtime/transaction boundaries. ADR-0123 prospectively fixes only the D-122 action-time terminal-schema binding defect and issues no authority. D-099..D-108 decision/evidence bytes remain hash-preserved. |
 | Stage 3 build/CI foundation | `COMPLETE_REVERIFIED` | ADR-0022, constrained offline inputs, dual compiler/library development/release presets, lint, sanitizer, metadata, package, and pinned self-hosted CI foundations freshly pass Stage 16. |
-| Stage 4 protocol/configuration model | `COMPLETE_LOCAL` | ADR-0023 typed records now read both immutable versions, emit `2.0.0-pre.2`, require the D-031 field only in pre.2, reject mixed graphs, preserve `JCS-I64-v1`, and expose the Stage 12/14 semantic seam. |
+| Stage 4 protocol/configuration model | `COMPLETE_LOCAL` | ADR-0023 typed records now read all three immutable versions, emit `2.0.0-pre.3`, require the D-031 field from pre.2 onward, reject mixed graphs, preserve `JCS-I64-v1`, and expose the Stage 12/14 semantic seam. |
 | Queue implementation | `COMPLETE_LOCAL` | ADR-0024 fixes distinct independent ring and linked/recycler adapters, exact release/acquire, fixed-arena refinement, source-hashed provenance, layout/lock-free probes, and correctness suites. GNU Binutils 2.46 and LLVM 22.1.6 release disassembly/mutant checks pass and both instruction views were reviewed. |
 | Workload construction | `COMPLETE_LOCAL` | ADR-0025 through ADR-0028 fix the deterministic stream, unbiased permutations, payload/mixer/integrity grammars, event/node layouts, and five package mechanisms. Known-answer/property/corruption/no-allocation and dual-disassembler checks pass. |
 | Schedule generation | `COMPLETE_LOCAL` | ADR-0029's offline Decimal80/Philox suite, external u64be artifact, imported envelope, derivation record, immutable C++ decoder, namespace/common-family validation, and failure/golden/corruption matrices pass. |
 | Timing system | `COMPLETE_SOFTWARE`; platform gate open | `cpu_prefetch_timing` implements D-009's selected reader, exact conversion, producer/consumer boundary capture, offline equations, qualification evaluators, no-correction diagnostics, and dual-disassembler/mutant audit. Q13 selects pair inputs, but no full pair-specific dynamic qualification or before-block evidence exists. |
-| Platform layer | `COMPLETE_SOFTWARE`; operational stand gate open | `cpu_prefetch_platform` implements read-only Linux CPU/core/package/NUMA/cache/PCI/environment inventory, capability states, strict Stage A placement/memory/page validation, dry-run/injected apply, separate fresh readback, reverse restoration, rich canonical evidence, and exact imported-schema platform records. Q13 selects static pair identities, but no production mutating backend, authority/whitelist, dynamic pair/address proof, vendor HW-PF mapping/probes, restoration exercise, or dynamic clock qualification exists. |
-| Lifecycle/controller | `COMPLETE_SOFTWARE`; integration gates open | `cpu_prefetch_lifecycle` implements the exact graph and Stage 11 capture binding. Q13 adds a ticket-gated five-package static seam and selects one x86 `PAUSE`; exact watchdogs, prefetch emitter, affinity/readback, final preparation adapter, and combined-worker codegen remain later gates. |
+| Platform layer | `Q15_R_OPERATIONAL_RELEASE_SELECTED_NO_AUTHORITY`; operational stand gate open | Q15-R-P3/ADR-0065 selects clean commit `c8b69ab` and archive SHA-256 `8e8ad6d781b2bffadcfc10cf3b12d5666c7a1d4c7d7e291d7318a19503e6ab01` as release evidence only. The successor resolves that group; actual trust anchor/roles/custody/signatures/prestate and every real PMU/affinity/NUMA/MSR operation remain open. |
+| Lifecycle/controller | `Q15_R_FIXED_GRAPH_IMPLEMENTED_LOCAL_NO_AUTHORITY` | ADR-0048 preserves unbounded scientific worker polling. ADR-0057/0059 add a separate 15-step qualification graph, u64-max pre-start poll limits, 60-second independent start-watchdog requirement, finite resource bounds, first-failure stop, partial-prefix retention, and no retry. Fake failure injection and GNU/LLVM retry-mutant audits pass; no controller ticket can be minted from the no-authority CLI. |
 | Raw storage/integrity | `COMPLETE_LOCAL`; operational gate open | `cpu_prefetch_storage` implements the accepted codec, bounded private streams, immutable envelopes/integrity records, checked budgeting, no-replace two-copy local publication, recovery-only reopening, and partial finalization. Real domains/custody, run-plan capacity, residency, and recovery evidence remain Phase 16 gates. |
 | Reconciliation/run gates | `COMPLETE_LOCAL`; concrete evidence open | `cpu_prefetch_reconciliation` performs exact run-level reconciliation/gates, while `Stage14CrossRecordSemanticValidator` resolves seed catalogs, active complete-block pool, precision counts, access chronology, replacement lineage, and budget. Final acceptance still requires concrete frozen inputs and both passes. |
 | Stage 13 calibration framework | `COMPLETE_LOCAL_SYNTHETIC`; stand gate open | Exact service/ring evaluators, preallocated acquire tracing, the guarded offline matrix estimator, five schemas, append-only records, invalidation, and synthetic C++/Python/schema tests pass. No duration, run plan, capacity, seed, exposure, stand evidence, authority, `mu_ref`, load, `d2`, feasibility freeze, or platform output was supplied or invented. |
 | Stage 14 block/access orchestration | `COMPLETE_LOCAL_SYNTHETIC`; freeze/custody inputs open | `cpu_prefetch_orchestration` proves/generates exact 180-cell blocks and pools, pins 7/20/270/540/54 families and count equations, validates role-aware sealing/amendments, and authorizes only full role-preserving replacements within budget. No final count, seed, namespace, authority, budget, stand plan, access, or outcome was created. |
 | Stage 15 offline analysis | `COMPLETE_LOCAL_SYNTHETIC`; production adapter/evidence open | `cpu_prefetch_analysis` admits only validated immutable synthetic-profile artifacts, independently verifies reconciliation and gates, forms complete blocks, implements exact inverse-ECDF estimands and separate complete-block max-T families, enforces H3 access chronology, and emits zero-self-hashed canonical plus human reports marked `SYNTHETIC_KNOWN_ANSWER_ONLY` and explicitly containing no empirical findings. No production input or empirical outcome was consumed. |
-| Measurement system | `RUNNER_ENTRY_IMPLEMENTED_NOT_AUTHORIZED` | `cpu_prefetch_runner_core` implements strict 20-kind hash/currentness admission and controller-side five-package static dispatch; `cpu_prefetch_runner` exposes self-test and admission validation only, with no execution command. The Stage 16 bundle remains preflight-only. No pair qualification, platform mutation, concrete run plan, calibration, or scientific run exists. |
+| Measurement system | `V3_LOCAL_NOT_EXECUTION_AUTHORIZED` | `cpu_prefetch_runner_core` implements strict 21-kind v3 admission and corrected wait/drain semantics. The sealed measurement candidate remains immutable and unprivileged. Q15-S1 adds only a separate fixed-scope qualification executable; it is not in the candidate and grants no authority. |
+| Q15-P0 local verification | `COMPLETE` | GCC and Clang/libc++ development and release matrices pass 216/216 each; both ASan/UBSan matrices and GCC TSan pass 216/216; Clang/libc++ TSan passes its applicable 214/214. Full 73-file static analysis, formatting, schemas, immutable protocol hashes, release policy, dependency/license, CI, and all dual-disassembler generated-code gates pass. No stand or MSR operation occurred. |
+| Q15-P0 candidate release | `COMPLETE_NO_AUTHORITY` | Clean revision `693f00b3878ed027dc09aea7916f149874fb12a1` produced `STAGE17-PILOT-CANDIDATE-BUNDLE-v1`; archive SHA-256 is `f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1`. Outer/internal hashes, 94-file clean extraction, and both nonprivileged self-tests pass. Its manifest denies dynamic, pilot, confirmatory, and measurement execution authority. |
+| Exact Q15 preparation | `D104_LOCAL_EXECUTOR_PREPARED_NO_ACTION_AUTHORITY` | D-099 evidence remains the immutable identity predecessor. The fixed P4-R-C executor separates collection and result review, validates exact custody/release/hash inputs, uses create-exclusive outputs, retains bounded partial failure evidence, and has no target-private-key path. No stand mutation occurred. D-098 still retains three null P5 inputs. |
+| P4-R-C predecessor decisions | `D104_HISTORICAL_NO_AUTHORITY; D105_D108_PRESERVED_PROPOSED_NOT_ACTIVE_PILOT_GATE` | Clean commit `dc643df` binds historical executor SHA `0b7e2f1c...`; the current hermetic successor is separately hash-bound by ADR-0104. D-099 did not capture remote Python/`dd`/tar runtime identity, so the old action still rejects. D-105..D-108 SHA `6d753cee...` remains unchanged with all selections/action inputs null and is not silently accepted. |
+| Stage 17 operational authorization | `D120_D121_D122_STOPS_PRESERVED; D123_SOFTWARE_REQUIRES_FRESH_RELEASE_AND_AUTHORITY; EXTERNAL_INPUTS_REQUIRED` | D-120 remains the typed pre-marker cardinality stop. D-121 remains the marker-only post-marker stop. D-122 reached T1 but stopped before marker/transport when action-time revalidation selected an inherited receipt schema binding. ADR-0123 preserves that empty-output transaction with a typed no-retry blocker and binds preflight policy v14/attempt v10/executor v12 plus operational policy v18/journal v16/controller v8/CLI v10. The D-123 regression persists and reloads T1, proves current terminal schemas v10/v7/v8/v3/v7, and creates no marker or transport. A fresh clean release and separately issued finite S17-EXT-001 are required; no D-120/D-121/D-122 transaction may be retried. Q15/Q16/pilot still require ordered real evidence and separate authority. Checked-in state remains 0 resolutions, 0 transitions, ten missing, `action_ready=false`, `pilot_ready=false`, `stand=NOT_ACCESSED`. An exhaustive real search of this development environment found no recoverable D-120/D-121/D-123 blocker-receipt evidence anywhere. ADR-0124 (accepted) adds a fourth, mutually exclusive `no_predecessor_attestation` predecessor-evidence path binding real search-evidence bytes rather than inventing missing predecessor bytes; the three-blocker path is unchanged. ADR-0125 (accepted) wires this additively into policy successor v19 (`cli_v11`, `semantic_verifier_v19`, `state_journal_v17`, preflight `semantic_verifier_v15`) without touching policy v18's accepted closure. ADR-0126 (accepted) finds and fixes the real remaining gap -- v19's closure still bound the unchanged executor, whose action-time call site named a function the new preflight verifier never defined -- adding `evaluate_s17_ext_001_action_readiness_v15`, executor `v13`, a second preflight-plan policy successor (v15), and operational policy successor v20. `stage17-no-predecessor-attestation-check` and `stage17-executor-v13-action-readiness-check` prove both branches resolve through the real CLI-to-journal-to-executor chain. A real owner-authored `no_predecessor_attestation` record exists, bound to a real documented search. `stage17-operational-successor-check` still reports `semantic_policy=v18; preflight_policy=v14; controller=v8` as current; v19/v20 are tested successors, not yet promoted -- a separate decision. A new `STAGE17-PILOT-CANDIDATE-BUNDLE-v5` profile (additive; v1-v4 unchanged) seals policy v20/preflight-policy v15/executor v13 from clean revision `05035ce`; archive SHA-256 `1773b5db196f54520f197af19fe6a20f643d577b880cc47a8aa3935bf6f1a3b6`; clean-extraction validation (1136 files) and both nonprivileged self-tests pass; its manifest denies dynamic, pilot, confirmatory, and measurement execution authority. No stand, SSH, or credential access occurred. |
 | Stage 16 software verification | `COMPLETE` | Both compiler/library development and release matrices pass 187/187; sanitizer matrices pass 187/187, 187/187, 187/187, and applicable 185/185; strict component codegen, static/format/schema/provenance/dependency/CI checks, synthetic dispositions, reproducible bundle, clean extraction, and nonprivileged self-tests pass. ADR-0042 and the readiness report bind the evidence boundary. |
 | Stand preflight | `COMPLETE_INVENTORY_ONLY_NOT_QUALIFIED` | The exact bundle and 72-file internal inventory passed on `xeon-cpu-fetch`; smoke, self-test, and the collector ran as `nobody:nogroup`. Snapshot `STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-01` observes two packages/two NUMA nodes and retains seven blockers. Inventory SHA-256 is `f3bb301c77918c0287c8a287e3915f5d68929684eece660464c69f62770ac94b`; the sidecar-publication failure and recovered checksum are preserved. |
-| Pilot | `BLOCKED` | Production measurement executable/final worker audit, eligible pair, runtime layout/atomic checks, control authority/readback/restoration, clock/residency/storage evidence, and authorized calibration/pilot inputs are absent. |
+| Pilot | `BLOCKED_EXTERNAL_INPUTS_REQUIRED` | D-116/ADR-0116 and protocol pre.3 resolve the first-pilot warm-up cycle without authorizing execution. The authoritative catalog retains ten unresolved operational inputs, including real release/custody bytes, qualification, calibration, plan, storage, and authority evidence. Production pilot admission remains fail-closed until they are admitted in order. |
 | Confirmatory execution | `PROHIBITED` | Pilot outputs and later freeze records, budgets, authorities, and sealing proof are absent. |
 
 ## Stage 4 products
@@ -332,7 +881,210 @@ All fixtures are synthetic and produce no empirical performance claim.
   correctness evidence only. Stage 15 created no calibration, pilot,
   confirmatory, or empirical artifact.
 
-## Fresh local verification
+## Q15-P0 fresh local verification
+
+| Check | Result |
+|---|---|
+| GCC 16/libstdc++ development and release matrices | `PASS`: 216/216 tests in each |
+| Clang 22/libc++ development and release matrices | `PASS`: 216/216 tests in each |
+| GCC and Clang ASan/UBSan | `PASS`: 216/216 tests in each; zero findings; LeakSanitizer remains disabled under the managed ptrace boundary |
+| GCC TSan | `PASS`: 216/216 tests; explicit queue concurrency stress passes; zero findings |
+| Clang/libc++ TSan | `PASS`: 214/214 applicable tests; zero findings; the two documented allocator-hook tests pass in every applicable matrix |
+| Formatting and static analysis | `PASS`: full formatting inventory and all 73 C++ translation units; the qualification CLI exception boundary was corrected during review |
+| Protocol/schema/policy checks | `PASS`: two immutable snapshots, 36 artifacts, eight authoritative hashes, 14 imported plus 19 implementation schemas after the D-052 contract schema; runner v1/v2/v3, Q15-P0, split Q15, and contract mutation fixtures pass; no authority issued |
+| Release generated code | `PASS`: queue, workload, timing, storage, exact-one-`PAUSE`, and ten-operation combined runner pass GNU/LLVM rules and registered mutants |
+| Candidate fail-closed gate | `PASS_EXPECTED_REFUSAL`: every strict generated-code prerequisite passes, then `pilot-candidate-bundle` rejects the uncommitted tree because it is not an exact clean revision |
+
+This matrix is repository-local correctness evidence. It contains no stand
+access, MSR operation, dynamic qualification, calibration, pilot, or empirical
+result.
+
+## Q15-S1 fresh local verification
+
+| Check | Result |
+|---|---|
+| GCC development integration | `PASS`: 227/227 tests after D-052 |
+| Q15 fixed-adapter/tool/split-record/bundle/contract label | `PASS`: 11/11 under development/release GCC, development/release Clang/libc++, both ASan/UBSan matrices, and both TSan matrices |
+| Split authorization policy | `PASS`: one historical record plus four current execution positives, one superseded omnibus-Q15 negative, nine general negatives; two Q15 positive fixtures, ten negatives, and two blocked non-authorizing preparations |
+| Protocol/schema/canonical/document/dependency/CI/format checks | `PASS`: immutable protocol hashes unchanged; 19 implementation schemas; 122 Markdown files/246 local links; 22 dependency records; four pinned CI uses |
+| Static analysis | `PASS` for the three new Q15 translation units; the full repository aggregate remained silent and did not terminate during the bounded fresh run, so it is explicitly `INCONCLUSIVE`, not passed |
+| Qualification-tool bundle policy/seal | `PASS`: one synthetic positive and 24 negative profile cases; D-052 contract passes one positive and 18 negative cases; the clean no-authority seal is authorized only after the single commit; no authority is created |
+
+This verification used fake file operations and pure self-tests only. It made no
+stand connection, device open, MSR read/write, dynamic qualification,
+calibration, pilot, or confirmatory observation.
+
+## Q15-S2 fresh local verification
+
+| Check | Result |
+|---|---|
+| GCC development integration | `PASS`: 235/235 tests |
+| Q15 focused matrix | `PASS`: 19/19 under GCC/libstdc++ and Clang/libc++ development, both ASan/UBSan presets, and both TSan presets; zero findings |
+| D-053 deterministic/integrity tests | `PASS`: seven C++ tests pin key `2a805cfaa4038e43`, eight-line order, 512-byte buffer SHA-256, exact cycle/closure, corruption rejection, and H0/H1/fault/multiplex classification |
+| Contract/profile policy | `PASS`: D-052 remains one positive/18 negative; D-053 is one positive/10 negative; no authority flag is enabled; the future no-authority bundle profile is one positive/28 negative |
+| Release generated code | `PASS`: GCC and Clang each pass GNU Binutils 2.46 and LLVM 22.1.6; each accepted counted body has one static demand-load site and no call/prefetch/fence/system operation; extra-load and prefetch mutants are detected |
+| Protocol/schema/document/format/static checks | `PASS`: immutable snapshots remain 36/36 artifacts with eight authoritative hashes; 14 imported plus 20 implementation schemas; 123 Markdown files/248 local links; full C++ formatting and static-analysis inventories pass |
+| Release/bundle/authority | `COMPLETE_NO_AUTHORITY`: one clean exact D-053 commit and a clean Q15 qualification-tool bundle are the local handoff; the bundle manifest and sidecar bind their exact identities. No executable command authorization, Q15-R/Q15-W, stand access, or dynamic evidence was created. |
+
+All Q15-S2 tests are local/synthetic correctness evidence. No stand connection,
+PMU/perf event, MSR read/write, privileged control, calibration, pilot, or
+confirmatory operation occurred.
+
+## Q15-S3 fresh local verification
+
+| Check | Result |
+|---|---|
+| GCC and Clang/libc++ development Q15 suites | `PASS`: 37/37 focused tests under each finalized interface |
+| GCC and Clang ASan/UBSan final Q15 suites | `PASS`: 36/36 each; zero findings; the unchanged long clock case had already passed both full sanitizer matrices |
+| GCC TSan final Q15 suite | `PASS`: 36/36; zero findings; the unchanged long clock case had already passed the full matrix |
+| Clang/libc++ TSan final applicable Q15 suite | `PASS`: 35/35; zero findings; the unchanged long clock case had already passed, and the global-allocation-override no-allocation executable is inapplicable because it conflicts with Clang TSan allocator interceptors |
+| Fake/session/collector/no-allocation coverage | `PASS`: exact PMU request and lifecycle, memory-preparation order, same-buffer state transitions, peer/hash/expiry/disconnect failures, bounded framing, seven distinct observation-derived collectors, and zero counted-region allocation |
+| Release generated code | `PASS`: GCC and Clang each pass GNU Binutils 2.46 plus LLVM 22.1.6 traversal and counter-boundary audits; registered extra-work mutants are rejected |
+| Static analysis and formatting | `PASS`: all ten changed Q15 translation units/tests/probes have no user-code diagnostics; full formatting inventory passes |
+| Protocol/schema/document/profile policy | `PASS`: 2 immutable snapshots/36 artifacts/8 authoritative hashes; 14 imported plus 108 implementation schemas; 193 documents/431 links; dynamic profile has 7 collectors/4 negative mutations; future bundle profile has 1 synthetic positive/33 negatives |
+| Release/bundle/authority | `COMPLETE_NO_AUTHORITY`: one clean exact Q15-S3 commit and a clean qualification-tool bundle are the local handoff; Git and the bundle manifest/sidecar bind their exact identities. No stand, PMU, affinity/NUMA, MSR, dynamic qualification, Q15-R/Q15-W, calibration, pilot, measurement, or confirmatory authority exists. |
+
+All Q15-S3 and Q15-R-P1 evidence is local or synthetic. The fixed controller
+is implemented and cleanly released as no-authority base evidence but is not
+operationally enabled. Q15-R-P2 subsequently accepted D-061 through D-064 and
+implemented only the repository-local trust-adapter seam and blocked setup
+preparation. Q15-R-P3 now accepts the exact clean adapter-bearing no-authority
+release as evidence only; actual stand setup/evidence and later exact signed
+Q15-R approval remain separate gates. Q15-R is unauthorized.
+
+## Q15-R decision/input preparation verification
+
+| Check | Result |
+|---|---|
+| Decision/input record | `PASS`: D-057 through D-060 are accepted by Q15-R-P1 for repository-local implementation only; JSON SHA-256 `b99f6d07294c7505fba0cfee79bc425553e398be742280d71e3b467ee80739eb` |
+| Protocol and schema | `PASS`: 2 immutable snapshots, 36 artifacts, 8 authoritative hashes, 14 imported and 27 implementation Draft 2020-12 schemas |
+| Semantic negatives | `PASS`: authority escalation, role overlap, missing pointer probe, zero watchdog, and missing later issuance approval are rejected |
+| Split preparation records | `PASS`: Q15-R/Q15-W records hash-bind the decision input, remain blocked, and cannot validate as authorization |
+| Document integrity | `PASS`: 134 Markdown files and 272 local links |
+| Authority | `NONE`: ADRs and local controller/setup artifacts exist, but no stand/account/key/PMU/MSR/dynamic/pilot/measurement authorization was created |
+
+## Q15-R-P1 repository-local implementation verification
+
+| Check | Result |
+|---|---|
+| Fixed controller | `PASS`: exact 15-step graph, one operation per step, first-failure stop, no retry/fallback, retained partial prefix, artifact/hash/count/frame/wall/session/CPU bounds, and exact authorization-core/detached-signature/verification-receipt trust binding |
+| Fake and negative tests | `PASS`: admission, graph/role/custody/limit drift, independent signature, all 15 injected failures, malformed/duplicate/incomplete evidence, and output/resource bounds |
+| Authorization/profile schemas | `PASS`: one synthetic authorization-v2 plus 12 negatives; controller and unapplied setup profiles plus 8 negatives; setup fields remain false/null/`NOT_EXECUTED` |
+| CLI authority boundary | `PASS`: self-test and scope commands are pure; production-shaped entry refuses before opening authorization/signature paths |
+| Generated code | `PASS`: GCC release function has 15 frozen source steps and one virtual operation call site under GNU Binutils 2.46 and LLVM 22.1.6; the two-call retry mutant is rejected by both |
+| Primary/secondary development tests | `PASS`: 12/12 focused controller, CLI, authorization-v2, and profile tests under GCC/libstdc++ and Clang/libc++ |
+| Sanitizers | `PASS`: 7/7 controller tests under GCC and Clang ASan/UBSan and TSan; zero findings |
+| Full primary regression | `PASS`: clean-prefix GCC build and 266/266 CTest tests |
+| Formatting/static analysis | `PASS`: complete formatting inventory and focused clang-tidy over all five changed C++ translation units/probes/tests; no user-code diagnostics |
+| Protocol/schema/document/profile checks | `PASS`: immutable protocol hashes; 35 positive/32 negative protocol fixtures; 5 decision, 12 authorization-v2, 8 controller/setup-profile, and 43 no-authority-bundle negative cases; 22 dependency records; 134 documents/272 links |
+| Release state | `SUPERSEDED_BY_VERIFIED_NO_AUTHORITY_RELEASE`: clean commit `a75bcdd0367d79f8ee0496c55edda74311c9ef7d` and v2 archive SHA-256 `48c460b008790e3b73aefbda94cacddaeb3c842622ca5bac5c763e50515ae035` now exist; no execution authority exists |
+
+## Q15-R-P2 operational-prerequisite implementation
+
+| Check | Result |
+|---|---|
+| Release binding | `PASS`: exact clean commit/archive/sidecar, 118-file internal inventory, manifest, SBOM, source, controller/tool binaries, and controller-codegen report are hash-bound |
+| Decision state | `ACCEPTED_REPOSITORY_LOCAL_ONLY`: the proposal remains immutable; Q15-R-P2 acceptance and ADR-0061 through ADR-0064 freeze the selected options without granting a later phase |
+| Trust boundary | `IMPLEMENTED_LOCAL_FAKEABLE_NO_AUTHORITY`: offline Ed25519 key policy, auditor-owned `0640` allowed-signers file, canonical independent receipt, fixed bounded FDs 3/4/5, no shell/setuid/root/arbitrary selector/OS backend |
+| Setup commands | `PREPARED_NOT_EXECUTED`: 20 literal argv templates; three typed artifact tokens remain mandatory blockers; no package/network/delete/device/Q15 command exists |
+| Access matrix | `PASS_STATIC`: all four roles by six targets, 24 stable probes and exactly 18 mandatory denials; real OS execution remains unauthorized |
+| Rollback | `ACCEPTED_POLICY_NOT_EXECUTED`: ten non-deleting lock/chmod argv templates applicable only to the completed prefix, evidence retained, no full-prestate-restoration claim |
+| Semantic negatives | `PASS`: acceptance widening, authority escalation, release/profile drift, stand private key, deletion, access widening, missing/reordered transaction IDs, and fabricated input resolution are rejected |
+| Adapter functional tests | `PASS`: all 59 Q15-labelled GCC tests and all five focused Clang/libc++ adapter tests; descriptor failure, malformed snapshots, receipt/binding drift, and raw-hash drift fail closed |
+| Sanitizers | `PASS`: all five focused adapter tests under GCC ASan/UBSan and GCC TSan |
+| Formatting/static analysis | `PASS`: full format inventory and focused changed-unit Clang-Tidy; the bounded whole-repository static-analysis rerun was interrupted without a diagnostic and is not claimed as fresh P2 evidence |
+| Documentation | `PASS`: 140 Markdown files and 296 local links after final consistency edits |
+| Setup preparation | `BLOCKED_INPUTS_REQUIRED_NO_AUTHORITY`: exact 20/24/10 transaction identity is bound; all six operational input groups and every issuance/signature field remain null/unresolved |
+| Authority | `NONE`: no stand access, account/key/path change, transfer/install, access probe, Q15-R/Q15-W, dynamic, calibration, pilot, measurement, or confirmatory authority |
+
+## Q15-R-P3 operational-release selection and successor preparation
+
+| Check | Result |
+|---|---|
+| Clean release | `PASS_NO_AUTHORITY`: commit `c8b69abf0c6aec7b740efe78d998a93545302a94`; archive SHA-256 `8e8ad6d781b2bffadcfc10cf3b12d5666c7a1d4c7d7e291d7318a19503e6ab01`; 4356358 bytes |
+| Clean extraction | `PASS`: outer sidecar, 133-file internal inventory, exact manifest/SBOM/source/binary/library/report hashes, and five non-authorizing self-tests |
+| Decision state | `D065_ACCEPTED_NO_STAND_OR_EXECUTION_AUTHORITY`: acceptance record SHA-256 `8b90ed2e6bf865b7df2b05aef7e18a8c7aeacac953b79baa7fb2ed7ea03dd167`; ADR-0065 records the byte-exact selection |
+| Successor rule | `VERSIONED_RESOLVED_RELEASE_ONLY`: predecessor SHA-256 `a671fad5b45823a617140d9ee1f684235812daede0048fb67e1255ce74ecb057` remains immutable; successor SHA-256 `25ab86661f2a0ea1c92237aea06585e585bea9303f9309678e110978c7bd5338` resolves only release evidence |
+| Remaining inputs | `FIVE_UNRESOLVED`: allowed-signers source, operational-release root, secondary-custody root, fresh stand-prestate artifact/hash, and actual allowed-signers artifact/hash/fingerprint |
+| Semantic negatives | `PASS`: P3 acceptance has four negatives; successor has seven negatives covering authority, lineage, release drift, fabricated/missing inputs, transaction loss, and silent issuance |
+| Repository checks | `PASS`: 14 imported plus 34 implementation schemas; 142 Markdown files/306 local links; formatting and diff checks clean |
+| Authority | `NONE`: acceptance/successor preparation performs no stand, transfer/install, account/key, access-probe, Q15-R/Q15-W, PMU/MSR/affinity/NUMA, calibration, pilot, measurement, or confirmatory operation |
+
+## Q15-R-P4-D acquisition-method implementation
+
+| Check | Result |
+|---|---|
+| Decision state | `D066_D070_ACCEPTED_METHODS_LOCAL_NO_AUTHORITY`: ADR-0066 through ADR-0070 accepted; all five literal values remain null |
+| Collector contract | `Q15-R-STAND-PRESTATE-COLLECTOR-CONTRACT-v1`: 25 exact absolute argv, fixed C/UTC environment, 30-second command timeout, 900-second external watchdog, bounded output/artifact, zero retries, stop-first partial preservation; packaging advances to v3 while v1/v2 verification remains compatible |
+| Artifact integrity | Canonical `JCS-I64-v1`, complete raw stdout/stderr as lowercase hex, exact observation prefix, source/release/authorization/contract/binary/stand bindings, zero-self SHA-256 |
+| Local evidence | Fake executor/clock only: GCC and Clang/libc++ release pass 14/14 each; GCC and Clang/libc++ ASan/UBSan and TSan pass 13/13 each; compiled commands exactly match the accepted JSON; complete, partial, absence, timeout/signal/spawn/output-limit, deterministic/canonical/hash, forged-state, and corruption cases pass; system collector not executed |
+| Repository checks | `PASS`: 2 snapshots/36 immutable protocol artifacts/43 implementation schemas; 35 positive/32 negative schema fixtures; 52 no-authority bundle-profile negatives; 151 Markdown files/333 links; 22 dependency/license entries; format, full 97-translation-unit static analysis, and diff checks clean |
+| Packaging state | `Q15-QUALIFICATION-TOOL-BUNDLE-v3 CLEAN_VERIFIED_NO_AUTHORITY`: commit `34da95d002e912069c959bfef8e88a23b4880cea`; archive SHA-256 `f45d25f4aa6bff56c39face088c46c4cccd21bfaf903c9c320100b561402ff3a`; 4642298 bytes; sidecar, 154-file internal inventory, clean extraction, manifest/SBOM/source/binary/library/codegen bindings, full 97-file static analysis, smoke, and preflight self-test pass |
+| Future records | Exact P4-R and P4-K preparations are `BLOCKED...`, retain eight null inputs each, and are `NOT_ISSUED` |
+| Authority | `NONE`: no stand/network/key/path/setup/access-probe/Q15-R/Q15-W/platform-control/calibration/pilot/measurement/confirmatory action |
+
+## Accepted D-071 collector-release selection
+
+| Check | Result |
+|---|---|
+| Decision state | `D071_ACCEPTED_NO_STAND_OR_EXECUTION_AUTHORITY`: proposal SHA-256 `89092ce9...`; Q15-R-P4-E acceptance SHA-256 `b4eec39a...`; ADR-0071 records the byte-exact selection |
+| Successor effect | P4-R preparation v2 SHA-256 `f8c63d1f...` resolves only `CLEAN_COLLECTOR_SOURCE_COMMIT_ARCHIVE_MANIFEST_SBOM_BINARY_AND_CONTRACT_HASHES`; seven P4-R inputs remain null and P4-K remains unchanged with eight null inputs |
+| Lineage | Predecessor P4-R SHA-256 `1925d9e8...` and P4-K SHA-256 `c56ae3dc...` remain immutable, unissued, and byte-preserved |
+| Authority | `NONE`: D-071/Q15-R-P4-E authorizes no stand/path/transfer/install/collector/key/signature/Q15/platform/calibration/pilot/measurement action |
+
+## Accepted D-072 through D-075 P4-R template contract
+
+| Check | Result |
+|---|---|
+| Decision state | `ACCEPTED_REPOSITORY_LOCAL_TEMPLATE_FREEZE_NO_STAND_AUTHORITY`: immutable proposal SHA-256 `18c29f6f3710b061bcf593ad6615589a6b50c4bf28ebceb4bee3714702389604`; Q15-R-P4-F acceptance SHA-256 `ae879bd113939ee06fd3673c0f14d054d92d6c30c0162ffa6727d2a42973cb8c`; ADR-0072 through ADR-0075 accepted |
+| Binding | Governance commit `f30036e31acc8ae036f2f31086d493eeb30db9d7`; immutable v3 archive SHA-256 `f45d25f4aa6bff56c39face088c46c4cccd21bfaf903c9c320100b561402ff3a`; P4-E/P4-R-v2/P4-K and reference inventory hashes preserved |
+| Frozen literals | One create-exclusive non-operational stand staging tree; fixed capture ID; exact stdout/stderr/sidecar/receipt/review paths in `DEVELOPMENT-REPOSITORY-Q15-CUSTODY`; selected for unissued templates only and no path is created |
+| Authority policy | Named operator, distinct custodian/auditor, root as bootstrap transport only, nonrenewable 1,800-second UTC window, accepted SSHSIG profile; all actual instants/key/fingerprint/signature/review hashes remain null |
+| Execution graph | `Q15-R-P4-R-I` fresh read-only identity and mandatory stop/review, then later separate `Q15-R-P4-R-C` create-exclusive staging and one collector attempt. The original templates are hash-bound (`38223ea7...`, `22d4aa6f...`); D-099 separately completed P4-R-I, while P4-R-C remains unissued. |
+| Failure behavior | Zero retry; 13 ordered transfer/verification actions; eleven stop groups; preserve complete/partial bytes; no delete, overwrite, reuse, cleanup, activation, or operational-root mutation |
+| Verification | Proposal: Draft schema plus 15 negative mutations and optional local archive audit. Acceptance: 7 negative mutations. Split successor templates: Draft schemas, immutable hash/ADR bindings, exact commands/paths/graph/limits/rollback, and 12 negative mutations |
+| Remaining inputs | D-099 supplies completed P4-R-I authorization/signature/transport/identity/review evidence only. A current P4-R-C successor has not been prepared or issued; P4-K predecessor remains byte-preserved. |
+| Authority | D-072..D-075 grant `NONE`. D-099's consumed authority covered only four read-only observations and local capture/review. No path creation on the stand, transfer/extraction, stand self-test, collector execution, P4-R-C/P5/Q15-R/Q15-W, platform control, calibration, pilot, measurement, or confirmatory authority exists. |
+
+## Completed D-099 P4-R-I identity gate
+
+| Check | Result |
+|---|---|
+| Decision state | `COMPLETE_VALID_READ_ONLY_IDENTITY_REVIEWED_STOPPED_BEFORE_P4_R_C`; ADR-0099 accepted the explicit single-owner downgrade and one exact action |
+| Authorization | Canonical 1,800-second authorization SHA-256 `def07da5...`; target-key SSHSIG SHA-256 `09a75c9...`; target fingerprint `SHA256:bOmXmBSxD0rBKid1AKOXQ25jIUjCOrijbM5sN18qLGM` |
+| Observation evidence | Exactly four pinned-host commands returned zero with empty stderr; capture SHA-256 `774aca6...`; review SHA-256 `f01e143...`; complete evidence SHA-256 `afc31fc...` |
+| Verification | Four Draft 2020-12 schemas, canonical hashes/sidecars/manifest, external public/signature evidence, semantic identity checks, executor self-test, and eight negative mutations pass |
+| Boundary | No stand filesystem mutation, transfer, extraction, collector, platform control, or scientific action occurred. P4-R-C is a new exact gate and remains blocked. |
+
+## Accepted Q15-R-P4-K-D policy and unissued templates
+
+| Check | Result |
+|---|---|
+| Decision state | `ACCEPTED_REPOSITORY_LOCAL_POLICY_AND_UNISSUED_TEMPLATE_PREPARATION_ONLY`; D-076 through D-079 are recorded by ADR-0076 through ADR-0079 |
+| Immutable lineage | Proposal SHA-256 `cf05bbfd...`; acceptance SHA-256 `11b9c357...`; predecessor P4-K SHA-256 `c56ae3dc...` remains unchanged with eight null inputs |
+| Selected policy | New offline Ed25519 ceremony under later exact authority; logical domain `OWNER-OFFLINE-Q15-KEY-CUSTODY`; custodian `cpu-prefetch-q15-custodian`; split one-shot P4-K-A then independent P4-K-R; operator/1,800-second/JCS-I64/SSHSIG/distinct-auditor profile |
+| Evidence boundary | The domain and custodian are logical identities only. Operational existence/control, ceremony tools/argv, custody evidence, bootstrap signer/trust, public paths/bytes/hashes/fingerprint, UTC instants, signatures, and reviews remain absent |
+| Unissued templates | P4-K-A SHA-256 `7669a2f6...` retains 13 null input/output fields; P4-K-R SHA-256 `ae71ce73...` retains 9; neither is signed, issued, executable, or self-authorizing |
+| Verification contract | Proposal 12 negatives; acceptance 10 negatives; successor templates 14 negatives; exact hashes, roles, split gates, one attempt/zero retry, bootstrap boundary, all-false operational authority |
+| Fresh local verification | Focused targets and 2 CTests pass; aggregate qualification, 51 implementation-schema, 14 imported-schema/36-artifact protocol-integrity, 35-positive/32-negative fixture, canonical, 161-file/357-link document, and formatting checks pass; full development regression passes 302/302 |
+| Authority | `NONE`: preparation does not authorize key/artifact/path/stand/signature/issuance/setup/Q15/calibration/pilot/measurement/confirmatory work |
+
+## Accepted Q15-R-P4-K-A policy; bootstrap trust blocked
+
+| Check | Result |
+|---|---|
+| Decision state | `ACCEPTED_POLICY_BLOCKED_NO_QUALIFYING_BOOTSTRAP_SIGNER`; ADR-0080 through ADR-0085 record the selected recommendations and fail-closed Q4 disposition |
+| Immutable records | Proposal SHA-256 `8acfebfb...`; acceptance `config/q15/q15-r-p4-k-a-d-acceptance-v1.json` SHA-256 `c68e1b94...`; P4-K-A/P4-K-R templates remain byte-preserved and unissued |
+| Accepted contracts | Dedicated exact offline environment/toolchain; encrypted OpenSSH key with uncaptured interactive secret; unique public export root; separate bootstrap governance root; fixed no-authority controller policy; exact 1,800-second issuance/review/partial-evidence stop policy |
+| Critical blocker | `P4KA-Q4=NO_QUALIFYING_BOOTSTRAP_SIGNER_REMAIN_BLOCKED`; establish a bootstrap governance root under a separate prospective bundle before returning to P4-K-A |
+| Preserved absence | Seven external inputs remain null; no environment, KDF, custody evidence, public path, signer/trust, UTC, authorization, signature, or review value is inferred |
+| Verification contract | Draft 2020-12 acceptance schema; exact proposal/template/ADR hashes; exact six selections and five responses; 19 negative implementation/authority/evidence/self-authorization/unblock/scope mutations |
+| Generic controller | ADR-0086/profile `0ceafd80...` implements a ten-step typed admission state machine with direct-process/secret boundaries, active 1,800-second authorization, explicit limits, one attempt, zero retry, partial retention, and mandatory P4-K-R stop; it has no OS backend |
+| Next governance input | D-087 through D-092 proposal SHA-256 `065d8a6d...` retains eight null external inputs and six open questions for genesis identity, roles/custody, offline environment, protection/recovery, public trust, and lifecycle governance |
+| Fresh local verification | `PASS`: final focused controller/profile/governance suite 7/7; full development regression 311/311; GCC and Clang/libc++ ASan+UBSan and TSan controller matrices 5/5 each; 99-file warnings-as-errors clang-tidy, formatting, 56 implementation-schema/14 imported-schema protocol integrity, 35-positive/32-negative fixtures, canonicalization, 170-file/380-link documentation, and all aggregate qualification checks pass. Static analysis prompted and verified an explicit fail-closed expiry guard plus removal of unnecessary test copies. |
+| Authority | Repository-local generic controller/schema/test/documentation only. Every genesis/offline/key/trust/path/signature/issuance/stand/Q15/experiment action remains inadmissible until exact external evidence and later signed authorization exist |
+
+## Fresh local verification through Stage 16
 
 | Check | Result |
 |---|---|
@@ -475,10 +1227,11 @@ mapping remains unresolved and no implementation text was used.
 
 This does not close the timed-path gate for a production run. All implemented
 component bodies pass their source and GNU/LLVM assembly audits, and Q13 adds
-the runner admission/static-dispatch core and relax probe, but the final
-affined combined measurement worker and authorized execution command do not
-yet exist. No platform value was frozen and no stand, calibration, pilot, or
-confirmatory execution occurred.
+the runner admission/static-dispatch core and relax probe. Q14 later adds
+affined owner preparation and a combined-operation audit, but the unresolved
+physical emitter prevents a strict release pass. No execution command exists.
+No platform value was frozen and no stand, calibration, pilot, or confirmatory
+execution occurred.
 
 ## Q13 runner-entry products and verification
 
@@ -508,6 +1261,35 @@ These are local software/correctness results. They supply no pair
 qualification, calibration result, platform-control evidence, or execution
 authority.
 
+## Q14 local closure products and verification
+
+- ADR-0044 through ADR-0046 record the accepted v2 runner/candidate profile,
+  exact future stand-qualification envelope, and dependency-ready phase-
+  authority rule without granting any of those authorities;
+- the v2 admission registry requires 21 distinct immutable evidence kinds,
+  including separate hardware and software prefetch mappings and an exact
+  phase authorization;
+- owner threads verify singleton affinity, actual CPU, and PRFCHW capability
+  before first-touching their private bounded streams and before entering the
+  start barrier;
+- five typed qualification artifact builders emit canonical selected-pair
+  clock, runtime atomic/layout, actual-CPU/migration, and address-residency
+  evidence plus the D-047 mapping/capability record from supplied observations;
+  the CLI cannot collect them;
+- the authorization schema passes five synthetic positives and nine negative
+  governance cases without issuing authority;
+- GCC and Clang/libc++ each pass 208/208 development tests; the complete
+  ASan/UBSan matrices each pass 208/208, GCC TSan passes 208/208, Clang/libc++
+  TSan passes its applicable 206/206, and all 45 runner/lifecycle tests pass in
+  every sanitizer preset;
+- format, warnings-as-errors static analysis, imported protocol integrity,
+  schema, dependency/license, document, CI-parity, and release-policy checks
+  pass; and
+- D-047/ADR-0047 maps ring-producer write intent to `PREFETCHW` and ring/linked
+  retaining reads to `PREFETCHT0`; both release compilers pass the strict
+  two-disassembler ten-operation audit and wrong-intent, duplicate, and
+  forbidden-work mutants.
+
 ## Immediate gate
 
 Stage 16 software verification, clean source/bundle sealing, repeated
@@ -522,15 +1304,205 @@ not run privileged controls, calibration, pilot, or confirmatory work.
 
 The
 [pre-Stage-17 blocker-closure and pilot-authorization bundle](docs/STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md)
-is prepared and awaits Q14. Q14 is limited to repository-local implementation
-and governance policy. Q15 stand qualification and Q16a through Q16d Stage 17
-phase execution are deliberately not approval-ready and cannot be inferred
-from Q14, SSH access, or root access.
+is accepted as Q14/ADR-0044 through ADR-0046. Its repository-local framework is
+implemented and freshly verified. D-047/ADR-0047 closes the physical mapping
+and strict combined audit. The exact source revision must be clean when the
+no-authority candidate archive is emitted; the archive and hash are release
+evidence rather than source-controlled authority. Q15 stand qualification and
+Q16a through Q16d Stage 17
+phase execution are not approval-ready and cannot be inferred from Q14, SSH
+access, or root access.
 
-Pilot remains blocked until the affined production preparation/execution
-adapter and complete combined-worker audit exist, and the selected
-pair/layout/atomic, requested-versus-verified controls/restoration, exact
+The clean Q15-R-P1 v2 base release remains verified without authority. The
+[`Q15-R operational-prerequisite decision bundle`](docs/Q15_R_OPERATIONAL_PREREQUISITE_DECISION_BUNDLE.md)
+is accepted by Q15-R-P2. The repository-local adapter and blocked setup
+preparation are implemented. Q15-R-P3/ADR-0065 selects the clean adapter-bearing
+release with authority `NONE`, and versioned successor preparation v2 resolves
+only that evidence group. The next safe gate is collection and owner review of
+the five remaining literal setup input groups, followed by a separately
+approved setup authorization. Stand setup cannot be inferred from Q15-R-P3,
+SSH access, or root access.
+
+Q15-R-P4-E/ADR-0071 separately selects the exact clean collector-bearing v3
+release as P4-R evidence only. P4-R preparation v2 resolves only that release
+group; seven P4-R inputs remain null. Q15-R-P4-F/
+ADR-0072 through ADR-0075 now freeze the exact staging/capture/custody literals,
+roles/validity/signature policy, and split P4-R-I/P4-R-C graph in separate
+still-unissued templates. Each successor retains six null prerequisite groups.
+Q15-R-P4-K-D/ADR-0076 through ADR-0079 separately freeze the new-offline-
+ceremony source mode, logical custody identities, split P4-K-A/P4-K-R graph,
+and authority policy. The original P4-K remains unchanged with eight nulls;
+the separate unissued templates retain 13/9 null fields. Q15-R-P4-K-A-D/
+ADR-0080 through ADR-0085 accepts the exact P4-K-A operational contracts as
+policy while retaining all seven external values null. D-093 subsequently
+supersedes only the unaccepted bootstrap-genesis proposal and the specified
+genesis controls. Exactly one development-host unencrypted Ed25519 root was
+created create-exclusively; its public evidence passes and its private contents
+were not read or hashed. D-094 records the exact `CREATED` to `ACTIVE`
+transition without private-key use. D-095 later authorized one signature and
+one target-key attempt under an additional security downgrade. The transaction
+stopped terminally on a wrapper defect before target-key generation and remains
+preserved. D-096/ADR-0096 then authorized one distinct corrected `p4-k-v2`
+transaction. Its authorization, bootstrap signature, public key/fingerprint,
+public manifest, receipt, and metadata-only private-key evidence verify; it
+stopped before P4-K-R. D-097/ADR-0097 separately authorized one public-only
+review. Its bootstrap signature, six public output artifacts, public key,
+fingerprint, allowed-signers equality, and D-095/D-096 lineage verify. It
+performed one attempt, zero retries, no private access/probe, no installation,
+and stopped before P5. D-098 preparation resolves only the two reviewed public
+groups and retains three null P5 inputs. D-099/ADR-0099 then completed the
+separately signed read-only P4-R-I identity capture and public review, with
+four successful observations and no stand mutation. P4-R-C and P5 remain
+blocked and unissued. No Q15, calibration, pilot, measurement, or confirmatory
+work is authorized.
+
+ADR-0104 prospectively supersedes ADR-0045/0046/0050 only for the pilot
+operational role/authorization boundary. It replaces the decision-only
+D-105..D-108 continuation path with one finite graph without changing those
+predecessor bytes. ADR-0105 preserves the successor/checklist v1 files as
+immutable templates and places operational status in an append-only
+resolution/transition journal. ADR-0106 requires a predecessor-bound
+default-deny semantic verifier after structural and real-byte checks; generic
+JSON/receipts and synthetic placeholders cannot resolve inputs. At that
+predecessor boundary, S17-EXT-001 and S17-EXT-006 had implemented verifiers;
+the other eight were explicitly blocked. ADR-0107 policy v3 remains the
+immutable fixed-command predecessor.
+ADR-0108 policy v4 and fixed plan v2 additionally remove caller-controlled
+production time, reject OpenSSH expansion paths, bind the actually loaded
+runtime closure, validate all six programs before a marker, pin the evidence
+root by directory FD, fsync marker plus parent before transport, retain typed
+post-marker failure evidence, and enforce one 180-second monotonic action
+deadline. ADR-0109 preserves that complete predecessor. ADR-0110 makes policy
+v6 the immutable parent-procfd predecessor after real `/usr/bin/ssh` characterization
+proved that inherited self-procfd descriptors are closed or reused before
+credential consumption. Executor v4 finishes semantic/schema/runtime checks,
+six-program render/compile, exact source pinning, snapshot verification, and a
+real local OpenSSH/sshd pipe capability before the final UTC sample; it samples
+again after durable marker immediately before first transport and rejects
+expiry, future authority, and rollback without opening transport. OpenSSH
+reopens sealed memfds through `/proc/<procfs-visible-parent>/fd/N`; no
+credential FD is inherited and the mutable owner path is never reused.
+Journal runtime v3 and the broker are explicitly policy-hash-bound. ADR-0111
+then makes policy v7, plan v5, verifier v7, executor v5, and journal runtime v4
+an immutable predecessor without changing any earlier identity. Executor v5 moves both snapshot
+verifications before the final post-marker authority guard. The guard runs
+inside the transport boundary immediately before `Popen` and jointly checks
+live UTC/nonrollback, the monotonic authorization deadline, and the global
+deadline. Every child starts a new process group; after any post-`Popen`
+exception, timeout, or cancellation, bounded TERM/KILL consumes the cleanup
+reserve and a mandatory final reap barrier completes before snapshots close or
+typed failure publication. A reserve overrun is failure evidence, never
+permission to return with a live child. Cleanup preserves the primary error.
+ADR-0112 makes policy v8, plan v6, verifier v8, executor v6, and journal runtime
+v5 the immutable lifecycle predecessor. Its Linux subreaper holds a waitable exited leader with
+`waitid(WNOWAIT)` until process-group and adopted-child scans prove quiescence,
+then reaps adopted children and the leader. A leader exit never substitutes
+for group proof, all signals precede leader reap, and typed records distinguish
+`leader_reaped` from `process_group_gone`. Every terminal cleanup result is
+schema-representable; a separate typed create-exclusive record retains the
+primary and retention errors if full failure publication fails.
+ADR-0113/policy v9 cannot execute; ADR-0114/policy v10 and ADR-0115/policy v11
+remain immutable incomplete predecessors. ADR-0116 accepts the pre.3 warm-up
+bootstrap. ADR-0117/policy v12 closes all ten semantic verifier contracts,
+full-bundle/EXT006 release binding, the compiled six-action worker, Q15
+recovery, durable complete pilot sessions, independent raw decoding,
+exact-byte controller, streamed typed outputs, Stage 17 exit, and separate
+Phase 18 access locally. ADR-0118/policy v13 and executor v8 are immutable
+predecessors after the missing canonical serializer stopped the first T1
+execution before marker/transport. ADR-0119/policy v14 supplies the versioned
+preflight-policy-v11/executor-v9 correction; no action authority is embedded. The bundle-root handoff
+suite is synthetic-only; no
+checked-in resolution, transition, authorization, or stand evidence was added.
+Canonical replay of the checked-in genesis is
+`PREPARED`, 0/10 resolved, 0 transitions, `action_ready=false`, and
+`pilot_ready=false`. Repository
+evidence requires actual nonsymlink regular-file bytes; external evidence
+requires actual locator bytes and a custody/integration receipt. The hermetic
+D-104 self-test reads only synthetic transfer bytes, while real qualification
+and pilot-candidate archives are checked only by explicit integration commands.
+Pilot role collapse never applies to Stage 18 sealing or access.
+
+Pilot remains blocked on the selected pair/layout/atomic,
+requested-versus-verified controls/restoration, exact
 watchdogs, clock, address residency, second durable storage domain/custody/
 capacity, and prospective calibration/pilot inputs are proven. Confirmatory
 execution additionally requires every pilot-derived and owner-supplied freeze
 record.
+
+Historical EXT007 step-2 checkpoint (2026-11-03): clean source `2ff7667` passed all seven
+codegen gates, packaged successfully, and passed local and stand verification
+of 1,732 files. The fresh v5-16 journal is `PREPARED` with no resolutions or
+attempts. Before qualification, the legacy preflight executor was reproduced
+resetting semantic policy 55 to 47 and rejecting current schema bindings.
+A versioned compatibility repair is required before a fresh qualification;
+at that checkpoint, no discovery or formal calibration had run.
+
+Historical ADR-0204 checkpoint: the repair binds preflight policy 30
+and operational policy 56. The real local author/admit/transition/readiness
+regression passes. Packed page metadata retains all observations with bounded
+memory: the largest 31,944,212-value check uses 298,307,584 bytes peak RSS.
+The replacement clean release remains to be qualified. Historical local
+evidence search needs access to owner-inaccessible old directories; no claim
+of an exhaustive negative search or experimental completion has been made.
+
+Latest EXT007 checkpoint (2026-11-03): Step 2 is complete. Repaired clean
+release `ac64633` is verified locally/on the stand (1,826 files), with all seven
+release gates passing. The owner-approved finite clock v2 family passed near
+and far with unchanged limits. Fresh Q15-R/W completed; Q15-W reports verified
+restoration. EXT001 through EXT006 are admitted at v5-19 journal 000009,
+`READY_FOR_STAGE17_PHASE_AUTHORIZATION`, six resolutions and three transitions.
+The initially rejected EXT005 resolution omitted required mixed evidence and
+its authority summary; its drafts are preserved, and the corrected admission
+uses the same actual Q15-W evidence without repeating hardware operations.
+[Verified stand/PC qualification evidence](docs/evidence/stage17/STAND-QUALIFICATION-V19-20261103-01/README.md)
+records this completed Step 2. Step 3's first 36-capture family stopped during
+capture 0 warmup; no measurement phase or formal calibration ran. Native exit
+was nonzero, partial evidence was retained, and MSR/cgroup restoration was
+verified. All 12 retained files (1,142,655,488 bytes) had SHA-verified two-copy
+custody. Independent validation reports `FAILED_STUDY_PREFIX_RECONCILED`:
+five million consumer attempts; elapsed prefix 1,472,506,585 ns; accepted and
+consumed both 4,199,692 including one drained event; FULL=0. Full-capture
+validation is rejected for the mandatory session stop. This reconciles the
+failed prefix, not the 36-capture study; duration selection is unresolved and
+formal runs contributed remain zero. See the
+[stopped-attempt evidence](docs/evidence/stage17/DISCOVERY-STOPPED-V19-20261103-01/README.md).
+The owner [accepted the working-set amendment and one R2 recovery family](docs/STAGE17_EXT007_WORKING_SET_AMENDMENT_V1_ACCEPTANCE.md).
+The bounded stand footprint helper confirmed capacities 512 / 65,536 / 1,048,576
+under the approved nominal-cache/sharing interpretation. Exact R2 bindings are
+prepared and live author-request validation passed. Isolation reapplication
+passed with the same boot and required controls. Exact signature verification
+passed. Fresh PC capacity was 392,758,439,936 bytes against the 388,544,851,990-byte
+requirement, and its custody probe passed. **R2 STOPPED at 10:49 UTC on
+2026-11-03 with exit 1**, after starting at 10:33:27 UTC under the single approved
+authority. Ten controls and 75 files totaling 52,465,834,715 bytes were retained;
+the restoration result reports true. The owner accepted
+[D206: EXT007 stand-primary raw custody](docs/decisions/0206-stage17-ext007-stand-primary-custody.md),
+with [the proposal and explicit acceptance retained](docs/evidence/stage17/STAND-CUSTODY-D206-20261103-01/owner-acceptance.json).
+For EXT007 diagnostic and calibration data only, one uncompressed stand raw copy
+(`m_dur=1`) replaces the second independent raw-copy requirement. Failed raw/control
+evidence remains on the stand; only small results and provenance go to the PC.
+There is no independent raw backup. PC raw copying is cancelled and scoped PC
+cleanup completed at 11:12:37 UTC: 16 PC files totaling 7,926,030,848 bytes
+were removed after stand-original verification; no stand raw file was deleted.
+The [D206 cleanup and capture-9 validation evidence](docs/evidence/stage17/STAND-CUSTODY-D206-20261103-01/README.md)
+records a required observation starting at 25.005774 ms and ending at
+188.537605 ms, beyond the 100 ms measurement window. The observer gate correctly
+stopped the session. Both retained phases reconcile: warmup accepted/consumed
+9,635,880 with FULL=4,059 and actual reset verified; measurement accepted/consumed
+187,535 with FULL=0. **Full capture remains invalid: `mandatory session stop`.**
+Captures 0–8 remain unassessed, no selector ran, and duration selection remains
+unresolved. Next gate: [ACCEPTED ADR0207](docs/decisions/0207-stage17-ext007-discovery-duration-revision.md),
+36 fresh captures across 1 s/2 s/5 s, approved by the owner on 2026-11-03. Versioned implementation and qualification are complete at clean release
+`a1ade11`. Both clock pairs and Q15-R/W passed; EXT001–006 are accepted at
+v5-20 journal 000009. The single D207 36-capture family launched at
+12:29:53 UTC on 2026-11-03 and completed all 36 captures at 13:55:31 UTC,
+exit 0 with verified CPU-isolation restoration. CLI17 custody admission passed.
+Independent validation rejected the native whole-plot action-log shape;
+[D213](docs/decisions/0213-discovery-whole-plot-readback-validation.md) records the
+checker repair and reanalysis of unchanged bytes. Duration selection remains unresolved;
+no formal calibration credit. [Original completion and rejection records](docs/evidence/stage17/DISCOVERY-D207-COLLECTED-20261103-01/README.md)
+retain this checkpoint.
+[Qualification evidence](docs/evidence/stage17/STAND-QUALIFICATION-V20-20261103-01/README.md)
+retains the new release and accepted prerequisite records. D207 permits only its bounded
+conditional qualification and one new family after exact admission. No automatic retry.
+EXT007 and Stage 17 remain incomplete.

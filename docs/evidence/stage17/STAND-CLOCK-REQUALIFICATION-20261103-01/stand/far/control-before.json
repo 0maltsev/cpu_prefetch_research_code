@@ -1,0 +1,26 @@
+{
+  "captured_at_utc": "2026-11-03T08:06:56Z",
+  "partition": {
+    "cgroup.events": "populated 0\nfrozen 0",
+    "cgroup.procs": "",
+    "cgroup.subtree_control": "",
+    "cgroup.type": "domain",
+    "cpuset.cpus": "0-2,8,16-18,24",
+    "cpuset.cpus.effective": "0-2,8,16-18,24",
+    "cpuset.cpus.exclusive": "0-2,8,16-18,24",
+    "cpuset.cpus.exclusive.effective": "0-2,8,16-18,24",
+    "cpuset.cpus.partition": "isolated",
+    "cpuset.mems": "0-1",
+    "cpuset.mems.effective": "0-1"
+  },
+  "root": {
+    "cgroup.controllers": "cpuset cpu io memory hugetlb pids rdma misc dmem",
+    "cgroup.subtree_control": "cpuset cpu memory pids",
+    "cpuset.cpus.effective": "3-7,9-15,19-23,25-31",
+    "cpuset.cpus.isolated": "0-2,8,16-18,24",
+    "cpuset.mems.effective": "0-1"
+  },
+  "supervisor_affinity": [
+    3
+  ]
+}

@@ -6,9 +6,11 @@
 
 #include <algorithm>
 #include <array>
+#include <cpuid.h>
 #include <fstream>
 #include <limits>
 #include <memory>
+#include <sched.h>
 #include <set>
 #include <system_error>
 
@@ -141,6 +143,123 @@ auto selected_worker_pair(protocol::Placement placement) noexcept -> WorkerPair 
           std::numeric_limits<std::uint32_t>::max()};
 }
 
+auto is_accepted_cpu_pair_selection_id(std::string_view id) noexcept -> bool {
+  return id == kCpuPairSelectionId || id == kCpuPairSelectionIdV5;
+}
+
+auto is_accepted_worker_pair(protocol::Placement placement, WorkerPair workers) noexcept
+    -> bool {
+  if (placement == protocol::Placement::near) {
+    return workers == kNearWorkerPair;
+  }
+  if (placement == protocol::Placement::far) {
+    return workers == kFarWorkerPair || workers == kFarWorkerPairV5;
+  }
+  return false;
+}
+
+auto LinuxCurrentThreadBindingBackend::bind_and_verify(
+    std::uint32_t requested_cpu) noexcept -> ThreadBindingObservation {
+  ThreadBindingObservation observation{
+      requested_cpu, std::numeric_limits<std::uint32_t>::max(), false, false, false};
+  if (requested_cpu >= CPU_SETSIZE) {
+    return observation;
+  }
+  cpu_set_t requested_set;
+  CPU_ZERO(&requested_set);
+  CPU_SET(requested_cpu, &requested_set);
+  observation.affinity_applied =
+      ::sched_setaffinity(0, sizeof(requested_set), &requested_set) == 0;
+  if (!observation.affinity_applied) {
+    return observation;
+  }
+
+  cpu_set_t observed_set;
+  CPU_ZERO(&observed_set);
+  if (::sched_getaffinity(0, sizeof(observed_set), &observed_set) == 0) {
+    observation.singleton_readback =
+        CPU_COUNT(&observed_set) == 1 && CPU_ISSET(requested_cpu, &observed_set);
+  }
+  const auto actual = ::sched_getcpu();
+  if (actual >= 0) {
+    observation.actual_cpu = static_cast<std::uint32_t>(actual);
+    observation.actual_cpu_matches = observation.actual_cpu == requested_cpu;
+  }
+  return observation;
+}
+
+auto X86CurrentCpuSoftwarePrefetchCapabilityBackend::observe() noexcept
+    -> SoftwarePrefetchCapabilityObservation {
+  unsigned int vendor_signature = 0U;
+  const auto maximum_extended_leaf = __get_cpuid_max(0x80000000U, &vendor_signature);
+  if (maximum_extended_leaf < kPrfchwExtendedLeaf) {
+    return {maximum_extended_leaf, 0U, false};
+  }
+  unsigned int eax = 0U;
+  unsigned int ebx = 0U;
+  unsigned int ecx = 0U;
+  unsigned int edx = 0U;
+  if (__get_cpuid(kPrfchwExtendedLeaf, &eax, &ebx, &ecx, &edx) == 0) {
+    return {maximum_extended_leaf, 0U, false};
+  }
+  return {maximum_extended_leaf, ecx, (ecx & kPrfchwEcxMask) != 0U};
+}
+
+auto find_software_prefetch_mapping(platform::CpuFamilyModel identity)
+    -> std::optional<SoftwarePrefetchMapping> {
+  for (const auto& mapping : kSoftwarePrefetchMappings) {
+    if (mapping.family == identity.family && mapping.model == identity.model) {
+      return mapping;
+    }
+  }
+  return std::nullopt;
+}
+
+auto is_accepted_software_prefetch_mapping_id(std::string_view mapping_id) -> bool {
+  return std::any_of(
+      kSoftwarePrefetchMappings.begin(), kSoftwarePrefetchMappings.end(),
+      [mapping_id](const auto& mapping) { return mapping.mapping_id == mapping_id; });
+}
+
+auto AffinedObservationPreparation::prepare_producer() noexcept -> bool {
+  producer_result_.binding = binding_backend_.bind_and_verify(workers_.producer_cpu);
+  if (!producer_result_.binding.passes()) {
+    return false;
+  }
+  producer_result_.software_prefetch_capability = capability_backend_.observe();
+  if (!producer_result_.software_prefetch_capability.passes_for_mapping(
+          software_prefetch_mapping_id_)) {
+    return false;
+  }
+  producer_result_.private_stream_prepared = producer_stream_.prepare_for_owner();
+  return producer_result_.private_stream_prepared;
+}
+
+auto AffinedObservationPreparation::prepare_consumer() noexcept -> bool {
+  consumer_result_.binding = binding_backend_.bind_and_verify(workers_.consumer_cpu);
+  if (!consumer_result_.binding.passes()) {
+    return false;
+  }
+  consumer_result_.software_prefetch_capability = capability_backend_.observe();
+  if (!consumer_result_.software_prefetch_capability.passes_for_mapping(
+          software_prefetch_mapping_id_)) {
+    return false;
+  }
+  consumer_result_.private_stream_prepared = consumer_stream_.prepare_for_owner();
+  return consumer_result_.private_stream_prepared;
+}
+
+auto AffinedObservationPreparation::evidence() const noexcept
+    -> AffinedPreparationEvidence {
+  return {producer_result_.binding,
+          consumer_result_.binding,
+          producer_result_.software_prefetch_capability,
+          consumer_result_.software_prefetch_capability,
+          producer_result_.private_stream_prepared,
+          consumer_result_.private_stream_prepared,
+          software_prefetch_mapping_id_};
+}
+
 auto to_string(EvidenceKind kind) noexcept -> std::string_view {
   switch (kind) {
   case EvidenceKind::protocol_snapshot:
@@ -163,6 +282,8 @@ auto to_string(EvidenceKind kind) noexcept -> std::string_view {
     return "PLATFORM_VERIFICATION";
   case EvidenceKind::hardware_prefetch_mapping:
     return "HARDWARE_PREFETCH_MAPPING";
+  case EvidenceKind::software_prefetch_mapping:
+    return "SOFTWARE_PREFETCH_MAPPING";
   case EvidenceKind::clock_qualification:
     return "CLOCK_QUALIFICATION";
   case EvidenceKind::queue_provenance:
@@ -181,8 +302,8 @@ auto to_string(EvidenceKind kind) noexcept -> std::string_view {
     return "EXECUTION_LIMITS";
   case EvidenceKind::authority_custody:
     return "AUTHORITY_CUSTODY";
-  case EvidenceKind::pilot_execution_authorization:
-    return "PILOT_EXECUTION_AUTHORIZATION";
+  case EvidenceKind::phase_execution_authorization:
+    return "PHASE_EXECUTION_AUTHORIZATION";
   }
   return "UNKNOWN";
 }
@@ -273,20 +394,12 @@ auto load_admission(std::string_view document) -> protocol::Result<RunnerAdmissi
       constexpr std::array limit_fields{
           "controller_start_poll_limit"sv,
           "worker_start_poll_limit"sv,
-          "producer_due_poll_limit_per_arrival"sv,
-          "consumer_empty_poll_limit_before_finish"sv,
-          "drain_poll_limit"sv,
       };
       reject_unknown(*limits, limit_fields, "$/execution_limits", errors);
       admission.execution_limits = {
           uint_field(*limits, "controller_start_poll_limit", "$/execution_limits",
                      errors),
           uint_field(*limits, "worker_start_poll_limit", "$/execution_limits", errors),
-          uint_field(*limits, "producer_due_poll_limit_per_arrival",
-                     "$/execution_limits", errors),
-          uint_field(*limits, "consumer_empty_poll_limit_before_finish",
-                     "$/execution_limits", errors),
-          uint_field(*limits, "drain_poll_limit", "$/execution_limits", errors),
       };
     }
   }
@@ -358,8 +471,10 @@ auto validate_admission_fields(const RunnerAdmission& admission,
         "RUN-PROTOCOL");
   exact(admission.runner_profile_id, kRunnerProfileId, "$/runner_profile_id",
         "RUN-PROFILE");
-  exact(admission.cpu_pair_selection_id, kCpuPairSelectionId, "$/cpu_pair_selection_id",
-        "RUN-CPU-PROFILE");
+  if (!is_accepted_cpu_pair_selection_id(admission.cpu_pair_selection_id)) {
+    add_mismatch(errors, "$/cpu_pair_selection_id", "RUN-CPU-PROFILE",
+                 "value does not match the accepted/current binding");
+  }
   exact(admission.relax_mapping_id, kRelaxMappingId, "$/relax_mapping_id", "RUN-RELAX");
   require_nonempty(admission.source_revision, "$/source_revision", "RUN-SOURCE-EMPTY");
   require_nonempty(admission.stand_id, "$/stand_id", "RUN-STAND-EMPTY");
@@ -388,20 +503,18 @@ auto validate_admission_fields(const RunnerAdmission& admission,
       admission.placement != protocol::Placement::far) {
     errors.push_back(error(ErrorCategory::unknown_enum, "$/placement", "RUN-PLACEMENT",
                            "only the accepted NEAR and FAR placements are supported"));
-  } else if (admission.workers != selected_worker_pair(admission.placement)) {
+  } else if (!is_accepted_worker_pair(admission.placement, admission.workers)) {
     add_mismatch(errors, "$/producer_cpu", "RUN-CPU-PAIR",
                  "worker CPUs do not match the Q13 placement pair");
   }
 
   const auto& limits = admission.execution_limits;
   if (limits.controller_start_poll_limit == 0U ||
-      limits.worker_start_poll_limit == 0U ||
-      limits.producer_due_poll_limit_per_arrival == 0U ||
-      limits.consumer_empty_poll_limit_before_finish == 0U ||
-      limits.drain_poll_limit == 0U) {
+      limits.worker_start_poll_limit == 0U) {
     errors.push_back(error(ErrorCategory::missing_evidence, "$/execution_limits",
                            "RUN-LIMITS",
-                           "all five prospectively accepted limits must be nonzero"));
+                           "both prospectively accepted start-barrier limits must be "
+                           "nonzero"));
   }
 
   std::set<EvidenceKind> observed_kinds;
@@ -455,16 +568,13 @@ auto validate_admission_fields(const RunnerAdmission& admission,
   return errors;
 }
 
-auto sha256_file(const std::filesystem::path& path) -> protocol::Result<std::string> {
-  std::error_code filesystem_error;
-  const auto status = std::filesystem::symlink_status(path, filesystem_error);
-  if (filesystem_error || !std::filesystem::is_regular_file(status) ||
-      std::filesystem::is_symlink(status)) {
-    return protocol::Result<std::string>::failure(
-        error(ErrorCategory::missing_evidence, "$file", "RUN-FILE-REGULAR",
-              "evidence must be an existing non-symlink regular file"));
-  }
-  std::ifstream input(path, std::ios::binary);
+namespace {
+
+// Shared by sha256_file() (which pre-checks the path is a real,
+// non-symlink regular file before calling this) and
+// sha256_running_binary() (which reads /proc/self/exe -- always a symlink
+// on Linux, so it cannot and must not use that same pre-check).
+auto hash_stream(std::ifstream& input) -> protocol::Result<std::string> {
   if (!input) {
     return protocol::Result<std::string>::failure(
         error(ErrorCategory::missing_evidence, "$file", "RUN-FILE-OPEN",
@@ -513,6 +623,26 @@ auto sha256_file(const std::filesystem::path& path) -> protocol::Result<std::str
   return protocol::Result<std::string>::success(output);
 }
 
+} // namespace
+
+auto sha256_file(const std::filesystem::path& path) -> protocol::Result<std::string> {
+  std::error_code filesystem_error;
+  const auto status = std::filesystem::symlink_status(path, filesystem_error);
+  if (filesystem_error || !std::filesystem::is_regular_file(status) ||
+      std::filesystem::is_symlink(status)) {
+    return protocol::Result<std::string>::failure(
+        error(ErrorCategory::missing_evidence, "$file", "RUN-FILE-REGULAR",
+              "evidence must be an existing non-symlink regular file"));
+  }
+  std::ifstream input(path, std::ios::binary);
+  return hash_stream(input);
+}
+
+auto sha256_running_binary() -> protocol::Result<std::string> {
+  std::ifstream input("/proc/self/exe", std::ios::binary);
+  return hash_stream(input);
+}
+
 auto verify_evidence_files(const RunnerAdmission& admission,
                            const std::filesystem::path& manifest_parent)
     -> std::vector<ValidationError> {
@@ -544,6 +674,31 @@ auto admit_runner(const RunnerAdmission& admission,
   auto file_errors = verify_evidence_files(admission, manifest_parent);
   errors.insert(errors.end(), std::make_move_iterator(file_errors.begin()),
                 std::make_move_iterator(file_errors.end()));
+  if (!errors.empty()) {
+    return protocol::Result<AdmissionTicket>::failure(std::move(errors));
+  }
+  return protocol::Result<AdmissionTicket>::success(
+      AdmissionTicket(admission.package, admission.placement, admission.workers,
+                      admission.execution_limits, admission.binding_id));
+}
+
+auto admit_runner_from_sealed_controller(const RunnerAdmission& admission,
+                                         const AdmissionTrustAnchor& trust_anchor,
+                                         const SealedControllerProof& proof)
+    -> protocol::Result<AdmissionTicket> {
+  auto errors = validate_admission_fields(admission, trust_anchor);
+  if (!protocol::Sha256::parse(proof.canonical_admission_sha256,
+                               "$/runner_admission_sha256")) {
+    errors.push_back(error(ErrorCategory::invalid_hash, "$/runner_admission_sha256",
+                           "RUN-SEALED-ADMISSION-SHA256",
+                           "sealed admission digest must be lowercase SHA-256"));
+  }
+  if (!protocol::Sha256::parse(proof.evidence_set_sha256,
+                               "$/runner_evidence_set_sha256")) {
+    errors.push_back(error(ErrorCategory::invalid_hash, "$/runner_evidence_set_sha256",
+                           "RUN-SEALED-EVIDENCE-SHA256",
+                           "sealed evidence-set digest must be lowercase SHA-256"));
+  }
   if (!errors.empty()) {
     return protocol::Result<AdmissionTicket>::failure(std::move(errors));
   }

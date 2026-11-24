@@ -1,0 +1,66 @@
+test_changed_image_rejects_before_signature (__main__.SessionTests.test_changed_image_rejects_before_signature) ... ok
+test_changed_preparation_blocks_dispatch (__main__.SessionTests.test_changed_preparation_blocks_dispatch) ... ok
+test_complete_file_ceiling_fits_explicit_external_reservation (__main__.SessionTests.test_complete_file_ceiling_fits_explicit_external_reservation) ... ok
+test_console_overflow_stops_before_write (__main__.SessionTests.test_console_overflow_stops_before_write) ... ok
+test_denied_read_signature_never_spawns_or_signs_write (__main__.SessionTests.test_denied_read_signature_never_spawns_or_signs_write) ... ok
+test_denied_write_signature_reaps_waiting_read_worker (__main__.SessionTests.test_denied_write_signature_reaps_waiting_read_worker) ... ok
+test_escaped_child_is_reaped_and_rejects_success (__main__.SessionTests.test_escaped_child_is_reaped_and_rejects_success) ... ok
+test_exceeded_native_counter_tolerance_stops (__main__.SessionTests.test_exceeded_native_counter_tolerance_stops) ... ok
+test_existing_native_counter_tolerance_is_retained (__main__.SessionTests.test_existing_native_counter_tolerance_is_retained) ... ok
+test_invalid_actual_cache_latches_preparation_without_creating_root (__main__.SessionTests.test_invalid_actual_cache_latches_preparation_without_creating_root) ... ok
+test_live_write_timeout_reaps_without_retry (__main__.SessionTests.test_live_write_timeout_reaps_without_retry) ... ok
+test_migrated_cpu_rejects_before_write_signature (__main__.SessionTests.test_migrated_cpu_rejects_before_write_signature) ... ok
+test_nonlockfree_atomic_rejects_before_write_signature (__main__.SessionTests.test_nonlockfree_atomic_rejects_before_write_signature) ... ok
+test_nonzero_write_exit_retains_read_evidence (__main__.SessionTests.test_nonzero_write_exit_retains_read_evidence) ... ok
+test_one_native_buffer_separate_signed_write_and_verified_restoration (__main__.SessionTests.test_one_native_buffer_separate_signed_write_and_verified_restoration) ... ok
+test_repeat_attempt_and_namespace_never_adopt_completed_work (__main__.SessionTests.test_repeat_attempt_and_namespace_never_adopt_completed_work) ... ok
+test_sanitized_cpp_peer_uses_same_real_signature_and_pipe_protocol (__main__.SessionTests.test_sanitized_cpp_peer_uses_same_real_signature_and_pipe_protocol) ... ERROR
+test_signing_deadline_interrupts_callback_and_restores_timer_handler (__main__.SessionTests.test_signing_deadline_interrupts_callback_and_restores_timer_handler) ... ok
+test_uninformative_h0_regular_counter_never_authorizes_write (__main__.SessionTests.test_uninformative_h0_regular_counter_never_authorizes_write) ... ok
+test_wrong_full_restore_readback_fails_despite_zero_exit (__main__.SessionTests.test_wrong_full_restore_readback_fails_despite_zero_exit) ... ok
+test_wrong_page_rejects_before_write_signature (__main__.SessionTests.test_wrong_page_rejects_before_write_signature) ... ok
+test_wrong_prefetch_capability_rejects_before_write_signature (__main__.SessionTests.test_wrong_prefetch_capability_rejects_before_write_signature) ... ok
+
+======================================================================
+ERROR: test_sanitized_cpp_peer_uses_same_real_signature_and_pipe_protocol (__main__.SessionTests.test_sanitized_cpp_peer_uses_same_real_signature_and_pipe_protocol)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_q15_session_v1.py", line 278, in test_sanitized_cpp_peer_uses_same_real_signature_and_pipe_protocol
+    mock.patch.object(session.subprocess,'Popen',side_effect=popen):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_q15_session_v1.py", line 239, in execute
+    return _execute(self,native_image=native_image,signer=signer)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_q15_session_v1.py", line 499, in _execute
+    raise
+    
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_q15_session_v1.py", line 391, in _execute
+    executable=runtime._pin_image(native_image,deadline,stack)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_q15_session_v1.py", line 300, in _signed
+    signal.setitimer(signal.ITIMER_REAL,remaining/10**9)
+                   ^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_q15_session_v1.py", line 114, in signer
+    subprocess.run(['/usr/bin/ssh-keygen','-Y','sign','-f',str(self.signatures.key),'-n','cpu-prefetch-stage17',str(path)],
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        check=True,capture_output=True,timeout=10)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 555, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_q15_session_v1.py", line 271, in popen
+    if '--execute-stage17-q15-session-v1' in args[0]:
+                       ~~~~~~^~~~~~~
+KeyError: 'env'
+
+----------------------------------------------------------------------
+Ran 22 tests in 179.017s
+
+FAILED (errors=1)

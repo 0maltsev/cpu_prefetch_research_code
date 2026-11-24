@@ -1,0 +1,70 @@
+2026-11-05T03:40:07+00:00 cpu-prefetch-v5 systemd[1]: Starting sysstat-collect.service - system activity accounting tool...
+2026-11-05T03:40:07+00:00 cpu-prefetch-v5 systemd[1]: sysstat-collect.service: Deactivated successfully.
+2026-11-05T03:40:07+00:00 cpu-prefetch-v5 systemd[1]: Finished sysstat-collect.service - system activity accounting tool.
+2026-11-05T03:42:13+00:00 cpu-prefetch-v5 systemd[1]: Starting apt-daily-upgrade.service - Daily apt upgrade and clean activities...
+2026-11-05T03:42:49+00:00 cpu-prefetch-v5 systemd[1]: Reload requested from client PID 77679 ('systemctl') (unit apt-daily-upgrade.service)...
+2026-11-05T03:42:49+00:00 cpu-prefetch-v5 systemd[1]: Reloading...
+2026-11-05T03:42:49+00:00 cpu-prefetch-v5 systemd[1]: /usr/lib/systemd/system/xfs_scrub_all.service:26: Support for option CPUAccounting= has been removed and it is ignored
+2026-11-05T03:42:49+00:00 cpu-prefetch-v5 systemd[1]: /usr/lib/systemd/system/system-xfs_scrub.slice:15: Support for option CPUAccounting= has been removed and it is ignored
+2026-11-05T03:42:49+00:00 cpu-prefetch-v5 systemd[1]: Reloading finished in 421 ms.
+2026-11-05T03:42:49+00:00 cpu-prefetch-v5 systemd[1]: apt-daily-upgrade.timer: Deactivated successfully.
+2026-11-05T03:42:49+00:00 cpu-prefetch-v5 systemd[1]: Stopped apt-daily-upgrade.timer - Daily apt upgrade and clean activities.
+2026-11-05T03:42:49+00:00 cpu-prefetch-v5 systemd[1]: Stopping apt-daily-upgrade.timer - Daily apt upgrade and clean activities...
+2026-11-05T03:42:49+00:00 cpu-prefetch-v5 systemd[1]: Started apt-daily-upgrade.timer - Daily apt upgrade and clean activities.
+2026-11-05T03:42:49+00:00 cpu-prefetch-v5 systemd[1]: apt-daily.timer: Deactivated successfully.
+2026-11-05T03:42:49+00:00 cpu-prefetch-v5 systemd[1]: Stopped apt-daily.timer - Daily apt download activities.
+2026-11-05T03:42:49+00:00 cpu-prefetch-v5 systemd[1]: Stopping apt-daily.timer - Daily apt download activities...
+2026-11-05T03:42:49+00:00 cpu-prefetch-v5 systemd[1]: Started apt-daily.timer - Daily apt download activities.
+2026-11-05T03:42:49+00:00 cpu-prefetch-v5 systemd[1]: Starting apt-daily.service - Daily apt download activities...
+2026-11-05T03:42:50+00:00 cpu-prefetch-v5 systemd[1]: Starting packagekit.service - PackageKit Daemon...
+2026-11-05T03:42:50+00:00 cpu-prefetch-v5 systemd[1]: Started packagekit.service - PackageKit Daemon.
+2026-11-05T03:43:26+00:00 cpu-prefetch-v5 systemd[1]: Reexecution requested from client PID 78451 ('systemctl') (unit apt-daily-upgrade.service)...
+2026-11-05T03:43:26+00:00 cpu-prefetch-v5 systemd[1]: Reexecuting.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Starting man-db.service - Daily man-db regeneration...
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Stopping atop.service - Atop advanced performance monitor...
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Stopping cron.service - Regular background program processing daemon...
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: cron.service: Deactivated successfully.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Stopped cron.service - Regular background program processing daemon.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: cron.service: Consumed 1.469s CPU time over 3d 7h 36min 37.371s wall clock time, 5.6M memory peak.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Started cron.service - Regular background program processing daemon.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Stopping fwupd.service - Firmware update daemon...
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Stopping multipathd.service - Device-Mapper Multipath Device Controller...
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Stopping packagekit.service - PackageKit Daemon...
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Stopping ModemManager.service - Modem Manager...
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: fwupd.service: Deactivated successfully.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Stopped fwupd.service - Firmware update daemon.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: fwupd.service: Consumed 11.049s CPU time over 3d 6h 56min 12.782s wall clock time, 217.4M memory peak.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: packagekit.service: Deactivated successfully.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Stopped packagekit.service - PackageKit Daemon.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: systemd-networkd.service: Deactivated successfully.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Stopped systemd-networkd.service - Network Management.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: systemd-networkd.service: Consumed 1.267s CPU time over 3d 7h 38min 38.847s wall clock time, 9.3M memory peak.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Started polkit.service - Authorization Manager.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Starting ModemManager.service - Modem Manager...
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Stopping systemd-udevd.service - Rule-based Manager for Device Events and Files...
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: man-db.service: Deactivated successfully.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Finished man-db.service - Daily man-db regeneration.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Started packagekit.service - PackageKit Daemon.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: netplan-ovs-cleanup.service - OpenVSwitch configuration for cleanup skipped, unmet condition check ConditionFileIsExecutable=/usr/bin/ovs-vsctl
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Started systemd-resolved.service - Network Name Resolution.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: systemd-udevd.service: Deactivated successfully.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Stopped systemd-udevd.service - Rule-based Manager for Device Events and Files.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: systemd-udevd.service: Consumed 8.100s CPU time over 3d 7h 38min 40.061s wall clock time, 178.7M memory peak.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Starting systemd-udevd.service - Rule-based Manager for Device Events and Files...
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Started upower.service - Daemon for power management.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Started ModemManager.service - Modem Manager.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Started udisks2.service - Disk Manager.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Started systemd-udevd.service - Rule-based Manager for Device Events and Files.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Starting systemd-networkd.service - Network Management...
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Started systemd-networkd.service - Network Management.
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Starting systemd-networkd-persistent-storage.service - Enable Persistent Storage in systemd-networkd...
+2026-11-05T03:43:27+00:00 cpu-prefetch-v5 systemd[1]: Finished systemd-networkd-persistent-storage.service - Enable Persistent Storage in systemd-networkd.
+2026-11-05T03:43:28+00:00 cpu-prefetch-v5 systemd[1]: Started fwupd.service - Firmware update daemon.
+2026-11-05T03:43:33+00:00 cpu-prefetch-v5 systemd[1]: apt-daily-upgrade.service: Deactivated successfully.
+2026-11-05T03:43:33+00:00 cpu-prefetch-v5 systemd[1]: Finished apt-daily-upgrade.service - Daily apt upgrade and clean activities.
+2026-11-05T03:43:33+00:00 cpu-prefetch-v5 systemd[1]: apt-daily-upgrade.service: Consumed 43.502s CPU time over 1min 19.991s wall clock time, 522.4M memory peak.
+2026-11-05T03:43:35+00:00 cpu-prefetch-v5 systemd[1]: apt-daily.service: Deactivated successfully.
+2026-11-05T03:43:35+00:00 cpu-prefetch-v5 systemd[1]: Finished apt-daily.service - Daily apt download activities.
+2026-11-05T03:43:35+00:00 cpu-prefetch-v5 systemd[1]: apt-daily.service: Consumed 1.699s CPU time over 45.646s wall clock time, 178.8M memory peak.
+2026-11-05T03:44:12+00:00 cpu-prefetch-v5 systemd[1]: session-655.scope: Deactivated successfully.
+2026-11-05T03:44:12+00:00 cpu-prefetch-v5 systemd[1]: session-655.scope: Consumed 2min 29.757s CPU time over 1d 6h 5min 43.345s wall clock time, 408.5M memory peak.

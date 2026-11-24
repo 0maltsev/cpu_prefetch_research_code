@@ -1,0 +1,57 @@
+{
+  "schema_version": "cpu-prefetch-q15-r-p4-d-acceptance/1",
+  "acceptance_id": "Q15-R-P4-D-ACCEPTANCE-20260825-01",
+  "protocol_version": "2.0.0-pre.2",
+  "decision_input_binding": {
+    "bundle_id": "Q15-R-EXTERNAL-INPUT-ACQUISITION-DECISION-INPUT-20260825-01",
+    "path": "config/q15/q15-r-external-input-acquisition-decision-input-v1.json",
+    "sha256": "779b098d58535e853218dea4580354b2dde224922df2e3516748b4920046d67b"
+  },
+  "accepted_offer_binding": {
+    "path": "docs/Q15_R_EXTERNAL_INPUT_ACQUISITION_DECISION_BUNDLE.md",
+    "sha256": "aa01eb0a5efe8112c3f075ade9b344495c667d3dd5ed3cee5d0c6ef025217c06"
+  },
+  "accepted_decisions": [
+    {"decision_id": "D-066", "selected_option": "OWNER_SELECTED_OFFLINE_ED25519_PUBLIC_KEY_NO_STAND_PRIVATE_KEY", "state": "ACCEPTED_METHOD_LITERAL_VALUE_UNRESOLVED"},
+    {"decision_id": "D-067", "selected_option": "FRESH_PRESTATE_SELECTED_ABSOLUTE_CONTENT_ADDRESSED_OPERATIONAL_ROOT", "state": "ACCEPTED_METHOD_LITERAL_VALUE_UNRESOLVED"},
+    {"decision_id": "D-068", "selected_option": "INDEPENDENTLY_CONTROLLED_ABSOLUTE_NON_STAND_SECONDARY_CUSTODY_ROOT", "state": "ACCEPTED_METHOD_LITERAL_VALUE_UNRESOLVED"},
+    {"decision_id": "D-069", "selected_option": "FIXED_ARGV_ONLY_READ_ONLY_STAND_PRESTATE_COLLECTOR", "state": "ACCEPTED_FOR_REPOSITORY_LOCAL_IMPLEMENTATION_NO_EXECUTION_AUTHORITY"},
+    {"decision_id": "D-070", "selected_option": "OFF_STAND_CANONICAL_ALLOWED_SIGNERS_WITH_INDEPENDENT_HASH_AND_FINGERPRINT_VERIFICATION", "state": "ACCEPTED_METHOD_LITERAL_VALUE_UNRESOLVED"}
+  ],
+  "collector_contract_binding": {
+    "contract_id": "Q15-R-STAND-PRESTATE-COLLECTOR-CONTRACT-v1",
+    "path": "config/q15/q15-r-stand-prestate-collector-contract-v1.json",
+    "sha256": "4123735a940da144e00247957d0210216cde4bf19fbdbea0378b52dab2161b87"
+  },
+  "remaining_literal_values": [
+    {"name": "@ALLOWED_SIGNERS_SOURCE@", "state": "UNRESOLVED", "value": null},
+    {"name": "@OPERATIONAL_RELEASE_ROOT@", "state": "UNRESOLVED", "value": null},
+    {"name": "@SECONDARY_CUSTODY_ROOT@", "state": "UNRESOLVED", "value": null},
+    {"name": "CURRENT_STAND_PRESTATE_ARTIFACT_ID_AND_SHA256", "state": "UNRESOLVED", "value": null},
+    {"name": "ACTUAL_ALLOWED_SIGNERS_ARTIFACT_ID_SHA256_AND_ED25519_FINGERPRINT", "state": "UNRESOLVED", "value": null}
+  ],
+  "authority_boundary": {
+    "repository_local_collector_implementation_authorized": true,
+    "repository_local_schema_fake_negative_sanitizer_verification_authorized": true,
+    "clean_no_authority_packaging_authorized": true,
+    "q15_r_p4_r_preparation_authorized": true,
+    "q15_r_p4_k_preparation_authorized": true,
+    "stand_access_authorized": false,
+    "collector_execution_authorized": false,
+    "account_group_or_key_changes_authorized": false,
+    "key_generation_import_copy_or_fingerprint_action_authorized": false,
+    "literal_path_selection_or_creation_authorized": false,
+    "bundle_transfer_or_install_authorized": false,
+    "filesystem_or_permission_changes_authorized": false,
+    "access_probe_execution_authorized": false,
+    "q15_r_issue_sign_or_execute_authorized": false,
+    "q15_w_prepare_or_execute_authorized": false,
+    "real_pmu_msr_affinity_or_numa_authorized": false,
+    "calibration_authorized": false,
+    "pilot_authorized": false,
+    "measurement_authorized": false,
+    "confirmatory_authorized": false
+  },
+  "user_acceptance": "Q15-R-P4-D — accept the recommended acquisition contracts in D-066 through D-070...",
+  "interpretation": "The ellipsis incorporates the complete exact approval statement in the hash-bound offered bundle; every structured authority prohibition in this record remains controlling."
+}

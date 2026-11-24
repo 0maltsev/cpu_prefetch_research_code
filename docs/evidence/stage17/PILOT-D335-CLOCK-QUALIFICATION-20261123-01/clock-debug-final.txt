@@ -1,0 +1,27 @@
+.........E.........
+======================================================================
+ERROR: test_expired_capture_stops_reaps_and_does_not_continue (__main__.ClockTests.test_expired_capture_stops_reaps_and_does_not_continue)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_clock_qualification_v1.py", line 97, in test_expired_capture_stops_reaps_and_does_not_continue
+    with self.assertRaisesRegex(clock.ClockError,'capture deadline expired'):self.qualify()
+                                                                             ~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_clock_qualification_v1.py", line 55, in qualify
+    return clock.qualify_clocks(environment_owner=self.owner,clock_image=self.image,
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        deadline_ns=time.monotonic_ns()+300*10**9)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_clock_qualification_v1.py", line 251, in qualify_clocks
+    result,raw=_capture(owner=environment_owner,image=clock_image,pair=pair,deadline=deadline_ns,window=window)
+               ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_clock_qualification_v1.py", line 118, in _capture
+    executable=runtime._pin_image(image,end,stack)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_runtime_v1.py", line 325, in _pin_image
+    if time.monotonic_ns()>=deadline:raise RuntimeError("executable hash deadline")
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_formal_archive_runtime_v1.RuntimeError: executable hash deadline
+
+----------------------------------------------------------------------
+Ran 19 tests in 91.106s
+
+FAILED (errors=1)

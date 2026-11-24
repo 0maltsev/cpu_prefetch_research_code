@@ -1,0 +1,9 @@
+{
+  "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+  "evidence_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/isolation-preparation-v29-1",
+  "lifecycle_seconds": 63000,
+  "protected_work_ns": 55140000000000,
+  "source_revision": "7fb894425c82fa7d7f1891f52b3bcdacc2c83585",
+  "stop_seconds": 120,
+  "unit_name": "cpu-prefetch-recovery-v29-qualified-1.service"
+}

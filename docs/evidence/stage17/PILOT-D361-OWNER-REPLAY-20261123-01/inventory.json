@@ -1,0 +1,119 @@
+{
+  "files": [
+    {
+      "file_name": "LastTest.log",
+      "sha256": "cd062cc17c3e8c64921028bd9e56b57e3f50484d1de88d01eecb49eee5ba7d76",
+      "size_bytes": 3689
+    },
+    {
+      "file_name": "REPORT.md",
+      "sha256": "3686b703cd6d1d6a1fd0ab5f29a051db3a2440d888584c0d254d285051a8a76d",
+      "size_bytes": 2382
+    },
+    {
+      "file_name": "archive-component-reuse.json",
+      "sha256": "a479b98bffe37d148f052e0ace7b7d48851d924ecc8920c6db29ef17f951ddc2",
+      "size_bytes": 501
+    },
+    {
+      "file_name": "archive-manifest-42fc51b.json",
+      "sha256": "203397a9d0fef5bf3f1bfa5c1e330a06838b48fdd2f99e40b1b81d114295e3b5",
+      "size_bytes": 5941
+    },
+    {
+      "file_name": "archive-manifest-877271c.json",
+      "sha256": "5ac1524cc557d57d4d7216949812c875be8c8e5b3e7b976d7b9f4a33f688973c",
+      "size_bytes": 5941
+    },
+    {
+      "file_name": "original-base-owner-context.stderr.log",
+      "sha256": "832eedeaf07199dd336be8b362289e4c885d3f0496afa38a6e1f73f761110b83",
+      "size_bytes": 7657
+    },
+    {
+      "file_name": "original-base-owner-process.json",
+      "sha256": "5c82947ce4a87bd3f0ab3f8a5510f7286113d0daa38c3c8455c1b1360044aea7",
+      "size_bytes": 1711
+    },
+    {
+      "file_name": "original-base-replay.stderr.log",
+      "sha256": "2565288b800cb8c1cabefb6d5e419e00e4acb036dabdf5ae019a2f2ae16e55bb",
+      "size_bytes": 4836
+    },
+    {
+      "file_name": "original-journal-record-bindings.json",
+      "sha256": "9e8214f723a9b8dab91b5f65a9ea5c48abdd0d6eb0f71f29cc54767ed3bfdc47",
+      "size_bytes": 5015
+    },
+    {
+      "file_name": "owner-replay-final-contract.log",
+      "sha256": "ad0bf80897c8f303cef1ec9fefd9ef18682c3af4eee76ad82a11ec89f7ac3ca0",
+      "size_bytes": 462
+    },
+    {
+      "file_name": "owner-replay-final-stand-status.json",
+      "sha256": "8b31a1f80ce45f376c764af8177ab8368ca38c241e744a9190d3c2f58653badb",
+      "size_bytes": 772
+    },
+    {
+      "file_name": "owner-replay-identity-dev-debug.log",
+      "sha256": "c6414269cb115d223e3222152f30841799b3d129850b40fd5303ef6f7e608eff",
+      "size_bytes": 116
+    },
+    {
+      "file_name": "owner-replay-identity-registered.log",
+      "sha256": "bcb61f9f1346b6336fae8509da4560e61bc7a0348aa21a3e60f07f2602bf7ea3",
+      "size_bytes": 820
+    },
+    {
+      "file_name": "owner-replay-snapshot-cap-gap.log",
+      "sha256": "025fb52eb724dbf2b0aef95a3daa88b4641be2d166bd1cd2bd1ad931f505cb19",
+      "size_bytes": 2591
+    },
+    {
+      "file_name": "owner-replay-stand-diagnostic.json",
+      "sha256": "b77873c86735ff2e77eb1b2451825292ef9593a759e66c8b85b5960cd9c1a627",
+      "size_bytes": 1952
+    },
+    {
+      "file_name": "owner-replay-stand-facts.json",
+      "sha256": "5506ad776826c67718c1ba00e90b2399206e0dd8d477c1e6ebd03232c1e68fa6",
+      "size_bytes": 169
+    },
+    {
+      "file_name": "owner-replay-stand-fixed.json",
+      "sha256": "b407a5f8243096fde6e19737f8a641835f4acc17d545a8fa2dfbeb0a2bc17728",
+      "size_bytes": 2053
+    },
+    {
+      "file_name": "owner-replay-stand-identity.json",
+      "sha256": "c401ff82e7b6e6a5cf94d31736fe9268cae95f4549b78278210cd5db2b2b0506",
+      "size_bytes": 2987
+    },
+    {
+      "file_name": "owner-replay-stand-identity.py",
+      "sha256": "4719a3be83e28a165d009d8cd493782f44d49c8945adfec1fe3623bb62c2c546",
+      "size_bytes": 1782
+    },
+    {
+      "file_name": "owner-replay-stand-projection.json",
+      "sha256": "8b857b9644cede03bf43ebd5aa28029282c0b2c39dd7d92d75f34205b69bb662",
+      "size_bytes": 2103
+    },
+    {
+      "file_name": "source-bindings.json",
+      "sha256": "e6b1628e425427856c280c33075d157f0b76a720f25507e692a1e84f7f67c6fc",
+      "size_bytes": 537
+    },
+    {
+      "file_name": "verification-summary.json",
+      "sha256": "80a686eec480bc51b7a542314d630725ee6477e19f955334b1db61b5a79fdf3e",
+      "size_bytes": 1700
+    },
+    {
+      "file_name": "verified-pc-cleanup.json",
+      "sha256": "e7d5110c7b7749e4b25dc69399112ff6587a0b548dcd19a6b533fbb554ad9977",
+      "size_bytes": 12566
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:formal-archive-implementation-profile:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "policy_id",
+    "encoder",
+    "python",
+    "zstd_library",
+    "source_closure",
+    "options"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "cpu-prefetch-formal-archive-implementation-profile/1"
+    },
+    "policy_id": {
+      "const": "EXT007-FORMAL-LOSSLESS-STAND-PRIMARY-v1"
+    },
+    "encoder": {
+      "$ref": "#/$defs/image"
+    },
+    "python": {
+      "$ref": "#/$defs/image"
+    },
+    "zstd_library": {
+      "$ref": "#/$defs/image"
+    },
+    "source_closure": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "module",
+          "image"
+        ],
+        "properties": {
+          "module": {
+            "type": "string",
+            "pattern": "^[A-Za-z_][A-Za-z_0-9]*$"
+          },
+          "image": {
+            "$ref": "#/$defs/image"
+          }
+        }
+      }
+    },
+    "options": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "zstd_version",
+        "compression_level",
+        "worker_threads",
+        "nbWorkers",
+        "checksum_flag",
+        "content_size_flag",
+        "dictionary_id_flag",
+        "window_log"
+      ],
+      "properties": {
+        "zstd_version": {
+          "const": "1.5.7"
+        },
+        "compression_level": {
+          "const": 3
+        },
+        "worker_threads": {
+          "const": 1
+        },
+        "nbWorkers": {
+          "const": 0
+        },
+        "checksum_flag": {
+          "const": 1
+        },
+        "content_size_flag": {
+          "const": 1
+        },
+        "dictionary_id_flag": {
+          "const": 0
+        },
+        "window_log": {
+          "type": "integer",
+          "minimum": 10,
+          "maximum": 31
+        }
+      }
+    }
+  },
+  "$defs": {
+    "image": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "location",
+        "path",
+        "size_bytes",
+        "sha256"
+      ],
+      "properties": {
+        "location": {
+          "enum": [
+            "bundle",
+            "runtime"
+          ]
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[^/]"
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}

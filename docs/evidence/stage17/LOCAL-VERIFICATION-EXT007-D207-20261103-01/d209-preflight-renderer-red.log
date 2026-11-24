@@ -1,0 +1,36 @@
+test_declared_operational_paths_rehash_and_old_policies_stay_immutable (check_stage17_discovery_policy_v2.PreflightRendererTests.test_declared_operational_paths_rehash_and_old_policies_stay_immutable) ... 
+  test_declared_operational_paths_rehash_and_old_policies_stay_immutable (check_stage17_discovery_policy_v2.PreflightRendererTests.test_declared_operational_paths_rehash_and_old_policies_stay_immutable) (renderer='author_stage17_policy_v56') ... FAIL
+  test_declared_operational_paths_rehash_and_old_policies_stay_immutable (check_stage17_discovery_policy_v2.PreflightRendererTests.test_declared_operational_paths_rehash_and_old_policies_stay_immutable) (renderer='author_stage17_policy_v57') ... FAIL
+
+======================================================================
+FAIL: test_declared_operational_paths_rehash_and_old_policies_stay_immutable (check_stage17_discovery_policy_v2.PreflightRendererTests.test_declared_operational_paths_rehash_and_old_policies_stay_immutable) (renderer='author_stage17_policy_v56')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_stage17_discovery_policy_v2.py", line 445, in test_declared_operational_paths_rehash_and_old_policies_stay_immutable
+    self.assertEqual(before["operational_implementations"], {
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        key: author._BASE.binding(root, binding["path"])
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        for key, binding in declared.items()})
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'exi[66 chars]', 'sha256': '3759bb269510a2ce42316c4888668e6d[580 chars]970}} != {'exi[66 chars]', 'size_bytes': 13215, 'sha256': '3759bb26951[580 chars]fb'}}
+Diff is 1197 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_declared_operational_paths_rehash_and_old_policies_stay_immutable (check_stage17_discovery_policy_v2.PreflightRendererTests.test_declared_operational_paths_rehash_and_old_policies_stay_immutable) (renderer='author_stage17_policy_v57')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_stage17_discovery_policy_v2.py", line 445, in test_declared_operational_paths_rehash_and_old_policies_stay_immutable
+    self.assertEqual(before["operational_implementations"], {
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        key: author._BASE.binding(root, binding["path"])
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        for key, binding in declared.items()})
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'exi[66 chars]', 'sha256': '3759bb269510a2ce42316c4888668e6d[580 chars]970}} != {'exi[66 chars]', 'size_bytes': 13215, 'sha256': '3759bb26951[580 chars]fb'}}
+Diff is 1197 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 1 test in 0.063s
+
+FAILED (failures=2)

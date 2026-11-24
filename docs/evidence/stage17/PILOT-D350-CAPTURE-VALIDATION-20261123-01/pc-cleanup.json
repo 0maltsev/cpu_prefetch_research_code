@@ -1,0 +1,60 @@
+{
+  "action": "DELETE_ONLY_VERIFIED_PC_SOFTWARE_LOG_DUPLICATES_AFTER_EVIDENCE_COPY",
+  "namespace_audit_support_preserved": true,
+  "original_raw_deleted": false,
+  "recorded_at_utc": "2026-11-23T16:42:26.148815+00:00",
+  "removed": [
+    {
+      "path": "build/stage17-s180-capture-validation-prep/LastTest.log",
+      "sha256": "c2e4eec13bdbf842d9a9f6f2b2222841a268eff38b19e3e7e1b2dcaa781b5e48",
+      "size_bytes": 6472
+    },
+    {
+      "path": "build/stage17-s180-capture-validation-prep/configure.txt",
+      "sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e",
+      "size_bytes": 177
+    },
+    {
+      "path": "build/stage17-s180-capture-validation-prep/contract-checks.txt",
+      "sha256": "ca441af802a614e7de576f0677ed9be966b9ae9fa58f949ce9e98dc9ce812113",
+      "size_bytes": 432
+    },
+    {
+      "path": "build/stage17-s180-capture-validation-prep/final-debug.txt",
+      "sha256": "8c6244f0a5a2c0ce63a7e857775247b4c9f233ac8b9c5864fd162848a73b8988",
+      "size_bytes": 120
+    },
+    {
+      "path": "build/stage17-s180-capture-validation-prep/initial-tests.txt",
+      "sha256": "3c8a950d0276d4dc8be4d334f599ae9919a0136a3c24f48e2283bd0512caef10",
+      "size_bytes": 113
+    },
+    {
+      "path": "build/stage17-s180-capture-validation-prep/output-sizing.json",
+      "sha256": "a07afc237abb07d869c389e016c4c718d60f0fd5698287c58a1df75b4f0a2354",
+      "size_bytes": 988
+    },
+    {
+      "path": "build/stage17-s180-capture-validation-prep/publication-tests.txt",
+      "sha256": "7bb4a495a4c77e535a570bec8187d79f39f1a6ad8fd146a7202de19de7bdd32a",
+      "size_bytes": 118
+    },
+    {
+      "path": "build/stage17-s180-capture-validation-prep/registered.txt",
+      "sha256": "25eaf78cae775309fd9491f7b6a90379709ea68bb9e3bd57440e309b0e178df7",
+      "size_bytes": 1493
+    },
+    {
+      "path": "build/stage17-s180-capture-validation-prep/related-debug.txt",
+      "sha256": "f5d11f56b6816573bab8a1e48572a5dbcb7266fbbde6779f11af1becf3e01450",
+      "size_bytes": 171
+    },
+    {
+      "path": "build/stage17-s180-capture-validation-prep/stand-idle-check.json",
+      "sha256": "48bde7f2e0374541505a370c6033e82ac8060ade5dfb5158cb2f8ed2b8c4eb01",
+      "size_bytes": 826
+    }
+  ],
+  "removed_bytes": 10910,
+  "stand_data_deleted": false
+}

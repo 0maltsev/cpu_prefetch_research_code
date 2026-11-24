@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:pilot-run-attempt:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "session_id", "attempt_id", "run_id", "plan_sha256", "authorization_sha256", "cell_ordinal", "repetition_ordinal", "execution_ordinal", "started_at_utc", "deadline_seconds", "one_attempt", "retry_allowed", "marker_durable", "synthetic_test_only", "phase18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-pilot-run-attempt/1"},
+    "session_id": {"type": "string", "minLength": 1}, "attempt_id": {"type": "string", "minLength": 1}, "run_id": {"type": "string", "minLength": 1}, "plan_sha256": {"$ref": "#/$defs/sha256"}, "authorization_sha256": {"$ref": "#/$defs/sha256"}, "cell_ordinal": {"type": "integer", "minimum": 0, "maximum": 179}, "repetition_ordinal": {"type": "integer", "minimum": 0}, "execution_ordinal": {"type": "integer", "minimum": 0, "maximum": 179}, "started_at_utc": {"$ref": "#/$defs/utc"}, "deadline_seconds": {"const": 180}, "one_attempt": {"const": true}, "retry_allowed": {"const": false}, "marker_durable": {"const": true}, "synthetic_test_only": {"type": "boolean"}, "phase18_authority": {"const": false}
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "utc": {"type": "string", "format": "date-time", "pattern": "Z$"}}
+}

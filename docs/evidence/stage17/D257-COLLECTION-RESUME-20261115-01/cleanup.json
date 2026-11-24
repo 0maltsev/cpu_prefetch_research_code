@@ -1,0 +1,27 @@
+{
+  "scientific_raw_deleted": false,
+  "verified_pc_transfers_removed": [
+    {
+      "path": "build/stage17-daycap-resume/publication.tar",
+      "sha256": "20c1835b4f154e5298e93b77853ae9c488f00ef763234ca44709cae403d99b4c",
+      "size_bytes": 6318080
+    },
+    {
+      "path": "build/stage17-daycap-resume/continuation-publication.tar",
+      "sha256": "91a57359f26f6cc2065aed00f8752b76292333ff5642ef884ed22453d2988e00",
+      "size_bytes": 163840
+    }
+  ],
+  "verified_stand_transfers_removed": [
+    {
+      "path": "/tmp/cpu-prefetch-d257-publication-1.tar",
+      "sha256": "20c1835b4f154e5298e93b77853ae9c488f00ef763234ca44709cae403d99b4c",
+      "size_bytes": 6318080
+    },
+    {
+      "path": "/tmp/cpu-prefetch-d257-continuation-2.tar",
+      "sha256": "91a57359f26f6cc2065aed00f8752b76292333ff5642ef884ed22453d2988e00",
+      "size_bytes": 163840
+    }
+  ]
+}

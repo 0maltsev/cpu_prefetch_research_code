@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:predecessor-preservation:v1",
+  "title": "Stage 17 D-099 through D-108 predecessor preservation manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "manifest_id",
+    "protocol_version",
+    "decision_range",
+    "tracked_artifacts",
+    "historical_implementation_sources",
+    "mutation_policy"
+  ],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-predecessor-preservation/1"},
+    "manifest_id": {"const": "STAGE17-D099-D108-PRESERVATION-v1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "decision_range": {"const": "D-099..D-108"},
+    "tracked_artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/artifact"}
+    },
+    "historical_implementation_sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["git_revision", "path", "sha256", "current_path_may_be_superseded"],
+        "properties": {
+          "git_revision": {"pattern": "^[0-9a-f]{40}$"},
+          "path": {"type": "string", "minLength": 1},
+          "sha256": {"$ref": "#/$defs/sha256"},
+          "current_path_may_be_superseded": {"const": true}
+        }
+      }
+    },
+    "mutation_policy": {"const": "REJECT_ANY_TRACKED_ARTIFACT_DRIFT; RETAIN_HISTORICAL_SOURCE_IN_GIT; ADD_ONLY_PROSPECTIVE_SUCCESSORS"}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    }
+  }
+}

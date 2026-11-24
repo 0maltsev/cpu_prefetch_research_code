@@ -1,0 +1,20 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/dev-gcc
+    Start 434: runner.q16a_composite_v1
+1/4 Test #434: runner.q16a_composite_v1 .........   Passed    8.01 sec
+    Start 436: runner.q16a_geometry_v1
+2/4 Test #436: runner.q16a_geometry_v1 ..........   Passed    0.17 sec
+    Start 437: runner.q16a_handoff_v1
+3/4 Test #437: runner.q16a_handoff_v1 ...........   Passed   61.66 sec
+    Start 450: runner.phase_controller_v26
+4/4 Test #450: runner.phase_controller_v26 ......   Passed   37.76 sec
+
+100% tests passed, 0 tests failed out of 4
+
+Label Time Summary:
+archive          =  69.85 sec*proc (3 tests)
+python           = 107.61 sec*proc (4 tests)
+qualification    =  37.76 sec*proc (1 test)
+runner           = 107.61 sec*proc (4 tests)
+synthetic        =  45.95 sec*proc (3 tests)
+
+Total Test time (real) = 107.62 sec

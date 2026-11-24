@@ -1,0 +1,67 @@
+{
+  "binary": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-d292/native-geometry/native_geometry",
+    "sha256": "a1312bd1a9e4c97976e5942bde6bc281a2b5fcdfc5e2ef109d1b5435de7b942a",
+    "size_bytes": 30376
+  },
+  "commands": [
+    [
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/g++",
+      "--sysroot=/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root",
+      "-std=c++20",
+      "-O2",
+      "-I/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-d292/verified/cpu-prefetch-pilot-candidate-2.0.0-c989ca8-clean-8d044fdad110/include",
+      "-MMD",
+      "-MF",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-d292/native-geometry/native_geometry.d",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/native-geometry-919c486/native_geometry.cpp",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-d292/verified/cpu-prefetch-pilot-candidate-2.0.0-c989ca8-clean-8d044fdad110/release/lib/libcpu_prefetch_queue.a",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-d292/verified/cpu-prefetch-pilot-candidate-2.0.0-c989ca8-clean-8d044fdad110/release/lib/libcpu_prefetch_foundation.a",
+      "-Wl,--dynamic-linker=/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/ld-linux-x86-64.so.2",
+      "-Wl,-rpath,/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib",
+      "-o",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-d292/native-geometry/native_geometry"
+    ],
+    [
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-d292/native-geometry/native_geometry",
+      "64",
+      "512",
+      "65536",
+      "1048576",
+      "512",
+      "65536",
+      "1048576"
+    ]
+  ],
+  "execution_authority": false,
+  "hardware_observation": false,
+  "libraries": [
+    {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-d292/verified/cpu-prefetch-pilot-candidate-2.0.0-c989ca8-clean-8d044fdad110/release/lib/libcpu_prefetch_queue.a",
+      "sha256": "dddd26e8788f362f3b68494aaf66b6c37d18f2cbcb288a3cc0ef93771164ddf6",
+      "size_bytes": 51162
+    },
+    {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-d292/verified/cpu-prefetch-pilot-candidate-2.0.0-c989ca8-clean-8d044fdad110/release/lib/libcpu_prefetch_foundation.a",
+      "sha256": "781557ab90993c4312be7f4b16101c0dbaf20e0926b9b8e464561a7c057cae77",
+      "size_bytes": 2206
+    }
+  ],
+  "output": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-d292/native-geometry/native-geometry.json",
+    "sha256": "c142ff340420086e42f154518c4fb87d01fad5162528385c9e0089b66a7551c0",
+    "size_bytes": 785
+  },
+  "schema_version": "software-native-ring-slot-geometry-provenance/1",
+  "source": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/native-geometry-919c486/native_geometry.cpp",
+    "sha256": "93c36a3a2c630553f9a83b675219d5bd3e3ab5a94bfd060af0b9137786d9c1f1",
+    "size_bytes": 1985
+  },
+  "source_revision": "c989ca84b93f532b7ee32cc1a947463e280033e9",
+  "worker": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-d292/verified/cpu-prefetch-pilot-candidate-2.0.0-c989ca8-clean-8d044fdad110/release/bin/cpu_prefetch_runner",
+    "sha256": "34666747e8fe077e2e501f4c8bb0d0a4e1aa61deb95e944af758ea54b764cddf",
+    "size_bytes": 5052696
+  }
+}

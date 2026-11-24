@@ -1,0 +1,81 @@
+{
+  "scope": "FAILED_WARMUP_PREFIX_ONLY",
+  "started_at_utc": "2026-11-03T10:06:17.193538+00:00",
+  "custody_verification_sha256": "edfca46d00506ce0dc47c308df0ac6eec0ee7ba857e18190e1e0b9393b53b3e1",
+  "action_inputs_sha256": "51b0531fdefc4ee0e787862441b27a881d0fe4799d37c814db32d8d24fe3a49b",
+  "validator_sha256": "ec5dd7250fa682465ae49ab97ccdf58799611b01f551b2b8da4547a295f5510a",
+  "duration_selection": "UNRESOLVED_NOT_ELIGIBLE",
+  "formal_runs_contributed": 0,
+  "execution_authority": false,
+  "session_stop": 10,
+  "warmup_workers": [
+    {
+      "advanced": 4199692,
+      "attempts": 4199692,
+      "empty": 0,
+      "failed_clock_status": null,
+      "full": 0,
+      "last_attempt_after_status": 0,
+      "last_attempt_before_status": 0,
+      "last_attempt_outcome": 0,
+      "last_observed_tick": 2278327224000,
+      "last_operation_outcome": 0,
+      "stop": 6
+    },
+    {
+      "advanced": 4199691,
+      "attempts": 5000000,
+      "empty": 800309,
+      "failed_clock_status": null,
+      "full": 0,
+      "last_attempt_after_status": 0,
+      "last_attempt_before_status": 0,
+      "last_attempt_outcome": 0,
+      "last_observed_tick": 2278327466000,
+      "last_operation_outcome": 0,
+      "stop": 1
+    }
+  ],
+  "warmup_drain": {
+    "attempts": 2,
+    "dequeued": 1,
+    "failed_clock_status": null,
+    "final_audit": {
+      "consumer_position": 268,
+      "occupied_slots": 0,
+      "positions_in_range": true,
+      "producer_position": 268
+    },
+    "last_observed_tick": 2321586203000,
+    "reset_verified": false,
+    "stop": 0
+  },
+  "measurement_origin": null,
+  "full_capture_validation": {
+    "status": "REJECTED",
+    "reason": "mandatory session stop"
+  },
+  "prefix_reconciliation": {
+    "status": "PASS",
+    "result": {
+      "attempted": 4199692,
+      "accepted": 4199692,
+      "full": 0,
+      "consumed": 4199692,
+      "counts": {
+        "producer_demand": 4199692,
+        "consumer_demand": 5000000,
+        "producer_issue": 4199691,
+        "consumer_issue": 4199690
+      },
+      "elapsed_ns": 1472506585,
+      "capacity_limited": true,
+      "drain_begin_tick": 2321583886000,
+      "drain_end_tick": 2321586384000
+    },
+    "reset_required": false,
+    "reset_reason": "failed warmup stopped before reset/measurement; no successful-session claim"
+  },
+  "status": "FAILED_STUDY_PREFIX_RECONCILED",
+  "finished_at_utc": "2026-11-03T10:07:52.707304+00:00"
+}

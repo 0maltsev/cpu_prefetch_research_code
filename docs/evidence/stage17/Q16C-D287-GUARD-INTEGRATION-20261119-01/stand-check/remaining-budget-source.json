@@ -1,0 +1,94 @@
+{
+  "budget": {
+    "analysis_scratch_bytes": 274877906944,
+    "cleanup_ns": 120000000000,
+    "controller_memory_bytes": 2147483648,
+    "disk_reserve_bytes": 17179869184,
+    "max_output_bytes": 238739519848,
+    "memory_bytes": 55287206384,
+    "metadata_output_bytes": 16777216,
+    "required_free_disk_bytes": 6841813590016,
+    "setup_ns": 300000000000,
+    "watchdog_ns": 47820000000000
+  },
+  "captures": 180,
+  "first": {
+    "cleanup_ns": 4000000000,
+    "max_output_bytes": 1945309996,
+    "memory_bytes": 34359738368,
+    "metadata_output_bytes": 140606580,
+    "other_memory_bytes": 5669439968,
+    "publication_memory_bytes": 851766640,
+    "publication_ns": 25000000000,
+    "setup_ns": 25000000000,
+    "watchdog_ns": 120000000000
+  },
+  "last": {
+    "cleanup_ns": 4000000000,
+    "max_output_bytes": 1958702260,
+    "memory_bytes": 34359738368,
+    "metadata_output_bytes": 145720524,
+    "other_memory_bytes": 5719029728,
+    "publication_memory_bytes": 852339064,
+    "publication_ns": 25000000000,
+    "setup_ns": 25000000000,
+    "watchdog_ns": 120000000000
+  },
+  "live_msr": {
+    "0": "0000000000000000",
+    "1": "0000000000000000",
+    "8": "0000000000000000"
+  },
+  "plan_binding": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/q16c-configuration-1/plan.json",
+    "sha256": "36c15f402c7f20240da6b36472b9d0c56bcade8c1024604d0b1bd3deaef19a44",
+    "size_bytes": 3321611
+  },
+  "plan_schema": "cpu-prefetch-stage17-formal-scheduled-plan/3",
+  "source_transport": {
+    "descriptor_count": 360,
+    "format": "SEALED_U64BE_ORIGINAL-v1",
+    "loader_transient_bytes": 50176192,
+    "maximum_source_memory_bytes": 14485017072,
+    "metadata_bytes": 1048576,
+    "owned_vector_bytes": 7216896152,
+    "schema_version": "cpu-prefetch-stage17-schedule-transport-budget/1",
+    "source_bytes": 7216896152
+  },
+  "storage": {
+    "analysis_capture_workspace_bytes": 1958985184,
+    "analysis_scratch_bytes": 274877906944,
+    "archive_quota_bytes": 6000000000000,
+    "archive_staging_bytes": 1969119232,
+    "broker_address_space_bytes": 2147483648,
+    "capture_workspace_overhead_bytes": 7284005016,
+    "checkpoint_bytes": 1048576,
+    "codec_address_space_bytes": 2147483648,
+    "codec_processes": 1,
+    "disk_reserve_bytes": 17179869184,
+    "implementation_profile_sha256": "c15d54de37bfe2cfe99d5c3d2d13e0853d77aac6eb743e87b5c510b9a61fabc0",
+    "per_capture_archive_ns": 140000000000,
+    "policy_id": "EXT007-FORMAL-LOSSLESS-STAND-PRIMARY-v1",
+    "program_id": "CPU-PREFETCH-V5-V23-EXT007-FORMAL-1",
+    "program_scope_sha256": "4d0ddac91ec96bb7038f2903b965a2f1a785b63b108b5b05e645742ac8dcc0c2",
+    "schema_version": "cpu-prefetch-stage17-formal-storage-plan/1",
+    "workspace_bytes": 549755813888
+  },
+  "suffix_execution_totals": {
+    "cleanup_ns": 376000000000,
+    "max_output_bytes": 125316988660,
+    "memory_bytes": 3229815406592,
+    "metadata_output_bytes": 11520441924,
+    "other_memory_bytes": 516475705152,
+    "publication_memory_bytes": 53674914640,
+    "publication_ns": 2350000000000,
+    "setup_ns": 2350000000000,
+    "watchdog_ns": 11280000000000
+  },
+  "worker": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7fb8944-clean-4f94fa5cf272/release/bin/cpu_prefetch_runner",
+    "sha256": "7455fa2802ca5f655c41faddd070da51b0cf98ac9c8b2360152dc1a480f85f2a",
+    "size_bytes": 5048088
+  },
+  "worker_sha256_verified": true
+}

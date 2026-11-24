@@ -1,0 +1,100 @@
+{
+  "bindings": [
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/operator-preparation-v23/run_clock_qualification_v23.py",
+      "sha256": "b760bc8918339fd2452c29fd6a20abfe8c20faacce466b1cc39372cdf377eb66",
+      "size_bytes": 15091
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/clock-qualification-v23-1/prospective-plan.json",
+      "sha256": "c8392b7363e5042c4db1ebdbf621e9c817f51b5d43f8556948588af97bdb18d5",
+      "size_bytes": 2970
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/stage17-q15-w-result-v4.json",
+      "sha256": "141281ac1fc527855d7c64e64bf9efc48d79caa6466af4ccebfd86cd92dc6b39",
+      "size_bytes": 2212
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/stage17-q15_w-completion-v4.json",
+      "sha256": "ad0fe18f77a6287f6de4addedb7510da44bd0e214b1729e9a639141254cc002c",
+      "size_bytes": 1240
+    }
+  ],
+  "hardware_restoration_verified": true,
+  "isolation": {
+    "captured_at_utc": "2026-11-03T21:23:28Z",
+    "partition": {
+      "cgroup.events": "populated 0\nfrozen 0",
+      "cgroup.procs": "",
+      "cgroup.subtree_control": "",
+      "cgroup.type": "domain",
+      "cpuset.cpus": "0-2,8,16-18,24",
+      "cpuset.cpus.effective": "0-2,8,16-18,24",
+      "cpuset.cpus.exclusive": "0-2,8,16-18,24",
+      "cpuset.cpus.exclusive.effective": "0-2,8,16-18,24",
+      "cpuset.cpus.partition": "isolated",
+      "cpuset.mems": "0-1",
+      "cpuset.mems.effective": "0-1"
+    },
+    "root": {
+      "cgroup.controllers": "cpuset cpu io memory hugetlb pids rdma misc dmem",
+      "cgroup.subtree_control": "cpuset cpu memory pids",
+      "cpuset.cpus.effective": "3-7,9-15,19-23,25-31",
+      "cpuset.cpus.isolated": "0-2,8,16-18,24",
+      "cpuset.mems.effective": "0-1"
+    },
+    "supervisor_affinity": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      19,
+      20,
+      21,
+      22,
+      23,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ]
+  },
+  "live_restoration_readback": [
+    {
+      "cpu": 0,
+      "expected_hex": "0000000000000000",
+      "matches": true,
+      "observed_hex": "0000000000000000"
+    },
+    {
+      "cpu": 1,
+      "expected_hex": "0000000000000000",
+      "matches": true,
+      "observed_hex": "0000000000000000"
+    },
+    {
+      "cpu": 8,
+      "expected_hex": "0000000000000000",
+      "matches": true,
+      "observed_hex": "0000000000000000"
+    }
+  ],
+  "partition_quiescent": true,
+  "process_group_gone": true,
+  "scope": "Retain owned qualified isolation for prospective Q16a; no formal authority",
+  "session_parent_absent": true,
+  "utc": "2026-11-03T21:23:28Z",
+  "worker_reaped": true
+}

@@ -1,0 +1,15 @@
+{
+  "checked_at_utc": "2026-11-13T08:31:38.931811+00:00",
+  "validated_suffix_reports": 4,
+  "total_suffix_reports": 531,
+  "reported_ordinals": [
+    175,
+    174,
+    171,
+    170
+  ],
+  "supervisor_alive": true,
+  "stderr": "",
+  "completion_receipt_present": false,
+  "raw_mutation": false
+}

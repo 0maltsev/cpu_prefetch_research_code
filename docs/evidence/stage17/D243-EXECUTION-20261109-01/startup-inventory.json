@@ -1,0 +1,47 @@
+{
+  "files": [
+    {
+      "path": "formal-q16a-continuation-authoring-1/launch-operator-1.json",
+      "size_bytes": 632,
+      "sha256": "c79ab0f9072e199068668d0c9e925e62329493cf9228e4df1c9bf441a3d81dcd"
+    },
+    {
+      "path": "formal-q16a-continuation-authoring-1/launch-operator-1.log",
+      "size_bytes": 26,
+      "sha256": "42f0803403826a891b7feaaa712f5b6a4ef86768ae7609760bf2d29190920922"
+    },
+    {
+      "path": "formal-q16a-continuation-launch-1/launch-intent.json",
+      "size_bytes": 7364,
+      "sha256": "940f37c1fed7958b31e5663d580cbd0f2a5b7bcbdc1620e9d83c50b6a5db68d5"
+    },
+    {
+      "path": "formal-q16a-continuation-launch-1/supervisor-pid.json",
+      "size_bytes": 56,
+      "sha256": "599a0847e2975b4154fff49040b92adc4fd5e0059d1f51cdac978dc2125efecc"
+    },
+    {
+      "path": "formal-q16a-continuation-launch-1/supervisor-prelaunch.json",
+      "size_bytes": 6271,
+      "sha256": "5ed15896ea0c1ad1fe5ec94375409c47a33021218670ecc2990d4b38aeb5804d"
+    },
+    {
+      "path": "formal-q16a-continuation-launch-1/child-pid.json",
+      "size_bytes": 80,
+      "sha256": "81da9f3d0b98b77492d23a785492d132c52c71fd51fdb42bdcb627549b4a08f4"
+    },
+    {
+      "path": "formal-q16a-continuation-launch-1/launch-readback.json",
+      "size_bytes": 2868,
+      "sha256": "dfa80ebb4c4c799c5e86071dbd9efdb84b37c8af947b0584d2f93c8950d84bfd"
+    },
+    {
+      "path": "family/stage17-q16a-attempt-v6.json",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/formal-archive-program-1/working/91c83558b5c5d891cabdd4d875da1292120df5940397298063d55c901a8866c2/stage17-q16a-attempt-v6.json",
+      "size_bytes": 995,
+      "sha256": "b01b6eff00f02714013a76cae99c2bd48699a12317826594e9da9da8ecb9234a"
+    }
+  ],
+  "raw_transferred": false,
+  "recorded_at_utc": "2026-11-09T10:43:36.378265+00:00"
+}

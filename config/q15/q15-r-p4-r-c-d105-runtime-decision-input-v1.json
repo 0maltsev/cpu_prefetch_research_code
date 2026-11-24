@@ -1,0 +1,129 @@
+{
+  "schema_version": "cpu-prefetch-q15-r-p4-r-c-d105-runtime-decision-input/1",
+  "bundle_id": "Q15-R-P4-R-C-D105-RUNTIME-DECISION-INPUT-20260826-01",
+  "protocol_version": "2.0.0-pre.2",
+  "status": "PROPOSED_EXACT_ACCEPTANCE_REQUIRED_NO_KEY_OR_STAND_AUTHORITY",
+  "source_commit": "dc643df498fa36c3c34507f977634c05421751b1",
+  "stand_id": "XEON-CPU-FETCH",
+  "endpoint": "root@185.184.131.153",
+  "immutable_inputs": {
+    "d100_acceptance_path": "config/q15/q15-r-p4-r-c-d100-acceptance-v1.json",
+    "d100_acceptance_sha256": "bdfe690a15b80c85d9fdf747a2036d48c1d8f56a8f2856dfc7e1d7b597c4a65f",
+    "d104_preparation_path": "config/q15/q15-r-p4-r-c-d104-preparation-v1.json",
+    "d104_preparation_sha256": "991f789607ef0ac5aa96a398de580b1a9dc035343bdcbbe9b638f1e7a668ce03",
+    "d104_executor_path": "tools/execute_d104_p4_r_c.py",
+    "d104_executor_sha256": "0b7e2f1c65849abe7d29ed8fd91fabb6105b8977d3051b9947ac7346fc14bdf6",
+    "d099_complete_evidence_sha256": "afc31fca0451e883dc72c86827a814da209da7031c0b2ec66316b92301c4c241",
+    "d099_identity_sha256": "774aca6d192a9adaeeb3daf7bc357c61e957c5b2e6169c9db82cf7722cc3dab6",
+    "d099_review_sha256": "f01e14303f305210819d633345cf454eb6985e394ab36b30e167491374b3b037",
+    "pinned_hosts_sha256": "89ddf9b9d9dc48520c9d30968bb4a63a58aa976bf9be341ac811f735eaef757d",
+    "transport_public_key_sha256": "b46d49976a60f4a578282ff4d2061e7d58640eb74993c3f5333fa609792d488a",
+    "target_allowed_signers_sha256": "b08f32720b7987218a5c51f31f822f2ea1d22ff948beb41382518927d815c718",
+    "target_signer_fingerprint": "SHA256:bOmXmBSxD0rBKid1AKOXQ25jIUjCOrijbM5sN18qLGM",
+    "pinned_host_fingerprint": "SHA256:HZMyUcQIuSQIodYGxXGQ3RCoqR8UcOWPPzuTDhXKtS4"
+  },
+  "decisions": [
+    {
+      "decision_id": "D-105",
+      "classification": "REMOTE_RUNTIME_COMPATIBILITY_EVIDENCE",
+      "options": [
+        "REMAIN_BLOCKED",
+        "ACQUIRE_ONE_SIGNED_READ_ONLY_RUNTIME_IDENTITY_CAPTURE_THEN_REVIEW",
+        "ACCEPT_UNPINNED_REMOTE_RUNTIME_RISK"
+      ],
+      "recommended_option": "ACQUIRE_ONE_SIGNED_READ_ONLY_RUNTIME_IDENTITY_CAPTURE_THEN_REVIEW",
+      "selected_option": null,
+      "evidence": "ADR-0102 makes remote tool bytes compatibility identity; D-099 did not capture env, Python, dd, or the Python tar runtime.",
+      "scientific_effect": "NONE",
+      "compatibility_effect": "Accepted runtime evidence becomes an exact input to a clean D-104 executor successor and any later action authorization.",
+      "owner": "platform-security-repository-audit owner",
+      "deadline_gate": "BEFORE_ANY_P4_R_C_ACTION_AUTHORIZATION_OR_STAND_MUTATION",
+      "supersession_rule": "Any executable, module, dependency, path, command, script, host, or transport drift requires a new read-only capture and prospective acceptance."
+    },
+    {
+      "decision_id": "D-106",
+      "classification": "SINGLE_OWNER_RUNTIME_REVIEW_DOWNGRADE",
+      "options": [
+        "REQUIRE_DISTINCT_REVIEWER",
+        "EXTEND_SINGLE_OWNER_WAIVER_FOR_ONE_RUNTIME_IDENTITY_CAPTURE_AND_REVIEW",
+        "REMAIN_BLOCKED"
+      ],
+      "recommended_option": "EXTEND_SINGLE_OWNER_WAIVER_FOR_ONE_RUNTIME_IDENTITY_CAPTURE_AND_REVIEW",
+      "selected_option": null,
+      "evidence": "ADR-0099 and ADR-0100 already disclose the same owner's operator, custodian, and auditor collapse; no distinct reviewer evidence exists.",
+      "scientific_effect": "NONE",
+      "compatibility_effect": "Review must be labelled single-owner and cannot claim independent detection.",
+      "owner": "protocol-platform-security-custody-audit owner",
+      "deadline_gate": "BEFORE_RUNTIME_COLLECTOR_IMPLEMENTATION",
+      "supersession_rule": "A reviewer or role change needs a prospective ADR; prior evidence remains append-only."
+    },
+    {
+      "decision_id": "D-107",
+      "classification": "FIXED_READ_ONLY_ACQUISITION_CONTRACT",
+      "options": [
+        "FIX_EXACT_PINNED_OPENSSH_COMMAND_AND_STDIN_SCRIPT_GRAPH",
+        "USE_INTERACTIVE_OR_AD_HOC_COMMANDS",
+        "REMAIN_BLOCKED"
+      ],
+      "recommended_option": "FIX_EXACT_PINNED_OPENSSH_COMMAND_AND_STDIN_SCRIPT_GRAPH",
+      "selected_option": null,
+      "evidence": "D-099 transport identity remains the last accepted target observation; D-102 permits only fixed validated command strings.",
+      "scientific_effect": "NONE",
+      "compatibility_effect": "Collector source/hash, exact absolute commands, stdin script, output bounds, 1,800-second window, one target SSHSIG, one attempt, zero retry, and no-mutation evidence become identity.",
+      "owner": "platform-security-repository-custody owner",
+      "deadline_gate": "BEFORE_KEY_USE_OR_STAND_ACCESS",
+      "supersession_rule": "Any graph, command, script, bound, signature, host, or transport change requires new bytes and approval."
+    },
+    {
+      "decision_id": "D-108",
+      "classification": "RUNTIME_EVIDENCE_ACCEPTANCE_AND_SUCCESSOR_RULE",
+      "options": [
+        "REQUIRE_CANONICAL_COMPLETE_CAPTURE_SEPARATE_REVIEW_AND_CLEAN_SUCCESSOR",
+        "ACCEPT_PARTIAL_OR_SELF_ASSERTED_RUNTIME",
+        "REMAIN_BLOCKED"
+      ],
+      "recommended_option": "REQUIRE_CANONICAL_COMPLETE_CAPTURE_SEPARATE_REVIEW_AND_CLEAN_SUCCESSOR",
+      "selected_option": null,
+      "evidence": "P4-R-C must fail closed and cannot equate command success with verified state.",
+      "scientific_effect": "NONE",
+      "compatibility_effect": "Only reviewed complete identity for env, Python, dd, sha256sum, interpreter metadata, imported module files/hashes, compression/tar dependencies, and loader/dependency observations can resolve the null runtime gate.",
+      "owner": "platform-security-release-audit owner",
+      "deadline_gate": "BEFORE_FREEZING_EXECUTOR_SUCCESSOR",
+      "supersession_rule": "Partial evidence is retained but ineligible; accepted evidence is immutable and every later drift requires a new successor."
+    }
+  ],
+  "proposed_repository_local_scope_if_accepted": {
+    "implement_fixed_read_only_runtime_collector": true,
+    "implement_fake_backend_schema_and_negative_tests": true,
+    "prepare_still_unissued_runtime_authorization_and_review_templates": true,
+    "target_private_key_use": false,
+    "sign_or_issue_authorization": false,
+    "stand_access": false,
+    "stand_mutation": false,
+    "runtime_collection": false,
+    "p4_r_c_or_later": false
+  },
+  "required_before_runtime_action": {
+    "clean_collector_implementation_commit": null,
+    "collector_source_sha256": null,
+    "literal_capture_and_review_paths": null,
+    "issued_at_utc": null,
+    "expires_at_utc": null,
+    "canonical_authorization_sha256": null,
+    "detached_target_signature_sha256": null,
+    "single_owner_pre_execution_review_sha256": null,
+    "exact_runtime_action_owner_approval": null
+  },
+  "authority_boundary": {
+    "repository_local_decision_preparation_authorized": true,
+    "repository_local_runtime_collector_implementation_authorized": false,
+    "target_private_key_use_authorized": false,
+    "signing_or_issuance_authorized": false,
+    "stand_access_authorized": false,
+    "stand_mutation_authorized": false,
+    "runtime_collection_authorized": false,
+    "p4_r_c_or_later_authorized": false,
+    "calibration_pilot_measurement_or_confirmatory_authorized": false
+  },
+  "exact_owner_acceptance_template": "Q15-R-P4-R-C-D105-RUNTIME-D — accept D-105 through D-108 exactly as recommended in decision-input SHA-256 @DECISION_INPUT_SHA256@, bound to clean commit dc643df498fa36c3c34507f977634c05421751b1, D-099 complete-evidence SHA-256 afc31fca0451e883dc72c86827a814da209da7031c0b2ec66316b92301c4c241, and D-104 executor SHA-256 0b7e2f1c65849abe7d29ed8fd91fabb6105b8977d3051b9947ac7346fc14bdf6. Select one signed read-only runtime-identity capture and separate review, extend the disclosed single-owner waiver for that capture/review, freeze an exact pinned OpenSSH command/stdin-script graph with one attempt and zero retry, and require complete canonical reviewed runtime evidence before a clean executor successor. Authorize repository-local acceptance/ADR/collector/schema/fake-test/template implementation only. Do not use keys, sign or issue authorization, access or modify the stand, execute the collector, prepare or execute P4-R-C, or perform P5/Q15/platform-control/calibration/pilot/measurement/confirmatory work. Every key, stand, and execution step requires a later separately signed and explicitly approved authorization."
+}

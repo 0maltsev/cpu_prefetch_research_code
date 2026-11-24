@@ -1,0 +1,103 @@
+{
+  "baseline_commit": "99753f3",
+  "method": "compiler DWARF member locations; compile-only, no experiment",
+  "configurations": {
+    "gcc": {
+      "before": {
+        "ProducerObservationStream": {
+          "object_bytes": 192,
+          "member_offsets": {
+            "storage_": 72,
+            "allocated_bytes_": 80,
+            "control_": 128
+          }
+        },
+        "ConsumerObservationStream": {
+          "object_bytes": 192,
+          "member_offsets": {
+            "storage_": 72,
+            "allocated_bytes_": 80,
+            "control_": 128
+          }
+        }
+      },
+      "after": {
+        "ProducerObservationStream": {
+          "object_bytes": 192,
+          "member_offsets": {
+            "storage_": 72,
+            "allocated_bytes_": 80,
+            "owns_storage_": 88,
+            "control_": 128
+          }
+        },
+        "ConsumerObservationStream": {
+          "object_bytes": 192,
+          "member_offsets": {
+            "storage_": 72,
+            "allocated_bytes_": 80,
+            "owns_storage_": 88,
+            "control_": 128
+          }
+        }
+      },
+      "before_object_sha256": "e6771e80901c12f76f8452597b14305655025b691bd638a712395697a18a5071",
+      "after_object_sha256": "9b87e29a74dcac7eda999a6d54790f6710b836648a95641f1e92a6fca37f03a8"
+    },
+    "clang-libcxx": {
+      "before": {
+        "ProducerObservationStream": {
+          "object_bytes": 192,
+          "member_offsets": {
+            "storage_": 64,
+            "allocated_bytes_": 72,
+            "control_": 128
+          }
+        },
+        "ConsumerObservationStream": {
+          "object_bytes": 192,
+          "member_offsets": {
+            "storage_": 64,
+            "allocated_bytes_": 72,
+            "control_": 128
+          }
+        }
+      },
+      "after": {
+        "ProducerObservationStream": {
+          "object_bytes": 192,
+          "member_offsets": {
+            "storage_": 64,
+            "allocated_bytes_": 72,
+            "owns_storage_": 80,
+            "control_": 128
+          }
+        },
+        "ConsumerObservationStream": {
+          "object_bytes": 192,
+          "member_offsets": {
+            "storage_": 64,
+            "allocated_bytes_": 72,
+            "owns_storage_": 80,
+            "control_": 128
+          }
+        }
+      },
+      "before_object_sha256": "d19c8db182f588ec4a072bf9796509cbc658c0eb179b90fe53c363d0f8aad4fe",
+      "after_object_sha256": "3b299b7383d50864b3399dbb330398c454266308b8fdf4449ae0b585627b003b"
+    }
+  },
+  "authority": "NONE",
+  "stand_capture_performed": false,
+  "source_header_sha256": "545ec589c35af46bd32fc5aa6e47a93e619ce7ee2e07cff368d395629bfebba2",
+  "baseline_header_sha256": "9f94c7fde2262f563ab3fc6e51f02da526f8adeb61e3508bbdd88c66a80cf1ed",
+  "probe_cpp": "#include \"cpu_prefetch/storage/raw_observations.hpp\"\nusing namespace cpu_prefetch::storage;\nProducerObservationStream* producer;\nConsumerObservationStream* consumer;\nstatic_assert(sizeof(ProducerObservationStream)>0);\nstatic_assert(sizeof(ConsumerObservationStream)>0);\n",
+  "compiler_options": [
+    "-std=c++20",
+    "-g",
+    "-fno-eliminate-unused-debug-types",
+    "baseline include override for before only",
+    "-Iinclude",
+    "-c"
+  ]
+}

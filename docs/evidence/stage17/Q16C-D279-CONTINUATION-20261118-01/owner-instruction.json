@@ -1,0 +1,13 @@
+{
+  "automatic_retries": 0,
+  "decision_id": "D279",
+  "exact_decision_text_approved": false,
+  "new_window_authorized": false,
+  "owner_message": "continue",
+  "phase18_authority": false,
+  "recorded_at_utc": "2026-11-17T21:49:10.986588+00:00",
+  "recorded_decision_sha256": "c2760ef03cc96a8a2718483f2c4402c6370735baee533b8101532a7867813b90",
+  "repeat_completed_measurements": false,
+  "repeat_qualification": false,
+  "schema_version": "cpu-prefetch-stage17-owner-decision/1"
+}

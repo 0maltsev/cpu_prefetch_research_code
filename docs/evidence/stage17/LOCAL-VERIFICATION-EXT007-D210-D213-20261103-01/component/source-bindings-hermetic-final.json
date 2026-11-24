@@ -1,0 +1,56 @@
+{
+  "recorded_at_utc": "2026-11-03T14:46:17.685749+00:00",
+  "qualification_claim": false,
+  "files": [
+    {
+      "path": "include/cpu_prefetch/calibration/service_session.hpp",
+      "size_bytes": 19466,
+      "sha256": "b3919a4a9e916d5945ce2bc81e1d8accb30c160c0bc364a5d3138b1b0c557008"
+    },
+    {
+      "path": "src/calibration/service_session.cpp",
+      "size_bytes": 1132,
+      "sha256": "571fc67a85ca077cac4b1a968ad1596509b48f29c5b47a4ae59194017e5bb9b9"
+    },
+    {
+      "path": "tests/calibration_service_session_test.cpp",
+      "size_bytes": 24536,
+      "sha256": "300f68e35965c6a4d1f1680079aee4c588ac37e1e022cbd767fad27c59b6a4e2"
+    },
+    {
+      "path": "include/cpu_prefetch/calibration/service_interval_count.hpp",
+      "size_bytes": 2802,
+      "sha256": "6ea4b92a80b88b435215eda49f163684f290b742d66f84dd7801f55c8632db42"
+    },
+    {
+      "path": "src/calibration/service_interval_count.cpp",
+      "size_bytes": 5160,
+      "sha256": "0f52145cb6f8bbf9c35be94745d32e784bd09307904bd7a294899343a5022a08"
+    },
+    {
+      "path": "tests/calibration_service_interval_count_test.cpp",
+      "size_bytes": 12628,
+      "sha256": "0a7b2be9d1647925925564f0566bbabb42a571e393869fae87fd6c9c96c98564"
+    },
+    {
+      "path": "tools/stage17_raw_stream_decoder_v2.py",
+      "size_bytes": 13067,
+      "sha256": "a2349a5443debb051b7cb524bc86724ed6ba966dcb4a18582ed0248052b0fdca"
+    },
+    {
+      "path": "tests/test_stage17_raw_stream_decoder_v2.py",
+      "size_bytes": 15465,
+      "sha256": "9ff058e5120281122b40973ed71cae0ad2990952775beafb65379e618dc8cf17"
+    },
+    {
+      "path": "CMakeLists.txt",
+      "size_bytes": 151040,
+      "sha256": "8ee7abc51244c00cf835bda79afd6929a6b0697188e759a2c7c555f49f062f40"
+    },
+    {
+      "path": "docs/decisions/0210-persistent-service-session-core.md",
+      "size_bytes": 5628,
+      "sha256": "03abaa5666c49667bcef24402df2f10778c3a687a6d31b5853e209bcd353fc80"
+    }
+  ]
+}

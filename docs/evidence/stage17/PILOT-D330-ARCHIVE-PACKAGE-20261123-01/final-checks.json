@@ -1,0 +1,28 @@
+{
+  "registered_suite_counts": [
+    18,
+    12,
+    19,
+    4,
+    15,
+    13,
+    12,
+    8,
+    6,
+    16,
+    11
+  ],
+  "affected_registered_cases": 134,
+  "affected_registered_suites": 11,
+  "development_debug_cases": 11,
+  "python_ast_passed": true,
+  "native_unchanged": true,
+  "historical_archive_profile_source_unchanged": true,
+  "original_base_custody_runtime_unchanged": true,
+  "production_cpp_protocol_diff_empty": true,
+  "actual_scoped_admission": false,
+  "stand_access_performed": false,
+  "operational_window_started": false,
+  "execution_authority": false,
+  "phase18_authority": false
+}

@@ -1,0 +1,151 @@
+{
+  "files": [
+    {
+      "path": "REPORT.md",
+      "sha256": "77e514fe14948cd50ec7ccfc71e3886a5f355baf5fb5d9c6239a2e1856c03da8",
+      "size_bytes": 3721
+    },
+    {
+      "path": "admission-root/evidence/formal-q16c-d295-1/authorization.json",
+      "sha256": "d79d9be2fbcd86e4aebf953fdea4ee6f4e3a4a760ec9ba1107c29e3aa42e6b70",
+      "size_bytes": 2718
+    },
+    {
+      "path": "admission-root/evidence/formal-q16c-d295-1/authorization.json.sig",
+      "sha256": "3a40999a3845e004c3ae7d83034649200c44cd2c4b512c416129ad286b2eb18a",
+      "size_bytes": 322
+    },
+    {
+      "path": "clock-rearm-d301-1/restoration.json",
+      "sha256": "b424e5510d84492a266a64276f4db181d6c0fc1e29da9fcde44ebe9f63c0f5bd",
+      "size_bytes": 842
+    },
+    {
+      "path": "current-status.json",
+      "sha256": "46535958055ca580d57dc5e34f3d8f43c127cb6fbcf7238cd261fd2b16b066d7",
+      "size_bytes": 1184
+    },
+    {
+      "path": "d297-software-preparation-2/constructed-output/prepared.json",
+      "sha256": "dd9a57a78c6030c0275e60ac369c294eba88b693788d13f1e29ae1239e9c402a",
+      "size_bytes": 1341
+    },
+    {
+      "path": "d301-continuation-2/deadline-supplement/owner-acceptance.json",
+      "sha256": "5e4f9b681e8be6bf4c7e849e185fba8976f079887db0815a0ff79faed78ff01c",
+      "size_bytes": 891
+    },
+    {
+      "path": "d301-continuation-2/deadline-supplement/owner-acceptance.json.sig",
+      "sha256": "994c66e7f0404714d9b40cec78d2b5f2df652367ea172b358bf3555757a5a0ff",
+      "size_bytes": 322
+    },
+    {
+      "path": "d301-continuation-2/operator-sources.json",
+      "sha256": "85c800f2454f506c33f1d0e67b038387f41358fb311c74152a5df2c6d34cd238",
+      "size_bytes": 4713
+    },
+    {
+      "path": "d301-continuation-2/prelaunch-check.json",
+      "sha256": "18f913dc8b25e87eb9dbee92ae02aaf2658a1f34c593a59bb00a2b05a877a0c2",
+      "size_bytes": 1215
+    },
+    {
+      "path": "d301-independent-recovery-1.json",
+      "sha256": "101a970321ff3f9a829e47be60e43920679d4a75c97cb32932c270d4e744cc82",
+      "size_bytes": 923
+    },
+    {
+      "path": "d301-root-launch-intent-1.json",
+      "sha256": "5c20d632db37f9ab336f3f8ba0cea60843c22c1c3b316a0089371efbdd4603ba",
+      "size_bytes": 2366
+    },
+    {
+      "path": "d301-root-launch-result-1.json",
+      "sha256": "eaa439607335fd9eb671f6004f56c09c601264a4dbb1bdf41541fcc63be12678",
+      "size_bytes": 208
+    },
+    {
+      "path": "d301-study-1/authorize-result.json",
+      "sha256": "d624ed89a84f8bc9024555b840b30bbe84b9f54f367b5a97d5960de7535cb75a",
+      "size_bytes": 181
+    },
+    {
+      "path": "d301-study-1/authorize.log",
+      "sha256": "9d4994d5e753c4fca2961c4407d309fdfffd6d568930f2f837e36552fa242761",
+      "size_bytes": 242
+    },
+    {
+      "path": "d301-study-1/intent.json",
+      "sha256": "32632558064c46f1b144aa6af2bcf9bf03910c30c633ff1ff28d026d844f0ef8",
+      "size_bytes": 842
+    },
+    {
+      "path": "d301-study-1/result.json",
+      "sha256": "c335a071f68889ab3d586718450bcd227ae678464007d32652f3b7c553485a43",
+      "size_bytes": 2123
+    },
+    {
+      "path": "d301-study-1/sign-collect-result.json",
+      "sha256": "20da6061ea9dc9b6b9c43f15c9591a5ff9f17543eee7d3286a406cb9bd944901",
+      "size_bytes": 184
+    },
+    {
+      "path": "d301-study-1/sign-collect.log",
+      "sha256": "4fb0b32abb1ef124c414a4684003adc78611a2ac78cf113091b23f110e066a00",
+      "size_bytes": 986
+    },
+    {
+      "path": "d305-signed-admission-software-check-1.json",
+      "sha256": "b48bd868fbd14e05d13350a855a4c3e5366d8356a0c603cb6fd0947707ddc5c5",
+      "size_bytes": 598
+    },
+    {
+      "path": "q16c-study-d301-1/partition-restoration.json",
+      "sha256": "2b9a0f9ac693e28cb688b0d8272d9baf99e475d46d07d80a0ad7103ad04c0275",
+      "size_bytes": 573
+    },
+    {
+      "path": "status.json",
+      "sha256": "e5f5dfa0e50d236c67f96a8b75ec6f7e6e9ca0844ffe346644ed785d09677c61",
+      "size_bytes": 551
+    },
+    {
+      "path": "verification/handoff-before-fix.original.json",
+      "sha256": "28113584bdb44425bff9b47e260b725626f303998a9d7233830a9c43d525afb2",
+      "size_bytes": 3111
+    },
+    {
+      "path": "verification/handoff-before-fix.txt",
+      "sha256": "74b44f64f096ad3daca0a244d186eab4869f110b01a8fbc2a88ded2ffb101861",
+      "size_bytes": 2224
+    },
+    {
+      "path": "verification/handoff-integration-tests.txt",
+      "sha256": "e79580c9424dd915a16f820e684a6390edca385116df851e7a02cf82bcf2fcfb",
+      "size_bytes": 5794
+    },
+    {
+      "path": "verification/read_only_status.py",
+      "sha256": "4c11bf3e22ad729ccf420465daa5e9c0839f3aae190fd266f00a5ed55112698e",
+      "size_bytes": 2570
+    },
+    {
+      "path": "verification/signed-preparation-check.txt",
+      "sha256": "daf6d1acc8078de5ef352b1cf527a03323768c6d409d583dcc4f0f97fbdfcd00",
+      "size_bytes": 573
+    },
+    {
+      "path": "verification/verify_signed_preparation.py",
+      "sha256": "4060e4185a3de23c9717fb19b5265136115eafef16fe2c98cbc78a4b31487640",
+      "size_bytes": 1578
+    },
+    {
+      "path": "verification-summary.json",
+      "sha256": "8323d974549a4b1ea619a7ffebf7b140f41c8893617a3a5c8b4d1e910b6a3b87",
+      "size_bytes": 1715
+    }
+  ],
+  "raw_data_transferred": false,
+  "schema_version": "cpu-prefetch-public-evidence-manifest/1"
+}

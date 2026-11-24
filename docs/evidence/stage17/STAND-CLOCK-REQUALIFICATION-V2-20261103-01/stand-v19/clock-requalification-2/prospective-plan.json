@@ -1,0 +1,86 @@
+{
+  "approval_plan_sha256": "5c24d0178e337530e03a61812615b227fa763260afe069d979ac0e312577e0b7",
+  "binary_sha256": "1e6bde398d7188e97c05b2293a596c64612b39f54a0c81aec430faa152f784ba",
+  "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+  "commands": [
+    [
+      "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-ac64633-clean-91a93014b4eb/release/bin/cpu_prefetch_q15_clock_qualification_tool",
+      "--qualify-pair",
+      "near",
+      "--output",
+      "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/clock-requalification-2/near/clock-raw.json"
+    ],
+    [
+      "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-ac64633-clean-91a93014b4eb/release/bin/cpu_prefetch_q15_clock_qualification_tool",
+      "--qualify-pair",
+      "far",
+      "--output",
+      "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/clock-requalification-2/far/clock-raw.json"
+    ]
+  ],
+  "commands_sha256": "f8f87fcbcab8660ecefebead6dae9b3b7319348d09a59c52871dcd7a6e281c50",
+  "maximum_invocations": 2,
+  "operator_script_sha256": "22873c5c62ed4db7b6758bf7cec8a304afe428104d4ca8498c90414fe2dc5031",
+  "ordered_pairs": [
+    "near",
+    "far"
+  ],
+  "owner_approval_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/operator-preparation-v19/approved-clock-requalification-plan-v2.md",
+  "partition_mode": "isolated",
+  "partition_path": "/sys/fs/cgroup/cpu-prefetch-v5-clock-qualified-2",
+  "per_invocation_timeout_seconds": 600,
+  "prerequisite_status": {
+    "current_state": "PREFLIGHT_ACCEPTED",
+    "missing_inputs": [
+      "S17-EXT-004",
+      "S17-EXT-005",
+      "S17-EXT-007",
+      "S17-EXT-008",
+      "S17-EXT-009",
+      "S17-EXT-010"
+    ],
+    "pilot_ready": false,
+    "resolutions": 4,
+    "transitions": 2
+  },
+  "preserved_memlock_bytes": 8388608,
+  "prestate": {
+    "cgroup.controllers": "cpuset cpu io memory hugetlb pids rdma misc dmem",
+    "cgroup.subtree_control": "cpu memory pids",
+    "cpuset.cpus.effective": "0-31",
+    "cpuset.cpus.isolated": "",
+    "cpuset.mems.effective": "0-1"
+  },
+  "requested_cpus": "0-2,8,16-18,24",
+  "requested_mems": "0-1",
+  "rlimit_as_bytes": 8589934592,
+  "rollback": [
+    "reap own capture group",
+    "require empty partition",
+    "partition member",
+    "remove own cgroup",
+    "remove only added cpuset delegation",
+    "verify exact root prestate"
+  ],
+  "source_revision": "ac64633662c4e61c8dd98e332dc70f77085e2e48",
+  "stop_on_first_failure": true,
+  "topology": {
+    "0": "0,16",
+    "1": "1,17",
+    "16": "0,16",
+    "17": "1,17",
+    "18": "2,18",
+    "2": "2,18",
+    "24": "8,24",
+    "8": "8,24"
+  },
+  "unchanged_controls": [
+    "governor",
+    "turbo",
+    "IRQ routing",
+    "boot options",
+    "clocksource",
+    "production binaries"
+  ],
+  "utc": "2026-11-03T08:55:10Z"
+}

@@ -1,0 +1,53 @@
+{
+  "changed_fields": "seven source paths only",
+  "corrected_descriptor_accepted_in_private_memory": true,
+  "experiment_restarted": false,
+  "native_worker_executed": false,
+  "original_error": "cold archive daycap overlay: packet source namespace differs",
+  "production_files_changed": false,
+  "rows": [
+    {
+      "name": "stage17_archive_canonical_fast_v1",
+      "new_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-configuration-2/stage17_archive_canonical_fast_v1.py",
+      "old_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-configuration-1/stage17_archive_canonical_fast_v1.py",
+      "size_and_hash_identical": true
+    },
+    {
+      "name": "stage17_archive_inventory_image_v1",
+      "new_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-configuration-2/stage17_archive_inventory_image_v1.py",
+      "old_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-configuration-1/stage17_archive_inventory_image_v1.py",
+      "size_and_hash_identical": true
+    },
+    {
+      "name": "stage17_archive_inventory_native_v1",
+      "new_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-configuration-2/stage17_archive_inventory_native_v1.py",
+      "old_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-configuration-1/stage17_archive_inventory_native_v1.py",
+      "size_and_hash_identical": true
+    },
+    {
+      "name": "stage17_archive_inverse_image_v1",
+      "new_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-configuration-2/stage17_archive_inverse_image_v1.py",
+      "old_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-configuration-1/stage17_archive_inverse_image_v1.py",
+      "size_and_hash_identical": true
+    },
+    {
+      "name": "stage17_archive_inverse_native_v1",
+      "new_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-configuration-2/stage17_archive_inverse_native_v1.py",
+      "old_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-configuration-1/stage17_archive_inverse_native_v1.py",
+      "size_and_hash_identical": true
+    },
+    {
+      "name": "stage17_archive_metadata_fast_v1",
+      "new_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-configuration-2/stage17_archive_metadata_fast_v1.py",
+      "old_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-configuration-1/stage17_archive_metadata_fast_v1.py",
+      "size_and_hash_identical": true
+    },
+    {
+      "name": "stage17_archive_metadata_fast_v2",
+      "new_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-configuration-2/stage17_archive_metadata_fast_v2.py",
+      "old_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-configuration-1/stage17_archive_metadata_fast_v2.py",
+      "size_and_hash_identical": true
+    }
+  ],
+  "status": "READ_ONLY_NAMESPACE_RELOCATION_REPRODUCTION_PASS"
+}

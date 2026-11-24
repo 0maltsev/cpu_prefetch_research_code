@@ -1,0 +1,22 @@
+test_fresh_import_orders_dispatch_current_entries_before_any_action (__main__.FormalPolicy.test_fresh_import_orders_dispatch_current_entries_before_any_action) ... ok
+test_fresh_source_hashes_and_both_policies_verify (__main__.FormalPolicy.test_fresh_source_hashes_and_both_policies_verify) ... ok
+test_missing_d233_storage_owner_acceptance_binding_rejects (__main__.FormalPolicy.test_missing_d233_storage_owner_acceptance_binding_rejects) ... ok
+test_missing_formal_runtime_and_changed_hash_reject (__main__.FormalPolicy.test_missing_formal_runtime_and_changed_hash_reject) ... ok
+test_missing_formal_schema_and_old_verifier_reject (__main__.FormalPolicy.test_missing_formal_schema_and_old_verifier_reject) ... ok
+test_missing_native_formal_source_binding_rejects (__main__.FormalPolicy.test_missing_native_formal_source_binding_rejects) ... ok
+test_missing_owner_acceptance_binding_rejects (__main__.FormalPolicy.test_missing_owner_acceptance_binding_rejects) ... ok
+test_missing_scientific_method_bindings_reject (__main__.FormalPolicy.test_missing_scientific_method_bindings_reject) ... ok
+test_preflight_old_journal_and_executor_bindings_reject (__main__.FormalPolicy.test_preflight_old_journal_and_executor_bindings_reject) ... ok
+test_real_genesis_is_prepared_without_execution_readiness (__main__.FormalPolicy.test_real_genesis_is_prepared_without_execution_readiness) ... ok
+test_actual_profile_and_runtime_bytes_bound_to_both_releases (__main__.QualifiedArchiveContext.test_actual_profile_and_runtime_bytes_bound_to_both_releases) ... ok
+test_changed_actual_runtime_or_profile_bytes_reject (__main__.QualifiedArchiveContext.test_changed_actual_runtime_or_profile_bytes_reject) ... ok
+test_changed_qualified_worker_identity_rejects (__main__.QualifiedArchiveContext.test_changed_qualified_worker_identity_rejects) ... ok
+test_direct_author_import_in_fresh_interpreter (__main__.QualifiedArchiveContext.test_direct_author_import_in_fresh_interpreter) ... ok
+test_each_ext006_identity_missing_or_changed_rejects (__main__.QualifiedArchiveContext.test_each_ext006_identity_missing_or_changed_rejects) ... ok
+test_missing_original_ext003_provenance_rejects (__main__.QualifiedArchiveContext.test_missing_original_ext003_provenance_rejects) ... ok
+test_original_receipt_missing_or_changed_bindings_reject (__main__.QualifiedArchiveContext.test_original_receipt_missing_or_changed_bindings_reject) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 38.007s
+
+OK

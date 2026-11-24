@@ -1,0 +1,16 @@
+{
+  "status": "SUFFIX_VALIDATION_AND_FINALIZATION_COMPLETE",
+  "original_process_exit_code": 1,
+  "original_process_preserved": true,
+  "known_bookkeeping_error_only": true,
+  "fresh_finalization_guard": "PASS",
+  "validated_suffix_reports": 531,
+  "validated_original_prefix_reports": 177,
+  "all_report_hashes_rechecked": true,
+  "raw_validation_repeated": false,
+  "raw_redecode_performed": false,
+  "raw_mutation": false,
+  "empirical_composition_performed": false,
+  "ext007_admitted": false,
+  "phase18_authority": false
+}

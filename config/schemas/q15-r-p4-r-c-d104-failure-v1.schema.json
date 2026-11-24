@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-p4-r-c-d104-failure:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "transaction_id", "authorization_sha256", "status", "failed_phase", "completed_steps", "failure_message", "remote_stdout_hex", "remote_stdout_sha256", "remote_stderr_hex", "remote_stderr_sha256", "retry_authorized", "delete_cleanup_or_reuse_authorized", "automatic_continuation", "created_at_utc"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-r-c-d104-failure/1"},
+    "transaction_id": {"const": "Q15-R-P4-R-C-D104-XEON-CPU-FETCH-20260826-01"},
+    "authorization_sha256": {"$ref": "#/$defs/sha256"},
+    "status": {"const": "FAILED_PARTIAL_RETAINED_NO_RETRY"},
+    "failed_phase": {"type": "string", "minLength": 1, "maxLength": 128},
+    "completed_steps": {"type": "array", "maxItems": 12, "uniqueItems": true, "items": {"pattern": "^P4RC-0(0[1-9]|1[0-3])$"}},
+    "failure_message": {"type": "string", "maxLength": 1024},
+    "remote_stdout_hex": {"pattern": "^(?:[0-9a-f]{2})*$"},
+    "remote_stdout_sha256": {"$ref": "#/$defs/sha256"},
+    "remote_stderr_hex": {"pattern": "^(?:[0-9a-f]{2})*$"},
+    "remote_stderr_sha256": {"$ref": "#/$defs/sha256"},
+    "retry_authorized": {"const": false},
+    "delete_cleanup_or_reuse_authorized": {"const": false},
+    "automatic_continuation": {"const": false},
+    "created_at_utc": {"$ref": "#/$defs/utc"}
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "utc": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"}}
+}

@@ -1,0 +1,8 @@
+{
+  "execution_authority": false,
+  "exit_code": 0,
+  "source_revision": "7b7c263cb850690cf333df0d196b18c875b4a53c",
+  "stderr": "",
+  "stdout": "stand-bundle-check: PASS (4824 files, STAGE17-PILOT-CANDIDATE-BUNDLE-v26, protocol 2.0.0-pre.3, dynamic/pilot/confirmatory prohibited)\n",
+  "window_started": false
+}

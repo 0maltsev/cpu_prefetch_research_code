@@ -1,0 +1,146 @@
+{
+  "experiment_authority": false,
+  "files": [
+    {
+      "path": "docs/evidence/stage17/Q16C-D287-GUARD-INTEGRATION-20261119-01/REPORT.md",
+      "sha256": "15869d1d6754669ba8e3611077e331c8abea97e1fb8c200874462060bade8ec6",
+      "size_bytes": 4170
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D287-GUARD-INTEGRATION-20261119-01/local-check/continuation-regressions.txt",
+      "sha256": "869a9c102d66165e7a031e8a235972433171a416be80960c17c6e68371358d74",
+      "size_bytes": 104
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D287-GUARD-INTEGRATION-20261119-01/local-check/guard-regressions.txt",
+      "sha256": "a4dfc6ba8d8ee7f993f00a450146247a1360e5c1204cf97b042c9525cb23198e",
+      "size_bytes": 113
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D287-GUARD-INTEGRATION-20261119-01/local-check/integration-tests-debug.txt",
+      "sha256": "46341b727464eab8f5427e7e09a377f95cf32dc11b91a785982f276117f84ae8",
+      "size_bytes": 3297
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D287-GUARD-INTEGRATION-20261119-01/local-check/integration-tests-final.txt",
+      "sha256": "7a3cf683eccf78ee1ef78c484e201fa8b5456320c2d074441f7d47ffa75a2683",
+      "size_bytes": 3523
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D287-GUARD-INTEGRATION-20261119-01/local-check/integration-tests-unsandboxed.txt",
+      "sha256": "a3d7b691d8523013d89623e811d6d71bde571eee30eae11a5dfadc868e7c07ec",
+      "size_bytes": 2683
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D287-GUARD-INTEGRATION-20261119-01/local-check/integration-tests.txt",
+      "sha256": "bf7dee8bc4df507b921684d8bbf9ee3853e23bbf1a387e29edb0fd998f09c112",
+      "size_bytes": 3875
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D287-GUARD-INTEGRATION-20261119-01/local-check/source-regressions.txt",
+      "sha256": "f98f885388feda77d8f15d3acb4d1c73b21aa3b5ec1c693a27a7633b5948619f",
+      "size_bytes": 114
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D287-GUARD-INTEGRATION-20261119-01/recovery-body-identity.json",
+      "sha256": "5503f609ea4d1314b7423c02ced7d13f07155e285029224b85588e845a0fd4ea",
+      "size_bytes": 764
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D287-GUARD-INTEGRATION-20261119-01/run_owner_death_check.py",
+      "sha256": "0d4251cdba7319efc0b12795a8528e4878356915d24829162c9b4676a80ec081",
+      "size_bytes": 3006
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D287-GUARD-INTEGRATION-20261119-01/stand-check/capture-0-after-native-checkpoint.json",
+      "sha256": "bbee9c682cf2ff941d892c471a0d52685ff4daedc69dbf77ca96cda8d4db5012",
+      "size_bytes": 576
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D287-GUARD-INTEGRATION-20261119-01/stand-check/capture-0-before-native-authorization.json",
+      "sha256": "189db40a19a8bc6f3d8e94ab91a192319ff034486c2b0b5020a06f57f7065f8f",
+      "size_bytes": 562
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D287-GUARD-INTEGRATION-20261119-01/stand-check/fault-intent.json",
+      "sha256": "404cabaab5b012c0739325e75a96c10deac97657d2e6f813731814d30713bd4e",
+      "size_bytes": 788
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D287-GUARD-INTEGRATION-20261119-01/stand-check/integration-tests-final.txt",
+      "sha256": "51d0e43bc8f0e1eb3541be14ed88bfc0fa0b33497e3e2c29e154fc26b62dd77a",
+      "size_bytes": 2928
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D287-GUARD-INTEGRATION-20261119-01/stand-check/integration-tests.txt",
+      "sha256": "b360477cfcdaf4fa0af2aa847b75268537dae850e90e750f20623a8b6191c00b",
+      "size_bytes": 2737
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D287-GUARD-INTEGRATION-20261119-01/stand-check/intent.json",
+      "sha256": "f4ba9e08a8e58c8ba7ac732995856f0c52f3557d9f36f2f3275099564ea9506c",
+      "size_bytes": 303
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D287-GUARD-INTEGRATION-20261119-01/stand-check/owner-death-integration-source.py",
+      "sha256": "94ef0160802fc33f3a5524850ac3478d367190b91e78c797d76c3a5f8ae79d82",
+      "size_bytes": 13141
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D287-GUARD-INTEGRATION-20261119-01/stand-check/prepared.json",
+      "sha256": "992bedaab8ae0981a9a662cb916ba7bb3051956dcad5ba21a03c5a7e481670c5",
+      "size_bytes": 105
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D287-GUARD-INTEGRATION-20261119-01/stand-check/remaining-budget-source.json",
+      "sha256": "7228a9441e67d8c544d93a5b82891c65b0721564edf1bc0b45aac53be21ca3ef",
+      "size_bytes": 3508
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D287-GUARD-INTEGRATION-20261119-01/stand-check/restoration.json",
+      "sha256": "2ec733f0dafe28e854ce150848e5a7f519b68bb6ed1ffa5e9187e8394e0289e8",
+      "size_bytes": 252
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D287-GUARD-INTEGRATION-20261119-01/stand-check/result.json",
+      "sha256": "17a927ed10a66ea7c60fd818fbfb0fff8dea2380a9cc84c00a2b0919f68d61f4",
+      "size_bytes": 1403
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D287-GUARD-INTEGRATION-20261119-01/stand-check/stand-evidence.json",
+      "sha256": "e97696e5669db03d1d129e914e4ce8c8ce7eb2b97995bb201a4e1829f98b5d06",
+      "size_bytes": 5630
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D287-GUARD-INTEGRATION-20261119-01/stand-check/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D287-GUARD-INTEGRATION-20261119-01/stand-check/stdout.txt",
+      "sha256": "00c110304504993d1fd699671660c29387e54b83725fe37c70e164efd9d5abef",
+      "size_bytes": 1098
+    },
+    {
+      "path": "tools/stage17_q16c_compaction_integration_v1.py",
+      "sha256": "ef7b8cbd684f2f357a681ae6bc77fc9fea0a23a2739c800184e85fc0d86cd038",
+      "size_bytes": 13702
+    },
+    {
+      "path": "tests/test_stage17_q16c_compaction_integration_v1.py",
+      "sha256": "89d0eb3dcaaae59e6b13b448d08265325a45c701add165ec69c1906914dcd069",
+      "size_bytes": 15890
+    },
+    {
+      "path": "docs/decisions/0287-q16c-compaction-handshake-integration.md",
+      "sha256": "3eecfec76375e3dfa425865347c0efe5ae8ab1c3df931c126881d3a53ba047f5",
+      "size_bytes": 3923
+    },
+    {
+      "path": "docs/decisions/0288-q16c-retained-prefix-continuation-proposal.md",
+      "sha256": "5dc0daf58a4025f6df6d0132f1ef0924bbe19f79b8c94563ac9ab28d301ee2b2",
+      "size_bytes": 7789
+    }
+  ],
+  "schema_version": "cpu-prefetch-d287-evidence-manifest/1"
+}

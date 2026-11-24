@@ -92,7 +92,7 @@ TEST(ScheduleGolden, AcceptedPhiloxAndDecodedArtifactMatch) {
   EXPECT_EQ(decoded.value().decoded_deadlines_sha256(),
             "a07a349e5e95ff170036ffb21361d4d85dc9073177de7687c263ff254517a441");
   EXPECT_EQ(decoded.value().schedule_sha256(),
-            "df42859564d5075cca591b663e9db8a34da1e8a6ee4d81983d797db2bc6944f9");
+            "a55d589efdfd6a7a76b90951343cce75f1729d26a7756d68d871b24fbd340384");
   constexpr std::array<std::uint64_t, 12> first{52,  160, 246, 257, 296, 365,
                                                 413, 570, 688, 872, 963, 1059};
   constexpr std::array<std::uint64_t, 12> last{8963, 9091, 9164, 9299, 9471, 9495,

@@ -1,0 +1,66 @@
+{
+  "execution_authority": false,
+  "files": [
+    {
+      "path": "CMakeLists.txt",
+      "sha256": "36690847fb0fbd48ff759d48e4e01de4eafb77a27c197d2ef7a46f24397ffc19",
+      "size_bytes": 203730
+    },
+    {
+      "path": "tools/stage17_s180_analysis_pool_v1.py",
+      "sha256": "86b4eab2ab8edf441a377fcbb0c72e0404a9fb71d1d60d4efc5636802e5c013d",
+      "size_bytes": 29132
+    },
+    {
+      "path": "tests/test_stage17_s180_analysis_pool_v1.py",
+      "sha256": "d2977e12751a13d29a2d550826128c7674c2c7277ff977e5f36f9b3a8b4d9a07",
+      "size_bytes": 12292
+    },
+    {
+      "path": "tools/stage17_s180_analysis_phase_v1.py",
+      "sha256": "82da140096c15d06e31e94a406a33446ba97343efb51bf46d0daeb1b837b1082",
+      "size_bytes": 7510
+    },
+    {
+      "path": "tools/stage17_s180_archive_analysis_v1.py",
+      "sha256": "9309ff00bb58491fd6534e0cc329ed0994dc4f7ffaddd7cdb245655829191877",
+      "size_bytes": 9935
+    },
+    {
+      "path": "tools/stage17_s180_resource_plan_v1.py",
+      "sha256": "c87409ac49921b231e8b1df7cdec96fdf096f9870c3cd170a70b1ada99ba81de",
+      "size_bytes": 20330
+    },
+    {
+      "path": "tools/stage17_s180_resource_admission_v1.py",
+      "sha256": "a367321e110895a6f6fc9966ea0f2aaa7d8a0da34c5f7b47e770115a68d623c2",
+      "size_bytes": 22533
+    },
+    {
+      "path": "tests/test_stage17_s180_resource_admission_v1.py",
+      "sha256": "c19bf99fadc868d38c5be77a5dac333a0531314d89b97bb2ac26702558c7fcc8",
+      "size_bytes": 23010
+    },
+    {
+      "path": "tools/stage17_process_group_supervisor_v2.py",
+      "sha256": "e32016e241822c5066519b66dff7553eaa57b2f487dbc605f8c7aff95f1cccc9",
+      "size_bytes": 21022
+    },
+    {
+      "path": "tools/stage17_process_group_supervisor_v3.py",
+      "sha256": "37e3fb93fe2176f24d560608fd6d8fb3bcb02ef744ea6afa75db44b1d7be553b",
+      "size_bytes": 8354
+    },
+    {
+      "path": "docs/decisions/0355-s180-owned-twelve-worker-analysis-pool.md",
+      "sha256": "2286c60399577af5fa7ad0401afc3a2ee10893dad2b73d8afa6c8307d442bde3",
+      "size_bytes": 5499
+    }
+  ],
+  "frozen_native": {
+    "path": "build/stage17-s180-release-34247ce/cpu_prefetch_runner",
+    "sha256": "7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc",
+    "size_bytes": 6151832
+  },
+  "recorded_at_utc": "2026-11-23T18:47:24.433588+00:00"
+}

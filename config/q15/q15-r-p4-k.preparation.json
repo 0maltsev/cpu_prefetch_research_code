@@ -1,0 +1,58 @@
+{
+  "schema_version": "cpu-prefetch-q15-r-p4-k-preparation/1",
+  "preparation_id": "Q15-R-P4-K-PREPARATION-20260825-01",
+  "protocol_version": "2.0.0-pre.2",
+  "status": "BLOCKED_OWNER_KEY_SOURCE_CUSTODY_AND_EXACT_AUTHORITY_REQUIRED",
+  "acceptance_binding": {
+    "acceptance_id": "Q15-R-P4-D-ACCEPTANCE-20260825-01",
+    "path": "config/q15/q15-r-p4-d-acceptance-v1.json",
+    "sha256": "1645c2a7fb356272afbf9377b99784e307f54f8a7df5fbb09f46d70edae3c521"
+  },
+  "fixed_policy": {
+    "key_type": "ED25519",
+    "private_key_location": "OFF_STAND_ONLY",
+    "stand_private_key_prohibited": true,
+    "signature_scheme": "OPENSSH-SSHSIG-ED25519-SHA512-v1",
+    "signature_principal": "cpu-prefetch-q15-authorization",
+    "signature_namespace": "cpu-prefetch-q15-authorization",
+    "allowed_signers_destination": "/etc/cpu-prefetch/q15/allowed_signers",
+    "allowed_signers_owner": "root",
+    "allowed_signers_group": "cpu-prefetch-q15-auditor",
+    "allowed_signers_mode": "0640",
+    "canonical_artifact_profile": "OPENSSH-ALLOWED-SIGNERS-SINGLE-ED25519-v1",
+    "independent_sha256_and_fingerprint_verification_required": true
+  },
+  "unresolved_inputs": [
+    {"name": "OWNER_KEY_SOURCE_MODE_EXISTING_OR_NEW_OFFLINE", "value": null},
+    {"name": "OFFLINE_PRIVATE_KEY_CUSTODY_DOMAIN_AND_CUSTODIAN", "value": null},
+    {"name": "ED25519_PUBLIC_KEY_ARTIFACT_ID_BYTES_AND_SHA256", "value": null},
+    {"name": "ED25519_SHA256_FINGERPRINT", "value": null},
+    {"name": "CANONICAL_ALLOWED_SIGNERS_ARTIFACT_ID_BYTES_AND_SHA256", "value": null},
+    {"name": "ALLOWED_SIGNERS_SOURCE_ABSOLUTE_PATH_FOR_LATER_SETUP", "value": null},
+    {"name": "INDEPENDENT_REVIEW_ARTIFACT_ID_AND_SHA256", "value": null},
+    {"name": "NAMED_AUTHORITY_PRINCIPAL_ISSUE_AND_EXPIRY_UTC", "value": null}
+  ],
+  "future_authorization": {
+    "authorization_id": null,
+    "authorization_sha256": null,
+    "issued_at_utc": null,
+    "expires_at_utc": null,
+    "named_authority_principal": null,
+    "signature_artifact_id": null,
+    "signature_sha256": null,
+    "independent_review_artifact_id": null,
+    "independent_review_sha256": null,
+    "status": "NOT_ISSUED"
+  },
+  "authority_boundary": {
+    "repository_local_preparation_authorized": true,
+    "stand_access_authorized": false,
+    "key_generation_authorized": false,
+    "key_import_copy_or_fingerprint_execution_authorized": false,
+    "allowed_signers_artifact_creation_authorized": false,
+    "private_key_on_stand_authorized": false,
+    "transfer_install_or_setup_authorized": false,
+    "q15_r_or_q15_w_authorized": false,
+    "calibration_pilot_measurement_or_confirmatory_authorized": false
+  }
+}

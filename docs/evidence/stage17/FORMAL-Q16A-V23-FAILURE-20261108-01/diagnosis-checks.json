@@ -1,0 +1,22 @@
+{
+  "direct_failure": "five preopened cpuset environment reads returned ENODEV before warmup",
+  "capture_ordinal": 177,
+  "completed_native_captures": 177,
+  "planned_captures": 708,
+  "prior_capture_environment_samples_passed": 516,
+  "failed_capture_environment_samples_passed": 81,
+  "failed_capture_environment_samples_failed": 5,
+  "failed_paths": [
+    "/sys/fs/cgroup/cpu-prefetch-v5-formal-v23-qualified-1/cpuset.cpus",
+    "/sys/fs/cgroup/cpu-prefetch-v5-formal-v23-qualified-1/cpuset.cpus.effective",
+    "/sys/fs/cgroup/cpu-prefetch-v5-formal-v23-qualified-1/cpuset.cpus.exclusive",
+    "/sys/fs/cgroup/cpu-prefetch-v5-formal-v23-qualified-1/cpuset.cpus.partition",
+    "/sys/fs/cgroup/cpu-prefetch-v5-formal-v23-qualified-1/cpuset.mems.effective"
+  ],
+  "source_hash_comparisons_passed": 8,
+  "original_evidence_hashes_passed": 6,
+  "restoration_summary_schema_bug_reproduced_from_actual_receipt": true,
+  "raw_archives_modified": false,
+  "experiment_restarted": false,
+  "all_177_scientifically_validated": false
+}

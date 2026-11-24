@@ -1,0 +1,315 @@
+{
+  "files": [
+    {
+      "path": "REPORT.md",
+      "sha256": "72369ab88e7b73289ff219eddf3fcb4a558601b70a4aebe9e1bafd805e1b4262",
+      "size_bytes": 6490
+    },
+    {
+      "path": "actual-completion-metadata/daycap-collection-preparation-1/family-registration.json",
+      "sha256": "3f76d40ecbbddc8f7233f26f74763a74e02cdf3e4ac0c4fdb05136438b8ca7a0",
+      "size_bytes": 1524
+    },
+    {
+      "path": "actual-completion-metadata/daycap-collection-preparation-1/prepared-phase.json",
+      "sha256": "c63e21e5eac1dba51184209624d4235a25f8154b84d291f8353c3b9eb68115a8",
+      "size_bytes": 3576
+    },
+    {
+      "path": "actual-completion-metadata/daycap-resume-launch-2.json",
+      "sha256": "1bb7c54549eea1352cf1c6f514d55af77553feb9a6269927cb1f7ce691c400d2",
+      "size_bytes": 1713
+    },
+    {
+      "path": "actual-completion-metadata/isolation-resume-1/prospective-prestate.json",
+      "sha256": "651d008877c83bab0bcfeba7b3e9744d4ff4eb1b646a76a29a70582be7147b3b",
+      "size_bytes": 2387
+    },
+    {
+      "path": "actual-completion-metadata/namespace-permission-repair-1.json",
+      "sha256": "5802930bc4efeda3f9de9c079694af33e36b69d6387967c54ea383575821247c",
+      "size_bytes": 441
+    },
+    {
+      "path": "actual-native-start.json",
+      "sha256": "3e4bcb420390b971058a609179ffdf0ef3237bf55f896b5f7f777c76547cd90d",
+      "size_bytes": 5672
+    },
+    {
+      "path": "additional-tests.log",
+      "sha256": "61fef6f523f57d530cead02be6ed37066bb88f9634053c903c5386cdacfff1aa",
+      "size_bytes": 104
+    },
+    {
+      "path": "cleanup.json",
+      "sha256": "0962cb56b07ba537557b5240af2c93c3ace99518bc40ad155549aae6665ee430",
+      "size_bytes": 873
+    },
+    {
+      "path": "continuation-additional-tests.log",
+      "sha256": "92ff2cc6c582b89a3009e329b5905746d2e0f3c1603080baa05c427eb40585aa",
+      "size_bytes": 104
+    },
+    {
+      "path": "continuation-bindings.json",
+      "sha256": "119dbcf8b27f184864421c8a9c0eaed9a42dcda1f28db3b63f13f14dbc12c28f",
+      "size_bytes": 397
+    },
+    {
+      "path": "continuation-handoff-2.json",
+      "sha256": "42482367dce79b51eeb277b8b86d693dcecad36b55911f82969dd18f4c6b79e9",
+      "size_bytes": 850
+    },
+    {
+      "path": "continuation-handoff-3.json",
+      "sha256": "5e9d24651e1f9f07c363dac0e8bdaa60959af3d9b5288d5201d0688da9d3c261",
+      "size_bytes": 594
+    },
+    {
+      "path": "continuation-handoff-4.json",
+      "sha256": "154a7e8a53efac11fdf547527087811006686cc12389c9c68e88fae0eb530761",
+      "size_bytes": 590
+    },
+    {
+      "path": "continuation-handoff-5.json",
+      "sha256": "1de0a0ed454c9d45bf879b4df524cd91daec11fdcad1c0e1a875acee2fc23159",
+      "size_bytes": 4757
+    },
+    {
+      "path": "continuation-launch.log",
+      "sha256": "dbc5948eb44d51ee25c18d6030f3259a07d9df7ccfc16dff9c6ec976a3203825",
+      "size_bytes": 1714
+    },
+    {
+      "path": "continuation-operator-inventory.json",
+      "sha256": "54043fa3ba8acfe42acf9ed6d7cd099c002793a61a0aa93810a9e642689f5950",
+      "size_bytes": 1534
+    },
+    {
+      "path": "continuation-operators/administration_loader.py",
+      "sha256": "89414cb4502a3187f6b7f5dbb4a5ec747e34c0f34b0c1ba67f44f34e6ce03b0f",
+      "size_bytes": 2028
+    },
+    {
+      "path": "continuation-operators/analyze_daycap.py",
+      "sha256": "3a771d5fa64ffcbaee08afc4d98b1ffdc47f6f5cd487c48fcbe812b87a54ca2b",
+      "size_bytes": 13162
+    },
+    {
+      "path": "continuation-operators/audit_namespaces_daycap.py",
+      "sha256": "36ead49e065ef401589942f177e5205b4ae3a2f16c8490dfc32ff14a2ebf83a2",
+      "size_bytes": 19383
+    },
+    {
+      "path": "continuation-operators/daycap_cli.py",
+      "sha256": "481b2f9a5edb46ee12bcf3a0766c255bb86a217136d95821e382d8af7a382752",
+      "size_bytes": 2786
+    },
+    {
+      "path": "continuation-operators/daycap_inputs.py",
+      "sha256": "8866e6186f34e6af800a4392c889a1a811cd1e474ad513de0b44043ed94afff2",
+      "size_bytes": 2453
+    },
+    {
+      "path": "continuation-operators/owner_check.py",
+      "sha256": "07e6d71a267767073fc923353bd8532aac6b559db0f32a43fb58240fd71cce62",
+      "size_bytes": 3479
+    },
+    {
+      "path": "continuation-operators/preparation_prefix.py",
+      "sha256": "0cc1dea02ce51ca832090f91464cadf217db6ab97258e5e6f528f422285663c2",
+      "size_bytes": 3910
+    },
+    {
+      "path": "continuation-operators/prepare_collection.py",
+      "sha256": "d882af2ec81eebe13d57e590f4ad859ef26beaacfd9eee046b434f04391b056d",
+      "size_bytes": 13199
+    },
+    {
+      "path": "continuation-operators/run_daycap_study.py",
+      "sha256": "d43f9f4235399e3b88b8ce9450ff13b9baab1b8771337f90aacc6b890562730a",
+      "size_bytes": 57250
+    },
+    {
+      "path": "continuation-prelaunch.log",
+      "sha256": "3b177ed61ad05e208e35fd961bef4d470b5780a7ad079206275dd75dce7c8d51",
+      "size_bytes": 292
+    },
+    {
+      "path": "continuation-prepare-configuration.json",
+      "sha256": "3f705a0594a48f5fbdfde390e6b91fc1cad8543b3017a2a2efcc9adddcc12096",
+      "size_bytes": 6028
+    },
+    {
+      "path": "continuation-root-tests.log",
+      "sha256": "f7b02333763e66ea4a746ff21076c97cdbc062605e7885581c0526558e5269b1",
+      "size_bytes": 121
+    },
+    {
+      "path": "continuation-startup-1.json",
+      "sha256": "9b37b27bedd136225e6ffce823dafcbf6409b3bc0b8a442c16dc8c955a40806e",
+      "size_bytes": 1196
+    },
+    {
+      "path": "continuation-study-configuration.json",
+      "sha256": "7b2c3d3047ddffec8e4f927b37b887dd62e0bc99616c7e5cc9041e4a9c84a5d6",
+      "size_bytes": 2494
+    },
+    {
+      "path": "continuation_test_resume_additions.py",
+      "sha256": "6d2ae5958380aa213a4766b29948ff2ad2fb7db23016c9d5f665409c278b55de",
+      "size_bytes": 4066
+    },
+    {
+      "path": "continuation_test_resume_study.py",
+      "sha256": "f44956d511c6451eb54c3fad2514091c6f1f2652927bbe1fd985efe629034704",
+      "size_bytes": 26278
+    },
+    {
+      "path": "loader-tests.log",
+      "sha256": "fb9ffd77b956be90dea2d0387eb6dcf73506eabbe78b3a043fdb9ad7860b1f59",
+      "size_bytes": 98
+    },
+    {
+      "path": "local-namespace-audit-summary.json",
+      "sha256": "21e539ddb1c3bde73fd596f79b7a91fe0500d340c9e08d77746b709a0911c4c0",
+      "size_bytes": 6382
+    },
+    {
+      "path": "operator-inventory.json",
+      "sha256": "c4ae7d7b83e3210a22ceb98c493dd07010201468646f64169dd01a138135a77d",
+      "size_bytes": 1278
+    },
+    {
+      "path": "operators/administration_loader.py",
+      "sha256": "89414cb4502a3187f6b7f5dbb4a5ec747e34c0f34b0c1ba67f44f34e6ce03b0f",
+      "size_bytes": 2028
+    },
+    {
+      "path": "operators/analyze_daycap.py",
+      "sha256": "3a771d5fa64ffcbaee08afc4d98b1ffdc47f6f5cd487c48fcbe812b87a54ca2b",
+      "size_bytes": 13162
+    },
+    {
+      "path": "operators/audit_namespaces_daycap.py",
+      "sha256": "36ead49e065ef401589942f177e5205b4ae3a2f16c8490dfc32ff14a2ebf83a2",
+      "size_bytes": 19383
+    },
+    {
+      "path": "operators/daycap_cli.py",
+      "sha256": "481b2f9a5edb46ee12bcf3a0766c255bb86a217136d95821e382d8af7a382752",
+      "size_bytes": 2786
+    },
+    {
+      "path": "operators/daycap_inputs.py",
+      "sha256": "8866e6186f34e6af800a4392c889a1a811cd1e474ad513de0b44043ed94afff2",
+      "size_bytes": 2453
+    },
+    {
+      "path": "operators/owner_check.py",
+      "sha256": "07e6d71a267767073fc923353bd8532aac6b559db0f32a43fb58240fd71cce62",
+      "size_bytes": 3479
+    },
+    {
+      "path": "operators/prepare_collection.py",
+      "sha256": "b778e1f0410412333f78750c0c5c3cd1b3d9e1ba0cb2f48fcae5e629fc5bf56b",
+      "size_bytes": 13083
+    },
+    {
+      "path": "operators/run_daycap_study.py",
+      "sha256": "12e833aa1b130cbeb06fcea9cd23f4b6368c3e98bcd9905506a6efef0392aed1",
+      "size_bytes": 57232
+    },
+    {
+      "path": "prefix-tests.log",
+      "sha256": "8137c580c0848ac31121cb65f5b70856b511279b6e8b8f1fcbace534c625b287",
+      "size_bytes": 105
+    },
+    {
+      "path": "preparation-prefix.json",
+      "sha256": "016f161349239e5334cbc0434379f32767a240f44fc8b62940384e510a2764d5",
+      "size_bytes": 3500
+    },
+    {
+      "path": "prepare-configuration.json",
+      "sha256": "a5c21375235e97e0f67b21b9411e71c0c72f63dc2684b2ab2c070d53bd8e230e",
+      "size_bytes": 5541
+    },
+    {
+      "path": "publication-bindings.json",
+      "sha256": "dc1fd1944cce748c876aac3f32a6f4bcbefd286b0043419b491e65e85e971a18",
+      "size_bytes": 515
+    },
+    {
+      "path": "publication-inventory.json",
+      "sha256": "7bd907b9f53777a6a6a66eae7d65f02adf2c53dbfb878cd6c53645e65d89cfaf",
+      "size_bytes": 6427
+    },
+    {
+      "path": "retained-qualification.json",
+      "sha256": "ab1914eb0c1d70cf0f3079772fb332d27e56862c29f54f10ab51aee6f4147d23",
+      "size_bytes": 3168
+    },
+    {
+      "path": "root-tests.log",
+      "sha256": "59b42215e722329c1fcc41de13a072129fa60b08e72cd3a74157117a987aaf6d",
+      "size_bytes": 121
+    },
+    {
+      "path": "stand-handoff-1.json",
+      "sha256": "0aa33a28cd003600e04033da9850ed57255d147ea1f8f1f25bff28400fb93ab6",
+      "size_bytes": 326
+    },
+    {
+      "path": "stand-handoff-2.json",
+      "sha256": "df8ecbce4a84aacd66d2bfeb1b35be88f187d4b5bc0a23c60ccd61a72c35f807",
+      "size_bytes": 4862
+    },
+    {
+      "path": "stand-launch.log",
+      "sha256": "745dd6a59b92169ea63029ae1bde1cbd288970895a69e5ca3fbda0285a0f6e85",
+      "size_bytes": 1695
+    },
+    {
+      "path": "stand-prelaunch-check.log",
+      "sha256": "6da0584d7e90f446f8ca2b70dffa9c8f00d19b2515548fb8e3c97fcc487d68f5",
+      "size_bytes": 361
+    },
+    {
+      "path": "stand-resume-inputs.json",
+      "sha256": "648d78461b78a9c9eb14f63d28c8dea2cea7e1d091227a3b927b438661347fc3",
+      "size_bytes": 3635
+    },
+    {
+      "path": "stand-startup-1.json",
+      "sha256": "bc57adf204cfd0e23e969195fd448a9ce1e888020552272c2c26a7118f78bac5",
+      "size_bytes": 1359
+    },
+    {
+      "path": "study-configuration.json",
+      "sha256": "fcc1c24d0958c62f1272afa9017aa19b60bce6cf9ab2c7079d4322ea6c00b88f",
+      "size_bytes": 2494
+    },
+    {
+      "path": "test_administration_loader.py",
+      "sha256": "12e8a85f61c17ccd738e58b4472bf04482e5ab44e9803fbf7460e3cc08b9f98a",
+      "size_bytes": 2488
+    },
+    {
+      "path": "test_preparation_prefix.py",
+      "sha256": "4dc7864b13eb810dd3538de315cc2fa46949d5cd21fa6828b034b0a14f24232c",
+      "size_bytes": 4363
+    },
+    {
+      "path": "test_resume_additions.py",
+      "sha256": "b66c0d8dab0a7ae179615c94fcf47c8b777591e73e326ef17fdd779ddca3a9cb",
+      "size_bytes": 4027
+    },
+    {
+      "path": "test_resume_study.py",
+      "sha256": "a188ae96da6d3f55d851a2974fd686c8a909d18e1a8750d8a2ad3bad3d339df9",
+      "size_bytes": 26265
+    }
+  ],
+  "schema_version": "software-d257-resume-evidence/1"
+}

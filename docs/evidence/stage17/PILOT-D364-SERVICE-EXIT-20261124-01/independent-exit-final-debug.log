@@ -1,0 +1,4 @@
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_exit_v1.py", line 186
+    self.stack.enter_context(mock.patch.object(env,'CG',self.root/'absent-recovery/reserved')))
+                                                                                              ^
+SyntaxError: unmatched ')'

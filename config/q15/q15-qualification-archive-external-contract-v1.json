@@ -1,0 +1,49 @@
+{
+  "schema_version": "cpu-prefetch-q15-qualification-archive-external-contract/1",
+  "contract_id": "Q15-QUALIFICATION-ARCHIVE-EXTERNAL-CONTRACT-v1",
+  "protocol_version": "2.0.0-pre.2",
+  "status": "EXTERNAL_ARTIFACT_REQUIRED_FOR_INTEGRATION_OR_ACTION_NEVER_SELF_TEST",
+  "archive": {
+    "filename": "cpu-prefetch-q15-qualification-tool-2.0.0-34da95d-clean-5fc75063e1d1.tar.gz",
+    "bytes": 4642298,
+    "sha256": "f45d25f4aa6bff56c39face088c46c4cccd21bfaf903c9c320100b561402ff3a"
+  },
+  "sidecar": {
+    "filename": "cpu-prefetch-q15-qualification-tool-2.0.0-34da95d-clean-5fc75063e1d1.tar.gz.sha256",
+    "bytes": 142,
+    "sha256": "f2bf9e3f2ed97541905b7e0fbc24dfa15d3b5c3096bd7e9ab0d23dcdbe0fffd4",
+    "exact_ascii": "f45d25f4aa6bff56c39face088c46c4cccd21bfaf903c9c320100b561402ff3a  cpu-prefetch-q15-qualification-tool-2.0.0-34da95d-clean-5fc75063e1d1.tar.gz\n"
+  },
+  "release_identity": {
+    "source_revision": "34da95d002e912069c959bfef8e88a23b4880cea",
+    "bundle_profile": "q15-qualification-tool",
+    "top_level_directory": "cpu-prefetch-q15-qualification-tool-2.0.0-34da95d-clean-5fc75063e1d1",
+    "collector_sha256": "4716e1dfc2e65fd61dce1ea54a70fd876a0b4322b69d9ad1fde5c67a65c48a57",
+    "collector_contract_sha256": "4123735a940da144e00247957d0210216cde4bf19fbdbea0378b52dab2161b87",
+    "embedded_selected_release_sha256": "8e8ad6d781b2bffadcfc10cf3b12d5666c7a1d4c7d7e291d7318a19503e6ab01"
+  },
+  "restoration": {
+    "exact_restore_mode": "SUPPLY_BYTE_IDENTICAL_CUSTODY_COPY_TO_AN_EXPLICIT_CALLER_PATH",
+    "integration_check_argv": [
+      "python3",
+      "tools/check_q15_qualification_archive.py",
+      "--archive",
+      "EXPLICIT_ARCHIVE_PATH",
+      "--sidecar",
+      "EXPLICIT_SIDECAR_PATH"
+    ],
+    "candidate_rebuild_argv": [
+      ["git", "worktree", "add", "--detach", "EXPLICIT_EMPTY_WORKTREE_PATH", "34da95d002e912069c959bfef8e88a23b4880cea"],
+      ["cmake", "--preset", "release-gcc"],
+      ["cmake", "--build", "--preset", "release-gcc", "--target", "q15-qualification-tool-bundle"],
+      ["python3", "tools/check_q15_qualification_archive.py", "--archive", "EXPLICIT_REBUILT_ARCHIVE_PATH", "--sidecar", "EXPLICIT_REBUILT_SIDECAR_PATH"]
+    ],
+    "mismatch_policy": "REJECT_REBUILT_OR_RESTORED_BYTES_UNLESS_ARCHIVE_AND_SIDECAR_MATCH_EXACT_CONTRACT"
+  },
+  "authority_boundary": {
+    "self_test_may_read_external_artifact": false,
+    "integration_check_may_read_explicit_paths": true,
+    "stand_access_authorized": false,
+    "execution_authorized": false
+  }
+}

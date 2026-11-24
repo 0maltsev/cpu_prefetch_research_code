@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:fixed-action-context:v7",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "authorization_id",
+    "authorization_sha256",
+    "request_id",
+    "request_sha256",
+    "session_id",
+    "attempt_id",
+    "action_id",
+    "fixed_action_definition_sha256",
+    "runtime_sha256",
+    "release_sha256",
+    "predecessor_sha256s",
+    "issued_at_epoch_seconds",
+    "expires_at_epoch_seconds",
+    "per_run_deadline_seconds",
+    "synthetic_test_only",
+    "phase18_authority",
+    "session_deadline_seconds",
+    "schedule_source_context"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "cpu-prefetch-stage17-fixed-action-context/7"
+    },
+    "authorization_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authorization_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "request_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "request_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "session_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "attempt_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "action_id": {
+      "const": "Q16c"
+    },
+    "fixed_action_definition_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "runtime_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "release_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "predecessor_sha256s": {
+      "type": "array",
+      "minItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/sha256"
+      }
+    },
+    "issued_at_epoch_seconds": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "expires_at_epoch_seconds": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "per_run_deadline_seconds": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "synthetic_test_only": {
+      "type": "boolean"
+    },
+    "phase18_authority": {
+      "const": false
+    },
+    "session_deadline_seconds": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "archive_channel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "descriptor",
+        "controller_pid",
+        "program_scope_sha256"
+      ],
+      "properties": {
+        "descriptor": {
+          "type": "integer",
+          "minimum": 3,
+          "maximum": 2147483647
+        },
+        "controller_pid": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2147483647
+        },
+        "program_scope_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "schedule_source_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "bindings",
+        "deadline_monotonic_ns"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "cpu-prefetch-stage17-schedule-source-context/1"
+        },
+        "deadline_monotonic_ns": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 18446744073709551615
+        },
+        "bindings": {
+          "type": "array",
+          "minItems": 360,
+          "maxItems": 360,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "artifact_id",
+              "sha256",
+              "size_bytes",
+              "descriptor"
+            ],
+            "properties": {
+              "artifact_id": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,255}$"
+              },
+              "sha256": {
+                "$ref": "#/$defs/sha256"
+              },
+              "size_bytes": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 18446744073709551615
+              },
+              "descriptor": {
+                "type": "integer",
+                "minimum": 3,
+                "maximum": 2147483647
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

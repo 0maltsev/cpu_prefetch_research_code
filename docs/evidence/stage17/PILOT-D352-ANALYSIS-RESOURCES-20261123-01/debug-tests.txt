@@ -1,0 +1,135 @@
+....E.E...EE..E..
+======================================================================
+ERROR: test_changed_live_memory_latches_failure_even_if_memory_recovers (__main__.ResourceTests.test_changed_live_memory_latches_failure_even_if_memory_recovers)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_resource_admission_v1.py", line 288, in test_changed_live_memory_latches_failure_even_if_memory_recovers
+    owner,payload,view,source,environment,observed=self.live_fixture()
+                                                   ~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_resource_admission_v1.py", line 250, in live_fixture
+    s180_compaction_fixture.attach(self,environment,root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 244, in prepare
+    supervision.check()
+    ~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 135, in check
+    require(hashlib.sha256(_root_file(self.script.path,1024**2)).hexdigest()==self.script.sha256,
+                           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 88, in _root_file
+    require(s.st_uid==0 and s.st_nlink==1 and not s.st_mode&0o022,'root-owned protected record required')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 46, in require
+    if not value:raise CompactionError('S180 compaction: '+message)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_compaction_v1.CompactionError: S180 compaction: root-owned protected record required
+
+======================================================================
+ERROR: test_foreign_evidence_and_prior_binding_cannot_admit_or_supply_historical_context (__main__.ResourceTests.test_foreign_evidence_and_prior_binding_cannot_admit_or_supply_historical_context)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_resource_admission_v1.py", line 302, in test_foreign_evidence_and_prior_binding_cannot_admit_or_supply_historical_context
+    owner,payload,view,_,_,_=self.live_fixture()
+                             ~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_resource_admission_v1.py", line 250, in live_fixture
+    s180_compaction_fixture.attach(self,environment,root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 244, in prepare
+    supervision.check()
+    ~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 135, in check
+    require(hashlib.sha256(_root_file(self.script.path,1024**2)).hexdigest()==self.script.sha256,
+                           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 88, in _root_file
+    require(s.st_uid==0 and s.st_nlink==1 and not s.st_mode&0o022,'root-owned protected record required')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 46, in require
+    if not value:raise CompactionError('S180 compaction: '+message)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_compaction_v1.CompactionError: S180 compaction: root-owned protected record required
+
+======================================================================
+ERROR: test_live_original_transaction_rechecks_sources_storage_and_returns_only_scoped_context (__main__.ResourceTests.test_live_original_transaction_rechecks_sources_storage_and_returns_only_scoped_context)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_resource_admission_v1.py", line 278, in test_live_original_transaction_rechecks_sources_storage_and_returns_only_scoped_context
+    owner,payload,view,source,environment,observed=self.live_fixture()
+                                                   ~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_resource_admission_v1.py", line 250, in live_fixture
+    s180_compaction_fixture.attach(self,environment,root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 244, in prepare
+    supervision.check()
+    ~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 135, in check
+    require(hashlib.sha256(_root_file(self.script.path,1024**2)).hexdigest()==self.script.sha256,
+                           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 88, in _root_file
+    require(s.st_uid==0 and s.st_nlink==1 and not s.st_mode&0o022,'root-owned protected record required')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 46, in require
+    if not value:raise CompactionError('S180 compaction: '+message)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_compaction_v1.CompactionError: S180 compaction: root-owned protected record required
+
+======================================================================
+ERROR: test_original_deadline_is_not_renewed_by_semantic_replay (__main__.ResourceTests.test_original_deadline_is_not_renewed_by_semantic_replay)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_resource_admission_v1.py", line 312, in test_original_deadline_is_not_renewed_by_semantic_replay
+    owner,payload,view,_,_,_=self.live_fixture();original=json.loads(owner.report())
+                             ~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_resource_admission_v1.py", line 250, in live_fixture
+    s180_compaction_fixture.attach(self,environment,root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 244, in prepare
+    supervision.check()
+    ~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 135, in check
+    require(hashlib.sha256(_root_file(self.script.path,1024**2)).hexdigest()==self.script.sha256,
+                           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 88, in _root_file
+    require(s.st_uid==0 and s.st_nlink==1 and not s.st_mode&0o022,'root-owned protected record required')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 46, in require
+    if not value:raise CompactionError('S180 compaction: '+message)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_compaction_v1.CompactionError: S180 compaction: root-owned protected record required
+
+======================================================================
+ERROR: test_q15_external_metadata_cannot_be_omitted_from_admission (__main__.ResourceTests.test_q15_external_metadata_cannot_be_omitted_from_admission)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_resource_admission_v1.py", line 299, in test_q15_external_metadata_cannot_be_omitted_from_admission
+    with self.assertRaisesRegex(gate.ResourceError,'recovery/Q15 metadata'):self.live_fixture()
+                                                                            ~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_resource_admission_v1.py", line 250, in live_fixture
+    s180_compaction_fixture.attach(self,environment,root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 244, in prepare
+    supervision.check()
+    ~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 135, in check
+    require(hashlib.sha256(_root_file(self.script.path,1024**2)).hexdigest()==self.script.sha256,
+                           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 88, in _root_file
+    require(s.st_uid==0 and s.st_nlink==1 and not s.st_mode&0o022,'root-owned protected record required')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 46, in require
+    if not value:raise CompactionError('S180 compaction: '+message)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_compaction_v1.CompactionError: S180 compaction: root-owned protected record required
+
+----------------------------------------------------------------------
+Ran 17 tests in 19.792s
+
+FAILED (errors=5)

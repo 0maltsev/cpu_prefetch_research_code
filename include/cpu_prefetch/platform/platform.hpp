@@ -20,6 +20,33 @@ namespace cpu_prefetch::platform {
 inline constexpr std::string_view kPlatformEvidenceVersion =
     "LINUX-PLATFORM-EVIDENCE-v1";
 
+// Q15-P0 fixes only this candidate-stand mapping. The interface deliberately
+// has no arbitrary MSR address or mask parameter.
+inline constexpr std::string_view kHardwarePrefetchMappingId =
+    "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1";
+inline constexpr std::uint32_t kIntelFamily6 = 0x06U;
+inline constexpr std::uint32_t kIntelModel55 = 0x55U;
+inline constexpr std::uint32_t kHardwarePrefetchMsr = 0x1A4U;
+inline constexpr std::uint64_t kHardwarePrefetchDisableMask = 0x0fU;
+inline constexpr std::array<std::uint32_t, 3U> kHardwarePrefetchControlCpus{0U, 1U,
+                                                                            26U};
+
+// ADR-0172: a second, honestly-distinct sibling mapping for Ivy Bridge-EP
+// (06_3EH). Same MSR, mask, and H0/H1 semantics as kIntelModel55's mapping --
+// only the accepted CPUID model and mapping_id string differ.
+inline constexpr std::uint32_t kIntelModel3E = 0x3EU;
+// ADR-0173: cpu-prefetch-v5's own real, topology-evidence-backed pair
+// identity (CPU-PREFETCH-V5-P0-NEAR-0-1-FAR-0-8-v1) -- producer CPU 0,
+// consumer CPU 1 (NEAR, same NUMA/package/LLC domain as CPU 0), consumer
+// CPU 8 (FAR, crosses NUMA/package/LLC). Not the same CPU numbers as
+// kHardwarePrefetchControlCpus by coincidence of convention only; this set
+// is independently verified for this stand's own real topology, not
+// reused from ADR-0043's.
+inline constexpr std::array<std::uint32_t, 3U> kHardwarePrefetchControlCpusV5{0U, 1U,
+                                                                              8U};
+inline constexpr std::string_view kHardwarePrefetchMappingId3E =
+    "INTEL-06_3EH-MSR-1A4-DISABLE-0_3-v1";
+
 enum class ErrorCategory : std::uint8_t {
   parse_error,
   missing_evidence,
@@ -67,6 +94,10 @@ public:
   [[nodiscard]] auto value() & -> T& { return std::get<0>(storage_); }
   [[nodiscard]] auto value() const& -> const T& { return std::get<0>(storage_); }
   [[nodiscard]] auto value() && -> T&& { return std::get<0>(std::move(storage_)); }
+  [[nodiscard]] auto value_if() noexcept -> T* { return std::get_if<0>(&storage_); }
+  [[nodiscard]] auto value_if() const noexcept -> const T* {
+    return std::get_if<0>(&storage_);
+  }
   [[nodiscard]] auto errors() const -> const std::vector<Error>& {
     static const std::vector<Error> no_errors;
     return has_value() ? no_errors : std::get<1>(storage_);
@@ -276,6 +307,103 @@ struct RequestedState final {
 
   auto operator==(const RequestedState&) const -> bool = default;
 };
+
+struct CpuFamilyModel final {
+  std::uint32_t family;
+  std::uint32_t model;
+
+  auto operator==(const CpuFamilyModel&) const -> bool = default;
+};
+
+// ADR-0172: a named, honestly-scoped per-model registry. control_cpus is
+// std::nullopt exactly when no pair-identity ADR (the same kind ADR-0043
+// provided for 06_55H) has yet assigned a CPU set for that model -- never an
+// empty-but-valid span, which would let an empty prestate vacuously "match"
+// an empty CPU set and silently succeed instead of failing closed.
+struct HardwarePrefetchMapping final {
+  std::uint32_t family;
+  std::uint32_t model;
+  std::string_view mapping_id;
+  std::optional<std::span<const std::uint32_t>> control_cpus;
+};
+
+inline constexpr std::array<HardwarePrefetchMapping, 2U> kHardwarePrefetchMappings{{
+    {kIntelFamily6, kIntelModel55, kHardwarePrefetchMappingId,
+     std::span<const std::uint32_t>(kHardwarePrefetchControlCpus)},
+    {kIntelFamily6, kIntelModel3E, kHardwarePrefetchMappingId3E,
+     std::span<const std::uint32_t>(kHardwarePrefetchControlCpusV5)},
+}};
+
+// Looks up the registered mapping for a CPUID family/model, if any. Returns
+// std::nullopt for any unregistered CPU, not just the ones a caller happens
+// to reject explicitly.
+[[nodiscard]] auto find_hardware_prefetch_mapping(CpuFamilyModel identity)
+    -> std::optional<HardwarePrefetchMapping>;
+
+// True iff mapping_id names any currently registered mapping, independent of
+// whether that mapping has an accepted CPU set yet.
+[[nodiscard]] auto is_accepted_hardware_prefetch_mapping_id(std::string_view mapping_id)
+    -> bool;
+
+struct HardwarePrefetchMsrValue final {
+  std::uint32_t cpu;
+  std::uint64_t value;
+
+  auto operator==(const HardwarePrefetchMsrValue&) const -> bool = default;
+};
+
+struct HardwarePrefetchPlan final {
+  CpuFamilyModel identity;
+  protocol::RequestedHardwareState requested_state;
+  std::vector<HardwarePrefetchMsrValue> prestate;
+  std::vector<HardwarePrefetchMsrValue> requested;
+  bool mutating;
+};
+
+struct BackendResult;
+
+// Plan construction accepts only the selected model, selected CPUs and H0/H1.
+// H0 preserves the observed default exactly. H1 preserves bits 63:4 and sets
+// documented disable bits 3:0. A prestate with every disable bit already set
+// is rejected because H0/H1 would collapse on that owner CPU.
+[[nodiscard]] auto make_hardware_prefetch_plan(
+    CpuFamilyModel identity, protocol::RequestedHardwareState requested_state,
+    std::span<const HardwarePrefetchMsrValue> prestate) -> Result<HardwarePrefetchPlan>;
+
+class HardwarePrefetchMsrBackend {
+public:
+  virtual ~HardwarePrefetchMsrBackend() = default;
+  [[nodiscard]] virtual auto backend_id() const -> std::string_view = 0;
+  [[nodiscard]] virtual auto read(std::uint32_t cpu) -> Result<std::uint64_t> = 0;
+  [[nodiscard]] virtual auto write(std::uint32_t cpu, std::uint64_t value)
+      -> BackendResult = 0;
+};
+
+struct HardwarePrefetchProbeInput final {
+  bool regular_stream_passed;
+  bool pointer_stream_passed;
+};
+
+struct HardwarePrefetchTransactionReport final {
+  bool applied;
+  bool verified;
+  bool probes_passed;
+  bool restored;
+  bool quarantined;
+  std::vector<HardwarePrefetchMsrValue> apply_readback;
+  std::vector<HardwarePrefetchMsrValue> restore_readback;
+  std::vector<Error> errors;
+};
+
+// The writer and verifier must be independent backends. Every H1 transaction
+// restores the complete 64-bit prestate and verifies restoration, including
+// after an apply/readback/probe failure. No caller can supply an MSR number or
+// mask. This function is exercised with fake backends until an exact Q15
+// authorizes a hash-bound privileged adapter on the candidate stand.
+[[nodiscard]] auto qualify_hardware_prefetch_plan(
+    const HardwarePrefetchPlan& plan, HardwarePrefetchMsrBackend& writer,
+    HardwarePrefetchMsrBackend& independent_verifier, HardwarePrefetchProbeInput probes)
+    -> HardwarePrefetchTransactionReport;
 
 [[nodiscard]] auto detect_capabilities(const PlatformInventory& inventory)
     -> std::vector<Capability>;

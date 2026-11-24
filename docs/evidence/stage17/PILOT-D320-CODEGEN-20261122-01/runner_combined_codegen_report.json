@@ -1,0 +1,753 @@
+{
+  "schema_version": "cpu-prefetch-runner-combined-codegen/3",
+  "scope": "correctness-only; no performance observation",
+  "software_prefetch_mapping_id": "X86-64-PREFETCHW-PREFETCHT0-v1",
+  "software_prefetch_mapping_ids": [
+    "X86-64-PREFETCHW-PREFETCHT0-v1",
+    "X86-64-PREFETCHT0-ONLY-v1"
+  ],
+  "binary_sha256": "d305bd5d48dcaddcbdf3af9fcc32beb8f2e9c640014cf8e16566df27dadee824",
+  "mutant_sha256": "e7142f666f6b6e389ae21361031dbc7e92252ed0a9ca1b847c15dda8080b313b",
+  "rule_set_sha256": "6877ecbe84a4c8fc74e0264e6896ac252114a02f995ea2cb8b5d32b6324e9b6d",
+  "source_evidence": {
+    "include/cpu_prefetch/lifecycle/executor.hpp": "dfb4340b23fdfe2d61eba96c68b9d9077a299f3ea5f89854df30ba10b25f1164",
+    "include/cpu_prefetch/queue/linked_spsc.hpp": "5513659adbe1d6da2c3c039ec9e47453a5d74e394c3fc4b13aea77710d11b291",
+    "include/cpu_prefetch/queue/ring_spsc.hpp": "ba91404fe69120f79ed00e303c8666d7b042870a264ad10f9253c2309f560dad",
+    "include/cpu_prefetch/storage/capture_backend.hpp": "721bd6ed666db97270176c34eb27531e2766b04e60bd37c4f05e468612d27b2e",
+    "include/cpu_prefetch/timing/capture.hpp": "57c777753b0b64d1d09ec6e0c72dc7171ea23036860d0572f32825a01e506d67",
+    "include/cpu_prefetch/runner/software_prefetch.hpp": "37c6bb10b9e618a51c273379f4f7d439de09cad5facc3e2b532815a40d66167d",
+    "include/cpu_prefetch/workload/packages.hpp": "aea8df7ddce6ff753d69813b5b5b3f9a9fac313297542d8768d06c2b146e5674",
+    "src/storage/raw_observations.cpp": "e0f38f893a328674e776ba8e69c40a03a57657df520eafc2647bbebee4658acb",
+    "tools/runner_combined_codegen_probe.cpp": "ece9ecd4a4b8d5ae9ce77a9d0745ce07945e06c0a196b3c6739e8230b67b97f2",
+    "tools/runner_combined_codegen_mutant.cpp": "48a192dab9d719edc6d0fe55cf2a0420e165a3505f14ebab9f1bf5a84c91da02"
+  },
+  "tools": {
+    "GNU_OBJDUMP": {
+      "status": "PASS",
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/objdump",
+      "version": "GNU Binutils 2.46.0",
+      "operations": {
+        "cpu_prefetch_combined_r0_producer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::queue::EventPointer::from(void const*)",
+            "cpu_prefetch::storage::ProducerObservationStream::append(cpu_prefetch::timing::ProducerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::select(cpu_prefetch::workload::LogicalSequence) const",
+            "cpu_prefetch_combined_r0_producer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [],
+          "observed_prefetch_instructions": [],
+          "call_graph_sha256": "6c6ecda1e9faf9d758e4b8354ff2be58aa2eab5119bb6705a96ac80069834d85",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_r0_consumer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::storage::ConsumerObservationStream::append(cpu_prefetch::timing::ConsumerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::access_and_mix(void const*, cpu_prefetch::workload::ConsumerState&) const",
+            "cpu_prefetch_combined_r0_consumer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [],
+          "observed_prefetch_instructions": [],
+          "call_graph_sha256": "871d64c9935740c1680eb9c468a9e38a9396155941326d84c44cb4f3908d4b90",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_r1_producer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::queue::EventPointer::from(void const*)",
+            "cpu_prefetch::storage::ProducerObservationStream::append(cpu_prefetch::timing::ProducerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::select(cpu_prefetch::workload::LogicalSequence) const",
+            "cpu_prefetch_combined_r1_producer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [
+            "prefetchw"
+          ],
+          "observed_prefetch_instructions": [
+            "prefetchw"
+          ],
+          "call_graph_sha256": "88726719ea986e689d4bfcaf1b39c828465de9edfe0470a18a5cfa3444883bfb",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_r1_consumer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::storage::ConsumerObservationStream::append(cpu_prefetch::timing::ConsumerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::access_and_mix(void const*, cpu_prefetch::workload::ConsumerState&) const",
+            "cpu_prefetch_combined_r1_consumer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "observed_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "call_graph_sha256": "9cd325eaca8d03ebc20197009555ce54dfa0fe46caec0f3e9080ad5a2eeb403c",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_r2_producer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::queue::EventPointer::from(void const*)",
+            "cpu_prefetch::storage::ProducerObservationStream::append(cpu_prefetch::timing::ProducerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::select(cpu_prefetch::workload::LogicalSequence) const",
+            "cpu_prefetch_combined_r2_producer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [
+            "prefetchw"
+          ],
+          "observed_prefetch_instructions": [
+            "prefetchw"
+          ],
+          "call_graph_sha256": "bed13526943eada34dc30c7d7b3ddadda3633ca4cecb97bba87cb7a23d61adb2",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_r2_consumer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::storage::ConsumerObservationStream::append(cpu_prefetch::timing::ConsumerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::access_and_mix(void const*, cpu_prefetch::workload::ConsumerState&) const",
+            "cpu_prefetch_combined_r2_consumer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "observed_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "call_graph_sha256": "7521d036b70c0c37fc22db125c5b2691968bf7a7e08d76d615615f6ed75cb0cb",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_l0_producer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::queue::EventPointer::from(void const*)",
+            "cpu_prefetch::storage::ProducerObservationStream::append(cpu_prefetch::timing::ProducerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::select(cpu_prefetch::workload::LogicalSequence) const",
+            "cpu_prefetch_combined_l0_producer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [],
+          "observed_prefetch_instructions": [],
+          "call_graph_sha256": "3b9321d18df88b8f9281b2ad425b8922bd8f0a94b0e15cf703812e4709959e3e",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_l0_consumer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::storage::ConsumerObservationStream::append(cpu_prefetch::timing::ConsumerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::access_and_mix(void const*, cpu_prefetch::workload::ConsumerState&) const",
+            "cpu_prefetch_combined_l0_consumer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [],
+          "observed_prefetch_instructions": [],
+          "call_graph_sha256": "36163276845f6d06b5495d45f9ec5e042ba5bb4d5446aa4118f182803dc27b55",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_l1_producer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::queue::EventPointer::from(void const*)",
+            "cpu_prefetch::storage::ProducerObservationStream::append(cpu_prefetch::timing::ProducerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::select(cpu_prefetch::workload::LogicalSequence) const",
+            "cpu_prefetch_combined_l1_producer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [],
+          "observed_prefetch_instructions": [],
+          "call_graph_sha256": "1f9cac8511af3590be7c6a0385136978ba4994ce5c6bcdd3365b6f836c2c21a8",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_l1_consumer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::storage::ConsumerObservationStream::append(cpu_prefetch::timing::ConsumerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::access_and_mix(void const*, cpu_prefetch::workload::ConsumerState&) const",
+            "cpu_prefetch_combined_l1_consumer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "observed_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "call_graph_sha256": "88899827806107b6af36bc39b7e2506d6b97edf7f9438dbd17fc93d3e280b717",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_t0only_r1_producer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::queue::EventPointer::from(void const*)",
+            "cpu_prefetch::storage::ProducerObservationStream::append(cpu_prefetch::timing::ProducerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::select(cpu_prefetch::workload::LogicalSequence) const",
+            "cpu_prefetch_combined_t0only_r1_producer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "observed_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "call_graph_sha256": "39c5c5d27a9ef6cd4e1f0438c2b6758324ab25a4f9cc0e122054b5a34d192a39",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_t0only_r1_consumer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::storage::ConsumerObservationStream::append(cpu_prefetch::timing::ConsumerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::access_and_mix(void const*, cpu_prefetch::workload::ConsumerState&) const",
+            "cpu_prefetch_combined_t0only_r1_consumer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "observed_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "call_graph_sha256": "9d95ccad29c75a1384836fec7402fe7fe7b0a3d006d509ecc6c9afc35def724f",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_t0only_r2_producer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::queue::EventPointer::from(void const*)",
+            "cpu_prefetch::storage::ProducerObservationStream::append(cpu_prefetch::timing::ProducerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::select(cpu_prefetch::workload::LogicalSequence) const",
+            "cpu_prefetch_combined_t0only_r2_producer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "observed_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "call_graph_sha256": "9e0aef687ade6d533a323ddb76c389ad7e6e92d96ac5a3c4f285119efdece649",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_t0only_r2_consumer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::storage::ConsumerObservationStream::append(cpu_prefetch::timing::ConsumerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::access_and_mix(void const*, cpu_prefetch::workload::ConsumerState&) const",
+            "cpu_prefetch_combined_t0only_r2_consumer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "observed_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "call_graph_sha256": "3d6d42ae24f3bddca3d58f010eb093f4a5ad8be278d08446a8cbaf812e323cbc",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_t0only_l1_producer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::queue::EventPointer::from(void const*)",
+            "cpu_prefetch::storage::ProducerObservationStream::append(cpu_prefetch::timing::ProducerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::select(cpu_prefetch::workload::LogicalSequence) const",
+            "cpu_prefetch_combined_t0only_l1_producer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [],
+          "observed_prefetch_instructions": [],
+          "call_graph_sha256": "b382f7a7136cbb54b9a287d3717df02d9eb7a3b928c7de9bfe7145ada4d084d2",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_t0only_l1_consumer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::storage::ConsumerObservationStream::append(cpu_prefetch::timing::ConsumerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::access_and_mix(void const*, cpu_prefetch::workload::ConsumerState&) const",
+            "cpu_prefetch_combined_t0only_l1_consumer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "observed_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "call_graph_sha256": "f036b44cdd1306f29089d262a1b9835a0563f8833735e40aca9c721f27e137a5",
+          "forbidden_operations": []
+        }
+      },
+      "negative_mutant": {
+        "status": "EXPECTED_REJECTION",
+        "forbidden_work_detected": [
+          "malloc@plt",
+          "sched_yield@plt"
+        ],
+        "prefetch_mapping_rejections": {
+          "cpu_prefetch_combined_wrong_write_prefetch_mutant": "cpu_prefetch_combined_wrong_write_prefetch_mutant software-prefetch mapping mismatch: expected=['prefetchw'], observed=['prefetcht0']",
+          "cpu_prefetch_combined_wrong_read_prefetch_mutant": "cpu_prefetch_combined_wrong_read_prefetch_mutant software-prefetch mapping mismatch: expected=['prefetcht0'], observed=['prefetchw']",
+          "cpu_prefetch_combined_duplicate_read_prefetch_mutant": "cpu_prefetch_combined_duplicate_read_prefetch_mutant software-prefetch mapping mismatch: expected=['prefetcht0'], observed=['prefetcht0', 'prefetcht0']",
+          "cpu_prefetch_combined_wrong_producer_t0only_mutant": "cpu_prefetch_combined_wrong_producer_t0only_mutant software-prefetch mapping mismatch: expected=['prefetcht0'], observed=['prefetchw']"
+        }
+      },
+      "full_disassembly_sha256": "ac568d5a4681ed67f34684b92bbb9253b6c84e5899737a6bab373e9749d36d97"
+    },
+    "LLVM_OBJDUMP": {
+      "status": "PASS",
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/llvm-objdump",
+      "version": "LLVM 22.1.6",
+      "operations": {
+        "cpu_prefetch_combined_r0_producer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::queue::EventPointer::from(void const*)",
+            "cpu_prefetch::storage::ProducerObservationStream::append(cpu_prefetch::timing::ProducerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::select(cpu_prefetch::workload::LogicalSequence) const",
+            "cpu_prefetch_combined_r0_producer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [],
+          "observed_prefetch_instructions": [],
+          "call_graph_sha256": "601b6e880b146d032f45a1b00ef0a3fc577abe172692dc5ca2de511c361fab3d",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_r0_consumer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::storage::ConsumerObservationStream::append(cpu_prefetch::timing::ConsumerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::access_and_mix(void const*, cpu_prefetch::workload::ConsumerState&) const",
+            "cpu_prefetch_combined_r0_consumer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [],
+          "observed_prefetch_instructions": [],
+          "call_graph_sha256": "636f90400aab8e920bf7aba2508698ef28fd5d5d377d31ad237d23c24688a74e",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_r1_producer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::queue::EventPointer::from(void const*)",
+            "cpu_prefetch::storage::ProducerObservationStream::append(cpu_prefetch::timing::ProducerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::select(cpu_prefetch::workload::LogicalSequence) const",
+            "cpu_prefetch_combined_r1_producer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [
+            "prefetchw"
+          ],
+          "observed_prefetch_instructions": [
+            "prefetchw"
+          ],
+          "call_graph_sha256": "7bd4f7d574a21b0c2dd6a04028bf7d3cab2ea94368ec44a0983810d10c2f5fc8",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_r1_consumer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::storage::ConsumerObservationStream::append(cpu_prefetch::timing::ConsumerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::access_and_mix(void const*, cpu_prefetch::workload::ConsumerState&) const",
+            "cpu_prefetch_combined_r1_consumer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "observed_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "call_graph_sha256": "494d34424d723c0d0126a60ba86cad6826334d32696347c4acf33496b72c61a9",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_r2_producer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::queue::EventPointer::from(void const*)",
+            "cpu_prefetch::storage::ProducerObservationStream::append(cpu_prefetch::timing::ProducerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::select(cpu_prefetch::workload::LogicalSequence) const",
+            "cpu_prefetch_combined_r2_producer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [
+            "prefetchw"
+          ],
+          "observed_prefetch_instructions": [
+            "prefetchw"
+          ],
+          "call_graph_sha256": "de5baae9340da8e0f64d2a1c4c74f321c1612b06c31127ba87e6731e0656f754",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_r2_consumer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::storage::ConsumerObservationStream::append(cpu_prefetch::timing::ConsumerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::access_and_mix(void const*, cpu_prefetch::workload::ConsumerState&) const",
+            "cpu_prefetch_combined_r2_consumer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "observed_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "call_graph_sha256": "21113b4f2341f61db8662ed825eae22fde317b637396164ec1356348c434197c",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_l0_producer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::queue::EventPointer::from(void const*)",
+            "cpu_prefetch::storage::ProducerObservationStream::append(cpu_prefetch::timing::ProducerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::select(cpu_prefetch::workload::LogicalSequence) const",
+            "cpu_prefetch_combined_l0_producer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [],
+          "observed_prefetch_instructions": [],
+          "call_graph_sha256": "89a854fd486f9e5f317305dafd99f788a0888ba042a79cc6e414c34956d08436",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_l0_consumer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::storage::ConsumerObservationStream::append(cpu_prefetch::timing::ConsumerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::access_and_mix(void const*, cpu_prefetch::workload::ConsumerState&) const",
+            "cpu_prefetch_combined_l0_consumer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [],
+          "observed_prefetch_instructions": [],
+          "call_graph_sha256": "1838c70cba25ee5ea6ed61273b77c7855c46bf1196b9c4bc0ff5def8d31d614c",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_l1_producer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::queue::EventPointer::from(void const*)",
+            "cpu_prefetch::storage::ProducerObservationStream::append(cpu_prefetch::timing::ProducerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::select(cpu_prefetch::workload::LogicalSequence) const",
+            "cpu_prefetch_combined_l1_producer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [],
+          "observed_prefetch_instructions": [],
+          "call_graph_sha256": "b5fffd9d9eca4e9cbeb9362b714fae529d55ef507aa446f2dc19d449279606e0",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_l1_consumer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::storage::ConsumerObservationStream::append(cpu_prefetch::timing::ConsumerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::access_and_mix(void const*, cpu_prefetch::workload::ConsumerState&) const",
+            "cpu_prefetch_combined_l1_consumer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "observed_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "call_graph_sha256": "148b4271a25c69161705dba56b02f5e16dea9dffe0bdc8f82982a894837a353c",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_t0only_r1_producer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::queue::EventPointer::from(void const*)",
+            "cpu_prefetch::storage::ProducerObservationStream::append(cpu_prefetch::timing::ProducerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::select(cpu_prefetch::workload::LogicalSequence) const",
+            "cpu_prefetch_combined_t0only_r1_producer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "observed_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "call_graph_sha256": "ff041ac4fa1cb10efc20c655483c707a03f74074afcde8326c564f3e2137927b",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_t0only_r1_consumer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::storage::ConsumerObservationStream::append(cpu_prefetch::timing::ConsumerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::access_and_mix(void const*, cpu_prefetch::workload::ConsumerState&) const",
+            "cpu_prefetch_combined_t0only_r1_consumer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "observed_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "call_graph_sha256": "4a2452adbad7f6f6ee3bcd8c88a60dd8b74d2edeaf31756faf31d08ae0e1441f",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_t0only_r2_producer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::queue::EventPointer::from(void const*)",
+            "cpu_prefetch::storage::ProducerObservationStream::append(cpu_prefetch::timing::ProducerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::select(cpu_prefetch::workload::LogicalSequence) const",
+            "cpu_prefetch_combined_t0only_r2_producer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "observed_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "call_graph_sha256": "3d3ed7077ed8ab9370f680b97260d58edfd72bc12693a890aa5be07fe9ae9827",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_t0only_r2_consumer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::storage::ConsumerObservationStream::append(cpu_prefetch::timing::ConsumerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::access_and_mix(void const*, cpu_prefetch::workload::ConsumerState&) const",
+            "cpu_prefetch_combined_t0only_r2_consumer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "observed_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "call_graph_sha256": "8344edc4ca84147d9eb7735c9dfa72e8d9249db3cb8237284e8b759f4bb700e2",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_t0only_l1_producer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::queue::EventPointer::from(void const*)",
+            "cpu_prefetch::storage::ProducerObservationStream::append(cpu_prefetch::timing::ProducerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::select(cpu_prefetch::workload::LogicalSequence) const",
+            "cpu_prefetch_combined_t0only_l1_producer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [],
+          "observed_prefetch_instructions": [],
+          "call_graph_sha256": "a9ca8a2e21a10eb780b5282e5c8ec28c1a2150df644f5360b68c064bb4635554",
+          "forbidden_operations": []
+        },
+        "cpu_prefetch_combined_t0only_l1_consumer": {
+          "status": "PASS",
+          "reachable_internal_symbols": [
+            "cpu_prefetch::storage::ConsumerObservationStream::append(cpu_prefetch::timing::ConsumerObservation const&)",
+            "cpu_prefetch::timing::absolute_nanoseconds_from_timespec(long, long)",
+            "cpu_prefetch::timing::relative_clock_sample(cpu_prefetch::timing::ClockOrigin, unsigned long)",
+            "cpu_prefetch::workload::EventArena::access_and_mix(void const*, cpu_prefetch::workload::ConsumerState&) const",
+            "cpu_prefetch_combined_t0only_l1_consumer"
+          ],
+          "external_calls": [
+            "__stack_chk_fail@plt",
+            "clock_gettime@plt"
+          ],
+          "expected_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "observed_prefetch_instructions": [
+            "prefetcht0"
+          ],
+          "call_graph_sha256": "b48ae07456ff67b347f0ad348d4409c0687a29af71b833f0b1025fa6e162081b",
+          "forbidden_operations": []
+        }
+      },
+      "negative_mutant": {
+        "status": "EXPECTED_REJECTION",
+        "forbidden_work_detected": [
+          "malloc@plt",
+          "sched_yield@plt"
+        ],
+        "prefetch_mapping_rejections": {
+          "cpu_prefetch_combined_wrong_write_prefetch_mutant": "cpu_prefetch_combined_wrong_write_prefetch_mutant software-prefetch mapping mismatch: expected=['prefetchw'], observed=['prefetcht0']",
+          "cpu_prefetch_combined_wrong_read_prefetch_mutant": "cpu_prefetch_combined_wrong_read_prefetch_mutant software-prefetch mapping mismatch: expected=['prefetcht0'], observed=['prefetchw']",
+          "cpu_prefetch_combined_duplicate_read_prefetch_mutant": "cpu_prefetch_combined_duplicate_read_prefetch_mutant software-prefetch mapping mismatch: expected=['prefetcht0'], observed=['prefetcht0', 'prefetcht0']",
+          "cpu_prefetch_combined_wrong_producer_t0only_mutant": "cpu_prefetch_combined_wrong_producer_t0only_mutant software-prefetch mapping mismatch: expected=['prefetcht0'], observed=['prefetchw']"
+        }
+      },
+      "full_disassembly_sha256": "38b75a37d5b9f51c20e861b940b1bcf3510c1dfae26674def65520bb1e2e15fd"
+    }
+  },
+  "source_contract": {
+    "status": "PASS",
+    "mapping_id": "X86-64-PREFETCHW-PREFETCHT0-v1",
+    "software_prefetch_mapping_ids": [
+      "X86-64-PREFETCHW-PREFETCHT0-v1",
+      "X86-64-PREFETCHT0-ONLY-v1"
+    ],
+    "emitter_sha256": "37c6bb10b9e618a51c273379f4f7d439de09cad5facc3e2b532815a40d66167d",
+    "packages_sha256": "aea8df7ddce6ff753d69813b5b5b3f9a9fac313297542d8768d06c2b146e5674",
+    "linked_queue_sha256": "5513659adbe1d6da2c3c039ec9e47453a5d74e394c3fc4b13aea77710d11b291"
+  },
+  "missing_tools": [],
+  "status": "PASS"
+}

@@ -1,0 +1,23 @@
+{
+  "automatic_retries": 0,
+  "complete_deadline_ns": 1575487924566153,
+  "configuration_sha256": "d05d3bfdede3bb9b55cd75c90bfdc594e113f12ba1f78b70f6c076b42f12fd67",
+  "global_deadline_ns": 1619027924566153,
+  "inventory_sha256": "184220d4e6fab7f7ac7c20eb073eb944191c8256cc2d9e0c4c894c1db8a07ccf",
+  "new_measurements_started_at_startup": false,
+  "next_routine_poll_not_before_utc": "2026-11-19T14:18:13Z",
+  "old_q16a_reports_preserved": 708,
+  "old_q16b_reports_preserved": 120,
+  "old_q16c_native_complete_preserved": 86,
+  "pending_new_captures": 94,
+  "phase": "RETAINED86_VALIDATION",
+  "phase18_authority": false,
+  "prefix_reports_complete_at_startup": 0,
+  "source_revision": "6993313472e98f6bfd59e51ce9d0c7b8abadae3e",
+  "started_at_utc": "2026-11-19T13:48:13.627739Z",
+  "status": "RUNNING_AT_STARTUP_VERIFICATION",
+  "supervisor_pid": 332332,
+  "unit": "cpu-prefetch-d288-v30-1.service",
+  "validation_failed_at_startup": false,
+  "worker_sha256": "04e89f9408d81d9631ec05bce79ba4d287a8c2379ef768625d1e2a81db63c410"
+}

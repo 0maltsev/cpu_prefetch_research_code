@@ -1,0 +1,20 @@
+{
+  "status": "ACTUAL_AUTHENTICATED_COMPOSITION_VERIFIED",
+  "valid_reports": 708,
+  "invalid_reports": 0,
+  "missing_reports": 0,
+  "original_run_identities": 1416,
+  "geometry_proof_verified": true,
+  "exact_calibration_arithmetic_recomputed": true,
+  "all_six_contexts_validated": true,
+  "d2_cache_lines_all_contexts": 2,
+  "producer_consumer_distance_slots_all_contexts": 16,
+  "measurement_full_runs": 125,
+  "warmup_full_runs": 352,
+  "measurement_zero_loss_gate": "FAIL",
+  "warmup_zero_loss_gate": "FAIL",
+  "source_histories_preserved": true,
+  "raw_redecode_performed": false,
+  "ext007_admitted": false,
+  "phase18_authority": false
+}

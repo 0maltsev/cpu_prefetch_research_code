@@ -1,0 +1,92 @@
+{
+  "schema_version": "cpu-prefetch-q15-r-p4-r-i-authorization-template/1",
+  "template_id": "Q15-R-P4-R-I-AUTHORIZATION-TEMPLATE-20260825-01",
+  "protocol_version": "2.0.0-pre.2",
+  "stand_id": "XEON-CPU-FETCH",
+  "status": "STILL_UNISSUED_BLOCKED_EXTERNAL_INPUTS_AND_SEPARATE_EXACT_APPROVAL_REQUIRED",
+  "lineage": {
+    "governance_commit": "f30036e31acc8ae036f2f31086d493eeb30db9d7",
+    "decision_input_path": "config/q15/q15-r-p4-r-staging-authorization-decision-input-v1.json",
+    "decision_input_sha256": "18c29f6f3710b061bcf593ad6615589a6b50c4bf28ebceb4bee3714702389604",
+    "acceptance_path": "config/q15/q15-r-p4-f-acceptance-v1.json",
+    "acceptance_sha256": "ae879bd113939ee06fd3673c0f14d054d92d6c30c0162ffa6727d2a42973cb8c",
+    "adr_bindings": [
+      {"decision_id": "D-072", "path": "docs/decisions/0072-q15-r-p4-r-create-exclusive-staging-paths.md", "sha256": "e9522f038c4a797c7c516d325725e888e9d5b54d2ce15e579bb3299546ab938a"},
+      {"decision_id": "D-073", "path": "docs/decisions/0073-q15-r-p4-r-capture-and-custody-paths.md", "sha256": "8b9366d3f1a0bbb68f57e9946db5afd4f49b2b778d87e65d451003a7c879db1b"},
+      {"decision_id": "D-074", "path": "docs/decisions/0074-q15-r-p4-r-authority-validity-signature-review.md", "sha256": "d6a19259b75cc250bffe7c2ab1024559cc6bd5839274019bf061aec0735a0db5"},
+      {"decision_id": "D-075", "path": "docs/decisions/0075-q15-r-p4-r-split-identity-collection-rollback.md", "sha256": "e2793a6a31af6210fd304f30893b9b3043c4d91af35c90cba938f86f4147e6b4"}
+    ],
+    "p4_k_path": "config/q15/q15-r-p4-k.preparation.json",
+    "p4_k_sha256": "c56ae3dc74142d244e448b9a6f638960f0cce1eb1a9e7a106fea90a4bcf55e0f",
+    "p4_k_state": "UNCHANGED_EIGHT_EXTERNAL_INPUTS_UNRESOLVED_NOT_ISSUED"
+  },
+  "gate": {
+    "gate_id": "Q15-R-P4-R-I",
+    "purpose": "FRESH_READ_ONLY_STAND_IDENTITY_ONLY",
+    "host": "185.184.131.153",
+    "bootstrap_transport_account": "root",
+    "bootstrap_transport_is_authority": false,
+    "named_authority_principal": "cpu-prefetch-q15-operator",
+    "custody_principal": "cpu-prefetch-q15-custodian",
+    "independent_review_principal": "cpu-prefetch-q15-auditor",
+    "ssh_host_key_fingerprint": null,
+    "authorization_id": null,
+    "authorization_sha256": null,
+    "issued_at_utc": null,
+    "expires_at_utc": null,
+    "exact_validity_seconds": 1800,
+    "renewal_allowed": false,
+    "reuse_allowed": false,
+    "canonicalization": "JCS-I64-v1",
+    "signature_scheme": "OPENSSH-SSHSIG-ED25519-SHA512-v1",
+    "signature_principal": "cpu-prefetch-q15-authorization",
+    "signature_namespace": "cpu-prefetch-q15-authorization",
+    "signer_key_fingerprint": null,
+    "detached_signature_sha256": null,
+    "independent_review_sha256": null
+  },
+  "fixed_read_only_observations": [
+    {"id": "P4RI-001", "argv": ["/usr/bin/hostname"]},
+    {"id": "P4RI-002", "argv": ["/usr/bin/uname", "--kernel-name", "--kernel-release", "--machine"]},
+    {"id": "P4RI-003", "argv": ["/usr/bin/stat", "--format=%n|%F|%a|%u|%g|%s|%d|%i", "--", "/", "/root", "/dev/md3"]},
+    {"id": "P4RI-004", "argv": ["/usr/bin/findmnt", "--json", "--target", "/", "--output", "TARGET,SOURCE,FSTYPE,OPTIONS,PROPAGATION"]}
+  ],
+  "capture_contract": {
+    "artifact_id": "Q15-R-P4-R-IDENTITY-XEON-CPU-FETCH-20260825-01",
+    "artifact_path": "/home/omaltsev/research/cpu_prefetch_research_code/docs/evidence/stage17/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01/Q15-R-P4-R-IDENTITY-XEON-CPU-FETCH-20260825-01.json",
+    "sidecar_path": "/home/omaltsev/research/cpu_prefetch_research_code/docs/evidence/stage17/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01/Q15-R-P4-R-IDENTITY-XEON-CPU-FETCH-20260825-01.json.sha256",
+    "artifact_sha256": null,
+    "sidecar_sha256": null,
+    "independent_review_sha256": null,
+    "create_exclusive": true,
+    "overwrite_allowed": false,
+    "raw_bytes_preserved": true,
+    "stop_after_capture": true,
+    "automatic_continuation_to_p4_r_c": false
+  },
+  "unresolved_inputs": [
+    {"name": "PINNED_SSH_HOST_KEY_FINGERPRINT", "value": null},
+    {"name": "BOOTSTRAP_TRANSPORT_CREDENTIAL_AND_ACCESS_EVIDENCE", "value": null},
+    {"name": "P4_K_ALLOWED_SIGNERS_FINGERPRINT_AND_OFF_STAND_CUSTODY_EVIDENCE", "value": null},
+    {"name": "LITERAL_ISSUE_AND_EXPIRY_UTC_INSTANTS", "value": null},
+    {"name": "CANONICAL_AUTHORIZATION_SHA256_AND_DETACHED_SIGNATURE_SHA256", "value": null},
+    {"name": "DIRECT_FIXED_ARGV_TRANSPORT_AND_DISTINCT_INDEPENDENT_REVIEW_EVIDENCE", "value": null}
+  ],
+  "authority_boundary": {
+    "repository_local_unissued_template_creation_authorized": true,
+    "stand_access_authorized": false,
+    "identity_commands_authorized": false,
+    "filesystem_mutation_authorized": false,
+    "transfer_or_extraction_authorized": false,
+    "collector_self_test_authorized": false,
+    "collector_execution_authorized": false,
+    "key_creation_import_copy_or_use_authorized": false,
+    "signing_or_issuance_authorized": false,
+    "p4_r_i_authorized": false,
+    "p4_r_c_authorized": false,
+    "p4_k_authorized": false,
+    "q15_r_or_q15_w_authorized": false,
+    "platform_controls_authorized": false,
+    "calibration_pilot_measurement_or_confirmatory_authorized": false
+  }
+}

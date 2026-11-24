@@ -1,0 +1,10 @@
+{
+  "approved_proposal_sha256": "dc77f7c59cfa7e2b1225b159c9dc7a452b9f5d60c9c0243d8fc6731ddaffaaed",
+  "decision_id": "D242",
+  "execution_authority": false,
+  "owner_message": "approve",
+  "record_time_is_message_time": false,
+  "recorded_at_utc": "2026-11-09T09:00:10.253364+00:00",
+  "schema_version": "owner-conversation-acceptance/1",
+  "scope": "One E25 signed administrative transition recovery and verified isolation reapplication; no repeated clocks, Q15 or 177-capture validation"
+}

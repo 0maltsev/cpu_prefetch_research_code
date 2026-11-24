@@ -1,0 +1,113 @@
+EEEE.E.
+======================================================================
+ERROR: test_actual_broker_reconstructs_all_eight_sources_and_preserves_shared_quota (__main__.S180BrokerTests.test_actual_broker_reconstructs_all_eight_sources_and_preserves_shared_quota)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_broker_v1.py", line 150, in test_actual_broker_reconstructs_all_eight_sources_and_preserves_shared_quota
+    outcome = self.live()
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_broker_v1.py", line 125, in live
+    lease.enter()
+    ~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_process_group_supervisor_v3.py", line 132, in enter
+    self.identity_model = ProcfsIdentityModel()
+                          ~~~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_process_group_supervisor_v2.py", line 149, in __init__
+    self.snapshot = self._capture_self()
+                    ~~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_process_group_supervisor_v2.py", line 156, in _capture_self
+    nspgid = _parse_integer_vector(fields.get("NSpgid", ""), "NSpgid")
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_process_group_supervisor_v2.py", line 97, in _parse_integer_vector
+    raise SupervisorError(f"empty or nonpositive {label}")
+stage17_process_group_supervisor_v2.SupervisorError: empty or nonpositive NSpgid
+
+======================================================================
+ERROR: test_actual_native_channel_broker_ledger_and_success_ack (__main__.S180BrokerTests.test_actual_native_channel_broker_ledger_and_success_ack)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_broker_v1.py", line 276, in test_actual_native_channel_broker_ledger_and_success_ack
+    self.native_exchange(successful=True)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_broker_v1.py", line 217, in native_exchange
+    lease.enter()
+    ~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_process_group_supervisor_v3.py", line 132, in enter
+    self.identity_model = ProcfsIdentityModel()
+                          ~~~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_process_group_supervisor_v2.py", line 149, in __init__
+    self.snapshot = self._capture_self()
+                    ~~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_process_group_supervisor_v2.py", line 156, in _capture_self
+    nspgid = _parse_integer_vector(fields.get("NSpgid", ""), "NSpgid")
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_process_group_supervisor_v2.py", line 97, in _parse_integer_vector
+    raise SupervisorError(f"empty or nonpositive {label}")
+stage17_process_group_supervisor_v2.SupervisorError: empty or nonpositive NSpgid
+
+======================================================================
+ERROR: test_actual_native_channel_retains_failed_evidence_and_rejects_continuation (__main__.S180BrokerTests.test_actual_native_channel_retains_failed_evidence_and_rejects_continuation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_broker_v1.py", line 282, in test_actual_native_channel_retains_failed_evidence_and_rejects_continuation
+    self.native_exchange(successful=False)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_broker_v1.py", line 217, in native_exchange
+    lease.enter()
+    ~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_process_group_supervisor_v3.py", line 132, in enter
+    self.identity_model = ProcfsIdentityModel()
+                          ~~~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_process_group_supervisor_v2.py", line 149, in __init__
+    self.snapshot = self._capture_self()
+                    ~~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_process_group_supervisor_v2.py", line 156, in _capture_self
+    nspgid = _parse_integer_vector(fields.get("NSpgid", ""), "NSpgid")
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_process_group_supervisor_v2.py", line 97, in _parse_integer_vector
+    raise SupervisorError(f"empty or nonpositive {label}")
+stage17_process_group_supervisor_v2.SupervisorError: empty or nonpositive NSpgid
+
+======================================================================
+ERROR: test_failed_native_capture_is_archived_as_failed_evidence (__main__.S180BrokerTests.test_failed_native_capture_is_archived_as_failed_evidence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_broker_v1.py", line 182, in test_failed_native_capture_is_archived_as_failed_evidence
+    outcome = self.live()
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_broker_v1.py", line 125, in live
+    lease.enter()
+    ~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_process_group_supervisor_v3.py", line 132, in enter
+    self.identity_model = ProcfsIdentityModel()
+                          ~~~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_process_group_supervisor_v2.py", line 149, in __init__
+    self.snapshot = self._capture_self()
+                    ~~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_process_group_supervisor_v2.py", line 156, in _capture_self
+    nspgid = _parse_integer_vector(fields.get("NSpgid", ""), "NSpgid")
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_process_group_supervisor_v2.py", line 97, in _parse_integer_vector
+    raise SupervisorError(f"empty or nonpositive {label}")
+stage17_process_group_supervisor_v2.SupervisorError: empty or nonpositive NSpgid
+
+======================================================================
+ERROR: test_live_private_mapping_blocks_codecs_and_preserves_original_files (__main__.S180BrokerTests.test_live_private_mapping_blocks_codecs_and_preserves_original_files)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_broker_v1.py", line 194, in test_live_private_mapping_blocks_codecs_and_preserves_original_files
+    self.live()
+    ~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_broker_v1.py", line 125, in live
+    lease.enter()
+    ~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_process_group_supervisor_v3.py", line 132, in enter
+    self.identity_model = ProcfsIdentityModel()
+                          ~~~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_process_group_supervisor_v2.py", line 149, in __init__
+    self.snapshot = self._capture_self()
+                    ~~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_process_group_supervisor_v2.py", line 156, in _capture_self
+    nspgid = _parse_integer_vector(fields.get("NSpgid", ""), "NSpgid")
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_process_group_supervisor_v2.py", line 97, in _parse_integer_vector
+    raise SupervisorError(f"empty or nonpositive {label}")
+stage17_process_group_supervisor_v2.SupervisorError: empty or nonpositive NSpgid
+
+----------------------------------------------------------------------
+Ran 7 tests in 2.168s
+
+FAILED (errors=5)

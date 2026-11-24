@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/operator-preparation-v25/run_qualification_v25.py", line 174, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/operator-preparation-v25/run_qualification_v25.py", line 166, in main
+    packet.qualify(isolation)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/operator-preparation-v25/run_qualification_v25.py", line 126, in qualify
+    self.step('v25-admit-ext005.py')
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/operator-preparation-v25/run_qualification_v25.py", line 92, in step
+    require(code==0,name+' failed with exit '+str(code))
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/operator-preparation-v25/run_qualification_v25.py", line 24, in require
+    if not ok:raise RuntimeError(msg)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: v25-admit-ext005.py failed with exit 1

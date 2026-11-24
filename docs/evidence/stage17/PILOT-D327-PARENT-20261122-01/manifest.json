@@ -1,0 +1,108 @@
+{
+  "actual_scoped_admission": false,
+  "baseline_revision": "89ce672beafe55d575bc209bb3d9a0cb5f55c39b",
+  "evidence_files": {
+    "docs/evidence/stage17/PILOT-D327-PARENT-20261122-01/COMMANDS.md": {
+      "sha256": "73a457f1f978e30fca8e41712438e19517c8a638a1517794e5f1c16c6571a653",
+      "size_bytes": 2521
+    },
+    "docs/evidence/stage17/PILOT-D327-PARENT-20261122-01/REPORT.md": {
+      "sha256": "bb1e66ea870a28fc9106ae608ab75c6b861a6be56246a107523960979fa383cb",
+      "size_bytes": 2823
+    },
+    "docs/evidence/stage17/PILOT-D327-PARENT-20261122-01/configure.txt": {
+      "sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e",
+      "size_bytes": 177
+    },
+    "docs/evidence/stage17/PILOT-D327-PARENT-20261122-01/final-checks.json": {
+      "sha256": "4d9e8d444d98d1f305e04e6af20a1aa5a06b7eebd38fd8c1f48b6557eb876131",
+      "size_bytes": 545
+    },
+    "docs/evidence/stage17/PILOT-D327-PARENT-20261122-01/host-pid-namespace-rejection.txt": {
+      "sha256": "f96eaaddd21126935c7b5ad65181f0f0333e61c61de1c524e7e428646e6514b4",
+      "size_bytes": 2366
+    },
+    "docs/evidence/stage17/PILOT-D327-PARENT-20261122-01/initial-managed-interruption.txt": {
+      "sha256": "6ddd24769cd5ec1ec35eee8888807d272567ad70f61e8b160e3ce7d5201efe8c",
+      "size_bytes": 2256
+    },
+    "docs/evidence/stage17/PILOT-D327-PARENT-20261122-01/log-normalization.json": {
+      "sha256": "f96d1a06808a3eb80ea9fc4403603a04d58acce997b8056508b2db692000e633",
+      "size_bytes": 3436
+    },
+    "docs/evidence/stage17/PILOT-D327-PARENT-20261122-01/parent-initial-9-tests.txt": {
+      "sha256": "eff78feb9599f36993cc67afa7051249da77a81b4f267c14f33ff421f875d8b7",
+      "size_bytes": 1541
+    },
+    "docs/evidence/stage17/PILOT-D327-PARENT-20261122-01/parent-intermediate-11-tests.txt": {
+      "sha256": "98857d97cc926e35f20e261100c758f3f07ff6ef724405723ebe68174070612c",
+      "size_bytes": 1848
+    },
+    "docs/evidence/stage17/PILOT-D327-PARENT-20261122-01/pc-cleanup.json": {
+      "sha256": "9e9ebde5ff2aebb4c9223722513dd9988e1d0722065cad32f4f0db091356f7b1",
+      "size_bytes": 260
+    },
+    "docs/evidence/stage17/PILOT-D327-PARENT-20261122-01/python-debug-final-12-tests.txt": {
+      "sha256": "987fcf6d5f323ece45d50abe2818307d2d76d1808a018f617bf93916af732715",
+      "size_bytes": 112
+    },
+    "docs/evidence/stage17/PILOT-D327-PARENT-20261122-01/registered-final-76-cases.txt": {
+      "sha256": "b634780efd43eaa4d5319091d0667024c3065cdfa2d68a6a9fee05c15811cff7",
+      "size_bytes": 1229
+    },
+    "docs/evidence/stage17/PILOT-D327-PARENT-20261122-01/registered-final-details.txt": {
+      "sha256": "8661c9a3e8ec5093013a64960c5d50e37e345cfac50d67dc86251ac1e42797c5",
+      "size_bytes": 6869
+    },
+    "docs/evidence/stage17/PILOT-D327-PARENT-20261122-01/registered-intermediate-75-cases.txt": {
+      "sha256": "f76a8435c6288688722d3265c750965205cef4d5b4b5d03030e081202bf33f5a",
+      "size_bytes": 1229
+    },
+    "docs/evidence/stage17/PILOT-D327-PARENT-20261122-01/repository-checks.txt": {
+      "sha256": "ad71f070c21a3c519ad49f967177bc6b1a504fbdf717a0f6c9338b747a70f32f",
+      "size_bytes": 6025
+    }
+  },
+  "execution_authority": false,
+  "implementation_files": {
+    "CMakeLists.txt": {
+      "sha256": "4f0ca069c3cde33fd426e5da68b2765e1e6e759a1de8a634882fc5483078bffd",
+      "size_bytes": 194101
+    },
+    "PLAN.md": {
+      "sha256": "38dbbcb4eed563111e711d1a685d0d1adb5a94c6a705b02d4b522cbe07a567fb",
+      "size_bytes": 117950
+    },
+    "README.md": {
+      "sha256": "3752df458b27558f8e38d52ea0f99db890a31a008845c26f04efd80a872c4331",
+      "size_bytes": 125403
+    },
+    "STATUS.md": {
+      "sha256": "a943bafb06160addc74a060a52e1985441122fcfdf6c9bab6466cc9985d2a823",
+      "size_bytes": 144320
+    },
+    "docs/STAGE17_PILOT_PREPARATION.md": {
+      "sha256": "b998fad4b3f438bc1d2bd660c2ae831305155644b61bedeb98147b9cc614b239",
+      "size_bytes": 15721
+    },
+    "docs/decisions/0327-s180-parent-attempt-and-custody-acknowledgement.md": {
+      "sha256": "75603f3a0bf82a6ec4157c4315e309f65d83fdf3c2a303baac6ea0c0877985ff",
+      "size_bytes": 6054
+    },
+    "tests/test_stage17_s180_archive_broker_v1.py": {
+      "sha256": "31a3b5012b4b9d01bb9416f2f72d52a9150565cd349a9acdb5e98a19331090a5",
+      "size_bytes": 21341
+    },
+    "tests/test_stage17_s180_parent_v1.py": {
+      "sha256": "6e569892966f7df30791f15ad330d744d9e1ca424caa32c1c7726804734c388e",
+      "size_bytes": 13295
+    },
+    "tools/stage17_s180_parent_v1.py": {
+      "sha256": "3c2619b92d8a7a2cd17c6c6dc6fb7f2032d8f012866cbb4fc275586d40307397",
+      "size_bytes": 15543
+    }
+  },
+  "operational_window_started": false,
+  "phase18_authority": false,
+  "qualification_performed": false
+}

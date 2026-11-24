@@ -28,6 +28,13 @@ Every bundle contains:
   all JSON `null`; and
 - this document, the readiness report, and the exact stand runbook.
 
+The v2 Stage 17 pilot-candidate profile also materializes the complete
+repository `config/` and `docs/` evidence closure at the bundle root. The
+production journal and controller can therefore reauthenticate immutable ADR,
+Q15 trust-chain, and evidence bytes with the bundle root itself as
+`--repository-root`; neither an ignored build tree nor a separate checkout is
+consulted. The deterministic source archive remains the rebuild input.
+
 The deterministic outer filename binds project version, Git revision, source
 state, and the first twelve hexadecimal digits of the source-archive SHA-256.
 Existing bundle paths are never overwritten.
@@ -90,3 +97,47 @@ bundle layout, or release artifact produces a new archive and checksum. An old
 bundle remains immutable. A profile change requires a superseding engineering
 ADR and complete clean verification; a scientific change additionally follows
 the protocol amendment rule.
+
+## Q14/Q15-P0 pilot-candidate profile
+
+`STAGE17-PILOT-CANDIDATE-BUNDLE-v1` is a separate append-only profile and does
+not modify this Stage 16 bundle. Its target is:
+
+```sh
+cmake --build --preset release-gcc --target pilot-candidate-bundle
+```
+
+The target first requires strict `PASS` reports for queue, workload, timing,
+storage, one-`PAUSE`, and all ten combined runner operation shapes. It then
+requires a clean exact Git revision. The archive adds the non-executing runner,
+qualification-only tool, versioned admission and future authorization schemas,
+codegen reports, and production-runner documentation. Release binaries remain
+unstripped and are bound to exact compile/build provenance.
+
+The manifest explicitly records no dynamic qualification authority, no
+measurement command, and `pilot_authorized=false` and
+`confirmatory_authorized=false`. A valid archive is only an input to a future
+exact Q15 request. It cannot authorize transfer, stand access, qualification,
+control, calibration, or pilot work.
+
+The version-2 successor additionally includes the compiled
+`release/bin/cpu_prefetch_runner` fixed-action worker and the exact
+repository-relative policy-v17/controller-v7 closure and nested preflight-policy
+v13 closure. `BUNDLE_MANIFEST.json`
+records every policy binding and runtime module byte hash under
+`stage17_controller_runtime`; bundle verification rereads those files and
+rejects a missing, substituted, or test-mode controller. The bundle contains
+no authorization, resolution, transition, stand value, calibration result, or
+pilot evidence.
+
+D-047 fixes the physical mapping as `X86-64-PREFETCHW-PREFETCHT0-v1`; both
+accepted compilers pass the strict two-disassembler combined audit. The
+manifest and combined report must carry that exact identity. The creator still
+rejects dirty source trees, non-`PASS` or drifted reports, overwrite, and any
+authority-bearing output.
+
+Q15-P0 advances the current admission/runner identity to v3 and adds the pure
+Intel 06_55H mapping plan plus evidence validators. A new archive must be made
+only after the complete compiler/sanitizer/codegen matrix passes at one clean
+exact revision. The earlier v2 archive remains immutable and cannot qualify
+the v3 runner.

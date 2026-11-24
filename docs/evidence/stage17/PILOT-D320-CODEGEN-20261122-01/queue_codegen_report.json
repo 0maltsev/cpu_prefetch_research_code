@@ -1,0 +1,94 @@
+{
+  "schema_version": "cpu-prefetch-queue-codegen/1",
+  "scope": "correctness-only; no timing or performance observation",
+  "binary": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-34247ce/cpu_prefetch_queue_codegen_probe",
+    "sha256": "84551849f1244cd0c7e9d1b05fbb9f55e74e4ab6fa7d6058fdb6fa97baec840c"
+  },
+  "negative_mutant": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-34247ce/cpu_prefetch_queue_codegen_mutant",
+    "sha256": "d123671a0218b1d1b23b6a4c2c79991794ecffed95a876d4aa06b966e14ac577"
+  },
+  "rule_set": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-source-34247ce/tools/check_queue_codegen.py",
+    "sha256": "9661a970460ba4f0f04ee96cfde6f09b353e59beec44c9548c6e95a10d98aae6"
+  },
+  "provenance_records": [
+    "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-source-34247ce/config/queue-provenance/ring-spsc.json",
+    "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-source-34247ce/config/queue-provenance/linked-spsc.json"
+  ],
+  "tools": {
+    "GNU_OBJDUMP": {
+      "status": "PASS",
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/objdump",
+      "version": "GNU Binutils 2.46.0",
+      "operations": {
+        "cpu_prefetch_ring_try_enqueue": {
+          "status": "PASS",
+          "body_sha256": "4c3d4ca09f2c58c8f81aeccc474fdc7fec860dd6319a7a2f94b297658b70ba00",
+          "forbidden_instruction_classes": []
+        },
+        "cpu_prefetch_ring_try_dequeue": {
+          "status": "PASS",
+          "body_sha256": "acc649f152d9bb5a43b28b3245270bd69c13b364f4622b2d33e8b84f8859bfdd",
+          "forbidden_instruction_classes": []
+        },
+        "cpu_prefetch_linked_try_enqueue": {
+          "status": "PASS",
+          "body_sha256": "fd3483b59f94601b91cfd41bb7013adae088664eceb5a2bc3e40c6a36c02032e",
+          "forbidden_instruction_classes": []
+        },
+        "cpu_prefetch_linked_try_dequeue": {
+          "status": "PASS",
+          "body_sha256": "fd09475a01f1171b0926c3bde1bb1c8eff2c710850d4c868f9434c823ed07384",
+          "forbidden_instruction_classes": []
+        }
+      },
+      "negative_mutant": {
+        "status": "EXPECTED_REJECTION",
+        "detected_instruction_classes": [
+          "call"
+        ],
+        "body_sha256": "1ba386d2f4308b3778acf21e2fcffa1479c4463a507aeaf9adb36dfb92db7215"
+      },
+      "full_disassembly_sha256": "114d10186188bf3774ba7dfcf56f1a60ca04fdad7d77216d4cb6e003826c8352"
+    },
+    "LLVM_OBJDUMP": {
+      "status": "PASS",
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/llvm-objdump",
+      "version": "LLVM 22.1.6",
+      "operations": {
+        "cpu_prefetch_ring_try_enqueue": {
+          "status": "PASS",
+          "body_sha256": "2415d0979348bed08939a088404c2c1df6fd349802ac5db144201b20310abff7",
+          "forbidden_instruction_classes": []
+        },
+        "cpu_prefetch_ring_try_dequeue": {
+          "status": "PASS",
+          "body_sha256": "90d40dd810f2f3af132dd1a2d3e6fb96e3ef7f57d900c5632d1ba7803ca7e369",
+          "forbidden_instruction_classes": []
+        },
+        "cpu_prefetch_linked_try_enqueue": {
+          "status": "PASS",
+          "body_sha256": "425d2676501ffa98fc2be8d49131f30c352e66eded60d75d49d5d87cb2787a93",
+          "forbidden_instruction_classes": []
+        },
+        "cpu_prefetch_linked_try_dequeue": {
+          "status": "PASS",
+          "body_sha256": "c3de5a08448c114ddb9f5f6f9172df27b4c428695c3de550cc80cf9f37c2c079",
+          "forbidden_instruction_classes": []
+        }
+      },
+      "negative_mutant": {
+        "status": "EXPECTED_REJECTION",
+        "detected_instruction_classes": [
+          "callq"
+        ],
+        "body_sha256": "7fcd6695ca51a906cab0825695cc4c2cf6bd6ab3f39458b675bfccc8deeb0a7e"
+      },
+      "full_disassembly_sha256": "4cb1089a210fcc7d12b9089f0af27573c0bb0677693704a0ed300ac373d658cd"
+    }
+  },
+  "status": "PASS",
+  "missing_tools": []
+}

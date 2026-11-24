@@ -125,17 +125,24 @@ void validate_permutation(std::span<const std::size_t> order) {
 
 } // namespace
 
-EventArena::EventArena(const EventArenaConfig& config)
-    : capacity_(config.capacity), cache_line_bytes_(config.cache_line_bytes),
-      base_page_bytes_(config.base_page_bytes) {
-  if (!is_power_of_two(capacity_)) {
+namespace {
+
+void initialize_event_arena(const EventArenaConfig& config, std::size_t& capacity,
+                            std::size_t& cache_line_bytes, std::size_t& base_page_bytes,
+                            std::size_t& allocated_bytes, std::byte*& storage,
+                            std::vector<std::size_t>& record_order,
+                            bool allocate_storage) {
+  capacity = config.capacity;
+  cache_line_bytes = config.cache_line_bytes;
+  base_page_bytes = config.base_page_bytes;
+  if (!is_power_of_two(capacity)) {
     throw WorkloadSetupError("event arena capacity must be a nonzero power of two");
   }
-  if (!is_power_of_two(cache_line_bytes_) || cache_line_bytes_ < sizeof(EventRecord)) {
+  if (!is_power_of_two(cache_line_bytes) || cache_line_bytes < sizeof(EventRecord)) {
     throw WorkloadSetupError(
         "event cache-line bytes must be a power of two that fits the record");
   }
-  if (!is_power_of_two(base_page_bytes_) || base_page_bytes_ < cache_line_bytes_) {
+  if (!is_power_of_two(base_page_bytes) || base_page_bytes < cache_line_bytes) {
     throw WorkloadSetupError(
         "event base-page bytes must be a power of two at least one cache line");
   }
@@ -148,26 +155,93 @@ EventArena::EventArena(const EventArenaConfig& config)
       config.master_seed, config.seed_namespace, StreamPurpose::event_order));
   const DeterministicStream payload_stream(derive_stream_key(
       config.master_seed, config.seed_namespace, StreamPurpose::event_payload));
-  record_order_ = make_permutation(capacity_, order_stream);
-  allocated_bytes_ = checked_multiply(capacity_, cache_line_bytes_);
-  storage_ = static_cast<std::byte*>(
-      ::operator new(allocated_bytes_, std::align_val_t(base_page_bytes_)));
-  std::memset(storage_, 0, allocated_bytes_);
-  for (std::size_t index = 0; index < capacity_; ++index) {
+  record_order = make_permutation(capacity, order_stream);
+  allocated_bytes = checked_multiply(capacity, cache_line_bytes);
+  if (allocate_storage) {
+    storage = static_cast<std::byte*>(
+        ::operator new(allocated_bytes, std::align_val_t(base_page_bytes)));
+  }
+  if (storage == nullptr ||
+      reinterpret_cast<std::uintptr_t>(storage) % base_page_bytes != 0U) {
+    throw WorkloadSetupError("event arena storage is absent or not base-page aligned");
+  }
+  std::memset(storage, 0, allocated_bytes);
+  for (std::size_t index = 0; index < capacity; ++index) {
     std::construct_at(
-        reinterpret_cast<EventRecord*>(line_at(index)),
+        reinterpret_cast<EventRecord*>(storage + (index * cache_line_bytes)),
         EventRecord{static_cast<std::uint64_t>(index), payload_stream.draw(index)});
   }
+}
+
+} // namespace
+
+EventArena::EventArena(const EventArenaConfig& config)
+    : capacity_(config.capacity), cache_line_bytes_(config.cache_line_bytes),
+      base_page_bytes_(config.base_page_bytes) {
   try {
+    initialize_event_arena(config, capacity_, cache_line_bytes_, base_page_bytes_,
+                           allocated_bytes_, storage_, record_order_, true);
+    record_order_view_ = record_order_;
     prepared_content_checksum_ = content_checksum();
   } catch (...) {
-    for (std::size_t index = 0; index < capacity_; ++index) {
-      std::destroy_at(reinterpret_cast<EventRecord*>(line_at(index)));
+    if (storage_ != nullptr) {
+      ::operator delete(storage_, std::align_val_t(base_page_bytes_));
     }
-    ::operator delete(storage_, std::align_val_t(base_page_bytes_));
     storage_ = nullptr;
     throw;
   }
+}
+
+EventArena::EventArena(const EventArenaConfig& config,
+                       std::span<std::byte> external_storage)
+    : capacity_(config.capacity), cache_line_bytes_(config.cache_line_bytes),
+      base_page_bytes_(config.base_page_bytes), storage_(external_storage.data()),
+      owns_storage_(false) {
+  const auto required = checked_multiply(config.capacity, config.cache_line_bytes);
+  if (external_storage.size() != required) {
+    throw WorkloadSetupError("external event arena storage size is not exact");
+  }
+  initialize_event_arena(config, capacity_, cache_line_bytes_, base_page_bytes_,
+                         allocated_bytes_, storage_, record_order_, false);
+  record_order_view_ = record_order_;
+  prepared_content_checksum_ = content_checksum();
+}
+
+EventArena::EventArena(const EventArenaConfig& config,
+                       std::span<std::byte> external_storage,
+                       std::span<std::size_t> external_record_order)
+    : capacity_(config.capacity), cache_line_bytes_(config.cache_line_bytes),
+      base_page_bytes_(config.base_page_bytes), storage_(external_storage.data()),
+      owns_storage_(false) {
+  const auto required = checked_multiply(config.capacity, config.cache_line_bytes);
+  const auto order_bytes = checked_multiply(config.capacity, sizeof(std::size_t));
+  if (config.capacity == 0U || external_storage.size() != required ||
+      external_record_order.size() != config.capacity ||
+      external_storage.data() == nullptr || external_record_order.data() == nullptr ||
+      reinterpret_cast<std::uintptr_t>(external_record_order.data()) %
+              alignof(std::size_t) !=
+          0U) {
+    throw WorkloadSetupError(
+        "external event/order storage requires exact nonzero sizes and alignment");
+  }
+  const auto event_begin = reinterpret_cast<std::uintptr_t>(external_storage.data());
+  const auto order_begin =
+      reinterpret_cast<std::uintptr_t>(external_record_order.data());
+  if (required > std::numeric_limits<std::uintptr_t>::max() - event_begin ||
+      order_bytes > std::numeric_limits<std::uintptr_t>::max() - order_begin) {
+    throw WorkloadSetupError("external event/order address range overflows uintptr_t");
+  }
+  if (event_begin < order_begin + order_bytes && order_begin < event_begin + required) {
+    throw WorkloadSetupError(
+        "external event and record-order storage must not overlap");
+  }
+  initialize_event_arena(config, capacity_, cache_line_bytes_, base_page_bytes_,
+                         allocated_bytes_, storage_, record_order_, false);
+  std::copy(record_order_.begin(), record_order_.end(), external_record_order.begin());
+  record_order_view_ = external_record_order;
+  // Seed-generation scratch is released during preparation, never at reset.
+  std::vector<std::size_t>().swap(record_order_);
+  prepared_content_checksum_ = content_checksum();
 }
 
 EventArena::~EventArena() {
@@ -175,7 +249,9 @@ EventArena::~EventArena() {
     for (std::size_t index = 0; index < capacity_; ++index) {
       std::destroy_at(reinterpret_cast<EventRecord*>(line_at(index)));
     }
-    ::operator delete(storage_, std::align_val_t(base_page_bytes_));
+    if (owns_storage_) {
+      ::operator delete(storage_, std::align_val_t(base_page_bytes_));
+    }
   }
 }
 
@@ -188,7 +264,7 @@ const EventRecord& EventArena::physical_record(std::size_t index) const {
 
 EventSelection EventArena::select(LogicalSequence sequence) const noexcept {
   const auto position = static_cast<std::size_t>(sequence.value % capacity_);
-  const auto record_index = record_order_[position];
+  const auto record_index = record_order_view_[position];
   return {RecordIndex{static_cast<std::uint64_t>(record_index)},
           reinterpret_cast<const EventRecord*>(line_at(record_index))};
 }
@@ -261,7 +337,7 @@ Sha256Digest EventArena::content_checksum() const {
 }
 
 Sha256Digest EventArena::ordered_index_checksum() const {
-  return ordered_index_sha256(record_order_);
+  return ordered_index_sha256(record_order_view_);
 }
 
 Sha256Digest EventArena::address_delta_checksum() const {
@@ -270,7 +346,7 @@ Sha256Digest EventArena::address_delta_checksum() const {
 }
 
 std::vector<std::int64_t> EventArena::address_deltas() const {
-  return make_cyclic_address_deltas(record_order_, cache_line_bytes_);
+  return make_cyclic_address_deltas(record_order_view_, cache_line_bytes_);
 }
 
 const std::byte* EventArena::line_at(std::size_t index) const noexcept {

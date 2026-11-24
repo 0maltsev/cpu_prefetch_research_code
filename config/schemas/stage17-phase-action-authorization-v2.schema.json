@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:cpu-prefetch:stage17:phase-action-authorization:v2",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "authorization_id", "action_id", "actor", "target", "issued_at_utc", "expires_at_utc", "trust_context", "predecessor_resolutions", "fixed_action_definition_sha256", "request_binding", "evidence_root", "permission_matrix", "max_wall_seconds", "one_attempt", "retry_allowed", "stop_first", "retain_partial", "stage18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-phase-action-authorization/2"},
+    "authorization_id": {"type": "string", "minLength": 1}, "action_id": {"$ref": "#/$defs/action"}, "actor": {"type": "string", "minLength": 1},
+    "target": {"type": "object", "additionalProperties": false, "required": ["stand_id"], "properties": {"stand_id": {"type": "string", "minLength": 1}}},
+    "issued_at_utc": {"$ref": "#/$defs/utc"}, "expires_at_utc": {"$ref": "#/$defs/utc"},
+    "trust_context": {"type": "object", "additionalProperties": false, "required": ["ext002_resolution", "ext003_resolution"], "properties": {"ext002_resolution": {"$ref": "#/$defs/resolution"}, "ext003_resolution": {"$ref": "#/$defs/resolution"}}},
+    "predecessor_resolutions": {"type": "array", "minItems": 3, "maxItems": 10, "uniqueItems": true, "items": {"$ref": "#/$defs/resolution"}},
+    "fixed_action_definition_sha256": {"$ref": "#/$defs/sha256"}, "request_binding": {"$ref": "#/$defs/file_binding"}, "evidence_root": {"type": "string", "minLength": 1},
+    "permission_matrix": {"$ref": "#/$defs/permissions"}, "max_wall_seconds": {"const": 180}, "one_attempt": {"const": true}, "retry_allowed": {"const": false}, "stop_first": {"const": true}, "retain_partial": {"const": true}, "stage18_authority": {"const": false}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "utc": {"type": "string", "format": "date-time", "pattern": "Z$"}, "action": {"enum": ["Q15-R", "Q15-W", "Q16a", "Q16b", "Q16c", "STAGE17-BLINDED-PILOT"]},
+    "resolution": {"type": "object", "additionalProperties": false, "required": ["input_id", "resolution_id", "sha256"], "properties": {"input_id": {"pattern": "^S17-EXT-[0-9]{3}$"}, "resolution_id": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha256"}}},
+    "file_binding": {"type": "object", "additionalProperties": false, "required": ["path", "size_bytes", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "size_bytes": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/$defs/sha256"}}},
+    "permissions": {"type": "object", "additionalProperties": false, "required": ["read_only_observation", "privileged_controls", "calibration", "pilot_execution", "measurement", "phase18"], "properties": {"read_only_observation": {"type": "boolean"}, "privileged_controls": {"type": "boolean"}, "calibration": {"type": "boolean"}, "pilot_execution": {"type": "boolean"}, "measurement": {"type": "boolean"}, "phase18": {"const": false}}}
+  }
+}

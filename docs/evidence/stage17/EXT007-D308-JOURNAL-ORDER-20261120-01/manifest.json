@@ -1,0 +1,45 @@
+{
+  "files": [
+    {
+      "path": "REPORT.md",
+      "sha256": "dbd9d799a1547b671853d69be4af2112cc3eeacb4ba212f95e5fa32cf506e4de",
+      "size_bytes": 1392
+    },
+    {
+      "path": "d307-admission-console-1.log",
+      "sha256": "6d7f13e39158fbaa625a789646ed103c1d94708c2f49108360d7c8761f84ec75",
+      "size_bytes": 1825
+    },
+    {
+      "path": "d307-ext007-admission-1/failure.json",
+      "sha256": "9513afbcdabb153000126853da7b8ba6fc2793eac41a585476e7ed46773d884c",
+      "size_bytes": 212
+    },
+    {
+      "path": "descriptive-calibration-freeze-1/ext007-manifest-v5.json",
+      "sha256": "6cb01eb507a8c02070c7b3970356f8ce91d92b52233bc2f1734672875037ce85",
+      "size_bytes": 2126
+    },
+    {
+      "path": "original-journal-000009.json",
+      "sha256": "2fab0d69e3350dea0106a1fd5a0aa0ddd04dab8bae1956815e66ad47a378f5aa",
+      "size_bytes": 3710
+    },
+    {
+      "path": "regression-before-fix.txt",
+      "sha256": "1004949ade5abbaf83031471de05674501c1db67fd80b8c326fd673033ce6077",
+      "size_bytes": 2536
+    },
+    {
+      "path": "stop-status.json",
+      "sha256": "c75c54631c0b906c2945f7b880f7380c9923da88c27746af4e89656c425b9b9a",
+      "size_bytes": 136
+    },
+    {
+      "path": "tests-after-fix.txt",
+      "sha256": "8eb9490e0d53353ef34f018bf4e888d206fb2028fa36f2fba0ad3fcff5fccb1e",
+      "size_bytes": 4216
+    }
+  ],
+  "raw_data_transferred": false
+}

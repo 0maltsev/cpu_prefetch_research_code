@@ -1,0 +1,87 @@
+{
+  "retrieved_at_utc": "2026-11-03T14:44:43.323514+00:00",
+  "stand_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20",
+  "raw_transferred": false,
+  "files": [
+    {
+      "path": "discovery-supervisor-prelaunch-r3-1.json",
+      "size_bytes": 3470,
+      "sha256": "ae482d35e0fcc6633dc91f6caaccc86e27462b7987eca9a36d66604e713a8594"
+    },
+    {
+      "path": "discovery-supervisor-result-r3-1.json",
+      "size_bytes": 632,
+      "sha256": "e9bf48ce2020a4d0fb8c93f90d7330383882002bbb35715df3050b74d8c81bd0"
+    },
+    {
+      "path": "discovery-session-r3-1.log",
+      "size_bytes": 637,
+      "sha256": "1aaaa24551c75f57c80c1c97271d81dcb123674b000360ddafbbe6731c228bb6"
+    },
+    {
+      "path": "discovery-output-r3-1/studyhardware.json",
+      "size_bytes": 438494,
+      "sha256": "04b79b027bbb3046f8dcaa82c391a48b19bd705ef207b9175533c1016077e686"
+    },
+    {
+      "path": "discovery-output-r3-1/retention-report.json",
+      "size_bytes": 44282,
+      "sha256": "89c5ce6c123195aba3831cc62972bb7c671e07110aa2c051bcb59366c7ceddc0"
+    },
+    {
+      "path": "discovery-output-r3-1/stage17-action-result-v5.json",
+      "size_bytes": 71002,
+      "sha256": "1c06f680ec090b23c462af697d93aadf298dba4d68ec5cf04df01517274ad898"
+    },
+    {
+      "path": "discovery-output-r3-1/stage17-q16a_duration_discovery-attempt-v5.json",
+      "size_bytes": 944,
+      "sha256": "4445edd54ecb47df695cfb542db3e3da7ddeaea6ef8c1ac9f9ab81281cd741f8"
+    },
+    {
+      "path": "discovery-output-r3-1/stage17-q16a_duration_discovery-completion-v5.json",
+      "size_bytes": 39175,
+      "sha256": "48ebcf96e0e12576cab50d5bb80420cbb6aaec5e055ac57caca613c31319bd31"
+    },
+    {
+      "path": "discovery-analysis-r3-1/admission-record.json",
+      "size_bytes": 2384,
+      "sha256": "ae5ab7f2ee13740cd539ccaa5aea9acd034dd0a3e8bbfa46ea2b22dc8dd765d3"
+    },
+    {
+      "path": "discovery-analysis-r3-1/admission-stdout.txt",
+      "size_bytes": 71,
+      "sha256": "1ef2167dd7f7cc31835f1c53a86c61f923e236dffedf5eb797c4f1db06f5703a"
+    },
+    {
+      "path": "discovery-analysis-r3-1/admission-stderr.txt",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "discovery-analysis-r3-1/postrun-console.log",
+      "size_bytes": 255,
+      "sha256": "19f84f207b175d5e57cc31e5215c46fa700df342f46b0c699c36d3b5137bc64a"
+    },
+    {
+      "path": "discovery-analysis-r3-1/postrun-intent.json",
+      "size_bytes": 162,
+      "sha256": "78bd5066a337fc29f2c7e6afe22be834bc7d69b778193115e05c7f6153ee8d54"
+    },
+    {
+      "path": "discovery-analysis-r3-1/validation-intent.json",
+      "size_bytes": 2932,
+      "sha256": "1a66aeab5360af248d6915929fb0494ec97381189d4b407c67836c619ba7c645"
+    },
+    {
+      "path": "discovery-analysis-r3-1/validation-process-result.json",
+      "size_bytes": 108,
+      "sha256": "c51de472bf1a7f64b5e71ea2b18605bfc7292ed1b6207ee7296796e0cbc8ebf8"
+    },
+    {
+      "path": "discovery-analysis-r3-1/scratch/full-study-validation-1.json",
+      "size_bytes": 2591,
+      "sha256": "9566b0f1d384949fbb5bff453ae6228f91ecc7ff8ece4bcf155425cc8f249667"
+    }
+  ]
+}

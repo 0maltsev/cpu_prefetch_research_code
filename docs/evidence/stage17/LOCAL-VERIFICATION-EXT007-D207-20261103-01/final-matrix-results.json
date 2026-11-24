@@ -1,0 +1,62 @@
+[
+  {
+    "configuration": "d207-native-gcc",
+    "stage": "build",
+    "exit_code": 0,
+    "seconds": 6.093840057990747
+  },
+  {
+    "configuration": "d207-native-gcc",
+    "stage": "test",
+    "exit_code": 0,
+    "seconds": 0.17433681900729425
+  },
+  {
+    "configuration": "accepted-asan-ubsan-gcc",
+    "stage": "build",
+    "exit_code": 0,
+    "seconds": 10.028054722992238
+  },
+  {
+    "configuration": "accepted-asan-ubsan-gcc",
+    "stage": "test",
+    "exit_code": 0,
+    "seconds": 1.332946078007808
+  },
+  {
+    "configuration": "accepted-tsan-gcc",
+    "stage": "build",
+    "exit_code": 0,
+    "seconds": 7.8123077919881325
+  },
+  {
+    "configuration": "accepted-tsan-gcc",
+    "stage": "test",
+    "exit_code": 0,
+    "seconds": 1.0269477740221191
+  },
+  {
+    "configuration": "accepted-asan-ubsan-clang-libcxx",
+    "stage": "build",
+    "exit_code": 0,
+    "seconds": 9.061137481010519
+  },
+  {
+    "configuration": "accepted-asan-ubsan-clang-libcxx",
+    "stage": "test",
+    "exit_code": 0,
+    "seconds": 0.9807764010038227
+  },
+  {
+    "configuration": "accepted-tsan-clang-libcxx",
+    "stage": "build",
+    "exit_code": 0,
+    "seconds": 7.739238067995757
+  },
+  {
+    "configuration": "accepted-tsan-clang-libcxx",
+    "stage": "test",
+    "exit_code": 0,
+    "seconds": 0.9094854180002585
+  }
+]

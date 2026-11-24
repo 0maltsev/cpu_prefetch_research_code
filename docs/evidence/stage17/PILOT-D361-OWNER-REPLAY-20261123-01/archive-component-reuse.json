@@ -1,0 +1,15 @@
+{
+  "clean_source_manifest_revision_only": true,
+  "file_count": 36,
+  "identical_payload_files": 35,
+  "only_changed_files": [
+    "S180_ARCHIVE_PACKAGE.json"
+  ],
+  "original_stand_component_unchanged": true,
+  "profile_sha256": "23fac285def38a913d4fbb2727eebdb4cda0a18a8f9352bfa9aafa6bee3ca9f6",
+  "roots": [
+    "build/stage17-s180-archive-package-877271c-stand",
+    "build/stage17-s180-archive-package-42fc51b-stand"
+  ],
+  "status": "ARCHIVE_PAYLOAD_IDENTICAL_REUSE_VERIFIED_STAND_COMPONENT"
+}

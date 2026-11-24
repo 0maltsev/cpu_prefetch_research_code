@@ -1,0 +1,258 @@
+[1/4] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_discovery_action.cpp.
+14 warnings generated.
+[2/4] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_fixed_action.cpp.
+143 warnings generated.
+[3/4] Processing file /home/omaltsev/research/cpu_prefetch_research_code/tools/runner_main.cpp.
+189 warnings generated.
+[4/4] Processing file /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_discovery_action_test.cpp.
+256 warnings generated.
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_discovery_action_test.cpp:328:30: error: The value '99' provided to the cast expression is not in the valid range of values for 'DiscoveryNativeDesign' [clang-analyzer-optin.core.EnumCastOutOfRange,-warnings-as-errors]
+  328 |   EXPECT_FALSE(revised.parse(static_cast<Design>(99U)));
+      |                              ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1827:52: note: expanded from macro 'EXPECT_FALSE'
+ 1827 | #define EXPECT_FALSE(condition) GTEST_EXPECT_FALSE(condition)
+      |                                                    ^~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1811:25: note: expanded from macro 'GTEST_EXPECT_FALSE'
+ 1811 |   GTEST_TEST_BOOLEAN_(!(condition), #condition, true, false, \
+      |                         ^~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/internal/gtest-internal.h:1450:38: note: expanded from macro 'GTEST_TEST_BOOLEAN_'
+ 1450 |           ::testing::AssertionResult(expression))                     \
+      |                                      ^~~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/include/cpu_prefetch/runner/stage17_discovery_action.hpp:12:12: note: enum declared here
+   12 | enum class DiscoveryNativeDesign : std::uint8_t { d178_v1, d207_v2 };
+      | ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_discovery_action_test.cpp:321:3: note: Control jumps to 'case 0:'  at line 321
+  321 |   EXPECT_TRUE(revised.parse(Design::d207_v2));
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1823:32: note: expanded from macro 'EXPECT_TRUE'
+ 1823 | #define EXPECT_TRUE(condition) GTEST_EXPECT_TRUE(condition)
+      |                                ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1808:3: note: expanded from macro 'GTEST_EXPECT_TRUE'
+ 1808 |   GTEST_TEST_BOOLEAN_(condition, #condition, false, true, \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/internal/gtest-internal.h:1448:3: note: expanded from macro 'GTEST_TEST_BOOLEAN_'
+ 1448 |   GTEST_AMBIGUOUS_ELSE_BLOCKER_                                       \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/internal/gtest-port.h:728:3: note: expanded from macro 'GTEST_AMBIGUOUS_ELSE_BLOCKER_'
+  728 |   switch (0)                          \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_discovery_action_test.cpp:321:3: note: Assuming the condition is false
+  321 |   EXPECT_TRUE(revised.parse(Design::d207_v2));
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1823:32: note: expanded from macro 'EXPECT_TRUE'
+ 1823 | #define EXPECT_TRUE(condition) GTEST_EXPECT_TRUE(condition)
+      |                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1808:3: note: expanded from macro 'GTEST_EXPECT_TRUE'
+ 1808 |   GTEST_TEST_BOOLEAN_(condition, #condition, false, true, \
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1809 |                       GTEST_NONFATAL_FAILURE_)
+      |                       ~~~~~~~~~~~~~~~~~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/internal/gtest-internal.h:1449:40: note: expanded from macro 'GTEST_TEST_BOOLEAN_'
+ 1449 |   if (const ::testing::AssertionResult gtest_ar_ =                    \
+      |                                        ^~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_discovery_action_test.cpp:321:3: note: Taking false branch
+  321 |   EXPECT_TRUE(revised.parse(Design::d207_v2));
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1823:32: note: expanded from macro 'EXPECT_TRUE'
+ 1823 | #define EXPECT_TRUE(condition) GTEST_EXPECT_TRUE(condition)
+      |                                ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1808:3: note: expanded from macro 'GTEST_EXPECT_TRUE'
+ 1808 |   GTEST_TEST_BOOLEAN_(condition, #condition, false, true, \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/internal/gtest-internal.h:1449:3: note: expanded from macro 'GTEST_TEST_BOOLEAN_'
+ 1449 |   if (const ::testing::AssertionResult gtest_ar_ =                    \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_discovery_action_test.cpp:322:3: note: Control jumps to 'case 0:'  at line 322
+  322 |   EXPECT_FALSE(revised.parse());
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1827:33: note: expanded from macro 'EXPECT_FALSE'
+ 1827 | #define EXPECT_FALSE(condition) GTEST_EXPECT_FALSE(condition)
+      |                                 ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1811:3: note: expanded from macro 'GTEST_EXPECT_FALSE'
+ 1811 |   GTEST_TEST_BOOLEAN_(!(condition), #condition, true, false, \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/internal/gtest-internal.h:1448:3: note: expanded from macro 'GTEST_TEST_BOOLEAN_'
+ 1448 |   GTEST_AMBIGUOUS_ELSE_BLOCKER_                                       \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/internal/gtest-port.h:728:3: note: expanded from macro 'GTEST_AMBIGUOUS_ELSE_BLOCKER_'
+  728 |   switch (0)                          \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_discovery_action_test.cpp:322:3: note: Assuming the condition is false
+  322 |   EXPECT_FALSE(revised.parse());
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1827:33: note: expanded from macro 'EXPECT_FALSE'
+ 1827 | #define EXPECT_FALSE(condition) GTEST_EXPECT_FALSE(condition)
+      |                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1811:3: note: expanded from macro 'GTEST_EXPECT_FALSE'
+ 1811 |   GTEST_TEST_BOOLEAN_(!(condition), #condition, true, false, \
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1812 |                       GTEST_NONFATAL_FAILURE_)
+      |                       ~~~~~~~~~~~~~~~~~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/internal/gtest-internal.h:1449:40: note: expanded from macro 'GTEST_TEST_BOOLEAN_'
+ 1449 |   if (const ::testing::AssertionResult gtest_ar_ =                    \
+      |                                        ^~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_discovery_action_test.cpp:322:3: note: Taking false branch
+  322 |   EXPECT_FALSE(revised.parse());
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1827:33: note: expanded from macro 'EXPECT_FALSE'
+ 1827 | #define EXPECT_FALSE(condition) GTEST_EXPECT_FALSE(condition)
+      |                                 ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1811:3: note: expanded from macro 'GTEST_EXPECT_FALSE'
+ 1811 |   GTEST_TEST_BOOLEAN_(!(condition), #condition, true, false, \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/internal/gtest-internal.h:1449:3: note: expanded from macro 'GTEST_TEST_BOOLEAN_'
+ 1449 |   if (const ::testing::AssertionResult gtest_ar_ =                    \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_discovery_action_test.cpp:323:3: note: Control jumps to 'case 0:'  at line 323
+  323 |   EXPECT_FALSE(runner::stage17::describe_native_discovery_layout(
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1827:33: note: expanded from macro 'EXPECT_FALSE'
+ 1827 | #define EXPECT_FALSE(condition) GTEST_EXPECT_FALSE(condition)
+      |                                 ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1811:3: note: expanded from macro 'GTEST_EXPECT_FALSE'
+ 1811 |   GTEST_TEST_BOOLEAN_(!(condition), #condition, true, false, \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/internal/gtest-internal.h:1448:3: note: expanded from macro 'GTEST_TEST_BOOLEAN_'
+ 1448 |   GTEST_AMBIGUOUS_ELSE_BLOCKER_                                       \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/internal/gtest-port.h:728:3: note: expanded from macro 'GTEST_AMBIGUOUS_ELSE_BLOCKER_'
+  728 |   switch (0)                          \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_discovery_action_test.cpp:323:3: note: Assuming the condition is false
+  323 |   EXPECT_FALSE(runner::stage17::describe_native_discovery_layout(
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1827:33: note: expanded from macro 'EXPECT_FALSE'
+ 1827 | #define EXPECT_FALSE(condition) GTEST_EXPECT_FALSE(condition)
+      |                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1811:3: note: expanded from macro 'GTEST_EXPECT_FALSE'
+ 1811 |   GTEST_TEST_BOOLEAN_(!(condition), #condition, true, false, \
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1812 |                       GTEST_NONFATAL_FAILURE_)
+      |                       ~~~~~~~~~~~~~~~~~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/internal/gtest-internal.h:1449:40: note: expanded from macro 'GTEST_TEST_BOOLEAN_'
+ 1449 |   if (const ::testing::AssertionResult gtest_ar_ =                    \
+      |                                        ^~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_discovery_action_test.cpp:323:3: note: Taking false branch
+  323 |   EXPECT_FALSE(runner::stage17::describe_native_discovery_layout(
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1827:33: note: expanded from macro 'EXPECT_FALSE'
+ 1827 | #define EXPECT_FALSE(condition) GTEST_EXPECT_FALSE(condition)
+      |                                 ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1811:3: note: expanded from macro 'GTEST_EXPECT_FALSE'
+ 1811 |   GTEST_TEST_BOOLEAN_(!(condition), #condition, true, false, \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/internal/gtest-internal.h:1449:3: note: expanded from macro 'GTEST_TEST_BOOLEAN_'
+ 1449 |   if (const ::testing::AssertionResult gtest_ar_ =                    \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_discovery_action_test.cpp:326:3: note: Control jumps to 'case 0:'  at line 326
+  326 |   EXPECT_TRUE(historical.parse());
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1823:32: note: expanded from macro 'EXPECT_TRUE'
+ 1823 | #define EXPECT_TRUE(condition) GTEST_EXPECT_TRUE(condition)
+      |                                ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1808:3: note: expanded from macro 'GTEST_EXPECT_TRUE'
+ 1808 |   GTEST_TEST_BOOLEAN_(condition, #condition, false, true, \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/internal/gtest-internal.h:1448:3: note: expanded from macro 'GTEST_TEST_BOOLEAN_'
+ 1448 |   GTEST_AMBIGUOUS_ELSE_BLOCKER_                                       \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/internal/gtest-port.h:728:3: note: expanded from macro 'GTEST_AMBIGUOUS_ELSE_BLOCKER_'
+  728 |   switch (0)                          \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_discovery_action_test.cpp:326:3: note: Assuming the condition is false
+  326 |   EXPECT_TRUE(historical.parse());
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1823:32: note: expanded from macro 'EXPECT_TRUE'
+ 1823 | #define EXPECT_TRUE(condition) GTEST_EXPECT_TRUE(condition)
+      |                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1808:3: note: expanded from macro 'GTEST_EXPECT_TRUE'
+ 1808 |   GTEST_TEST_BOOLEAN_(condition, #condition, false, true, \
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1809 |                       GTEST_NONFATAL_FAILURE_)
+      |                       ~~~~~~~~~~~~~~~~~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/internal/gtest-internal.h:1449:40: note: expanded from macro 'GTEST_TEST_BOOLEAN_'
+ 1449 |   if (const ::testing::AssertionResult gtest_ar_ =                    \
+      |                                        ^~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_discovery_action_test.cpp:326:3: note: Taking false branch
+  326 |   EXPECT_TRUE(historical.parse());
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1823:32: note: expanded from macro 'EXPECT_TRUE'
+ 1823 | #define EXPECT_TRUE(condition) GTEST_EXPECT_TRUE(condition)
+      |                                ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1808:3: note: expanded from macro 'GTEST_EXPECT_TRUE'
+ 1808 |   GTEST_TEST_BOOLEAN_(condition, #condition, false, true, \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/internal/gtest-internal.h:1449:3: note: expanded from macro 'GTEST_TEST_BOOLEAN_'
+ 1449 |   if (const ::testing::AssertionResult gtest_ar_ =                    \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_discovery_action_test.cpp:327:3: note: Control jumps to 'case 0:'  at line 327
+  327 |   EXPECT_FALSE(historical.parse(Design::d207_v2));
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1827:33: note: expanded from macro 'EXPECT_FALSE'
+ 1827 | #define EXPECT_FALSE(condition) GTEST_EXPECT_FALSE(condition)
+      |                                 ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1811:3: note: expanded from macro 'GTEST_EXPECT_FALSE'
+ 1811 |   GTEST_TEST_BOOLEAN_(!(condition), #condition, true, false, \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/internal/gtest-internal.h:1448:3: note: expanded from macro 'GTEST_TEST_BOOLEAN_'
+ 1448 |   GTEST_AMBIGUOUS_ELSE_BLOCKER_                                       \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/internal/gtest-port.h:728:3: note: expanded from macro 'GTEST_AMBIGUOUS_ELSE_BLOCKER_'
+  728 |   switch (0)                          \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_discovery_action_test.cpp:327:3: note: Assuming the condition is false
+  327 |   EXPECT_FALSE(historical.parse(Design::d207_v2));
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1827:33: note: expanded from macro 'EXPECT_FALSE'
+ 1827 | #define EXPECT_FALSE(condition) GTEST_EXPECT_FALSE(condition)
+      |                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1811:3: note: expanded from macro 'GTEST_EXPECT_FALSE'
+ 1811 |   GTEST_TEST_BOOLEAN_(!(condition), #condition, true, false, \
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1812 |                       GTEST_NONFATAL_FAILURE_)
+      |                       ~~~~~~~~~~~~~~~~~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/internal/gtest-internal.h:1449:40: note: expanded from macro 'GTEST_TEST_BOOLEAN_'
+ 1449 |   if (const ::testing::AssertionResult gtest_ar_ =                    \
+      |                                        ^~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_discovery_action_test.cpp:327:3: note: Taking false branch
+  327 |   EXPECT_FALSE(historical.parse(Design::d207_v2));
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1827:33: note: expanded from macro 'EXPECT_FALSE'
+ 1827 | #define EXPECT_FALSE(condition) GTEST_EXPECT_FALSE(condition)
+      |                                 ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1811:3: note: expanded from macro 'GTEST_EXPECT_FALSE'
+ 1811 |   GTEST_TEST_BOOLEAN_(!(condition), #condition, true, false, \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/internal/gtest-internal.h:1449:3: note: expanded from macro 'GTEST_TEST_BOOLEAN_'
+ 1449 |   if (const ::testing::AssertionResult gtest_ar_ =                    \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_discovery_action_test.cpp:328:3: note: Control jumps to 'case 0:'  at line 328
+  328 |   EXPECT_FALSE(revised.parse(static_cast<Design>(99U)));
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1827:33: note: expanded from macro 'EXPECT_FALSE'
+ 1827 | #define EXPECT_FALSE(condition) GTEST_EXPECT_FALSE(condition)
+      |                                 ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1811:3: note: expanded from macro 'GTEST_EXPECT_FALSE'
+ 1811 |   GTEST_TEST_BOOLEAN_(!(condition), #condition, true, false, \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/internal/gtest-internal.h:1448:3: note: expanded from macro 'GTEST_TEST_BOOLEAN_'
+ 1448 |   GTEST_AMBIGUOUS_ELSE_BLOCKER_                                       \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/internal/gtest-port.h:728:3: note: expanded from macro 'GTEST_AMBIGUOUS_ELSE_BLOCKER_'
+  728 |   switch (0)                          \
+      |   ^
+/home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_discovery_action_test.cpp:328:30: note: The value '99' provided to the cast expression is not in the valid range of values for 'DiscoveryNativeDesign'
+  328 |   EXPECT_FALSE(revised.parse(static_cast<Design>(99U)));
+      |                              ^
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1827:52: note: expanded from macro 'EXPECT_FALSE'
+ 1827 | #define EXPECT_FALSE(condition) GTEST_EXPECT_FALSE(condition)
+      |                                                    ^~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/gtest.h:1811:25: note: expanded from macro 'GTEST_EXPECT_FALSE'
+ 1811 |   GTEST_TEST_BOOLEAN_(!(condition), #condition, true, false, \
+      |                         ^~~~~~~~~
+/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/clang-tests/usr/include/gtest/internal/gtest-internal.h:1450:38: note: expanded from macro 'GTEST_TEST_BOOLEAN_'
+ 1450 |           ::testing::AssertionResult(expression))                     \
+      |                                      ^~~~~~~~~~
+Suppressed 255 warnings (255 in non-user code).
+Use -header-filter=.* or leave it as default to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.
+1 warning treated as error

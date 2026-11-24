@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:cpu-prefetch:phase18:access-journal:v1",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "journal_id", "authorization_id", "authorization_sha256", "synthetic_test_only", "transitions", "current_state_claim"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-phase18-access-journal/1"}, "journal_id": {"type": "string", "minLength": 1}, "authorization_id": {"type": "string", "minLength": 1}, "authorization_sha256": {"pattern": "^[0-9a-f]{64}$"}, "synthetic_test_only": {"type": "boolean"},
+    "transitions": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["sequence_number", "from_state", "to_state", "previous_transition_sha256", "evidence_sha256s", "actor", "timestamp_utc", "authority_scope", "stage17_authority_used", "automatic_transition"], "properties": {"sequence_number": {"type": "integer", "minimum": 1}, "from_state": {"$ref": "#/$defs/state"}, "to_state": {"$ref": "#/$defs/state"}, "previous_transition_sha256": {"pattern": "^[0-9a-f]{64}$"}, "evidence_sha256s": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"pattern": "^[0-9a-f]{64}$"}}, "actor": {"type": "string", "minLength": 1}, "timestamp_utc": {"pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"}, "authority_scope": {"const": "PHASE18_ACCESS_TRANSITION_ONLY"}, "stage17_authority_used": {"const": false}, "automatic_transition": {"const": false}}}},
+    "current_state_claim": {"$ref": "#/$defs/state"}
+  },
+  "$defs": {"state": {"enum": ["PLANNED", "COLLECTED_SEALED", "TRAINING_OPEN", "SELECTION_FROZEN", "VALIDATION_UNSEALED", "H3_EVALUATED", "H1H2_RELEASED", "ARCHIVED"]}}
+}

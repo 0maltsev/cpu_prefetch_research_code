@@ -1,0 +1,19 @@
+{
+  "additional_parked_probe_processes": 1,
+  "all_original_hashes_verified": true,
+  "canonical_artifacts": 9,
+  "collection_started": false,
+  "elapsed_ns": 18654879599,
+  "execution_authority": false,
+  "live_broker_and_codec_processes": 28,
+  "parent_address_space": [
+    2147483648,
+    2147483648
+  ],
+  "profile_sha256": "b9e12215cfcb37e8af765107e895fc12fec3345ecc253b6701788fa5c3d86e06",
+  "qualification_scope": "actual cold archive runtime compatibility only; not experiment readiness",
+  "readback_processes": 18,
+  "scientific_credit": false,
+  "software_fixture": true,
+  "status": "PASS"
+}

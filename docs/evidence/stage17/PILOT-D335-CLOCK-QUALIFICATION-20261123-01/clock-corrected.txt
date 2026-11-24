@@ -1,0 +1,127 @@
+E.EE.......EE.
+======================================================================
+ERROR: test_actual_sealed_processes_are_ordered_reaped_and_prove_only_clock_pairs (__main__.ClockTests.test_actual_sealed_processes_are_ordered_reaped_and_prove_only_clock_pairs)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_clock_qualification_v1.py", line 67, in test_actual_sealed_processes_are_ordered_reaped_and_prove_only_clock_pairs
+    owned=self.qualify();proof=owned.proof(plan_sha256=self.hardware.sha)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_clock_qualification_v1.py", line 59, in qualify
+    return clock.qualify_clocks(environment_owner=self.owner,clock_image=self.image,
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        deadline_ns=time.monotonic_ns()+300*10**9)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_clock_qualification_v1.py", line 249, in qualify_clocks
+    owned.proof(plan_sha256=guard.owner['plan_sha256']);return owned
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_clock_qualification_v1.py", line 201, in proof
+    try:return self._proof(plan_sha256=plan_sha256)
+               ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_clock_qualification_v1.py", line 211, in _proof
+    for row in (*archive.parse_json(self._bindings),completion):
+                 ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 90, in parse_json
+    raise ArchiveError("JSON is not exact JCS-I64-v1 object bytes")
+stage17_formal_archive_v1.ArchiveError: JSON is not exact JCS-I64-v1 object bytes
+
+======================================================================
+ERROR: test_changed_raw_evidence_latches_the_live_handle (__main__.ClockTests.test_changed_raw_evidence_latches_the_live_handle)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_clock_qualification_v1.py", line 131, in test_changed_raw_evidence_latches_the_live_handle
+    owned=self.qualify();path=self.root/'near/clock-raw.json';raw=path.read_bytes();path.write_bytes(raw+b' ')
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_clock_qualification_v1.py", line 59, in qualify
+    return clock.qualify_clocks(environment_owner=self.owner,clock_image=self.image,
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        deadline_ns=time.monotonic_ns()+300*10**9)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_clock_qualification_v1.py", line 249, in qualify_clocks
+    owned.proof(plan_sha256=guard.owner['plan_sha256']);return owned
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_clock_qualification_v1.py", line 201, in proof
+    try:return self._proof(plan_sha256=plan_sha256)
+               ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_clock_qualification_v1.py", line 211, in _proof
+    for row in (*archive.parse_json(self._bindings),completion):
+                 ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 90, in parse_json
+    raise ArchiveError("JSON is not exact JCS-I64-v1 object bytes")
+stage17_formal_archive_v1.ArchiveError: JSON is not exact JCS-I64-v1 object bytes
+
+======================================================================
+ERROR: test_completed_namespace_and_roles_are_never_reused (__main__.ClockTests.test_completed_namespace_and_roles_are_never_reused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_clock_qualification_v1.py", line 120, in test_completed_namespace_and_roles_are_never_reused
+    self.qualify()
+    ~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_clock_qualification_v1.py", line 59, in qualify
+    return clock.qualify_clocks(environment_owner=self.owner,clock_image=self.image,
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        deadline_ns=time.monotonic_ns()+300*10**9)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_clock_qualification_v1.py", line 249, in qualify_clocks
+    owned.proof(plan_sha256=guard.owner['plan_sha256']);return owned
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_clock_qualification_v1.py", line 201, in proof
+    try:return self._proof(plan_sha256=plan_sha256)
+               ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_clock_qualification_v1.py", line 211, in _proof
+    for row in (*archive.parse_json(self._bindings),completion):
+                 ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 90, in parse_json
+    raise ArchiveError("JSON is not exact JCS-I64-v1 object bytes")
+stage17_formal_archive_v1.ArchiveError: JSON is not exact JCS-I64-v1 object bytes
+
+======================================================================
+ERROR: test_proof_dictionaries_cannot_mutate_retained_bindings (__main__.ClockTests.test_proof_dictionaries_cannot_mutate_retained_bindings)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_clock_qualification_v1.py", line 137, in test_proof_dictionaries_cannot_mutate_retained_bindings
+    owned=self.qualify();proof=owned.proof(plan_sha256=self.hardware.sha);proof['completion']['sha256']='f'*64
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_clock_qualification_v1.py", line 59, in qualify
+    return clock.qualify_clocks(environment_owner=self.owner,clock_image=self.image,
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        deadline_ns=time.monotonic_ns()+300*10**9)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_clock_qualification_v1.py", line 249, in qualify_clocks
+    owned.proof(plan_sha256=guard.owner['plan_sha256']);return owned
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_clock_qualification_v1.py", line 201, in proof
+    try:return self._proof(plan_sha256=plan_sha256)
+               ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_clock_qualification_v1.py", line 211, in _proof
+    for row in (*archive.parse_json(self._bindings),completion):
+                 ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 90, in parse_json
+    raise ArchiveError("JSON is not exact JCS-I64-v1 object bytes")
+stage17_formal_archive_v1.ArchiveError: JSON is not exact JCS-I64-v1 object bytes
+
+======================================================================
+ERROR: test_raw_counts_cpu_flags_and_field_types_are_strict (__main__.ClockTests.test_raw_counts_cpu_flags_and_field_types_are_strict)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_clock_qualification_v1.py", line 141, in test_raw_counts_cpu_flags_and_field_types_are_strict
+    self.qualify();good=json.loads((self.root/'near/clock-raw.json').read_bytes())
+    ~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_clock_qualification_v1.py", line 59, in qualify
+    return clock.qualify_clocks(environment_owner=self.owner,clock_image=self.image,
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        deadline_ns=time.monotonic_ns()+300*10**9)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_clock_qualification_v1.py", line 249, in qualify_clocks
+    owned.proof(plan_sha256=guard.owner['plan_sha256']);return owned
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_clock_qualification_v1.py", line 201, in proof
+    try:return self._proof(plan_sha256=plan_sha256)
+               ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_clock_qualification_v1.py", line 211, in _proof
+    for row in (*archive.parse_json(self._bindings),completion):
+                 ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 90, in parse_json
+    raise ArchiveError("JSON is not exact JCS-I64-v1 object bytes")
+stage17_formal_archive_v1.ArchiveError: JSON is not exact JCS-I64-v1 object bytes
+
+----------------------------------------------------------------------
+Ran 14 tests in 59.956s
+
+FAILED (errors=5)

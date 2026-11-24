@@ -1,0 +1,90 @@
+{
+  "schema_version": "cpu-prefetch-q15-r-p4-k-a-controller-profile/1",
+  "profile_id": "Q15-R-P4-K-A-FIXED-CEREMONY-CONTROLLER-v1",
+  "protocol_version": "2.0.0-pre.2",
+  "status": "ACCEPTED_IMPLEMENTED_REPOSITORY_LOCAL_NO_EXTERNAL_OR_EXECUTION_AUTHORITY",
+  "decision": {
+    "decision_id": "D-086",
+    "classification": "SECURITY_GENERIC_NO_AUTHORITY_CONTROLLER_IMPLEMENTATION",
+    "selected_option": "GENERIC_HASH_BOUND_FAIL_CLOSED_POLICY_ENGINE_REQUIRING_COMPLETE_EXTERNAL_ADMISSION",
+    "accepted_by": "do everything you need to move to the next stage i give you all permissions to anything do it yourself"
+  },
+  "lineage": {
+    "p4_k_a_policy_acceptance_path": "config/q15/q15-r-p4-k-a-d-acceptance-v1.json",
+    "p4_k_a_policy_acceptance_sha256": "c68e1b9427df9306a53cac590dfe268862fa528ef5bf665bf0002972cf77ffaf",
+    "decision_ids": ["D-080", "D-081", "D-082", "D-083", "D-084", "D-085"]
+  },
+  "fixed_controller_contract": {
+    "admission_schema_version": "cpu-prefetch-q15-r-p4-k-a-controller-admission/1",
+    "gate_id": "Q15-R-P4-K-A",
+    "signature_scheme": "OPENSSH-SSHSIG-ED25519-SHA512-v1",
+    "signature_namespace": "cpu-prefetch-q15-authorization",
+    "authorization_principal": "cpu-prefetch-q15-authorization",
+    "authorization_validity_seconds": 1800,
+    "process_mode": "DIRECT_ABSOLUTE_EXECVE_STYLE_NO_SHELL",
+    "fixed_environment_allowlist": ["LANG", "LC_ALL", "PATH", "TZ"],
+    "secret_input_modes": ["UNCAPTURED_CONTROLLING_TTY", "DEDICATED_DESCRIPTOR_AT_LEAST_3"],
+    "resource_limits_are_mandatory_explicit_authorization_inputs": true,
+    "action_attempt_count": 1,
+    "retry_count": 0,
+    "overwrite_repair_cleanup_allowed": false,
+    "create_exclusive_public_outputs_required": true,
+    "private_key_path_bytes_seed_or_passphrase_in_admission_or_evidence_allowed": false,
+    "mandatory_stop_before_p4_k_r": true,
+    "automatic_continuation_allowed": false
+  },
+  "command_graph": [
+    "VERIFY_SIGNED_AUTHORIZATION_AND_BOOTSTRAP_TRUST",
+    "VERIFY_OFFLINE_ENVIRONMENT_TOOLCHAIN_AND_NETWORK_STATE",
+    "VERIFY_CUSTODY_AND_CREATE_EXCLUSIVE_PUBLIC_OUTPUTS",
+    "GENERATE_ENCRYPTED_ED25519_PRIVATE_KEY_ONCE",
+    "EXTRACT_ED25519_PUBLIC_KEY_ONCE",
+    "DERIVE_ED25519_FINGERPRINT_ONCE",
+    "CONSTRUCT_CANONICAL_ALLOWED_SIGNERS_ONCE",
+    "CAPTURE_NONSECRET_CUSTODY_RECEIPT",
+    "SEAL_COMPLETE_OR_PARTIAL_PUBLIC_EVIDENCE",
+    "STOP_FOR_SEPARATE_P4_K_R"
+  ],
+  "implementation": [
+    {
+      "path": "include/cpu_prefetch/qualification/p4_k_a_controller.hpp",
+      "sha256": "634d61a221ba730066c06cde04ebba7266847917032ee04799255e91145d3112",
+      "purpose": "typed admission ticket operations and report contract"
+    },
+    {
+      "path": "src/qualification/p4_k_a_controller.cpp",
+      "sha256": "bb3075b523e82cf1c435f7ae98e1a656ac64b83c1a12bd325bd77496c7cb46b8",
+      "purpose": "fail-closed validation and one-pass controller state machine"
+    },
+    {
+      "path": "tests/p4_k_a_controller_test.cpp",
+      "sha256": "ed0f5a66e8bb4f4caeb887f64a7e4f938da6c72083a43f7d94c2ccf23eef7459",
+      "purpose": "fake-only positive negative limit expiry and every-step failure evidence"
+    }
+  ],
+  "external_evidence_state": {
+    "qualifying_bootstrap_signer_exists": false,
+    "bootstrap_root_established": false,
+    "offline_environment_selected_or_accessed": false,
+    "literal_tool_paths_argv_or_hashes_selected": false,
+    "literal_kdf_work_value_selected": false,
+    "literal_public_export_path_or_artifact_id_selected": false,
+    "key_or_public_artifact_created": false,
+    "authorization_signed_or_issued": false,
+    "p4_k_a_admission_record_exists": false
+  },
+  "authority_boundary": {
+    "repository_local_generic_controller_schema_test_and_documentation_implementation_authorized": true,
+    "offline_environment_access_or_inventory_authorized": false,
+    "bootstrap_governance_root_establishment_authorized_by_this_record": false,
+    "key_read_generation_import_copy_fingerprint_or_use_authorized": false,
+    "private_key_path_bytes_passphrase_or_seed_collection_authorized": false,
+    "public_export_path_or_artifact_creation_authorized": false,
+    "signing_or_issuance_authorized": false,
+    "p4_k_a_authorized": false,
+    "p4_k_r_authorized": false,
+    "stand_access_authorized": false,
+    "q15_r_or_q15_w_authorized": false,
+    "calibration_pilot_measurement_or_confirmatory_authorized": false
+  }
+}

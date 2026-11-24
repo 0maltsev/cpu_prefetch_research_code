@@ -1,0 +1,133 @@
+[
+  {
+    "path": "stand-v18/ext004-qualification-1/clock-capture-result.json",
+    "size_bytes": 1350,
+    "sha256": "c1122730873f6030dceade39372d1534d6334eeec19158fd54a267c77c84347e",
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/ext004-qualification-1/clock-capture-result.json"
+  },
+  {
+    "path": "stand-v18/ext004-qualification-1/clock-raw.json",
+    "size_bytes": 487,
+    "sha256": "fc39d4983fca29dfb5c61f7ba62140bfb10d2146fcbd8dd9b74c93b2a9e0f7f2",
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/ext004-qualification-1/clock-raw.json"
+  },
+  {
+    "path": "stand-v18/ext004-qualification-1/clock-stderr.txt",
+    "size_bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/ext004-qualification-1/clock-stderr.txt"
+  },
+  {
+    "path": "stand-v18/ext004-qualification-1/clock-stdout.txt",
+    "size_bytes": 1103,
+    "sha256": "0f64e140d7c2ecc2d8da4097c5d330267b51e03ca2f16abf6429b9981156e376",
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/ext004-qualification-1/clock-stdout.txt"
+  },
+  {
+    "path": "stand-v18/ext004-qualification-1/clock-capture-intent.json",
+    "size_bytes": 868,
+    "sha256": "3a6dbebc907aee36c07c583cee5305c231851817f1a15f101e3cff006420b78b",
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/ext004-qualification-1/clock-capture-intent.json"
+  },
+  {
+    "path": "stand-v18/journal/stage17-state-journal-000006.json",
+    "size_bytes": 3341,
+    "sha256": "dabad696dbddc59e6ae706bc28b8fe420475c9392a14c43d3378032a7ed94ec1",
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/journal/stage17-state-journal-000006.json"
+  },
+  {
+    "path": "stand-v18/journal/stage17-state-journal-000000.json",
+    "size_bytes": 2791,
+    "sha256": "da9ba7f6072b2e4555db98db8d7c886c133c7f5e98c4f2964b5ef67ba438fafe",
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/journal/stage17-state-journal-000000.json"
+  },
+  {
+    "path": "stand-v18/journal/stage17-state-journal-000001.json",
+    "size_bytes": 2731,
+    "sha256": "e93026c41231828d03d95bb410b86a79f26653b41c2528a84dca35f891b71f04",
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/journal/stage17-state-journal-000001.json"
+  },
+  {
+    "path": "stand-v18/journal/stage17-state-journal-000004.json",
+    "size_bytes": 3099,
+    "sha256": "fe3b683a7846a43803f46230bef400678f27e89e42f4ccf7bb05eddc3a22caab",
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/journal/stage17-state-journal-000004.json"
+  },
+  {
+    "path": "stand-v18/journal/stage17-state-journal-000003.json",
+    "size_bytes": 2972,
+    "sha256": "a683b4954b6efee4ff0d8971a1d1f2a3eccf73122f263b29bc7cbeb0210d9273",
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/journal/stage17-state-journal-000003.json"
+  },
+  {
+    "path": "stand-v18/journal/stage17-state-journal-000002.json",
+    "size_bytes": 2845,
+    "sha256": "37266343ede93825148ec6b4f6ec2fea080605314f92ceb1a528a15d91897f48",
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/journal/stage17-state-journal-000002.json"
+  },
+  {
+    "path": "stand-v18/journal/stage17-state-journal-000005.json",
+    "size_bytes": 3214,
+    "sha256": "c7fef84b1a6aef0ec4d860c2d09a4158402da0bb03c6859a9977dd6b62e4b3ee",
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/journal/stage17-state-journal-000005.json"
+  },
+  {
+    "path": "stand-v18/operator-preparation-v18/d124-attestation-v18.json",
+    "size_bytes": 859,
+    "sha256": "94bb62ec61b588f166647db200b7ff11837536b8c473d89acd228e289e2181c7",
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/operator-preparation-v18/d124-attestation-v18.json"
+  },
+  {
+    "path": "stand-v18/admission-root/evidence/q15r-fresh/request.json",
+    "size_bytes": 1878,
+    "sha256": "fe73005965715c734d68b5672f7518aac80d4470b898012203481c4d6cafa532",
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/admission-root/evidence/q15r-fresh/request.json"
+  },
+  {
+    "path": "stand-v18/admission-root/evidence/q15r-fresh/authorization.json",
+    "size_bytes": 2147,
+    "sha256": "7a576c59d6ede63d3e410bcabc8a0e43661bb3a1f1f8749e6089c30c19b47ed8",
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/admission-root/evidence/q15r-fresh/authorization.json"
+  },
+  {
+    "path": "stand-v18/admission-root/evidence/q15r-fresh/authorization.json.sig",
+    "size_bytes": 322,
+    "sha256": "2f29ea9e880aaefbf6aec17ccb5a0f65920b6a706e9643c1650a23ddc23c4543",
+    "stand_source": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/admission-root/evidence/q15r-fresh/authorization.json.sig"
+  },
+  {
+    "path": "d124-root-search-report.json",
+    "size_bytes": 3471,
+    "sha256": "26cc5d769778e538a2ef9c214821faeab795bc6a0e241995aef6a292d04d7ec0"
+  },
+  {
+    "path": "d124-stand-search-20261103.json",
+    "size_bytes": 3431,
+    "sha256": "3becb198f72ab89865ae82db11545e28f07a2e73020f4b9748c9403ea466dc91"
+  },
+  {
+    "path": "d124-combined-search-20261103.json",
+    "size_bytes": 9514,
+    "sha256": "d32b53488651f8b69b72ca0943124dca57f130f3b474ed908997688f334b478e"
+  },
+  {
+    "path": "v18-clock-failure-environment.json",
+    "size_bytes": 159005,
+    "sha256": "3bfb55df346ce8ea16c183f3a61864f0f24d0a7ad666fc4ab5f44b6d01dfac41"
+  },
+  {
+    "path": "v18-admit-003-006.log",
+    "size_bytes": 7052,
+    "sha256": "febc52daa2354c1fcb3de7ab064cc2f79669aaa3a6fd651c5e14aa0d4d43304d"
+  },
+  {
+    "path": "v18-prepare-q15r.log",
+    "size_bytes": 5474,
+    "sha256": "8423378a50b8558ec1ccec2fdc7220f66cbe7db558ce34088234b24e0a934132"
+  },
+  {
+    "path": "v18-clock-capture.log",
+    "size_bytes": 1535,
+    "sha256": "d43584fcd02592716bd7e160663300585c5eae2e2a3481e8e7bc70110d87ded1"
+  }
+]

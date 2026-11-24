@@ -108,7 +108,8 @@ inventory_document(const cpu_prefetch::platform::PlatformInventory& inventory)
            {"vendor", Value(inventory.cpu.vendor)},
        })},
       {"observations", Value(std::move(observation_values))},
-      {"protocol_version", Value(std::string("2.0.0-pre.2"))},
+      {"protocol_version",
+       Value(std::string(cpu_prefetch::protocol::kProtocolVersion))},
       {"qualification_state", Value(std::string("INVENTORY_ONLY_NOT_QUALIFIED"))},
       {"schema_version", Value(std::string("cpu-prefetch-stand-preflight/1"))},
       {"snapshot_id", Value(inventory.snapshot_id)},
@@ -136,7 +137,7 @@ void usage(std::ostream& output) {
 int run(int argc, char** argv) {
   if (argc == 2 && std::string_view(argv[1]) == "--self-test") {
     const auto repository = cpu_prefetch::foundation::repository_info();
-    if (repository.protocol_version != "2.0.0-pre.2" ||
+    if (repository.protocol_version != cpu_prefetch::protocol::kProtocolVersion ||
         repository.source_revision.empty() || repository.compiler.empty() ||
         repository.standard_library.empty()) {
       std::cerr << "stand-preflight-self-test: FAIL: incomplete build identity\n";

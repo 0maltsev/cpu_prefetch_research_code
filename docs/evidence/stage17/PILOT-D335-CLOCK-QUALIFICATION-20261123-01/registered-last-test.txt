@@ -1,0 +1,31 @@
+Start testing: Nov 23 12:44 MSK
+----------------------------------------------------------
+674/699 Testing: runner.s180_clock_qualification_v1
+674/699 Test: runner.s180_clock_qualification_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_clock_qualification_v1.py" "--endpoint" "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_clock_fixture"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180_clock_qualification_v1" start time: Nov 23 12:44 MSK
+Output:
+----------------------------------------------------------
+....................
+----------------------------------------------------------------------
+Ran 20 tests in 75.166s
+
+OK
+<end of output>
+Test time =  75.44 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180_clock_qualification_v1" end time: Nov 23 12:46 MSK
+"runner.s180_clock_qualification_v1" time elapsed: 00:01:15
+----------------------------------------------------------
+
+End testing: Nov 23 12:46 MSK
+
+pilot =  75.44 sec*proc
+
+python =  75.44 sec*proc
+
+runner =  75.44 sec*proc
+
+synthetic =  75.44 sec*proc

@@ -1,0 +1,15 @@
+{
+  "checked_at_utc": "2026-11-19T15:32:15.147755+00:00",
+  "configuration_sha256": "713654f30ecb5a88b900c1f61a843a8cb96d683f2afd1c6796adadfc97550927",
+  "elapsed_ns": 1985667372,
+  "execution_authority": false,
+  "prefix_output": "{\"status\": \"SOFTWARE_IMPORTS_VERIFIED\", \"capture_validation_started\": false, \"original_source_preserved\": true, \"helpers\": 13, \"execution_authority\": false}",
+  "prefix_packet": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-31/prefix-preparation-final-1/packet.json",
+    "sha256": "b91218c7363c003b0447366de011c93a0732d86bdaca0507ddad62a4eefce32c",
+    "size_bytes": 7319
+  },
+  "raw_validation_started": false,
+  "status": "PREFIX_BOOTSTRAP_AND_D292_BOUND_INPUTS_PASS",
+  "window_started": false
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "software-q16b-prospective-runtime-model/1",
+  "execution_authority": false,
+  "experiment_started": false,
+  "captures": 3540,
+  "measured_contexts": 1,
+  "measured_completed_capture_cycles": [
+    346.496825777,
+    348.566755705
+  ],
+  "mean_observed_previous_cycle_seconds": 347.531790741,
+  "previous_cold_pipeline_seconds": 203.41651335684583,
+  "candidate_cold_pipeline_seconds": 162.44029772514477,
+  "cold_time_reduction_percent": 20.14399664781298,
+  "previous_receipt_resource_seconds": 31.38150121050421,
+  "candidate_receipt_resource_seconds": 12.969423681381159,
+  "previous_replay_seconds": 15.441083382582292,
+  "candidate_replay_seconds": 10.60529377835337,
+  "previous_inventory_seconds": 0.7162118986016139,
+  "candidate_inventory_seconds": 0.14487235702108592,
+  "ledger_records_start": 59747,
+  "ledger_records_added": 198240,
+  "persistent_inventory_objects_start": 74889,
+  "persistent_inventory_objects_added_model": 251340,
+  "ledger_average_growth_ratio": 2.658995430732924,
+  "inventory_average_growth_ratio": 2.678083563674238,
+  "estimated_initial_candidate_cycle_seconds": 267.8666245933647,
+  "estimated_family_average_candidate_cycle_seconds": 320.3155548345977,
+  "estimated_candidate_collection_days": 13.124040093917545,
+  "planning_range_days": [
+    11,
+    16
+  ],
+  "same_model_previous_collection_days": 21.933694152238537,
+  "method": "Anchor to the two retained custody-to-custody intervals. Replace measured cold-pipeline, post-custody gate and replay costs with candidate timings; remove one redundant pre-broker replay. Add linear mean-history growth to two full replays and 71 inventory scans per capture. Persistent objects model:56ledger+7metadata+6archive+2working receipts per capture. Original four replays modeled separately for comparison.",
+  "limitations": [
+    "Planning range is an engineering allowance, not a statistical confidence interval.",
+    "One retained near/L2/ring-off context was timed; other contexts and host load can change byte volume and runtime.",
+    "Future scaling is modeled from record/object counts, not measured through an entire family.",
+    "Cold software fixture uses independent metadata copies and sparse placeholders for unrelated archives.",
+    "No production family has exercised the new flow; source-profile/authority admission is still required before any new experiment.",
+    "Independent scientific validation, Q16c, pilot and Stage18 are excluded.",
+    "All59repetitions/cell and fixed5s/1s windows remain unchanged."
+  ]
+}

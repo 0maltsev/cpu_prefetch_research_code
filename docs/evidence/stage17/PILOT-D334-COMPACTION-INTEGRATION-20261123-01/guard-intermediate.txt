@@ -1,0 +1,415 @@
+test_actual_durable_prestate_and_extended_lease_are_published_before_control_write (__main__.CompactionTests.test_actual_durable_prestate_and_extended_lease_are_published_before_control_write) ... ERROR
+test_actual_script_hash_and_loaded_systemd_command_are_required (__main__.CompactionTests.test_actual_script_hash_and_loaded_systemd_command_are_required) ... ok
+test_changed_control_latches_and_cannot_continue_after_it_recovers (__main__.CompactionTests.test_changed_control_latches_and_cannot_continue_after_it_recovers) ... ERROR
+test_exact_approval_and_monitored_plan_preserve_all_scientific_inputs (__main__.CompactionTests.test_exact_approval_and_monitored_plan_preserve_all_scientific_inputs) ... ok
+test_expired_guard_does_not_renew_deadline_but_can_restore_after_quiescence (__main__.CompactionTests.test_expired_guard_does_not_renew_deadline_but_can_restore_after_quiescence) ... ERROR
+test_live_native_partition_prevents_compaction_restoration (__main__.CompactionTests.test_live_native_partition_prevents_compaction_restoration) ... ERROR
+test_live_owner_cannot_be_recovered_and_occupied_evidence_is_retained (__main__.CompactionTests.test_live_owner_cannot_be_recovered_and_occupied_evidence_is_retained) ... ERROR
+test_missing_supervision_or_monitored_input_blocks_before_control (__main__.CompactionTests.test_missing_supervision_or_monitored_input_blocks_before_control) ... ok
+test_native_placement_and_capture_permission_are_not_issued_by_guard_preparation (__main__.CompactionTests.test_native_placement_and_capture_permission_are_not_issued_by_guard_preparation) ... ERROR
+test_normal_environment_restores_exact_sysctl_and_returns_version_two (__main__.CompactionTests.test_normal_environment_restores_exact_sysctl_and_returns_version_two) ... ERROR
+test_owner_record_change_is_not_accepted_as_a_report (__main__.CompactionTests.test_owner_record_change_is_not_accepted_as_a_report) ... ERROR
+test_stop_post_restoration_requires_real_service_context (__main__.CompactionTests.test_stop_post_restoration_requires_real_service_context) ... ERROR
+test_wrong_process_or_cgroup_cannot_supply_supervision (__main__.CompactionTests.test_wrong_process_or_cgroup_cannot_supply_supervision) ... ERROR
+test_wrong_worker_image_cannot_get_a_recovery_witness (__main__.CompactionTests.test_wrong_worker_image_cannot_get_a_recovery_witness) ... ERROR
+
+======================================================================
+ERROR: test_actual_durable_prestate_and_extended_lease_are_published_before_control_write (__main__.CompactionTests.test_actual_durable_prestate_and_extended_lease_are_published_before_control_write)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 41, in test_actual_durable_prestate_and_extended_lease_are_published_before_control_write
+    owned,control,_=self.attach()
+                    ~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 30, in attach
+    return s180_compaction_fixture.attach(self,self.environment,self.hardware.root)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 238, in prepare
+    _save(ROOT/'owner.json',owner);raw=_root_file(ROOT/'owner.json',OWNER_LIMIT)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 91, in _save
+    raw=archive.canonical(value);require(len(raw)<=OWNER_LIMIT,'recovery/guard record exceeds bound')
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 50, in canonical
+    return canonicalize(value).encode("utf-8", errors="strict")
+           ~~~~~~~~~~~~^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in canonicalize
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in <genexpr>
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+                                  ~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in canonicalize
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in <genexpr>
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+                                  ~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 79, in canonicalize
+    raise TypeError(f"unsupported JSON value: {type(value)!r}")
+TypeError: unsupported JSON value: <class 'tuple'>
+
+======================================================================
+ERROR: test_changed_control_latches_and_cannot_continue_after_it_recovers (__main__.CompactionTests.test_changed_control_latches_and_cannot_continue_after_it_recovers)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 61, in test_changed_control_latches_and_cannot_continue_after_it_recovers
+    owned,control,_=self.attach();control.write_text('1\n')
+                    ~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 30, in attach
+    return s180_compaction_fixture.attach(self,self.environment,self.hardware.root)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 238, in prepare
+    _save(ROOT/'owner.json',owner);raw=_root_file(ROOT/'owner.json',OWNER_LIMIT)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 91, in _save
+    raw=archive.canonical(value);require(len(raw)<=OWNER_LIMIT,'recovery/guard record exceeds bound')
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 50, in canonical
+    return canonicalize(value).encode("utf-8", errors="strict")
+           ~~~~~~~~~~~~^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in canonicalize
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in <genexpr>
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+                                  ~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in canonicalize
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in <genexpr>
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+                                  ~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 79, in canonicalize
+    raise TypeError(f"unsupported JSON value: {type(value)!r}")
+TypeError: unsupported JSON value: <class 'tuple'>
+
+======================================================================
+ERROR: test_expired_guard_does_not_renew_deadline_but_can_restore_after_quiescence (__main__.CompactionTests.test_expired_guard_does_not_renew_deadline_but_can_restore_after_quiescence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 82, in test_expired_guard_does_not_renew_deadline_but_can_restore_after_quiescence
+    owned,control,_=self.attach();owned.guard.deadline_ns=time.monotonic_ns()-1
+                    ~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 30, in attach
+    return s180_compaction_fixture.attach(self,self.environment,self.hardware.root)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 238, in prepare
+    _save(ROOT/'owner.json',owner);raw=_root_file(ROOT/'owner.json',OWNER_LIMIT)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 91, in _save
+    raw=archive.canonical(value);require(len(raw)<=OWNER_LIMIT,'recovery/guard record exceeds bound')
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 50, in canonical
+    return canonicalize(value).encode("utf-8", errors="strict")
+           ~~~~~~~~~~~~^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in canonicalize
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in <genexpr>
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+                                  ~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in canonicalize
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in <genexpr>
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+                                  ~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 79, in canonicalize
+    raise TypeError(f"unsupported JSON value: {type(value)!r}")
+TypeError: unsupported JSON value: <class 'tuple'>
+
+======================================================================
+ERROR: test_live_native_partition_prevents_compaction_restoration (__main__.CompactionTests.test_live_native_partition_prevents_compaction_restoration)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 70, in test_live_native_partition_prevents_compaction_restoration
+    owned,control,_=self.attach();(self.hardware.cg/'cgroup.procs').write_text('555\n')
+                    ~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 30, in attach
+    return s180_compaction_fixture.attach(self,self.environment,self.hardware.root)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 238, in prepare
+    _save(ROOT/'owner.json',owner);raw=_root_file(ROOT/'owner.json',OWNER_LIMIT)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 91, in _save
+    raw=archive.canonical(value);require(len(raw)<=OWNER_LIMIT,'recovery/guard record exceeds bound')
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 50, in canonical
+    return canonicalize(value).encode("utf-8", errors="strict")
+           ~~~~~~~~~~~~^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in canonicalize
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in <genexpr>
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+                                  ~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in canonicalize
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in <genexpr>
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+                                  ~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 79, in canonicalize
+    raise TypeError(f"unsupported JSON value: {type(value)!r}")
+TypeError: unsupported JSON value: <class 'tuple'>
+
+======================================================================
+ERROR: test_live_owner_cannot_be_recovered_and_occupied_evidence_is_retained (__main__.CompactionTests.test_live_owner_cannot_be_recovered_and_occupied_evidence_is_retained)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 121, in test_live_owner_cannot_be_recovered_and_occupied_evidence_is_retained
+    owned,control,_=self.attach();owned.guard.unlock()
+                    ~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 30, in attach
+    return s180_compaction_fixture.attach(self,self.environment,self.hardware.root)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 238, in prepare
+    _save(ROOT/'owner.json',owner);raw=_root_file(ROOT/'owner.json',OWNER_LIMIT)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 91, in _save
+    raw=archive.canonical(value);require(len(raw)<=OWNER_LIMIT,'recovery/guard record exceeds bound')
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 50, in canonical
+    return canonicalize(value).encode("utf-8", errors="strict")
+           ~~~~~~~~~~~~^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in canonicalize
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in <genexpr>
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+                                  ~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in canonicalize
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in <genexpr>
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+                                  ~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 79, in canonicalize
+    raise TypeError(f"unsupported JSON value: {type(value)!r}")
+TypeError: unsupported JSON value: <class 'tuple'>
+
+======================================================================
+ERROR: test_native_placement_and_capture_permission_are_not_issued_by_guard_preparation (__main__.CompactionTests.test_native_placement_and_capture_permission_are_not_issued_by_guard_preparation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 93, in test_native_placement_and_capture_permission_are_not_issued_by_guard_preparation
+    owned,_,_=self.attach()
+              ~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 30, in attach
+    return s180_compaction_fixture.attach(self,self.environment,self.hardware.root)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 238, in prepare
+    _save(ROOT/'owner.json',owner);raw=_root_file(ROOT/'owner.json',OWNER_LIMIT)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 91, in _save
+    raw=archive.canonical(value);require(len(raw)<=OWNER_LIMIT,'recovery/guard record exceeds bound')
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 50, in canonical
+    return canonicalize(value).encode("utf-8", errors="strict")
+           ~~~~~~~~~~~~^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in canonicalize
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in <genexpr>
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+                                  ~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in canonicalize
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in <genexpr>
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+                                  ~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 79, in canonicalize
+    raise TypeError(f"unsupported JSON value: {type(value)!r}")
+TypeError: unsupported JSON value: <class 'tuple'>
+
+======================================================================
+ERROR: test_normal_environment_restores_exact_sysctl_and_returns_version_two (__main__.CompactionTests.test_normal_environment_restores_exact_sysctl_and_returns_version_two)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 53, in test_normal_environment_restores_exact_sysctl_and_returns_version_two
+    owned,control,_=self.attach()
+                    ~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 30, in attach
+    return s180_compaction_fixture.attach(self,self.environment,self.hardware.root)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 238, in prepare
+    _save(ROOT/'owner.json',owner);raw=_root_file(ROOT/'owner.json',OWNER_LIMIT)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 91, in _save
+    raw=archive.canonical(value);require(len(raw)<=OWNER_LIMIT,'recovery/guard record exceeds bound')
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 50, in canonical
+    return canonicalize(value).encode("utf-8", errors="strict")
+           ~~~~~~~~~~~~^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in canonicalize
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in <genexpr>
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+                                  ~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in canonicalize
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in <genexpr>
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+                                  ~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 79, in canonicalize
+    raise TypeError(f"unsupported JSON value: {type(value)!r}")
+TypeError: unsupported JSON value: <class 'tuple'>
+
+======================================================================
+ERROR: test_owner_record_change_is_not_accepted_as_a_report (__main__.CompactionTests.test_owner_record_change_is_not_accepted_as_a_report)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 76, in test_owner_record_change_is_not_accepted_as_a_report
+    owned,control,_=self.attach();path=compaction.ROOT/'owner.json';path.write_bytes(path.read_bytes()+b' ')
+                    ~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 30, in attach
+    return s180_compaction_fixture.attach(self,self.environment,self.hardware.root)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 238, in prepare
+    _save(ROOT/'owner.json',owner);raw=_root_file(ROOT/'owner.json',OWNER_LIMIT)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 91, in _save
+    raw=archive.canonical(value);require(len(raw)<=OWNER_LIMIT,'recovery/guard record exceeds bound')
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 50, in canonical
+    return canonicalize(value).encode("utf-8", errors="strict")
+           ~~~~~~~~~~~~^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in canonicalize
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in <genexpr>
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+                                  ~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in canonicalize
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in <genexpr>
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+                                  ~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 79, in canonicalize
+    raise TypeError(f"unsupported JSON value: {type(value)!r}")
+TypeError: unsupported JSON value: <class 'tuple'>
+
+======================================================================
+ERROR: test_stop_post_restoration_requires_real_service_context (__main__.CompactionTests.test_stop_post_restoration_requires_real_service_context)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 139, in test_stop_post_restoration_requires_real_service_context
+    self.attach()
+    ~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 30, in attach
+    return s180_compaction_fixture.attach(self,self.environment,self.hardware.root)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 238, in prepare
+    _save(ROOT/'owner.json',owner);raw=_root_file(ROOT/'owner.json',OWNER_LIMIT)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 91, in _save
+    raw=archive.canonical(value);require(len(raw)<=OWNER_LIMIT,'recovery/guard record exceeds bound')
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 50, in canonical
+    return canonicalize(value).encode("utf-8", errors="strict")
+           ~~~~~~~~~~~~^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in canonicalize
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in <genexpr>
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+                                  ~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in canonicalize
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in <genexpr>
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+                                  ~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 79, in canonicalize
+    raise TypeError(f"unsupported JSON value: {type(value)!r}")
+TypeError: unsupported JSON value: <class 'tuple'>
+
+======================================================================
+ERROR: test_wrong_process_or_cgroup_cannot_supply_supervision (__main__.CompactionTests.test_wrong_process_or_cgroup_cannot_supply_supervision)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 114, in test_wrong_process_or_cgroup_cannot_supply_supervision
+    owned,_,supervision=self.attach()
+                        ~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 30, in attach
+    return s180_compaction_fixture.attach(self,self.environment,self.hardware.root)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 238, in prepare
+    _save(ROOT/'owner.json',owner);raw=_root_file(ROOT/'owner.json',OWNER_LIMIT)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 91, in _save
+    raw=archive.canonical(value);require(len(raw)<=OWNER_LIMIT,'recovery/guard record exceeds bound')
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 50, in canonical
+    return canonicalize(value).encode("utf-8", errors="strict")
+           ~~~~~~~~~~~~^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in canonicalize
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in <genexpr>
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+                                  ~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in canonicalize
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in <genexpr>
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+                                  ~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 79, in canonicalize
+    raise TypeError(f"unsupported JSON value: {type(value)!r}")
+TypeError: unsupported JSON value: <class 'tuple'>
+
+======================================================================
+ERROR: test_wrong_worker_image_cannot_get_a_recovery_witness (__main__.CompactionTests.test_wrong_worker_image_cannot_get_a_recovery_witness)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 129, in test_wrong_worker_image_cannot_get_a_recovery_witness
+    owned,_,_=self.attach();process=subprocess.Popen(['/usr/bin/sleep','10'])
+              ~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_compaction_v1.py", line 30, in attach
+    return s180_compaction_fixture.attach(self,self.environment,self.hardware.root)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 238, in prepare
+    _save(ROOT/'owner.json',owner);raw=_root_file(ROOT/'owner.json',OWNER_LIMIT)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 91, in _save
+    raw=archive.canonical(value);require(len(raw)<=OWNER_LIMIT,'recovery/guard record exceeds bound')
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 50, in canonical
+    return canonicalize(value).encode("utf-8", errors="strict")
+           ~~~~~~~~~~~~^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in canonicalize
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in <genexpr>
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+                                  ~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in canonicalize
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 76, in <genexpr>
+    + ",".join(quote(key) + ":" + canonicalize(item) for key, item in ordered)
+                                  ~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 79, in canonicalize
+    raise TypeError(f"unsupported JSON value: {type(value)!r}")
+TypeError: unsupported JSON value: <class 'tuple'>
+
+----------------------------------------------------------------------
+Ran 14 tests in 11.974s
+
+FAILED (errors=11)

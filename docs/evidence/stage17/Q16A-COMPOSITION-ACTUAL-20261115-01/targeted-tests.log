@@ -1,0 +1,17 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/dev-gcc
+    Start 434: runner.q16a_composite_v1
+1/3 Test #434: runner.q16a_composite_v1 ..........   Passed    8.07 sec
+    Start 435: runner.q16a_suffix_admission_v1
+2/3 Test #435: runner.q16a_suffix_admission_v1 ...   Passed    1.01 sec
+    Start 436: runner.q16a_geometry_v1
+3/3 Test #436: runner.q16a_geometry_v1 ...........   Passed    0.17 sec
+
+100% tests passed, 0 tests failed out of 3
+
+Label Time Summary:
+archive      =   9.26 sec*proc (3 tests)
+python       =   9.26 sec*proc (3 tests)
+runner       =   9.26 sec*proc (3 tests)
+synthetic    =   9.26 sec*proc (3 tests)
+
+Total Test time (real) =   9.27 sec

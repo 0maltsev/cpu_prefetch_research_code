@@ -4,6 +4,7 @@
 #include "cpu_prefetch/queue/ring_spsc.hpp"
 #include "cpu_prefetch/timing/capture.hpp"
 #include "cpu_prefetch/timing/clock.hpp"
+#include "cpu_prefetch/timing/cross_core_exchange.hpp"
 #include "cpu_prefetch/timing/intervals.hpp"
 #include "cpu_prefetch/timing/qualification.hpp"
 #include "cpu_prefetch/workload/deterministic.hpp"
@@ -41,6 +42,9 @@ using cpu_prefetch::timing::ClockOrigin;
 using cpu_prefetch::timing::ClockReadResult;
 using cpu_prefetch::timing::ClockReadStatus;
 using cpu_prefetch::timing::ClockSample;
+using cpu_prefetch::timing::CrossCoreExchangeChannel;
+using cpu_prefetch::timing::CrossCoreExchangeSample;
+using cpu_prefetch::timing::CrossCoreExchangeSlot;
 using cpu_prefetch::timing::MonotonicRawClock;
 using cpu_prefetch::timing::TimestampBoundary;
 using cpu_prefetch::workload::AcceptedOrdinal;
@@ -575,6 +579,154 @@ TEST(TimingClock, RealMonotonicRawReaderIsAnEngineeringSmokeOnly) {
   EXPECT_TRUE(vdso.library_opened);
   EXPECT_TRUE(vdso.clock_gettime_symbol_present);
   EXPECT_TRUE(vdso.versioned_symbol_present);
+}
+
+TEST(TimingCrossCoreExchange, AtomicSlotsAreAlwaysLockFreeAndCacheLineSeparated) {
+  CrossCoreExchangeSlot slot;
+  const auto evidence = slot.atomic_lock_free_evidence();
+  EXPECT_TRUE(evidence.always_lock_free);
+  EXPECT_TRUE(evidence.runtime_lock_free);
+  EXPECT_EQ(evidence.atomic_pointer_width_bytes, sizeof(std::atomic<std::uint64_t>));
+  EXPECT_EQ(evidence.atomic_pointer_alignment_bytes,
+            alignof(std::atomic<std::uint64_t>));
+}
+
+TEST(TimingCrossCoreExchange,
+     SlotWaitForReturnsAlreadyPublishedPayloadWithoutSpinning) {
+  CrossCoreExchangeSlot slot;
+  slot.publish(7U, 111U, 222U);
+  const auto payload =
+      slot.wait_for(7U, cpu_prefetch::timing::CrossCoreExchangeSpinLimit{1U});
+  EXPECT_EQ(require_optional(payload).first, 111U);
+  EXPECT_EQ(require_optional(payload).second, 222U);
+}
+
+TEST(TimingCrossCoreExchange, InitiatorTimesOutWhenResponderNeverAnswers) {
+  CrossCoreExchangeChannel channel;
+  std::atomic<std::uint64_t> clock{0U};
+  const auto now = [&] { return clock.fetch_add(1U, std::memory_order_relaxed); };
+  const auto result = cpu_prefetch::timing::initiate_cross_core_round_trip(
+      channel, 1U, now, cpu_prefetch::timing::CrossCoreExchangeTimeoutPolicy{1'000U});
+  EXPECT_FALSE(result.has_value());
+}
+
+// Regression test for the real bug this fallback fixes: at accepted scale,
+// run_direction_initiator can legitimately sleep for real seconds between
+// qualification windows while the responder side has already exhausted its
+// fast spin waiting for the next window's first exchange -- without this
+// fallback, that single timeout permanently desynchronized both sides'
+// unconditionally-incremented sequence counters for the rest of the run.
+TEST(TimingCrossCoreExchange, SlotWaitForSurvivesADelayedPublishViaWallClockFallback) {
+  CrossCoreExchangeSlot slot;
+  const auto now = [] {
+    const auto reading = cpu_prefetch::timing::read_monotonic_raw_absolute();
+    return reading.status == cpu_prefetch::timing::ClockReadStatus::ok
+               ? reading.absolute_nanoseconds
+               : 0U;
+  };
+  std::thread publisher([&] {
+    std::this_thread::sleep_for(std::chrono::milliseconds(30));
+    slot.publish(9U, 333U, 444U);
+  });
+  // A deliberately tiny fast-spin bound (so the fast path reliably exhausts
+  // before the publisher above ever runs) plus a generous 2-second wall-
+  // clock budget, comfortably covering the real 30ms delay.
+  const auto payload = slot.wait_for(
+      9U, now,
+      cpu_prefetch::timing::CrossCoreExchangeTimeoutPolicy{1'000U, 2'000'000'000U});
+  publisher.join();
+  EXPECT_EQ(require_optional(payload).first, 333U);
+  EXPECT_EQ(require_optional(payload).second, 444U);
+}
+
+TEST(TimingCrossCoreExchange,
+     SlotWaitForStillTimesOutWhenPeerNeverPublishesWithinMaxWaitTicks) {
+  CrossCoreExchangeSlot slot;
+  const auto now = [] {
+    const auto reading = cpu_prefetch::timing::read_monotonic_raw_absolute();
+    return reading.status == cpu_prefetch::timing::ClockReadStatus::ok
+               ? reading.absolute_nanoseconds
+               : 0U;
+  };
+  const auto payload = slot.wait_for(
+      9U, now,
+      cpu_prefetch::timing::CrossCoreExchangeTimeoutPolicy{1'000U, 30'000'000U});
+  EXPECT_FALSE(payload.has_value());
+}
+
+TEST(TimingCrossCoreExchange,
+     TwoThreadsCompleteManyCausallyOrderedRoundTripsInBothDirections) {
+  constexpr std::size_t kRoundTrips = 2'000U;
+  CrossCoreExchangeChannel forward_channel;
+  CrossCoreExchangeChannel backward_channel;
+  std::atomic<std::uint64_t> shared_clock{0U};
+  const auto now = [&] {
+    return shared_clock.fetch_add(1U, std::memory_order_relaxed);
+  };
+  std::atomic<bool> start{false};
+
+  std::vector<CrossCoreExchangeSample> producer_to_consumer;
+  std::vector<CrossCoreExchangeSample> consumer_to_producer;
+  bool producer_to_consumer_complete = false;
+  bool consumer_to_producer_complete = false;
+
+  std::thread producer([&] {
+    while (!start.load(std::memory_order_acquire)) {
+      std::this_thread::yield();
+    }
+    producer_to_consumer.reserve(kRoundTrips);
+    for (std::uint64_t sequence = 1U; sequence <= kRoundTrips; ++sequence) {
+      const auto sample = cpu_prefetch::timing::initiate_cross_core_round_trip(
+          forward_channel, sequence, now);
+      if (!sample.has_value()) {
+        return;
+      }
+      producer_to_consumer.push_back(*sample);
+    }
+    producer_to_consumer_complete = true;
+    for (std::uint64_t sequence = 1U; sequence <= kRoundTrips; ++sequence) {
+      if (!cpu_prefetch::timing::respond_to_cross_core_round_trip(backward_channel,
+                                                                  sequence, now)) {
+        return;
+      }
+    }
+  });
+  std::thread consumer([&] {
+    while (!start.load(std::memory_order_acquire)) {
+      std::this_thread::yield();
+    }
+    for (std::uint64_t sequence = 1U; sequence <= kRoundTrips; ++sequence) {
+      if (!cpu_prefetch::timing::respond_to_cross_core_round_trip(forward_channel,
+                                                                  sequence, now)) {
+        return;
+      }
+    }
+    consumer_to_producer.reserve(kRoundTrips);
+    for (std::uint64_t sequence = 1U; sequence <= kRoundTrips; ++sequence) {
+      const auto sample = cpu_prefetch::timing::initiate_cross_core_round_trip(
+          backward_channel, sequence, now);
+      if (!sample.has_value()) {
+        return;
+      }
+      consumer_to_producer.push_back(*sample);
+    }
+    consumer_to_producer_complete = true;
+  });
+  start.store(true, std::memory_order_release);
+  producer.join();
+  consumer.join();
+
+  ASSERT_TRUE(producer_to_consumer_complete);
+  ASSERT_TRUE(consumer_to_producer_complete);
+  ASSERT_EQ(producer_to_consumer.size(), kRoundTrips);
+  ASSERT_EQ(consumer_to_producer.size(), kRoundTrips);
+  for (const auto* direction : {&producer_to_consumer, &consumer_to_producer}) {
+    for (const auto& sample : *direction) {
+      EXPECT_LT(sample.request_send, sample.request_receive);
+      EXPECT_LE(sample.request_receive, sample.response_send);
+      EXPECT_LT(sample.response_send, sample.response_receive);
+    }
+  }
 }
 
 } // namespace

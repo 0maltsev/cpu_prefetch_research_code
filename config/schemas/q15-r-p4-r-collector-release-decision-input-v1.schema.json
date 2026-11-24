@@ -1,0 +1,134 @@
+{
+  "$id": "urn:cpu-prefetch:q15-r-p4-r-collector-release-decision-input:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "$defs": {
+    "nonempty": {"minLength": 1, "type": "string"},
+    "sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+    "unresolved": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {"$ref": "#/$defs/nonempty"},
+        "state": {"const": "UNRESOLVED"},
+        "value": {"type": "null"}
+      },
+      "required": ["name", "state", "value"],
+      "type": "object"
+    }
+  },
+  "properties": {
+    "authority_boundary": {
+      "additionalProperties": false,
+      "properties": {
+        "account_or_key_changes_authorized": {"const": false},
+        "bundle_transfer_or_install_authorized": {"const": false},
+        "calibration_authorized": {"const": false},
+        "collector_execution_authorized": {"const": false},
+        "confirmatory_authorized": {"const": false},
+        "dynamic_qualification_authorized": {"const": false},
+        "filesystem_or_permission_changes_authorized": {"const": false},
+        "literal_path_selection_authorized": {"const": false},
+        "measurement_authorized": {"const": false},
+        "msr_read_authorized": {"const": false},
+        "msr_write_authorized": {"const": false},
+        "pilot_authorized": {"const": false},
+        "q15_r_authorized": {"const": false},
+        "q15_w_authorized": {"const": false},
+        "real_affinity_numa_authorized": {"const": false},
+        "real_pmu_authorized": {"const": false},
+        "repository_local_decision_bundle_preparation_authorized": {"const": true},
+        "repository_local_successor_preparation_authorized": {"const": false},
+        "signing_or_key_operation_authorized": {"const": false},
+        "stand_access_authorized": {"const": false},
+        "stand_setup_authorized": {"const": false}
+      },
+      "required": ["account_or_key_changes_authorized", "bundle_transfer_or_install_authorized", "calibration_authorized", "collector_execution_authorized", "confirmatory_authorized", "dynamic_qualification_authorized", "filesystem_or_permission_changes_authorized", "literal_path_selection_authorized", "measurement_authorized", "msr_read_authorized", "msr_write_authorized", "pilot_authorized", "q15_r_authorized", "q15_w_authorized", "real_affinity_numa_authorized", "real_pmu_authorized", "repository_local_decision_bundle_preparation_authorized", "repository_local_successor_preparation_authorized", "signing_or_key_operation_authorized", "stand_access_authorized", "stand_setup_authorized"],
+      "type": "object"
+    },
+    "bundle_id": {"const": "Q15-R-P4-R-COLLECTOR-RELEASE-DECISION-INPUT-20260825-01"},
+    "collector_release_evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "archive_bytes": {"const": 4642298},
+        "archive_name": {"const": "cpu-prefetch-q15-qualification-tool-2.0.0-34da95d-clean-5fc75063e1d1.tar.gz"},
+        "archive_sha256": {"const": "f45d25f4aa6bff56c39face088c46c4cccd21bfaf903c9c320100b561402ff3a"},
+        "bundle_manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "bundle_profile": {"const": "Q15-QUALIFICATION-TOOL-BUNDLE-v3"},
+        "collector_binary_sha256": {"$ref": "#/$defs/sha256"},
+        "collector_contract_sha256": {"const": "4123735a940da144e00247957d0210216cde4bf19fbdbea0378b52dab2161b87"},
+        "controller_binary_sha256": {"$ref": "#/$defs/sha256"},
+        "controller_codegen_report_sha256": {"$ref": "#/$defs/sha256"},
+        "internal_file_count": {"const": 154},
+        "internal_sha256s_sha256": {"$ref": "#/$defs/sha256"},
+        "p4_d_acceptance_sha256": {"const": "1645c2a7fb356272afbf9377b99784e307f54f8a7df5fbb09f46d70edae3c521"},
+        "prestate_validator_sha256": {"$ref": "#/$defs/sha256"},
+        "probe_codegen_report_sha256": {"$ref": "#/$defs/sha256"},
+        "q15_qualification_library_sha256": {"$ref": "#/$defs/sha256"},
+        "q15_tool_binary_sha256": {"$ref": "#/$defs/sha256"},
+        "repository_license": {"const": "NO-LICENSE-GRANT"},
+        "runtime_codegen_report_sha256": {"$ref": "#/$defs/sha256"},
+        "sbom_sha256": {"$ref": "#/$defs/sha256"},
+        "sidecar_sha256": {"$ref": "#/$defs/sha256"},
+        "source_archive_name": {"const": "cpu-prefetch-source-34da95d-clean.tar.gz"},
+        "source_archive_sha256": {"$ref": "#/$defs/sha256"},
+        "source_dirty": {"const": false},
+        "source_revision": {"const": "34da95d002e912069c959bfef8e88a23b4880cea"},
+        "version_metadata_sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "required": ["archive_bytes", "archive_name", "archive_sha256", "bundle_manifest_sha256", "bundle_profile", "collector_binary_sha256", "collector_contract_sha256", "controller_binary_sha256", "controller_codegen_report_sha256", "internal_file_count", "internal_sha256s_sha256", "p4_d_acceptance_sha256", "prestate_validator_sha256", "probe_codegen_report_sha256", "q15_qualification_library_sha256", "q15_tool_binary_sha256", "repository_license", "runtime_codegen_report_sha256", "sbom_sha256", "sidecar_sha256", "source_archive_name", "source_archive_sha256", "source_dirty", "source_revision", "version_metadata_sha256"],
+      "type": "object"
+    },
+    "decision": {
+      "additionalProperties": false,
+      "properties": {
+        "classification": {"$ref": "#/$defs/nonempty"},
+        "compatibility_effect": {"$ref": "#/$defs/nonempty"},
+        "deadline_gate": {"$ref": "#/$defs/nonempty"},
+        "decision_id": {"const": "D-071"},
+        "evidence": {"items": {"$ref": "#/$defs/nonempty"}, "minItems": 1, "type": "array"},
+        "options_considered": {"items": {"$ref": "#/$defs/nonempty"}, "minItems": 2, "type": "array", "uniqueItems": true},
+        "owner": {"items": {"$ref": "#/$defs/nonempty"}, "minItems": 1, "type": "array", "uniqueItems": true},
+        "recommended_option": {"$ref": "#/$defs/nonempty"},
+        "scientific_effect": {"$ref": "#/$defs/nonempty"},
+        "selected_option_if_accepted": {"const": "SELECT_34DA95D_NO_AUTHORITY_COLLECTOR_RELEASE_EVIDENCE_ONLY"},
+        "state": {"const": "PROPOSED_AWAITING_EXPLICIT_OWNER_ACCEPTANCE_NO_AUTHORITY"},
+        "supersession_rule": {"$ref": "#/$defs/nonempty"}
+      },
+      "required": ["classification", "compatibility_effect", "deadline_gate", "decision_id", "evidence", "options_considered", "owner", "recommended_option", "scientific_effect", "selected_option_if_accepted", "state", "supersession_rule"],
+      "type": "object"
+    },
+    "p4_k_preparation": {
+      "const": {
+        "path": "config/q15/q15-r-p4-k.preparation.json",
+        "preparation_id": "Q15-R-P4-K-PREPARATION-20260825-01",
+        "sha256": "c56ae3dc74142d244e448b9a6f638960f0cce1eb1a9e7a106fea90a4bcf55e0f",
+        "state": "UNCHANGED_EIGHT_INPUTS_UNRESOLVED_NOT_ISSUED"
+      }
+    },
+    "prepared_at_utc": {"format": "date-time", "type": "string"},
+    "predecessor_p4_r_preparation": {
+      "const": {
+        "path": "config/q15/q15-r-p4-r.preparation.json",
+        "preparation_id": "Q15-R-P4-R-PREPARATION-20260825-01",
+        "sha256": "1925d9e8d23e42df5feef4bb900de3010a7a612724417f446f8df5d42aa11d9e",
+        "state": "IMMUTABLE_PREDECESSOR_EIGHT_INPUTS_UNRESOLVED_NOT_ISSUED"
+      }
+    },
+    "proposed_successor_p4_r_state": {
+      "const": {
+        "remaining_input_count": 7,
+        "release_selection_state": "AWAITING_D071_ACCEPTANCE",
+        "resolve_only_input_group": "CLEAN_COLLECTOR_SOURCE_COMMIT_ARCHIVE_MANIFEST_SBOM_BINARY_AND_CONTRACT_HASHES",
+        "status": "BLOCKED_EXTERNAL_INPUTS_AND_EXACT_AUTHORITY_NO_AUTHORITY",
+        "successor_record_creation_state": "NOT_AUTHORIZED_UNTIL_EXPLICIT_D071_ACCEPTANCE"
+      }
+    },
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "remaining_required_inputs": {"items": {"$ref": "#/$defs/unresolved"}, "maxItems": 7, "minItems": 7, "type": "array", "uniqueItems": true},
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-r-collector-release-decision-input/1"},
+    "status": {"const": "PROPOSED_OPEN_BEFORE_Q15_R_P4_R_RELEASE_SELECTION_NO_AUTHORITY"}
+  },
+  "required": ["authority_boundary", "bundle_id", "collector_release_evidence", "decision", "p4_k_preparation", "prepared_at_utc", "predecessor_p4_r_preparation", "proposed_successor_p4_r_state", "protocol_version", "remaining_required_inputs", "schema_version", "status"],
+  "title": "Proposed exact Q15-R-P4-R collector-release selection",
+  "type": "object"
+}

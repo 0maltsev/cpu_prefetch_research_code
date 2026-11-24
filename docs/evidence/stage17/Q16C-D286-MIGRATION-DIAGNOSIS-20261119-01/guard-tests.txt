@@ -1,0 +1,19 @@
+test_already_disabled_prestate_stays_disabled (test_stage17_locked_compaction_guard_v1.GuardTests.test_already_disabled_prestate_stays_disabled) ... ok
+test_cross_boot_restore_is_refused_with_original_lease_preserved (test_stage17_locked_compaction_guard_v1.GuardTests.test_cross_boot_restore_is_refused_with_original_lease_preserved) ... ok
+test_drift_is_rejected_and_original_value_restored (test_stage17_locked_compaction_guard_v1.GuardTests.test_drift_is_rejected_and_original_value_restored) ... ok
+test_exact_prestate_is_durable_before_mutation_and_restored (test_stage17_locked_compaction_guard_v1.GuardTests.test_exact_prestate_is_durable_before_mutation_and_restored) ... ok
+test_exception_and_system_exit_restore_exact_control (test_stage17_locked_compaction_guard_v1.GuardTests.test_exception_and_system_exit_restore_exact_control) ... ok
+test_existing_evidence_and_symlink_lease_are_not_overwritten (test_stage17_locked_compaction_guard_v1.GuardTests.test_existing_evidence_and_symlink_lease_are_not_overwritten) ... ok
+test_expiry_blocks_entry_and_does_not_block_restoration (test_stage17_locked_compaction_guard_v1.GuardTests.test_expiry_blocks_entry_and_does_not_block_restoration) ... ok
+test_explicit_recovery_is_idempotent_only_with_actual_restoration (test_stage17_locked_compaction_guard_v1.GuardTests.test_explicit_recovery_is_idempotent_only_with_actual_restoration) ... ok
+test_failed_prepared_publication_restores (test_stage17_locked_compaction_guard_v1.GuardTests.test_failed_prepared_publication_restores) ... ok
+test_failed_restore_retains_occupied_lease_and_allows_explicit_recovery (test_stage17_locked_compaction_guard_v1.GuardTests.test_failed_restore_retains_occupied_lease_and_allows_explicit_recovery) ... ok
+test_failed_write_after_effect_restores_during_failed_entry (test_stage17_locked_compaction_guard_v1.GuardTests.test_failed_write_after_effect_restores_during_failed_entry) ... ok
+test_owner_death_requires_exact_explicit_recovery (test_stage17_locked_compaction_guard_v1.GuardTests.test_owner_death_requires_exact_explicit_recovery) ... ok
+test_requested_control_without_actual_readback_cannot_enter (test_stage17_locked_compaction_guard_v1.GuardTests.test_requested_control_without_actual_readback_cannot_enter) ... ok
+test_second_owner_and_recovery_cannot_override_live_holder (test_stage17_locked_compaction_guard_v1.GuardTests.test_second_owner_and_recovery_cannot_override_live_holder) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.012s
+
+OK

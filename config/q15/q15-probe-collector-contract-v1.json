@@ -1,0 +1,164 @@
+{
+  "artifact_policy": {
+    "append_only": true,
+    "canonicalization": "JCS-I64-v1",
+    "partial_failure_retained": true,
+    "raw_counter_values_retained": true,
+    "raw_timestamps_retained": true,
+    "timing_subtracted_from_counter": false
+  },
+  "candidate_scope": {
+    "base_page_bytes": 4096,
+    "cache_line_bytes": 64,
+    "cpu_family_hex": "06",
+    "cpu_model_hex": "55",
+    "cpu_order": [0, 1, 26],
+    "far_pair": [0, 26],
+    "near_pair": [0, 1]
+  },
+  "collector_contracts": [
+    {
+      "acceptance": "CLOCK-QUAL-LMRV1 evaluators and frozen counts; no correction",
+      "collector_id": "Q15-CLOCK-COLLECTOR-v1",
+      "evidence_kind": "SELECTED_PAIR_CLOCK",
+      "phase": "Q15_R_READ_ONLY"
+    },
+    {
+      "acceptance": "ABI pointer width/alignment and uint32 termination width/alignment are exact; both atomics runtime lock-free; queue ownership and termination lines separated",
+      "collector_id": "Q15-ATOMIC-LAYOUT-COLLECTOR-v1",
+      "evidence_kind": "RUNTIME_ATOMIC_LAYOUT",
+      "phase": "Q15_R_READ_ONLY"
+    },
+    {
+      "acceptance": "singleton affinity readback and sched_getcpu at operation entry and exit match the authorized CPU; zero observed migrations",
+      "collector_id": "Q15-ACTUAL-CPU-MIGRATION-COLLECTOR-v1",
+      "evidence_kind": "ACTUAL_CPU_MIGRATION",
+      "phase": "Q15_R_AND_Q15_W"
+    },
+    {
+      "acceptance": "move_pages enumerates every page before, between priming and counted traversal, and after traversal; page counts are equal and nonzero; unavailable, wrong-node, and migrated counts are zero",
+      "collector_id": "Q15-ADDRESS-RESIDENCY-COLLECTOR-v1",
+      "evidence_kind": "ADDRESS_RESIDENCY",
+      "phase": "Q15_R_AND_Q15_W"
+    },
+    {
+      "acceptance": "PRFCHW capability passes on CPUs 0, 1, and 26 and the accepted GCC/Clang plus GNU/LLVM generated-code reports pass",
+      "collector_id": "Q15-SOFTWARE-PREFETCH-COLLECTOR-v1",
+      "evidence_kind": "SOFTWARE_PREFETCH_MAPPING",
+      "phase": "Q15_R_READ_ONLY"
+    },
+    {
+      "acceptance": "fixed complete-value reads only; one record for each CPU 0, 1, and 26; no requested value is copied into verified state",
+      "collector_id": "Q15-MSR-PRESTATE-COLLECTOR-v1",
+      "evidence_kind": "HARDWARE_PREFETCH_PRESTATE",
+      "phase": "Q15_R_READ_ONLY"
+    },
+    {
+      "acceptance": "complete-value independent readback after each one-CPU apply and restore; writer identity and auditor identity differ",
+      "collector_id": "Q15-MSR-READBACK-COLLECTOR-v1",
+      "evidence_kind": "HARDWARE_PREFETCH_READBACK",
+      "phase": "Q15_W_APPLY_PROBE_RESTORE"
+    }
+  ],
+  "contract_id": "Q15-PROBE-COLLECTOR-CONTRACT-v1",
+  "counter_contract": {
+    "config_hex": "000000000000f824",
+    "counter_name": "L2_RQSTS.ALL_PF",
+    "event_select_hex": "24",
+    "exclude_guest": true,
+    "exclude_hypervisor": true,
+    "exclude_kernel": true,
+    "exclude_user": false,
+    "inherit": false,
+    "linux_interface": "perf_event_open",
+    "pinned": true,
+    "read_format": "TOTAL_TIME_ENABLED|TOTAL_TIME_RUNNING",
+    "scope": "PER_THREAD_ON_SINGLETON_AFFINITY",
+    "type": "PERF_TYPE_RAW",
+    "umask_hex": "f8"
+  },
+  "hardware_prefetch_mapping_id": "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1",
+  "pointer_probe": {
+    "acceptance": {
+      "h1_all_pf_count": 0,
+      "h1_counter_relation": "EQUAL",
+      "h1_zero_required": true,
+      "h0_zero_classification": "NOT_DISTINGUISHABLE_WHERE_NOT_POSSIBLE",
+      "h0_positive_classification": "DISTINGUISHED",
+      "integrity_required": true,
+      "pointer_probe_pass_rule": "INTEGRITY_AND_H1_ZERO_AND_CLASSIFICATION_MATCHES_H0_COUNT"
+    },
+    "address_order": "SINGLE_DEPENDENT_CYCLE_OVER_ALL_CACHE_LINES",
+    "load_operation": "ONE_DEPENDENT_VOLATILE_U32_NEXT_INDEX_LOAD_PER_LINE",
+    "permutation_algorithm": "FISHER-YATES-PHILOX4X32-10-v1",
+    "probe_id": "Q15-POINTER-DEPENDENT-ALL-PF-v1",
+    "seed_derivation": "SHA256(UTF8(Q15-POINTER-PROBE-PERMUTATION-v1))",
+    "seed_hex": "b7ad8c3db8469f8b60ec679eb68b10b040a4b509438882732854257d582aff9b"
+  },
+  "probe_common": {
+    "allocation": "PRIVATE_ANONYMOUS_TARGET_NODE",
+    "counted_passes_per_state": 1,
+    "counter_multiplexing_allowed": false,
+    "dynamic_allocation_in_traversal": false,
+    "filesystem_io_in_traversal": false,
+    "first_touch": "TARGET_CPU_BEFORE_PRIMING",
+    "h0_h1_pair_binding": "SAME_BINARY_CPU_BUFFER_LAYOUT_ORDER_AND_COUNTER_CONFIG",
+    "h1_sequence": "H0_BASELINE_THEN_ONE_CPU_H1_APPLY_THEN_INDEPENDENT_READBACK_THEN_H1_PROBES_THEN_COMPLETE_RESTORE_THEN_INDEPENDENT_RESTORE_READBACK",
+    "major_faults_allowed_in_counted_pass": 0,
+    "minor_faults_allowed_in_counted_pass": 0,
+    "page_policy": "VERIFIED_BASE_PAGES",
+    "prefetch_instructions_allowed": false,
+    "priming_passes_per_state": 1,
+    "time_enabled_must_equal_time_running": true,
+    "timing_role": "DIAGNOSTIC_ONLY",
+    "working_set_bytes_formula": "ROUND_UP(2*VERIFIED_LOCAL_LLC_BYTES,VERIFIED_BASE_PAGE_BYTES)"
+  },
+  "protocol_version": "2.0.0-pre.2",
+  "regular_probe": {
+    "acceptance": {
+      "h0_all_pf_relation": "GREATER_THAN",
+      "h0_all_pf_threshold": 0,
+      "h1_all_pf_count": 0,
+      "h1_counter_relation": "EQUAL",
+      "integrity_required": true,
+      "regular_probe_pass_rule": "INTEGRITY_AND_H0_POSITIVE_AND_H1_ZERO"
+    },
+    "address_order": "ASCENDING_CACHE_LINES",
+    "load_operation": "ONE_VOLATILE_U64_DEMAND_LOAD_PER_CACHE_LINE",
+    "probe_id": "Q15-REGULAR-STREAM-ALL-PF-v1"
+  },
+  "schema_version": "cpu-prefetch-q15-probe-collector-contract/1",
+  "source_evidence": [
+    {
+      "artifact_id": "PROTOCOL-2.0.0-pre.2-EXPERIMENT-IMPLEMENTATION-SPEC",
+      "locator": "protocol/2.0.0-pre.2/EXPERIMENT_IMPLEMENTATION_SPEC.md",
+      "role": "NORMATIVE_BEHAVIORAL_REQUIREMENT",
+      "sha256": "8488f9d3870b620b0b4f15cb1f47c2eb7ab3ecb8b15fc09603047dc379a5912c"
+    },
+    {
+      "artifact_id": "STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-02",
+      "locator": "docs/evidence/stage16/STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-02/STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-02.json",
+      "role": "CANDIDATE_LINE_PAGE_MODEL_FACTS",
+      "sha256": "f8c6adbac92a9b163c45f71138946f3672eab7391fa27800fd909e028bc73087"
+    },
+    {
+      "artifact_id": "STAND-TOPOLOGY-XEON-CPU-FETCH-20260822-01-SHA256SUMS",
+      "locator": "docs/evidence/stage16/STAND-TOPOLOGY-XEON-CPU-FETCH-20260822-01/SHA256SUMS",
+      "role": "CANDIDATE_CPU_PAIR_AND_CACHE_FACTS",
+      "sha256": "c0c1e727315e17a6e54ef8857e5f4b6ceedbbf97a43f57a3c0659629108ca205"
+    },
+    {
+      "artifact_id": "INTEL-335279-PERFORMANCE-MONITORING-EVENTS-GUIDE",
+      "locator": "https://cdrdv2-public.intel.com/671378/335279-performance-monitoring-events-guide.pdf",
+      "role": "MODEL_55H_EVENT_ENCODING",
+      "sha256": null
+    }
+  ],
+  "unimplemented_boundary": {
+    "collector_executables_present": false,
+    "dynamic_execution_authorized": false,
+    "probe_executable_present": false,
+    "q15_r_authorization_present": false,
+    "q15_w_authorization_present": false
+  }
+}

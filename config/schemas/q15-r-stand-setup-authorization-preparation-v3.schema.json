@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-stand-setup-authorization-preparation:v3",
+  "title": "D-097-bound still-unissued P5 stand-setup preparation",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-stand-setup-authorization-preparation/3"},
+    "preparation_id": {"const": "Q15-R-STAND-SETUP-AUTHORIZATION-PREPARATION-20260826-03"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "stand_id": {"const": "XEON-CPU-FETCH"},
+    "status": {"const": "D097_PUBLIC_TRUST_RESOLVED_THREE_EXTERNAL_INPUTS_REMAIN_NO_AUTHORITY"},
+    "lineage": {"type": "object"},
+    "resolved_input_groups": {"type": "array", "minItems": 2, "maxItems": 2},
+    "remaining_required_inputs": {"type": "array", "minItems": 3, "maxItems": 3},
+    "transaction_contract": {"type": "object"},
+    "future_authorization_contract": {"type": "object"},
+    "authority_boundary": {"type": "object", "additionalProperties": {"type": "boolean"}}
+  },
+  "required": ["authority_boundary", "future_authorization_contract", "lineage", "preparation_id", "protocol_version", "remaining_required_inputs", "resolved_input_groups", "schema_version", "stand_id", "status", "transaction_contract"]
+}

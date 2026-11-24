@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:cpu-prefetch:stage17:pilot-failure:v1",
+  "type": "object", "additionalProperties": false,
+  "required": ["attempt", "retries", "failure_category", "completed_run_ids", "partial_artifact_sha256s", "leader_reaped", "process_group_gone", "retry_allowed", "stage18_authority"],
+  "properties": {
+    "attempt": {"const": 1}, "retries": {"const": 0}, "failure_category": {"type": "string", "minLength": 1},
+    "completed_run_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "partial_artifact_sha256s": {"type": "array", "uniqueItems": true, "items": {"pattern": "^[0-9a-f]{64}$"}},
+    "leader_reaped": {"const": true}, "process_group_gone": {"const": true}, "retry_allowed": {"const": false}, "stage18_authority": {"const": false}
+  }
+}

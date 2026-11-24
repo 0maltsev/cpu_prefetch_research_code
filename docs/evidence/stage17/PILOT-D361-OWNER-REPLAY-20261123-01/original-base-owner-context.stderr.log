@@ -1,0 +1,94 @@
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_semantic_verifier_v55.py", line 202, in verify_operational_manifest_v11
+    context = operational_v13.verify_manifest_v13(
+        repository_root=root, manifest_path=path,
+    ...<2 lines>...
+        pinned_repository_bytes=pinned,
+    )
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_operational_semantics_v17.py", line 308, in verify_manifest_v17
+    return predecessor.verify_manifest_v16(**arguments)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_operational_semantics_v16.py", line 37, in verify_manifest_v16
+    return predecessor.verify_manifest_v15(**arguments)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_operational_semantics_v15.py", line 37, in verify_manifest_v15
+    return predecessor.verify_manifest_v14(**arguments)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_operational_semantics_v14.py", line 37, in verify_manifest_v14
+    return predecessor.verify_manifest_v13(**arguments)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_operational_semantics_v13.py", line 37, in verify_manifest_v13
+    return predecessor.verify_manifest_v11(**arguments)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_operational_semantics_v12.py", line 20, in verify_manifest_v11
+    context = predecessor.verify_manifest_v11(**arguments)
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_operational_semantics_v11.py", line 283, in verify_manifest_v11
+    family = _phase_family(
+        root=root, artifacts=artifacts, action_id="Q15-R", trust=trust,
+        expected_predecessors=expected_predecessors[:3],
+        synthetic_test_only=allow_synthetic,
+    )
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_operational_semantics_v4.py", line 642, in _phase_family
+    verify_sshsig(authorization=authorization, signature=signature,
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                  trust_record=trust)
+                  ^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_operational_semantics_v4.py", line 577, in verify_sshsig
+    raise OperationalSemanticError("detached SSHSIG is not rooted in EXT002/003")
+stage17_operational_semantics_v4.OperationalSemanticError: detached SSHSIG is not rooted in EXT002/003
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_state_journal_v12.py", line 376, in _resolutions
+    verified = semantic.verify_input(
+        input_id=input_id, root=repository_root, resolution=document,
+    ...<7 lines>...
+        pilot_archive=pilot_archive, pilot_sidecar=pilot_sidecar,
+    )
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_semantic_verifier_v65.py", line 47, in verify_input
+    return cloning._clone(predecessor.verify_input,{**predecessor.verify_input.__globals__,'scoped':scoped})(**arguments)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_semantic_verifier_v64.py", line 56, in verify_input
+    return predecessor.verify_input(input_id=input_id,**arguments)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_semantic_verifier_v63.py", line 85, in verify_input
+    return predecessor.verify_input(input_id=input_id,**arguments)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_semantic_verifier_v62.py", line 93, in verify_input
+    return predecessor.verify_input(input_id=input_id, **arguments)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_semantic_verifier_v61.py", line 94, in verify_input
+    return predecessor.verify_input(input_id=input_id, **arguments)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_semantic_verifier_v60.py", line 85, in verify_input
+    return predecessor.verify_input(input_id=input_id, **arguments)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_semantic_verifier_v59.py", line 95, in verify_input
+    return predecessor.verify_input(input_id=input_id, **arguments)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_semantic_verifier_v58.py", line 153, in verify_input
+    return types.FunctionType(diagnostic.verify_operational_manifest_v11.__code__, namespace)(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        input_id=input_id, **arguments)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_semantic_verifier_v55.py", line 209, in verify_operational_manifest_v11
+    raise SemanticAdmissionError(str(exception)) from exception
+stage17_semantic_verifier_v14.SemanticAdmissionError: detached SSHSIG is not rooted in EXT002/003
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<stdin>", line 9, in <module>
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_state_journal_v62.py", line 28, in validate_operational_journal
+    return activate().validate_operational_journal(**arguments)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_state_journal_v12.py", line 506, in validate_operational_journal
+    resolutions = _resolutions(
+        repository_root=repository, evidence_root=evidence,
+    ...<3 lines>...
+        pilot_sidecar=pilot_sidecar, allow_synthetic=allow_synthetic_test_evidence,
+    )
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_state_journal_v12.py", line 388, in _resolutions
+    raise JournalError(str(exception)) from exception
+stage17_state_journal.JournalError: detached SSHSIG is not rooted in EXT002/003

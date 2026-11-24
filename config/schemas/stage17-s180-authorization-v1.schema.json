@@ -1,0 +1,284 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:s180-authorization:1",
+  "$defs": {
+    "resolution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "input_id",
+        "resolution_id",
+        "sha256"
+      ],
+      "properties": {
+        "input_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512,
+          "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+        },
+        "resolution_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512,
+          "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "authorization_id",
+    "session_id",
+    "request_id",
+    "attempt_id",
+    "stand_id",
+    "actor",
+    "trust_context",
+    "plan_sha256",
+    "runtime_binding",
+    "release_binding",
+    "prerequisite_bindings",
+    "evidence_root_binding",
+    "window_binding",
+    "issued_at_epoch_seconds",
+    "expires_at_epoch_seconds",
+    "permission_scope",
+    "synthetic_test_only",
+    "phase18_authority"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "cpu-prefetch-stage17-s180-authorization/1"
+    },
+    "authorization_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,255}$"
+    },
+    "session_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,255}$"
+    },
+    "request_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,255}$"
+    },
+    "attempt_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,255}$"
+    },
+    "stand_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+    },
+    "actor": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+    },
+    "trust_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ext002_resolution",
+        "ext003_resolution"
+      ],
+      "properties": {
+        "ext002_resolution": {
+          "$ref": "#/$defs/resolution"
+        },
+        "ext003_resolution": {
+          "$ref": "#/$defs/resolution"
+        }
+      }
+    },
+    "plan_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "runtime_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role",
+        "profile",
+        "sha256",
+        "size_bytes"
+      ],
+      "properties": {
+        "role": {
+          "const": "STAGE17_S180_NATIVE_WORKER"
+        },
+        "profile": {
+          "const": "STAGE17-S180-NATIVE-WORKER-v1"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        }
+      }
+    },
+    "release_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_revision",
+        "worker_sha256"
+      ],
+      "properties": {
+        "source_revision": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "worker_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "prerequisite_bindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "calibration_freeze_sha256",
+        "ext007_resolution_sha256",
+        "ext008_resolution_sha256",
+        "ext009_resolution_sha256",
+        "qualification_sha256",
+        "compatibility_sha256",
+        "runtime_profile_sha256"
+      ],
+      "properties": {
+        "calibration_freeze_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "ext007_resolution_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "ext008_resolution_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "ext009_resolution_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "qualification_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "compatibility_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "runtime_profile_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "evidence_root_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "absolute_path",
+        "device",
+        "inode"
+      ],
+      "properties": {
+        "absolute_path": {
+          "type": "string",
+          "pattern": "^/"
+        },
+        "device": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9223372036854775807
+        },
+        "inode": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        }
+      }
+    },
+    "window_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "boot_id",
+        "start_monotonic_ns",
+        "end_monotonic_ns"
+      ],
+      "properties": {
+        "boot_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512,
+          "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+        },
+        "start_monotonic_ns": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "end_monotonic_ns": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        }
+      }
+    },
+    "issued_at_epoch_seconds": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9223372036854775807
+    },
+    "expires_at_epoch_seconds": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9223372036854775807
+    },
+    "permission_scope": {
+      "const": {
+        "collect_one_s180_family": true,
+        "maximum_captures": 180,
+        "automatic_retry": false,
+        "reset_window": false,
+        "replace_completed_calibration": false,
+        "confirmatory_execution": false,
+        "stage18_execution": false
+      }
+    },
+    "synthetic_test_only": {
+      "const": false
+    },
+    "phase18_authority": {
+      "const": false
+    }
+  }
+}

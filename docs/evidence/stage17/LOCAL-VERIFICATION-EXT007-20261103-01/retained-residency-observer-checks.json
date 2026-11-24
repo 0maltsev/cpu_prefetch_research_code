@@ -1,0 +1,135 @@
+{
+  "authority": "NONE",
+  "empirical_results": false,
+  "release_qualified": false,
+  "source_base_commit": "e533ec2",
+  "source_state": "ADR0197 changes before local commit; exact source digests below",
+  "source_sha256": {
+    "CMakeLists.txt": "6d58ebafc33134ec155537668df1ec6cca9536140833804811129c62d5b6c4cf",
+    "include/cpu_prefetch/platform/prepared_residency.hpp": "47b47e066430df7a773b52f5b6c1048abd50d8dd6d11505fec11aa495ab38e46",
+    "include/cpu_prefetch/calibration/discovery_residency_observer.hpp": "220c4f6faab8ba6b5dccdd4859edfe5bc548545d93903e5623c2950017fafef7",
+    "tests/calibration_discovery_residency_test.cpp": "8ddd6d30f13a977ed86a6eaaa1143eb5ef1e0a5c26b66ea8d67d219fe1de324f",
+    "tests/storage_noalloc_test.cpp": "0e424f3ad8894b5f84eee3dc7c46d2f70a189aeb56ac2f20ae37832403ec851c"
+  },
+  "protocol_version": "2.0.0-pre.3",
+  "runtime_manifest": {
+    "path": "docs/evidence/stage17/LOCAL-VERIFICATION-EXT007-20261102-01/runtime-restoration.json",
+    "sha256": "4ecb9df69719223ae15bb337896ebf5c91faa3df653c2af3253216e2d9ace7a0"
+  },
+  "full_ctest": {
+    "accepted-dev-gcc": {
+      "path": "build/ext007-runtime-20261101/residency-observer-full-accepted-dev-gcc-tests.log",
+      "sha256": "711457fa9befaec128041d68d8f24c3a0d65522a87a0e871cab63cb72a02ec16",
+      "exit_code": 0,
+      "cases": 499,
+      "command": "cmake --build build/accepted-dev-gcc -j2 && ctest --test-dir build/accepted-dev-gcc --output-on-failure -j2"
+    },
+    "accepted-dev-clang-libcxx": {
+      "path": "build/ext007-runtime-20261101/residency-observer-full-accepted-dev-clang-libcxx-tests.log",
+      "sha256": "35a85e1d72ae9bb093c74ff16f4b96274d5e90e87217f43ff046a2822029429a",
+      "exit_code": 0,
+      "cases": 499,
+      "command": "cmake --build build/accepted-dev-clang-libcxx -j2 && ctest --test-dir build/accepted-dev-clang-libcxx --output-on-failure -j2"
+    }
+  },
+  "sanitizers": {
+    "accepted-asan-ubsan-gcc": {
+      "path": "build/ext007-runtime-20261101/residency-observer-accepted-asan-ubsan-gcc-tests.log",
+      "sha256": "115028c162b1d7ea2fa5105f8e38f7cfc1fc37f1ce36def68718e79fd555a5ab",
+      "exit_code": 0,
+      "platform_cases": 37,
+      "calibration_cases": 94,
+      "storage_allocation_cases": 4
+    },
+    "accepted-tsan-gcc": {
+      "path": "build/ext007-runtime-20261101/residency-observer-accepted-tsan-gcc-tests.log",
+      "sha256": "05fef6d40370117ec8ceaf29737966003e21f3ca49bd04fd9337ee4dcfccfa9f",
+      "exit_code": 0,
+      "platform_cases": 37,
+      "calibration_cases": 94,
+      "storage_allocation_cases": 4
+    },
+    "accepted-asan-ubsan-clang-libcxx": {
+      "path": "build/ext007-runtime-20261101/residency-observer-accepted-asan-ubsan-clang-libcxx-tests.log",
+      "sha256": "23a68d074ec36a0fc397a9f88775e8470d6f43c20593f9bca960075635904e54",
+      "exit_code": 0,
+      "platform_cases": 37,
+      "calibration_cases": 94,
+      "storage_allocation_cases": 4
+    },
+    "accepted-tsan-clang-libcxx": {
+      "path": "build/ext007-runtime-20261101/residency-observer-accepted-tsan-clang-libcxx-tests.log",
+      "sha256": "7d347f330e49f6815dba0484992c1ca7e9dd5e92f6af674be1502229163cadcd",
+      "exit_code": 0,
+      "platform_cases": 37,
+      "calibration_cases": 94,
+      "storage_allocation_cases": null
+    }
+  },
+  "clang_tsan_allocation_counter": "EXCLUDED_BY_EXISTING_CMAKE_POLICY_INTERCEPTOR_CONFLICT",
+  "allocation_scope": "All six controller residency hooks after preparation plus existing capture/drain/join/reset writer cases; injected query/clock, no worker threads allocated inside the counted interval",
+  "query_scope": "SOFTWARE_INJECTED_RESULTS; no live move_pages or new stand observation",
+  "coverage": "Exhaustive before/after per declared region/phase; during queries retain exact declared contiguous page subranges, without inferring unqueried residency",
+  "session_integration": "Real arena/ring/primary streams reject wrong initial residency before any queue attempt; software-only region/provider, not platform qualification",
+  "focused_static_analysis": {
+    "path": "build/ext007-runtime-20261101/residency-observer-tidy-final.log",
+    "sha256": "5cc048bf7378c3ae7fe2e94d7d1ec27a25d56f8c0d57b9d7f2aa69dc37a87533",
+    "exit_code": 0,
+    "translation_units": [
+      "tests/calibration_discovery_residency_test.cpp",
+      "tests/storage_noalloc_test.cpp"
+    ],
+    "command": "clang-tidy -p build/accepted-dev-gcc --warnings-as-errors=\"*\" tests/calibration_discovery_residency_test.cpp tests/storage_noalloc_test.cpp"
+  },
+  "format": {
+    "path": "build/ext007-runtime-20261101/residency-observer-format.log",
+    "sha256": "2a2dfb33385f763495a7752721d7f4bcf54c5fe8cfbf144c88c3f1601c5a6653",
+    "exit_code": 0
+  },
+  "provenance_and_existing_codegen": {
+    "path": "build/ext007-runtime-20261101/residency-observer-codegen.log",
+    "sha256": "066274334eb6df0c5e8d8d3ef4b947d13ce81b1161b37304f3071e7cb9bba752",
+    "exit_code": 0
+  },
+  "existing_codegen_reports": [
+    {
+      "path": "build/accepted-release-gcc/queue_codegen_report.json",
+      "sha256": "a1517b5a13c7f112c12cbf5f6a778065deac5cf702300009ddfa1536e2fa509a",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/runner_combined_codegen_report.json",
+      "sha256": "1af9a706048eb4a3daf572adcc643458995bbfa3c720fcfc9cdf9312d07ee971",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/runner_relax_codegen_report.json",
+      "sha256": "5dd838a4b6e4c6719136d2d496b1f01bcc32d4fef95a3733413f1332cf402c32",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/storage_codegen_report.json",
+      "sha256": "0462d356139602aa0f743469b3e05ed9ab77ee10410165c6b51b0cc1926551bd",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/timing_codegen_report.json",
+      "sha256": "7d009760cb44496a28c5678df285d05c5b7e2300aeb2a57426a675c1af5a8e58",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/workload_codegen_report.json",
+      "sha256": "a6831ef0f1b974db892e04d6deca1b853fc1483190f2cc38efbfc27af4d4979f",
+      "status": "PASS"
+    }
+  ],
+  "exact_discovery_boundary_qualification": "NOT_PERFORMED",
+  "stand_operations": "NONE",
+  "remaining": [
+    "Complete actual owner object and stack composition",
+    "Actual platform control snapshots and prospective monitoring/resource coverage admission",
+    "Durable publication and bounded outer watchdog",
+    "Source-bound release, fresh dependent and exact-boundary qualification",
+    "Approved diagnostic study then prospective formal plan and remaining EXT007 requirements"
+  ]
+}

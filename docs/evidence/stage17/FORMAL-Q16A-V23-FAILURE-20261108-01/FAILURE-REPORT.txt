@@ -1,0 +1,154 @@
+Q16a E23 failure investigation — 2026-11-08
+
+The immediate cause is confirmed: CPU-isolation control files became unavailable
+before capture 178 (zero-based ordinal 177) entered warmup. The environmental
+guard stopped the capture. Automatic package maintenance and its systemd reload
+are the strongest supported upstream explanation. The exact process/syscall
+that disabled cpuset was not audited, so that attribution remains a high-confidence
+inference, not a directly recorded write.
+
+Release: dd981b4fdcf953386d4a7514fec381ff9be6e359.
+Plan SHA256: a9bef1239ea03d3871e40a0c52a0a3375d1eac7512d299443dd18405e89572f7.
+Attempt: CPU-PREFETCH-V5-V23-Q16A-ATTEMPT-1.
+All times below are Moscow time (UTC+3), November 5, 2026.
+
+06:34:25.859  Capture 177 (ordinal 176) native checkpoint published.
+06:42:13      apt-daily-upgrade.service started.
+06:42:27.875  Capture 177's archive custody receipt published.
+06:42:49      apt-daily-upgrade requested a systemd daemon reload.
+06:43:24.300  Capture 178's failed native checkpoint published.
+06:43:26      apt-daily-upgrade requested systemd re-execution.
+06:43:27      Multiple system services restarted.
+06:44:05.429  Failed capture evidence fully archived.
+06:44:12.252  Executor recorded failure, reaping and hardware restoration.
+06:44:12.472  Supervisor recorded failure and a cleanup permission error.
+
+The re-execution occurred AFTER the failed checkpoint, so it cannot have caused
+the initial observation failure. The earlier reload is temporally consistent.
+apt history independently identifies /usr/bin/unattended-upgrade; this was not
+a manual experiment restart. The host boot ID remains unchanged.
+
+1. Confirmed blocking failure: lost cpuset environment
+
+The failed control archive was fully reconstructed in stand memory and checked
+against its physical and logical hashes. Of 86 attempted environmental reads,
+81 completed; five failed on their first read with return -1, errno 19 (ENODEV):
+
+  /sys/fs/cgroup/cpu-prefetch-v5-formal-v23-qualified-1/cpuset.cpus
+  /sys/fs/cgroup/cpu-prefetch-v5-formal-v23-qualified-1/cpuset.cpus.effective
+  /sys/fs/cgroup/cpu-prefetch-v5-formal-v23-qualified-1/cpuset.cpus.exclusive
+  /sys/fs/cgroup/cpu-prefetch-v5-formal-v23-qualified-1/cpuset.cpus.partition
+  /sys/fs/cgroup/cpu-prefetch-v5-formal-v23-qualified-1/cpuset.mems.effective
+
+These descriptors opened successfully during preparation; the later reads failed.
+Worker identity/affinity and hardware-register controls passed. Every page query
+actually reached before the failure reported the expected NUMA node. The final
+region was not reached and must not be described as checked.
+
+EnvironmentQuery rejects an observation if any required file snapshot fails
+(include/cpu_prefetch/calibration/native_discovery_capture.hpp:127-152).
+That becomes control_failure in the residency observer and observation_failure
+in the session (service_session.hpp:387-389). Neither phase was released; all
+eight binary warmup/measurement observation streams are empty. This is not low
+sample count, a measured queue failure, or demonstrated clock/hardware failure.
+
+The operator creates a root-level cgroup and enables cpuset directly, without
+a systemd unit owning the controller dependency. The retained update/reload
+timeline, unavailable controls, and current root subtree_control lacking cpuset
+support a lifecycle conflict with system maintenance. Exact actor attribution
+would require historical controller-write auditing that is not in this evidence.
+
+2. Confirmed misleading failure classification
+
+tools/stage17_fixed_action_executor_v11.py:183-184 deliberately raises
+NATIVE_FAILURE after archiving a checkpoint with native_complete=false.
+Lines 235-239 wrap any such primary error as ARCHIVE_WORKER_FAILURE.
+Therefore that label does not identify a codec, disk, or archive-integrity fault.
+The failed capture's nine artifacts have ARCHIVED_AND_RELEASED receipts and no
+archive failure receipts. Fresh full decode/hash verification of its control
+artifact succeeded. This investigation did not re-decode every historical raw
+binary archive and does not claim that broader validation.
+
+3. Confirmed false hardware-restoration summary; likely cleanup edge case
+
+The executor failure receipt says restoration_verified=true and records matching
+zero readbacks on CPUs 8, 1, and 0. Fresh independent reads also returned zero.
+The supervisor checks receipt.get('quarantined') is False, but the failure/6
+receipt has quarantine_operation.performed=false instead of a quarantined field.
+The missing key returns None; thus the supervisor reports false. This exact
+expression was evaluated against the retained receipt and the defect confirmed.
+Location: build/stage17-step5-prep/formal-launch-v23/formal_launch.py:287.
+
+The separate PermissionError(13) during partition cleanup remains real. The
+bound restoration operator unconditionally opens cpuset.cpus.partition for
+writing before removing the cgroup. That file is now absent, consistent with
+loss of the controller. Attempting creation in the cgroup filesystem is a likely
+explanation for this permission error, but no traceback/syscall was retained
+to prove the exact failing line. No reproduction was attempted on the stand.
+
+Fresh readback: root effective CPUs 0-31, isolated set empty, root controllers
+cpu/memory/pids, original owned cgroup empty, partition control absent. Both
+experiment controlling processes had exited. Hardware restoration is observed;
+complete cleanup is not certified because the empty cgroup and missing
+restoration receipt remain.
+
+4. Impact on retained work
+
+177 native-complete captures are preserved, exactly 25% of the 708-capture plan.
+They cover all 59 repetitions in each of three H0/NEAR contexts:
+  L2_RESIDENT: capacity 512; LLC_RESIDENT: 65,536; BEYOND_LLC: 1,048,576.
+Capture 178 was the first H0/FAR/L2_RESIDENT capture and recorded no observations.
+
+The immediately preceding control archive was independently decoded and hash
+verified. All 516 environmental reads completed; all six phase/moment groups
+retained the expected isolated CPU set and NUMA-node set. Its native checkpoint
+predates automatic maintenance by more than seven minutes. This incident alone
+does not establish invalidity of the preceding 177 captures or justify discarding
+them. It also does not certify all 177 scientifically: full sequence reconciliation,
+window membership, sample minima, statistical analysis and admission remain pending.
+
+The existing family is one-attempt, failed, and incomplete. Preserved evidence
+is not automatic authority to append runs, replace the failed ordinal, or merge
+new source/stand contexts. Any recovery that credits the retained captures needs
+an explicit versioned continuation/reuse decision and dependency validation.
+No blanket rerun is recommended based on the present evidence.
+
+5. Recommended repair direction, not implemented
+
+First validate and inventory the retained completed contexts for potential reuse.
+For future execution, make isolation lifecycle ownership explicit and maintain it
+across system-manager reloads; arrange a bounded maintenance window so package
+updates cannot alter a qualified stand during collection. Verify that arrangement
+with software/infrastructure checks before authorizing another long family.
+Preserve the original failure category, use schema-aware restoration reporting,
+and handle an already-disabled controller in cleanup while verifying the actual
+prestate. Define any evidence-preserving continuation before launching it.
+
+Verification and limits
+
+Read-only stand diagnosis; no repair, experimental retry, package changes, or
+source changes. Only local diagnostic scripts, summaries, logs and this report
+were written. Full control decoding used the qualified bundled decoder/profile,
+2 GiB address-space and 180-second CPU limits, memory-only reconstruction, and
+returned compact summaries. Raw archives remained on the stand and unchanged.
+
+Eight deployed source/operator hashes matched the locally inspected files.
+Six retained originals matched their inventory hashes. 178 native checkpoints
+were inventoried: 177 complete, one incomplete. The observation failure and
+restoration-summary expression were checked against the actual retained records.
+No new performance run or broad test suite was needed for these conclusions.
+
+Evidence in this directory:
+  diagnosis-checks.json — concise checked findings
+  control-177-environment-summary.json — failed control decode summary
+  control-176-environment-summary.json — preceding successful control summary
+  failure-context.json — ledger timing, source bindings, checkpoints, apt history
+  systemd-failure-window.log — complete PID 1 log for the selected UTC window
+  stage17-q16a-failure-v6.json — original executor failure receipt
+  supervisor-result.json — original supervisor failure receipt
+  formal-capture-177-final-checkpoint.json — original native failure checkpoint
+  formal-capture-177-archive-custody.json — original failed-evidence archive receipt
+  inventory-and-live-readback.json and source-comparison.json — integrity/readback
+
+Scientific validity remains NOT_ASSESSED. Q16a, EXT-007 and Stage 17 remain incomplete.
+The stop-on-failure instruction is respected. No restart was performed.

@@ -1,0 +1,29 @@
+{
+  "registered_suite_counts": [
+    18,
+    19,
+    8,
+    12,
+    15,
+    15,
+    12,
+    18,
+    8,
+    3,
+    13
+  ],
+  "affected_registered_cases": 141,
+  "affected_registered_suites": 11,
+  "resource_debug_cases": 13,
+  "environment_debug_cases": 18,
+  "ast_passed": true,
+  "repository_checks_passed": true,
+  "native_core_protocol_archive_unchanged": true,
+  "stand_read_only_access_performed": true,
+  "stand_hardware_writes": 0,
+  "raw_transferred": false,
+  "actual_scoped_admission": false,
+  "operational_window_started": false,
+  "execution_authority": false,
+  "phase18_authority": false
+}

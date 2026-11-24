@@ -1,0 +1,76 @@
+{
+  "schema_version": "cpu-prefetch-stage17-d280-cold-source-comparison/1",
+  "original_source_revision": "919c48637cbdba9e466a3104f5cbb39f7184e39b",
+  "current_source_revision": "5b7a036e2f811e2293e8673435c4285027cfeac0",
+  "libraries": [
+    {
+      "name": "libcpu_prefetch_queue.a",
+      "identical": true,
+      "original_sha256": "dddd26e8788f362f3b68494aaf66b6c37d18f2cbcb288a3cc0ef93771164ddf6",
+      "current_sha256": "dddd26e8788f362f3b68494aaf66b6c37d18f2cbcb288a3cc0ef93771164ddf6"
+    },
+    {
+      "name": "libcpu_prefetch_calibration.a",
+      "identical": true,
+      "original_sha256": "e109e8c810898e9704e76b4fd17a677b5f5aee0d7d2cd2060db7b74767185815",
+      "current_sha256": "e109e8c810898e9704e76b4fd17a677b5f5aee0d7d2cd2060db7b74767185815"
+    },
+    {
+      "name": "libcpu_prefetch_storage.a",
+      "identical": true,
+      "original_sha256": "8d6f96255d21ea2ccd9e6c17b37ada2de310292c5d05026174f83e53e8488809",
+      "current_sha256": "8d6f96255d21ea2ccd9e6c17b37ada2de310292c5d05026174f83e53e8488809"
+    },
+    {
+      "name": "libcpu_prefetch_timing.a",
+      "identical": true,
+      "original_sha256": "c3820dc7d8f136f3c0f9b00fbba932b539f315df52fb9a5e65d752437aafea21",
+      "current_sha256": "c3820dc7d8f136f3c0f9b00fbba932b539f315df52fb9a5e65d752437aafea21"
+    },
+    {
+      "name": "libcpu_prefetch_workload.a",
+      "identical": true,
+      "original_sha256": "24ffc94864ce4c373b2262dd3cd862aeeb9c97d68d998e15fb229813ed42f04c",
+      "current_sha256": "24ffc94864ce4c373b2262dd3cd862aeeb9c97d68d998e15fb229813ed42f04c"
+    },
+    {
+      "name": "libcpu_prefetch_lifecycle.a",
+      "identical": true,
+      "original_sha256": "046d94647363439f1e181046522514291cf25e84f0ba21a3a499cab1778582ff",
+      "current_sha256": "046d94647363439f1e181046522514291cf25e84f0ba21a3a499cab1778582ff"
+    },
+    {
+      "name": "libcpu_prefetch_platform.a",
+      "identical": true,
+      "original_sha256": "017f743be93ba4b15775b1edaa9f358f811fabc5fe124787c9ff0004a643bcf8",
+      "current_sha256": "017f743be93ba4b15775b1edaa9f358f811fabc5fe124787c9ff0004a643bcf8"
+    },
+    {
+      "name": "libcpu_prefetch_protocol.a",
+      "identical": true,
+      "original_sha256": "4c33488c9035e4d7ca561f874cd946cdb4f6179ff5ad23bda5d918f58d194c4e",
+      "current_sha256": "4c33488c9035e4d7ca561f874cd946cdb4f6179ff5ad23bda5d918f58d194c4e"
+    },
+    {
+      "name": "libcpu_prefetch_reconciliation.a",
+      "identical": true,
+      "original_sha256": "1f2903602ad1399ccc328fd42b6d13b9102c8cab67b01e256801ca54563e739b",
+      "current_sha256": "1f2903602ad1399ccc328fd42b6d13b9102c8cab67b01e256801ca54563e739b"
+    }
+  ],
+  "source_files_compared": 175,
+  "changed_source_files": [
+    {
+      "path": "src/runner/stage17_formal_scheduled_action.cpp",
+      "original_sha256": "31f627529e493773e5f03c49fb667a2ab2e2ad0ea1c21f8736f6d14769ee933a",
+      "current_sha256": "3ab55abd8d6f27aa0d0105aa31774beae2c29683c7a5891c5bfe35873d864129"
+    },
+    {
+      "path": "include/cpu_prefetch/runner/stage17_formal_scheduled_action.hpp",
+      "original_sha256": "19a12e0f9708d386305584efb8b8093b26da2549ea04b521ca95a5f6c001ed2d",
+      "current_sha256": "342fb7e4fc9ecfe5b3faf27a85b0b6fd0d1d603d609dc97652db5c72bd739ff6"
+    }
+  ],
+  "execution_authority": false,
+  "phase18_authority": false
+}

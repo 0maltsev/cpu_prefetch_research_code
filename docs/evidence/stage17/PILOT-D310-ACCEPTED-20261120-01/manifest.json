@@ -1,0 +1,44 @@
+{
+  "files": [
+    {
+      "path": "REPORT.md",
+      "sha256": "598cf0b1b1d33566ebad3a2d36ed29ee350ed424ea5379d4b1190adc9b529b33",
+      "size_bytes": 3852
+    },
+    {
+      "path": "blueprint-tests.txt",
+      "sha256": "f696d794db3339be0e8f2c15480f99e32209ee7d0dc8bfc224c9e2ad54751c51",
+      "size_bytes": 1538
+    },
+    {
+      "path": "descriptive-regressions.txt",
+      "sha256": "eeee10a28bb489f5935989df0918bd724c22251c9fae61bf1fb256d993bd9d84",
+      "size_bytes": 4831
+    },
+    {
+      "path": "observed-layout-metadata.json",
+      "sha256": "572b80a67814af71f1a87365e195238609493ea1e682e68e29e638e374678391",
+      "size_bytes": 199988
+    },
+    {
+      "path": "owner-acceptance.json",
+      "sha256": "3673f215a10cac54577acb5fa85b5adabc4262eb63bcf260c6ec15143e822ab7",
+      "size_bytes": 971
+    },
+    {
+      "path": "portability-before-fix.txt",
+      "sha256": "3a1bf81a09c95e0911bb219440d9b2a56a2741c1054b87d9b9fb558a38fd6627",
+      "size_bytes": 1001
+    },
+    {
+      "path": "runtime-source-inspection.json",
+      "sha256": "36f72ccf2a98eb795459c8ce424c9a1eba82f00fee920d88e4ed8b4242b3c73f",
+      "size_bytes": 897
+    },
+    {
+      "path": "verification.json",
+      "sha256": "a13c70a7940fe3b66f38b88cb5d8560842c920fdbb97d3f3014f33d3f80309a5",
+      "size_bytes": 696
+    }
+  ]
+}

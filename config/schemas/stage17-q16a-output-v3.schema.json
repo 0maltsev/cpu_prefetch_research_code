@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:cpu-prefetch:stage17:q16a-output:v3",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "calibration_plan_sha256", "seed_id", "context_ordinal", "repetition_ordinal", "hardware_state", "placement", "working_set_class", "sample_count", "producer_demand_count", "consumer_demand_count", "producer_issue_count", "consumer_issue_count", "producer_full_count", "consumer_empty_count", "ring_off", "confirmatory_outcomes_accessed", "complete"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-q16a-output/3"}, "calibration_plan_sha256": {"$ref": "#/$defs/sha256"}, "seed_id": {"type": "string", "minLength": 1},
+    "context_ordinal": {"type": "integer", "minimum": 0, "maximum": 11}, "repetition_ordinal": {"type": "integer", "minimum": 0}, "hardware_state": {"enum": ["H0", "H1"]}, "placement": {"enum": ["NEAR", "FAR"]}, "working_set_class": {"enum": ["L2_RESIDENT", "LLC_RESIDENT", "BEYOND_LLC"]},
+    "sample_count": {"type": "integer", "minimum": 1}, "producer_demand_count": {"type": "integer", "minimum": 1}, "consumer_demand_count": {"type": "integer", "minimum": 1}, "producer_issue_count": {"type": "integer", "minimum": 0}, "consumer_issue_count": {"type": "integer", "minimum": 0}, "producer_full_count": {"type": "integer", "minimum": 0}, "consumer_empty_count": {"type": "integer", "minimum": 0}, "ring_off": {"const": true}, "confirmatory_outcomes_accessed": {"const": false}, "complete": {"const": true}
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

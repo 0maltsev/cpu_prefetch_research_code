@@ -1,0 +1,24 @@
+..E..........
+======================================================================
+ERROR: test_all180_metadata_inputs_keep_original_rows_seed_and_one_context_per_worker (__main__.MatrixTests.test_all180_metadata_inputs_keep_original_rows_seed_and_one_context_per_worker)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_analysis_pool_v1.py", line 142, in test_all180_metadata_inputs_keep_original_rows_seed_and_one_context_per_worker
+    jobs=self.jobs();self.assertEqual(len(jobs),180)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_analysis_pool_v1.py", line 138, in jobs
+    return pool._jobs(plan,f['native_result'],inputs,program=Path('/SOFTWARE/program'),scratch=Path('/SOFTWARE/analysis/scratch'),
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        captures=Path('/SOFTWARE/analysis/captures'),session_id=f['session_id'],output_bounds=bounds['capture_bounds'])
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_analysis_pool_v1.py", line 334, in _jobs
+    require(canonical_bytes<=entry['execution_budget']['max_output_bytes'],'original source bytes exceed admitted capture bound')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_analysis_phase_v1.py", line 28, in require
+    if not ok:raise resources.ResourceError('S180 analysis phase: '+message)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_resource_admission_v1.ResourceError: S180 analysis phase: original source bytes exceed admitted capture bound
+
+----------------------------------------------------------------------
+Ran 13 tests in 27.502s
+
+FAILED (errors=1)

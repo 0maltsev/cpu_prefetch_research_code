@@ -1,0 +1,26 @@
+{
+  "elapsed_ns": 553530587,
+  "encoder_sha256": "c34056b6059c3936499fca3156b981ecfe7903b80153a917f76e9193987988ea",
+  "execution_authority": false,
+  "manifest": {
+    "path": "S180_ARCHIVE_PACKAGE.json",
+    "sha256": "5ac1524cc557d57d4d7216949812c875be8c8e5b3e7b976d7b9f4a33f688973c",
+    "size_bytes": 5941
+  },
+  "native_worker_included": false,
+  "operational_window_started": false,
+  "package_file_count": 36,
+  "phase18_authority": false,
+  "profile": {
+    "path": "config/stage17/s180-archive-implementation-profile-v1.json",
+    "sha256": "23fac285def38a913d4fbb2727eebdb4cda0a18a8f9352bfa9aafa6bee3ca9f6",
+    "size_bytes": 7058
+  },
+  "python_sha256": "52e0a13e60a981d8c4b6478be2ba5176f69da07948a056bf49cf6f077e30cb41",
+  "source_closure_count": 29,
+  "source_revision": "877271cbbc22c29cdb4ce87462fec39ff8fd875e",
+  "stand_qualification_performed": false,
+  "status": "ACTUAL_STAND_COLD_COMPONENT_VERIFIED",
+  "utc": "2026-11-23T19:45:10.412744+00:00",
+  "zstd_sha256": "f023d49e85fb22057bfdd21857263d2638b73356c06f3b342f678a75212379f8"
+}

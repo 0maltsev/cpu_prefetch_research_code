@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d242-admin-1/register_family.py", line 111, in <module>
+    if __name__=='__main__': main()
+                             ~~~~^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d242-admin-1/register_family.py", line 85, in main
+    qualification_binding=admit_continuation(args,plan)
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d242-admin-1/register_family.py", line 53, in admit_continuation
+    require(args.deadline_monotonic_ns>time.monotonic_ns(),'continuation admission exceeded preparation deadline')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d242-admin-1/register_family.py", line 19, in require
+    if not ok: raise ValueError(message)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: continuation admission exceeded preparation deadline

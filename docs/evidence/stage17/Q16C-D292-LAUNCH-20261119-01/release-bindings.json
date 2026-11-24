@@ -1,0 +1,10 @@
+{
+  "archive_python_version": "3.14.4",
+  "archive_runtime_root": "/",
+  "archive_sha256": "b82155356716bbf4194bdca91fce23120371b07a6f9c61a4434d7da062801a33",
+  "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+  "bundle_name": "cpu-prefetch-pilot-candidate-2.0.0-c989ca8-clean-8d044fdad110",
+  "clock_sha256": "cb6422db0be2c3ff3b20897bc58ff4b892ba04e34e9f16f93a8b6d5a04caad69",
+  "source_revision": "c989ca84b93f532b7ee32cc1a947463e280033e9",
+  "worker_sha256": "34666747e8fe077e2e501f4c8bb0d0a4e1aa61deb95e944af758ea54b764cddf"
+}

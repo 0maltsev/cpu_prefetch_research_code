@@ -1,0 +1,50 @@
+{
+  "action": "DELETE_ONLY_VERIFIED_PC_SOFTWARE_LOG_DUPLICATES_AFTER_EVIDENCE_COPY",
+  "namespace_audit_support_preserved": true,
+  "original_raw_deleted": false,
+  "recorded_at_utc": "2026-11-23T15:33:42.733879+00:00",
+  "removed": [
+    {
+      "path": "build/stage17-s180-tail-numerics-prep/LastTest.log",
+      "sha256": "13840d31f9373f972924ca6da0679cd162ab84de6c7443420693a5ec2807fed7",
+      "size_bytes": 1073
+    },
+    {
+      "path": "build/stage17-s180-tail-numerics-prep/configure.txt",
+      "sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e",
+      "size_bytes": 177
+    },
+    {
+      "path": "build/stage17-s180-tail-numerics-prep/first-tests.txt",
+      "sha256": "5c548b4a88f8911838e2e39f473eb26b94aa5cf56842c360996ca8840c82bd6c",
+      "size_bytes": 114
+    },
+    {
+      "path": "build/stage17-s180-tail-numerics-prep/full-debug.txt",
+      "sha256": "8bcb9c28bee1792b3b1b36e127e139c05f28fe3ecbd2b079412a29691bd2153f",
+      "size_bytes": 115
+    },
+    {
+      "path": "build/stage17-s180-tail-numerics-prep/registered.txt",
+      "sha256": "7377fc145971503f949d060c069f7729e46c5af7a12dcd4df8e02b760414d7cf",
+      "size_bytes": 477
+    },
+    {
+      "path": "build/stage17-s180-tail-numerics-prep/repository-checks.txt",
+      "sha256": "bf99f1b09e2c9baebdedf9264fb246f2b5359986ac3528d0fa5e9cf4b4ee77be",
+      "size_bytes": 37362
+    },
+    {
+      "path": "build/stage17-s180-tail-numerics-prep/stand-software-timing.json",
+      "sha256": "8a641b5becb2ff641b1c062b2e8b7aea4294e9b3fd28cc3c37ae99522e6694e1",
+      "size_bytes": 1605
+    },
+    {
+      "path": "build/stage17-s180-tail-numerics-prep/stand-software-timing.py",
+      "sha256": "6cea35048fa4be019048b656bbc776b94e5f7ae25835e729a6129bc85fb9a30e",
+      "size_bytes": 22158
+    }
+  ],
+  "removed_bytes": 63081,
+  "stand_data_deleted": false
+}

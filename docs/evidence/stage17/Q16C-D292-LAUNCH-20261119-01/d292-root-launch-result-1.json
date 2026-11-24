@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "observed_at_utc": "2026-11-19T15:38:07.040426+00:00",
+  "stderr": "Running as unit: cpu-prefetch-d292-v31-1.service; invocation ID: fc1bf0665f604aaaada2918d347d4d50\n",
+  "stdout": ""
+}

@@ -1,0 +1,10 @@
+{
+  "observed_at_utc": "2026-11-21T19:15:36.198952+00:00",
+  "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+  "root_filesystem_available_bytes": 6276430950400,
+  "native_named_processes": [],
+  "read_only": true,
+  "schedule_preparation_started": false,
+  "qualification_started": false,
+  "scope": "root filesystem and cpu_prefetch-prefixed process names only; not a restoration/custody/admission proof"
+}

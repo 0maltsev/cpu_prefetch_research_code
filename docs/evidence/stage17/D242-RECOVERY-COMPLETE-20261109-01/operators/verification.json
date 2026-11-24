@@ -1,0 +1,58 @@
+{
+  "files": [
+    {
+      "path": "prepare_launch_inputs_v2.py",
+      "sha256": "b0a6d13686b3f1dac223ba9e1a7b2df6d1db0e47283914c1e102ebb6d8208a5c",
+      "size_bytes": 9494
+    },
+    {
+      "path": "reapply_isolation.py",
+      "sha256": "b0b142e42153ee3c484c90939812254cd737fe9ec0e4e2260c0c801860c5834a",
+      "size_bytes": 4853
+    },
+    {
+      "path": "register_authorize.py",
+      "sha256": "897a85beb239ce84b6ecddac8fd8c6dd1a64dc8c6b9f5ea74578e96deea501f9",
+      "size_bytes": 4688
+    },
+    {
+      "path": "render_actual.py",
+      "sha256": "fac885c7ac862b2512cb4430588ed3940f96dfd5643425467b1bbdeecbed17ba",
+      "size_bytes": 2983
+    },
+    {
+      "path": "test_prepare_launch_inputs_v2.py",
+      "sha256": "929abfe84344a347de4574aaf2c9f44028b9b8280c3f7ae3432be37698e11df0",
+      "size_bytes": 2140
+    },
+    {
+      "path": "test_reapply_isolation.py",
+      "sha256": "45648f00c910adf160a3758292bf7e9272e25e45350392e7071988ec50272b3d",
+      "size_bytes": 2229
+    },
+    {
+      "path": "render_launch_config.py",
+      "sha256": "82fc16ac2ca9679bdef44a9db9e53477cf78fe8c6327e62281e3fc8faf777739",
+      "size_bytes": 2400
+    }
+  ],
+  "measured_source_changed": false,
+  "metadata_parser_fix": "Operational completion receipt elapsed_seconds permits finite decimal; integer-only scientific plan parser unchanged; actual receipt retained byte-for-byte.",
+  "recorded_at_utc": "2026-11-09T09:37:08.712166+00:00",
+  "test_commands": [
+    "python3 -B build/ext007-runtime-20261101/run.py -- /usr/bin/python3 -B build/stage17-step5-prep/recovery-v23-continuation/d242-operators-1/test_prepare_launch_inputs_v2.py",
+    "python3 -B build/ext007-runtime-20261101/run.py -- /usr/bin/python3 -B build/stage17-step5-prep/recovery-v23-continuation/d242-operators-1/test_reapply_isolation.py"
+  ],
+  "tests": [
+    {
+      "count": 3,
+      "exit_code": 0,
+      "file": "test_prepare_launch_inputs_v2.py"
+    },
+    {
+      "count": 4,
+      "exit_code": 0,
+      "file": "test_reapply_isolation.py"
+    }
+  ]
+}

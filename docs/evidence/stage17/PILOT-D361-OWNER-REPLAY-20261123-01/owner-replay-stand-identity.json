@@ -1,0 +1,101 @@
+{
+  "actual_parent_uids": [
+    0,
+    0,
+    0
+  ],
+  "execution_authority": false,
+  "new_helper_sha256": "dd884038b97f32c2861690029091ef630ac3d15fb090c3fcde73bc0c77a0a7ff",
+  "operational_window_started": false,
+  "original_latest_journal_sha256": "9a7766e806b872133dbd0f6a746d75ae315dae69bc8c5e7b9bad9f95c9c003e0",
+  "original_resolution_count": 7,
+  "original_resolution_sha256": {
+    "S17-EXT-001": "7a6119a95334f3526fd28bfe05e78b06ffadf2c9210e1203cfe19e4445db8668",
+    "S17-EXT-002": "a260dc4464195902810cf9f30401a23afdd3c243db95042bc5db517139c5bad3",
+    "S17-EXT-003": "b7b64d2be119b07c906718ca0811a71d26b44c22a2527b70727368f01d11040e",
+    "S17-EXT-004": "df4bcac1985bab99716d91042f612ec1a59f7670706e6d1a354c2c34d56a16bf",
+    "S17-EXT-005": "9e162cfefc240eefa15d3c28c7a80af2a00f5dd5586f58967593129163c5b5d3",
+    "S17-EXT-006": "0c45b4f94cd6229adea3a76ff9735c414f951e9fd088a7edaae88c04e28ac115",
+    "S17-EXT-007": "fd4a2b1a1c0c9cf0ab6ecf47fa838de81e67746c67caebad8b15779f4c70f104"
+  },
+  "original_transition_count": 3,
+  "phase18_authority": false,
+  "pilot_ready": false,
+  "proof": {
+    "actual_owner_reader_completed": true,
+    "cleanup": {
+      "cleanup_deadline_overrun": false,
+      "cleanup_diagnostics": [],
+      "descendants_detected_after_leader_exit": false,
+      "leader_reaped": true,
+      "leader_wait_timed_out": false,
+      "maximum_descendant_count": 0,
+      "namespace_snapshot": {
+        "local_pgid": 390046,
+        "local_pid": 390046,
+        "namespace_inode": "4026531836",
+        "nspgid": [
+          390046
+        ],
+        "nspid": [
+          390046
+        ],
+        "procfs_namespace_inode": "4026531836",
+        "visible_pgid": 390046,
+        "visible_pid": 390046
+      },
+      "process_group_gone": true,
+      "returncode": 0,
+      "terminal_cleanup_outcome": "NORMAL_LEADER_REAPED_GROUP_QUIESCENT"
+    },
+    "completed_monotonic_ns": 1903463441442434,
+    "console_prefix": "",
+    "deadline_monotonic_ns": 1904022246949922,
+    "execution_authority": false,
+    "failure": null,
+    "observed_reader": {
+      "actual_gid_fields": [
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "actual_uid_fields": [
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "address_space_bytes": [
+        8589934592,
+        8589934592
+      ],
+      "file_size_bytes": [
+        268435456,
+        268435456
+      ],
+      "gid": 1000,
+      "session_id": 390047,
+      "start_ticks": 190342225,
+      "uid": 1000
+    },
+    "phase18_authority": false,
+    "pid": 390047,
+    "root_parent_credentials_preserved": true,
+    "root_uids_after": [
+      0,
+      0,
+      0
+    ],
+    "root_uids_before": [
+      0,
+      0,
+      0
+    ],
+    "schema_version": "cpu-prefetch-stage17-s180-owned-original-replay/1",
+    "started_monotonic_ns": 1903422250018648
+  },
+  "qualification_performed": false,
+  "source_preparation_performed": false,
+  "status": "ACTUAL_SUPERVISED_OWNER_REPLAY_PASS"
+}

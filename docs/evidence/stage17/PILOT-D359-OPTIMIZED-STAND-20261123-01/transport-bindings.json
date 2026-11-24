@@ -1,0 +1,36 @@
+{
+  "files": [
+    {
+      "path": "fresh-programme-probe-corrected.py",
+      "retained_payload": false,
+      "sha256": "22020b58ff2c9abb6451b168b181fa66d745a0a7994cbeb0c3c8d5d9fed3a034",
+      "size_bytes": 3159992
+    },
+    {
+      "path": "fresh-programme-probe.py",
+      "retained_payload": false,
+      "sha256": "2e49958cc1ed096d9e44fc338cc3500476e4412d0c136eeda693f401f1ef3037",
+      "size_bytes": 3160070
+    },
+    {
+      "path": "page-drivers.tar",
+      "retained_payload": false,
+      "sha256": "52f9bf93462c6e716674c75d5e03440ac99e5b2d7b24001a231972cd8465943a",
+      "size_bytes": 10240
+    },
+    {
+      "path": "software-packet.tar",
+      "retained_payload": false,
+      "sha256": "37f589d9f472121112a700ad7dfd41b6c7e3bd382122f21e735cb9e5d236e578",
+      "size_bytes": 9267200
+    },
+    {
+      "path": "stand-component.tar",
+      "retained_payload": false,
+      "sha256": "da72b36f92ad20ca6da5d365ac3806339f36cf7cc6b76fab1adb3665e7990dfa",
+      "size_bytes": 1730560
+    }
+  ],
+  "reconstruction_source_revision": "877271cbbc22c29cdb4ce87462fec39ff8fd875e",
+  "source_reconstruction": "D345 wrapper with current recursive local imports; replace SOURCES AST value and insert original-lock-owner assertion AST node, then ast.unparse"
+}

@@ -1,0 +1,30 @@
+{
+  "scope": "D240 collection continuation software; no empirical validity or fresh qualification",
+  "native_family_tests": {
+    "normal_gcc": 15,
+    "asan_ubsan_gcc": 15,
+    "continuation_asan_ubsan_clang_libcxx": 3,
+    "final_constant_typing_asan_ubsan_gcc": 3
+  },
+  "python_checks": {
+    "continuation_contract": 7,
+    "continuation_admission": 14,
+    "controller_legacy_and_signature_integration": 7,
+    "routing_and_transport": 7,
+    "operational_receipts": 13,
+    "qualified_policy": 17,
+    "archival_output_registry": 12,
+    "archival_calibration_export_regression": 6
+  },
+  "protocol_check": "PASS",
+  "schema_fixture_check": "PASS",
+  "canonical_check": "PASS",
+  "targeted_clang_tidy": "PASS",
+  "changed_cpp_format": "PASS",
+  "full_repository_format": "FAIL: two original byte-identical files; see preexisting-format-findings.json",
+  "no_measurement_code_changed": true,
+  "full_calibration_composition": "NOT_IMPLEMENTED: suffix-only evaluation explicitly rejected",
+  "fresh_qualification": "NOT_STARTED",
+  "continuation_measurements": "NOT_STARTED",
+  "raw_transferred_to_pc": false
+}

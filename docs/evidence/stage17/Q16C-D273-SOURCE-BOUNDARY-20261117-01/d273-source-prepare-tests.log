@@ -1,0 +1,10 @@
+test_complete_ordered_publication_requires_actual_worker_reaping (test_stage17_q16c_source_prepare_v1.SourceJobTests.test_complete_ordered_publication_requires_actual_worker_reaping) ... ok
+test_deadline_reaps_all_workers_and_does_not_publish_completed_family (test_stage17_q16c_source_prepare_v1.SourceJobTests.test_deadline_reaps_all_workers_and_does_not_publish_completed_family) ... ok
+test_first_error_reaps_every_owned_worker_without_success_publication (test_stage17_q16c_source_prepare_v1.SourceJobTests.test_first_error_reaps_every_owned_worker_without_success_publication) ... ok
+test_new_inventory_limit_is_finite_and_does_not_mutate_historical_reader (test_stage17_q16c_source_prepare_v1.SourceJobTests.test_new_inventory_limit_is_finite_and_does_not_mutate_historical_reader) ... ok
+test_strict_source_setup_and_exclusive_publication (test_stage17_q16c_source_prepare_v1.SourceJobTests.test_strict_source_setup_and_exclusive_publication) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.094s
+
+OK

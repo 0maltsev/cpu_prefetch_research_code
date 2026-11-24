@@ -1,0 +1,44 @@
+{
+  "affected_files": 6286,
+  "all_files_root_owned_single_link": true,
+  "all_payload_hashes_matched": true,
+  "finalization": "finalize-stand.json",
+  "only_mode_change": "expected_mode | 0200",
+  "original_full_diagnostic_sha256": "d92751f29d2abf0384d9807e9b38a464cf8750792381b319acba2880cb4a3723",
+  "original_full_diagnostic_size_bytes": 1706945,
+  "original_stderr": "install-stand.stderr",
+  "samples": [
+    {
+      "expected_mode": "0o444",
+      "expected_size": 1226,
+      "hash_matches": true,
+      "links": 1,
+      "mode": "0o644",
+      "path": "config/README.md",
+      "size": 1226,
+      "uid": 0
+    },
+    {
+      "expected_mode": "0o444",
+      "expected_size": 8798,
+      "hash_matches": true,
+      "links": 1,
+      "mode": "0o644",
+      "path": "config/dependencies.json",
+      "size": 8798,
+      "uid": 0
+    },
+    {
+      "expected_mode": "0o444",
+      "expected_size": 778,
+      "hash_matches": true,
+      "links": 1,
+      "mode": "0o644",
+      "path": "config/examples/stage16-stand-inputs.example.json",
+      "size": 778,
+      "uid": 0
+    }
+  ],
+  "scientific_data_affected": false,
+  "status": "ALL_PAYLOAD_HASHES_MATCH_ONLY_DATA_FILTER_OWNER_WRITE_BIT_DIFFERED"
+}

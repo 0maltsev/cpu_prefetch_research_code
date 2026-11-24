@@ -1,0 +1,25 @@
+{
+  "status": "SOFTWARE_PREPARED_NOT_YET_EXECUTED",
+  "files": [
+    {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_q16a_geometry_v1.py",
+      "size_bytes": 8951,
+      "sha256": "47a906a322facdf38de904e597fe80c68bca94e0264a4ee29814932a1c4a3ad1"
+    },
+    {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_q16a_geometry_v1.py",
+      "size_bytes": 3097,
+      "sha256": "249ca906c13c450353dd42e1d96761a211eae4323455dd87c68d8777875c7650"
+    },
+    {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/docs/evidence/stage17/Q16A-COMPOSITION-ACTUAL-20261115-01/operator/compose.py",
+      "size_bytes": 5699,
+      "sha256": "68a9957791c71c08309e49d74636b22dd2167e9f20aca2a3f510c28a64278d6f"
+    }
+  ],
+  "targeted_ctest_suites": 3,
+  "targeted_tests": "PASS",
+  "raw_redecode_performed": false,
+  "performance_measurement": false,
+  "execution_authority": false
+}

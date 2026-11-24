@@ -1,0 +1,149 @@
+{
+  "files": [
+    {
+      "file_name": "FROZEN_SOURCE_MANIFEST.json",
+      "sha256": "bd86f1b81686ab119607868cb64f94f6617e620fa82e93750b9877e6ba1c578b",
+      "size_bytes": 148787
+    },
+    {
+      "file_name": "REPORT.md",
+      "sha256": "8d2b02c3999c32b843292059c7d501621c7481000c56cf37b4a6e19bbc6aa515",
+      "size_bytes": 3735
+    },
+    {
+      "file_name": "S180_COLD_SOURCE_MANIFEST.json",
+      "sha256": "bccde38abc2d97181f20100e18a2f5e1e8e62e4d41683c8ec497fb4d63fbcd7d",
+      "size_bytes": 1211592
+    },
+    {
+      "file_name": "assemble-frozen-source.py",
+      "sha256": "c1da58dea8a984655b15984f2481198aacea3b171b30dfeb7b00e8cb7364a9ef",
+      "size_bytes": 1442
+    },
+    {
+      "file_name": "assemble.py",
+      "sha256": "61e5fb7d758000d49c856744868546e5d05aafa48b6567203a40bb22be55c4e7",
+      "size_bytes": 3926
+    },
+    {
+      "file_name": "assembly.json",
+      "sha256": "37eed962ee8e504b539b2422c3381c9e4f1a17d026886ff633d1862c98facccf",
+      "size_bytes": 593
+    },
+    {
+      "file_name": "assembly.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "file_name": "common-readonly-accepted-locator.json",
+      "sha256": "180313e6be449b4ed99f95059509309406987d2d94a6b96e856072f260de6f67",
+      "size_bytes": 3546
+    },
+    {
+      "file_name": "common-readonly-accepted-locator.py",
+      "sha256": "6f0ae6db455103e29fef76a319ea170c10318f0d153cd6b0f4fed73b670ff9d6",
+      "size_bytes": 3353
+    },
+    {
+      "file_name": "common-readonly-accepted-locator.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "file_name": "common-readonly-check.json",
+      "sha256": "e51616b120ba915f4d545b3461b7bee27054ee04c169174c3ae8bc3b0dc09653",
+      "size_bytes": 2725
+    },
+    {
+      "file_name": "common-readonly-check.py",
+      "sha256": "b22950af94e94ee3d96d7c916c8e2437be1f86e29a5e058a0245eba4ad36de3e",
+      "size_bytes": 3302
+    },
+    {
+      "file_name": "common-readonly-check.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "file_name": "common-readonly-full-source.json",
+      "sha256": "2bec2c6b70164aff20fe491ee5b2b721a61a3074208061e6adb2875fdc667b83",
+      "size_bytes": 121731
+    },
+    {
+      "file_name": "common-readonly-full-source.py",
+      "sha256": "81a7125483cd54d2a042612053e8b35f8dbaf718dc5f3c1246f3b1b29b3a965a",
+      "size_bytes": 3789
+    },
+    {
+      "file_name": "common-readonly-full-source.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "file_name": "final-stand-status.json",
+      "sha256": "a902f6250775f26c7438c73384f28333b7fc8caf1974a87296632a0a885b39a5",
+      "size_bytes": 847
+    },
+    {
+      "file_name": "finalize-stand.json",
+      "sha256": "98e5db3444d88e62b2a3d76ca4e0d946e1a916d2f53195fee485f17649ff6311",
+      "size_bytes": 646
+    },
+    {
+      "file_name": "finalize-stand.py",
+      "sha256": "6f9cb0f163cea13488e932126df648ab5f19e19903457ef591342093d0f51499",
+      "size_bytes": 2425
+    },
+    {
+      "file_name": "finalize-stand.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "file_name": "frozen-source-assembly.json",
+      "sha256": "a1075988cfe911dc07493fcd8deeb16a1d47f7638394ef40a5190cde8f5e93db",
+      "size_bytes": 263
+    },
+    {
+      "file_name": "frozen-source-assembly.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "file_name": "initial-extraction-permission-review.json",
+      "sha256": "08d8e780d1d086ee91f48a0e445cb09029acee98c22f105b1bdd313c0a130429",
+      "size_bytes": 1211
+    },
+    {
+      "file_name": "install-frozen-source.json",
+      "sha256": "3db4cf0ea11bae0679def8c5ea5189e8270ed0bd88b50172439a9e866bd3ab19",
+      "size_bytes": 408
+    },
+    {
+      "file_name": "install-frozen-source.py",
+      "sha256": "5b86ee2e01b4bfa2c85c7ad853974b0ad9c8e71920b16caa0fc7385e9dc1eab6",
+      "size_bytes": 2005
+    },
+    {
+      "file_name": "install-frozen-source.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "file_name": "install-stand.py",
+      "sha256": "326b05715d97af527a5afc6c9b53d2e323ecea42f887b7b8f2db9696d611e806",
+      "size_bytes": 2442
+    },
+    {
+      "file_name": "install-stand.stderr",
+      "sha256": "be24f0bf65dac18011bfc17ca1b01ecb0b520265e31652e84ca6038e58f5eca3",
+      "size_bytes": 89
+    },
+    {
+      "file_name": "verified-pc-cleanup.json",
+      "sha256": "576b6320c30bf3d776f8f9cd8a3a8237c12892aeb1a9fd95cd46614f2c7ce14f",
+      "size_bytes": 7605
+    }
+  ]
+}

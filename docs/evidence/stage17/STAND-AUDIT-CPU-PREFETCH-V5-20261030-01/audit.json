@@ -1,0 +1,89 @@
+{
+  "audit_scope": "READ_ONLY; no calibration, pilot, MSR write, or retry",
+  "captured_at_utc": "2026-10-30T09:51:34.942090+00:00",
+  "evidence_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12",
+  "files": [
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/journal/stage17-state-journal-000008.json",
+      "sha256": "46e6fa35f7393e136e8169e19e1c3ee7c49a8c2f82acc65322dd813b73e21c84",
+      "size_bytes": 3595
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/q15-r-output-v3.json",
+      "sha256": "ffedcedc91b199a93183b2a4629b7ff6c764e397ea648400c017a3c9387b4f7c",
+      "size_bytes": 1069
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/q15-w-output-v3.json",
+      "sha256": "aa7f24d2a0cfe0c803ede02863c04aebc13d939119cb38e656f288259a4d5295",
+      "size_bytes": 1017
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/q16a-authoring-1/q16a-action-inputs-1.json",
+      "sha256": "6be60c5abae6cbdf3008f5328f1a8838e7ad325ee06e160feaa814d74c7d896a",
+      "size_bytes": 6442271
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/q16a-authoring-1/matrix-spec-1.json",
+      "sha256": "7e21845aa4fcad5395103aeb39fd26e7dbcba7162c1852b568da776fa6df8b01",
+      "size_bytes": 1580
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/cpu-prefetch-pilot-candidate-2.0.0-a820e6e-clean-9ee9e64490e5.tar.gz",
+      "sha256": "bd9d023536932e88c99c8589dfba7cc70f900a8e5f3df1a35d4e5463e9a0e7b5",
+      "size_bytes": 73525339
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/cpu-prefetch-pilot-candidate-2.0.0-a820e6e-clean-9ee9e64490e5.tar.gz.sha256",
+      "sha256": "41346f3271969ef47a87c38ebe9a76919380139e24986bb4f57871e503b950de",
+      "size_bytes": 135
+    },
+    {
+      "path": "/tmp/operational_cli_v11_local_patch_v4.py",
+      "sha256": "9feb8522677edddcf29116723b10491fd5267563830dff32424c824a4747e39b",
+      "size_bytes": 1842
+    }
+  ],
+  "msr_device_modes": {
+    "0": "0o600",
+    "1": "0o600",
+    "8": "0o600"
+  },
+  "prepared_q16a": {
+    "capacities_by_requested_class": {
+      "BEYOND_LLC": [
+        8388608
+      ],
+      "L2_RESIDENT": [
+        1024
+      ],
+      "LLC_RESIDENT": [
+        131072
+      ]
+    },
+    "capture_count": 708
+  },
+  "ssh_target": "root@94.126.205.83",
+  "stand_id": "cpu-prefetch-v5",
+  "validator_command": [
+    "setpriv",
+    "--reuid=1000",
+    "--regid=1000",
+    "--clear-groups",
+    "python3",
+    "-B",
+    "/tmp/operational_cli_v11_local_patch_v4.py",
+    "--repository-root",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/admission-root",
+    "--evidence-root",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12",
+    "--pilot-archive",
+    "/home/omaltsev/stage17-owner-evidence/cpu-prefetch-pilot-candidate-2.0.0-a820e6e-clean-9ee9e64490e5.tar.gz",
+    "--pilot-sidecar",
+    "/home/omaltsev/stage17-owner-evidence/cpu-prefetch-pilot-candidate-2.0.0-a820e6e-clean-9ee9e64490e5.tar.gz.sha256",
+    "status"
+  ],
+  "validator_exit_code": 0,
+  "validator_stderr": "",
+  "validator_stdout": "{\"current_state\": \"PREFLIGHT_ACCEPTED\", \"missing_inputs\": [\"S17-EXT-007\", \"S17-EXT-008\", \"S17-EXT-009\", \"S17-EXT-010\"], \"pilot_ready\": false, \"resolutions\": 6, \"transitions\": 2}\n"
+}

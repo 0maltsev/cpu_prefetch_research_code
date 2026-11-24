@@ -1,0 +1,96 @@
+{
+  "execution_authority": false,
+  "files": [
+    {
+      "path": "CMakeLists.txt",
+      "sha256": "37bfb5336a34f423acd5d94e0f7bb8271db726de064045b33e038d9abb6d1a2d",
+      "size_bytes": 202602
+    },
+    {
+      "path": "tools/stage17_s180_capture_validation_v1.py",
+      "sha256": "cfd9c0dc75b673c85fd3ce999e0f1db83af2d2055c90d1c46cd1e4304b42b1b7",
+      "size_bytes": 33107
+    },
+    {
+      "path": "tests/test_stage17_s180_capture_validation_v1.py",
+      "sha256": "a24d8f4b894eee991f6fa907e76816b8cd867e6d9fc7a6f5a93e9c7ead4e847d",
+      "size_bytes": 20372
+    },
+    {
+      "path": "tools/stage17_s180_capture_controls_v1.py",
+      "sha256": "3e18e7a81f2a7c7965c4802669c06aaa48dec053b295a744b8c24e426b3e3afa",
+      "size_bytes": 18618
+    },
+    {
+      "path": "tools/stage17_s180_raw_join_v1.py",
+      "sha256": "4afb09b46b722d9eb11b92c774d0343e3ddb7699cbbcdfbc8862a21dbc2e4f61",
+      "size_bytes": 11647
+    },
+    {
+      "path": "tools/stage17_s180_tail_numerics_v1.py",
+      "sha256": "41bd1a22443537fe9cc4301d589e3521e12ee3dde3d7ddb7c0428c5dec9ccbd1",
+      "size_bytes": 11549
+    },
+    {
+      "path": "tools/stage17_s180_checkpoint_v1.py",
+      "sha256": "81e161f2b5cef490078fe401f1f6bf431efb7722e733b0ef77208e237bd664c8",
+      "size_bytes": 8271
+    },
+    {
+      "path": "tools/stage17_formal_service_capture_validation_v1.py",
+      "sha256": "8e09c2ab6a236a242ba688586a5ccec45dba4e0de47f72fabe67f355471749b6",
+      "size_bytes": 28411
+    },
+    {
+      "path": "tools/stage17_discovery_validation_v3.py",
+      "sha256": "0a8c3f066b035c9ce38cfe405ad5bcf4d14272eaa71fcebc0de36d4147b7b12f",
+      "size_bytes": 70322
+    },
+    {
+      "path": "tools/stage17_raw_stream_decoder_v1.py",
+      "sha256": "6a393bbd7c6721f715cd7b23c5a5c59368365ad3e77d950f2337d52089bfcab3",
+      "size_bytes": 15706
+    },
+    {
+      "path": "tools/stage17_raw_stream_decoder_v2.py",
+      "sha256": "a2349a5443debb051b7cb524bc86724ed6ba966dcb4a18582ed0248052b0fdca",
+      "size_bytes": 13067
+    },
+    {
+      "path": "protocol/2.0.0-pre.3/handoff/schemas/raw-observation.schema.json",
+      "sha256": "053ce37bcbde0baf27452262b59a28fe331f81f3a5288a73b814deb8d31db7ab",
+      "size_bytes": 9452
+    },
+    {
+      "path": "src/workload/working_set.cpp",
+      "sha256": "11004ee08119232bcc01b6d87b8e00f57ab3f762368b515b72ac4b17633cbc37",
+      "size_bytes": 8073
+    },
+    {
+      "path": "src/runner/stage17_discovery_publication.cpp",
+      "sha256": "27faf8bf3d16d7566f4d10e266a4a6a46ddf638691dba747a0a4c9cc57d11413",
+      "size_bytes": 96220
+    },
+    {
+      "path": "include/cpu_prefetch/calibration/mapped_pilot_data.hpp",
+      "sha256": "6646000e13493f4346c6bc181bde2ff6cd2f9b1913c39ddde6db50068dc0a846",
+      "size_bytes": 8970
+    },
+    {
+      "path": "tests/workload_model_test.cpp",
+      "sha256": "e7db4a9222a7abb458deecab80658a83887f2d168fc37eba0419200210c86c72",
+      "size_bytes": 25630
+    },
+    {
+      "path": "docs/decisions/0350-s180-original-byte-validation-and-analysis-publication.md",
+      "sha256": "eec517fe1d920b6b71fa10b1a555380fa79a8363647b836db8e45f06394d2dad",
+      "size_bytes": 9173
+    }
+  ],
+  "frozen_native": {
+    "path": "build/stage17-s180-release-34247ce/cpu_prefetch_runner",
+    "sha256": "7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc",
+    "size_bytes": 6151832
+  },
+  "recorded_at_utc": "2026-11-23T16:42:26.148815+00:00"
+}

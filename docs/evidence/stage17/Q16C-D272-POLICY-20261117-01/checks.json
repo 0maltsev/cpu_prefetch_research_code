@@ -1,0 +1,24 @@
+{
+  "status": "POLICY_AND_REUSE_SOFTWARE_VERIFIED",
+  "policy_tests": 13,
+  "qualification_tests": 5,
+  "q16a_reuse_tests": 3,
+  "q16b_reuse_tests": 3,
+  "actual_qualified_compatibility": "PENDING",
+  "stand_experiments": 0,
+  "operational_window_started": false,
+  "phase18_authority": false,
+  "failed_package_source": "f861f71",
+  "failed_package_reason": "policy60 correctly rejected changed native-byte binding",
+  "generated_code_gates": "8/8 PASS",
+  "bindings": {
+    "config/stage17/stage17-operational-evidence-admission-policy-v61.json": {
+      "size_bytes": 218871,
+      "sha256": "628eabc352e1fe4496515eb03bcd329fd2f7360feb5884ad8e032dd5173a508f"
+    },
+    "config/stage17/stage17-read-only-preflight-evidence-admission-policy-v35.json": {
+      "size_bytes": 15465,
+      "sha256": "84816487fd662b06fdbe74b03213ea6de8420619b26be1fec385323aac76765a"
+    }
+  }
+}

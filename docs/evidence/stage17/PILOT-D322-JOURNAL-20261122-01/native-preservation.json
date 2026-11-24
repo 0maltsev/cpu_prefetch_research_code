@@ -1,0 +1,11 @@
+{
+  "actual_scoped_admission": false,
+  "calibration_repeated": false,
+  "native_worker_sha256": "7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc",
+  "native_worktree_clean": true,
+  "operational_window_started": false,
+  "semantic_facts_in_tests": "SYNTHETIC",
+  "size_bytes": 6151832,
+  "source_revision": "34247cedab4abe4b44732daae8fdac1700eccffd",
+  "stand_access_performed": false
+}

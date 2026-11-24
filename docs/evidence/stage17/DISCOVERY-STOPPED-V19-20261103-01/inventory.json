@@ -1,0 +1,107 @@
+[
+  {
+    "path": "README.md",
+    "size_bytes": 3926,
+    "sha256": "317a4381665e119829ea827cd630fdf011903ae957295ab2258ad7b44e84fbe5"
+  },
+  {
+    "path": "originals/discovery-c00-measurement-consumer.bin",
+    "size_bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "originals/discovery-c00-measurement-demand.bin",
+    "size_bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "originals/discovery-c00-measurement-producer.bin",
+    "size_bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "originals/operator/clock-requalification-2/restoration.json",
+    "size_bytes": 332,
+    "sha256": "8848063e5719491e08801228d17887de51ceba6e14c6bc9be6c4196347a0ff16"
+  },
+  {
+    "path": "originals/operator/discovery-launch-intent-1.json",
+    "size_bytes": 4787,
+    "sha256": "7bf00bf4eb4906a9437658faa7de29296f38e67add0fbcee15fc169a2b414ae0"
+  },
+  {
+    "path": "originals/operator/discovery-launch-readback-1.json",
+    "size_bytes": 4549,
+    "sha256": "bded6dd97ce053f5b2a084a6b2641a82d45dd2b096f52cf8ee669f2621682d67"
+  },
+  {
+    "path": "originals/operator/discovery-session-1.log",
+    "size_bytes": 3090,
+    "sha256": "6bc376a3311e9667844dad296750f307fac9526cbef11e8e66dc06199a16fd66"
+  },
+  {
+    "path": "originals/operator/discovery-supervisor-prelaunch-1.json",
+    "size_bytes": 2360,
+    "sha256": "4950f2d1d955e8591b04899965749e9e4d377db12915fb4848cd833dffd54eff"
+  },
+  {
+    "path": "originals/operator/discovery-supervisor-result-1.json",
+    "size_bytes": 551,
+    "sha256": "3a13e905da780b3460400551e525cba4906341fa61311836b474cd4f8030fae5"
+  },
+  {
+    "path": "originals/stage17-q16a_duration_discovery-attempt-v5.json",
+    "size_bytes": 935,
+    "sha256": "51f602d699c823722bfbcd3b0da5e9bed39cea40074c0c314e4852cc933b2d3e"
+  },
+  {
+    "path": "originals/stage17-q16a_duration_discovery-failure-v5.json",
+    "size_bytes": 1093,
+    "sha256": "5abb428b420d444f35963ff62a337004a6e11a201a2dd2235b59e571ab27bc3f"
+  },
+  {
+    "path": "originals/stage17-q16a_duration_discovery-stderr-v5.bin",
+    "size_bytes": 165,
+    "sha256": "509d167313fe043e3a3aa3b1f4f0a3ca850e758a5703fd1014858dbf46be0f69"
+  },
+  {
+    "path": "originals/stage17-q16a_duration_discovery-stdout-v5.bin",
+    "size_bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "originals/studyhardware.json",
+    "size_bytes": 12389,
+    "sha256": "8c840d29141a3070153fc47b07dbcecfaee65b7a0420e8afef09be3a9024bc1f"
+  },
+  {
+    "path": "pc-resource-after-stopped-copy.json",
+    "size_bytes": 474,
+    "sha256": "4f573eeff494a7f6e9f792600d4a1891df5b1b855b96f44f378f6871bf5d1355"
+  },
+  {
+    "path": "stand-inventory.json",
+    "size_bytes": 44019,
+    "sha256": "ee2a79e0c4fe3edcd1377696b20836eb412cbae4085f778a9dfab2b02e6af1a1"
+  },
+  {
+    "path": "stopped-copy-verification.json",
+    "size_bytes": 2770,
+    "sha256": "edfca46d00506ce0dc47c308df0ac6eec0ee7ba857e18190e1e0b9393b53b3e1"
+  },
+  {
+    "path": "stopped-prefix-validation.json",
+    "size_bytes": 2416,
+    "sha256": "44c5311837584ab8fd0611fdb1ad090e027cc484dd5900bced5573a2a745626a"
+  },
+  {
+    "path": "validate_stopped_prefix.py",
+    "size_bytes": 4058,
+    "sha256": "d3052307ab2620d6c962f1fb8581d6b9a641e4f18450c328d59eb534872ab5c0"
+  },
+  {
+    "path": "verify_stopped_copy.py",
+    "size_bytes": 1847,
+    "sha256": "7f8574cd46c42f49147afe90228266f3083addce881b14cadc7f9450794c84d3"
+  }
+]

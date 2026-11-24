@@ -1,0 +1,40 @@
+[1/36] Linking CXX static library libcpu_prefetch_queue.a
+[2/36] Linking CXX static library libcpu_prefetch_protocol.a
+[3/36] Linking CXX static library libcpu_prefetch_foundation.a
+[4/36] Linking CXX static library libcpu_prefetch_workload.a
+[5/36] Linking CXX static library libcpu_prefetch_lifecycle.a
+[6/36] Linking CXX static library libcpu_prefetch_timing.a
+[7/36] Linking CXX static library libcpu_prefetch_platform.a
+[8/36] Linking CXX static library libcpu_prefetch_storage.a
+[9/36] Linking CXX static library libcpu_prefetch_reconciliation.a
+[10/36] Linking CXX static library libcpu_prefetch_calibration.a
+[11/36] Linking CXX static library libcpu_prefetch_runner_core.a
+[12/36] Building CXX object CMakeFiles/cpu_prefetch_storage_codegen_probe.dir/tools/storage_codegen_probe.cpp.o
+[13/36] Building CXX object CMakeFiles/cpu_prefetch_storage_codegen_mutant.dir/tools/storage_codegen_mutant.cpp.o
+[14/36] Linking CXX executable cpu_prefetch_queue_codegen_probe
+[15/36] Linking CXX executable cpu_prefetch_runner
+[16/36] Linking CXX executable cpu_prefetch_queue_codegen_mutant
+[17/36] Linking CXX executable cpu_prefetch_workload_codegen_probe
+[18/36] Linking CXX executable cpu_prefetch_workload_codegen_mutant
+[19/36] Linking CXX executable cpu_prefetch_timing_codegen_probe
+[20/36] Linking CXX executable cpu_prefetch_timing_codegen_mutant
+[21/36] Linking CXX executable cpu_prefetch_storage_codegen_probe
+[22/36] Linking CXX executable cpu_prefetch_storage_codegen_mutant
+[23/36] Linking CXX executable cpu_prefetch_runner_codegen_probe
+[24/36] Linking CXX executable cpu_prefetch_runner_combined_codegen_probe
+[25/36] Linking CXX executable cpu_prefetch_q15_runtime_codegen_probe
+[26/36] Linking CXX executable cpu_prefetch_q15_runtime_codegen_mutant
+[27/36] Linking CXX executable cpu_prefetch_stage17_archive_encoder
+[28/36] Requiring dual-disassembler queue generated-code evidence
+FAILED: [code=1] CMakeFiles/queue-codegen-check /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-34247ce/CMakeFiles/queue-codegen-check
+cd /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-34247ce && /usr/bin/python3.14 /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-source-34247ce/tools/check_queue_codegen.py --binary /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-34247ce/cpu_prefetch_queue_codegen_probe --mutant /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-34247ce/cpu_prefetch_queue_codegen_mutant --output /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-34247ce/queue_codegen_report.json --gnu-objdump /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/objdump --provenance /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-source-34247ce/config/queue-provenance/ring-spsc.json --provenance /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-source-34247ce/config/queue-provenance/linked-spsc.json
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-source-34247ce/tools/check_queue_codegen.py", line 12, in <module>
+    import subprocess
+  File "/usr/lib/python3.14/subprocess.py", line 125, in <module>
+    import selectors
+  File "/usr/lib/python3.14/selectors.py", line 11, in <module>
+    import math
+ImportError: /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/libm.so.6: version `GLIBC_2.44' not found (required by /usr/lib/python3.14/lib-dynload/math.cpython-314-x86_64-linux-gnu.so)
+[29/36] Linking CXX executable cpu_prefetch_s180_io_tests
+ninja: build stopped: subcommand failed.

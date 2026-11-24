@@ -1,0 +1,118 @@
+{
+  "arena": {
+    "address_delta_error": null,
+    "address_delta_sha256": "c29c852ca6125b259205873dd6fae0f4d7740747f273e9abf17f7c0ebd454b53",
+    "allocated_bytes": 4194304,
+    "base_page_aligned": true,
+    "base_page_bytes": 4096,
+    "cache_line_bytes": 64,
+    "capacity": 65536,
+    "content_unchanged": true,
+    "distinct_cache_lines": 65536,
+    "distinct_pages": 1024,
+    "every_record_line_aligned": true,
+    "ordered_index_error": null,
+    "ordered_index_sha256": "b46c5da2cb1943f06fac0d62c6cd1c85598210f30b8aadb8acb82b6de138063e",
+    "padding_initialized": true,
+    "prepared_content_sha256": "1e8c5fea54b4eaa74cd4769ba25c2c3905a7b77568d532dc98c2886daadf9f17",
+    "publication_content_sha256": "1e8c5fea54b4eaa74cd4769ba25c2c3905a7b77568d532dc98c2886daadf9f17",
+    "storage_address": 125183803412480
+  },
+  "bad_pages": [
+    {
+      "address": 125183811260416,
+      "index": 1916,
+      "offset": 7847936,
+      "status": -2
+    }
+  ],
+  "layout": {
+    "core_bytes": 16384,
+    "monitor_bytes": 40550400,
+    "region_bytes": [
+      64860160,
+      1028206592,
+      721674240,
+      2097152,
+      2097152,
+      16384,
+      2097152
+    ],
+    "total_mapping_bytes": 1861611520,
+    "workers": {
+      "arena_object": 0,
+      "consumer_bytes": 721674240,
+      "cursors": 0,
+      "emitter_object": 448,
+      "linked": {
+        "node_bytes": 4194368,
+        "node_stride_bytes": 64,
+        "order_count": 65537,
+        "ownership_bytes": 256,
+        "recycler_bytes": 524288,
+        "validation_bytes": 65537
+      },
+      "node_initial_order": 5247360,
+      "node_input_order": 4723008,
+      "node_validation": 5771712,
+      "nodes": 4096,
+      "ownership": 4722752,
+      "package_object": 384,
+      "phases": [
+        {
+          "consumer_object": 0,
+          "consumer_raw": 576,
+          "producer_object": 5837312,
+          "producer_raw": 5837760,
+          "raw": {
+            "consumer_bytes": 601247040,
+            "producer_bytes": 851766640
+          }
+        },
+        {
+          "consumer_object": 601247616,
+          "consumer_raw": 601248192,
+          "producer_object": 857604416,
+          "producer_raw": 857604864,
+          "raw": {
+            "consumer_bytes": 120424608,
+            "producer_bytes": 170601528
+          }
+        }
+      ],
+      "producer_bytes": 1028206592,
+      "queue_object": 128,
+      "record_order": 4194304,
+      "records_bytes": 64860160,
+      "recycler": 4198464,
+      "ring": null,
+      "slots": 0
+    }
+  },
+  "node_order_count": 65537,
+  "region": {
+    "address": 125183803412480,
+    "bytes": 64860160,
+    "expected_node": 0
+  },
+  "sample_request": {
+    "moment": 0,
+    "offset_ticks": 0,
+    "phase": 0,
+    "region_index": 0
+  },
+  "schedule_mapping": {
+    "counts": [
+      6262990,
+      1254423
+    ],
+    "offsets": [
+      4718592,
+      54822528
+    ]
+  },
+  "worker_preparation": [
+    7,
+    7
+  ]
+}

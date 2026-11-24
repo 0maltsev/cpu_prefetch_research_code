@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:pinned-host-key-evidence:v1",
+  "title": "Stage 17 prospectively pinned SSH host-key evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "evidence_id", "stand_id", "ssh_target", "algorithm", "public_key_base64", "fingerprint_sha256", "source", "runtime_observation"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-pinned-host-key-evidence/1"},
+    "evidence_id": {"type": "string", "minLength": 1},
+    "stand_id": {"type": "string", "minLength": 1},
+    "ssh_target": {"type": "string", "minLength": 1},
+    "algorithm": {"const": "ssh-ed25519"},
+    "public_key_base64": {"type": "string", "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"},
+    "fingerprint_sha256": {"type": "string", "pattern": "^SHA256:[A-Za-z0-9+/]+$"},
+    "source": {"const": "OWNER_PROVIDED_OUT_OF_BAND_PIN"},
+    "runtime_observation": {"const": false}
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "all_own_children_reaped": true,
+  "analysis_pgid": 35145,
+  "analysis_pid": 35145,
+  "elapsed_seconds": 6397.976382321009,
+  "execution_authority": false,
+  "exit_code": 0,
+  "finished_at_utc": "2026-11-03T19:32:20.088875+00:00",
+  "maximum_sampled_scratch_bytes": 25946095616,
+  "raw_mutation": false,
+  "reaped_children": [
+    {
+      "exit_code": 0,
+      "pid": 35145
+    }
+  ],
+  "started_at_utc": "2026-11-03T17:45:42.112519+00:00",
+  "status": "ANALYSIS_EXITED"
+}

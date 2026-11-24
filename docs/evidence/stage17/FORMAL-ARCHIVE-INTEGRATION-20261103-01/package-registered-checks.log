@@ -1,0 +1,22 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+    Start 771: runner.stage17_bundle_v26
+1/5 Test #771: runner.stage17_bundle_v26 ..........   Passed    0.50 sec
+    Start 833: runner.formal_archive_broker_v1
+2/5 Test #833: runner.formal_archive_broker_v1 ....   Passed    8.70 sec
+    Start 834: runner.formal_archive_jobs_v1
+3/5 Test #834: runner.formal_archive_jobs_v1 ......   Passed    9.88 sec
+    Start 835: runner.archive_plan_identity_v2
+4/5 Test #835: runner.archive_plan_identity_v2 ....   Passed    0.20 sec
+    Start 836: runner.archive_bundle_profile_v1
+5/5 Test #836: runner.archive_bundle_profile_v1 ...   Passed    0.78 sec
+
+100% tests passed, 0 tests failed out of 5
+
+Label Time Summary:
+archive      =  19.56 sec*proc (4 tests)
+python       =  20.07 sec*proc (5 tests)
+release      =   0.50 sec*proc (1 test)
+runner       =  20.07 sec*proc (5 tests)
+synthetic    =  20.07 sec*proc (5 tests)
+
+Total Test time (real) =  20.09 sec

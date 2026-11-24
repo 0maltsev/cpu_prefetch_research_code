@@ -1,0 +1,206 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:cpu-prefetch:stage17:fixed-action-request:v4",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "schema_version",
+        "request_id",
+        "session_id",
+        "action_id",
+        "stand_id",
+        "authorization_id",
+        "attempt_id",
+        "runtime_binding",
+        "release_binding",
+        "evidence_root_binding",
+        "predecessor_resolutions",
+        "action_inputs",
+        "synthetic_test_only",
+        "phase18_authority"
+    ],
+    "properties": {
+        "schema_version": {
+            "const": "cpu-prefetch-stage17-fixed-action-request/4"
+        },
+        "request_id": {
+            "type": "string",
+            "minLength": 1
+        },
+        "session_id": {
+            "type": "string",
+            "minLength": 1
+        },
+        "action_id": {
+            "$ref": "#/$defs/action"
+        },
+        "stand_id": {
+            "type": "string",
+            "minLength": 1
+        },
+        "authorization_id": {
+            "type": "string",
+            "minLength": 1
+        },
+        "attempt_id": {
+            "type": "string",
+            "minLength": 1
+        },
+        "runtime_binding": {
+            "$ref": "#/$defs/runtime"
+        },
+        "release_binding": {
+            "$ref": "#/$defs/release"
+        },
+        "evidence_root_binding": {
+            "$ref": "#/$defs/root"
+        },
+        "predecessor_resolutions": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 10,
+            "uniqueItems": true,
+            "items": {
+                "$ref": "#/$defs/resolution"
+            }
+        },
+        "action_inputs": {
+            "type": "object",
+            "minProperties": 1
+        },
+        "synthetic_test_only": {
+            "type": "boolean"
+        },
+        "phase18_authority": {
+            "const": false
+        }
+    },
+    "$defs": {
+        "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+        },
+        "action": {
+            "enum": [
+                "Q15-R",
+                "Q15-W",
+                "Q16a",
+                "Q16b",
+                "Q16c",
+                "STAGE17-BLINDED-PILOT"
+            ]
+        },
+        "resolution": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "input_id",
+                "resolution_id",
+                "sha256"
+            ],
+            "properties": {
+                "input_id": {
+                    "pattern": "^S17-EXT-[0-9]{3}$"
+                },
+                "resolution_id": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "sha256": {
+                    "$ref": "#/$defs/sha256"
+                }
+            }
+        },
+        "runtime": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "role",
+                "profile",
+                "size_bytes",
+                "sha256"
+            ],
+            "properties": {
+                "role": {
+                    "const": "STAGE17_FIXED_ACTION_WORKER"
+                },
+                "profile": {
+                    "const": "STAGE17-FIXED-ACTION-WORKER-v4"
+                },
+                "size_bytes": {
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "sha256": {
+                    "$ref": "#/$defs/sha256"
+                }
+            }
+        },
+        "release": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "source_resolution_id",
+                "source_resolution_sha256",
+                "artifact_role",
+                "runtime_profile",
+                "worker_size_bytes",
+                "worker_sha256"
+            ],
+            "properties": {
+                "source_resolution_id": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "source_resolution_sha256": {
+                    "$ref": "#/$defs/sha256"
+                },
+                "artifact_role": {
+                    "const": "STAGE17_FIXED_ACTION_WORKER"
+                },
+                "runtime_profile": {
+                    "const": "STAGE17-FIXED-ACTION-WORKER-v4"
+                },
+                "worker_size_bytes": {
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "worker_sha256": {
+                    "$ref": "#/$defs/sha256"
+                }
+            }
+        },
+        "root": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "absolute_path",
+                "device",
+                "inode",
+                "owner_uid",
+                "mode"
+            ],
+            "properties": {
+                "absolute_path": {
+                    "type": "string",
+                    "pattern": "^/"
+                },
+                "device": {
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "inode": {
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "owner_uid": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "mode": {
+                    "const": "0700"
+                }
+            }
+        }
+    }
+}

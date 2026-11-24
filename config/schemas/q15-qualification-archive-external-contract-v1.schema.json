@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15:qualification-archive-external-contract:v1",
+  "title": "Exact external qualification archive contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract_id",
+    "protocol_version",
+    "status",
+    "archive",
+    "sidecar",
+    "release_identity",
+    "restoration",
+    "authority_boundary"
+  ],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-qualification-archive-external-contract/1"},
+    "contract_id": {"const": "Q15-QUALIFICATION-ARCHIVE-EXTERNAL-CONTRACT-v1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "status": {"const": "EXTERNAL_ARTIFACT_REQUIRED_FOR_INTEGRATION_OR_ACTION_NEVER_SELF_TEST"},
+    "archive": {"$ref": "#/$defs/file"},
+    "sidecar": {
+      "allOf": [
+        {"$ref": "#/$defs/file"},
+        {
+          "type": "object",
+          "required": ["exact_ascii"],
+          "properties": {"exact_ascii": {"type": "string", "minLength": 1}}
+        }
+      ]
+    },
+    "release_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_revision",
+        "bundle_profile",
+        "top_level_directory",
+        "collector_sha256",
+        "collector_contract_sha256",
+        "embedded_selected_release_sha256"
+      ],
+      "properties": {
+        "source_revision": {"pattern": "^[0-9a-f]{40}$"},
+        "bundle_profile": {"const": "q15-qualification-tool"},
+        "top_level_directory": {"type": "string", "minLength": 1},
+        "collector_sha256": {"$ref": "#/$defs/sha256"},
+        "collector_contract_sha256": {"$ref": "#/$defs/sha256"},
+        "embedded_selected_release_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "restoration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "exact_restore_mode",
+        "integration_check_argv",
+        "candidate_rebuild_argv",
+        "mismatch_policy"
+      ],
+      "properties": {
+        "exact_restore_mode": {"const": "SUPPLY_BYTE_IDENTICAL_CUSTODY_COPY_TO_AN_EXPLICIT_CALLER_PATH"},
+        "integration_check_argv": {"$ref": "#/$defs/argv"},
+        "candidate_rebuild_argv": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/argv"}
+        },
+        "mismatch_policy": {"const": "REJECT_REBUILT_OR_RESTORED_BYTES_UNLESS_ARCHIVE_AND_SIDECAR_MATCH_EXACT_CONTRACT"}
+      }
+    },
+    "authority_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "self_test_may_read_external_artifact",
+        "integration_check_may_read_explicit_paths",
+        "stand_access_authorized",
+        "execution_authorized"
+      ],
+      "properties": {
+        "self_test_may_read_external_artifact": {"const": false},
+        "integration_check_may_read_explicit_paths": {"const": true},
+        "stand_access_authorized": {"const": false},
+        "execution_authorized": {"const": false}
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "file": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["filename", "bytes", "sha256"],
+      "properties": {
+        "filename": {"type": "string", "minLength": 1},
+        "bytes": {"type": "integer", "minimum": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "exact_ascii": {"type": "string", "minLength": 1}
+      }
+    },
+    "argv": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    }
+  }
+}

@@ -1,0 +1,22 @@
+.E
+======================================================================
+ERROR: test_changed_ceiling_packet_and_self_consistent_wrong_count_reject (__main__.RequirementTests.test_changed_ceiling_packet_and_self_consistent_wrong_count_reject)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_source_author_v1.py", line 50, in test_changed_ceiling_packet_and_self_consistent_wrong_count_reject
+    with self.assertRaisesRegex(author.AuthorError,'source ceiling'):author.requirements(self.sizing)
+                                                                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_source_author_v1.py", line 60, in requirements
+    groups,order=planning.source_groups(sizing)
+                 ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_plan_prepare_v1.py", line 76, in source_groups
+    require(archive.canonical(groups[key]) == archive.canonical(common), "paired source coordinates differ")
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_plan_prepare_v1.py", line 33, in require
+    raise PlanError("S180 planning: " + message)
+stage17_s180_plan_prepare_v1.PlanError: S180 planning: paired source coordinates differ
+
+----------------------------------------------------------------------
+Ran 2 tests in 1.036s
+
+FAILED (errors=1)

@@ -1,0 +1,49 @@
+{
+  "files": [
+    {
+      "path": "CMakeLists.txt",
+      "sha256": "b700717b0640614e7370559b9281519fdc95b389903cb1cc354ee973fe532754",
+      "size_bytes": 200384
+    },
+    {
+      "path": "README.md",
+      "sha256": "4c2f5a5f6de5d7e82c95ed547590e3973fe16186e6e100eb6e8a1f072ec2d51b",
+      "size_bytes": 137284
+    },
+    {
+      "path": "STATUS.md",
+      "sha256": "cffe79ec545d2bbffbde15b5fc67e73fe2e77b39a75fa9ae5add4ed1da0ceb8b",
+      "size_bytes": 156201
+    },
+    {
+      "path": "PLAN.md",
+      "sha256": "96ff9cdc6e8dabf823313cbd01077c5a914747a514f164d23c5cb75827f453cc",
+      "size_bytes": 129831
+    },
+    {
+      "path": "docs/STAGE17_PILOT_PREPARATION.md",
+      "sha256": "0e99ce14a42bcfc01e76e360abd3f815306edc9814c556bbd8e135cf00d99fa3",
+      "size_bytes": 31135
+    },
+    {
+      "path": "docs/decisions/0341-s180-current-platform-geometry-and-regime.md",
+      "sha256": "ffd08cfd958db0d8af84d1cc184673af488456509a9042234b946823f305c32f",
+      "size_bytes": 6321
+    },
+    {
+      "path": "config/stage17/d310-s180-platform-request-v1.json",
+      "sha256": "03e6b510a138b2a45aa19bd22512f3959f8dd5c5ba974e9f2733f6512b15590f",
+      "size_bytes": 5967
+    },
+    {
+      "path": "tools/stage17_s180_platform_v1.py",
+      "sha256": "37a0a36db80928742dbccfeedb3eedc093d58275581ee1e53fc329873c8eaf2f",
+      "size_bytes": 21745
+    },
+    {
+      "path": "tests/test_stage17_s180_platform_v1.py",
+      "sha256": "7c3aebc81bd81f5adac44430fe434c6209b71f23bf9f93099fdb031f2cb55b71",
+      "size_bytes": 18090
+    }
+  ]
+}

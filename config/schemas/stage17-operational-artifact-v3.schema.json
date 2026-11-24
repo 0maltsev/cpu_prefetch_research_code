@@ -1,0 +1,195 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:cpu-prefetch:stage17:operational-artifact:v3",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "artifact_id",
+        "role",
+        "media_type",
+        "locator",
+        "size_bytes",
+        "sha256",
+        "schema_identity",
+        "schema_binding",
+        "lineage"
+    ],
+    "properties": {
+        "artifact_id": {
+            "type": "string",
+            "minLength": 1
+        },
+        "role": {
+            "enum": [
+                "PREFLIGHT_ATTEMPT",
+                "PREFLIGHT_OBSERVATION_RECEIPT",
+                "PREFLIGHT_STDOUT",
+                "PREFLIGHT_STDERR",
+                "PREFLIGHT_COMPLETION",
+                "RUNTIME_IDENTITY",
+                "RUNTIME_WORKER_BINARY",
+                "TRUST_ANCHOR",
+                "TRUST_ALLOWED_SIGNERS",
+                "RUNTIME_RELEASE_PROVENANCE",
+                "OWNER_ACCEPTANCE",
+                "QUALIFICATION_EVIDENCE",
+                "PLATFORM_MANIFEST",
+                "HARDWARE_PREFETCH_QUALIFICATION",
+                "QUALIFICATION_NEAR_FAR",
+                "QUALIFICATION_CLOCK",
+                "QUALIFICATION_ATOMICS_LAYOUT",
+                "QUALIFICATION_AFFINITY_MIGRATION",
+                "QUALIFICATION_NUMA_PAGES",
+                "QUALIFICATION_STORAGE_RECOVERY",
+                "QUALIFICATION_HARDWARE_PREFETCH",
+                "QUALIFICATION_STAND_PRESTATE",
+                "QUALIFICATION_Q15_COLLECTOR",
+                "Q15_R_AUTHORIZATION",
+                "Q15_R_SIGNATURE",
+                "Q15_R_REQUEST",
+                "Q15_R_ATTEMPT",
+                "Q15_R_RESULT",
+                "Q15_R_COMPLETION",
+                "Q15_R_READ_ONLY_PRESTATE",
+                "Q15_R_SESSION_WAITING",
+                "Q15_W_AUTHORIZATION",
+                "Q15_W_SIGNATURE",
+                "Q15_W_REQUEST",
+                "Q15_W_ATTEMPT",
+                "Q15_W_RESULT",
+                "Q15_W_COMPLETION",
+                "Q15_W_TRANSACTION",
+                "Q16A_AUTHORIZATION",
+                "Q16A_SIGNATURE",
+                "Q16A_REQUEST",
+                "Q16A_ATTEMPT",
+                "Q16A_RESULT",
+                "Q16A_COMPLETION",
+                "Q16A_RING_DISTANCE_CAPTURE",
+                "Q16A_RING_DEMAND_TRACE",
+                "Q16B_AUTHORIZATION",
+                "Q16B_SIGNATURE",
+                "Q16B_REQUEST",
+                "Q16B_ATTEMPT",
+                "Q16B_RESULT",
+                "Q16B_COMPLETION",
+                "Q16B_SERVICE_RATE_CAPTURE",
+                "Q16C_AUTHORIZATION",
+                "Q16C_SIGNATURE",
+                "Q16C_REQUEST",
+                "Q16C_ATTEMPT",
+                    "Q16C_RESULT",
+                    "Q16C_COMPLETION",
+                    "Q16C_ZERO_LOSS_FEASIBILITY_CAPTURE",
+                    "STAGE17_CALIBRATION_HARDWARE_STATE",
+                    "STAGE17_PILOT_HARDWARE_STATE",
+                    "STAGE17_BLINDED_PILOT_RUN",
+                    "SEALED_PILOT_ARTIFACT_MANIFEST",
+                    "PRODUCER_RAW_OBSERVATIONS",
+                "CONSUMER_RAW_OBSERVATIONS",
+                "JOINED_RAW_OBSERVATIONS",
+                "PRODUCER_RAW_ENVELOPE",
+                "CONSUMER_RAW_ENVELOPE",
+                "JOINED_RAW_ENVELOPE",
+                "JOIN_AUDIT",
+                "PHASE_INTEGRITY",
+                "PAGE_RESIDENCY_PROVENANCE",
+                "CALIBRATION_FREEZE",
+                "PILOT_PLAN_V3",
+                "STORAGE_BUDGET",
+                "CUSTODY_DOMAIN",
+                "COPY_LEDGER",
+                "RECOVERY_TEST",
+                "PILOT_AUTHORIZATION",
+                "PILOT_SIGNATURE",
+                "PILOT_REQUEST"
+            ]
+        },
+        "media_type": {
+            "enum": [
+                "application/json",
+                "application/octet-stream",
+                "application/sshsig"
+            ]
+        },
+        "locator": {
+            "type": "string",
+            "minLength": 1
+        },
+        "size_bytes": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "sha256": {
+            "$ref": "#/$defs/sha256"
+        },
+        "schema_identity": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "schema_binding": {
+            "anyOf": [
+                {
+                    "$ref": "#/$defs/file"
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
+        "lineage": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "$ref": "#/$defs/hash"
+            }
+        }
+    },
+    "$defs": {
+        "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+        },
+        "file": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "path",
+                "size_bytes",
+                "sha256"
+            ],
+            "properties": {
+                "path": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "size_bytes": {
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "sha256": {
+                    "$ref": "#/$defs/sha256"
+                }
+            }
+        },
+        "hash": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "id",
+                "sha256"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "sha256": {
+                    "$ref": "#/$defs/sha256"
+                }
+            }
+        }
+    }
+}

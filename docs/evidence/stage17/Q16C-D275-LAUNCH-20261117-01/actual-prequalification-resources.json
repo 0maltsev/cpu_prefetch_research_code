@@ -1,0 +1,66 @@
+{
+  "available_memory_bytes": 262144647168,
+  "conservative_12_capture_scratch_bytes": 79202425428,
+  "execution_authority": false,
+  "filesystem_free_bytes": 6323499503616,
+  "hardware_qualified": false,
+  "observed_monotonic_ns": 1370125748244389,
+  "online_cpus": "0-31",
+  "phase18_authority": false,
+  "plan_family_memory_bytes": 55287206384,
+  "raw_bytes_read": 0,
+  "retained_failed_scratch_bytes": 37485663884,
+  "schema_version": "cpu-prefetch-stage17-q16c-prequalification-resources/1",
+  "scratch_roots": [
+    {
+      "files": 1,
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-1/scratch",
+      "size_bytes": 2591
+    },
+    {
+      "files": 1,
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-d213-1/scratch",
+      "size_bytes": 0
+    },
+    {
+      "files": 0,
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-d224-1/scratch",
+      "size_bytes": 0
+    },
+    {
+      "files": 1,
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-d224-2/scratch",
+      "size_bytes": 0
+    },
+    {
+      "files": 1,
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-d234-1/scratch",
+      "size_bytes": 54710
+    },
+    {
+      "files": 0,
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/formal-archive-program-1/spool",
+      "size_bytes": 0
+    },
+    {
+      "files": 0,
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-1/scratch",
+      "size_bytes": 0
+    },
+    {
+      "files": 64,
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-2/scratch",
+      "size_bytes": 37485606583
+    },
+    {
+      "files": 17,
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3/scratch",
+      "size_bytes": 0
+    },
+    {
+      "files": 103,
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-analysis-1/scratch",
+      "size_bytes": 0
+    }
+  ]
+}

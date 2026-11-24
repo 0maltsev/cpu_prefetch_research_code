@@ -1,0 +1,31 @@
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Input.*:S180ProspectiveLayout.*
+[==========] Running 9 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 3 tests from S180ProspectiveLayout
+[ RUN      ] S180ProspectiveLayout.MatchesLiveLayoutForEveryPackageWithoutInventingAMapping
+[       OK ] S180ProspectiveLayout.MatchesLiveLayoutForEveryPackageWithoutInventingAMapping (11 ms)
+[ RUN      ] S180ProspectiveLayout.HugeDeclaredCountsAreSizedWithoutAllocatingTheirArrays
+[       OK ] S180ProspectiveLayout.HugeDeclaredCountsAreSizedWithoutAllocatingTheirArrays (9 ms)
+[ RUN      ] S180ProspectiveLayout.LiveViewsInvalidSourcesAndWrongOneLineEvidenceReject
+[       OK ] S180ProspectiveLayout.LiveViewsInvalidSourcesAndWrongOneLineEvidenceReject (8 ms)
+[----------] 3 tests from S180ProspectiveLayout (29 ms total)
+
+[----------] 6 tests from S180Input
+[ RUN      ] S180Input.ClosedDocumentBuildsAllNativeInputsAndOwnsBorrowedPathsAfterCopyMove
+[       OK ] S180Input.ClosedDocumentBuildsAllNativeInputsAndOwnsBorrowedPathsAfterCopyMove (305 ms)
+[ RUN      ] S180Input.FrozenOrderGeometryCountsAndInlineOrUnknownFieldsReject
+[       OK ] S180Input.FrozenOrderGeometryCountsAndInlineOrUnknownFieldsReject (1096 ms)
+[ RUN      ] S180Input.SourceMembershipPairedHashAndReservedPhysicalAliasesReject
+[       OK ] S180Input.SourceMembershipPairedHashAndReservedPhysicalAliasesReject (720 ms)
+[ RUN      ] S180Input.HardwareStorageOverflowAndObservationContractRejectBeforeExecution
+[       OK ] S180Input.HardwareStorageOverflowAndObservationContractRejectBeforeExecution (730 ms)
+[ RUN      ] S180Input.PureFamilySizingRequiresNoSourcesAndCannotBecomeAnExecutionTicket
+[       OK ] S180Input.PureFamilySizingRequiresNoSourcesAndCannotBecomeAnExecutionTicket (352 ms)
+[ RUN      ] S180Input.RegisteredR1DistanceIsUncalibratedAndR2BindsTheAcceptedFreeze
+[       OK ] S180Input.RegisteredR1DistanceIsUncalibratedAndR2BindsTheAcceptedFreeze (343 ms)
+[----------] 6 tests from S180Input (3549 ms total)
+
+[----------] Global test environment tear-down
+[==========] 9 tests from 2 test suites ran. (3578 ms total)
+[  PASSED  ] 9 tests.

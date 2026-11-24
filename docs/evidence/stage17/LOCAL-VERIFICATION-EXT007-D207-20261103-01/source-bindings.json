@@ -1,0 +1,37 @@
+[
+  {
+    "path": "include/cpu_prefetch/runner/stage17_discovery_action.hpp",
+    "size_bytes": 1895,
+    "sha256": "3bce5658e11ab81255367b9e46344e5e1797af4825d5bab5c2f502d13078a5f4"
+  },
+  {
+    "path": "src/runner/stage17_discovery_action.cpp",
+    "size_bytes": 15938,
+    "sha256": "b3b77b3b1fdb505c82b30a5b183dfb4ff000bf2529407aaa399ce531a7f7556f"
+  },
+  {
+    "path": "src/runner/stage17_fixed_action.cpp",
+    "size_bytes": 237704,
+    "sha256": "68053fda8ee6e0f39fb34a271f3782949781f49854c2497abe673b0cc877daf5"
+  },
+  {
+    "path": "tools/runner_main.cpp",
+    "size_bytes": 11142,
+    "sha256": "36f2b708d75c67db2e09bf4961c1763ab34b405c5a274ba915fc8f8264157463"
+  },
+  {
+    "path": "tests/stage17_discovery_action_test.cpp",
+    "size_bytes": 16313,
+    "sha256": "9049d6c67ec80b882b84581723e0de14da3352721363cc871b2a9c5a421da76e"
+  },
+  {
+    "path": "tools/stage17_process_group_supervisor_v3.py",
+    "size_bytes": 8354,
+    "sha256": "37e3fb93fe2176f24d560608fd6d8fb3bcb02ef744ea6afa75db44b1d7be553b"
+  },
+  {
+    "path": "tools/check_stage17_pid_namespace_supervisor.py",
+    "size_bytes": 18368,
+    "sha256": "ef5870b21a7d6b596208c28a0fc3c9a273ca0e1647e80d025b35af65ef5d8f5e"
+  }
+]

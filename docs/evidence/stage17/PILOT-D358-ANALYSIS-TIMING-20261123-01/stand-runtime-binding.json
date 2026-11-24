@@ -1,0 +1,28 @@
+{
+  "analysis_stage_required_bytes": 210453397504,
+  "images": [
+    {
+      "path": "/usr/bin/python3.14",
+      "sha256": "52e0a13e60a981d8c4b6478be2ba5176f69da07948a056bf49cf6f077e30cb41",
+      "size_bytes": 7477160
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/release/runtime/lib/libzstd.so.1",
+      "sha256": "f023d49e85fb22057bfdd21857263d2638b73356c06f3b342f678a75212379f8",
+      "size_bytes": 939976,
+      "zstd_version": 10507
+    },
+    {
+      "path": "/usr/lib/x86_64-linux-gnu/libzstd.so.1.5.7",
+      "sha256": "060eeb79531d435306665fd78329d8a9dd579f95876c5960bb67937825362a80",
+      "size_bytes": 796824,
+      "zstd_version": 10507
+    }
+  ],
+  "memory_available_bytes": 261868720128,
+  "python": "3.14.4 (main, Aug 20 2026, 10:41:58) [GCC 15.2.0]",
+  "rlimit_as": [
+    -1,
+    -1
+  ]
+}

@@ -1,0 +1,214 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-34247ce
+      Start  18: runner.s180.S180Sources.ExactOriginalVectorsSurviveCopiesMovesAndBorrowedOffset
+      Start  19: runner.s180.S180Sources.AggregateRetainedAndTransientMemoryIsMandatory
+ 1/41 Test  #18: runner.s180.S180Sources.ExactOriginalVectorsSurviveCopiesMovesAndBorrowedOffset ..............   Passed    0.01 sec
+ 2/41 Test  #19: runner.s180.S180Sources.AggregateRetainedAndTransientMemoryIsMandatory .......................   Passed    0.01 sec
+      Start  20: runner.s180.S180Sources.ReservedAndDuplicatedPhysicalDescriptorsReject
+      Start  21: runner.s180.S180Sources.HashSealsMembershipInlineWindowAndDeadlineDriftReject
+ 3/41 Test  #20: runner.s180.S180Sources.ReservedAndDuplicatedPhysicalDescriptorsReject .......................   Passed    0.01 sec
+ 4/41 Test  #21: runner.s180.S180Sources.HashSealsMembershipInlineWindowAndDeadlineDriftReject ................   Passed    0.01 sec
+      Start  22: runner.s180.S180Publication.OriginalSealedSourcesFlowThroughMappedCaptureAndPublication
+      Start  23: runner.s180.S180Publication.CompletedWarmupSurvivesMeasurementFailureAndSinkFailureStops
+ 5/41 Test  #23: runner.s180.S180Publication.CompletedWarmupSurvivesMeasurementFailureAndSinkFailureStops .....   Passed    0.02 sec
+      Start  24: runner.s180.S180Publication.UnobservedPreparationIsNeverInvented
+ 6/41 Test  #22: runner.s180.S180Publication.OriginalSealedSourcesFlowThroughMappedCaptureAndPublication ......   Passed    0.02 sec
+      Start  25: runner.s180.S180Publication.FamilyCleanupRetainsActualReleaseCallsAndUnknownContexts
+ 7/41 Test  #25: runner.s180.S180Publication.FamilyCleanupRetainsActualReleaseCallsAndUnknownContexts .........   Passed    0.01 sec
+      Start  26: runner.s180.S180ProspectiveLayout.MatchesLiveLayoutForEveryPackageWithoutInventingAMapping
+ 8/41 Test  #24: runner.s180.S180Publication.UnobservedPreparationIsNeverInvented .............................   Passed    0.01 sec
+      Start  27: runner.s180.S180ProspectiveLayout.HugeDeclaredCountsAreSizedWithoutAllocatingTheirArrays
+ 9/41 Test  #26: runner.s180.S180ProspectiveLayout.MatchesLiveLayoutForEveryPackageWithoutInventingAMapping ...   Passed    0.01 sec
+      Start  28: runner.s180.S180ProspectiveLayout.LiveViewsInvalidSourcesAndWrongOneLineEvidenceReject
+10/41 Test  #27: runner.s180.S180ProspectiveLayout.HugeDeclaredCountsAreSizedWithoutAllocatingTheirArrays .....   Passed    0.01 sec
+      Start  29: runner.s180.S180Session.FrozenFullMatrixCommonSourcesAndResourceEnvelopeValidate
+11/41 Test  #28: runner.s180.S180ProspectiveLayout.LiveViewsInvalidSourcesAndWrongOneLineEvidenceReject .......   Passed    0.01 sec
+      Start  30: runner.s180.S180Session.ScientificOrderIdentitySharingAndFiniteResourceDriftRejectCold
+12/41 Test  #29: runner.s180.S180Session.FrozenFullMatrixCommonSourcesAndResourceEnvelopeValidate .............   Passed    0.02 sec
+      Start  31: runner.s180.S180Session.RunsExactlyOnceInFrozenWholePlotsAndReleasesOnlyAtFamilyEnd
+13/41 Test  #31: runner.s180.S180Session.RunsExactlyOnceInFrozenWholePlotsAndReleasesOnlyAtFamilyEnd ..........   Passed    0.02 sec
+      Start  32: runner.s180.S180Session.FirstCaptureOrArchiveFailureStopsAndPreservesFailedEvidence
+14/41 Test  #32: runner.s180.S180Session.FirstCaptureOrArchiveFailureStopsAndPreservesFailedEvidence ..........   Passed    0.03 sec
+      Start  33: runner.s180.S180Session.PreparationMarkerEnterAndRecoveryFailuresCannotAdvance
+15/41 Test  #30: runner.s180.S180Session.ScientificOrderIdentitySharingAndFiniteResourceDriftRejectCold .......   Passed    0.09 sec
+      Start  34: runner.s180.S180Session.ExpiredOrResetWindowAndExpiryDuringMarkerBlockCapture
+16/41 Test  #33: runner.s180.S180Session.PreparationMarkerEnterAndRecoveryFailuresCannotAdvance ...............   Passed    0.04 sec
+      Start  35: runner.s180.S180Session.CleanupAndFinalPublicationFailureNeverBecomeComplete
+17/41 Test  #34: runner.s180.S180Session.ExpiredOrResetWindowAndExpiryDuringMarkerBlockCapture ................   Passed    0.04 sec
+      Start  36: runner.s180.S180Session.RegressedClockAndSourceDeadlineCannotReachHardware
+18/41 Test  #35: runner.s180.S180Session.CleanupAndFinalPublicationFailureNeverBecomeComplete .................   Passed    0.03 sec
+      Start  37: runner.s180.S180Session.PhysicalSourceAliasesAndReservedIdentityRejectWholeFamilyCold
+19/41 Test  #36: runner.s180.S180Session.RegressedClockAndSourceDeadlineCannotReachHardware ...................   Passed    0.03 sec
+      Start  38: runner.s180.S180Session.NativeEntryRejectsUnqualifiedSourceAndBrokerBeforePreparingData
+20/41 Test  #37: runner.s180.S180Session.PhysicalSourceAliasesAndReservedIdentityRejectWholeFamilyCold ........   Passed    0.03 sec
+      Start  39: runner.s180.S180Session.CompleteBudgetIncludesTransitionAndFinalReportReservation
+21/41 Test  #38: runner.s180.S180Session.NativeEntryRejectsUnqualifiedSourceAndBrokerBeforePreparingData ......   Passed    0.02 sec
+      Start  40: runner.s180.S180Channel.NewWireReturnsOnlyScopedS180CustodyAndLegacyRejectsIt
+22/41 Test  #39: runner.s180.S180Session.CompleteBudgetIncludesTransitionAndFinalReportReservation ............   Passed    0.04 sec
+      Start  41: runner.s180.S180Channel.WrongScopeLegacyAckOrFailedEvidenceCannotContinue
+23/41 Test  #40: runner.s180.S180Channel.NewWireReturnsOnlyScopedS180CustodyAndLegacyRejectsIt ................***Failed    2.00 sec
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Channel.NewWireReturnsOnlyScopedS180CustodyAndLegacyRejectsIt
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Channel
+[ RUN      ] S180Channel.NewWireReturnsOnlyScopedS180CustodyAndLegacyRejectsIt
+/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-source-34247ce/tests/stage17_s180_channel_test.cpp:82: Failure
+Value of: result
+  Actual: false
+Expected: true
+
+[  FAILED  ] S180Channel.NewWireReturnsOnlyScopedS180CustodyAndLegacyRejectsIt (2000 ms)
+[----------] 1 test from S180Channel (2000 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (2000 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] S180Channel.NewWireReturnsOnlyScopedS180CustodyAndLegacyRejectsIt
+
+ 1 FAILED TEST
+
+      Start  42: runner.s180.S180Channel.BridgeLatchesFailureButRetainsFinalFailurePublication
+24/41 Test  #42: runner.s180.S180Channel.BridgeLatchesFailureButRetainsFinalFailurePublication ................***Failed    0.01 sec
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Channel.BridgeLatchesFailureButRetainsFinalFailurePublication
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Channel
+[ RUN      ] S180Channel.BridgeLatchesFailureButRetainsFinalFailurePublication
+unknown file: Failure
+C++ exception with description "S180 channel peer/scope or prospective limits are invalid" thrown in the test body.
+
+[  FAILED  ] S180Channel.BridgeLatchesFailureButRetainsFinalFailurePublication (10 ms)
+[----------] 1 test from S180Channel (10 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (10 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] S180Channel.BridgeLatchesFailureButRetainsFinalFailurePublication
+
+ 1 FAILED TEST
+
+      Start  43: runner.s180.S180Channel.InvalidBoundsOrForeignCheckpointFailBeforeExchange
+25/41 Test  #43: runner.s180.S180Channel.InvalidBoundsOrForeignCheckpointFailBeforeExchange ...................***Failed    0.00 sec
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Channel.InvalidBoundsOrForeignCheckpointFailBeforeExchange
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Channel
+[ RUN      ] S180Channel.InvalidBoundsOrForeignCheckpointFailBeforeExchange
+unknown file: Failure
+C++ exception with description "S180 channel peer/scope or prospective limits are invalid" thrown in the test body.
+
+[  FAILED  ] S180Channel.InvalidBoundsOrForeignCheckpointFailBeforeExchange (0 ms)
+[----------] 1 test from S180Channel (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] S180Channel.InvalidBoundsOrForeignCheckpointFailBeforeExchange
+
+ 1 FAILED TEST
+
+      Start  44: runner.s180.S180Input.ClosedDocumentBuildsAllNativeInputsAndOwnsBorrowedPathsAfterCopyMove
+26/41 Test  #44: runner.s180.S180Input.ClosedDocumentBuildsAllNativeInputsAndOwnsBorrowedPathsAfterCopyMove ...   Passed    0.05 sec
+      Start  45: runner.s180.S180Input.FrozenOrderGeometryCountsAndInlineOrUnknownFieldsReject
+27/41 Test  #45: runner.s180.S180Input.FrozenOrderGeometryCountsAndInlineOrUnknownFieldsReject ................   Passed    0.16 sec
+      Start  46: runner.s180.S180Input.SourceMembershipPairedHashAndReservedPhysicalAliasesReject
+28/41 Test  #46: runner.s180.S180Input.SourceMembershipPairedHashAndReservedPhysicalAliasesReject .............   Passed    0.10 sec
+      Start  47: runner.s180.S180Input.HardwareStorageOverflowAndObservationContractRejectBeforeExecution
+29/41 Test  #47: runner.s180.S180Input.HardwareStorageOverflowAndObservationContractRejectBeforeExecution .....   Passed    0.10 sec
+      Start  48: runner.s180.S180Input.PureFamilySizingRequiresNoSourcesAndCannotBecomeAnExecutionTicket
+30/41 Test  #48: runner.s180.S180Input.PureFamilySizingRequiresNoSourcesAndCannotBecomeAnExecutionTicket ......   Passed    0.06 sec
+      Start  49: runner.s180.S180Input.RegisteredR1DistanceIsUncalibratedAndR2BindsTheAcceptedFreeze
+31/41 Test  #49: runner.s180.S180Input.RegisteredR1DistanceIsUncalibratedAndR2BindsTheAcceptedFreeze ..........   Passed    0.06 sec
+      Start  50: runner.s180.S180Worker.ActualSealedFdEntryReachesOnlyTheSeparatelyLinkedSoftwareBackend
+32/41 Test  #50: runner.s180.S180Worker.ActualSealedFdEntryReachesOnlyTheSeparatelyLinkedSoftwareBackend ......***Failed    0.18 sec
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Worker.ActualSealedFdEntryReachesOnlyTheSeparatelyLinkedSoftwareBackend
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Worker
+[ RUN      ] S180Worker.ActualSealedFdEntryReachesOnlyTheSeparatelyLinkedSoftwareBackend
+/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-source-34247ce/tests/stage17_s180_input_test.cpp:685: Failure
+Expected equality of these values:
+  result.status
+    Which is: 1
+  0
+S180 channel peer/scope or prospective limits are invalid
+
+/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-source-34247ce/tests/stage17_s180_input_test.cpp:686: Failure
+Expected equality of these values:
+  result.files
+    Which is: 0
+  2U
+    Which is: 2
+
+[  FAILED  ] S180Worker.ActualSealedFdEntryReachesOnlyTheSeparatelyLinkedSoftwareBackend (175 ms)
+[----------] 1 test from S180Worker (175 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (175 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] S180Worker.ActualSealedFdEntryReachesOnlyTheSeparatelyLinkedSoftwareBackend
+
+ 1 FAILED TEST
+
+      Start  51: runner.s180.S180Worker.WholeSecondEpochRoundingCannotShortenTheMonotonicWindow
+33/41 Test  #51: runner.s180.S180Worker.WholeSecondEpochRoundingCannotShortenTheMonotonicWindow ...............   Passed    0.00 sec
+      Start  52: runner.s180.S180Worker.ImmutableRequestAndExactRuntimeScopeAreRequiredBeforeAnyOutput
+34/41 Test  #52: runner.s180.S180Worker.ImmutableRequestAndExactRuntimeScopeAreRequiredBeforeAnyOutput ........   Passed    1.00 sec
+      Start  53: runner.s180.S180Worker.WindowExpiryBootOutputRootAndActualParentCannotBeSubstituted
+35/41 Test  #53: runner.s180.S180Worker.WindowExpiryBootOutputRootAndActualParentCannotBeSubstituted ..........   Passed    1.09 sec
+      Start  54: runner.s180.S180Worker.EntryMarkerCannotBeReplayedOrBorrowNativeOutputReservation
+36/41 Test  #54: runner.s180.S180Worker.EntryMarkerCannotBeReplayedOrBorrowNativeOutputReservation ............   Passed    0.35 sec
+      Start  55: runner.s180.S180Worker.RealWorkerSinkChecksDurableCustodyBytesBeforeReturningFromAck
+37/41 Test  #41: runner.s180.S180Channel.WrongScopeLegacyAckOrFailedEvidenceCannotContinue ....................   Passed    8.01 sec
+      Start 267: runner.s180_worker_cli
+38/41 Test #267: runner.s180_worker_cli .......................................................................   Passed    0.10 sec
+      Start 268: runner.s180_plan_prepare_v1
+39/41 Test #268: runner.s180_plan_prepare_v1 ..................................................................   Passed    1.21 sec
+      Start 269: runner.s180_authority_v1
+40/41 Test #269: runner.s180_authority_v1 .....................................................................   Passed    8.66 sec
+41/41 Test  #55: runner.s180.S180Worker.RealWorkerSinkChecksDurableCustodyBytesBeforeReturningFromAck .........***Failed   30.10 sec
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Worker.RealWorkerSinkChecksDurableCustodyBytesBeforeReturningFromAck
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Worker
+[ RUN      ] S180Worker.RealWorkerSinkChecksDurableCustodyBytesBeforeReturningFromAck
+unknown file: Failure
+C++ exception with description "entry custody fixture timeout" thrown in the test body.
+
+[  FAILED  ] S180Worker.RealWorkerSinkChecksDurableCustodyBytesBeforeReturningFromAck (30092 ms)
+[----------] 1 test from S180Worker (30092 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (30092 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] S180Worker.RealWorkerSinkChecksDurableCustodyBytesBeforeReturningFromAck
+
+ 1 FAILED TEST
+
+
+88% tests passed, 5 tests failed out of 41
+
+Label Time Summary:
+pilot        =  53.75 sec*proc (41 tests)
+python       =   9.98 sec*proc (3 tests)
+runner       =  53.75 sec*proc (41 tests)
+synthetic    =  53.75 sec*proc (41 tests)
+
+Total Test time (real) =  35.53 sec
+
+The following tests FAILED:
+	 40 - runner.s180.S180Channel.NewWireReturnsOnlyScopedS180CustodyAndLegacyRejectsIt (Failed) pilot runner synthetic
+	 42 - runner.s180.S180Channel.BridgeLatchesFailureButRetainsFinalFailurePublication (Failed) pilot runner synthetic
+	 43 - runner.s180.S180Channel.InvalidBoundsOrForeignCheckpointFailBeforeExchange (Failed) pilot runner synthetic
+	 50 - runner.s180.S180Worker.ActualSealedFdEntryReachesOnlyTheSeparatelyLinkedSoftwareBackend (Failed) pilot runner synthetic
+	 55 - runner.s180.S180Worker.RealWorkerSinkChecksDurableCustodyBytesBeforeReturningFromAck (Failed) pilot runner synthetic
+Errors while running CTest

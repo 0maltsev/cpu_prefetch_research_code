@@ -1,0 +1,267 @@
+{
+  "scope": "SYMBOLIC_ACTIVE_ALLOCATION_MODEL_NOT_RSS_OR_SUCCESS_GUARANTEE",
+  "plan_sha256": "e841c5f00b90db7871423133e1842e6441cdf585633978833239693881ba0967",
+  "worker_as_bytes": 240518168576,
+  "explicit_model_headroom_required_bytes": 17179869184,
+  "maximum_model_bytes": 213859694080,
+  "captures": [
+    {
+      "ordinal": 0,
+      "tree_live_chunk_bytes": 1477127296,
+      "native_mapping_bytes": 1629020160,
+      "control_metadata_upper_bytes": 131398158,
+      "live_allocation_model_bytes": 4718541056
+    },
+    {
+      "ordinal": 1,
+      "tree_live_chunk_bytes": 1600877056,
+      "native_mapping_bytes": 2430300160,
+      "control_metadata_upper_bytes": 156921546,
+      "live_allocation_model_bytes": 5767320576
+    },
+    {
+      "ordinal": 2,
+      "tree_live_chunk_bytes": 1642127616,
+      "native_mapping_bytes": 2697400320,
+      "control_metadata_upper_bytes": 165429474,
+      "live_allocation_model_bytes": 6116921856
+    },
+    {
+      "ordinal": 3,
+      "tree_live_chunk_bytes": 4078104192,
+      "native_mapping_bytes": 1736384512,
+      "control_metadata_upper_bytes": 567097566,
+      "live_allocation_model_bytes": 10027859200
+    },
+    {
+      "ordinal": 4,
+      "tree_live_chunk_bytes": 4201853952,
+      "native_mapping_bytes": 2537664512,
+      "control_metadata_upper_bytes": 592620954,
+      "live_allocation_model_bytes": 11076638720
+    },
+    {
+      "ordinal": 5,
+      "tree_live_chunk_bytes": 4243104512,
+      "native_mapping_bytes": 2804760576,
+      "control_metadata_upper_bytes": 601128882,
+      "live_allocation_model_bytes": 11426235904
+    },
+    {
+      "ordinal": 6,
+      "tree_live_chunk_bytes": 62142277248,
+      "native_mapping_bytes": 8553496576,
+      "control_metadata_upper_bytes": 10320561630,
+      "live_allocation_model_bytes": 132973317376
+    },
+    {
+      "ordinal": 7,
+      "tree_live_chunk_bytes": 92074027008,
+      "native_mapping_bytes": 9354776576,
+      "control_metadata_upper_bytes": 15332085018,
+      "live_allocation_model_bytes": 193638096896
+    },
+    {
+      "ordinal": 8,
+      "tree_live_chunk_bytes": 102051277568,
+      "native_mapping_bytes": 9621872640,
+      "control_metadata_upper_bytes": 17002592946,
+      "live_allocation_model_bytes": 213859694080
+    },
+    {
+      "ordinal": 9,
+      "tree_live_chunk_bytes": 1477127296,
+      "native_mapping_bytes": 1629020160,
+      "control_metadata_upper_bytes": 131398158,
+      "live_allocation_model_bytes": 4718541056
+    },
+    {
+      "ordinal": 10,
+      "tree_live_chunk_bytes": 1600877056,
+      "native_mapping_bytes": 2430300160,
+      "control_metadata_upper_bytes": 156921546,
+      "live_allocation_model_bytes": 5767320576
+    },
+    {
+      "ordinal": 11,
+      "tree_live_chunk_bytes": 1642127616,
+      "native_mapping_bytes": 2697400320,
+      "control_metadata_upper_bytes": 165429474,
+      "live_allocation_model_bytes": 6116921856
+    },
+    {
+      "ordinal": 12,
+      "tree_live_chunk_bytes": 4078104192,
+      "native_mapping_bytes": 1736384512,
+      "control_metadata_upper_bytes": 567097566,
+      "live_allocation_model_bytes": 10027859200
+    },
+    {
+      "ordinal": 13,
+      "tree_live_chunk_bytes": 4201853952,
+      "native_mapping_bytes": 2537664512,
+      "control_metadata_upper_bytes": 592620954,
+      "live_allocation_model_bytes": 11076638720
+    },
+    {
+      "ordinal": 14,
+      "tree_live_chunk_bytes": 4243104512,
+      "native_mapping_bytes": 2804760576,
+      "control_metadata_upper_bytes": 601128882,
+      "live_allocation_model_bytes": 11426235904
+    },
+    {
+      "ordinal": 15,
+      "tree_live_chunk_bytes": 62142277248,
+      "native_mapping_bytes": 8553496576,
+      "control_metadata_upper_bytes": 10320561630,
+      "live_allocation_model_bytes": 132973317376
+    },
+    {
+      "ordinal": 16,
+      "tree_live_chunk_bytes": 92074027008,
+      "native_mapping_bytes": 9354776576,
+      "control_metadata_upper_bytes": 15332085018,
+      "live_allocation_model_bytes": 193638096896
+    },
+    {
+      "ordinal": 17,
+      "tree_live_chunk_bytes": 102051277568,
+      "native_mapping_bytes": 9621872640,
+      "control_metadata_upper_bytes": 17002592946,
+      "live_allocation_model_bytes": 213859694080
+    },
+    {
+      "ordinal": 18,
+      "tree_live_chunk_bytes": 1477127296,
+      "native_mapping_bytes": 1629020160,
+      "control_metadata_upper_bytes": 131398158,
+      "live_allocation_model_bytes": 4718541056
+    },
+    {
+      "ordinal": 19,
+      "tree_live_chunk_bytes": 1600877056,
+      "native_mapping_bytes": 2430300160,
+      "control_metadata_upper_bytes": 156921546,
+      "live_allocation_model_bytes": 5767320576
+    },
+    {
+      "ordinal": 20,
+      "tree_live_chunk_bytes": 1642127616,
+      "native_mapping_bytes": 2697400320,
+      "control_metadata_upper_bytes": 165429474,
+      "live_allocation_model_bytes": 6116921856
+    },
+    {
+      "ordinal": 21,
+      "tree_live_chunk_bytes": 4078104192,
+      "native_mapping_bytes": 1736384512,
+      "control_metadata_upper_bytes": 567097566,
+      "live_allocation_model_bytes": 10027859200
+    },
+    {
+      "ordinal": 22,
+      "tree_live_chunk_bytes": 4201853952,
+      "native_mapping_bytes": 2537664512,
+      "control_metadata_upper_bytes": 592620954,
+      "live_allocation_model_bytes": 11076638720
+    },
+    {
+      "ordinal": 23,
+      "tree_live_chunk_bytes": 4243104512,
+      "native_mapping_bytes": 2804760576,
+      "control_metadata_upper_bytes": 601128882,
+      "live_allocation_model_bytes": 11426235904
+    },
+    {
+      "ordinal": 24,
+      "tree_live_chunk_bytes": 62142277248,
+      "native_mapping_bytes": 8553496576,
+      "control_metadata_upper_bytes": 10320561630,
+      "live_allocation_model_bytes": 132973317376
+    },
+    {
+      "ordinal": 25,
+      "tree_live_chunk_bytes": 92074027008,
+      "native_mapping_bytes": 9354776576,
+      "control_metadata_upper_bytes": 15332085018,
+      "live_allocation_model_bytes": 193638096896
+    },
+    {
+      "ordinal": 26,
+      "tree_live_chunk_bytes": 102051277568,
+      "native_mapping_bytes": 9621872640,
+      "control_metadata_upper_bytes": 17002592946,
+      "live_allocation_model_bytes": 213859694080
+    },
+    {
+      "ordinal": 27,
+      "tree_live_chunk_bytes": 1477127296,
+      "native_mapping_bytes": 1629020160,
+      "control_metadata_upper_bytes": 131398158,
+      "live_allocation_model_bytes": 4718541056
+    },
+    {
+      "ordinal": 28,
+      "tree_live_chunk_bytes": 1600877056,
+      "native_mapping_bytes": 2430300160,
+      "control_metadata_upper_bytes": 156921546,
+      "live_allocation_model_bytes": 5767320576
+    },
+    {
+      "ordinal": 29,
+      "tree_live_chunk_bytes": 1642127616,
+      "native_mapping_bytes": 2697400320,
+      "control_metadata_upper_bytes": 165429474,
+      "live_allocation_model_bytes": 6116921856
+    },
+    {
+      "ordinal": 30,
+      "tree_live_chunk_bytes": 4078104192,
+      "native_mapping_bytes": 1736384512,
+      "control_metadata_upper_bytes": 567097566,
+      "live_allocation_model_bytes": 10027859200
+    },
+    {
+      "ordinal": 31,
+      "tree_live_chunk_bytes": 4201853952,
+      "native_mapping_bytes": 2537664512,
+      "control_metadata_upper_bytes": 592620954,
+      "live_allocation_model_bytes": 11076638720
+    },
+    {
+      "ordinal": 32,
+      "tree_live_chunk_bytes": 4243104512,
+      "native_mapping_bytes": 2804760576,
+      "control_metadata_upper_bytes": 601128882,
+      "live_allocation_model_bytes": 11426235904
+    },
+    {
+      "ordinal": 33,
+      "tree_live_chunk_bytes": 62142277248,
+      "native_mapping_bytes": 8553496576,
+      "control_metadata_upper_bytes": 10320561630,
+      "live_allocation_model_bytes": 132973317376
+    },
+    {
+      "ordinal": 34,
+      "tree_live_chunk_bytes": 92074027008,
+      "native_mapping_bytes": 9354776576,
+      "control_metadata_upper_bytes": 15332085018,
+      "live_allocation_model_bytes": 193638096896
+    },
+    {
+      "ordinal": 35,
+      "tree_live_chunk_bytes": 102051277568,
+      "native_mapping_bytes": 9621872640,
+      "control_metadata_upper_bytes": 17002592946,
+      "live_allocation_model_bytes": 213859694080
+    }
+  ],
+  "limits": [
+    "Same accepted GCC x86_64/glibc Value64/mapnode128/SSO15 allocation model; not free-heap retention or actual RSS.",
+    "Native maps+two complete trees/canonical alternatives+129MiB scratch; full environment plan included.",
+    "Finite AS cap may fail publication; no repetition or duration qualification on failure."
+  ],
+  "headroom_bytes": 26658474496
+}

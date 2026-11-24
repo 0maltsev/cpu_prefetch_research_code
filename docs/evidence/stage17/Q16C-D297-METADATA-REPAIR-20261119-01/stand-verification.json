@@ -1,0 +1,98 @@
+{
+  "archive_source_copies_verified": 7,
+  "changed_configuration_fields": [
+    "incident_reuse_inputs",
+    "output_root",
+    "overlay",
+    "packet_root"
+  ],
+  "changed_incident_fields": [
+    "restoration"
+  ],
+  "checked_at_utc": "2026-11-19T19:40:51.549028+00:00",
+  "compact_unevictable_allowed": "1",
+  "constructed": {
+    "action_inputs": {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/d297-software-preparation-2/packet/action-inputs.json",
+      "sha256": "3d48b21c6b4204006a4975965d8ac64585577e64d9569484685fbd5a102c6fcb",
+      "size_bytes": 1977503
+    },
+    "execution_authority": false,
+    "phase18_authority": false,
+    "plan": {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/d297-software-preparation-2/packet/plan.json",
+      "sha256": "1212db59b9c12dd50837ca4b79897ddcd76a06fc4c3ea99b1fabd9b2b23b36a6",
+      "size_bytes": 1732630
+    },
+    "status": "UNSIGNED_INPUTS_VALIDATED"
+  },
+  "constructed_binding": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/d297-software-preparation-2/constructed-output/constructed.json",
+    "sha256": "5867405f24bb920ef684c9fbff296375d48f338f814137f0cb6ba2aa41719838",
+    "size_bytes": 572
+  },
+  "corrected_configuration": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/d297-software-preparation-2/configuration.json",
+    "sha256": "08332ed19c0ee66894e9fce4524c2108e8e420e212385896be6cea18d7ed2bbd",
+    "size_bytes": 21758
+  },
+  "execution_authority": false,
+  "execution_window_restarted": false,
+  "experiments_started": 0,
+  "family_registered": false,
+  "original_configuration": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/q16c-continuation-final-1/launch-configuration.json",
+    "sha256": "3359f96629594f46b7bd4b362a7ae5485c1480c7fb159cf40a5040ef633458d2",
+    "size_bytes": 21719
+  },
+  "original_incident_restoration": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/q16c-continuation-recovery-1/restoration.json",
+    "sha256": "ad2eb45db7d7f8b11ed372a3a76816f551ac7ac0081dcdb6eeacc8d5646dd326",
+    "size_bytes": 842
+  },
+  "qualification_reused": {
+    "formal_capture_started": false,
+    "isolation_retained_for_formal": true,
+    "success": true
+  },
+  "raw_validations_started": 0,
+  "source_revision": "7b7c263cb850690cf333df0d196b18c875b4a53c",
+  "status": "FULL_FROZEN_UNSIGNED_CONSTRUCTION_PASS",
+  "units": {
+    "cpu-prefetch-d295-v32-1.service": {
+      "ActiveState": "failed",
+      "ControlGroup": "",
+      "ExecMainExitTimestamp": "Thu 2026-11-19 22:07:23 MSK",
+      "ExecMainStartTimestamp": "Thu 2026-11-19 21:41:30 MSK",
+      "ExecMainStatus": "1",
+      "MainPID": "0",
+      "Result": "exit-code",
+      "SubState": "failed"
+    },
+    "cpu-prefetch-d297-preparation-check-1.service": {
+      "ActiveState": "failed",
+      "ControlGroup": "",
+      "ExecMainExitTimestamp": "Thu 2026-11-19 22:36:18 MSK",
+      "ExecMainStartTimestamp": "Thu 2026-11-19 22:35:17 MSK",
+      "ExecMainStatus": "1",
+      "MainPID": "0",
+      "Result": "exit-code",
+      "SubState": "failed"
+    },
+    "cpu-prefetch-d297-preparation-check-2.service": {
+      "ActiveState": "inactive",
+      "ControlGroup": "",
+      "ExecMainExitTimestamp": "",
+      "ExecMainStartTimestamp": "",
+      "ExecMainStatus": "0",
+      "MainPID": "0",
+      "Result": "success",
+      "SubState": "dead"
+    }
+  },
+  "worker": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/release/bin/cpu_prefetch_runner",
+    "sha256": "bc064c13afd7eb5142ae8ee434e95962e9b3fc3095c6c159d83376c3e7e8c019",
+    "size_bytes": 5052696
+  }
+}

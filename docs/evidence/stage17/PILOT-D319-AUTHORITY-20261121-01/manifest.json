@@ -1,0 +1,89 @@
+{
+  "baseline_revision": "5a90210684881f06a4f858b317a92844fecf6d21",
+  "evidence_files": {
+    "docs/evidence/stage17/PILOT-D319-AUTHORITY-20261121-01/COMMANDS.md": {
+      "sha256": "8dffbac7711dce985849b387b7622f1f4a9e3ace57e4d7f732cf4634a74f4e76",
+      "size_bytes": 1561
+    },
+    "docs/evidence/stage17/PILOT-D319-AUTHORITY-20261121-01/REPORT.md": {
+      "sha256": "37aa310822e3d3e0f9f473d7bc26b2a5046d285c08a18be09758353f3c2e6762",
+      "size_bytes": 3910
+    },
+    "docs/evidence/stage17/PILOT-D319-AUTHORITY-20261121-01/log-normalization.json": {
+      "sha256": "01b0e5b434cc2fecd0f0d0f428d8260608cdfc0f34b4f0dddb366796318feae5",
+      "size_bytes": 219
+    },
+    "docs/evidence/stage17/PILOT-D319-AUTHORITY-20261121-01/pc-cleanup.json": {
+      "sha256": "21706f327a71dfe1249e2fbe3d74750e047f64a5772168005a22d03d5342ab75",
+      "size_bytes": 125
+    },
+    "docs/evidence/stage17/PILOT-D319-AUTHORITY-20261121-01/registered-test-output.txt": {
+      "sha256": "92094f6361b7a945cb631e135b1f40b8ca9ee28d797b730c78667e85e4537297",
+      "size_bytes": 91847
+    },
+    "docs/evidence/stage17/PILOT-D319-AUTHORITY-20261121-01/s180-authority-build-checks.txt": {
+      "sha256": "87c01bba2a8d6e6744066903733e7403b5cc56d4c2f96fde2c9839ef58633e41",
+      "size_bytes": 6499
+    },
+    "docs/evidence/stage17/PILOT-D319-AUTHORITY-20261121-01/s180-authority-final-ctest.txt": {
+      "sha256": "9cbd95845a9320d0c25a06e17d328b21999341fcf7995d54d351f9c5ef2f7135",
+      "size_bytes": 13534
+    },
+    "docs/evidence/stage17/PILOT-D319-AUTHORITY-20261121-01/s180-authority-final-protocol-check.txt": {
+      "sha256": "1cb265f981fcfb0b7339e62d0bae26769e85152bdaa416e80c657441f22c6a29",
+      "size_bytes": 187
+    },
+    "docs/evidence/stage17/PILOT-D319-AUTHORITY-20261121-01/s180-authority-tests-final.txt": {
+      "sha256": "b32867f2641a77c9aaf43cdf09a6fc39e89f3123d06e8edc8ba857830f3c03a1",
+      "size_bytes": 109
+    },
+    "docs/evidence/stage17/PILOT-D319-AUTHORITY-20261121-01/s180-authority-tests-first.txt": {
+      "sha256": "8a8b3b4737825c6ec56630f78f701d6290f5b80126c3baac127824f952bed64b",
+      "size_bytes": 106
+    },
+    "docs/evidence/stage17/PILOT-D319-AUTHORITY-20261121-01/verification.json": {
+      "sha256": "fa182583c9ab77280930afad398237a498e961db0d820e76adbca0e8f19d1f53",
+      "size_bytes": 899
+    }
+  },
+  "manifest_self_excluded": true,
+  "schema_version": "cpu-prefetch-stage17-software-evidence-manifest/1",
+  "source_files": {
+    "CMakeLists.txt": {
+      "sha256": "b48feacad39fb10660bbc9978effe8ff6e4c376054198b06f65ec111bbab56d4",
+      "size_bytes": 191115
+    },
+    "PLAN.md": {
+      "sha256": "8402b10f16c95cc9e69911a65cabb34a4174ceb66e29cd31c7cf04558c72caf7",
+      "size_bytes": 113777
+    },
+    "README.md": {
+      "sha256": "aab2b13b4e1ab43648c563b4f6f40e3dd08b663aab93986618ec9fdfaa1919c6",
+      "size_bytes": 121230
+    },
+    "STATUS.md": {
+      "sha256": "439e57a38611316aea7db0588d0032cb755e832b6aa97fc1859e3b3f1fd99472",
+      "size_bytes": 140147
+    },
+    "config/schemas/stage17-s180-authorization-v1.schema.json": {
+      "sha256": "07fada2f9c65a238f520c6461cdb94401de03eae38acdcc6aee034f0f733ab48",
+      "size_bytes": 6840
+    },
+    "docs/STAGE17_PILOT_PREPARATION.md": {
+      "sha256": "6095cb6589e221437c23a636ac7db7bc41696304194b40520a58d6a22e36d5cf",
+      "size_bytes": 7101
+    },
+    "docs/decisions/0319-s180-signed-request-boundary.md": {
+      "sha256": "f30940f89c077727608c650a23b0483781dc0b468a93d4af3b92a227389151fe",
+      "size_bytes": 6022
+    },
+    "tests/test_stage17_s180_authority_v1.py": {
+      "sha256": "0083551a0b836f73c8dfae65eaa3a07e840feadfff6b52212b7a6f651a34f506",
+      "size_bytes": 15430
+    },
+    "tools/stage17_s180_authority_v1.py": {
+      "sha256": "62894b153588cbe55eb41f3a6bd75f3a0bc4f7f449085abb7702ef6083aaebaa",
+      "size_bytes": 13044
+    }
+  }
+}

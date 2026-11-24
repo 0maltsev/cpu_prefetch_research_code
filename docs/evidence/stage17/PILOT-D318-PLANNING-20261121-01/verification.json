@@ -1,0 +1,48 @@
+{
+  "authority": {
+    "operational_window_started": false,
+    "pilot_started": false,
+    "qualified_signed_parent_admission_complete": false,
+    "scientific_validity": "NOT_ASSESSED",
+    "source_bytes_verified": false,
+    "stage17_complete": false,
+    "stage18_authority": false,
+    "stand_accessed_this_step": false
+  },
+  "baseline_revision": "8bfd44836667b420e6ee317f980eb7ce9a9fc59f",
+  "checks": {
+    "final_targeted_native_cases": 9,
+    "focused_ctest_entries": 56,
+    "format_protocol_schema_canonical_provenance": "PASS",
+    "native_s180_cases_in_ctest": 38,
+    "new_parent_actual_cli_cases": 3,
+    "original_calibration_cases": 213,
+    "original_mapped_pilot_cases": 22,
+    "original_runner_cases": 139,
+    "sanitizers": {
+      "CLANG_LIBCXX_ASAN_UBSAN": {
+        "affected_cases": 32,
+        "excluded_unchanged_worker_entry_cases": 6,
+        "status": "PASS"
+      },
+      "CLANG_LIBCXX_TSAN": {
+        "affected_cases": 32,
+        "excluded_unchanged_worker_entry_cases": 6,
+        "status": "PASS"
+      },
+      "GCC_ASAN_UBSAN": {
+        "affected_cases": 32,
+        "excluded_unchanged_worker_entry_cases": 6,
+        "status": "PASS"
+      },
+      "GCC_TSAN": {
+        "affected_cases": 32,
+        "excluded_unchanged_worker_entry_cases": 6,
+        "status": "PASS"
+      }
+    },
+    "static_analysis": "PASS_AFTER_TEST_OPTIONAL_GUARD_FIX"
+  },
+  "decision": "D318",
+  "schema_version": "cpu-prefetch-stage17-software-verification/1"
+}

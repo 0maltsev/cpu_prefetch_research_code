@@ -1,0 +1,116 @@
+EEFFF.FF.
+======================================================================
+ERROR: test_actual_forked_generation_native_plan_and_single_owned_verification (__main__.AuthorTests.test_actual_forked_generation_native_plan_and_single_owned_verification)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_source_author_v1.py", line 97, in test_actual_forked_generation_native_plan_and_single_owned_verification
+    with self.prepare() as owner:
+         ~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/contextlib.py", line 141, in __enter__
+    return next(self.gen)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_source_author_v1.py", line 342, in prepare_sources
+    _run_child(budget,sizing['blueprint']['master_seed_hex'],namespaces.ROOT/'sources',deadline_ns)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_source_author_v1.py", line 270, in _run_child
+    if failure is not None:raise failure
+                           ^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_source_author_v1.py", line 220, in _run_child
+    require(os.read(ready_r,2)==b'R','source child failed before readiness');break
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_source_author_v1.py", line 50, in require
+    if not value:raise AuthorError('S180 source author: '+message)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_source_author_v1.AuthorError: S180 source author: source child failed before readiness
+
+======================================================================
+ERROR: test_changed_original_and_completion_latch_ownership_failure (__main__.AuthorTests.test_changed_original_and_completion_latch_ownership_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_source_author_v1.py", line 176, in test_changed_original_and_completion_latch_ownership_failure
+    with self.prepare() as owner:
+         ~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/contextlib.py", line 141, in __enter__
+    return next(self.gen)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_source_author_v1.py", line 342, in prepare_sources
+    _run_child(budget,sizing['blueprint']['master_seed_hex'],namespaces.ROOT/'sources',deadline_ns)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_source_author_v1.py", line 270, in _run_child
+    if failure is not None:raise failure
+                           ^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_source_author_v1.py", line 220, in _run_child
+    require(os.read(ready_r,2)==b'R','source child failed before readiness');break
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_source_author_v1.py", line 50, in require
+    if not value:raise AuthorError('S180 source author: '+message)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_source_author_v1.AuthorError: S180 source author: source child failed before readiness
+
+======================================================================
+FAIL: test_child_failure_keeps_partial_originals_and_burns_permission (__main__.AuthorTests.test_child_failure_keeps_partial_originals_and_burns_permission)
+----------------------------------------------------------------------
+stage17_s180_source_author_v1.AuthorError: S180 source author: source child failed before readiness
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_source_author_v1.py", line 124, in test_child_failure_keeps_partial_originals_and_burns_permission
+    with self.assertRaisesRegex(author.AuthorError,'child failure'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "child failure" does not match "S180 source author: source child failed before readiness"
+
+======================================================================
+FAIL: test_console_overflow_retains_bounded_prefix_and_stops (__main__.AuthorTests.test_console_overflow_retains_bounded_prefix_and_stops)
+----------------------------------------------------------------------
+stage17_s180_source_author_v1.AuthorError: S180 source author: source child failed before readiness
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_source_author_v1.py", line 156, in test_console_overflow_retains_bounded_prefix_and_stops
+    with self.assertRaisesRegex(author.AuthorError,'console bound'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "console bound" does not match "S180 source author: source child failed before readiness"
+
+======================================================================
+FAIL: test_escaped_descendant_is_reaped_and_generation_rejected (__main__.AuthorTests.test_escaped_descendant_is_reaped_and_generation_rejected)
+----------------------------------------------------------------------
+stage17_s180_source_author_v1.AuthorError: S180 source author: source child failed before readiness
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_source_author_v1.py", line 146, in test_escaped_descendant_is_reaped_and_generation_rejected
+    with self.assertRaisesRegex(author.AuthorError,'child failure'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "child failure" does not match "S180 source author: source child failed before readiness"
+
+======================================================================
+FAIL: test_replaced_author_directory_is_not_used_for_failure_evidence (__main__.AuthorTests.test_replaced_author_directory_is_not_used_for_failure_evidence)
+----------------------------------------------------------------------
+stage17_s180_source_author_v1.AuthorError: S180 source author: source child failed before readiness
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_source_author_v1.py", line 183, in test_replaced_author_directory_is_not_used_for_failure_evidence
+    with self.assertRaisesRegex(author.AuthorError,'directory identity'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "directory identity" does not match "S180 source author: source child failed before readiness"
+
+======================================================================
+FAIL: test_source_deadline_stops_child_and_proves_reaping (__main__.AuthorTests.test_source_deadline_stops_child_and_proves_reaping)
+----------------------------------------------------------------------
+stage17_s180_source_author_v1.AuthorError: S180 source author: source child failed before readiness
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_source_author_v1.py", line 135, in test_source_deadline_stops_child_and_proves_reaping
+    with self.assertRaisesRegex(author.AuthorError,'deadline expired'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "deadline expired" does not match "S180 source author: source child failed before readiness"
+
+----------------------------------------------------------------------
+Ran 9 tests in 1.691s
+
+FAILED (failures=5, errors=2)

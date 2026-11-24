@@ -11,6 +11,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <optional>
+#include <span>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -22,6 +23,8 @@ inline constexpr std::string_view kServiceRateMethodId =
 inline constexpr std::string_view kMatrixFeasibilityMethodId =
     "MATRIX-FULL-RUNCLUSTER-WHOEFFDING-BONFERRONI-v1";
 inline constexpr std::string_view kRingDistanceMethodId = "RING-D2-RUNTAIL-LTL95C95-v1";
+inline constexpr std::string_view kRingDistanceWindowMethodId =
+    "RING-D2-RUNTAIL-LTL95C95-WINDOW-v2";
 inline constexpr std::string_view kCalibrationRecordFamily =
     "cpu-prefetch-calibration/1";
 inline constexpr std::size_t kMinimumValidIndependentRuns = 59U;
@@ -169,6 +172,7 @@ enum class RingAttemptOutcome : std::uint8_t {
   empty,
   clock_failure,
   trace_failure,
+  record_failure,
 };
 
 struct RingDemandSeries final {
@@ -180,14 +184,42 @@ struct RingDemandSeries final {
   std::uint64_t consumer_empty_count{0U};
 };
 
+struct RingWorkerDemandView final {
+  std::span<const std::uint64_t> demand_ticks;
+  std::span<const std::uint64_t> issue_ticks;
+  std::uint64_t nonadvancing_count;
+};
+
 class RingDemandTrace final {
 public:
   explicit RingDemandTrace(std::size_t max_attempts_per_worker);
+  [[nodiscard]] auto prepare_worker(RingWorker worker) -> bool;
+  [[nodiscard]] auto worker_prepared(RingWorker worker) const noexcept -> bool {
+    return worker == RingWorker::producer   ? producer_prepared_
+           : worker == RingWorker::consumer ? consumer_prepared_
+                                            : false;
+  }
+  [[nodiscard]] auto attempt_capacity() const noexcept -> std::size_t {
+    return max_attempts_per_worker_;
+  }
   [[nodiscard]] auto record(RingWorker worker, std::uint64_t demand_start,
                             std::uint64_t demand_end,
                             RingAttemptOutcome outcome) noexcept -> bool;
   [[nodiscard]] auto series() const noexcept -> const RingDemandSeries& {
     return series_;
+  }
+  // Read only this worker's state while the other worker may still be active.
+  [[nodiscard]] auto worker_series(RingWorker worker) const noexcept
+      -> RingWorkerDemandView {
+    if (worker == RingWorker::producer) {
+      return {series_.producer_demand_ticks, series_.producer_issue_ticks,
+              series_.producer_full_count};
+    }
+    if (worker == RingWorker::consumer) {
+      return {series_.consumer_demand_ticks, series_.consumer_issue_ticks,
+              series_.consumer_empty_count};
+    }
+    return {};
   }
 
 private:
@@ -195,18 +227,27 @@ private:
   std::optional<std::uint64_t> previous_producer_advance_start_;
   std::optional<std::uint64_t> previous_consumer_advance_start_;
   std::size_t max_attempts_per_worker_;
+  bool producer_prepared_{false};
+  bool consumer_prepared_{false};
 };
 
 struct RingCaptureResult final {
   RingAttemptOutcome outcome;
-  timing::ClockReadStatus before_status;
-  timing::ClockReadStatus after_status;
+  // Absence means the demand clock was not read, rather than a failed read.
+  std::optional<timing::ClockReadStatus> before_status;
+  std::optional<timing::ClockReadStatus> after_status;
+  // Keep any performed operation's actual outcome independently of validity.
+  // Demand-only helpers have already called the queue; integrated capture
+  // explicitly reports false when a failure prevented the queue call.
+  std::optional<RingAttemptOutcome> operation_outcome{};
+  bool operation_performed{true};
+  std::optional<timing::ClockReadStatus> failed_clock_status{};
 };
 
-template <typename Clock>
+template <typename Clock, typename Trace>
 [[nodiscard]] auto
 capture_producer_ring_demand(Clock& clock, queue::RingSpscQueue& queue,
-                             queue::EventPointer event, RingDemandTrace& trace) noexcept
+                             queue::EventPointer event, Trace& trace) noexcept
     -> RingCaptureResult {
   struct Observer final {
     Clock& clock;
@@ -216,20 +257,20 @@ capture_producer_ring_demand(Clock& clock, queue::RingSpscQueue& queue,
     void after_slot_acquire() noexcept { after = clock.read(); }
   } observer{clock};
   const auto result = queue.try_enqueue_with_slot_demand_observer(event, observer);
-  if (observer.before.status != timing::ClockReadStatus::ok ||
-      observer.after.status != timing::ClockReadStatus::ok) {
-    return {RingAttemptOutcome::clock_failure, observer.before.status,
-            observer.after.status};
-  }
   const auto outcome = result == queue::EnqueueResult::accepted
                            ? RingAttemptOutcome::advanced
                            : RingAttemptOutcome::full;
+  if (observer.before.status != timing::ClockReadStatus::ok ||
+      observer.after.status != timing::ClockReadStatus::ok) {
+    return {RingAttemptOutcome::clock_failure, observer.before.status,
+            observer.after.status, outcome};
+  }
   if (!trace.record(RingWorker::producer, observer.before.sample.relative_picoseconds,
                     observer.after.sample.relative_picoseconds, outcome)) {
     return {RingAttemptOutcome::trace_failure, observer.before.status,
-            observer.after.status};
+            observer.after.status, outcome};
   }
-  return {outcome, observer.before.status, observer.after.status};
+  return {outcome, observer.before.status, observer.after.status, outcome};
 }
 
 template <typename Clock>
@@ -245,20 +286,20 @@ template <typename Clock>
     void after_slot_acquire() noexcept { after = clock.read(); }
   } observer{clock};
   const auto result = queue.try_dequeue_with_slot_demand_observer(observer);
-  if (observer.before.status != timing::ClockReadStatus::ok ||
-      observer.after.status != timing::ClockReadStatus::ok) {
-    return {RingAttemptOutcome::clock_failure, observer.before.status,
-            observer.after.status};
-  }
   const auto outcome = result.status == queue::DequeueStatus::item
                            ? RingAttemptOutcome::advanced
                            : RingAttemptOutcome::empty;
+  if (observer.before.status != timing::ClockReadStatus::ok ||
+      observer.after.status != timing::ClockReadStatus::ok) {
+    return {RingAttemptOutcome::clock_failure, observer.before.status,
+            observer.after.status, outcome};
+  }
   if (!trace.record(RingWorker::consumer, observer.before.sample.relative_picoseconds,
                     observer.after.sample.relative_picoseconds, outcome)) {
     return {RingAttemptOutcome::trace_failure, observer.before.status,
-            observer.after.status};
+            observer.after.status, outcome};
   }
-  return {outcome, observer.before.status, observer.after.status};
+  return {outcome, observer.before.status, observer.after.status, outcome};
 }
 
 struct RingContextKey final {
@@ -349,6 +390,15 @@ struct RingDistanceResult final {
     -> protocol::Result<std::uint64_t>;
 [[nodiscard]] auto evaluate_ring_distance(const RingDistancePlan& plan,
                                           const std::vector<RingRunEvidence>& runs)
+    -> protocol::Result<RingDistanceResult>;
+
+// D212 successor: supplied series must already have independently validated
+// demand-window membership and bound original raw/execution evidence. This
+// numerical evaluator cannot establish that provenance or authorize collection.
+// The legacy entry point continues to reject this successor's method identity.
+[[nodiscard]] auto
+evaluate_windowed_ring_distance(const RingDistancePlan& plan,
+                                const std::vector<RingRunEvidence>& runs)
     -> protocol::Result<RingDistanceResult>;
 
 } // namespace cpu_prefetch::calibration

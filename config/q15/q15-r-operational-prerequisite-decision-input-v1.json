@@ -1,0 +1,303 @@
+{
+  "authority_boundary": {
+    "account_or_key_changes_authorized": false,
+    "bundle_transfer_or_install_authorized": false,
+    "calibration_authorized": false,
+    "confirmatory_authorized": false,
+    "dynamic_qualification_authorized": false,
+    "measurement_authorized": false,
+    "msr_read_authorized": false,
+    "msr_write_authorized": false,
+    "operational_adapter_implementation_authorized": false,
+    "pilot_authorized": false,
+    "q15_r_authorized": false,
+    "q15_w_authorized": false,
+    "real_affinity_numa_authorized": false,
+    "real_pmu_authorized": false,
+    "repository_local_preparation_authorized": true,
+    "stand_access_authorized": false
+  },
+  "bundle_id": "Q15-R-OPERATIONAL-PREREQUISITE-DECISION-INPUT-20260825-01",
+  "custody_contract": {
+    "append_only_policy_id": "Q15-PRIMARY-APPEND-ONLY-SEAL-THEN-TRANSFER-v1",
+    "partial_artifact_policy_id": "Q15-RETAIN-PARTIAL-NEVER-PROMOTE-v1",
+    "primary": {
+      "actual_device_and_mount_verified": false,
+      "actual_owner_mode_quota_verified": false,
+      "domain_id": "XEON-CPU-FETCH-MD3-Q15-CUSTODY",
+      "historical_observation": "/dev/md3 mounted as ext4 / on 2026-08-22; this is not current-state or custody proof",
+      "proposed_root": "/var/lib/cpu-prefetch/q15-r"
+    },
+    "primary_custody_quota_bytes": 4294967296,
+    "recovery_policy_id": "Q15-NO-OVERWRITE-NEW-ARTIFACT-ID-v1",
+    "secondary": {
+      "actual_host_mount_owner_mode_quota_verified": false,
+      "domain_id": "DEVELOPMENT-REPOSITORY-Q15-CUSTODY",
+      "proposed_root": null,
+      "required_placeholder": "@SECONDARY_CUSTODY_ROOT@"
+    },
+    "transfer_policy_id": "Q15-HASHED-SEALED-TRANSFER-WITH-RECEIPT-v1"
+  },
+  "decision_ids": ["D-061", "D-062", "D-063", "D-064"],
+  "decisions": [
+    {
+      "classification": "clean no-authority release identity",
+      "compatibility_effect": "The exact source, archive, manifest, SBOM, controller, tool, and code-generation hashes become immutable prerequisite evidence; they are not an execution release.",
+      "deadline_gate": "Before operational-adapter implementation or any stand setup authorization.",
+      "decision_id": "D-061",
+      "evidence": [
+        "Clean commit a75bcdd0367d79f8ee0496c55edda74311c9ef7d",
+        "Q15-QUALIFICATION-TOOL-BUNDLE-v2 clean-extraction verification: 118 files",
+        "Five non-authorizing self-tests and controller scope report authority=NONE",
+        "Archive and internal SHA-256 inventories verified on the development host"
+      ],
+      "options_considered": [
+        "Treat the earlier Q15-S3 v1 bundle as current",
+        "Treat the clean controller-bearing v2 bundle as prerequisite evidence only",
+        "Treat possession of v2 as Q15-R authority",
+        "Rebuild or relabel the archive after this decision"
+      ],
+      "owner": ["build owner", "controller owner", "security owner", "audit owner"],
+      "recommended_option": "Bind the exact clean v2 release as prerequisite evidence only; require a later clean operational-adapter release and exact signed Q15-R authority.",
+      "scientific_effect": "None; no dynamic operation or scientific input is admitted.",
+      "selected_option": null,
+      "state": "PROPOSED_AWAITING_EXPLICIT_APPROVAL",
+      "supersession_rule": "Any byte, build, manifest, dependency, profile, or authority-boundary change requires a new clean release identity and full re-verification."
+    },
+    {
+      "classification": "operational adapter and trust-anchor boundary",
+      "compatibility_effect": "The adapter profile, inherited-FD contract, allowed-signers path, principal, namespace, signer fingerprint, receipt schema, and future executable hash become Q15-R authorization identity.",
+      "deadline_gate": "Before repository-local operational-adapter implementation; actual signer and trust-anchor evidence before Q15-R issuance.",
+      "decision_id": "D-062",
+      "evidence": [
+        "ADR-0057 requires the fixed 15-step graph and forbids arbitrary selectors",
+        "ADR-0060 fixes JCS-I64-v1 and OpenSSH SSHSIG Ed25519/SHA-512",
+        "The v2 CLI intentionally refuses before opening authorization paths",
+        "The controller core already binds authorization, signature, and independent-verification receipt hashes"
+      ],
+      "options_considered": [
+        "Enable the no-authority CLI with ambient root privilege",
+        "Use an ad-hoc shell wrapper and mutable allowed-signers file",
+        "Use a fixed non-setuid adapter with inherited bounded file descriptors and an auditor-owned trust anchor",
+        "Declare the stand ineligible"
+      ],
+      "owner": ["controller owner", "security owner", "platform owner", "audit owner"],
+      "recommended_option": "Use Q15-R-TRUST-ANCHOR-ADAPTER-v1: no shell, no setuid, no arbitrary selectors, offline private key, auditor-readable trust anchor, independent SSHSIG verification receipt, and inherited bounded descriptors into the fixed core.",
+      "scientific_effect": "None; qualification admission only, with no access to schedules, treatments, outcomes, calibration, or measurement.",
+      "selected_option": null,
+      "state": "PROPOSED_AWAITING_EXPLICIT_APPROVAL",
+      "supersession_rule": "Any adapter, descriptor, path, signer, key, namespace, receipt, verification, privilege, or executable change requires a new decision, clean release, and authorization."
+    },
+    {
+      "classification": "four-role and two-domain stand setup transaction",
+      "compatibility_effect": "Actual UID/GID/groups, paths, modes, signer fingerprint, mount/quota facts, and positive/negative access evidence become authorization identity.",
+      "deadline_gate": "Before any account, group, key, path, permission, bundle-install, or trust-anchor mutation on the stand.",
+      "decision_id": "D-063",
+      "evidence": [
+        "ADR-0058 fixes four distinct principal IDs and two custody-domain IDs",
+        "Read-only evidence observes one candidate /dev/md3 domain but not custody or current state",
+        "The current role/custody plan leaves every applied and verified field false or null",
+        "The imported access protocol requires append-only custody and independent authority chronology"
+      ],
+      "options_considered": [
+        "Reuse root or the root SSH credential",
+        "Use labels over one effective account",
+        "Create four system principals with private groups plus one traversal-only group and role-private directories",
+        "Declare the stand ineligible"
+      ],
+      "owner": ["security owner", "platform owner", "custody owner", "audit owner"],
+      "recommended_option": "Use the literal argv transaction templates and complete access matrix in this bundle; unresolved artifact paths and actual IDs must be replaced by hash-bound literals in a later setup authorization.",
+      "scientific_effect": "None; establishes segregation and custody without executing qualification.",
+      "selected_option": null,
+      "state": "PROPOSED_AWAITING_EXPLICIT_APPROVAL",
+      "supersession_rule": "Any principal, group, path, mode, device, quota, domain, credential, or access-matrix change requires a new prospective setup record and fresh evidence."
+    },
+    {
+      "classification": "negative-access, rollback, and phase-authority boundary",
+      "compatibility_effect": "The complete access matrix, reverse-prefix quarantine procedure, evidence IDs, and stop rules become setup-transaction identity.",
+      "deadline_gate": "Before setup execution and again before Q15-R issuance.",
+      "decision_id": "D-064",
+      "evidence": [
+        "ADR-0059 requires first-failure stop, partial retention, and no retry",
+        "ADR-0060 requires a later separately approved signed Q15-R",
+        "Repository policy rejects generic SSH/root approval as phase authority",
+        "Destructive cleanup would erase setup evidence and cannot be a silent rollback"
+      ],
+      "options_considered": [
+        "Delete accounts and evidence after any failure",
+        "Continue setup after a failed negative test",
+        "Stop on first failure, retain the completed prefix, lock/quarantine without deletion, and require a new authorization",
+        "Treat successful setup as Q15-R authority"
+      ],
+      "owner": ["security owner", "platform owner", "custody owner", "audit owner", "protocol owner"],
+      "recommended_option": "Require every positive and negative probe, stop on first mismatch, retain evidence, apply only quarantine commands applicable to the completed prefix, delete nothing, and require separate later Q15-R approval.",
+      "scientific_effect": "None; failures cannot trigger scientific work, retries, or evidence deletion.",
+      "selected_option": null,
+      "state": "PROPOSED_AWAITING_EXPLICIT_APPROVAL",
+      "supersession_rule": "Any matrix, expected result, rollback, deletion, retry, evidence, or authorization change requires a new decision and prospective transaction."
+    }
+  ],
+  "negative_access_matrix": {
+    "matrix_complete_for_listed_targets": true,
+    "probe_contract": "RUNUSER_TEST_EFFECTIVE_ACCESS-v1",
+    "probes": [
+      {"expected": "DENY", "id": "NA-001", "principal": "cpu-prefetch-q15-operator", "argv": ["/usr/sbin/runuser", "--user", "cpu-prefetch-q15-operator", "--", "/usr/bin/test", "-x", "@OPERATIONAL_RELEASE_ROOT@/bin/cpu_prefetch_q15_controller"]},
+      {"expected": "ALLOW", "id": "NA-002", "principal": "cpu-prefetch-q15-controller", "argv": ["/usr/sbin/runuser", "--user", "cpu-prefetch-q15-controller", "--", "/usr/bin/test", "-x", "@OPERATIONAL_RELEASE_ROOT@/bin/cpu_prefetch_q15_controller"]},
+      {"expected": "DENY", "id": "NA-003", "principal": "cpu-prefetch-q15-custodian", "argv": ["/usr/sbin/runuser", "--user", "cpu-prefetch-q15-custodian", "--", "/usr/bin/test", "-x", "@OPERATIONAL_RELEASE_ROOT@/bin/cpu_prefetch_q15_controller"]},
+      {"expected": "DENY", "id": "NA-004", "principal": "cpu-prefetch-q15-auditor", "argv": ["/usr/sbin/runuser", "--user", "cpu-prefetch-q15-auditor", "--", "/usr/bin/test", "-x", "@OPERATIONAL_RELEASE_ROOT@/bin/cpu_prefetch_q15_controller"]},
+      {"expected": "DENY", "id": "NA-005", "principal": "cpu-prefetch-q15-operator", "argv": ["/usr/sbin/runuser", "--user", "cpu-prefetch-q15-operator", "--", "/usr/bin/test", "-r", "/etc/cpu-prefetch/q15/allowed_signers"]},
+      {"expected": "DENY", "id": "NA-006", "principal": "cpu-prefetch-q15-controller", "argv": ["/usr/sbin/runuser", "--user", "cpu-prefetch-q15-controller", "--", "/usr/bin/test", "-r", "/etc/cpu-prefetch/q15/allowed_signers"]},
+      {"expected": "DENY", "id": "NA-007", "principal": "cpu-prefetch-q15-custodian", "argv": ["/usr/sbin/runuser", "--user", "cpu-prefetch-q15-custodian", "--", "/usr/bin/test", "-r", "/etc/cpu-prefetch/q15/allowed_signers"]},
+      {"expected": "ALLOW", "id": "NA-008", "principal": "cpu-prefetch-q15-auditor", "argv": ["/usr/sbin/runuser", "--user", "cpu-prefetch-q15-auditor", "--", "/usr/bin/test", "-r", "/etc/cpu-prefetch/q15/allowed_signers"]},
+      {"expected": "DENY", "id": "NA-009", "principal": "cpu-prefetch-q15-operator", "argv": ["/usr/sbin/runuser", "--user", "cpu-prefetch-q15-operator", "--", "/usr/bin/test", "-w", "/var/lib/cpu-prefetch/q15-r/controller-staging"]},
+      {"expected": "ALLOW", "id": "NA-010", "principal": "cpu-prefetch-q15-controller", "argv": ["/usr/sbin/runuser", "--user", "cpu-prefetch-q15-controller", "--", "/usr/bin/test", "-w", "/var/lib/cpu-prefetch/q15-r/controller-staging"]},
+      {"expected": "DENY", "id": "NA-011", "principal": "cpu-prefetch-q15-custodian", "argv": ["/usr/sbin/runuser", "--user", "cpu-prefetch-q15-custodian", "--", "/usr/bin/test", "-w", "/var/lib/cpu-prefetch/q15-r/controller-staging"]},
+      {"expected": "DENY", "id": "NA-012", "principal": "cpu-prefetch-q15-auditor", "argv": ["/usr/sbin/runuser", "--user", "cpu-prefetch-q15-auditor", "--", "/usr/bin/test", "-w", "/var/lib/cpu-prefetch/q15-r/controller-staging"]},
+      {"expected": "DENY", "id": "NA-013", "principal": "cpu-prefetch-q15-operator", "argv": ["/usr/sbin/runuser", "--user", "cpu-prefetch-q15-operator", "--", "/usr/bin/test", "-w", "/var/lib/cpu-prefetch/q15-r/sealed"]},
+      {"expected": "DENY", "id": "NA-014", "principal": "cpu-prefetch-q15-controller", "argv": ["/usr/sbin/runuser", "--user", "cpu-prefetch-q15-controller", "--", "/usr/bin/test", "-w", "/var/lib/cpu-prefetch/q15-r/sealed"]},
+      {"expected": "ALLOW", "id": "NA-015", "principal": "cpu-prefetch-q15-custodian", "argv": ["/usr/sbin/runuser", "--user", "cpu-prefetch-q15-custodian", "--", "/usr/bin/test", "-w", "/var/lib/cpu-prefetch/q15-r/sealed"]},
+      {"expected": "DENY", "id": "NA-016", "principal": "cpu-prefetch-q15-auditor", "argv": ["/usr/sbin/runuser", "--user", "cpu-prefetch-q15-auditor", "--", "/usr/bin/test", "-w", "/var/lib/cpu-prefetch/q15-r/sealed"]},
+      {"expected": "DENY", "id": "NA-017", "principal": "cpu-prefetch-q15-operator", "argv": ["/usr/sbin/runuser", "--user", "cpu-prefetch-q15-operator", "--", "/usr/bin/test", "-w", "/var/lib/cpu-prefetch/q15-r/receipts"]},
+      {"expected": "DENY", "id": "NA-018", "principal": "cpu-prefetch-q15-controller", "argv": ["/usr/sbin/runuser", "--user", "cpu-prefetch-q15-controller", "--", "/usr/bin/test", "-w", "/var/lib/cpu-prefetch/q15-r/receipts"]},
+      {"expected": "ALLOW", "id": "NA-019", "principal": "cpu-prefetch-q15-custodian", "argv": ["/usr/sbin/runuser", "--user", "cpu-prefetch-q15-custodian", "--", "/usr/bin/test", "-w", "/var/lib/cpu-prefetch/q15-r/receipts"]},
+      {"expected": "DENY", "id": "NA-020", "principal": "cpu-prefetch-q15-auditor", "argv": ["/usr/sbin/runuser", "--user", "cpu-prefetch-q15-auditor", "--", "/usr/bin/test", "-w", "/var/lib/cpu-prefetch/q15-r/receipts"]},
+      {"expected": "DENY", "id": "NA-021", "principal": "cpu-prefetch-q15-operator", "argv": ["/usr/sbin/runuser", "--user", "cpu-prefetch-q15-operator", "--", "/usr/bin/test", "-w", "/var/lib/cpu-prefetch/q15-r/audit"]},
+      {"expected": "DENY", "id": "NA-022", "principal": "cpu-prefetch-q15-controller", "argv": ["/usr/sbin/runuser", "--user", "cpu-prefetch-q15-controller", "--", "/usr/bin/test", "-w", "/var/lib/cpu-prefetch/q15-r/audit"]},
+      {"expected": "DENY", "id": "NA-023", "principal": "cpu-prefetch-q15-custodian", "argv": ["/usr/sbin/runuser", "--user", "cpu-prefetch-q15-custodian", "--", "/usr/bin/test", "-w", "/var/lib/cpu-prefetch/q15-r/audit"]},
+      {"expected": "ALLOW", "id": "NA-024", "principal": "cpu-prefetch-q15-auditor", "argv": ["/usr/sbin/runuser", "--user", "cpu-prefetch-q15-auditor", "--", "/usr/bin/test", "-w", "/var/lib/cpu-prefetch/q15-r/audit"]}
+    ],
+    "required_negative_count": 18,
+    "unresolved_positive_operations": [
+      "Operator request-endpoint access awaits the unimplemented operational adapter and exact endpoint.",
+      "Auditor read-only PMU/MSR/prestate access awaits a separate privilege and Q15-R authorization.",
+      "Second-domain synthetic transfer/receipt awaits an exact secondary root and custodian identity."
+    ]
+  },
+  "placeholders": [
+    {
+      "name": "@ALLOWED_SIGNERS_SOURCE@",
+      "required_resolution": "Exact absolute regular-file path and SHA-256 of an owner-approved allowed-signers artifact containing one Ed25519 public key; no private key may be on the stand."
+    },
+    {
+      "name": "@OPERATIONAL_RELEASE_ROOT@",
+      "required_resolution": "Exact absolute root and hashes of a future clean operational-adapter release; the bound v2 base bundle is not that release."
+    },
+    {
+      "name": "@SECONDARY_CUSTODY_ROOT@",
+      "required_resolution": "Exact absolute path, host, mount/device, owner, mode, quota, reserve, and custodian on a separately controlled development-machine domain."
+    }
+  ],
+  "prepared_date": "2026-08-25",
+  "protocol_version": "2.0.0-pre.2",
+  "release_evidence": {
+    "archive_name": "cpu-prefetch-q15-qualification-tool-2.0.0-a75bcdd-clean-b4438745f3ca.tar.gz",
+    "archive_sha256": "48c460b008790e3b73aefbda94cacddaeb3c842622ca5bac5c763e50515ae035",
+    "archive_size_bytes": 4247166,
+    "bundle_profile": "Q15-QUALIFICATION-TOOL-BUNDLE-v2",
+    "controller_binary_sha256": "36607f03669d194b22d37bc6652e92fe8486ab0ef4964ef5217ad73d18d15cf1",
+    "controller_codegen_report_sha256": "7fc0d36b0e095df9a5e4563dd48d02c7a3acf4718f8816a87f2e137af43942ca",
+    "internal_file_count": 118,
+    "manifest_sha256": "90f01cd1be57d844f532d0b9f5612179aa9436a44ba353e3aeda724d10704030",
+    "q15_tool_binary_sha256": "ba93d6384eb536654ccdfa94dc4b52c0cfde9408b9d79ef902ea6e3749548d15",
+    "sbom_sha256": "c1b915f082ce3b6a1c916c7bef1d17e008d0dede623ec8aa927dbe868dd3f537",
+    "sidecar_name": "cpu-prefetch-q15-qualification-tool-2.0.0-a75bcdd-clean-b4438745f3ca.tar.gz.sha256",
+    "sidecar_sha256": "9c7dee2e07c49e51af8b3e922e8295ecce959dfe53deed4d3604e59722655505",
+    "source_archive_sha256": "b4438745f3ca5a461a456ea7200970b41893572869866bf40a5d58da4c18d2c7",
+    "source_commit": "a75bcdd0367d79f8ee0496c55edda74311c9ef7d",
+    "source_dirty": false,
+    "verification_state": "VERIFIED_LOCAL_NO_AUTHORITY"
+  },
+  "rollback_contract": {
+    "behavior": "STOP_FIRST_FAILURE_QUARANTINE_COMPLETED_PREFIX_NO_DELETE",
+    "commands": [
+      {"argv": ["/usr/bin/chmod", "0000", "@OPERATIONAL_RELEASE_ROOT@/bin/cpu_prefetch_q15_controller"], "executed": false, "id": "RB-001"},
+      {"argv": ["/usr/bin/chmod", "0000", "/etc/cpu-prefetch/q15/allowed_signers"], "executed": false, "id": "RB-002"},
+      {"argv": ["/usr/sbin/usermod", "--lock", "--expiredate", "1", "cpu-prefetch-q15-controller"], "executed": false, "id": "RB-003"},
+      {"argv": ["/usr/sbin/usermod", "--lock", "--expiredate", "1", "cpu-prefetch-q15-custodian"], "executed": false, "id": "RB-004"},
+      {"argv": ["/usr/sbin/usermod", "--lock", "--expiredate", "1", "cpu-prefetch-q15-auditor"], "executed": false, "id": "RB-005"},
+      {"argv": ["/usr/sbin/usermod", "--lock", "--expiredate", "1", "cpu-prefetch-q15-operator"], "executed": false, "id": "RB-006"},
+      {"argv": ["/usr/bin/chmod", "0000", "/var/lib/cpu-prefetch/q15-r/controller-staging"], "executed": false, "id": "RB-007"},
+      {"argv": ["/usr/bin/chmod", "0000", "/var/lib/cpu-prefetch/q15-r/sealed"], "executed": false, "id": "RB-008"},
+      {"argv": ["/usr/bin/chmod", "0000", "/var/lib/cpu-prefetch/q15-r/receipts"], "executed": false, "id": "RB-009"},
+      {"argv": ["/usr/bin/chmod", "0000", "/var/lib/cpu-prefetch/q15-r/audit"], "executed": false, "id": "RB-010"}
+    ],
+    "deletion_prohibited": true,
+    "evidence_retained": true,
+    "full_prestate_restoration_claimed": false,
+    "new_authorization_required_after_rollback": true
+  },
+  "schema_version": "cpu-prefetch-q15-r-operational-prerequisite-decision-input/1",
+  "setup_transaction": {
+    "command_contract": "LITERAL_ARGV_TEMPLATE_NO_SHELL_NO_GLOB_NO_ENV-v1",
+    "commands": [
+      {"argv": ["/usr/bin/getent", "group", "cpu-prefetch-q15"], "executed": false, "expected_exit_codes": [2], "id": "SETUP-001", "mutation": false, "phase": "PRESTATE"},
+      {"argv": ["/usr/sbin/groupadd", "--system", "cpu-prefetch-q15"], "executed": false, "expected_exit_codes": [0], "id": "SETUP-002", "mutation": true, "phase": "APPLY"},
+      {"argv": ["/usr/bin/getent", "passwd", "cpu-prefetch-q15-operator"], "executed": false, "expected_exit_codes": [2], "id": "SETUP-003", "mutation": false, "phase": "PRESTATE"},
+      {"argv": ["/usr/sbin/useradd", "--system", "--user-group", "--no-create-home", "--shell", "/usr/sbin/nologin", "cpu-prefetch-q15-operator"], "executed": false, "expected_exit_codes": [0], "id": "SETUP-004", "mutation": true, "phase": "APPLY"},
+      {"argv": ["/usr/bin/getent", "passwd", "cpu-prefetch-q15-controller"], "executed": false, "expected_exit_codes": [2], "id": "SETUP-005", "mutation": false, "phase": "PRESTATE"},
+      {"argv": ["/usr/sbin/useradd", "--system", "--user-group", "--no-create-home", "--shell", "/usr/sbin/nologin", "cpu-prefetch-q15-controller"], "executed": false, "expected_exit_codes": [0], "id": "SETUP-006", "mutation": true, "phase": "APPLY"},
+      {"argv": ["/usr/bin/getent", "passwd", "cpu-prefetch-q15-custodian"], "executed": false, "expected_exit_codes": [2], "id": "SETUP-007", "mutation": false, "phase": "PRESTATE"},
+      {"argv": ["/usr/sbin/useradd", "--system", "--user-group", "--no-create-home", "--shell", "/usr/sbin/nologin", "cpu-prefetch-q15-custodian"], "executed": false, "expected_exit_codes": [0], "id": "SETUP-008", "mutation": true, "phase": "APPLY"},
+      {"argv": ["/usr/bin/getent", "passwd", "cpu-prefetch-q15-auditor"], "executed": false, "expected_exit_codes": [2], "id": "SETUP-009", "mutation": false, "phase": "PRESTATE"},
+      {"argv": ["/usr/sbin/useradd", "--system", "--user-group", "--no-create-home", "--shell", "/usr/sbin/nologin", "cpu-prefetch-q15-auditor"], "executed": false, "expected_exit_codes": [0], "id": "SETUP-010", "mutation": true, "phase": "APPLY"},
+      {"argv": ["/usr/sbin/usermod", "--append", "--groups", "cpu-prefetch-q15", "cpu-prefetch-q15-controller"], "executed": false, "expected_exit_codes": [0], "id": "SETUP-011", "mutation": true, "phase": "APPLY"},
+      {"argv": ["/usr/sbin/usermod", "--append", "--groups", "cpu-prefetch-q15", "cpu-prefetch-q15-custodian"], "executed": false, "expected_exit_codes": [0], "id": "SETUP-012", "mutation": true, "phase": "APPLY"},
+      {"argv": ["/usr/sbin/usermod", "--append", "--groups", "cpu-prefetch-q15", "cpu-prefetch-q15-auditor"], "executed": false, "expected_exit_codes": [0], "id": "SETUP-013", "mutation": true, "phase": "APPLY"},
+      {"argv": ["/usr/bin/install", "-d", "-o", "root", "-g", "cpu-prefetch-q15", "-m", "0750", "/var/lib/cpu-prefetch/q15-r"], "executed": false, "expected_exit_codes": [0], "id": "SETUP-014", "mutation": true, "phase": "APPLY"},
+      {"argv": ["/usr/bin/install", "-d", "-o", "cpu-prefetch-q15-controller", "-g", "cpu-prefetch-q15-controller", "-m", "0700", "/var/lib/cpu-prefetch/q15-r/controller-staging"], "executed": false, "expected_exit_codes": [0], "id": "SETUP-015", "mutation": true, "phase": "APPLY"},
+      {"argv": ["/usr/bin/install", "-d", "-o", "cpu-prefetch-q15-custodian", "-g", "cpu-prefetch-q15-custodian", "-m", "0700", "/var/lib/cpu-prefetch/q15-r/sealed"], "executed": false, "expected_exit_codes": [0], "id": "SETUP-016", "mutation": true, "phase": "APPLY"},
+      {"argv": ["/usr/bin/install", "-d", "-o", "cpu-prefetch-q15-custodian", "-g", "cpu-prefetch-q15-custodian", "-m", "0700", "/var/lib/cpu-prefetch/q15-r/receipts"], "executed": false, "expected_exit_codes": [0], "id": "SETUP-017", "mutation": true, "phase": "APPLY"},
+      {"argv": ["/usr/bin/install", "-d", "-o", "cpu-prefetch-q15-auditor", "-g", "cpu-prefetch-q15-auditor", "-m", "0700", "/var/lib/cpu-prefetch/q15-r/audit"], "executed": false, "expected_exit_codes": [0], "id": "SETUP-018", "mutation": true, "phase": "APPLY"},
+      {"argv": ["/usr/bin/install", "-d", "-o", "root", "-g", "cpu-prefetch-q15-auditor", "-m", "0750", "/etc/cpu-prefetch/q15"], "executed": false, "expected_exit_codes": [0], "id": "SETUP-019", "mutation": true, "phase": "APPLY"},
+      {"argv": ["/usr/bin/install", "-o", "root", "-g", "cpu-prefetch-q15-auditor", "-m", "0640", "@ALLOWED_SIGNERS_SOURCE@", "/etc/cpu-prefetch/q15/allowed_signers"], "executed": false, "expected_exit_codes": [0], "id": "SETUP-020", "mutation": true, "phase": "APPLY"}
+    ],
+    "common_traversal_group": "cpu-prefetch-q15",
+    "executed": false,
+    "operator_not_in_common_group": true,
+    "requires_separate_setup_authorization": true,
+    "stand_id": "XEON-CPU-FETCH",
+    "stop_on_first_failure": true,
+    "transaction_id": "Q15-R-SETUP-XEON-CPU-FETCH-01"
+  },
+  "status": "PROPOSED_AWAITING_Q15_R_P2_APPROVAL",
+  "trust_anchor_contract": {
+    "adapter_implemented": false,
+    "adapter_profile_id": "Q15-R-TRUST-ANCHOR-ADAPTER-v1",
+    "allowed_signers_group": "cpu-prefetch-q15-auditor",
+    "allowed_signers_mode": "0640",
+    "allowed_signers_owner": "root",
+    "allowed_signers_path": "/etc/cpu-prefetch/q15/allowed_signers",
+    "authorization_canonicalization": "JCS-I64-v1",
+    "authorization_principal": "cpu-prefetch-q15-authorization",
+    "controller_can_read_allowed_signers": false,
+    "future_clean_operational_release_required": true,
+    "independent_verification_receipt_required": true,
+    "inherited_descriptor_contract": "INHERITED_BOUNDED_FD_CANONICAL_FRAMES-v1",
+    "private_key_permitted_on_stand": false,
+    "signature_namespace": "cpu-prefetch-q15-authorization",
+    "signature_scheme": "OPENSSH-SSHSIG-ED25519-SHA512-v1",
+    "signer_fingerprint": null,
+    "verification_command_template": [
+      "/usr/bin/ssh-keygen",
+      "-Y",
+      "verify",
+      "-f",
+      "/etc/cpu-prefetch/q15/allowed_signers",
+      "-I",
+      "cpu-prefetch-q15-authorization",
+      "-n",
+      "cpu-prefetch-q15-authorization",
+      "-s",
+      "@DETACHED_SIGNATURE_PATH@"
+    ],
+    "verification_stdin": "EXACT_JCS_I64_AUTHORIZATION_CORE_BYTES"
+  },
+  "unresolved_before_setup_authorization": [
+    "Actual operational-adapter implementation and clean release root/hash",
+    "Actual owner-approved Ed25519 public key, fingerprint, allowed-signers bytes/hash, signer, and custody",
+    "Actual secondary custody host/root/device/mount/owner/mode/quota/reserve and transfer endpoint",
+    "Current stand account/group/path/tool prestate and confirmation that every literal executable exists",
+    "Exact setup authority, operator identity, UTC validity, output artifact IDs, evidence destinations, and stand session budget",
+    "Decision whether quarantine-only rollback is acceptable when account absence cannot be restored without deletion"
+  ]
+}

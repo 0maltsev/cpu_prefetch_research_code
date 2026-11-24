@@ -1,0 +1,11 @@
+test_actual_ten_typed_envelopes_keep_source_producer_identities_and_limits (__main__.EvidenceTests.test_actual_ten_typed_envelopes_keep_source_producer_identities_and_limits) ... ok
+test_completed_evidence_survives_action_expiry_without_run_authority (__main__.EvidenceTests.test_completed_evidence_survives_action_expiry_without_run_authority) ... ok
+test_helper_failure_retains_partial_output_stops_and_proves_cleanup (__main__.EvidenceTests.test_helper_failure_retains_partial_output_stops_and_proves_cleanup) ... ok
+test_author_deadline_failure_retains_pid_and_quiescence (__main__.EvidenceTests.test_author_deadline_failure_retains_pid_and_quiescence) ... ok
+test_background_thread_blocks_author_before_export_namespace (__main__.EvidenceTests.test_background_thread_blocks_author_before_export_namespace) ... ok
+test_sanitized_builder_exports_all_ten_kinds_over_sealed_fds (__main__.EvidenceTests.test_sanitized_builder_exports_all_ten_kinds_over_sealed_fds) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 151.852s
+
+OK

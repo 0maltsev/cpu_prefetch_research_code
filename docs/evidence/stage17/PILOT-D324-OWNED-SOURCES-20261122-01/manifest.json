@@ -1,0 +1,82 @@
+{
+  "actual_scoped_admission": false,
+  "baseline_revision": "bb148b40075d87e80f53ce9f503da53970659572",
+  "evidence_files": {
+    "docs/evidence/stage17/PILOT-D324-OWNED-SOURCES-20261122-01/COMMANDS.md": {
+      "sha256": "3ee80c8f80e9d5e28eb307736b748474c5033d6557e33be1bb5161bcddff3365",
+      "size_bytes": 1438
+    },
+    "docs/evidence/stage17/PILOT-D324-OWNED-SOURCES-20261122-01/REPORT.md": {
+      "sha256": "1aa9aa3255e0f10550424c0869b6f78eb855a3a686fff4dd9077c20ec6ea8feb",
+      "size_bytes": 4571
+    },
+    "docs/evidence/stage17/PILOT-D324-OWNED-SOURCES-20261122-01/final-checks.json": {
+      "sha256": "ebd7f6d6d50f785c9ca7921f75cb0ec9e293a65095da7a8127bfe9b29e41d829",
+      "size_bytes": 1453
+    },
+    "docs/evidence/stage17/PILOT-D324-OWNED-SOURCES-20261122-01/log-normalization.json": {
+      "sha256": "59abcd12941fd2a3829b5fdb6ca731340683fb9b259017c75211dca8554f10e8",
+      "size_bytes": 243
+    },
+    "docs/evidence/stage17/PILOT-D324-OWNED-SOURCES-20261122-01/owner-13-tests.txt": {
+      "sha256": "57ed67229963a4beff6a61d4c7f62c94256343d42611731249db7fd6e435d6bc",
+      "size_bytes": 112
+    },
+    "docs/evidence/stage17/PILOT-D324-OWNED-SOURCES-20261122-01/owner-final-14-tests.txt": {
+      "sha256": "faff9cc5080a80b5d8e1b6d1db7bb2ef158d40c3a3414b09e2a9c4755c300560",
+      "size_bytes": 113
+    },
+    "docs/evidence/stage17/PILOT-D324-OWNED-SOURCES-20261122-01/owner-first-10-tests.txt": {
+      "sha256": "39c8da9ae4b2d034b03485ee61525dbd72fa2af70cedc7ddff88fb8a0c7f2b42",
+      "size_bytes": 109
+    },
+    "docs/evidence/stage17/PILOT-D324-OWNED-SOURCES-20261122-01/registered-details.txt": {
+      "sha256": "6b7e494a82b671e5327637966fdaa006f3ef235cd0c0dc8027a2050733b4b10f",
+      "size_bytes": 3829
+    },
+    "docs/evidence/stage17/PILOT-D324-OWNED-SOURCES-20261122-01/registered-tests.txt": {
+      "sha256": "f34f9cda057d6fcb8e4443c7df66e67d67f6ea483340b70ecb331958fecd0a00",
+      "size_bytes": 1127
+    },
+    "docs/evidence/stage17/PILOT-D324-OWNED-SOURCES-20261122-01/repository-checks.txt": {
+      "sha256": "5190a49c471c4d57cddfe238b58cc3719c46962354468ed32edfc50a58e22e58",
+      "size_bytes": 6563
+    }
+  },
+  "execution_authority": false,
+  "phase18_authority": false,
+  "source_files": {
+    "CMakeLists.txt": {
+      "sha256": "9396ca748b3b2effe3b9fb415a044468730d8199e2121a7bce91684a77db8ba0",
+      "size_bytes": 193001
+    },
+    "PLAN.md": {
+      "sha256": "83f9210d65020454d2909b19c67f191416d4bfc328fc7b5509bc6f5220d14e5c",
+      "size_bytes": 115993
+    },
+    "README.md": {
+      "sha256": "75aca1b37cfbaddb2c7a2dec2e69ea286633769b444999a821b5362b93418554",
+      "size_bytes": 123446
+    },
+    "STATUS.md": {
+      "sha256": "8699fbc611777d8b9ce0d8d6076ac2c80cfa705673922dc44388aaf7e02bb25c",
+      "size_bytes": 142363
+    },
+    "docs/STAGE17_PILOT_PREPARATION.md": {
+      "sha256": "bdf2fae72c900762da3c17a362b92077b0cacf3b35311a945e164b515d5c2290",
+      "size_bytes": 12451
+    },
+    "docs/decisions/0324-s180-owned-verified-source-handoff.md": {
+      "sha256": "426e09d7fe3f96e494d339e826c7bc6b0e863ff6969a286240b6a8608437ddc5",
+      "size_bytes": 5125
+    },
+    "tests/test_stage17_s180_verified_sources_v1.py": {
+      "sha256": "ae5c6cac5b3633fed1fecfe64b93c402f1ad7b00fecbd3b529080c6ddc0b6dd9",
+      "size_bytes": 16385
+    },
+    "tools/stage17_s180_verified_sources_v1.py": {
+      "sha256": "273bd5a620b43235ab8b04e34341c8afb7142aebbb5bbe9a3629e0606b2d4f6a",
+      "size_bytes": 10202
+    }
+  }
+}

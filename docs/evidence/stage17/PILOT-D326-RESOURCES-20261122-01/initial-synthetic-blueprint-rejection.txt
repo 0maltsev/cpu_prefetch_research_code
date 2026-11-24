@@ -1,0 +1,25 @@
+E
+======================================================================
+ERROR: setUpClass (__main__.ResourceTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_resource_plan_v1.py", line 59, in setUpClass
+    cls.report=cls.describe(cls.packet)
+               ~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_resource_plan_v1.py", line 83, in describe
+    return resource_plan.planning.native_layouts(packet,worker=cls.image,deadline_ns=time.monotonic_ns()+60*10**9)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_plan_prepare_v1.py", line 112, in native_layouts
+    require(time.monotonic_ns() < deadline_ns and result.returncode == 0,
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            "native description failed or expired: " + result.stderr[:1024].decode(errors="replace"))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_plan_prepare_v1.py", line 33, in require
+    raise PlanError("S180 planning: " + message)
+stage17_s180_plan_prepare_v1.PlanError: S180 planning: native description failed or expired: CROSS_FIELD S17-S180-INPUT $s180/input: S180 exact approved blueprint differs
+
+
+----------------------------------------------------------------------
+Ran 0 tests in 0.446s
+
+FAILED (errors=1)

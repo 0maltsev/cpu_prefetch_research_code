@@ -1,0 +1,502 @@
+{
+  "schema_version": "cpu-prefetch-stage17-fixed-phase-actions/8",
+  "profile_id": "STAGE17-FIXED-PHASE-ACTIONS-v8",
+  "protocol_version": "2.0.0-pre.3",
+  "predecessor": {
+    "path": "config/stage17/stage17-fixed-phase-actions-v7.json",
+    "size_bytes": 15304,
+    "sha256": "2c75be85dab121a455957d03e01ab5d7a5f3a4ee0224fb17d5a995fed308c9b9"
+  },
+  "worker_role": "STAGE17_FIXED_ACTION_WORKER",
+  "runtime_profile": "STAGE17-FIXED-ACTION-WORKER-v4",
+  "actions": [
+    {
+      "ordinal": 1,
+      "action_id": "Q15-R",
+      "required_state": "PREFLIGHT_ACCEPTED",
+      "required_resolution_ids": [
+        "S17-EXT-001",
+        "S17-EXT-002",
+        "S17-EXT-003"
+      ],
+      "authorization_resolution_id": null,
+      "runtime_source": "EXT002_EXT003_ACCEPTED_RUNTIME",
+      "privileged": false,
+      "calibration": false,
+      "pilot": false,
+      "requires_restoration": false,
+      "permission_matrix": {
+        "read_only_observation": true,
+        "privileged_controls": false,
+        "calibration": false,
+        "pilot_execution": false,
+        "measurement": false,
+        "phase18": false
+      },
+      "outputs": [
+        {
+          "role": "Q15_R_READ_ONLY_PRESTATE",
+          "schema_identity": "cpu-prefetch-stage17-q15-r-output/3",
+          "schema_path": "config/schemas/stage17-q15-r-output-v3.schema.json",
+          "cardinality": "EXACTLY_ONE",
+          "file_pattern": "q15-r-output-v3.json",
+          "media_type": "application/json"
+        },
+        {
+          "role": "Q15_R_ATOMIC_LAYOUT_RAW",
+          "schema_identity": "cpu-prefetch-stage17-q15-r-atomic-layout-raw/1",
+          "schema_path": "config/schemas/stage17-q15-r-atomic-layout-raw-v1.schema.json",
+          "cardinality": "EXACTLY_ONE",
+          "file_pattern": "q15-r-atomic-layout-raw-v1.json",
+          "media_type": "application/json"
+        },
+        {
+          "role": "Q15_R_ADDRESS_RESIDENCY_RAW",
+          "schema_identity": "cpu-prefetch-stage17-q15-r-address-residency-raw/1",
+          "schema_path": "config/schemas/stage17-q15-r-address-residency-raw-v1.schema.json",
+          "cardinality": "EXACTLY_ONE",
+          "file_pattern": "q15-r-address-residency-raw-v1.json",
+          "media_type": "application/json"
+        },
+        {
+          "role": "Q15_R_SOFTWARE_PREFETCH_RAW",
+          "schema_identity": "cpu-prefetch-stage17-q15-r-software-prefetch-raw/2",
+          "schema_path": "config/schemas/stage17-q15-r-software-prefetch-raw-v2.schema.json",
+          "cardinality": "EXACTLY_ONE",
+          "file_pattern": "q15-r-software-prefetch-raw-v1.json",
+          "media_type": "application/json"
+        },
+        {
+          "role": "Q15_R_CPU_MIGRATION_RAW",
+          "schema_identity": "cpu-prefetch-stage17-q15-r-cpu-migration-raw/1",
+          "schema_path": "config/schemas/stage17-q15-r-cpu-migration-raw-v1.schema.json",
+          "cardinality": "EXACTLY_ONE",
+          "file_pattern": "q15-r-cpu-migration-raw-v1.json",
+          "media_type": "application/json"
+        }
+      ]
+    },
+    {
+      "ordinal": 2,
+      "action_id": "Q15-W",
+      "required_state": "PREFLIGHT_ACCEPTED",
+      "required_resolution_ids": [
+        "S17-EXT-001",
+        "S17-EXT-002",
+        "S17-EXT-003",
+        "S17-EXT-004"
+      ],
+      "authorization_resolution_id": null,
+      "runtime_source": "EXT002_EXT003_ACCEPTED_RUNTIME",
+      "privileged": true,
+      "calibration": false,
+      "pilot": false,
+      "requires_restoration": true,
+      "permission_matrix": {
+        "read_only_observation": false,
+        "privileged_controls": true,
+        "calibration": false,
+        "pilot_execution": false,
+        "measurement": false,
+        "phase18": false
+      },
+      "outputs": [
+        {
+          "role": "Q15_W_TRANSACTION",
+          "schema_identity": "cpu-prefetch-stage17-q15-w-output/3",
+          "schema_path": "config/schemas/stage17-q15-w-output-v3.schema.json",
+          "cardinality": "EXACTLY_ONE",
+          "file_pattern": "q15-w-output-v3.json",
+          "media_type": "application/json"
+        }
+      ]
+    },
+    {
+      "ordinal": 3,
+      "action_id": "Q16a",
+      "required_state": "READY_FOR_STAGE17_PHASE_AUTHORIZATION",
+      "required_resolution_ids": [
+        "S17-EXT-001",
+        "S17-EXT-002",
+        "S17-EXT-003",
+        "S17-EXT-004",
+        "S17-EXT-005",
+        "S17-EXT-006"
+      ],
+      "authorization_resolution_id": null,
+      "runtime_source": "EXT006_RELEASE_RUNTIME",
+      "privileged": true,
+      "calibration": true,
+      "pilot": false,
+      "requires_restoration": true,
+      "permission_matrix": {
+        "read_only_observation": false,
+        "privileged_controls": true,
+        "calibration": true,
+        "pilot_execution": false,
+        "measurement": false,
+        "phase18": false
+      },
+      "outputs": [
+        {
+          "role": "Q16A_PRIMARY_RAW",
+          "schema_identity": "RAW-OBS-U64LE-LP-RUNID-v1",
+          "schema_path": null,
+          "cardinality": "PER_RUN",
+          "file_pattern": "q16a-c*-producer.bin",
+          "media_type": "application/octet-stream"
+        },
+        {
+          "role": "Q16A_PRIMARY_RAW",
+          "schema_identity": "RAW-OBS-U64LE-LP-RUNID-v1",
+          "schema_path": null,
+          "cardinality": "PER_RUN",
+          "file_pattern": "q16a-c*-consumer.bin",
+          "media_type": "application/octet-stream"
+        },
+        {
+          "role": "Q16A_DEMAND_RAW",
+          "schema_identity": "Q16A-DEMAND-U64LE-LP-RUNID-v1",
+          "schema_path": null,
+          "cardinality": "PER_RUN",
+          "file_pattern": "q16a-c*-demand.bin",
+          "media_type": "application/octet-stream"
+        },
+        {
+          "role": "Q16A_FORMAL_CAPTURE_CONTROL",
+          "schema_identity": "cpu-prefetch-stage17-formal-ring-control/1",
+          "schema_path": null,
+          "cardinality": "PER_RUN",
+          "file_pattern": "q16a-c*-control.json",
+          "media_type": "application/json"
+        },
+        {
+          "role": "FORMAL_CALIBRATION_RETENTION_REPORT",
+          "schema_identity": "cpu-prefetch-stage17-formal-retention-report/1",
+          "schema_path": "config/schemas/stage17-formal-retention-report-v1.schema.json",
+          "cardinality": "EXACTLY_ONE",
+          "file_pattern": "formal-retention-report.json",
+          "media_type": "application/json"
+        }
+      ]
+    },
+    {
+      "ordinal": 4,
+      "action_id": "Q16b",
+      "required_state": "READY_FOR_STAGE17_PHASE_AUTHORIZATION",
+      "required_resolution_ids": [
+        "S17-EXT-001",
+        "S17-EXT-002",
+        "S17-EXT-003",
+        "S17-EXT-004",
+        "S17-EXT-005",
+        "S17-EXT-006"
+      ],
+      "authorization_resolution_id": null,
+      "runtime_source": "EXT006_RELEASE_RUNTIME",
+      "privileged": true,
+      "calibration": true,
+      "pilot": false,
+      "requires_restoration": true,
+      "permission_matrix": {
+        "read_only_observation": false,
+        "privileged_controls": true,
+        "calibration": true,
+        "pilot_execution": false,
+        "measurement": false,
+        "phase18": false
+      },
+      "outputs": [
+        {
+          "role": "Q16B_PRIMARY_RAW",
+          "schema_identity": "RAW-OBS-U64LE-LP-RUNID-v1",
+          "schema_path": null,
+          "cardinality": "PER_RUN",
+          "file_pattern": "q16b-c*-producer.bin",
+          "media_type": "application/octet-stream"
+        },
+        {
+          "role": "Q16B_PRIMARY_RAW",
+          "schema_identity": "RAW-OBS-U64LE-LP-RUNID-v1",
+          "schema_path": null,
+          "cardinality": "PER_RUN",
+          "file_pattern": "q16b-c*-consumer.bin",
+          "media_type": "application/octet-stream"
+        },
+        {
+          "role": "Q16B_NODE_ORDER",
+          "schema_identity": "NODEORDER-U64LE-v1",
+          "schema_path": null,
+          "cardinality": "PER_RUN",
+          "file_pattern": "q16b-c*-node-order.bin",
+          "media_type": "application/octet-stream"
+        },
+        {
+          "role": "Q16B_FORMAL_CAPTURE_CONTROL",
+          "schema_identity": "cpu-prefetch-stage17-formal-service-control/1",
+          "schema_path": null,
+          "cardinality": "PER_RUN",
+          "file_pattern": "q16b-c*-control.json",
+          "media_type": "application/json"
+        },
+        {
+          "role": "FORMAL_CALIBRATION_RETENTION_REPORT",
+          "schema_identity": "cpu-prefetch-stage17-formal-retention-report/1",
+          "schema_path": "config/schemas/stage17-formal-retention-report-v1.schema.json",
+          "cardinality": "EXACTLY_ONE",
+          "file_pattern": "formal-retention-report.json",
+          "media_type": "application/json"
+        }
+      ]
+    },
+    {
+      "ordinal": 5,
+      "action_id": "Q16c",
+      "required_state": "READY_FOR_STAGE17_PHASE_AUTHORIZATION",
+      "required_resolution_ids": [
+        "S17-EXT-001",
+        "S17-EXT-002",
+        "S17-EXT-003",
+        "S17-EXT-004",
+        "S17-EXT-005",
+        "S17-EXT-006"
+      ],
+      "authorization_resolution_id": null,
+      "runtime_source": "EXT006_RELEASE_RUNTIME",
+      "privileged": true,
+      "calibration": true,
+      "pilot": false,
+      "requires_restoration": true,
+      "permission_matrix": {
+        "read_only_observation": false,
+        "privileged_controls": true,
+        "calibration": true,
+        "pilot_execution": false,
+        "measurement": false,
+        "phase18": false
+      },
+      "outputs": [
+        {
+          "role": "Q16C_PRIMARY_RAW",
+          "schema_identity": "RAW-OBS-U64LE-LP-RUNID-v1",
+          "schema_path": null,
+          "cardinality": "PER_RUN",
+          "file_pattern": "q16c-c*-producer.bin",
+          "media_type": "application/octet-stream"
+        },
+        {
+          "role": "Q16C_PRIMARY_RAW",
+          "schema_identity": "RAW-OBS-U64LE-LP-RUNID-v1",
+          "schema_path": null,
+          "cardinality": "PER_RUN",
+          "file_pattern": "q16c-c*-consumer.bin",
+          "media_type": "application/octet-stream"
+        },
+        {
+          "role": "Q16C_NODE_ORDER",
+          "schema_identity": "NODEORDER-U64LE-v1",
+          "schema_path": null,
+          "cardinality": "PER_RUN",
+          "file_pattern": "q16c-c*-node-order.bin",
+          "media_type": "application/octet-stream"
+        },
+        {
+          "role": "Q16C_PREPARED_SCHEDULE",
+          "schema_identity": "SCHEDULE-DEADLINES-U64LE-v1",
+          "schema_path": null,
+          "cardinality": "PER_RUN",
+          "file_pattern": "q16c-c*-schedule.bin",
+          "media_type": "application/octet-stream"
+        },
+        {
+          "role": "Q16C_FORMAL_CAPTURE_CONTROL",
+          "schema_identity": "cpu-prefetch-stage17-formal-scheduled-control/1",
+          "schema_path": null,
+          "cardinality": "PER_RUN",
+          "file_pattern": "q16c-c*-control.json",
+          "media_type": "application/json"
+        },
+        {
+          "role": "FORMAL_CALIBRATION_RETENTION_REPORT",
+          "schema_identity": "cpu-prefetch-stage17-formal-retention-report/1",
+          "schema_path": "config/schemas/stage17-formal-retention-report-v1.schema.json",
+          "cardinality": "EXACTLY_ONE",
+          "file_pattern": "formal-retention-report.json",
+          "media_type": "application/json"
+        }
+      ]
+    },
+    {
+      "ordinal": 6,
+      "action_id": "STAGE17-BLINDED-PILOT",
+      "required_state": "READY_FOR_STAGE17_PHASE_AUTHORIZATION",
+      "required_resolution_ids": [
+        "S17-EXT-001",
+        "S17-EXT-002",
+        "S17-EXT-003",
+        "S17-EXT-004",
+        "S17-EXT-005",
+        "S17-EXT-006",
+        "S17-EXT-007",
+        "S17-EXT-008",
+        "S17-EXT-009"
+      ],
+      "authorization_resolution_id": "S17-EXT-010",
+      "runtime_source": "EXT006_RELEASE_RUNTIME",
+      "privileged": true,
+      "calibration": false,
+      "pilot": true,
+      "requires_restoration": true,
+      "permission_matrix": {
+        "read_only_observation": false,
+        "privileged_controls": true,
+        "calibration": false,
+        "pilot_execution": true,
+        "measurement": true,
+        "phase18": false
+      },
+      "outputs": [
+        {
+          "role": "STAGE17_BLINDED_PILOT_RUN_FAMILIES",
+          "schema_identity": "cpu-prefetch-stage17-run-artifact-family/3",
+          "schema_path": "config/schemas/stage17-run-output-v3.schema.json",
+          "cardinality": "PER_RUN",
+          "file_pattern": "pilot-c*-r*-*",
+          "media_type": "application/octet-stream"
+        },
+        {
+          "role": "STAGE17_PILOT_HARDWARE_STATE",
+          "schema_identity": "cpu-prefetch-stage17-pilot-hardware-state/2",
+          "schema_path": "config/schemas/stage17-pilot-hardware-state-v2.schema.json",
+          "cardinality": "EXACTLY_ONE",
+          "file_pattern": "stage17-pilot-hardware-state-v2.json",
+          "media_type": "application/json"
+        },
+        {
+          "role": "SEALED_PILOT_ARTIFACT_MANIFEST",
+          "schema_identity": "cpu-prefetch-stage17-sealed-pilot-artifact-manifest/4",
+          "schema_path": "config/schemas/stage17-sealed-pilot-artifact-manifest-v4.schema.json",
+          "cardinality": "EXACTLY_ONE",
+          "file_pattern": "stage17-sealed-pilot-manifest-v4.json",
+          "media_type": "application/json"
+        },
+        {
+          "role": "STAGE17_PILOT_RUN_ATTEMPT",
+          "schema_identity": "cpu-prefetch-stage17-pilot-run-attempt/1",
+          "schema_path": "config/schemas/stage17-pilot-run-attempt-v1.schema.json",
+          "cardinality": "PER_RUN",
+          "file_pattern": "pilot-c*-r*-attempt-v1.json",
+          "media_type": "application/json"
+        },
+        {
+          "role": "STAGE17_PILOT_RUN_COMPLETION",
+          "schema_identity": "cpu-prefetch-stage17-pilot-run-completion/1",
+          "schema_path": "config/schemas/stage17-pilot-run-completion-v1.schema.json",
+          "cardinality": "PER_RUN",
+          "file_pattern": "pilot-c*-r*-completion-v1.json",
+          "media_type": "application/json"
+        }
+      ]
+    },
+    {
+      "ordinal": 7,
+      "action_id": "Q16A-DURATION-DISCOVERY",
+      "required_state": "READY_FOR_STAGE17_PHASE_AUTHORIZATION",
+      "required_resolution_ids": [
+        "S17-EXT-001",
+        "S17-EXT-002",
+        "S17-EXT-003",
+        "S17-EXT-004",
+        "S17-EXT-005",
+        "S17-EXT-006"
+      ],
+      "authorization_resolution_id": null,
+      "runtime_source": "EXT006_RELEASE_RUNTIME",
+      "privileged": true,
+      "calibration": false,
+      "pilot": false,
+      "requires_restoration": true,
+      "permission_matrix": {
+        "read_only_observation": false,
+        "privileged_controls": true,
+        "calibration": false,
+        "pilot_execution": false,
+        "measurement": true,
+        "phase18": false
+      },
+      "outputs": [
+        {
+          "role": "DISCOVERY_RETENTION_REPORT",
+          "schema_identity": "cpu-prefetch-stage17-discovery-retention-report/1",
+          "schema_path": "config/schemas/stage17-discovery-retention-report-v1.schema.json",
+          "cardinality": "EXACTLY_ONE",
+          "file_pattern": "retention-report.json",
+          "media_type": "application/json"
+        },
+        {
+          "role": "DISCOVERY_PRODUCER_RAW",
+          "schema_identity": "RAW-OBS-U64LE-LP-RUNID-v1",
+          "schema_path": null,
+          "cardinality": "PER_RUN",
+          "file_pattern": "discovery-c*-producer.bin",
+          "media_type": "application/octet-stream"
+        },
+        {
+          "role": "DISCOVERY_CONSUMER_RAW",
+          "schema_identity": "RAW-OBS-U64LE-LP-RUNID-v1",
+          "schema_path": null,
+          "cardinality": "PER_RUN",
+          "file_pattern": "discovery-c*-consumer.bin",
+          "media_type": "application/octet-stream"
+        },
+        {
+          "role": "DISCOVERY_DEMAND_RAW",
+          "schema_identity": "DISCOVERY-FOUR-U64LE-VECTORS-v1",
+          "schema_path": null,
+          "cardinality": "PER_RUN",
+          "file_pattern": "discovery-c*-demand.bin",
+          "media_type": "application/octet-stream"
+        },
+        {
+          "role": "DISCOVERY_CAPTURE_CONTROL",
+          "schema_identity": "cpu-prefetch-stage17-discovery-control/1",
+          "schema_path": null,
+          "cardinality": "PER_RUN",
+          "file_pattern": "discovery-c*-control.json",
+          "media_type": "application/json"
+        },
+        {
+          "role": "DISCOVERY_HARDWARE_STATE",
+          "schema_identity": "cpu-prefetch-stage17-discovery-hardware/1",
+          "schema_path": null,
+          "cardinality": "PER_RUN",
+          "file_pattern": "studyhardware.json",
+          "media_type": "application/json"
+        }
+      ]
+    }
+  ],
+  "execution_policy": {
+    "entrypoint": "--execute-fixed-stage17-action-v4",
+    "request_transport": "INHERITED_SEALED_REGULAR_FILE_FD",
+    "authority_context_transport": "CONTROLLER_GENERATED_INHERITED_SEALED_REGULAR_FILE_FD",
+    "output_transport": "PINNED_OWNER_DIRECTORY_FD",
+    "shell": false,
+    "caller_command_argv_stdin": false,
+    "one_attempt": true,
+    "retries": 0,
+    "typed_result_required": true,
+    "process_group_quiescence_required": true,
+    "streaming_verification": true,
+    "test_schema_allowed": false,
+    "pilot_session_entrypoint": "--execute-stage17-pilot-session-v1",
+    "pilot_per_run_deadline_seconds": 180,
+    "pilot_session_implicit_retry": false,
+    "pilot_partial_retention": true,
+    "diagnostic_entrypoint": "--execute-fixed-stage17-action-v5",
+    "diagnostic_deadline": "SIGNED_PLAN_BOUNDED_SESSION",
+    "formal_entrypoint": "--execute-fixed-stage17-action-v6",
+    "formal_deadline": "SIGNED_PLAN_BOUNDED_SESSION"
+  },
+  "phase18_authority": false
+}

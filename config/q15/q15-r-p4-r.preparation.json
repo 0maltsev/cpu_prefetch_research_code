@@ -1,0 +1,77 @@
+{
+  "schema_version": "cpu-prefetch-q15-r-p4-r-preparation/1",
+  "preparation_id": "Q15-R-P4-R-PREPARATION-20260825-01",
+  "protocol_version": "2.0.0-pre.2",
+  "stand_id": "XEON-CPU-FETCH",
+  "status": "BLOCKED_CLEAN_COLLECTOR_RELEASE_AND_EXACT_AUTHORITY_REQUIRED",
+  "acceptance_binding": {
+    "acceptance_id": "Q15-R-P4-D-ACCEPTANCE-20260825-01",
+    "path": "config/q15/q15-r-p4-d-acceptance-v1.json",
+    "sha256": "1645c2a7fb356272afbf9377b99784e307f54f8a7df5fbb09f46d70edae3c521"
+  },
+  "collector_contract_binding": {
+    "contract_id": "Q15-R-STAND-PRESTATE-COLLECTOR-CONTRACT-v1",
+    "path": "config/q15/q15-r-stand-prestate-collector-contract-v1.json",
+    "sha256": "4123735a940da144e00247957d0210216cde4bf19fbdbea0378b52dab2161b87"
+  },
+  "selected_release_lineage": {
+    "source_commit": "c8b69abf0c6aec7b740efe78d998a93545302a94",
+    "archive_sha256": "8e8ad6d781b2bffadcfc10cf3b12d5666c7a1d4c7d7e291d7318a19503e6ab01",
+    "relationship": "PREREQUISITE_RELEASE_ONLY_COLLECTOR_SUCCESSOR_REQUIRED"
+  },
+  "exact_invocation_template": {
+    "argv": ["@COLLECTOR_RELEASE_ROOT@/bin/cpu_prefetch_q15_prestate_collector", "--collect", "@AUTHORIZATION_SHA256@", "@COLLECTOR_BINARY_SHA256@", "4123735a940da144e00247957d0210216cde4bf19fbdbea0378b52dab2161b87", "@CAPTURE_ID@"],
+    "shell": false,
+    "glob": false,
+    "inherited_environment": false,
+    "fixed_environment": ["LANG=C", "LC_ALL=C", "TZ=UTC0"],
+    "stdout_destination": null,
+    "stderr_destination": null
+  },
+  "internal_command_ids": ["P4R-001", "P4R-002", "P4R-003", "P4R-004", "P4R-005", "P4R-006", "P4R-007", "P4R-008", "P4R-009", "P4R-010", "P4R-011", "P4R-012", "P4R-013", "P4R-014", "P4R-015", "P4R-016", "P4R-017", "P4R-018", "P4R-019", "P4R-020", "P4R-021", "P4R-022", "P4R-023", "P4R-024", "P4R-025"],
+  "limits": {
+    "per_command_timeout_seconds": 30,
+    "external_total_watchdog_seconds": 900,
+    "maximum_stdout_bytes_per_command": 1048576,
+    "maximum_stderr_bytes_per_command": 1048576,
+    "maximum_total_captured_bytes": 16777216,
+    "maximum_artifact_bytes": 67108864,
+    "retry_count": 0,
+    "stop_first_failure": true,
+    "retain_partial": true
+  },
+  "unresolved_inputs": [
+    {"name": "CLEAN_COLLECTOR_SOURCE_COMMIT_ARCHIVE_MANIFEST_SBOM_BINARY_AND_CONTRACT_HASHES", "value": null},
+    {"name": "COLLECTOR_RELEASE_ROOT", "value": null},
+    {"name": "AUTHORIZATION_ID_CANONICAL_BYTES_AND_SHA256", "value": null},
+    {"name": "NAMED_AUTHORITY_PRINCIPAL_ISSUE_AND_EXPIRY_UTC", "value": null},
+    {"name": "CAPTURE_ID", "value": null},
+    {"name": "OUTPUT_STDOUT_STDERR_AND_SIDECAR_CUSTODY_DESTINATIONS", "value": null},
+    {"name": "DETACHED_SIGNATURE_AND_INDEPENDENT_REVIEW_ARTIFACTS", "value": null},
+    {"name": "FRESH_PRE_EXECUTION_STAND_IDENTITY_BINDING", "value": null}
+  ],
+  "future_authorization": {
+    "authorization_id": null,
+    "authorization_sha256": null,
+    "issued_at_utc": null,
+    "expires_at_utc": null,
+    "named_authority_principal": null,
+    "signature_artifact_id": null,
+    "signature_sha256": null,
+    "independent_review_artifact_id": null,
+    "independent_review_sha256": null,
+    "status": "NOT_ISSUED"
+  },
+  "authority_boundary": {
+    "repository_local_preparation_authorized": true,
+    "stand_access_authorized": false,
+    "collector_execution_authorized": false,
+    "transfer_or_install_authorized": false,
+    "filesystem_mutation_authorized": false,
+    "key_or_setup_action_authorized": false,
+    "access_probe_authorized": false,
+    "pmu_msr_affinity_numa_authorized": false,
+    "q15_r_or_q15_w_authorized": false,
+    "calibration_pilot_measurement_or_confirmatory_authorized": false
+  }
+}

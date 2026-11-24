@@ -1,0 +1,17 @@
+{
+  "automatic_retry": false,
+  "decision_id": "D288",
+  "exact_decision_text_approved": true,
+  "interpretation": "Approval of the pending exact D288 continuation question, including conditional implementation, qualification, prefix validation,94 captures and one new24h window after complete software preparation.",
+  "maximum_total_seconds": 42860,
+  "new_execution_windows": 1,
+  "owner_message": "approve",
+  "phase18_authority": false,
+  "recorded_at_utc": "2026-11-19T07:35:09.428876+00:00",
+  "recorded_decision_sha256": "5dc0daf58a4025f6df6d0132f1ef0924bbe19f79b8c94563ac9ab28d301ee2b2",
+  "remaining_capture_count": 94,
+  "repeat_completed_measurements": false,
+  "reused_capture_count": 86,
+  "schema_version": "cpu-prefetch-stage17-owner-decision/1",
+  "window_started": false
+}

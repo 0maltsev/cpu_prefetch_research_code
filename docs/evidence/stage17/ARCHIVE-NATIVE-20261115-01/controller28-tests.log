@@ -1,0 +1,12 @@
+test_handoff_enters_service_admission_without_legacy_schema_projection (test_stage17_phase_controller_v28.OverlayControllerTests.test_handoff_enters_service_admission_without_legacy_schema_projection) ... ok
+test_historical_controller_globals_are_unchanged (test_stage17_phase_controller_v28.OverlayControllerTests.test_historical_controller_globals_are_unchanged) ... ok
+test_new_signed_profile_uses_overlay_without_old_profile_fallback (test_stage17_phase_controller_v28.OverlayControllerTests.test_new_signed_profile_uses_overlay_without_old_profile_fallback) ... ok
+test_overlay_rejection_never_falls_back_to_old_profile (test_stage17_phase_controller_v28.OverlayControllerTests.test_overlay_rejection_never_falls_back_to_old_profile) ... ok
+test_preparation_and_execution_clone_only_the_required_bindings (test_stage17_phase_controller_v28.OverlayControllerTests.test_preparation_and_execution_clone_only_the_required_bindings) ... ok
+test_public_qualification_aliases_and_handoff_remain_original (test_stage17_phase_controller_v28.OverlayControllerTests.test_public_qualification_aliases_and_handoff_remain_original) ... ok
+test_wrong_r2_distance_and_wrong_evidence_binding_rejected (test_stage17_phase_controller_v28.OverlayControllerTests.test_wrong_r2_distance_and_wrong_evidence_binding_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 95.017s
+
+OK

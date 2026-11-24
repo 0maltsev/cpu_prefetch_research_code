@@ -1,0 +1,476 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "protocol_version",
+    "record_id",
+    "created_at_utc",
+    "scope",
+    "state",
+    "stand_id",
+    "source_records",
+    "provenance_record",
+    "predecessor_resolutions",
+    "outputs",
+    "coverage",
+    "original_report_count",
+    "original_phase_count",
+    "unresolved_final_inputs",
+    "legacy_statistical_freeze_satisfied",
+    "operational_admission",
+    "pilot_execution_authority",
+    "execution_authority",
+    "phase18_authority",
+    "record_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "cpu-prefetch-stage17-ext007-descriptive-freeze/1"
+    },
+    "protocol_version": {
+      "const": "2.0.0-pre.3"
+    },
+    "record_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "scope": {
+      "const": "STAGE17_EXT007_DESCRIPTIVE_DATA_ONLY"
+    },
+    "state": {
+      "const": "DESCRIPTIVE_DATA_FROZEN"
+    },
+    "stand_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_records": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Q16a",
+        "Q16b",
+        "Q16c"
+      ],
+      "properties": {
+        "Q16a": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "size_bytes",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^/"
+            },
+            "size_bytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 33554432
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "Q16b": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "size_bytes",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^/"
+            },
+            "size_bytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 33554432
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "Q16c": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "size_bytes",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^/"
+            },
+            "size_bytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 33554432
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        }
+      }
+    },
+    "provenance_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "size_bytes",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^/"
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 33554432
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "predecessor_resolutions": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "input_id",
+          "resolution_id",
+          "sha256"
+        ],
+        "properties": {
+          "input_id": {
+            "type": "string",
+            "pattern": "^S17-EXT-00[1-6]$"
+          },
+          "resolution_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "outputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "q16a",
+        "q16b",
+        "q16c"
+      ],
+      "properties": {
+        "q16a": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "method_id",
+            "prospective",
+            "source_populations",
+            "ring_geometry",
+            "derived_result"
+          ],
+          "properties": {
+            "method_id": {
+              "type": "string"
+            },
+            "prospective": {
+              "const": {
+                "repetitions": 59,
+                "measurement_ns": 1000000000,
+                "minimum_observations_per_series": 100000
+              }
+            },
+            "source_populations": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "type": "object"
+              }
+            },
+            "ring_geometry": {
+              "type": "array",
+              "minItems": 6,
+              "maxItems": 6,
+              "items": {
+                "type": "object"
+              }
+            },
+            "derived_result": {
+              "type": "object"
+            }
+          }
+        },
+        "q16b": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "method_id",
+            "collector_method_id",
+            "prospective",
+            "source_populations",
+            "tolerance_guarantee",
+            "tolerance_claim",
+            "evidence_strength",
+            "derived_result",
+            "base_rates"
+          ],
+          "properties": {
+            "method_id": {
+              "const": "SERVICE-RATE-DESCRIPTIVE-MIN2-DAYCAP-v1"
+            },
+            "collector_method_id": {
+              "type": "string"
+            },
+            "prospective": {
+              "const": {
+                "repetitions": 2,
+                "measurement_ns": 1000000000
+              }
+            },
+            "source_populations": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "type": "object"
+              }
+            },
+            "tolerance_guarantee": {
+              "const": false
+            },
+            "tolerance_claim": {
+              "const": null
+            },
+            "evidence_strength": {
+              "const": "DESCRIPTIVE_OBSERVED_MINIMUM"
+            },
+            "derived_result": {
+              "type": "object"
+            },
+            "base_rates": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "L025",
+                "L050",
+                "L075"
+              ],
+              "properties": {
+                "L025": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "numerator",
+                    "denominator"
+                  ],
+                  "properties": {
+                    "numerator": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "denominator": {
+                      "type": "integer",
+                      "minimum": 1
+                    }
+                  }
+                },
+                "L050": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "numerator",
+                    "denominator"
+                  ],
+                  "properties": {
+                    "numerator": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "denominator": {
+                      "type": "integer",
+                      "minimum": 1
+                    }
+                  }
+                },
+                "L075": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "numerator",
+                    "denominator"
+                  ],
+                  "properties": {
+                    "numerator": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "denominator": {
+                      "type": "integer",
+                      "minimum": 1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "q16c": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "method_id",
+            "collector_method_id",
+            "prospective",
+            "coverage",
+            "platform_strata",
+            "homogeneous_platform_evidence",
+            "observed_zero_loss",
+            "evidence_strength",
+            "confidence_claim",
+            "inferential_validity_established",
+            "final_matrix_feasibility",
+            "final_scale_selection"
+          ],
+          "properties": {
+            "method_id": {
+              "const": "MATRIX-FULL-DESCRIPTIVE-CONTINUED-PLATFORM-STRATA-v1"
+            },
+            "collector_method_id": {
+              "const": "MATRIX-FULL-RUNCLUSTER-WHOEFFDING-BONFERRONI-v1"
+            },
+            "prospective": {
+              "const": {
+                "settings": 180,
+                "repetitions_per_cell": 1,
+                "measurement_ns": 1000000000,
+                "warmup_ns": 5000000000,
+                "scale_ordinal": 0
+              }
+            },
+            "coverage": {
+              "const": {
+                "planned": 180,
+                "valid": 180,
+                "retained": 86,
+                "new": 94,
+                "missing": 0,
+                "invalid": 0
+              }
+            },
+            "platform_strata": {
+              "const": [
+                {
+                  "regime": "UNRECORDED",
+                  "captures": 86
+                },
+                {
+                  "regime": "VERIFIED_ZERO",
+                  "captures": 94
+                }
+              ]
+            },
+            "homogeneous_platform_evidence": {
+              "const": false
+            },
+            "observed_zero_loss": {
+              "type": "object"
+            },
+            "evidence_strength": {
+              "const": "DESCRIPTIVE_SINGLE_CAPTURE_PER_SETTING_WITH_PLATFORM_STRATA"
+            },
+            "confidence_claim": {
+              "const": null
+            },
+            "inferential_validity_established": {
+              "const": false
+            },
+            "final_matrix_feasibility": {
+              "const": "NOT_EVALUATED"
+            },
+            "final_scale_selection": {
+              "const": null
+            }
+          }
+        }
+      }
+    },
+    "coverage": {
+      "const": {
+        "Q16a": 708,
+        "Q16b": 120,
+        "Q16c": 180
+      }
+    },
+    "original_report_count": {
+      "const": 1008
+    },
+    "original_phase_count": {
+      "const": 2016
+    },
+    "unresolved_final_inputs": {
+      "const": [
+        "Rtotal",
+        "Nruns",
+        "N_sched"
+      ]
+    },
+    "legacy_statistical_freeze_satisfied": {
+      "const": false
+    },
+    "operational_admission": {
+      "const": "NOT_GRANTED_BY_RECORD"
+    },
+    "pilot_execution_authority": {
+      "const": false
+    },
+    "execution_authority": {
+      "const": false
+    },
+    "phase18_authority": {
+      "const": false
+    },
+    "record_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:ext007-descriptive-freeze:v1",
+  "description": "D307 separately identified descriptive data freeze under D254/D270. No legacy FROZEN claim, operational resolution, pilot or Stage18 authority."
+}

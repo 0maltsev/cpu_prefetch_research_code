@@ -1,0 +1,63 @@
+{
+  "actual_signed_admission": {
+    "address_space_bytes": 2147483648,
+    "affinity": [
+      3
+    ],
+    "elapsed_seconds": 103.32704892498441,
+    "exit_code": 0,
+    "experimental_invocation": false,
+    "uid": 1000
+  },
+  "files": [
+    {
+      "path": "operators/formal_launch_v2.py",
+      "sha256": "238a7c87b73754efc3880658b78e2240d112793581d13e392c47e84f152bb53f",
+      "size_bytes": 29291
+    },
+    {
+      "path": "operators/reapply_isolation_v2.py",
+      "sha256": "b129d7922d6781932dc553898a01d0f1c2b699d5979a3c0a8ed728668c11628b",
+      "size_bytes": 5934
+    },
+    {
+      "path": "operators/render_config_v2.py",
+      "sha256": "d9352f34d85acba138f5ec552cb45467c002421f7f43b1e0bcc2ab1809be4565",
+      "size_bytes": 2405
+    },
+    {
+      "path": "operators/render_launch_config_v2.py",
+      "sha256": "dd4fda15c2252061a6b91ee6af72e59c50fddc7d1c5fea488e925a285d12f107",
+      "size_bytes": 2407
+    },
+    {
+      "path": "operators/test_launch_allowance.py",
+      "sha256": "974cb21a6444a199a7f18c30555bfde58cfa78f80b4ab942c3f25ba5b95b2a34",
+      "size_bytes": 3266
+    },
+    {
+      "path": "operators/test_reapply_isolation_v2.py",
+      "sha256": "a3722f9a00d87812841c9e8ada89740bbd631fa785984cebe1c48c1508d4e566",
+      "size_bytes": 2908
+    }
+  ],
+  "full_live_launch_check_still_required": true,
+  "independent_review": "No concrete blocker; import/CLI routing, selfhash, original signature preservation and cleanup inspected. Approval gate additionally tested before core load.",
+  "measured_source_revision": "42f2ebb96f751319cd55fc1fabdcf7f91ab1c8d0",
+  "native_source_changed": false,
+  "owner_approved": false,
+  "recorded_at_utc": "2026-11-09T10:03:29.872494+00:00",
+  "schema_version": "administrative-operator-verification/1",
+  "tests": [
+    {
+      "command": "python3 -B build/ext007-runtime-20261101/run.py -- /usr/bin/python3 -B build/stage17-step5-prep/recovery-v23-continuation/d243-operators-1/test_launch_allowance.py",
+      "exit_code": 0,
+      "tests": 4
+    },
+    {
+      "command": "python3 -B build/ext007-runtime-20261101/run.py -- /usr/bin/python3 -B build/stage17-step5-prep/recovery-v23-continuation/d243-operators-1/test_reapply_isolation_v2.py",
+      "exit_code": 0,
+      "tests": 5
+    }
+  ]
+}

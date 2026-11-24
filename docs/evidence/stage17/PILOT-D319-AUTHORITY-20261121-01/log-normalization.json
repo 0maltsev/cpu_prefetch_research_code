@@ -1,0 +1,7 @@
+{
+  "registered-test-output.txt": {
+    "operation": "REMOVE_SURPLUS_EOF_NEWLINES_ONLY",
+    "original_sha256": "fc6b561b140963b452999ecf3ca06bdd3898695c16b64e9d3b66cf44ad231fac",
+    "original_size_bytes": 91848
+  }
+}

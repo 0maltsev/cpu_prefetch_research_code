@@ -1,0 +1,13 @@
+{
+  "destination": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-historical-plan-1212/plan.json",
+  "metadata_only": true,
+  "raw_data_read": false,
+  "size_bytes": 1732630,
+  "source": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/d297-software-preparation-2/packet/plan.json",
+    "sha256": "1212db59b9c12dd50837ca4b79897ddcd76a06fc4c3ea99b1fabd9b2b23b36a6",
+    "size_bytes": 1732630
+  },
+  "stand_data_modified": false,
+  "verified_sha256": "1212db59b9c12dd50837ca4b79897ddcd76a06fc4c3ea99b1fabd9b2b23b36a6"
+}

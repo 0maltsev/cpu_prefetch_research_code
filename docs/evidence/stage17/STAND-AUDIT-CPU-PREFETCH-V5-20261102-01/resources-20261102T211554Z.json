@@ -1,0 +1,27 @@
+{
+  "scope": "READ_ONLY_NO_EXPERIMENT_NO_MSR_READ_OR_WRITE",
+  "captured_at_utc": "2026-11-02T21:15:54.028257+00:00",
+  "hostname": "cpu-prefetch-v5",
+  "kernel_release": "7.0.0-38-generic",
+  "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+  "loadavg": "0.00 0.00 0.00 1/426 10897",
+  "memory_raw": {
+    "MemTotal": "259621220 kB",
+    "MemAvailable": "256740076 kB",
+    "SwapTotal": "4876284 kB",
+    "SwapFree": "4876284 kB"
+  },
+  "filesystem_queried_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12",
+  "filesystem_available_bytes": 7206962286592,
+  "matching_process_comm_snapshot": [],
+  "journal_file_count": 9,
+  "latest_journal": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/journal/stage17-state-journal-000008.json",
+    "size_bytes": 3595,
+    "sha256": "46e6fa35f7393e136e8169e19e1c3ee7c49a8c2f82acc65322dd813b73e21c84"
+  },
+  "hardware_state_qualified": false,
+  "resource_budget_frozen": false,
+  "execution_authority": false,
+  "measurement_performed": false
+}

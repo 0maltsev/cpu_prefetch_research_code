@@ -1,0 +1,143 @@
+.FEF.FEF..F.FE
+======================================================================
+ERROR: test_all_arrivals_full_repeating_index_drain_and_exact_joined_rows (__main__.JoinTests.test_all_arrivals_full_repeating_index_drain_and_exact_joined_rows)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_raw_join_v1.py", line 74, in test_all_arrivals_full_repeating_index_drain_and_exact_joined_rows
+    self.candidate();audit,latencies=self.call()
+                                     ~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_raw_join_v1.py", line 62, in call
+    return join.derive_phase(self.root,self.contract,**options)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_raw_join_v1.py", line 185, in derive_phase
+    return _derive(root,c,order,values,schedule,candidate,deadline_ns,pb,cb,jb)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_raw_join_v1.py", line 91, in _derive
+    require(stat.S_ISREG(output_before.st_mode) and output_before.st_size==0 and output_before.st_nlink==1
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        and not output_before.st_mode&0o022 and candidate.tell()==0,'fresh private empty candidate file required')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_raw_join_v1.py", line 42, in require
+    if not condition:raise JoinError(message)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_raw_join_v1.JoinError: S180 raw join: fresh private empty candidate file required
+
+======================================================================
+ERROR: test_empty_and_all_full_remain_correct_separate_zero_loss_data (__main__.JoinTests.test_empty_and_all_full_remain_correct_separate_zero_loss_data)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_raw_join_v1.py", line 94, in test_empty_and_all_full_remain_correct_separate_zero_loss_data
+    self.fixture(full=full,count=count);self.candidate();audit,values=self.call()
+                                                                      ~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_raw_join_v1.py", line 62, in call
+    return join.derive_phase(self.root,self.contract,**options)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_raw_join_v1.py", line 185, in derive_phase
+    return _derive(root,c,order,values,schedule,candidate,deadline_ns,pb,cb,jb)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_raw_join_v1.py", line 91, in _derive
+    require(stat.S_ISREG(output_before.st_mode) and output_before.st_size==0 and output_before.st_nlink==1
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        and not output_before.st_mode&0o022 and candidate.tell()==0,'fresh private empty candidate file required')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_raw_join_v1.py", line 42, in require
+    if not condition:raise JoinError(message)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_raw_join_v1.JoinError: S180 raw join: fresh private empty candidate file required
+
+======================================================================
+ERROR: test_warmup_reconciles_all_rows_but_never_supplies_measurement_latencies (__main__.JoinTests.test_warmup_reconciles_all_rows_but_never_supplies_measurement_latencies)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_raw_join_v1.py", line 88, in test_warmup_reconciles_all_rows_but_never_supplies_measurement_latencies
+    self.fixture(phase='WARMUP');self.candidate();audit,latencies=self.call()
+                                                                  ~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_raw_join_v1.py", line 62, in call
+    return join.derive_phase(self.root,self.contract,**options)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_raw_join_v1.py", line 185, in derive_phase
+    return _derive(root,c,order,values,schedule,candidate,deadline_ns,pb,cb,jb)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_raw_join_v1.py", line 91, in _derive
+    require(stat.S_ISREG(output_before.st_mode) and output_before.st_size==0 and output_before.st_nlink==1
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        and not output_before.st_mode&0o022 and candidate.tell()==0,'fresh private empty candidate file required')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_raw_join_v1.py", line 42, in require
+    if not condition:raise JoinError(message)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_raw_join_v1.JoinError: S180 raw join: fresh private empty candidate file required
+
+======================================================================
+FAIL: test_accepted_ordinal_and_record_index_are_checked_independently (__main__.JoinTests.test_accepted_ordinal_and_record_index_are_checked_independently)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_raw_join_v1.py", line 101, in test_accepted_ordinal_and_record_index_are_checked_independently
+    self.fixture();self.q[1][i]=0;self.write_inputs();self.candidate();self.fails('ordinal/record')
+                                                                       ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_raw_join_v1.py", line 69, in fails
+    if text:self.assertIn(text,str(caught.exception))
+            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'ordinal/record' not found in 'S180 raw join: fresh private empty candidate file required'
+
+======================================================================
+FAIL: test_candidate_must_be_fresh_private_regular_and_reconstructed (__main__.JoinTests.test_candidate_must_be_fresh_private_regular_and_reconstructed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_raw_join_v1.py", line 161, in test_candidate_must_be_fresh_private_regular_and_reconstructed
+    self.fails('candidate',candidate=io.BytesIO())
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_raw_join_v1.py", line 69, in fails
+    if text:self.assertIn(text,str(caught.exception))
+            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'candidate' not found in 'S180 raw join: fileno'
+
+======================================================================
+FAIL: test_deadline_expiry_never_returns_success (__main__.JoinTests.test_deadline_expiry_never_returns_success)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_raw_join_v1.py", line 175, in test_deadline_expiry_never_returns_success
+    with mock.patch.object(join,'before',side_effect=expired):self.fails('deadline expired')
+                                                              ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_raw_join_v1.py", line 69, in fails
+    if text:self.assertIn(text,str(caught.exception))
+            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'deadline expired' not found in 'S180 raw join: fresh private empty candidate file required'
+
+======================================================================
+FAIL: test_full_has_no_fabricated_publication_or_consumer (__main__.JoinTests.test_full_has_no_fabricated_publication_or_consumer)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_raw_join_v1.py", line 104, in test_full_has_no_fabricated_publication_or_consumer
+    self.p[1][9]=self.origin;self.write_inputs();self.candidate();self.fails('FULL contains')
+                                                                  ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_raw_join_v1.py", line 69, in fails
+    if text:self.assertIn(text,str(caught.exception))
+            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'FULL contains' not found in 'S180 raw join: fresh private empty candidate file required'
+
+======================================================================
+FAIL: test_payload_corruption_count_and_repeating_arena_order_fail (__main__.JoinTests.test_payload_corruption_count_and_repeating_arena_order_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_raw_join_v1.py", line 134, in test_payload_corruption_count_and_repeating_arena_order_fail
+    self.candidate();self.fails('checksum',payloads=array.array('Q',[77,89]))
+                     ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_raw_join_v1.py", line 69, in fails
+    if text:self.assertIn(text,str(caught.exception))
+            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'checksum' not found in 'S180 raw join: fresh private empty candidate file required'
+
+======================================================================
+FAIL: test_symlink_paths_same_physical_inputs_and_output_alias_are_rejected (__main__.JoinTests.test_symlink_paths_same_physical_inputs_and_output_alias_are_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_raw_join_v1.py", line 156, in test_symlink_paths_same_physical_inputs_and_output_alias_are_rejected
+    self.candidate();self.fails('physical input/output alias')
+                     ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_raw_join_v1.py", line 69, in fails
+    if text:self.assertIn(text,str(caught.exception))
+            ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'physical input/output alias' not found in 'S180 raw join: fresh private empty candidate file required'
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.015s
+
+FAILED (failures=6, errors=3)

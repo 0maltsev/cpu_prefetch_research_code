@@ -1,0 +1,31 @@
+{
+  "execution_authority": false,
+  "libraries": [
+    {
+      "current_path": "build/stage17-s180-release-34247ce/libcpu_prefetch_queue.a",
+      "library": "queue",
+      "original_path": "build/clean-ac64633/cpu-prefetch-pilot-candidate-2.0.0-ac64633-clean-91a93014b4eb/release/lib/libcpu_prefetch_queue.a",
+      "sha256": "dddd26e8788f362f3b68494aaf66b6c37d18f2cbcb288a3cc0ef93771164ddf6",
+      "size_bytes": 51162
+    },
+    {
+      "current_path": "build/stage17-s180-release-34247ce/libcpu_prefetch_workload.a",
+      "library": "workload",
+      "original_path": "build/clean-ac64633/cpu-prefetch-pilot-candidate-2.0.0-ac64633-clean-91a93014b4eb/release/lib/libcpu_prefetch_workload.a",
+      "sha256": "24ffc94864ce4c373b2262dd3cd862aeeb9c97d68d998e15fb229813ed42f04c",
+      "size_bytes": 102946
+    }
+  ],
+  "original_contract": {
+    "path": "docs/evidence/stage17/STAND-QUALIFICATION-V19-20261103-01/stand-v19/manifests/ext006-contract-1.json",
+    "sha256": "7f59c2965c84976692e6f3dbed85fa5d63a34e2af95cbedf4cfbe4efcc96f930",
+    "size_bytes": 2153
+  },
+  "original_inventory": {
+    "path": "build/clean-ac64633/cpu-prefetch-pilot-candidate-2.0.0-ac64633-clean-91a93014b4eb/BUNDLE_INVENTORY.json",
+    "sha256": "9947774255b22ac2f042df9e05271c3fb784bcfe9f82a29a8b390ce4336b718d",
+    "size_bytes": 310440
+  },
+  "original_source_revision": "ac64633662c4e61c8dd98e332dc70f77085e2e48",
+  "queue_and_workload_byte_identical": true
+}

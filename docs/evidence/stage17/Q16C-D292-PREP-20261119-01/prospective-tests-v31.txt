@@ -1,0 +1,10 @@
+test_construct_rejects_input_changes_before_any_data_dependent_read (test_stage17_q16c_operator_d288.ActualProspectivePlan.test_construct_rejects_input_changes_before_any_data_dependent_read) ... ok
+test_final_plan_requires_all86_valid_reports_and_matching_actual_candidate (test_stage17_q16c_operator_d288.ActualProspectivePlan.test_final_plan_requires_all86_valid_reports_and_matching_actual_candidate) ... ok
+test_original_source_or_alternative_identity_family_rejected (test_stage17_q16c_operator_d288.ActualProspectivePlan.test_original_source_or_alternative_identity_family_rejected) ... ok
+test_parent_or_failed_incident_cannot_be_substituted (test_stage17_q16c_operator_d288.ActualProspectivePlan.test_parent_or_failed_incident_cannot_be_substituted) ... ok
+test_retains_only94_original_positions_with_all_scientific_inputs (test_stage17_q16c_operator_d288.ActualProspectivePlan.test_retains_only94_original_positions_with_all_scientific_inputs) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 37.210s
+
+OK

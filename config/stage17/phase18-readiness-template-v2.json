@@ -1,0 +1,13 @@
+{
+  "schema_version": "cpu-prefetch-phase18-readiness-report/2",
+  "issued": false,
+  "report_id": null,
+  "stage17_completion_sha256": null,
+  "sealed_pilot_manifest_sha256": null,
+  "treatment_blind_freeze_sha256": null,
+  "independent_trust_context_id": null,
+  "independent_trust_context_sha256": null,
+  "state": "UNISSUED",
+  "blockers": ["REAL_STAGE17_PILOT_EVIDENCE_REQUIRED", "SEPARATE_PHASE18_AUTHORIZATION_REQUIRED"],
+  "phase18_authority": false
+}

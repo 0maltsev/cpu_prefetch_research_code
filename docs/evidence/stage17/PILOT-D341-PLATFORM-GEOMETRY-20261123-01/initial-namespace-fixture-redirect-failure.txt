@@ -1,0 +1,635 @@
+..EEEEEEEEEEEEEEE
+======================================================================
+ERROR: test_actual_cache_that_changes_selection_cannot_change_the_frozen_matrix (__main__.PlatformTests.test_actual_cache_that_changes_selection_cannot_change_the_frozen_matrix)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 70, in setUp
+    s180_compaction_fixture.attach(self,self.owner,self.hardware.root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 252, in prepare
+    pid=os.getpid(),start_ticks=_ticks(os.getpid()),plan_sha256=environment.planning.sha(plan),plan=plan,window=window,
+                                ~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 104, in _ticks
+    raw=_read(Path('/proc')/str(pid)/'stat',65536).decode().rsplit(')',1)[1].split()
+        ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 76, in _read
+    with archive.open_regular(path) as stream:
+         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 106, in open_regular
+    fd = os.open(path, os.O_RDONLY | os.O_CLOEXEC | os.O_NOFOLLOW | os.O_NONBLOCK)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 60, in opened
+    return real_open(path,flags,*args,**kwargs)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_environment_v1.py", line 67, in opened
+    return real_open(path,flags,*args,**kwargs)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/s180-environment-vhbu0ix5/kernel/proc/1/stat'
+
+======================================================================
+ERROR: test_all_six_full_footprint_boundaries_match_without_merging_calibration (__main__.PlatformTests.test_all_six_full_footprint_boundaries_match_without_merging_calibration)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 70, in setUp
+    s180_compaction_fixture.attach(self,self.owner,self.hardware.root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 252, in prepare
+    pid=os.getpid(),start_ticks=_ticks(os.getpid()),plan_sha256=environment.planning.sha(plan),plan=plan,window=window,
+                                ~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 104, in _ticks
+    raw=_read(Path('/proc')/str(pid)/'stat',65536).decode().rsplit(')',1)[1].split()
+        ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 76, in _read
+    with archive.open_regular(path) as stream:
+         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 106, in open_regular
+    fd = os.open(path, os.O_RDONLY | os.O_CLOEXEC | os.O_NOFOLLOW | os.O_NONBLOCK)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 60, in opened
+    return real_open(path,flags,*args,**kwargs)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_environment_v1.py", line 67, in opened
+    return real_open(path,flags,*args,**kwargs)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/s180-environment-y04_45zj/kernel/proc/1/stat'
+
+======================================================================
+ERROR: test_changed_actual_msr_prestate_or_producer_ancestry_rejects (__main__.PlatformTests.test_changed_actual_msr_prestate_or_producer_ancestry_rejects)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 70, in setUp
+    s180_compaction_fixture.attach(self,self.owner,self.hardware.root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 252, in prepare
+    pid=os.getpid(),start_ticks=_ticks(os.getpid()),plan_sha256=environment.planning.sha(plan),plan=plan,window=window,
+                                ~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 104, in _ticks
+    raw=_read(Path('/proc')/str(pid)/'stat',65536).decode().rsplit(')',1)[1].split()
+        ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 76, in _read
+    with archive.open_regular(path) as stream:
+         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 106, in open_regular
+    fd = os.open(path, os.O_RDONLY | os.O_CLOEXEC | os.O_NOFOLLOW | os.O_NONBLOCK)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 60, in opened
+    return real_open(path,flags,*args,**kwargs)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_environment_v1.py", line 67, in opened
+    return real_open(path,flags,*args,**kwargs)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/s180-environment-h8kybysh/kernel/proc/1/stat'
+
+======================================================================
+ERROR: test_changed_control_latches_restoration_even_if_original_bytes_return (__main__.PlatformTests.test_changed_control_latches_restoration_even_if_original_bytes_return)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 70, in setUp
+    s180_compaction_fixture.attach(self,self.owner,self.hardware.root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 252, in prepare
+    pid=os.getpid(),start_ticks=_ticks(os.getpid()),plan_sha256=environment.planning.sha(plan),plan=plan,window=window,
+                                ~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 104, in _ticks
+    raw=_read(Path('/proc')/str(pid)/'stat',65536).decode().rsplit(')',1)[1].split()
+        ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 76, in _read
+    with archive.open_regular(path) as stream:
+         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 106, in open_regular
+    fd = os.open(path, os.O_RDONLY | os.O_CLOEXEC | os.O_NOFOLLOW | os.O_NONBLOCK)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 60, in opened
+    return real_open(path,flags,*args,**kwargs)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_environment_v1.py", line 67, in opened
+    return real_open(path,flags,*args,**kwargs)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/s180-environment-shxo1ik1/kernel/proc/1/stat'
+
+======================================================================
+ERROR: test_collector_reads_real_fixture_bytes_and_records_actual_controls (__main__.PlatformTests.test_collector_reads_real_fixture_bytes_and_records_actual_controls)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 70, in setUp
+    s180_compaction_fixture.attach(self,self.owner,self.hardware.root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 252, in prepare
+    pid=os.getpid(),start_ticks=_ticks(os.getpid()),plan_sha256=environment.planning.sha(plan),plan=plan,window=window,
+                                ~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 104, in _ticks
+    raw=_read(Path('/proc')/str(pid)/'stat',65536).decode().rsplit(')',1)[1].split()
+        ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 76, in _read
+    with archive.open_regular(path) as stream:
+         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 106, in open_regular
+    fd = os.open(path, os.O_RDONLY | os.O_CLOEXEC | os.O_NOFOLLOW | os.O_NONBLOCK)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 60, in opened
+    return real_open(path,flags,*args,**kwargs)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_environment_v1.py", line 67, in opened
+    return real_open(path,flags,*args,**kwargs)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/s180-environment-3leg9l3r/kernel/proc/1/stat'
+
+======================================================================
+ERROR: test_collector_rejects_changed_boot_and_expired_or_unbounded_lease (__main__.PlatformTests.test_collector_rejects_changed_boot_and_expired_or_unbounded_lease)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 70, in setUp
+    s180_compaction_fixture.attach(self,self.owner,self.hardware.root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 252, in prepare
+    pid=os.getpid(),start_ticks=_ticks(os.getpid()),plan_sha256=environment.planning.sha(plan),plan=plan,window=window,
+                                ~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 104, in _ticks
+    raw=_read(Path('/proc')/str(pid)/'stat',65536).decode().rsplit(')',1)[1].split()
+        ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 76, in _read
+    with archive.open_regular(path) as stream:
+         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 106, in open_regular
+    fd = os.open(path, os.O_RDONLY | os.O_CLOEXEC | os.O_NOFOLLOW | os.O_NONBLOCK)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 60, in opened
+    return real_open(path,flags,*args,**kwargs)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_environment_v1.py", line 67, in opened
+    return real_open(path,flags,*args,**kwargs)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/s180-environment-2t_hkz1r/kernel/proc/1/stat'
+
+======================================================================
+ERROR: test_collector_rejects_missing_symlinked_or_oversized_kernel_data (__main__.PlatformTests.test_collector_rejects_missing_symlinked_or_oversized_kernel_data)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 70, in setUp
+    s180_compaction_fixture.attach(self,self.owner,self.hardware.root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 252, in prepare
+    pid=os.getpid(),start_ticks=_ticks(os.getpid()),plan_sha256=environment.planning.sha(plan),plan=plan,window=window,
+                                ~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 104, in _ticks
+    raw=_read(Path('/proc')/str(pid)/'stat',65536).decode().rsplit(')',1)[1].split()
+        ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 76, in _read
+    with archive.open_regular(path) as stream:
+         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 106, in open_regular
+    fd = os.open(path, os.O_RDONLY | os.O_CLOEXEC | os.O_NOFOLLOW | os.O_NONBLOCK)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 60, in opened
+    return real_open(path,flags,*args,**kwargs)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_environment_v1.py", line 67, in opened
+    return real_open(path,flags,*args,**kwargs)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/s180-environment-ettvmgv8/kernel/proc/1/stat'
+
+======================================================================
+ERROR: test_invalid_physical_topology_cache_or_numa_does_not_pass_with_matching_request (__main__.PlatformTests.test_invalid_physical_topology_cache_or_numa_does_not_pass_with_matching_request)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 70, in setUp
+    s180_compaction_fixture.attach(self,self.owner,self.hardware.root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 252, in prepare
+    pid=os.getpid(),start_ticks=_ticks(os.getpid()),plan_sha256=environment.planning.sha(plan),plan=plan,window=window,
+                                ~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 104, in _ticks
+    raw=_read(Path('/proc')/str(pid)/'stat',65536).decode().rsplit(')',1)[1].split()
+        ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 76, in _read
+    with archive.open_regular(path) as stream:
+         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 106, in open_regular
+    fd = os.open(path, os.O_RDONLY | os.O_CLOEXEC | os.O_NOFOLLOW | os.O_NONBLOCK)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 60, in opened
+    return real_open(path,flags,*args,**kwargs)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_environment_v1.py", line 67, in opened
+    return real_open(path,flags,*args,**kwargs)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/s180-environment-v3ginhql/kernel/proc/1/stat'
+
+======================================================================
+ERROR: test_numeric_cpu_and_policy_parsers_reject_ambiguous_values (__main__.PlatformTests.test_numeric_cpu_and_policy_parsers_reject_ambiguous_values)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 70, in setUp
+    s180_compaction_fixture.attach(self,self.owner,self.hardware.root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 252, in prepare
+    pid=os.getpid(),start_ticks=_ticks(os.getpid()),plan_sha256=environment.planning.sha(plan),plan=plan,window=window,
+                                ~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 104, in _ticks
+    raw=_read(Path('/proc')/str(pid)/'stat',65536).decode().rsplit(')',1)[1].split()
+        ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 76, in _read
+    with archive.open_regular(path) as stream:
+         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 106, in open_regular
+    fd = os.open(path, os.O_RDONLY | os.O_CLOEXEC | os.O_NOFOLLOW | os.O_NONBLOCK)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 60, in opened
+    return real_open(path,flags,*args,**kwargs)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_environment_v1.py", line 67, in opened
+    return real_open(path,flags,*args,**kwargs)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/s180-environment-qk6hktg0/kernel/proc/1/stat'
+
+======================================================================
+ERROR: test_owned_gate_rechecks_live_inputs_and_keeps_original_report_stable (__main__.PlatformTests.test_owned_gate_rechecks_live_inputs_and_keeps_original_report_stable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 70, in setUp
+    s180_compaction_fixture.attach(self,self.owner,self.hardware.root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 252, in prepare
+    pid=os.getpid(),start_ticks=_ticks(os.getpid()),plan_sha256=environment.planning.sha(plan),plan=plan,window=window,
+                                ~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 104, in _ticks
+    raw=_read(Path('/proc')/str(pid)/'stat',65536).decode().rsplit(')',1)[1].split()
+        ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 76, in _read
+    with archive.open_regular(path) as stream:
+         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 106, in open_regular
+    fd = os.open(path, os.O_RDONLY | os.O_CLOEXEC | os.O_NOFOLLOW | os.O_NONBLOCK)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 60, in opened
+    return real_open(path,flags,*args,**kwargs)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_environment_v1.py", line 67, in opened
+    return real_open(path,flags,*args,**kwargs)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/s180-environment-yhtpinup/kernel/proc/1/stat'
+
+======================================================================
+ERROR: test_prospective_request_must_precede_the_original_operational_window (__main__.PlatformTests.test_prospective_request_must_precede_the_original_operational_window)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 70, in setUp
+    s180_compaction_fixture.attach(self,self.owner,self.hardware.root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 252, in prepare
+    pid=os.getpid(),start_ticks=_ticks(os.getpid()),plan_sha256=environment.planning.sha(plan),plan=plan,window=window,
+                                ~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 104, in _ticks
+    raw=_read(Path('/proc')/str(pid)/'stat',65536).decode().rsplit(')',1)[1].split()
+        ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 76, in _read
+    with archive.open_regular(path) as stream:
+         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 106, in open_regular
+    fd = os.open(path, os.O_RDONLY | os.O_CLOEXEC | os.O_NOFOLLOW | os.O_NONBLOCK)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 60, in opened
+    return real_open(path,flags,*args,**kwargs)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_environment_v1.py", line 67, in opened
+    return real_open(path,flags,*args,**kwargs)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/s180-environment-ga7nk3nt/kernel/proc/1/stat'
+
+======================================================================
+ERROR: test_requested_and_actual_controls_are_distinct_and_drift_rejects (__main__.PlatformTests.test_requested_and_actual_controls_are_distinct_and_drift_rejects)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 70, in setUp
+    s180_compaction_fixture.attach(self,self.owner,self.hardware.root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 252, in prepare
+    pid=os.getpid(),start_ticks=_ticks(os.getpid()),plan_sha256=environment.planning.sha(plan),plan=plan,window=window,
+                                ~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 104, in _ticks
+    raw=_read(Path('/proc')/str(pid)/'stat',65536).decode().rsplit(')',1)[1].split()
+        ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 76, in _read
+    with archive.open_regular(path) as stream:
+         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 106, in open_regular
+    fd = os.open(path, os.O_RDONLY | os.O_CLOEXEC | os.O_NOFOLLOW | os.O_NONBLOCK)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 60, in opened
+    return real_open(path,flags,*args,**kwargs)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_environment_v1.py", line 67, in opened
+    return real_open(path,flags,*args,**kwargs)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/s180-environment-swws_9bi/kernel/proc/1/stat'
+
+======================================================================
+ERROR: test_unqualified_images_and_self_reported_prerequisites_do_not_admit (__main__.PlatformTests.test_unqualified_images_and_self_reported_prerequisites_do_not_admit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 70, in setUp
+    s180_compaction_fixture.attach(self,self.owner,self.hardware.root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 252, in prepare
+    pid=os.getpid(),start_ticks=_ticks(os.getpid()),plan_sha256=environment.planning.sha(plan),plan=plan,window=window,
+                                ~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 104, in _ticks
+    raw=_read(Path('/proc')/str(pid)/'stat',65536).decode().rsplit(')',1)[1].split()
+        ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 76, in _read
+    with archive.open_regular(path) as stream:
+         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 106, in open_regular
+    fd = os.open(path, os.O_RDONLY | os.O_CLOEXEC | os.O_NOFOLLOW | os.O_NONBLOCK)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 60, in opened
+    return real_open(path,flags,*args,**kwargs)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_environment_v1.py", line 67, in opened
+    return real_open(path,flags,*args,**kwargs)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/s180-environment-voqjycv2/kernel/proc/1/stat'
+
+======================================================================
+ERROR: test_unrelated_qualification_environment_or_release_ancestry_rejects (__main__.PlatformTests.test_unrelated_qualification_environment_or_release_ancestry_rejects)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 70, in setUp
+    s180_compaction_fixture.attach(self,self.owner,self.hardware.root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 252, in prepare
+    pid=os.getpid(),start_ticks=_ticks(os.getpid()),plan_sha256=environment.planning.sha(plan),plan=plan,window=window,
+                                ~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 104, in _ticks
+    raw=_read(Path('/proc')/str(pid)/'stat',65536).decode().rsplit(')',1)[1].split()
+        ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 76, in _read
+    with archive.open_regular(path) as stream:
+         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 106, in open_regular
+    fd = os.open(path, os.O_RDONLY | os.O_CLOEXEC | os.O_NOFOLLOW | os.O_NONBLOCK)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 60, in opened
+    return real_open(path,flags,*args,**kwargs)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_environment_v1.py", line 67, in opened
+    return real_open(path,flags,*args,**kwargs)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/s180-environment-wrq13h2g/kernel/proc/1/stat'
+
+======================================================================
+ERROR: test_wrong_plan_or_expired_owner_latches_without_extending_lease (__main__.PlatformTests.test_wrong_plan_or_expired_owner_latches_without_extending_lease)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 70, in setUp
+    s180_compaction_fixture.attach(self,self.owner,self.hardware.root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 252, in prepare
+    pid=os.getpid(),start_ticks=_ticks(os.getpid()),plan_sha256=environment.planning.sha(plan),plan=plan,window=window,
+                                ~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 104, in _ticks
+    raw=_read(Path('/proc')/str(pid)/'stat',65536).decode().rsplit(')',1)[1].split()
+        ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 76, in _read
+    with archive.open_regular(path) as stream:
+         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 106, in open_regular
+    fd = os.open(path, os.O_RDONLY | os.O_CLOEXEC | os.O_NOFOLLOW | os.O_NONBLOCK)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_platform_v1.py", line 60, in opened
+    return real_open(path,flags,*args,**kwargs)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_environment_v1.py", line 67, in opened
+    return real_open(path,flags,*args,**kwargs)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/s180-environment-5oil1tfa/kernel/proc/1/stat'
+
+----------------------------------------------------------------------
+Ran 17 tests in 9.704s
+
+FAILED (errors=15)

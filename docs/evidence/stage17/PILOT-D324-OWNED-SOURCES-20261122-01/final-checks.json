@@ -1,0 +1,26 @@
+{
+  "actual_scoped_admission": false,
+  "experimental_raw_transferred_to_pc": false,
+  "native_binary_sha256": "7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc",
+  "native_binary_size_bytes": 6151832,
+  "native_source_worktree_clean": true,
+  "operational_window_started": false,
+  "python_ast_checked": [
+    "tools/stage17_s180_verified_sources_v1.py",
+    "tests/test_stage17_s180_verified_sources_v1.py"
+  ],
+  "registered_cases_passed": 46,
+  "registered_suites_passed": 4,
+  "source_owner_cases_passed": 14,
+  "stand_access_performed": false,
+  "temporary_software_fixture_paths_remaining": [],
+  "unchanged_source_sha256": {
+    "config/stage17/d310-s180-blueprint-v1.json": "e95183365023a06b9da0d6cdff042bce556b9eb60c701dfb0f9e6df6ca22685c",
+    "tools/generate_schedule.py": "2997834dbe2018dd75843b9446e09b0ab9f0c17f423e5522c433a6cb41cc919f",
+    "tools/stage17_q16c_schedule_provenance_v1.py": "f47d18fb050f18fe27b65db6100fa104597131e3f06ac7c0c34c106c9d87fe18",
+    "tools/stage17_q16c_schedule_provenance_v2.py": "34406695d12ce7ee6f330b67acf53e9914a7f3e04852eb67a5c0f79d02dd7101",
+    "tools/stage17_s180_journal_v1.py": "e3841c6a75a0de9bc43351d32529754e43781033e6e7deab832889e5a0bc23f0",
+    "tools/stage17_s180_plan_prepare_v1.py": "32e35324e844ce9c05ed08d4c6a178a818980243d7b1286b2d2049d1a4e8f4b4",
+    "tools/stage17_s180_source_provenance_v1.py": "b4f58e87e8c9ab9e6e58f04ac2af4d7e583b52a17a1aced98e9994908ddb6863"
+  }
+}

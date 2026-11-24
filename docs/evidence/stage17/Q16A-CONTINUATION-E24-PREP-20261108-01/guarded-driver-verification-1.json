@@ -1,0 +1,32 @@
+{
+  "recorded_at_utc": "2026-11-08T13:23:39.284511+00:00",
+  "status": "PASS",
+  "tests_run": 6,
+  "tests_failed": 0,
+  "command": "python3 -B -m unittest discover -s build/stage17-step5-prep/recovery-v23-continuation/qualification -p test_guarded_driver.py -v",
+  "files": [
+    {
+      "path": "run_qualification_v24.py",
+      "size_bytes": 8211,
+      "sha256": "9e3f259ccbed5d75699270d07add8b4388c72fa779132619235de65ba9939c3c"
+    },
+    {
+      "path": "run_qualification_v24_guarded.py",
+      "size_bytes": 10059,
+      "sha256": "1e8968134c9982356112e1e448e6da6d364ec98264bc51c3ed146e06bd8f6d32"
+    },
+    {
+      "path": "test_guarded_driver.py",
+      "size_bytes": 3504,
+      "sha256": "0af5d8efb8ac288ace00483a73a7861d7da4682bff42f18a32dcac1ee31b0c85"
+    }
+  ],
+  "changes": [
+    "result publication race handles completion before process exit observation",
+    "partial JSON may finish only under unchanged live-process finite deadline",
+    "deadline checked before every child spawn",
+    "separate driver bound by SHA; installed packet remains unchanged"
+  ],
+  "scientific_helpers_changed": false,
+  "stand_measurements_performed": false
+}

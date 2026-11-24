@@ -1,0 +1,25 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-release-gcc
+    Start 133: runner.archive_inverse_native
+1/7 Test #133: runner.archive_inverse_native ..........   Passed    0.70 sec
+    Start 148: runner.operational_cli_v21
+2/7 Test #148: runner.operational_cli_v21 .............   Passed    0.33 sec
+    Start 149: runner.formal_admin_v3
+3/7 Test #149: runner.formal_admin_v3 .................   Passed    1.31 sec
+    Start 150: runner.archive_canonical_fast_v1
+4/7 Test #150: runner.archive_canonical_fast_v1 .......   Passed    0.17 sec
+    Start 151: runner.archive_metadata_fast_v1
+5/7 Test #151: runner.archive_metadata_fast_v1 ........   Passed    0.55 sec
+    Start 152: runner.archive_inverse_native_python
+6/7 Test #152: runner.archive_inverse_native_python ...   Passed    0.90 sec
+    Start 153: runner.archive_overlay_v1
+7/7 Test #153: runner.archive_overlay_v1 ..............   Passed    5.71 sec
+
+100% tests passed out of 7
+
+Label Time Summary:
+archive      =   9.67 sec*proc (7 tests)
+python       =   8.97 sec*proc (6 tests)
+runner       =   9.67 sec*proc (7 tests)
+synthetic    =   7.31 sec*proc (3 tests)
+
+Total Test time (real) =   9.68 sec

@@ -1,0 +1,14 @@
+test_failed_admission_never_constructs_or_executes_a_cold_adapter (__main__.DispatchTests.test_failed_admission_never_constructs_or_executes_a_cold_adapter) ... ok
+test_prepared_native_identity_and_all_authority_forwarded_to_private_executor (__main__.DispatchTests.test_prepared_native_identity_and_all_authority_forwarded_to_private_executor) ... ok
+test_handoff_enters_service_admission_without_legacy_schema_projection (__main__.OverlayControllerTests.test_handoff_enters_service_admission_without_legacy_schema_projection) ... ok
+test_historical_controller_globals_are_unchanged (__main__.OverlayControllerTests.test_historical_controller_globals_are_unchanged) ... ok
+test_new_signed_profile_uses_overlay_without_old_profile_fallback (__main__.OverlayControllerTests.test_new_signed_profile_uses_overlay_without_old_profile_fallback) ... ok
+test_overlay_rejection_never_falls_back_to_old_profile (__main__.OverlayControllerTests.test_overlay_rejection_never_falls_back_to_old_profile) ... ok
+test_preparation_and_execution_clone_only_the_required_bindings (__main__.OverlayControllerTests.test_preparation_and_execution_clone_only_the_required_bindings) ... ok
+test_public_qualification_aliases_and_handoff_remain_original (__main__.OverlayControllerTests.test_public_qualification_aliases_and_handoff_remain_original) ... ok
+test_wrong_r2_distance_and_wrong_evidence_binding_rejected (__main__.OverlayControllerTests.test_wrong_r2_distance_and_wrong_evidence_binding_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 90.278s
+
+OK

@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:cpu-prefetch:stage17:page-residency:v3",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "run_id", "expected_numa_node", "before_page_nodes", "during_page_nodes", "after_page_nodes", "producer_cpu", "consumer_cpu", "producer_migrated", "consumer_migrated", "verified"],
+  "properties": {"schema_version": {"const": "cpu-prefetch-stage17-page-residency/3"}, "run_id": {"type": "string", "minLength": 1}, "expected_numa_node": {"type": "integer", "minimum": 0}, "before_page_nodes": {"$ref": "#/$defs/pages"}, "during_page_nodes": {"$ref": "#/$defs/pages"}, "after_page_nodes": {"$ref": "#/$defs/pages"}, "producer_cpu": {"type": "integer", "minimum": 0}, "consumer_cpu": {"type": "integer", "minimum": 0}, "producer_migrated": {"const": false}, "consumer_migrated": {"const": false}, "verified": {"const": true}},
+  "$defs": {"pages": {"type": "array", "minItems": 1, "items": {"type": "integer", "minimum": 0}}}
+}

@@ -1,0 +1,55 @@
+{
+  "files": [
+    {
+      "file_name": "LastTest.log",
+      "sha256": "7bc4a7f7749cb278cc5f13dd7f56ef442502a6f98be4a80183b26d869c99d6d4",
+      "size_bytes": 9614
+    },
+    {
+      "file_name": "REPORT.md",
+      "sha256": "786e4c06643db8903355428ad00864409aec0eb6e9df8fa0bc41eacd85ebc895",
+      "size_bytes": 1949
+    },
+    {
+      "file_name": "contract.log",
+      "sha256": "ad0bf80897c8f303cef1ec9fefd9ef18682c3af4eee76ad82a11ec89f7ac3ca0",
+      "size_bytes": 462
+    },
+    {
+      "file_name": "final-family-debug.log",
+      "sha256": "3ccde2bd2092875f7fb48fdcd76e8c89a161bd1800438dd50366ed5f2ba43abf",
+      "size_bytes": 111
+    },
+    {
+      "file_name": "initial-archive-debug.log",
+      "sha256": "6b359a4b61bbbb4ecdb09b934c5c7ea7e41d7670626b72377517f349c880f161",
+      "size_bytes": 111
+    },
+    {
+      "file_name": "initial-family-debug.log",
+      "sha256": "333264e86af4e3effdf651696e1feff68302eea3bda2bd0a28fd3d62072acc0f",
+      "size_bytes": 111
+    },
+    {
+      "file_name": "registered.log",
+      "sha256": "4a0edc835bbe8fb759c5c5619ed058a974d123f2cbc665e2672fc71f3c0c1d5d",
+      "size_bytes": 1684
+    },
+    {
+      "file_name": "source-bindings.json",
+      "sha256": "a2ba4232b51ca64005adf09075152795e41e4ce486ce3ce883e4b01c62f0d95a",
+      "size_bytes": 1758
+    },
+    {
+      "file_name": "verification-summary.json",
+      "sha256": "402bf7b0860a6e20f199a579a622dd3c7165787fa64f9aa87ef3a0d93f1ab310",
+      "size_bytes": 1278
+    },
+    {
+      "file_name": "verified-pc-cleanup.json",
+      "sha256": "3b840c86d6a988bb6f785cf5fd561c281b6c0d5da5203fbf04b945c570e44125",
+      "size_bytes": 1110
+    }
+  ],
+  "includes_inventory_itself": false
+}

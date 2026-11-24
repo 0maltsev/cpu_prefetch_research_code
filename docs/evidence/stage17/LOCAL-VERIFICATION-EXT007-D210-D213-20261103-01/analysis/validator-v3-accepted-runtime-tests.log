@@ -1,0 +1,27 @@
+test_affinity_prefix_and_tls_missing_observations_fail_closed (__main__.IndependentDiscoveryTests.test_affinity_prefix_and_tls_missing_observations_fail_closed) ... ok
+test_capacity_is_retained_insufficient (__main__.IndependentDiscoveryTests.test_capacity_is_retained_insufficient) ... ok
+test_complete_capture_all_raw_controls (__main__.IndependentDiscoveryTests.test_complete_capture_all_raw_controls) ... ok
+test_consumer_admitted_attempt_can_cross_fixed_horizon (__main__.IndependentDiscoveryTests.test_consumer_admitted_attempt_can_cross_fixed_horizon) ... ok
+test_control_mutants_cannot_hide_behind_success_flags (__main__.IndependentDiscoveryTests.test_control_mutants_cannot_hide_behind_success_flags) ... ok
+test_deterministic_cpp_known_answers (__main__.IndependentDiscoveryTests.test_deterministic_cpp_known_answers) ... ok
+test_drain_cannot_precede_after_phase_observations (__main__.IndependentDiscoveryTests.test_drain_cannot_precede_after_phase_observations) ... ok
+test_full36_original_bindings_and_no_selective_selection (__main__.IndependentDiscoveryTests.test_full36_original_bindings_and_no_selective_selection) ... ok
+test_independent_raw_join_drain_and_full_separate_from_validity (__main__.IndependentDiscoveryTests.test_independent_raw_join_drain_and_full_separate_from_validity) ... ok
+test_json_spools_drain_and_rejects_duplicate_and_unbounded_metadata (__main__.IndependentDiscoveryTests.test_json_spools_drain_and_rejects_duplicate_and_unbounded_metadata) ... ok
+test_raw_integrity_counts_drain_and_boundaries (__main__.IndependentDiscoveryTests.test_raw_integrity_counts_drain_and_boundaries) ... ok
+test_software_memory_and_syscall_integer_bounds (__main__.IndependentDiscoveryTests.test_software_memory_and_syscall_integer_bounds) ... ok
+test_duplicate_truncation_and_trailing_rejection (__main__.PackedMetadataV3Tests.test_duplicate_truncation_and_trailing_rejection) ... ok
+test_exact_integer_limits_and_empty (__main__.PackedMetadataV3Tests.test_exact_integer_limits_and_empty) ... ok
+test_only_packed_numbers_bypass_generic_guards (__main__.PackedMetadataV3Tests.test_only_packed_numbers_bypass_generic_guards) ... ok
+test_packed_cumulative_capacity_includes_block_slack (__main__.PackedMetadataV3Tests.test_packed_cumulative_capacity_includes_block_slack) ... ok
+test_stream_boundaries_whitespace_and_signed_zero (__main__.PackedMetadataV3Tests.test_stream_boundaries_whitespace_and_signed_zero) ... ok
+test_type_range_lexical_and_delimiter_rejection (__main__.PackedMetadataV3Tests.test_type_range_lexical_and_delimiter_rejection) ... ok
+test_analysis_module_outside_qualified_root_uses_registry_schema (__main__.WholePlotReadbackTests.test_analysis_module_outside_qualified_root_uses_registry_schema) ... ok
+test_every_phase_moment_and_cpu_still_requires_actual_msr_read (__main__.WholePlotReadbackTests.test_every_phase_moment_and_cpu_still_requires_actual_msr_read) ... ok
+test_native_action_shape_reproduces_v2_failure_and_v3_validates_full36 (__main__.WholePlotReadbackTests.test_native_action_shape_reproduces_v2_failure_and_v3_validates_full36) ... ok
+test_whole_plot_mutants_rejected_before_capture_validation_or_selection (__main__.WholePlotReadbackTests.test_whole_plot_mutants_rejected_before_capture_validation_or_selection) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 20.248s
+
+OK

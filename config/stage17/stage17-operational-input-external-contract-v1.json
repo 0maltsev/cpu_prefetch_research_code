@@ -1,0 +1,10 @@
+{
+  "schema_version": "cpu-prefetch-stage17-operational-input-external-contract/1",
+  "contract_id": "STAGE17-OPERATIONAL-INPUT-EXTERNAL-CONTRACT-v1",
+  "protocol_version": "2.0.0-pre.2",
+  "allowed_input_ids": ["S17-EXT-002", "S17-EXT-004", "S17-EXT-005", "S17-EXT-007", "S17-EXT-009"],
+  "manifest_schema": "cpu-prefetch-stage17-operational-input-manifest/1",
+  "verification": {"nonsymlink_regular_files": true, "recompute_size_and_sha256": true, "input_specific_semantics": true, "generic_receipt_sufficient": false},
+  "synthetic_authority": false,
+  "phase18_authority": false
+}

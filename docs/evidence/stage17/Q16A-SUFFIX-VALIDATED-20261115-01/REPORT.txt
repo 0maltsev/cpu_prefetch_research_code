@@ -1,0 +1,31 @@
+Q16a suffix validation and retained-report finalization COMPLETE
+
+Status checked2026-11-15T06:36:29UTC (09:36Moscow).
+All531 suffix reports passed independent raw/execution validation. Last raw
+report completed2026-11-14T17:30:44UTC (20:30Moscow). Original177 independently
+validated reports and all prior failed evidence remain preserved.
+
+Original analysis ended17:31:05UTC on Nov14 after121007.120seconds (33.61h),
+all owned children reaped; maximum sampled scratch28325707776B, raw_mutation=false.
+Its original exit1 and traceback remain preserved: the anticipated comparison
+of ledger file-binding versus summary shapes failed after all531 raw reports.
+This is not a new raw-data failure and no raw validation was repeated.
+
+The waiting metadata finalizer completed17:57:32.792971UTC (20:57Moscow)
+on Nov14, statusFINALIZED_FROM_RETAINED_REPORTS. It checked retained reports,
+signed checkpoints/raw hashes/custody/ledger/native counts and the correct
+ledger projection, with no raw decode. Both representations bind unchanged
+ledger tip58848, SHA256c663484f67bbaa9fe7ffb16717e8950df79f37c73049b3620cc7882bd18fbc8d.
+No finalization error exists. Analysis and finalizer PIDs are absent.
+
+Suffix manifest7f540e5b54f83b0719995038920fb17598c5af9ed506c78f7a035638816ca9f8,
+185831bytes, preserves local ordinals0..530 mapping original177..707.
+This check independently rehashed all531 report files and checked their original
+raw/execution validation flags and manifest identities. The tested D245 metadata
+guard freshly passed against actual finalization/source/error/ledger bindings.
+Only these small receipts and the manifest were copied to the PC; raw stays on
+the stand. Free stand capacity at the status check was6446067015680bytes.
+
+Next: apply authenticated177+531 composition with native geometry provenance,
+then formal Q16a admission, Q16b/Q16c and calibration/freeze integration.
+EXT007 and Stage17 remain incomplete; no Stage18 authority or rerun follows.

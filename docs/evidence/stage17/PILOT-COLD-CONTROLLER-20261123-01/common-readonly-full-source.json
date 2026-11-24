@@ -1,0 +1,2137 @@
+{
+  "elapsed_ns": 43302818672,
+  "execution_authority": false,
+  "operational_window_started": false,
+  "phase18_authority": false,
+  "proof": {
+    "actual_closed_original_ancestry_consumer_passed": true,
+    "actual_current_native_compatibility": {
+      "base_resolutions": [
+        {
+          "input_id": "S17-EXT-001",
+          "resolution_id": "S17-EXT-001-RESOLUTION-001",
+          "sha256": "7a6119a95334f3526fd28bfe05e78b06ffadf2c9210e1203cfe19e4445db8668"
+        },
+        {
+          "input_id": "S17-EXT-002",
+          "resolution_id": "S17-EXT-002-RESOLUTION-002",
+          "sha256": "a260dc4464195902810cf9f30401a23afdd3c243db95042bc5db517139c5bad3"
+        },
+        {
+          "input_id": "S17-EXT-003",
+          "resolution_id": "S17-EXT-003-RESOLUTION-003",
+          "sha256": "b7b64d2be119b07c906718ca0811a71d26b44c22a2527b70727368f01d11040e"
+        },
+        {
+          "input_id": "S17-EXT-004",
+          "resolution_id": "S17-EXT-004-RESOLUTION-005",
+          "sha256": "df4bcac1985bab99716d91042f612ec1a59f7670706e6d1a354c2c34d56a16bf"
+        },
+        {
+          "input_id": "S17-EXT-005",
+          "resolution_id": "S17-EXT-005-RESOLUTION-006",
+          "sha256": "9e162cfefc240eefa15d3c28c7a80af2a00f5dd5586f58967593129163c5b5d3"
+        },
+        {
+          "input_id": "S17-EXT-006",
+          "resolution_id": "S17-EXT-006-RESOLUTION-004",
+          "sha256": "0c45b4f94cd6229adea3a76ff9735c414f951e9fd088a7edaae88c04e28ac115"
+        },
+        {
+          "input_id": "S17-EXT-007",
+          "resolution_id": "S17-EXT-007-RESOLUTION-007",
+          "sha256": "fd4a2b1a1c0c9cf0ab6ecf47fa838de81e67746c67caebad8b15779f4c70f104"
+        }
+      ],
+      "calibration_freeze_sha256": "cdf85bf585c997e079f432f904d93849fa5f69757440c7cefcf61ca7e06d742c",
+      "calibration_scope": "STAGE17_EXT007_DESCRIPTIVE_DATA_ONLY",
+      "current_native_sources": [
+        "include/cpu_prefetch/analysis/analysis.hpp",
+        "include/cpu_prefetch/calibration/calibration.hpp",
+        "include/cpu_prefetch/calibration/caller_owned_trace.hpp",
+        "include/cpu_prefetch/calibration/detail/native_capture_monitor.hpp",
+        "include/cpu_prefetch/calibration/detail/native_service_envelope.hpp",
+        "include/cpu_prefetch/calibration/detail/scheduled_session_impl.hpp",
+        "include/cpu_prefetch/calibration/discovery_capture.hpp",
+        "include/cpu_prefetch/calibration/discovery_consumer_capture.hpp",
+        "include/cpu_prefetch/calibration/discovery_control_query.hpp",
+        "include/cpu_prefetch/calibration/discovery_event_capture.hpp",
+        "include/cpu_prefetch/calibration/discovery_observed_drain.hpp",
+        "include/cpu_prefetch/calibration/discovery_reconciliation.hpp",
+        "include/cpu_prefetch/calibration/discovery_residency_observer.hpp",
+        "include/cpu_prefetch/calibration/discovery_ring_backend.hpp",
+        "include/cpu_prefetch/calibration/discovery_session.hpp",
+        "include/cpu_prefetch/calibration/discovery_thread_launcher.hpp",
+        "include/cpu_prefetch/calibration/formal_ring_session.hpp",
+        "include/cpu_prefetch/calibration/formal_scheduled_plan.hpp",
+        "include/cpu_prefetch/calibration/formal_service_plan.hpp",
+        "include/cpu_prefetch/calibration/formal_service_session.hpp",
+        "include/cpu_prefetch/calibration/mapped_discovery_preparation.hpp",
+        "include/cpu_prefetch/calibration/mapped_discovery_runtime.hpp",
+        "include/cpu_prefetch/calibration/mapped_formal_ring_preparation.hpp",
+        "include/cpu_prefetch/calibration/mapped_formal_ring_runtime.hpp",
+        "include/cpu_prefetch/calibration/mapped_formal_scheduled_preparation.hpp",
+        "include/cpu_prefetch/calibration/mapped_formal_scheduled_runtime.hpp",
+        "include/cpu_prefetch/calibration/mapped_formal_service_preparation.hpp",
+        "include/cpu_prefetch/calibration/mapped_pilot_capture.hpp",
+        "include/cpu_prefetch/calibration/mapped_pilot_data.hpp",
+        "include/cpu_prefetch/calibration/native_capture_plan.hpp",
+        "include/cpu_prefetch/calibration/native_discovery_capture.hpp",
+        "include/cpu_prefetch/calibration/native_formal_ring_capture.hpp",
+        "include/cpu_prefetch/calibration/native_formal_scheduled_capture.hpp",
+        "include/cpu_prefetch/calibration/native_formal_service_capture.hpp",
+        "include/cpu_prefetch/calibration/native_pilot_capture.hpp",
+        "include/cpu_prefetch/calibration/pilot_scheduled_capture.hpp",
+        "include/cpu_prefetch/calibration/pilot_shared_data.hpp",
+        "include/cpu_prefetch/calibration/ring_demand_window.hpp",
+        "include/cpu_prefetch/calibration/scheduled_session.hpp",
+        "include/cpu_prefetch/calibration/service_interval_count.hpp",
+        "include/cpu_prefetch/calibration/service_session.hpp",
+        "include/cpu_prefetch/foundation/repository_info.hpp",
+        "include/cpu_prefetch/lifecycle/executor.hpp",
+        "include/cpu_prefetch/lifecycle/runtime.hpp",
+        "include/cpu_prefetch/lifecycle/state_machine.hpp",
+        "include/cpu_prefetch/orchestration/access.hpp",
+        "include/cpu_prefetch/orchestration/block_planning.hpp",
+        "include/cpu_prefetch/orchestration/precision.hpp",
+        "include/cpu_prefetch/platform/linux_inventory.hpp",
+        "include/cpu_prefetch/platform/owner_mapping.hpp",
+        "include/cpu_prefetch/platform/platform.hpp",
+        "include/cpu_prefetch/platform/prepared_file_snapshot.hpp",
+        "include/cpu_prefetch/platform/prepared_prefetch_readback.hpp",
+        "include/cpu_prefetch/platform/prepared_residency.hpp",
+        "include/cpu_prefetch/platform/q15_msr.hpp",
+        "include/cpu_prefetch/platform/q15_probe.hpp",
+        "include/cpu_prefetch/platform/q15_runtime.hpp",
+        "include/cpu_prefetch/platform/thread_monitor.hpp",
+        "include/cpu_prefetch/platform/thread_tls.hpp",
+        "include/cpu_prefetch/platform/worker_stack.hpp",
+        "include/cpu_prefetch/protocol/json.hpp",
+        "include/cpu_prefetch/protocol/model.hpp",
+        "include/cpu_prefetch/protocol/validation.hpp",
+        "include/cpu_prefetch/qualification/p4_k_a_controller.hpp",
+        "include/cpu_prefetch/qualification/q15_clock_pair_qualification.hpp",
+        "include/cpu_prefetch/qualification/q15_collectors.hpp",
+        "include/cpu_prefetch/qualification/q15_controller.hpp",
+        "include/cpu_prefetch/qualification/q15_prestate.hpp",
+        "include/cpu_prefetch/qualification/q15_trust_anchor_adapter.hpp",
+        "include/cpu_prefetch/queue/adapters.hpp",
+        "include/cpu_prefetch/queue/common.hpp",
+        "include/cpu_prefetch/queue/linked_spsc.hpp",
+        "include/cpu_prefetch/queue/ring_spsc.hpp",
+        "include/cpu_prefetch/reconciliation/reconciliation.hpp",
+        "include/cpu_prefetch/runner/qualification.hpp",
+        "include/cpu_prefetch/runner/runner.hpp",
+        "include/cpu_prefetch/runner/software_prefetch.hpp",
+        "include/cpu_prefetch/runner/stage17_archive_channel.hpp",
+        "include/cpu_prefetch/runner/stage17_discovery_action.hpp",
+        "include/cpu_prefetch/runner/stage17_discovery_publication.hpp",
+        "include/cpu_prefetch/runner/stage17_fixed_action.hpp",
+        "include/cpu_prefetch/runner/stage17_formal_checkpoint.hpp",
+        "include/cpu_prefetch/runner/stage17_formal_family.hpp",
+        "include/cpu_prefetch/runner/stage17_formal_ring_action.hpp",
+        "include/cpu_prefetch/runner/stage17_formal_ring_publication.hpp",
+        "include/cpu_prefetch/runner/stage17_formal_scheduled_action.hpp",
+        "include/cpu_prefetch/runner/stage17_formal_scheduled_publication.hpp",
+        "include/cpu_prefetch/runner/stage17_formal_service_action.hpp",
+        "include/cpu_prefetch/runner/stage17_formal_service_publication.hpp",
+        "include/cpu_prefetch/runner/stage17_s180_channel_sink.hpp",
+        "include/cpu_prefetch/runner/stage17_s180_input.hpp",
+        "include/cpu_prefetch/runner/stage17_s180_publication.hpp",
+        "include/cpu_prefetch/runner/stage17_s180_session.hpp",
+        "include/cpu_prefetch/runner/stage17_s180_sources.hpp",
+        "include/cpu_prefetch/runner/stage17_s180_worker.hpp",
+        "include/cpu_prefetch/runner/stage17_schedule_source.hpp",
+        "include/cpu_prefetch/schedule/schedule.hpp",
+        "include/cpu_prefetch/storage/artifact_store.hpp",
+        "include/cpu_prefetch/storage/artifacts.hpp",
+        "include/cpu_prefetch/storage/budget.hpp",
+        "include/cpu_prefetch/storage/capture_backend.hpp",
+        "include/cpu_prefetch/storage/finalization.hpp",
+        "include/cpu_prefetch/storage/post_measure_archive.hpp",
+        "include/cpu_prefetch/storage/raw_observations.hpp",
+        "include/cpu_prefetch/timing/capture.hpp",
+        "include/cpu_prefetch/timing/clock.hpp",
+        "include/cpu_prefetch/timing/cross_core_exchange.hpp",
+        "include/cpu_prefetch/timing/intervals.hpp",
+        "include/cpu_prefetch/timing/qualification.hpp",
+        "include/cpu_prefetch/workload/deterministic.hpp",
+        "include/cpu_prefetch/workload/packages.hpp",
+        "include/cpu_prefetch/workload/records.hpp",
+        "include/cpu_prefetch/workload/working_set.hpp",
+        "src/analysis/analysis.cpp",
+        "src/calibration/calibration.cpp",
+        "src/calibration/native_discovery_capture.cpp",
+        "src/calibration/native_formal_ring_capture.cpp",
+        "src/calibration/native_formal_scheduled_capture.cpp",
+        "src/calibration/native_formal_service_capture.cpp",
+        "src/calibration/native_pilot_capture.cpp",
+        "src/calibration/ring_demand_window.cpp",
+        "src/calibration/scheduled_session.cpp",
+        "src/calibration/service_interval_count.cpp",
+        "src/calibration/service_session.cpp",
+        "src/lifecycle/runtime.cpp",
+        "src/lifecycle/state_machine.cpp",
+        "src/orchestration/access.cpp",
+        "src/orchestration/block_planning.cpp",
+        "src/orchestration/precision.cpp",
+        "src/platform/linux_inventory.cpp",
+        "src/platform/owner_mapping.cpp",
+        "src/platform/platform.cpp",
+        "src/platform/prepared_file_snapshot.cpp",
+        "src/platform/prepared_prefetch_readback.cpp",
+        "src/platform/prepared_residency.cpp",
+        "src/platform/q15_counted_region.cpp",
+        "src/platform/q15_msr.cpp",
+        "src/platform/q15_probe.cpp",
+        "src/platform/q15_runtime.cpp",
+        "src/platform/thread_monitor.cpp",
+        "src/platform/thread_tls.cpp",
+        "src/platform/worker_stack.cpp",
+        "src/protocol/json.cpp",
+        "src/protocol/load.cpp",
+        "src/protocol/model.cpp",
+        "src/protocol/semantic.cpp",
+        "src/protocol/validation.cpp",
+        "src/qualification/p4_k_a_controller.cpp",
+        "src/qualification/q15_clock_pair_qualification.cpp",
+        "src/qualification/q15_collectors.cpp",
+        "src/qualification/q15_controller.cpp",
+        "src/qualification/q15_prestate.cpp",
+        "src/qualification/q15_trust_anchor_adapter.cpp",
+        "src/queue/common.cpp",
+        "src/queue/linked_spsc.cpp",
+        "src/queue/ring_spsc.cpp",
+        "src/reconciliation/reconciliation.cpp",
+        "src/repository_info.cpp",
+        "src/runner/qualification.cpp",
+        "src/runner/runner.cpp",
+        "src/runner/stage17_archive_channel.cpp",
+        "src/runner/stage17_discovery_action.cpp",
+        "src/runner/stage17_discovery_publication.cpp",
+        "src/runner/stage17_fixed_action.cpp",
+        "src/runner/stage17_formal_checkpoint.cpp",
+        "src/runner/stage17_formal_family.cpp",
+        "src/runner/stage17_formal_input_detail.hpp",
+        "src/runner/stage17_formal_ring_action.cpp",
+        "src/runner/stage17_formal_scheduled_action.cpp",
+        "src/runner/stage17_formal_service_action.cpp",
+        "src/runner/stage17_s180_channel_sink.cpp",
+        "src/runner/stage17_s180_input.cpp",
+        "src/runner/stage17_s180_native_session.cpp",
+        "src/runner/stage17_s180_session.cpp",
+        "src/runner/stage17_s180_sources.cpp",
+        "src/runner/stage17_s180_worker.cpp",
+        "src/runner/stage17_schedule_source.cpp",
+        "src/schedule/schedule.cpp",
+        "src/storage/artifact_store.cpp",
+        "src/storage/artifacts.cpp",
+        "src/storage/budget.cpp",
+        "src/storage/finalization.cpp",
+        "src/storage/post_measure_archive.cpp",
+        "src/storage/raw_observations.cpp",
+        "src/timing/capture.cpp",
+        "src/timing/clock.cpp",
+        "src/timing/cross_core_exchange.cpp",
+        "src/timing/intervals.cpp",
+        "src/timing/qualification.cpp",
+        "src/workload/deterministic.cpp",
+        "src/workload/packages.cpp",
+        "src/workload/records.cpp",
+        "src/workload/working_set.cpp"
+      ],
+      "current_source_revision": "34247cedab4abe4b44732daae8fdac1700eccffd",
+      "execution_authority": false,
+      "files": [
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/BUNDLE_INVENTORY.json",
+          "sha256": "828fe1a3482b4b6c9d7249582648be43e920051033f103808e0fc7644362bf8a",
+          "size_bytes": 880437
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/release/bin/cpu_prefetch_runner",
+          "sha256": "bc064c13afd7eb5142ae8ee434e95962e9b3fc3095c6c159d83376c3e7e8c019",
+          "size_bytes": 5052696
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-common-0919b87-1/frozen-native-release/cpu_prefetch_runner",
+          "sha256": "7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc",
+          "size_bytes": 6151832
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/calibration.hpp",
+          "sha256": "967c9027d72aff014c7c41dc417a0d9b5a2699819dd7bde610be0990c6a0d076",
+          "size_bytes": 15246
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/calibration.hpp",
+          "sha256": "967c9027d72aff014c7c41dc417a0d9b5a2699819dd7bde610be0990c6a0d076",
+          "size_bytes": 15246
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/caller_owned_trace.hpp",
+          "sha256": "fb5826eb5bca4458c67c524de3a28c0f4bb8dc18452ce9fcace03928d3430309",
+          "size_bytes": 6617
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/caller_owned_trace.hpp",
+          "sha256": "fb5826eb5bca4458c67c524de3a28c0f4bb8dc18452ce9fcace03928d3430309",
+          "size_bytes": 6617
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/detail/native_capture_monitor.hpp",
+          "sha256": "0fa0c50147d0daa17531b24a3ac07a66a2e876ec65525f058145ed81babadd5f",
+          "size_bytes": 8848
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/detail/native_capture_monitor.hpp",
+          "sha256": "83d615e85de4170edae4c5acc38e6c36ec004d5386d12ed1f5cb78251fa7da7c",
+          "size_bytes": 8940
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/detail/native_service_envelope.hpp",
+          "sha256": "28dc44fa1e0b3ada3ce1713981b1db3560644d7666e44478aa4be4f2abea37f4",
+          "size_bytes": 26526
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/detail/native_service_envelope.hpp",
+          "sha256": "ded21dd842f9836ab77e61375699a6879673a1af71ed4c30aab8dc867c082670",
+          "size_bytes": 28149
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/detail/scheduled_session_impl.hpp",
+          "sha256": "ce02a30cfc5b6182eea4b25e609ce2b7fc3d1ab063840021056ab29714f6c5ec",
+          "size_bytes": 17915
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/detail/scheduled_session_impl.hpp",
+          "sha256": "ce02a30cfc5b6182eea4b25e609ce2b7fc3d1ab063840021056ab29714f6c5ec",
+          "size_bytes": 17915
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/discovery_capture.hpp",
+          "sha256": "1b11afc8f6e729e0a14fe3c57a960ce52346b4a01993289a938ae082a4977710",
+          "size_bytes": 11796
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/discovery_capture.hpp",
+          "sha256": "1b11afc8f6e729e0a14fe3c57a960ce52346b4a01993289a938ae082a4977710",
+          "size_bytes": 11796
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/discovery_consumer_capture.hpp",
+          "sha256": "9b5608f456650a805a43befc3fe0d52c5865921f9b8fc0f2175b73a455cf3bc9",
+          "size_bytes": 2271
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/discovery_consumer_capture.hpp",
+          "sha256": "9b5608f456650a805a43befc3fe0d52c5865921f9b8fc0f2175b73a455cf3bc9",
+          "size_bytes": 2271
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/discovery_control_query.hpp",
+          "sha256": "b33e5f51b579a38874a2fd0ebc0ae30893938000cc976b2be7dfe3409f2b52fc",
+          "size_bytes": 11372
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/discovery_control_query.hpp",
+          "sha256": "b33e5f51b579a38874a2fd0ebc0ae30893938000cc976b2be7dfe3409f2b52fc",
+          "size_bytes": 11372
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/discovery_event_capture.hpp",
+          "sha256": "1af1b311b4c7deb731e2d7f839fb391dcde0413177d47c919d8cb8e8c4ff97c1",
+          "size_bytes": 11362
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/discovery_event_capture.hpp",
+          "sha256": "1af1b311b4c7deb731e2d7f839fb391dcde0413177d47c919d8cb8e8c4ff97c1",
+          "size_bytes": 11362
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/discovery_observed_drain.hpp",
+          "sha256": "b754ccdab5526df921a6ec18887a07ea046318b2c09dd4b0fbd220b23214ff88",
+          "size_bytes": 5342
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/discovery_observed_drain.hpp",
+          "sha256": "b754ccdab5526df921a6ec18887a07ea046318b2c09dd4b0fbd220b23214ff88",
+          "size_bytes": 5342
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/discovery_reconciliation.hpp",
+          "sha256": "46c5d1cf94df9d15cdabbf71fe298e0147c5c738edeb8a4ef7b2e5a6d1bb1169",
+          "size_bytes": 7841
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/discovery_reconciliation.hpp",
+          "sha256": "46c5d1cf94df9d15cdabbf71fe298e0147c5c738edeb8a4ef7b2e5a6d1bb1169",
+          "size_bytes": 7841
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/discovery_residency_observer.hpp",
+          "sha256": "a8f18a5f4c3787e0f6cc090ac3be3b6ba4990b6de44bef0068e211eeaadadaed",
+          "size_bytes": 19181
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/discovery_residency_observer.hpp",
+          "sha256": "a8f18a5f4c3787e0f6cc090ac3be3b6ba4990b6de44bef0068e211eeaadadaed",
+          "size_bytes": 19181
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/discovery_ring_backend.hpp",
+          "sha256": "bff35ed96f38de880186cb473bf286fccff0dc8aa2114c0d0e82c533543d04aa",
+          "size_bytes": 14672
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/discovery_ring_backend.hpp",
+          "sha256": "bff35ed96f38de880186cb473bf286fccff0dc8aa2114c0d0e82c533543d04aa",
+          "size_bytes": 14672
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/discovery_session.hpp",
+          "sha256": "b1e9657e4058dd15be145fea0aeb36db47e549dc93c5775712efd849224eb9fe",
+          "size_bytes": 23279
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/discovery_session.hpp",
+          "sha256": "b1e9657e4058dd15be145fea0aeb36db47e549dc93c5775712efd849224eb9fe",
+          "size_bytes": 23279
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/discovery_thread_launcher.hpp",
+          "sha256": "1403559b3dfbe1ad1312b4017967efc90dc7347cf5f8a46606ad5aee2c7d046c",
+          "size_bytes": 1986
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/discovery_thread_launcher.hpp",
+          "sha256": "1403559b3dfbe1ad1312b4017967efc90dc7347cf5f8a46606ad5aee2c7d046c",
+          "size_bytes": 1986
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/formal_ring_session.hpp",
+          "sha256": "17ae862a4a9671351796883dbe31f909faee307619a88d93cdc0bc48bc0d239f",
+          "size_bytes": 15454
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/formal_ring_session.hpp",
+          "sha256": "17ae862a4a9671351796883dbe31f909faee307619a88d93cdc0bc48bc0d239f",
+          "size_bytes": 15454
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/formal_scheduled_plan.hpp",
+          "sha256": "b629dc64a9e26081d58a8417bc279db2dc3669f0f37a8c656e23c9e402b4eb66",
+          "size_bytes": 920
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/formal_scheduled_plan.hpp",
+          "sha256": "b629dc64a9e26081d58a8417bc279db2dc3669f0f37a8c656e23c9e402b4eb66",
+          "size_bytes": 920
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/formal_service_plan.hpp",
+          "sha256": "fdceee4aea554bf2c6a8ef91d79dd8beb7dac19889aec0d5d84b2e0a62607444",
+          "size_bytes": 1272
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/formal_service_plan.hpp",
+          "sha256": "fdceee4aea554bf2c6a8ef91d79dd8beb7dac19889aec0d5d84b2e0a62607444",
+          "size_bytes": 1272
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/formal_service_session.hpp",
+          "sha256": "11387fbe6d99cf2defb1b74ba79911f51753e92219f68e59205db4b2b379ac77",
+          "size_bytes": 15839
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/formal_service_session.hpp",
+          "sha256": "11387fbe6d99cf2defb1b74ba79911f51753e92219f68e59205db4b2b379ac77",
+          "size_bytes": 15839
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/mapped_discovery_preparation.hpp",
+          "sha256": "4efe50a378ffc75e348c60f11bb2722ab11c641c1ea3d59623db4f3032784536",
+          "size_bytes": 16643
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/mapped_discovery_preparation.hpp",
+          "sha256": "4efe50a378ffc75e348c60f11bb2722ab11c641c1ea3d59623db4f3032784536",
+          "size_bytes": 16643
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/mapped_discovery_runtime.hpp",
+          "sha256": "dfc2f49edd5f26c78cf6c3fad037e155eac066c584bd93b44d0d14079c6912e9",
+          "size_bytes": 10285
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/mapped_discovery_runtime.hpp",
+          "sha256": "dfc2f49edd5f26c78cf6c3fad037e155eac066c584bd93b44d0d14079c6912e9",
+          "size_bytes": 10285
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/mapped_formal_ring_preparation.hpp",
+          "sha256": "39781f0ff5825f264fc283fcdb65a48fd09b1314ad10863998018d9f8de27688",
+          "size_bytes": 12919
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/mapped_formal_ring_preparation.hpp",
+          "sha256": "39781f0ff5825f264fc283fcdb65a48fd09b1314ad10863998018d9f8de27688",
+          "size_bytes": 12919
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/mapped_formal_ring_runtime.hpp",
+          "sha256": "5a49b0e1f228323d493eb0be0a9c1ffc0a9c142fb838f25d99b5855ed43eef85",
+          "size_bytes": 13912
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/mapped_formal_ring_runtime.hpp",
+          "sha256": "5a49b0e1f228323d493eb0be0a9c1ffc0a9c142fb838f25d99b5855ed43eef85",
+          "size_bytes": 13912
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/mapped_formal_scheduled_preparation.hpp",
+          "sha256": "a381a1334ba199f0b698a3c87521af4a1bfbb5bf428f4e5aff6e58c7be2aeeac",
+          "size_bytes": 4055
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/mapped_formal_scheduled_preparation.hpp",
+          "sha256": "a381a1334ba199f0b698a3c87521af4a1bfbb5bf428f4e5aff6e58c7be2aeeac",
+          "size_bytes": 4055
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/mapped_formal_scheduled_runtime.hpp",
+          "sha256": "2b28a13f352028c96b6311527aaa82033ca6a20ec5e25c8fb9a05f187d08efda",
+          "size_bytes": 1981
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/mapped_formal_scheduled_runtime.hpp",
+          "sha256": "2b28a13f352028c96b6311527aaa82033ca6a20ec5e25c8fb9a05f187d08efda",
+          "size_bytes": 1981
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/mapped_formal_service_preparation.hpp",
+          "sha256": "c8ef8c1f96141437ddd76fc9fc21bcccb9f794f6caa7c3b980e5384141b451c2",
+          "size_bytes": 20950
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/mapped_formal_service_preparation.hpp",
+          "sha256": "c8ef8c1f96141437ddd76fc9fc21bcccb9f794f6caa7c3b980e5384141b451c2",
+          "size_bytes": 20950
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/mapped_pilot_capture.hpp",
+          "sha256": "19da86114085b1958032f4b04c42873728dbaaf6baf23eec9116df0fe6c4e395",
+          "size_bytes": 15982
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/mapped_pilot_data.hpp",
+          "sha256": "6646000e13493f4346c6bc181bde2ff6cd2f9b1913c39ddde6db50068dc0a846",
+          "size_bytes": 8970
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/native_capture_plan.hpp",
+          "sha256": "70ff1177e4f90d950a2ecb41a795f6cf4b64753392f3f0c54ad52498d86deae5",
+          "size_bytes": 2463
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/native_capture_plan.hpp",
+          "sha256": "70ff1177e4f90d950a2ecb41a795f6cf4b64753392f3f0c54ad52498d86deae5",
+          "size_bytes": 2463
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/native_discovery_capture.hpp",
+          "sha256": "79a7c70355b4e7f0088e50fe675356e4383c4dda18fa5b2c9e46d03621fd530d",
+          "size_bytes": 9797
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/native_discovery_capture.hpp",
+          "sha256": "79a7c70355b4e7f0088e50fe675356e4383c4dda18fa5b2c9e46d03621fd530d",
+          "size_bytes": 9797
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/native_formal_ring_capture.hpp",
+          "sha256": "531990eccd522ca5ac553266dbe998c90cfbae4d3a6a6997ab61fdaa9279af73",
+          "size_bytes": 3901
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/native_formal_ring_capture.hpp",
+          "sha256": "531990eccd522ca5ac553266dbe998c90cfbae4d3a6a6997ab61fdaa9279af73",
+          "size_bytes": 3901
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/native_formal_scheduled_capture.hpp",
+          "sha256": "f0aaaafc99b4120782feb0b61b300004cd90f9ab46c2da9685d1742dfe75d8cf",
+          "size_bytes": 1925
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/native_formal_scheduled_capture.hpp",
+          "sha256": "f0aaaafc99b4120782feb0b61b300004cd90f9ab46c2da9685d1742dfe75d8cf",
+          "size_bytes": 1925
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/native_formal_service_capture.hpp",
+          "sha256": "b2713bb11fa729d050cbd9e539ca6d93fa258294f5e6252716f3f91ec1e1be8d",
+          "size_bytes": 3036
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/native_formal_service_capture.hpp",
+          "sha256": "b2713bb11fa729d050cbd9e539ca6d93fa258294f5e6252716f3f91ec1e1be8d",
+          "size_bytes": 3036
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/native_pilot_capture.hpp",
+          "sha256": "bead9bc1d5911fe1950a428e7c9ba27ea96cf8e19fc17aeb4cf39d0379c95ed6",
+          "size_bytes": 2858
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/pilot_scheduled_capture.hpp",
+          "sha256": "8edb84ae15a9fb8bb6f51bc1719b20452cfb9b0edb55cf0a14b9dae05c3056d2",
+          "size_bytes": 13145
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/pilot_shared_data.hpp",
+          "sha256": "7d758c7ce02cf0a31de5a8d76c8d1d57fddbcc7ebce4cfb406da71316acc7f7c",
+          "size_bytes": 6866
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/ring_demand_window.hpp",
+          "sha256": "e4c1074a8a2a0692cbcae7d37415fdfeaeefaf48fcbc9b219a83768ead3a4f8a",
+          "size_bytes": 6360
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/ring_demand_window.hpp",
+          "sha256": "e4c1074a8a2a0692cbcae7d37415fdfeaeefaf48fcbc9b219a83768ead3a4f8a",
+          "size_bytes": 6360
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/scheduled_session.hpp",
+          "sha256": "c731d70ef410032721ee7626db04e43aba1eda925d805e77efcc43dbd90a2b64",
+          "size_bytes": 3351
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/scheduled_session.hpp",
+          "sha256": "c731d70ef410032721ee7626db04e43aba1eda925d805e77efcc43dbd90a2b64",
+          "size_bytes": 3351
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/service_interval_count.hpp",
+          "sha256": "6ea4b92a80b88b435215eda49f163684f290b742d66f84dd7801f55c8632db42",
+          "size_bytes": 2802
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/service_interval_count.hpp",
+          "sha256": "6ea4b92a80b88b435215eda49f163684f290b742d66f84dd7801f55c8632db42",
+          "size_bytes": 2802
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/calibration/service_session.hpp",
+          "sha256": "b3919a4a9e916d5945ce2bc81e1d8accb30c160c0bc364a5d3138b1b0c557008",
+          "size_bytes": 19466
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/calibration/service_session.hpp",
+          "sha256": "b3919a4a9e916d5945ce2bc81e1d8accb30c160c0bc364a5d3138b1b0c557008",
+          "size_bytes": 19466
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/foundation/repository_info.hpp",
+          "sha256": "31ce22ef81a89d3099f292d0506e748b815c201374d5043e25ea67418210bd92",
+          "size_bytes": 503
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/foundation/repository_info.hpp",
+          "sha256": "31ce22ef81a89d3099f292d0506e748b815c201374d5043e25ea67418210bd92",
+          "size_bytes": 503
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/lifecycle/executor.hpp",
+          "sha256": "dfb4340b23fdfe2d61eba96c68b9d9077a299f3ea5f89854df30ba10b25f1164",
+          "size_bytes": 17394
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/lifecycle/executor.hpp",
+          "sha256": "dfb4340b23fdfe2d61eba96c68b9d9077a299f3ea5f89854df30ba10b25f1164",
+          "size_bytes": 17394
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/lifecycle/runtime.hpp",
+          "sha256": "d7efcfc2a349294ccec942265db1a7cb2a53a118b63b520950a8bf5d05e44828",
+          "size_bytes": 8799
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/lifecycle/runtime.hpp",
+          "sha256": "d7efcfc2a349294ccec942265db1a7cb2a53a118b63b520950a8bf5d05e44828",
+          "size_bytes": 8799
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/platform/owner_mapping.hpp",
+          "sha256": "0bddf94771a0d5cbc49caaf9ec157a044abdad30055faaf1bb1a470ea559f085",
+          "size_bytes": 10795
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/platform/owner_mapping.hpp",
+          "sha256": "0bddf94771a0d5cbc49caaf9ec157a044abdad30055faaf1bb1a470ea559f085",
+          "size_bytes": 10795
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/platform/platform.hpp",
+          "sha256": "d86089927572a3e4dcc26ea31eb363ef3a2b757c3d1075e61d1f6a6c4afb3aea",
+          "size_bytes": 18612
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/platform/platform.hpp",
+          "sha256": "d86089927572a3e4dcc26ea31eb363ef3a2b757c3d1075e61d1f6a6c4afb3aea",
+          "size_bytes": 18612
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/platform/prepared_file_snapshot.hpp",
+          "sha256": "f6edc2024688af6d7b5525c4413f924796d95c90947f04f98830274a8387fd41",
+          "size_bytes": 5932
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/platform/prepared_file_snapshot.hpp",
+          "sha256": "f6edc2024688af6d7b5525c4413f924796d95c90947f04f98830274a8387fd41",
+          "size_bytes": 5932
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/platform/prepared_prefetch_readback.hpp",
+          "sha256": "693669955e1bb5877298f81b4a38815aa49b68a925c23e6d956cded8559d40b6",
+          "size_bytes": 6072
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/platform/prepared_prefetch_readback.hpp",
+          "sha256": "693669955e1bb5877298f81b4a38815aa49b68a925c23e6d956cded8559d40b6",
+          "size_bytes": 6072
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/platform/prepared_residency.hpp",
+          "sha256": "47b47e066430df7a773b52f5b6c1048abd50d8dd6d11505fec11aa495ab38e46",
+          "size_bytes": 4202
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/platform/prepared_residency.hpp",
+          "sha256": "47b47e066430df7a773b52f5b6c1048abd50d8dd6d11505fec11aa495ab38e46",
+          "size_bytes": 4202
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/platform/q15_msr.hpp",
+          "sha256": "50395851227ded0e214ed5e87a0d7018a466bb2012c3f54e4c03c4a476eb624f",
+          "size_bytes": 5502
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/platform/q15_msr.hpp",
+          "sha256": "50395851227ded0e214ed5e87a0d7018a466bb2012c3f54e4c03c4a476eb624f",
+          "size_bytes": 5502
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/platform/q15_probe.hpp",
+          "sha256": "d5c966621fe237d891c6ceacec600468702101935e163f5209cd8fb6e55fa160",
+          "size_bytes": 6275
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/platform/q15_probe.hpp",
+          "sha256": "d5c966621fe237d891c6ceacec600468702101935e163f5209cd8fb6e55fa160",
+          "size_bytes": 6275
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/platform/q15_runtime.hpp",
+          "sha256": "4636da3e19053c771c4efc03d1ee1f161548fd9ad229bd148ef41f370c87a68e",
+          "size_bytes": 15310
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/platform/q15_runtime.hpp",
+          "sha256": "4636da3e19053c771c4efc03d1ee1f161548fd9ad229bd148ef41f370c87a68e",
+          "size_bytes": 15310
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/platform/thread_monitor.hpp",
+          "sha256": "7f4e31a5b5bcf6e22934dd31dea6d8f1fcb8b8eea266a8e5ea4758d11d8c291e",
+          "size_bytes": 6852
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/platform/thread_monitor.hpp",
+          "sha256": "7f4e31a5b5bcf6e22934dd31dea6d8f1fcb8b8eea266a8e5ea4758d11d8c291e",
+          "size_bytes": 6852
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/platform/thread_tls.hpp",
+          "sha256": "f0c7064f19dc2b02102226dbac2ef8265a977546d18123158179c9c28f627b46",
+          "size_bytes": 2168
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/platform/thread_tls.hpp",
+          "sha256": "f0c7064f19dc2b02102226dbac2ef8265a977546d18123158179c9c28f627b46",
+          "size_bytes": 2168
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/platform/worker_stack.hpp",
+          "sha256": "8a629f64f4906aa842135ed0299c49c670eb486a70120b964f4e22ae46a74bb1",
+          "size_bytes": 9799
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/platform/worker_stack.hpp",
+          "sha256": "8a629f64f4906aa842135ed0299c49c670eb486a70120b964f4e22ae46a74bb1",
+          "size_bytes": 9799
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/protocol/json.hpp",
+          "sha256": "a783bd8b0cc808aa32fa3fc64e8b10f4dc3d14928748acc6ad61e1984eece9fc",
+          "size_bytes": 2098
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/protocol/json.hpp",
+          "sha256": "a783bd8b0cc808aa32fa3fc64e8b10f4dc3d14928748acc6ad61e1984eece9fc",
+          "size_bytes": 2098
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/protocol/model.hpp",
+          "sha256": "258258cd89aee84f3fcad5dffd8c023293e478124b366b52bdd95aef3e23cf96",
+          "size_bytes": 24539
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/protocol/model.hpp",
+          "sha256": "258258cd89aee84f3fcad5dffd8c023293e478124b366b52bdd95aef3e23cf96",
+          "size_bytes": 24539
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/protocol/validation.hpp",
+          "sha256": "0e4645d4f1394664f930402443d0199c8e9e7ed66134768ea0670178559b59ce",
+          "size_bytes": 1999
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/protocol/validation.hpp",
+          "sha256": "0e4645d4f1394664f930402443d0199c8e9e7ed66134768ea0670178559b59ce",
+          "size_bytes": 1999
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/queue/common.hpp",
+          "sha256": "ae665e11f10d6053e368367aec06c8a85e7e0455bc981e595b88f11d63b982a7",
+          "size_bytes": 3241
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/queue/common.hpp",
+          "sha256": "ae665e11f10d6053e368367aec06c8a85e7e0455bc981e595b88f11d63b982a7",
+          "size_bytes": 3241
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/queue/linked_spsc.hpp",
+          "sha256": "5513659adbe1d6da2c3c039ec9e47453a5d74e394c3fc4b13aea77710d11b291",
+          "size_bytes": 12041
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/queue/linked_spsc.hpp",
+          "sha256": "5513659adbe1d6da2c3c039ec9e47453a5d74e394c3fc4b13aea77710d11b291",
+          "size_bytes": 12041
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/queue/ring_spsc.hpp",
+          "sha256": "ba91404fe69120f79ed00e303c8666d7b042870a264ad10f9253c2309f560dad",
+          "size_bytes": 12168
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/queue/ring_spsc.hpp",
+          "sha256": "ba91404fe69120f79ed00e303c8666d7b042870a264ad10f9253c2309f560dad",
+          "size_bytes": 12168
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/reconciliation/reconciliation.hpp",
+          "sha256": "0ae921673b241acf5de4e5d2553f6fddf817dcfa4d7d81fba21cfa5417037c80",
+          "size_bytes": 5454
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/reconciliation/reconciliation.hpp",
+          "sha256": "0ae921673b241acf5de4e5d2553f6fddf817dcfa4d7d81fba21cfa5417037c80",
+          "size_bytes": 5454
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/runner/qualification.hpp",
+          "sha256": "35fa937001e7a066f805e7108f4070d8cf0acd21c65c569235a23c15e093358a",
+          "size_bytes": 5796
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/runner/qualification.hpp",
+          "sha256": "35fa937001e7a066f805e7108f4070d8cf0acd21c65c569235a23c15e093358a",
+          "size_bytes": 5796
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/runner/runner.hpp",
+          "sha256": "5795d44549f7a8553b9db796da03c6b487dd2eec0140b5df3688d7cc0ecb3e06",
+          "size_bytes": 16508
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/runner/runner.hpp",
+          "sha256": "5795d44549f7a8553b9db796da03c6b487dd2eec0140b5df3688d7cc0ecb3e06",
+          "size_bytes": 16508
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/runner/software_prefetch.hpp",
+          "sha256": "37c6bb10b9e618a51c273379f4f7d439de09cad5facc3e2b532815a40d66167d",
+          "size_bytes": 5026
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/runner/software_prefetch.hpp",
+          "sha256": "37c6bb10b9e618a51c273379f4f7d439de09cad5facc3e2b532815a40d66167d",
+          "size_bytes": 5026
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/runner/stage17_archive_channel.hpp",
+          "sha256": "800f25452badaff887c11fdd827b23f3a712ab73754c01b2f17f9fa62d8f2649",
+          "size_bytes": 2076
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/runner/stage17_archive_channel.hpp",
+          "sha256": "349fea046cf5e63b2cc837c3b66ebf18e07f0bf510989eee8f702e7e335937c4",
+          "size_bytes": 2444
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/runner/stage17_discovery_action.hpp",
+          "sha256": "3bce5658e11ab81255367b9e46344e5e1797af4825d5bab5c2f502d13078a5f4",
+          "size_bytes": 1895
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/runner/stage17_discovery_action.hpp",
+          "sha256": "3bce5658e11ab81255367b9e46344e5e1797af4825d5bab5c2f502d13078a5f4",
+          "size_bytes": 1895
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/runner/stage17_discovery_publication.hpp",
+          "sha256": "bae743ebed28b19cd97b23c58cb6a1f34d0ca3d60dd3c05c0907d6e9c49b0c6f",
+          "size_bytes": 2902
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/runner/stage17_discovery_publication.hpp",
+          "sha256": "bae743ebed28b19cd97b23c58cb6a1f34d0ca3d60dd3c05c0907d6e9c49b0c6f",
+          "size_bytes": 2902
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/runner/stage17_fixed_action.hpp",
+          "sha256": "b438925c897188e909879877ddff77e98e690bd756e0637e4d9fd72a78a9c2e9",
+          "size_bytes": 7273
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/runner/stage17_fixed_action.hpp",
+          "sha256": "b438925c897188e909879877ddff77e98e690bd756e0637e4d9fd72a78a9c2e9",
+          "size_bytes": 7273
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/runner/stage17_formal_checkpoint.hpp",
+          "sha256": "3579911430dd834607e2ac93c3ea99a18d1faf8acc786463fa86520fb2dc0618",
+          "size_bytes": 1784
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/runner/stage17_formal_checkpoint.hpp",
+          "sha256": "3579911430dd834607e2ac93c3ea99a18d1faf8acc786463fa86520fb2dc0618",
+          "size_bytes": 1784
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/runner/stage17_formal_family.hpp",
+          "sha256": "6305daa582fbc3abfa09dca023a164d51baad06174307b0cc2a7021513c79709",
+          "size_bytes": 1675
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/runner/stage17_formal_family.hpp",
+          "sha256": "6305daa582fbc3abfa09dca023a164d51baad06174307b0cc2a7021513c79709",
+          "size_bytes": 1675
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/runner/stage17_formal_ring_action.hpp",
+          "sha256": "e48fd2f35e8c7ad113df665db83d3259c9742622736d9e40adab7d8426ff5376",
+          "size_bytes": 1541
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/runner/stage17_formal_ring_action.hpp",
+          "sha256": "e48fd2f35e8c7ad113df665db83d3259c9742622736d9e40adab7d8426ff5376",
+          "size_bytes": 1541
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/runner/stage17_formal_ring_publication.hpp",
+          "sha256": "e1fdb19f8688dd9c1b5243a280b398d74c17dce77b4cef802f5db510b7678258",
+          "size_bytes": 1504
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/runner/stage17_formal_ring_publication.hpp",
+          "sha256": "e1fdb19f8688dd9c1b5243a280b398d74c17dce77b4cef802f5db510b7678258",
+          "size_bytes": 1504
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/runner/stage17_formal_scheduled_action.hpp",
+          "sha256": "342fb7e4fc9ecfe5b3faf27a85b0b6fd0d1d603d609dc97652db5c72bd739ff6",
+          "size_bytes": 4069
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/runner/stage17_formal_scheduled_action.hpp",
+          "sha256": "342fb7e4fc9ecfe5b3faf27a85b0b6fd0d1d603d609dc97652db5c72bd739ff6",
+          "size_bytes": 4069
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/runner/stage17_formal_scheduled_publication.hpp",
+          "sha256": "1a8f4f442c5db2ce0eb808bb2e552938ce40a7bd1a65e22a803d6b8597ac14e1",
+          "size_bytes": 1376
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/runner/stage17_formal_scheduled_publication.hpp",
+          "sha256": "1a8f4f442c5db2ce0eb808bb2e552938ce40a7bd1a65e22a803d6b8597ac14e1",
+          "size_bytes": 1376
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/runner/stage17_formal_service_action.hpp",
+          "sha256": "0c590841b46cc42d6e6123e27a67d676916deb2f3183f3cde6788b96e3852f18",
+          "size_bytes": 1580
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/runner/stage17_formal_service_action.hpp",
+          "sha256": "0c590841b46cc42d6e6123e27a67d676916deb2f3183f3cde6788b96e3852f18",
+          "size_bytes": 1580
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/runner/stage17_formal_service_publication.hpp",
+          "sha256": "dfb8c38ff9877ec2e1227d4603ac023a1417a91053437edf992b9b56b9a4e571",
+          "size_bytes": 1206
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/runner/stage17_formal_service_publication.hpp",
+          "sha256": "dfb8c38ff9877ec2e1227d4603ac023a1417a91053437edf992b9b56b9a4e571",
+          "size_bytes": 1206
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/runner/stage17_s180_channel_sink.hpp",
+          "sha256": "c80aa5c362feed6cb2c7e964c49fe3344d90c4181364bde6958066d1d04d23da",
+          "size_bytes": 1463
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/runner/stage17_s180_input.hpp",
+          "sha256": "fde223280cc4c07c8bf95751fa13073e5ca9f25e7a4406813ca634d6e8475b2a",
+          "size_bytes": 2032
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/runner/stage17_s180_publication.hpp",
+          "sha256": "5caac9e9b8856328282103c19cf3b5207c1c2d8e3c13b8732abcfe4a01582c4d",
+          "size_bytes": 1387
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/runner/stage17_s180_session.hpp",
+          "sha256": "e6bb6d65037a4f33f70a5837943b35857929f81a72f5a5efc0f4db9fc23187f3",
+          "size_bytes": 4790
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/runner/stage17_s180_sources.hpp",
+          "sha256": "c34471d97ee699545f0a3c4733615cdff58341893d55c4e60e14503a413a67fb",
+          "size_bytes": 1720
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/runner/stage17_s180_worker.hpp",
+          "sha256": "ff400f9b0e5a6695ba555a5e8330d7c54d49a6357f86c662fd94a10df89b9921",
+          "size_bytes": 2100
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/runner/stage17_schedule_source.hpp",
+          "sha256": "7d8bfe871fcd8668742749d1914faf055311b251305e2feeca333a843005a58c",
+          "size_bytes": 1520
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/runner/stage17_schedule_source.hpp",
+          "sha256": "7d8bfe871fcd8668742749d1914faf055311b251305e2feeca333a843005a58c",
+          "size_bytes": 1520
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/storage/artifact_store.hpp",
+          "sha256": "23a8397ab1343f71530d272328ea1adb4075174d18199a489822740b43527970",
+          "size_bytes": 3161
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/storage/artifact_store.hpp",
+          "sha256": "23a8397ab1343f71530d272328ea1adb4075174d18199a489822740b43527970",
+          "size_bytes": 3161
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/storage/artifacts.hpp",
+          "sha256": "f9785f12eb20c15c0c3005cdf75ede6f8e0cfa7a75e52a64fd7d37f5d98e6789",
+          "size_bytes": 3196
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/storage/artifacts.hpp",
+          "sha256": "f9785f12eb20c15c0c3005cdf75ede6f8e0cfa7a75e52a64fd7d37f5d98e6789",
+          "size_bytes": 3196
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/storage/budget.hpp",
+          "sha256": "862cb8f4aa7266087b5340336efaf7076d07510957738fac452c9fef32202de5",
+          "size_bytes": 2508
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/storage/budget.hpp",
+          "sha256": "862cb8f4aa7266087b5340336efaf7076d07510957738fac452c9fef32202de5",
+          "size_bytes": 2508
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/storage/capture_backend.hpp",
+          "sha256": "721bd6ed666db97270176c34eb27531e2766b04e60bd37c4f05e468612d27b2e",
+          "size_bytes": 3491
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/storage/capture_backend.hpp",
+          "sha256": "721bd6ed666db97270176c34eb27531e2766b04e60bd37c4f05e468612d27b2e",
+          "size_bytes": 3491
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/storage/finalization.hpp",
+          "sha256": "b421171a1968474b025dc6bf6e3ae5b10a9e28f96e5050093acf70d52e79afe3",
+          "size_bytes": 1521
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/storage/finalization.hpp",
+          "sha256": "b421171a1968474b025dc6bf6e3ae5b10a9e28f96e5050093acf70d52e79afe3",
+          "size_bytes": 1521
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/storage/post_measure_archive.hpp",
+          "sha256": "4f6e158adc5a64d4ee906f3bc74df816f7364d1f5d342d51af008a66b34521ef",
+          "size_bytes": 6257
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/storage/post_measure_archive.hpp",
+          "sha256": "4f6e158adc5a64d4ee906f3bc74df816f7364d1f5d342d51af008a66b34521ef",
+          "size_bytes": 6257
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/storage/raw_observations.hpp",
+          "sha256": "d95022bddda7e20a44f3c870a44cef1394dbd44535c39b9e1ec92cbb1d4f809c",
+          "size_bytes": 9097
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/storage/raw_observations.hpp",
+          "sha256": "d95022bddda7e20a44f3c870a44cef1394dbd44535c39b9e1ec92cbb1d4f809c",
+          "size_bytes": 9097
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/timing/capture.hpp",
+          "sha256": "57c777753b0b64d1d09ec6e0c72dc7171ea23036860d0572f32825a01e506d67",
+          "size_bytes": 8913
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/timing/capture.hpp",
+          "sha256": "57c777753b0b64d1d09ec6e0c72dc7171ea23036860d0572f32825a01e506d67",
+          "size_bytes": 8913
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/timing/clock.hpp",
+          "sha256": "9248e3fcf840c9274920791e582b2248446ec3cf45bf28bcab01dc9b3d06496e",
+          "size_bytes": 3240
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/timing/clock.hpp",
+          "sha256": "9248e3fcf840c9274920791e582b2248446ec3cf45bf28bcab01dc9b3d06496e",
+          "size_bytes": 3240
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/workload/deterministic.hpp",
+          "sha256": "8479143928abb4e50d9e5eafa5b2261ef289c738ce9e963e54f2c4c006c8c922",
+          "size_bytes": 2808
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/workload/deterministic.hpp",
+          "sha256": "8479143928abb4e50d9e5eafa5b2261ef289c738ce9e963e54f2c4c006c8c922",
+          "size_bytes": 2808
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/workload/packages.hpp",
+          "sha256": "aea8df7ddce6ff753d69813b5b5b3f9a9fac313297542d8768d06c2b146e5674",
+          "size_bytes": 9432
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/workload/packages.hpp",
+          "sha256": "aea8df7ddce6ff753d69813b5b5b3f9a9fac313297542d8768d06c2b146e5674",
+          "size_bytes": 9432
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/workload/records.hpp",
+          "sha256": "13e3c99df1d24ffee9025010e376a23f743968a6d7f504a5c170fcea94b414c0",
+          "size_bytes": 5608
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/workload/records.hpp",
+          "sha256": "13e3c99df1d24ffee9025010e376a23f743968a6d7f504a5c170fcea94b414c0",
+          "size_bytes": 5608
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/include/cpu_prefetch/workload/working_set.hpp",
+          "sha256": "61d45e5076fa642048a5a8d5354dc58b59816892d52ae6fa5eea694e1c1aac19",
+          "size_bytes": 3290
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/workload/working_set.hpp",
+          "sha256": "61d45e5076fa642048a5a8d5354dc58b59816892d52ae6fa5eea694e1c1aac19",
+          "size_bytes": 3290
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/calibration/calibration.cpp",
+          "sha256": "e3bb9f9bc2d7da5c2cba70ad3baaca0086716a58b9dff9616d3b4d8265603a42",
+          "size_bytes": 43241
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/calibration/calibration.cpp",
+          "sha256": "e3bb9f9bc2d7da5c2cba70ad3baaca0086716a58b9dff9616d3b4d8265603a42",
+          "size_bytes": 43241
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/calibration/native_discovery_capture.cpp",
+          "sha256": "77468115c1dcca9096107c727bd906e22b4949ada0d0fa538c1b760dda37f056",
+          "size_bytes": 28889
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/calibration/native_discovery_capture.cpp",
+          "sha256": "77468115c1dcca9096107c727bd906e22b4949ada0d0fa538c1b760dda37f056",
+          "size_bytes": 28889
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/calibration/native_formal_ring_capture.cpp",
+          "sha256": "01d7b50399af0a774ac5ba9a89ea385237439759a94efd13e1391d6a7f78b6fd",
+          "size_bytes": 2943
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/calibration/native_formal_ring_capture.cpp",
+          "sha256": "01d7b50399af0a774ac5ba9a89ea385237439759a94efd13e1391d6a7f78b6fd",
+          "size_bytes": 2943
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/calibration/native_formal_scheduled_capture.cpp",
+          "sha256": "39501ef17efabdedebb5e15c0733898d8e8f6b73a06b9dfb7e94d55ddaf1d05f",
+          "size_bytes": 5799
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/calibration/native_formal_scheduled_capture.cpp",
+          "sha256": "39501ef17efabdedebb5e15c0733898d8e8f6b73a06b9dfb7e94d55ddaf1d05f",
+          "size_bytes": 5799
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/calibration/native_formal_service_capture.cpp",
+          "sha256": "3048d08de5a665db7c7455696adaf5ace2fad93985bbf9e38e63d6fdfe0d6f09",
+          "size_bytes": 5588
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/calibration/native_formal_service_capture.cpp",
+          "sha256": "3048d08de5a665db7c7455696adaf5ace2fad93985bbf9e38e63d6fdfe0d6f09",
+          "size_bytes": 5588
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/calibration/native_pilot_capture.cpp",
+          "sha256": "e20cc30087ff0203e545270982db6f326f0fd6d0b729307acd2750bcf1c3be9d",
+          "size_bytes": 7784
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/calibration/ring_demand_window.cpp",
+          "sha256": "d106533b76ad461801ef813c402d73bfdb5d1691d3012968f880559cfb376d16",
+          "size_bytes": 16815
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/calibration/ring_demand_window.cpp",
+          "sha256": "d106533b76ad461801ef813c402d73bfdb5d1691d3012968f880559cfb376d16",
+          "size_bytes": 16815
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/calibration/scheduled_session.cpp",
+          "sha256": "074575f256874c5f3db11e347684a7d77935e8713e69a495665d9a98bb57a4ce",
+          "size_bytes": 1861
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/calibration/scheduled_session.cpp",
+          "sha256": "074575f256874c5f3db11e347684a7d77935e8713e69a495665d9a98bb57a4ce",
+          "size_bytes": 1861
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/calibration/service_interval_count.cpp",
+          "sha256": "0f52145cb6f8bbf9c35be94745d32e784bd09307904bd7a294899343a5022a08",
+          "size_bytes": 5160
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/calibration/service_interval_count.cpp",
+          "sha256": "0f52145cb6f8bbf9c35be94745d32e784bd09307904bd7a294899343a5022a08",
+          "size_bytes": 5160
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/calibration/service_session.cpp",
+          "sha256": "571fc67a85ca077cac4b1a968ad1596509b48f29c5b47a4ae59194017e5bb9b9",
+          "size_bytes": 1132
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/calibration/service_session.cpp",
+          "sha256": "571fc67a85ca077cac4b1a968ad1596509b48f29c5b47a4ae59194017e5bb9b9",
+          "size_bytes": 1132
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/lifecycle/runtime.cpp",
+          "sha256": "2b4a1c2ddb3ae66dc809d700d9d1a42c096c499431dc1861788c79e7ebfb2a92",
+          "size_bytes": 13849
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/lifecycle/runtime.cpp",
+          "sha256": "2b4a1c2ddb3ae66dc809d700d9d1a42c096c499431dc1861788c79e7ebfb2a92",
+          "size_bytes": 13849
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/platform/prepared_file_snapshot.cpp",
+          "sha256": "85b04d8326ffc8d99bc027a7713303b1ea501eedc81ad9ff465732152dc88f45",
+          "size_bytes": 8408
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/platform/prepared_file_snapshot.cpp",
+          "sha256": "85b04d8326ffc8d99bc027a7713303b1ea501eedc81ad9ff465732152dc88f45",
+          "size_bytes": 8408
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/platform/q15_msr.cpp",
+          "sha256": "2337cac3873971fbd3cb98c738e1b0da0fe263c84b3e449233805dbc5f3c8e08",
+          "size_bytes": 12123
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/platform/q15_msr.cpp",
+          "sha256": "2337cac3873971fbd3cb98c738e1b0da0fe263c84b3e449233805dbc5f3c8e08",
+          "size_bytes": 12123
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/platform/thread_monitor.cpp",
+          "sha256": "7bf7c7a96f4df374373e689d9ba1a05e750684a5025e17a00e36989b0eaddf95",
+          "size_bytes": 15077
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/platform/thread_monitor.cpp",
+          "sha256": "7bf7c7a96f4df374373e689d9ba1a05e750684a5025e17a00e36989b0eaddf95",
+          "size_bytes": 15077
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/platform/thread_tls.cpp",
+          "sha256": "afc319d0c01a56bb71b4383b3c148db97c2788dd8681bbc2d39145c0b5866c2c",
+          "size_bytes": 5133
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/platform/thread_tls.cpp",
+          "sha256": "afc319d0c01a56bb71b4383b3c148db97c2788dd8681bbc2d39145c0b5866c2c",
+          "size_bytes": 5133
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/queue/linked_spsc.cpp",
+          "sha256": "3117a03c990f36ad0124f3532301453c2d0a087856a845cdabe056fffea263ae",
+          "size_bytes": 15882
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/queue/linked_spsc.cpp",
+          "sha256": "3117a03c990f36ad0124f3532301453c2d0a087856a845cdabe056fffea263ae",
+          "size_bytes": 15882
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/runner/qualification.cpp",
+          "sha256": "9849f44922437c888f0fa8c5fd6f959763c03b93d2dc94a31037685e4950e856",
+          "size_bytes": 17537
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/runner/qualification.cpp",
+          "sha256": "9849f44922437c888f0fa8c5fd6f959763c03b93d2dc94a31037685e4950e856",
+          "size_bytes": 17537
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/runner/runner.cpp",
+          "sha256": "6680d7a39847a9f4b118ca81876f71616285706a9dadb6bcd15f10a7593d3c11",
+          "size_bytes": 29913
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/runner/runner.cpp",
+          "sha256": "6680d7a39847a9f4b118ca81876f71616285706a9dadb6bcd15f10a7593d3c11",
+          "size_bytes": 29913
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/runner/stage17_archive_channel.cpp",
+          "sha256": "79aa5950259a5c92c6f4b447f9d5b6ac28329edd7c984eb1597243449105fe82",
+          "size_bytes": 11946
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/runner/stage17_archive_channel.cpp",
+          "sha256": "b9f799a0f68a4fa8c54ed253871733dce44458af3a38b79204ca153db2cdd833",
+          "size_bytes": 13249
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/runner/stage17_discovery_action.cpp",
+          "sha256": "b3b77b3b1fdb505c82b30a5b183dfb4ff000bf2529407aaa399ce531a7f7556f",
+          "size_bytes": 15938
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/runner/stage17_discovery_action.cpp",
+          "sha256": "b3b77b3b1fdb505c82b30a5b183dfb4ff000bf2529407aaa399ce531a7f7556f",
+          "size_bytes": 15938
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/runner/stage17_discovery_publication.cpp",
+          "sha256": "d8c481693d1616b8fe6626428af1ba93060adf26f146b89294c27b3c2822ad8e",
+          "size_bytes": 85724
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/runner/stage17_discovery_publication.cpp",
+          "sha256": "27faf8bf3d16d7566f4d10e266a4a6a46ddf638691dba747a0a4c9cc57d11413",
+          "size_bytes": 96220
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/runner/stage17_fixed_action.cpp",
+          "sha256": "03130e61fcd1b61b4cb7b2d1bfc564f1420e87eebcbff428a2b3f7ff4eec764e",
+          "size_bytes": 267565
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/runner/stage17_fixed_action.cpp",
+          "sha256": "03130e61fcd1b61b4cb7b2d1bfc564f1420e87eebcbff428a2b3f7ff4eec764e",
+          "size_bytes": 267565
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/runner/stage17_formal_checkpoint.cpp",
+          "sha256": "9972674286b8aca36bd9b9825f6099436c2f76b07a70bcb7f1b70d835da1f8fe",
+          "size_bytes": 6221
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/runner/stage17_formal_checkpoint.cpp",
+          "sha256": "9972674286b8aca36bd9b9825f6099436c2f76b07a70bcb7f1b70d835da1f8fe",
+          "size_bytes": 6221
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/runner/stage17_formal_family.cpp",
+          "sha256": "773b3e80fdf1eda96f22778884b2057fe34a06ae52593c85ea4c78e8d91e93bc",
+          "size_bytes": 39227
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/runner/stage17_formal_family.cpp",
+          "sha256": "773b3e80fdf1eda96f22778884b2057fe34a06ae52593c85ea4c78e8d91e93bc",
+          "size_bytes": 39227
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/runner/stage17_formal_input_detail.hpp",
+          "sha256": "d47cd977ee5b02c82ef79bd309fddd8515330d4937545c8e4da426ee87c6958d",
+          "size_bytes": 11491
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/runner/stage17_formal_input_detail.hpp",
+          "sha256": "d47cd977ee5b02c82ef79bd309fddd8515330d4937545c8e4da426ee87c6958d",
+          "size_bytes": 11491
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/runner/stage17_formal_ring_action.cpp",
+          "sha256": "7c99557c65bdaf71380cf854161aa1e63cb8a92697793a7adef74bf1f6d26b5a",
+          "size_bytes": 7369
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/runner/stage17_formal_ring_action.cpp",
+          "sha256": "7c99557c65bdaf71380cf854161aa1e63cb8a92697793a7adef74bf1f6d26b5a",
+          "size_bytes": 7369
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/runner/stage17_formal_scheduled_action.cpp",
+          "sha256": "80cb085cbfe0900956d97e7d2104afd4e9766d4b479b56492cedd021033dd8de",
+          "size_bytes": 21937
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/runner/stage17_formal_scheduled_action.cpp",
+          "sha256": "80cb085cbfe0900956d97e7d2104afd4e9766d4b479b56492cedd021033dd8de",
+          "size_bytes": 21937
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/runner/stage17_formal_service_action.cpp",
+          "sha256": "9daa2e96dfff4b6d22393bf652819e5b55aeba613111a0cd92225f82d7498f7a",
+          "size_bytes": 8737
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/runner/stage17_formal_service_action.cpp",
+          "sha256": "9daa2e96dfff4b6d22393bf652819e5b55aeba613111a0cd92225f82d7498f7a",
+          "size_bytes": 8737
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/runner/stage17_s180_channel_sink.cpp",
+          "sha256": "a3bfaf25ae846cd6342be12858cefcb866f7ea164be5af2f3e9757acef362fc1",
+          "size_bytes": 2472
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/runner/stage17_s180_input.cpp",
+          "sha256": "8ef4b95f32753faaed7d910726532bea7e5764960be6fe6825f5e97bed41790c",
+          "size_bytes": 24907
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/runner/stage17_s180_native_session.cpp",
+          "sha256": "1d68854bd4a694aad7f703a25827cb50ebe751b4379fd2edc728eed77acc27ad",
+          "size_bytes": 20471
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/runner/stage17_s180_session.cpp",
+          "sha256": "e21d2bd2a02e7716d7319125b22f60b38126131ab88119f6baf935752f12c1c7",
+          "size_bytes": 25711
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/runner/stage17_s180_sources.cpp",
+          "sha256": "93809d290f1066e1fa62696e75a9ae8304310bfcfdd0c49a5ad0f24efd09f0df",
+          "size_bytes": 5496
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/runner/stage17_s180_worker.cpp",
+          "sha256": "bdfb20eb443c03db24389fd8df71738a83bc398c4d86683b58612a7f21f9fdf4",
+          "size_bytes": 23788
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/runner/stage17_schedule_source.cpp",
+          "sha256": "3fd7b3e9aefed3be82894dc913b891e206f78ef3767afc85f0753fd816e62e81",
+          "size_bytes": 6373
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/runner/stage17_schedule_source.cpp",
+          "sha256": "3fd7b3e9aefed3be82894dc913b891e206f78ef3767afc85f0753fd816e62e81",
+          "size_bytes": 6373
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/storage/artifact_store.cpp",
+          "sha256": "02d235c839d67eb543775391a4f8d8029ef9867ccb80ee555034e36969197557",
+          "size_bytes": 21292
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/storage/artifact_store.cpp",
+          "sha256": "02d235c839d67eb543775391a4f8d8029ef9867ccb80ee555034e36969197557",
+          "size_bytes": 21292
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/storage/artifacts.cpp",
+          "sha256": "a9af386538ddbf2bc413c837b366c4c3f038d807c21953259090439b5c344036",
+          "size_bytes": 15103
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/storage/artifacts.cpp",
+          "sha256": "a9af386538ddbf2bc413c837b366c4c3f038d807c21953259090439b5c344036",
+          "size_bytes": 15103
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/storage/budget.cpp",
+          "sha256": "38d80f2185f50840d8500414f7cbc780c3107ac51e23594cb3d7d5736302caa3",
+          "size_bytes": 8006
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/storage/budget.cpp",
+          "sha256": "38d80f2185f50840d8500414f7cbc780c3107ac51e23594cb3d7d5736302caa3",
+          "size_bytes": 8006
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/storage/finalization.cpp",
+          "sha256": "57158d3a62b17a844752ccd0c1f3f8dd649d211f31db769a79b7067ffa7200f8",
+          "size_bytes": 8703
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/storage/finalization.cpp",
+          "sha256": "57158d3a62b17a844752ccd0c1f3f8dd649d211f31db769a79b7067ffa7200f8",
+          "size_bytes": 8703
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/storage/post_measure_archive.cpp",
+          "sha256": "ed0cedef524202c9a10e45d04789bf34d748c169c12ead99e167dedad5448af2",
+          "size_bytes": 25637
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/storage/post_measure_archive.cpp",
+          "sha256": "ed0cedef524202c9a10e45d04789bf34d748c169c12ead99e167dedad5448af2",
+          "size_bytes": 25637
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/storage/raw_observations.cpp",
+          "sha256": "e0f38f893a328674e776ba8e69c40a03a57657df520eafc2647bbebee4658acb",
+          "size_bytes": 36726
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/storage/raw_observations.cpp",
+          "sha256": "e0f38f893a328674e776ba8e69c40a03a57657df520eafc2647bbebee4658acb",
+          "size_bytes": 36726
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/timing/clock.cpp",
+          "sha256": "2db8476d54f5a22c0f72f10eed4c773dcd5586903849ee43353cb2ea8303fa26",
+          "size_bytes": 3073
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/timing/clock.cpp",
+          "sha256": "2db8476d54f5a22c0f72f10eed4c773dcd5586903849ee43353cb2ea8303fa26",
+          "size_bytes": 3073
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/src/workload/records.cpp",
+          "sha256": "37b274a28e4d29eafaa50a0367b7b401b9306f54c2bfddfc92b3fb61dd40a026",
+          "size_bytes": 15818
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/workload/records.cpp",
+          "sha256": "37b274a28e4d29eafaa50a0367b7b401b9306f54c2bfddfc92b3fb61dd40a026",
+          "size_bytes": 15818
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/tools/check_discovery_codegen.py",
+          "sha256": "c958dd52f8bcfdce049a656a7cfed714c98011dc514f8f032359be1d09818c7b",
+          "size_bytes": 31580
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/tools/check_discovery_codegen.py",
+          "sha256": "c958dd52f8bcfdce049a656a7cfed714c98011dc514f8f032359be1d09818c7b",
+          "size_bytes": 31580
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/tools/check_formal_codegen.py",
+          "sha256": "90e732318e57410d1d95fc7164e176b0dd16b02d049fd79beda50033fdd2c668",
+          "size_bytes": 37080
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/tools/check_formal_codegen.py",
+          "sha256": "90e732318e57410d1d95fc7164e176b0dd16b02d049fd79beda50033fdd2c668",
+          "size_bytes": 37080
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/tools/formal_codegen_probe.cpp",
+          "sha256": "70711b4d95a7abdf72991a8e10fb3671fa0733bea9292f21bed57712a9639ef2",
+          "size_bytes": 1675
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/tools/formal_codegen_probe.cpp",
+          "sha256": "70711b4d95a7abdf72991a8e10fb3671fa0733bea9292f21bed57712a9639ef2",
+          "size_bytes": 1675
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/analysis/analysis.hpp",
+          "sha256": "5530c9c9dae7065da65c55ead447ab6668fcae79636ff3f9925144ce3756e940",
+          "size_bytes": 12508
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/lifecycle/state_machine.hpp",
+          "sha256": "264e7396fb09b72731df11f419326b7e7cfe1dbc140e6d68771ef456aa38650b",
+          "size_bytes": 4877
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/orchestration/access.hpp",
+          "sha256": "8bd26bcafb67911bd3fe636296ae95ebfda115b5f76bbb232ba4da3be6c2c485",
+          "size_bytes": 4897
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/orchestration/block_planning.hpp",
+          "sha256": "8c3d714e9d16db71864e91e83ff062bb735901b85b7bbbf2c69c79f2ac435c0d",
+          "size_bytes": 4269
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/orchestration/precision.hpp",
+          "sha256": "858d703aa9e79827c71221c814420d34fa0b36d89c1e4cbf745793e1e934170b",
+          "size_bytes": 2904
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/platform/linux_inventory.hpp",
+          "sha256": "3721912c9150b0e068089f8a25b477f249704d38dae45a36f7fcb2a8f16d57c7",
+          "size_bytes": 1069
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/qualification/p4_k_a_controller.hpp",
+          "sha256": "634d61a221ba730066c06cde04ebba7266847917032ee04799255e91145d3112",
+          "size_bytes": 8992
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/qualification/q15_clock_pair_qualification.hpp",
+          "sha256": "52351324d0b17206b7829b2853a512866fcc0d9b55229a80215f9a24e8f05bdd",
+          "size_bytes": 2698
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/qualification/q15_collectors.hpp",
+          "sha256": "57f2aecb0260b8cce7b44e41948cc9cef5f9fe059cdfd40b321fa015953fb311",
+          "size_bytes": 5054
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/qualification/q15_controller.hpp",
+          "sha256": "2b58f48dda6c76dc8eefb917f1bf9670f03f2578638f1ab06f2c84e5669698de",
+          "size_bytes": 7763
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/qualification/q15_prestate.hpp",
+          "sha256": "e16491836baf6be30b99d56e6b019aa6a0a8ffb733f4311dc8daee68bf270b9a",
+          "size_bytes": 4863
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/qualification/q15_trust_anchor_adapter.hpp",
+          "sha256": "60be11e0e75e842639932118e38dce9a4fab9351020e3a78a56b479130fae386",
+          "size_bytes": 3751
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/queue/adapters.hpp",
+          "sha256": "1a7a28562be0ab2ab7e8f608b52470702e038b8d79d1fa738e6a5dc28ae14e49",
+          "size_bytes": 2495
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/schedule/schedule.hpp",
+          "sha256": "6c8aa343a0f2dbf4386e6d5651081fad4fff69bf97f9bbec4cc59b9ee6d39707",
+          "size_bytes": 3942
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/timing/cross_core_exchange.hpp",
+          "sha256": "b845cffd785fc60ed7972313152035bf83ff52cd34921c90353499c9a812f136",
+          "size_bytes": 9080
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/timing/intervals.hpp",
+          "sha256": "b3687085ef85a1336265f1039b6c0557bd4b42513e3c9635741c5a8065565c08",
+          "size_bytes": 630
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/include/cpu_prefetch/timing/qualification.hpp",
+          "sha256": "1c5e4caeb5ecee394c7ed5128d9a144d362e0a519db4d7b998dbd98279387133",
+          "size_bytes": 4749
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/analysis/analysis.cpp",
+          "sha256": "12a1cea082b6ec1c367e3c40e2462b32e7abe4f633b28849024c1e242e9d6ecf",
+          "size_bytes": 99738
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/lifecycle/state_machine.cpp",
+          "sha256": "08eb817863911b32762d52fa4105d8917ef442f1dc65630c6ce9e25a08b2cf2b",
+          "size_bytes": 18224
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/orchestration/access.cpp",
+          "sha256": "07d33f592019a7f30e57bc2543bfc1195b8dbfa99fa3e7910dfb435787483d81",
+          "size_bytes": 64917
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/orchestration/block_planning.cpp",
+          "sha256": "3414866ad95a8db7c9e5bf005de5ddf07882302c17d40922c9507aa00c2f7dfa",
+          "size_bytes": 35585
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/orchestration/precision.cpp",
+          "sha256": "867754d8e738b7c29830a00f3d8bc1d0c381f89cd37b683768d668e00861cd1a",
+          "size_bytes": 10409
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/platform/linux_inventory.cpp",
+          "sha256": "5ab1b55b72ed9a4ea6bae12f4ff58967c3857a34126c62aea38822bf1af9960d",
+          "size_bytes": 28352
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/platform/owner_mapping.cpp",
+          "sha256": "c36770e9b7354ccb1a7a9aa78dc911bf14d1c4d9e10a1b29d30cc3b2464cf55b",
+          "size_bytes": 5570
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/platform/platform.cpp",
+          "sha256": "6acdfadff91f11ca831023888338fb4b5aa20fd4b5b480cbe521958da0634d2e",
+          "size_bytes": 68661
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/platform/prepared_prefetch_readback.cpp",
+          "sha256": "6afeb235c8bee61536ef7a080cad82b15bc4d5572e4485048c5de9d789e19dd4",
+          "size_bytes": 7099
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/platform/prepared_residency.cpp",
+          "sha256": "fe1a505e31a08f7cba9dc1e033dad4bbb8e2b15d0039291c01a9646188b18532",
+          "size_bytes": 691
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/platform/q15_counted_region.cpp",
+          "sha256": "99094e85e030dfd3fae3e62640b9c4074ab2a6c0b7b367682dec4770ffdaea3b",
+          "size_bytes": 1185
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/platform/q15_probe.cpp",
+          "sha256": "8fa9f79d7cbeb3524c7dda5bc744e0f1e41a8fcb4f0f07933e5ac9cd6119d879",
+          "size_bytes": 8107
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/platform/q15_runtime.cpp",
+          "sha256": "c6a55edd4e849611bcd50a93dfdad73d611ad5acabcbadbfe8077212ce657f6c",
+          "size_bytes": 43143
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/platform/worker_stack.cpp",
+          "sha256": "08ca857092f52d3a0a5b4eb23e35dabf555840e86e7c44a79cf7eaeefdbb3003",
+          "size_bytes": 1415
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/protocol/json.cpp",
+          "sha256": "b572dacfac16ab37533b60f8a99976ebf5584ccfd16a2f6e9ed4445be1413d99",
+          "size_bytes": 26104
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/protocol/load.cpp",
+          "sha256": "5d5542ab61d727320b62a51388e771f2f27034ce2485dab721b0c2c357875eb6",
+          "size_bytes": 77391
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/protocol/model.cpp",
+          "sha256": "2d5dce21f0b3f4a59aabc5604993332e1e20c1c9cc2258cca5c2a6a1021c9e8a",
+          "size_bytes": 11414
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/protocol/semantic.cpp",
+          "sha256": "efb91112bce27ca0eb700f4f14a17a37032423841952b879d6c9d09537dbe12b",
+          "size_bytes": 34555
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/protocol/validation.cpp",
+          "sha256": "934d9a987eb8201da88c8db8e6b0797c0d5632adf2792e8d3c9356fb8a4796aa",
+          "size_bytes": 1340
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/qualification/p4_k_a_controller.cpp",
+          "sha256": "bb3075b523e82cf1c435f7ae98e1a656ac64b83c1a12bd325bd77496c7cb46b8",
+          "size_bytes": 19184
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/qualification/q15_clock_pair_qualification.cpp",
+          "sha256": "dbcba524172c0dc7d87c92c92062db98798a3be86b4723ac8ec4c164a01d70fb",
+          "size_bytes": 11098
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/qualification/q15_collectors.cpp",
+          "sha256": "bcf23cf5e85d1b77e604bf77562c0e047a57f0c9984f07f90cb3d82765f7bff6",
+          "size_bytes": 26872
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/qualification/q15_controller.cpp",
+          "sha256": "6e1d5f3b0b4fedb10ef1f91b7fbe3e5fde53bf070ad8ff7695be491c3618e50f",
+          "size_bytes": 13294
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/qualification/q15_prestate.cpp",
+          "sha256": "715f8965b8cb68a71dfbfc6e13a5593e33c9d8c1156194ab052193f1bab52e8a",
+          "size_bytes": 31638
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/qualification/q15_trust_anchor_adapter.cpp",
+          "sha256": "fea7f72ec0a503fe69eee1f9db25e348ad8b5371ac121b9489f6b76d00fa6002",
+          "size_bytes": 11621
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/queue/common.cpp",
+          "sha256": "c3fd566fe9c4de12f2a2e06075e4fdd9e23e495ffbd3798d1e6648ddf7fbd524",
+          "size_bytes": 2497
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/queue/ring_spsc.cpp",
+          "sha256": "1a218f6a1933435db4538ea9992158a17c608b4d8a27fbc9c9d3b8700c5c43c3",
+          "size_bytes": 5497
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/reconciliation/reconciliation.cpp",
+          "sha256": "d267e7da389350235480e4468ddfe83785743d96d31f51b02503d0d3d7fe9a50",
+          "size_bytes": 49788
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/repository_info.cpp",
+          "sha256": "0aa98298070cb3377fbe5c34fe84a6af0cf92020698e12f3d58fefa00864a8d3",
+          "size_bytes": 596
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/schedule/schedule.cpp",
+          "sha256": "76fb51eb88883b6f879710eee092b73ed3670f53d770fe527616e7010a116a65",
+          "size_bytes": 24303
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/timing/capture.cpp",
+          "sha256": "4c05b02f7bc30832e039a7ed78c531aedb008507b4d23840423eedc02e870960",
+          "size_bytes": 1662
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/timing/cross_core_exchange.cpp",
+          "sha256": "597322384672d27a9908ebc6e5571bdeb5f33f9574cfacf4548a9bc403d1458b",
+          "size_bytes": 500
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/timing/intervals.cpp",
+          "sha256": "a3a3da99dd1a8ad856637c14b58d79040d1c40d09b72ee571777a8185ceef5c1",
+          "size_bytes": 4643
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/timing/qualification.cpp",
+          "sha256": "b2b51817956859f705dda9e8da802d0482e4f7c68e2bd2c7a1a609e49a7ae660",
+          "size_bytes": 10671
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/workload/deterministic.cpp",
+          "sha256": "cbdc034b63ea29c471ad755e292363e58967fced7dbd8c593752cbf1bec95e01",
+          "size_bytes": 8004
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/workload/packages.cpp",
+          "sha256": "f93943e2df2c65f60139d1409ff34dd3b55db131b866d6c1e71b03c2cff24f6b",
+          "size_bytes": 2214
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-native-sources-34247ce-1/src/workload/working_set.cpp",
+          "sha256": "11004ee08119232bcc01b6d87b8e00f57ab3f762368b515b72ac4b17633cbc37",
+          "size_bytes": 8073
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/release/lib/libcpu_prefetch_queue.a",
+          "sha256": "dddd26e8788f362f3b68494aaf66b6c37d18f2cbcb288a3cc0ef93771164ddf6",
+          "size_bytes": 51162
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-common-0919b87-1/frozen-native-release/libcpu_prefetch_queue.a",
+          "sha256": "dddd26e8788f362f3b68494aaf66b6c37d18f2cbcb288a3cc0ef93771164ddf6",
+          "size_bytes": 51162
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/release/lib/libcpu_prefetch_workload.a",
+          "sha256": "24ffc94864ce4c373b2262dd3cd862aeeb9c97d68d998e15fb229813ed42f04c",
+          "size_bytes": 102946
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-common-0919b87-1/frozen-native-release/libcpu_prefetch_workload.a",
+          "sha256": "24ffc94864ce4c373b2262dd3cd862aeeb9c97d68d998e15fb229813ed42f04c",
+          "size_bytes": 102946
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/release/lib/libcpu_prefetch_timing.a",
+          "sha256": "c3820dc7d8f136f3c0f9b00fbba932b539f315df52fb9a5e65d752437aafea21",
+          "size_bytes": 31766
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-common-0919b87-1/frozen-native-release/libcpu_prefetch_timing.a",
+          "sha256": "c3820dc7d8f136f3c0f9b00fbba932b539f315df52fb9a5e65d752437aafea21",
+          "size_bytes": 31766
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/release/lib/libcpu_prefetch_calibration.a",
+          "sha256": "e109e8c810898e9704e76b4fd17a677b5f5aee0d7d2cd2060db7b74767185815",
+          "size_bytes": 2657694
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-common-0919b87-1/frozen-native-release/libcpu_prefetch_calibration.a",
+          "sha256": "7b16762990d4ca82c06c517fafdfa0bed3cdf1c4c36f62e8d23a2fe707ef308d",
+          "size_bytes": 3873820
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/release/lib/libcpu_prefetch_storage.a",
+          "sha256": "8d6f96255d21ea2ccd9e6c17b37ada2de310292c5d05026174f83e53e8488809",
+          "size_bytes": 837902
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-common-0919b87-1/frozen-native-release/libcpu_prefetch_storage.a",
+          "sha256": "8d6f96255d21ea2ccd9e6c17b37ada2de310292c5d05026174f83e53e8488809",
+          "size_bytes": 837902
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/release/lib/libcpu_prefetch_lifecycle.a",
+          "sha256": "046d94647363439f1e181046522514291cf25e84f0ba21a3a499cab1778582ff",
+          "size_bytes": 188752
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-common-0919b87-1/frozen-native-release/libcpu_prefetch_lifecycle.a",
+          "sha256": "046d94647363439f1e181046522514291cf25e84f0ba21a3a499cab1778582ff",
+          "size_bytes": 188752
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/release/lib/libcpu_prefetch_platform.a",
+          "sha256": "017f743be93ba4b15775b1edaa9f358f811fabc5fe124787c9ff0004a643bcf8",
+          "size_bytes": 1040836
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-common-0919b87-1/frozen-native-release/libcpu_prefetch_platform.a",
+          "sha256": "017f743be93ba4b15775b1edaa9f358f811fabc5fe124787c9ff0004a643bcf8",
+          "size_bytes": 1040836
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/release/lib/libcpu_prefetch_protocol.a",
+          "sha256": "4c33488c9035e4d7ca561f874cd946cdb4f6179ff5ad23bda5d918f58d194c4e",
+          "size_bytes": 1040966
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-common-0919b87-1/frozen-native-release/libcpu_prefetch_protocol.a",
+          "sha256": "4c33488c9035e4d7ca561f874cd946cdb4f6179ff5ad23bda5d918f58d194c4e",
+          "size_bytes": 1040966
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/release/lib/libcpu_prefetch_reconciliation.a",
+          "sha256": "1f2903602ad1399ccc328fd42b6d13b9102c8cab67b01e256801ca54563e739b",
+          "size_bytes": 232134
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-common-0919b87-1/frozen-native-release/libcpu_prefetch_reconciliation.a",
+          "sha256": "1f2903602ad1399ccc328fd42b6d13b9102c8cab67b01e256801ca54563e739b",
+          "size_bytes": 232134
+        },
+        {
+          "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/build-provenance/formal_codegen_report.json",
+          "sha256": "91c47d5d6e92836c9f359c7bf9b7b53d5b612dbb922e6d67fe5c4bec68da50df",
+          "size_bytes": 1833070
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-common-0919b87-1/frozen-native-release/generated/version_metadata.json",
+          "sha256": "7ded5282835e04d3222ec33ee7f59b8f5c06d3b7882a9bc12d2f32afbab6ea30",
+          "size_bytes": 401
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-common-0919b87-1/frozen-native-release/s180_codegen_report-final.json",
+          "sha256": "5d00594e43480da6e7ee5f4b5a22ff410e1107d70ff72dccc1043ef8053b7be3",
+          "size_bytes": 4010028
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-common-0919b87-1/tools/check_s180_codegen.py",
+          "sha256": "f2d002f10ac00a4f70ec6f0db587a32c0869d9c66a72be9ad952cba4e3460fd4",
+          "size_bytes": 17918
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-common-0919b87-1/tools/check_formal_codegen.py",
+          "sha256": "90e732318e57410d1d95fc7164e176b0dd16b02d049fd79beda50033fdd2c668",
+          "size_bytes": 37080
+        },
+        {
+          "path": "/opt/cpu-prefetch-s180-common-0919b87-1/tools/check_discovery_codegen.py",
+          "sha256": "c958dd52f8bcfdce049a656a7cfed714c98011dc514f8f032359be1d09818c7b",
+          "size_bytes": 31580
+        }
+      ],
+      "full_ext008_admission": false,
+      "inspection_mirror": false,
+      "legacy_statistical_freeze_satisfied": false,
+      "new_native_sources": [
+        "include/cpu_prefetch/calibration/mapped_pilot_capture.hpp",
+        "include/cpu_prefetch/calibration/mapped_pilot_data.hpp",
+        "include/cpu_prefetch/calibration/native_pilot_capture.hpp",
+        "include/cpu_prefetch/calibration/pilot_scheduled_capture.hpp",
+        "include/cpu_prefetch/calibration/pilot_shared_data.hpp",
+        "include/cpu_prefetch/runner/stage17_s180_channel_sink.hpp",
+        "include/cpu_prefetch/runner/stage17_s180_input.hpp",
+        "include/cpu_prefetch/runner/stage17_s180_publication.hpp",
+        "include/cpu_prefetch/runner/stage17_s180_session.hpp",
+        "include/cpu_prefetch/runner/stage17_s180_sources.hpp",
+        "include/cpu_prefetch/runner/stage17_s180_worker.hpp",
+        "src/calibration/native_pilot_capture.cpp",
+        "src/runner/stage17_s180_channel_sink.cpp",
+        "src/runner/stage17_s180_input.cpp",
+        "src/runner/stage17_s180_native_session.cpp",
+        "src/runner/stage17_s180_session.cpp",
+        "src/runner/stage17_s180_sources.cpp",
+        "src/runner/stage17_s180_worker.cpp"
+      ],
+      "original_bundle_physical_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b",
+      "original_release_context": {
+        "archive_bundle_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b",
+        "inventory_sha256": "828fe1a3482b4b6c9d7249582648be43e920051033f103808e0fc7644362bf8a",
+        "release_artifact_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b/release/bin/cpu_prefetch_runner",
+        "release_artifact_sha256": "bc064c13afd7eb5142ae8ee434e95962e9b3fc3095c6c159d83376c3e7e8c019",
+        "release_artifact_size_bytes": 5052696,
+        "source_revision": "7b7c263cb850690cf333df0d196b18c875b4a53c"
+      },
+      "original_source_revision": "7b7c263cb850690cf333df0d196b18c875b4a53c",
+      "phase18_authority": false,
+      "plan_sha256": "ece6975ba86ea0b18547915df4817b11661c9e3cc6603f95d24d4b230f1f97f5",
+      "review_sha256": "ef5c5868499f9b57be7c90ef92c27cc37185d3c36ff15e79077059d50dfd7642",
+      "reviewed_shared_changes": [
+        "include/cpu_prefetch/calibration/detail/native_capture_monitor.hpp",
+        "include/cpu_prefetch/calibration/detail/native_service_envelope.hpp",
+        "include/cpu_prefetch/runner/stage17_archive_channel.hpp",
+        "src/runner/stage17_archive_channel.cpp",
+        "src/runner/stage17_discovery_publication.cpp"
+      ],
+      "schema_version": "cpu-prefetch-stage17-s180-calibration-software-compatibility/1",
+      "software_compatibility_verified": true
+    },
+    "actual_frozen_native_identity": {
+      "execution_authority": false,
+      "phase18_authority": false,
+      "profile": "STAGE17-S180-NATIVE-WORKER-v1",
+      "role": "STAGE17_S180_NATIVE_WORKER",
+      "schema_version": "cpu-prefetch-stage17-s180-runtime-identity/1",
+      "sha256": "7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc",
+      "size_bytes": 6151832,
+      "source_dirty": false,
+      "source_revision": "34247cedab4abe4b44732daae8fdac1700eccffd",
+      "synthetic_test_only": false
+    },
+    "actual_original_bundle_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b",
+    "owned_original_replay": {
+      "actual_owner_reader_completed": true,
+      "cleanup": {
+        "cleanup_deadline_overrun": false,
+        "cleanup_diagnostics": [],
+        "descendants_detected_after_leader_exit": false,
+        "leader_reaped": true,
+        "leader_wait_timed_out": false,
+        "maximum_descendant_count": 0,
+        "namespace_snapshot": {
+          "local_pgid": 392082,
+          "local_pid": 392082,
+          "namespace_inode": "4026531836",
+          "nspgid": [
+            392082
+          ],
+          "nspid": [
+            392082
+          ],
+          "procfs_namespace_inode": "4026531836",
+          "visible_pgid": 392082,
+          "visible_pid": 392082
+        },
+        "process_group_gone": true,
+        "returncode": 0,
+        "terminal_cleanup_outcome": "NORMAL_LEADER_REAPED_GROUP_QUIESCENT"
+      },
+      "completed_monotonic_ns": 1905120300453060,
+      "console_prefix": "",
+      "deadline_monotonic_ns": 1905679200818239,
+      "execution_authority": false,
+      "failure": null,
+      "observed_reader": {
+        "actual_gid_fields": [
+          1000,
+          1000,
+          1000,
+          1000
+        ],
+        "actual_uid_fields": [
+          1000,
+          1000,
+          1000,
+          1000
+        ],
+        "address_space_bytes": [
+          8589934592,
+          8589934592
+        ],
+        "file_size_bytes": [
+          268435456,
+          268435456
+        ],
+        "gid": 1000,
+        "session_id": 392084,
+        "start_ticks": 190507920,
+        "uid": 1000
+      },
+      "phase18_authority": false,
+      "pid": 392084,
+      "root_parent_credentials_preserved": true,
+      "root_uids_after": [
+        0,
+        0,
+        0
+      ],
+      "root_uids_before": [
+        0,
+        0,
+        0
+      ],
+      "schema_version": "cpu-prefetch-stage17-s180-owned-original-replay/1",
+      "started_monotonic_ns": 1905079203374059
+    },
+    "source_requirements": {
+      "execution_authority": false,
+      "full_resource_admission": false,
+      "maximum_source_bytes": 1443373440,
+      "maximum_vector_bytes": 1496831712,
+      "phase18_authority": false,
+      "source_bank_upper_bytes": 1518870912,
+      "source_bank_upper_inodes": 109,
+      "source_metadata_upper_bytes": 20971520,
+      "source_metadata_upper_inodes": 64,
+      "source_process_and_page_upper_bytes": 14328373248
+    }
+  },
+  "qualification_performed": false,
+  "root_uids": [
+    0,
+    0,
+    0
+  ],
+  "source_preparation_performed": false,
+  "status": "ACTUAL_COLD_COMMON_SOFTWARE_AND_ORIGINAL_REPLAY_PASS",
+  "utc": "2026-11-23T21:16:28.181406+00:00"
+}

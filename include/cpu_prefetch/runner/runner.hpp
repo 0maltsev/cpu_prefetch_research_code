@@ -3,6 +3,8 @@
 
 #include "cpu_prefetch/lifecycle/executor.hpp"
 #include "cpu_prefetch/protocol/model.hpp"
+#include "cpu_prefetch/runner/software_prefetch.hpp"
+#include "cpu_prefetch/storage/raw_observations.hpp"
 
 #include <array>
 #include <cstdint>
@@ -22,11 +24,17 @@
 namespace cpu_prefetch::runner {
 
 inline constexpr std::string_view kAdmissionSchemaVersion =
-    "cpu-prefetch-runner-admission/1";
+    "cpu-prefetch-runner-admission/3";
 inline constexpr std::string_view kRunnerProfileId =
-    "STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v1";
+    "STAGE17-STATIC-FIVE-PACKAGE-FAIL-CLOSED-v3";
 inline constexpr std::string_view kCpuPairSelectionId =
     "XEON-CPU-FETCH-P0-NEAR-0-1-FAR-0-26-v1";
+// ADR-0173: cpu-prefetch-v5's own real, topology-evidence-backed pair
+// identity. Near pair is unchanged ({0,1}); only the far pair differs,
+// since it is the one that crosses package/NUMA/LLC boundaries and those
+// boundaries are a real property of each stand's own silicon.
+inline constexpr std::string_view kCpuPairSelectionIdV5 =
+    "CPU-PREFETCH-V5-P0-NEAR-0-1-FAR-0-8-v1";
 inline constexpr std::string_view kRelaxMappingId = "X86-PAUSE-ONE-PER-RELAX-SITE-v1";
 
 struct WorkerPair final {
@@ -38,9 +46,23 @@ struct WorkerPair final {
 
 inline constexpr WorkerPair kNearWorkerPair{0U, 1U};
 inline constexpr WorkerPair kFarWorkerPair{0U, 26U};
+// ADR-0173: cpu-prefetch-v5's own real far pair ({0,1,8}, not {0,1,26}
+// reused from ADR-0043 on different silicon).
+inline constexpr WorkerPair kFarWorkerPairV5{0U, 8U};
 
 [[nodiscard]] auto selected_worker_pair(protocol::Placement placement) noexcept
     -> WorkerPair;
+
+// True iff id names any currently registered pair identity (ADR-0043's or
+// ADR-0173's), independent of which stand is actually running.
+[[nodiscard]] auto is_accepted_cpu_pair_selection_id(std::string_view id) noexcept
+    -> bool;
+
+// True iff workers is a registered pair for the given placement, under any
+// currently registered pair identity -- near is shared ({0,1}); far accepts
+// either ADR-0043's {0,26} or ADR-0173's {0,8}.
+[[nodiscard]] auto is_accepted_worker_pair(protocol::Placement placement,
+                                           WorkerPair workers) noexcept -> bool;
 
 // Q13 selects exactly one architectural PAUSE at each executor relax site. The
 // type is deliberately stateless because one instance is shared by the
@@ -62,6 +84,7 @@ enum class EvidenceKind : std::uint8_t {
   platform_request,
   platform_verification,
   hardware_prefetch_mapping,
+  software_prefetch_mapping,
   clock_qualification,
   queue_provenance,
   runtime_atomic_layout,
@@ -71,7 +94,7 @@ enum class EvidenceKind : std::uint8_t {
   calibration_freeze,
   execution_limits,
   authority_custody,
-  pilot_execution_authorization,
+  phase_execution_authorization,
 };
 
 inline constexpr std::array kRequiredEvidenceKinds{
@@ -85,6 +108,7 @@ inline constexpr std::array kRequiredEvidenceKinds{
     EvidenceKind::platform_request,
     EvidenceKind::platform_verification,
     EvidenceKind::hardware_prefetch_mapping,
+    EvidenceKind::software_prefetch_mapping,
     EvidenceKind::clock_qualification,
     EvidenceKind::queue_provenance,
     EvidenceKind::runtime_atomic_layout,
@@ -94,7 +118,89 @@ inline constexpr std::array kRequiredEvidenceKinds{
     EvidenceKind::calibration_freeze,
     EvidenceKind::execution_limits,
     EvidenceKind::authority_custody,
-    EvidenceKind::pilot_execution_authorization,
+    EvidenceKind::phase_execution_authorization,
+};
+
+struct ThreadBindingObservation final {
+  std::uint32_t requested_cpu;
+  std::uint32_t actual_cpu;
+  bool affinity_applied;
+  bool singleton_readback;
+  bool actual_cpu_matches;
+
+  [[nodiscard]] auto passes() const noexcept -> bool {
+    return affinity_applied && singleton_readback && actual_cpu_matches &&
+           actual_cpu == requested_cpu;
+  }
+};
+
+class CurrentThreadBindingBackend {
+public:
+  virtual ~CurrentThreadBindingBackend() = default;
+  [[nodiscard]] virtual auto bind_and_verify(std::uint32_t requested_cpu) noexcept
+      -> ThreadBindingObservation = 0;
+};
+
+class LinuxCurrentThreadBindingBackend final : public CurrentThreadBindingBackend {
+public:
+  [[nodiscard]] auto bind_and_verify(std::uint32_t requested_cpu) noexcept
+      -> ThreadBindingObservation override;
+};
+
+namespace detail {
+struct alignas(64) OwnerPreparationResult final {
+  ThreadBindingObservation binding{};
+  SoftwarePrefetchCapabilityObservation software_prefetch_capability{};
+  bool private_stream_prepared{false};
+};
+} // namespace detail
+
+struct AffinedPreparationEvidence final {
+  ThreadBindingObservation producer_binding;
+  ThreadBindingObservation consumer_binding;
+  SoftwarePrefetchCapabilityObservation producer_software_prefetch_capability;
+  SoftwarePrefetchCapabilityObservation consumer_software_prefetch_capability;
+  bool producer_stream_prepared;
+  bool consumer_stream_prepared;
+  std::string_view software_prefetch_mapping_id{kSoftwarePrefetchMappingId};
+
+  [[nodiscard]] auto passes() const noexcept -> bool {
+    return producer_binding.passes() && consumer_binding.passes() &&
+           producer_software_prefetch_capability.passes_for_mapping(
+               software_prefetch_mapping_id) &&
+           consumer_software_prefetch_capability.passes_for_mapping(
+               software_prefetch_mapping_id) &&
+           producer_stream_prepared && consumer_stream_prepared;
+  }
+};
+
+class AffinedObservationPreparation final {
+public:
+  AffinedObservationPreparation(
+      CurrentThreadBindingBackend& binding_backend,
+      CurrentCpuSoftwarePrefetchCapabilityBackend& capability_backend,
+      WorkerPair workers, storage::ProducerObservationStream& producer_stream,
+      storage::ConsumerObservationStream& consumer_stream,
+      std::string_view software_prefetch_mapping_id =
+          kSoftwarePrefetchMappingId) noexcept
+      : binding_backend_(binding_backend), capability_backend_(capability_backend),
+        workers_(workers), producer_stream_(producer_stream),
+        consumer_stream_(consumer_stream),
+        software_prefetch_mapping_id_(software_prefetch_mapping_id) {}
+
+  [[nodiscard]] auto prepare_producer() noexcept -> bool;
+  [[nodiscard]] auto prepare_consumer() noexcept -> bool;
+  [[nodiscard]] auto evidence() const noexcept -> AffinedPreparationEvidence;
+
+private:
+  CurrentThreadBindingBackend& binding_backend_;
+  CurrentCpuSoftwarePrefetchCapabilityBackend& capability_backend_;
+  WorkerPair workers_;
+  storage::ProducerObservationStream& producer_stream_;
+  storage::ConsumerObservationStream& consumer_stream_;
+  std::string_view software_prefetch_mapping_id_;
+  detail::OwnerPreparationResult producer_result_{};
+  detail::OwnerPreparationResult consumer_result_{};
 };
 
 [[nodiscard]] auto to_string(EvidenceKind kind) noexcept -> std::string_view;
@@ -136,6 +242,11 @@ struct AdmissionTrustAnchor final {
   bool source_dirty;
 };
 
+struct SealedControllerProof final {
+  std::string canonical_admission_sha256;
+  std::string evidence_set_sha256;
+};
+
 class AdmissionTicket final {
 public:
   [[nodiscard]] auto package() const noexcept -> protocol::QueuePackage {
@@ -156,6 +267,10 @@ public:
 private:
   friend auto admit_runner(const RunnerAdmission&, const AdmissionTrustAnchor&,
                            const std::filesystem::path&)
+      -> protocol::Result<AdmissionTicket>;
+  friend auto admit_runner_from_sealed_controller(const RunnerAdmission&,
+                                                  const AdmissionTrustAnchor&,
+                                                  const SealedControllerProof&)
       -> protocol::Result<AdmissionTicket>;
 
   AdmissionTicket(protocol::QueuePackage package, protocol::Placement placement,
@@ -180,11 +295,32 @@ private:
                                 const AdmissionTrustAnchor& trust_anchor,
                                 const std::filesystem::path& manifest_parent)
     -> protocol::Result<AdmissionTicket>;
+
+// Stage 17's fixed-action controller has already opened every evidence object
+// without following symlinks and has sealed the canonical admission document
+// into the request FD.  This entry point deliberately repeats all admission
+// field checks, then binds the ticket to the canonical document and to the
+// controller's closed evidence-set digest.  It does not accept paths and does
+// not weaken the ordinary path-verifying admit_runner() entry point.
+[[nodiscard]] auto admit_runner_from_sealed_controller(
+    const RunnerAdmission& admission, const AdmissionTrustAnchor& trust_anchor,
+    const SealedControllerProof& proof) -> protocol::Result<AdmissionTicket>;
 [[nodiscard]] auto verify_evidence_files(const RunnerAdmission& admission,
                                          const std::filesystem::path& manifest_parent)
     -> std::vector<protocol::ValidationError>;
 [[nodiscard]] auto sha256_file(const std::filesystem::path& path)
     -> protocol::Result<std::string>;
+
+// Hashes the currently-running process's own executable image. Unlike
+// sha256_file(), this does not reject a symlink path: `/proc/self/exe` is
+// always a symlink on Linux (a kernel-provided magic link into the running
+// process's own mapped image, not an attacker-controlled evidence path), so
+// sha256_file()'s symlink rejection -- correct and load-bearing for
+// evidence files -- would make self-identity hashing impossible. Opening
+// via std::ifstream follows the symlink to the real backing executable, the
+// same effect open()/read() achieves in load_sealed_runner_ticket's own
+// self-binary check.
+[[nodiscard]] auto sha256_running_binary() -> protocol::Result<std::string>;
 
 enum class DispatchStatus : std::uint8_t { dispatched, package_mismatch };
 
@@ -243,6 +379,31 @@ execute_static_measurement(const AdmissionTicket& ticket,
   X86PauseRelax relax;
   return lifecycle::execute_measurement(schedule, clock, backend, termination,
                                         ticket.execution_limits(), relax);
+}
+
+template <protocol::QueuePackage Package, typename Clock, typename Backend,
+          typename Preparation>
+[[nodiscard]] auto execute_static_prepared_measurement(
+    const AdmissionTicket& ticket, lifecycle::PreparedScheduleView schedule,
+    Clock& clock, Backend& backend, lifecycle::TerminationControl& termination,
+    Preparation& preparation) -> lifecycle::MeasurementExecutionReport {
+  static_assert(
+      Package == protocol::QueuePackage::r0 || Package == protocol::QueuePackage::r1 ||
+      Package == protocol::QueuePackage::r2 || Package == protocol::QueuePackage::l0 ||
+      Package == protocol::QueuePackage::l1);
+  static_assert(Backend::package_kind == Package,
+                "admission package and capture backend must be identical");
+  if (ticket.package() != Package ||
+      !is_accepted_worker_pair(ticket.placement(), ticket.workers())) {
+    return lifecycle::detail::failure_report(
+        lifecycle::ExecutionFailurePhase::pre_run,
+        lifecycle::ExecutionFailureReason::worker_preparation,
+        schedule.deadline_ticks.size());
+  }
+  X86PauseRelax relax;
+  return lifecycle::execute_measurement_with_preparation(
+      schedule, clock, backend, termination, ticket.execution_limits(), relax,
+      preparation);
 }
 
 } // namespace cpu_prefetch::runner

@@ -1,0 +1,12 @@
+{
+  "checked_at_utc": "2026-11-19T19:02:21.567022+00:00",
+  "raw_data_transferred": false,
+  "unit": {
+    "ActiveState": "active",
+    "ExecMainStatus": "0",
+    "InvocationID": "641abfe2caf8432c82b9d15fa54287da",
+    "MainPID": "339811",
+    "Result": "success",
+    "SubState": "running"
+  }
+}

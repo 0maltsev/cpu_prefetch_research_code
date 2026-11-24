@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:q15-session-waiting:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "session_id", "q15_r_request_sha256", "q15_r_result_sha256", "state", "same_buffer_retained", "phase18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-q15-session-waiting/1"},
+    "session_id": {"type": "string", "minLength": 1},
+    "q15_r_request_sha256": {"$ref": "#/$defs/sha256"},
+    "q15_r_result_sha256": {"$ref": "#/$defs/sha256"},
+    "state": {"const": "H0_SEALED_WAITING_FOR_Q15_W"},
+    "same_buffer_retained": {"const": true},
+    "phase18_authority": {"const": false}
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

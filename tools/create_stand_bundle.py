@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create the deterministic Stage 16 source/release stand-preflight bundle."""
+"""Create deterministic preflight, pilot-candidate, or Q15 tool bundles."""
 
 from __future__ import annotations
 
@@ -18,7 +18,56 @@ import tempfile
 from typing import Any
 
 
-PROFILE = "STAGE16-STAND-BUNDLE-v1"
+STAGE16_PROFILE = "STAGE16-STAND-BUNDLE-v1"
+STAGE17_PROFILE = "STAGE17-PILOT-CANDIDATE-BUNDLE-v26"
+STAGE17_DRY_RUN_PROFILE = "STAGE17-HERMETIC-DRY-RUN-BUNDLE-v22"
+STAGE17_POLICY_PATH = "config/stage17/stage17-operational-evidence-admission-policy-v63.json"
+STAGE17_PREFLIGHT_POLICY_PATH = "config/stage17/stage17-read-only-preflight-evidence-admission-policy-v37.json"
+STAGE17_CONTROLLER_ID = "STAGE17-FIXED-ACTION-PHASE-CONTROLLER-DAYCAP-v5"
+STAGE17_CONTROLLER_ENTRYPOINT = "tools/stage17_phase_controller_daycap_v5.py"
+Q15_TOOL_PROFILE = "Q15-QUALIFICATION-TOOL-BUNDLE-v3"
+STAGE17_CODEGEN_INPUTS = {
+    "formal_codegen_report.json": ("cpu_prefetch_runner", "check_formal_codegen.py"),
+    "discovery_codegen_report.json": ("cpu_prefetch_runner", "check_discovery_codegen.py"),
+    "queue_codegen_report.json": (
+        "cpu_prefetch_queue_codegen_probe",
+        "check_queue_codegen.py",
+    ),
+    "workload_codegen_report.json": (
+        "cpu_prefetch_workload_codegen_probe",
+        "check_workload_codegen.py",
+    ),
+    "timing_codegen_report.json": (
+        "cpu_prefetch_timing_codegen_probe",
+        "check_timing_codegen.py",
+    ),
+    "storage_codegen_report.json": (
+        "cpu_prefetch_storage_codegen_probe",
+        "check_storage_codegen.py",
+    ),
+    "runner_relax_codegen_report.json": (
+        "cpu_prefetch_runner_codegen_probe",
+        "check_runner_codegen.py",
+    ),
+    "runner_combined_codegen_report.json": (
+        "cpu_prefetch_runner_combined_codegen_probe",
+        "check_runner_combined_codegen.py",
+    ),
+}
+Q15_CODEGEN_INPUTS = {
+    "q15_controller_codegen_report.json": (
+        "cpu_prefetch_q15_controller_codegen_probe",
+        "check_q15_controller_codegen.py",
+    ),
+    "q15_probe_codegen_report.json": (
+        "cpu_prefetch_q15_probe_codegen_probe",
+        "check_q15_probe_codegen.py",
+    ),
+    "q15_runtime_codegen_report.json": (
+        "cpu_prefetch_q15_runtime_codegen_probe",
+        "check_q15_runtime_codegen.py",
+    ),
+}
 
 
 def sha256(path: pathlib.Path) -> str:
@@ -84,12 +133,68 @@ def write_json(path: pathlib.Path, value: Any) -> None:
     )
 
 
+def normalize_report_paths(value: Any, root: pathlib.Path, build: pathlib.Path) -> Any:
+    if isinstance(value, str):
+        return value.replace(str(build), "<BUILD_DIR>").replace(
+            str(root), "<SOURCE_ROOT>"
+        )
+    if isinstance(value, list):
+        return [normalize_report_paths(item, root, build) for item in value]
+    if isinstance(value, dict):
+        return {
+            normalize_report_paths(key, root, build): normalize_report_paths(
+                item, root, build
+            )
+            for key, item in value.items()
+        }
+    return value
+
+
 def normalized_ldd_output(output: str) -> str:
     """Remove per-process loader addresses while retaining resolved identities."""
     return re.sub(r"[ \t]+\(0x[0-9A-Fa-f]+\)(?=\n|$)", "", output)
 
 
-def make_sbom(root: pathlib.Path, dependencies: dict[str, Any], revision: str) -> dict[str, Any]:
+def verify_codegen_report(
+    root: pathlib.Path,
+    build: pathlib.Path,
+    report_path: pathlib.Path,
+    probe_name: str,
+    rule_name: str,
+) -> dict[str, Any]:
+    report = json.loads(report_path.read_text(encoding="utf-8"))
+    if report.get("status") != "PASS":
+        raise ValueError(
+            f"pilot-candidate codegen report is not PASS: "
+            f"{report_path.name}={report.get('status')}"
+        )
+    if report.get("missing_tools") != []:
+        raise ValueError(f"pilot-candidate codegen tools incomplete: {report_path.name}")
+    probe = build / probe_name
+    if not probe.is_file():
+        raise ValueError(f"pilot-candidate codegen probe is missing: {probe_name}")
+    binary_hash = report.get("binary_sha256")
+    if binary_hash is None:
+        binary_hash = report.get("binary", {}).get("sha256")
+    if binary_hash != sha256(probe):
+        raise ValueError(f"pilot-candidate codegen binary drift: {report_path.name}")
+    rule_hash = report.get("rule_set_sha256")
+    if rule_hash is None:
+        rule_hash = report.get("rule_set", {}).get("sha256")
+    if rule_hash != sha256(root / "tools" / rule_name):
+        raise ValueError(f"pilot-candidate codegen rule drift: {report_path.name}")
+    return report
+
+
+def verify_discovery_codegen_report(root: pathlib.Path, binary: pathlib.Path, report_path: pathlib.Path) -> None:
+    import check_discovery_codegen as discovery_codegen
+    discovery_codegen.validate_report_bindings(json.loads(report_path.read_text()),
+        binary=binary, source_root=root)
+
+
+def make_sbom(
+    root: pathlib.Path, dependencies: dict[str, Any], revision: str, profile: str
+) -> dict[str, Any]:
     packages: list[dict[str, Any]] = [
         {
             "SPDXID": "SPDXRef-Repository",
@@ -135,11 +240,100 @@ def make_sbom(root: pathlib.Path, dependencies: dict[str, Any], revision: str) -
         },
         "dataLicense": "CC0-1.0",
         "documentNamespace": f"https://example.invalid/cpu-prefetch/sbom/{revision}",
-        "name": "cpu-prefetch-stage16-stand-bundle",
+        "name": {
+            STAGE17_PROFILE: "cpu-prefetch-stage17-pilot-candidate",
+            STAGE17_DRY_RUN_PROFILE: "cpu-prefetch-stage17-hermetic-dry-run",
+            Q15_TOOL_PROFILE: "cpu-prefetch-q15-qualification-tool",
+        }.get(profile, "cpu-prefetch-stage16-stand-bundle"),
         "packages": packages,
         "relationships": relationships,
         "spdxVersion": "SPDX-2.3",
     }
+
+
+def copy_policy_bound_files(root: pathlib.Path, staging: pathlib.Path, policy_document: dict) -> list[dict[str, Any]]:
+    controller_files: list[dict[str, Any]] = []
+    for group_name in ("bindings", "runtime_closure"):
+        for key, binding in policy_document[group_name].items():
+            relative = pathlib.Path(binding["path"])
+            if relative.is_absolute() or ".." in relative.parts:
+                raise ValueError(f"unsafe Stage 17 controller binding: {relative}")
+            source = root / relative
+            if (not source.is_file() or source.is_symlink()
+                    or source.stat().st_size != binding["size_bytes"]
+                    or sha256(source) != binding["sha256"]):
+                raise ValueError(f"Stage 17 controller binding drifted: {relative}")
+            target = staging / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(source, target)
+            # Policy-bound Python entrypoints are executed at the exact
+            # path admitted by S17-EXT-001.  Preserve the repository's
+            # executable bit instead of silently turning those paths
+            # into non-executable regular files in the clean bundle.
+            target.chmod(0o755 if os.access(source, os.X_OK) else 0o644)
+            controller_files.append({
+                "group": group_name,
+                "key": key,
+                "path": relative.as_posix(),
+                "size_bytes": binding["size_bytes"],
+                "sha256": binding["sha256"],
+            })
+    return controller_files
+
+
+def current_stage17_policy(root: pathlib.Path) -> dict:
+    """Audit the fresh policy against the actual graph and complete source tree.
+
+    This check grants no execution authority and does not repair stale hashes.
+    Native codegen, clean-source and full extracted-bundle gates remain required.
+    """
+    import stage17_semantic_verifier_v63 as semantic
+    import stage17_state_journal as journal
+    policy = json.loads((root / STAGE17_POLICY_PATH).read_bytes())
+    genesis = journal.load_json(root / "config/stage17/journal/stage17-state-journal-000000.json")
+    _, _, graph, catalog, versions = journal.validate_graph_catalog(root, genesis)
+    record = genesis["genesis"]["genesis_record"]
+    semantic.verify_policy_v63(root=root, policy=policy, graph_sha256=graph, catalog_sha256=catalog,
+        genesis_record_sha256=journal.sha256_bytes(journal.canonical_json_bytes(record)),
+        resolution_schema_sha256=versions["resolution_schema_sha256"])
+    return policy
+
+
+def materialize_archive_profile(*, root, staging, runtime_root, window_log):
+    """Copy the explicit accepted zstd image/license and exact local module graph."""
+    import ctypes
+    import stage17_archive_bundle_profile_v1 as archive_profile
+    runtime_root = archive_profile.explicit_root(runtime_root)
+    library = archive_profile.regular(runtime_root, "usr/lib/libzstd.so.1.5.7")
+    library_binding = archive_profile.binding(runtime_root, "usr/lib/libzstd.so.1.5.7")
+    zstd = ctypes.CDLL(str(library))
+    zstd.ZSTD_versionNumber.restype = ctypes.c_uint
+    if zstd.ZSTD_versionNumber() != 10507:
+        raise ValueError("archive runtime zstd is not exact 1.5.7")
+    target = staging / archive_profile.ZSTD_PATH
+    target.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(library, target)
+    if sha256(target) != library_binding["sha256"]:
+        raise ValueError("zstd image changed during copy")
+    license_path = archive_profile.regular(runtime_root, "usr/share/licenses/zstd/LICENSE")
+    target_license = staging / "licenses/zstd/LICENSE"
+    target_license.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(license_path, target_license)
+    for module in (*archive_profile.local_source_closure(root / "tools"),
+                   "stage17_archive_bundle_profile_v1"):
+        source = root / "tools" / (module + ".py")
+        target = staging / "tools" / source.name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if target.exists() and sha256(target) != sha256(source):
+            raise ValueError("archive module conflicts with policy projection: " + module)
+        shutil.copyfile(source, target)
+    document = archive_profile.build_profile(bundle_root=staging,
+        runtime_root=runtime_root, window_log=window_log)
+    target = staging / archive_profile.PROFILE_PATH
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_bytes(archive_profile.canonical(document))
+    archive_profile.verify_profile(bundle_root=staging, runtime_root=runtime_root)
+    return archive_profile.manifest_binding(bundle_root=staging, document=document)
 
 
 def main() -> int:
@@ -147,6 +341,22 @@ def main() -> int:
     parser.add_argument("--source-root", type=pathlib.Path, required=True)
     parser.add_argument("--build-dir", type=pathlib.Path, required=True)
     parser.add_argument("--output-dir", type=pathlib.Path, required=True)
+    parser.add_argument(
+        "--profile",
+        choices=(
+            "stage16-preflight",
+            "stage17-pilot-candidate",
+            "stage17-hermetic-dry-run",
+            "q15-qualification-tool",
+        ),
+        default="stage16-preflight",
+    )
+    parser.add_argument("--test-linked-worker", type=pathlib.Path)
+    parser.add_argument("--no-result-worker", type=pathlib.Path)
+    parser.add_argument("--native-codegen-report-dir", type=pathlib.Path,
+                        help="Hermetic-only native reports bound to the substituted test worker")
+    parser.add_argument("--archive-runtime-root", type=pathlib.Path)
+    parser.add_argument("--archive-window-log", type=int)
     args = parser.parse_args()
     root = args.source_root.resolve()
     build = args.build_dir.resolve()
@@ -157,23 +367,125 @@ def main() -> int:
     revision_short = revision[:7]
     dirty = bool(git(root, "status", "--porcelain=v1"))
     source_state = "dirty" if dirty else "clean"
+    stage17 = args.profile in (
+        "stage17-pilot-candidate", "stage17-hermetic-dry-run"
+    )
+    stage17_dry_run = args.profile == "stage17-hermetic-dry-run"
+    q15_tool = args.profile == "q15-qualification-tool"
+    if args.native_codegen_report_dir is not None and not stage17_dry_run:
+        raise ValueError("native report directory override is restricted to the hermetic profile")
+    if stage17 and (args.archive_runtime_root is None or args.archive_window_log is None):
+        raise ValueError("current Stage17 bundles require explicit archive runtime root and window log")
+    native_report_directory = (args.native_codegen_report_dir.resolve()
+                               if args.native_codegen_report_dir is not None else build)
+    profile = (
+        (STAGE17_DRY_RUN_PROFILE if stage17_dry_run else STAGE17_PROFILE)
+        if stage17
+        else Q15_TOOL_PROFILE if q15_tool else STAGE16_PROFILE
+    )
+    if (stage17 or q15_tool) and dirty:
+        raise ValueError(
+            f"{profile} requires a clean exact source revision"
+        )
+    if stage17_dry_run:
+        if args.test_linked_worker is None or args.no_result_worker is None:
+            raise ValueError(
+                "hermetic dry-run bundle requires test and no-result workers"
+            )
+        test_worker = args.test_linked_worker.resolve()
+        no_result_worker = args.no_result_worker.resolve()
+        if not test_worker.is_file() or not os.access(test_worker, os.X_OK):
+            raise ValueError("test-linked worker is not an executable regular file")
+        if (not no_result_worker.is_file()
+                or not os.access(no_result_worker, os.X_OK)):
+            raise ValueError("no-result regression worker is not executable")
+    elif args.test_linked_worker is not None or args.no_result_worker is not None:
+        raise ValueError("production bundles reject test-linked workers")
     version_metadata = json.loads(
         (build / "generated" / "version_metadata.json").read_text(encoding="utf-8")
     )
-    if version_metadata["protocol_version"] != "2.0.0-pre.2":
-        raise ValueError("release metadata is not bound to protocol 2.0.0-pre.2")
+    if version_metadata["protocol_version"] != "2.0.0-pre.3":
+        raise ValueError("release metadata is not bound to protocol 2.0.0-pre.3")
     if version_metadata["source_revision"] != revision:
         raise ValueError("release metadata revision differs from the source tree")
 
     required_binaries = ["cpu_prefetch_smoke", "cpu_prefetch_preflight"]
-    required_libraries = sorted(build.glob("libcpu_prefetch_*.a"))
+    if stage17:
+        required_binaries.extend(
+            [
+                "cpu_prefetch_runner",
+                "cpu_prefetch_qualification",
+                "cpu_prefetch_q15_clock_qualification_tool",
+                "cpu_prefetch_q15_qualification_evidence_tool",
+                "cpu_prefetch_stage17_archive_encoder",
+            ]
+        )
+    if q15_tool:
+        required_binaries.extend(
+            [
+                "cpu_prefetch_qualification",
+                "cpu_prefetch_q15_controller",
+                "cpu_prefetch_q15_prestate_collector",
+                "cpu_prefetch_q15_tool",
+            ]
+        )
+        q15_library_names = {
+            "libcpu_prefetch_foundation.a",
+            "libcpu_prefetch_platform.a",
+            "libcpu_prefetch_protocol.a",
+            "libcpu_prefetch_q15_qualification.a",
+            "libcpu_prefetch_workload.a",
+        }
+        required_libraries = sorted(
+            library
+            for library in build.glob("libcpu_prefetch_*.a")
+            if library.name in q15_library_names
+        )
+    else:
+        required_libraries = sorted(
+            library
+            for library in build.glob("libcpu_prefetch_*.a")
+            if stage17 or library.name != "libcpu_prefetch_runner_core.a"
+        )
     for name in required_binaries:
         if not (build / name).is_file():
             raise ValueError(f"missing release binary: {name}")
     if not required_libraries:
         raise ValueError("release libraries are absent")
 
-    with tempfile.TemporaryDirectory(prefix="cpu-prefetch-stage16-") as temporary:
+    codegen_reports: list[pathlib.Path] = []
+    if stage17:
+        for name, (probe_name, rule_name) in STAGE17_CODEGEN_INPUTS.items():
+            path = ((native_report_directory if name in ("formal_codegen_report.json",
+                    "discovery_codegen_report.json") else build) / name)
+            if not path.is_file():
+                raise ValueError(f"missing pilot-candidate codegen report: {name}")
+            if name == "formal_codegen_report.json":
+                import check_formal_codegen as formal_codegen
+                formal_codegen.validate_report_bindings(json.loads(path.read_text()),
+                    binary=test_worker if stage17_dry_run else build / "cpu_prefetch_runner",
+                    source_root=root)
+            elif name == "discovery_codegen_report.json":
+                verify_discovery_codegen_report(root,
+                    test_worker if stage17_dry_run else build / "cpu_prefetch_runner", path)
+            else:
+                verify_codegen_report(root, build, path, probe_name, rule_name)
+            codegen_reports.append(path)
+    if q15_tool:
+        for name, (probe_name, rule_name) in Q15_CODEGEN_INPUTS.items():
+            path = build / name
+            if not path.is_file():
+                raise ValueError(f"missing Q15 codegen report: {name}")
+            verify_codegen_report(root, build, path, probe_name, rule_name)
+            codegen_reports.append(path)
+
+    with tempfile.TemporaryDirectory(
+        prefix=(
+            "cpu-prefetch-stage17-"
+            if stage17
+            else "cpu-prefetch-q15-tool-" if q15_tool else "cpu-prefetch-stage16-"
+        )
+    ) as temporary:
         staging = pathlib.Path(temporary) / "bundle"
         staging.mkdir()
         source_archive = staging / "source" / f"cpu-prefetch-source-{revision_short}-{source_state}.tar.gz"
@@ -190,6 +502,14 @@ def main() -> int:
         for name in required_binaries:
             shutil.copyfile(build / name, release_bin / name)
             (release_bin / name).chmod(0o755)
+        if stage17_dry_run:
+            shutil.copyfile(test_worker, release_bin / "cpu_prefetch_runner")
+            (release_bin / "cpu_prefetch_runner").chmod(0o755)
+            shutil.copyfile(
+                no_result_worker,
+                release_bin / "cpu_prefetch_stage17_no_result_worker",
+            )
+            (release_bin / "cpu_prefetch_stage17_no_result_worker").chmod(0o755)
         for library in required_libraries:
             shutil.copyfile(library, release_lib / library.name)
 
@@ -197,6 +517,13 @@ def main() -> int:
         provenance.mkdir()
         shutil.copyfile(build / "generated" / "version_metadata.json", provenance / "version_metadata.json")
         shutil.copyfile(build / "compile_commands.json", provenance / "compile_commands.json")
+        for report in codegen_reports:
+            write_json(
+                provenance / report.name,
+                normalize_report_paths(
+                    json.loads(report.read_text(encoding="utf-8")), root, build
+                ),
+            )
         runtime_lines: list[str] = []
         for name in required_binaries:
             completed = subprocess.run(
@@ -207,27 +534,259 @@ def main() -> int:
             "\n".join(runtime_lines), encoding="utf-8"
         )
 
-        copy_tree_files(root / "protocol" / "2.0.0-pre.2", staging / "protocol" / "2.0.0-pre.2")
+        copy_tree_files(root / "protocol" / "2.0.0-pre.3", staging / "protocol" / "2.0.0-pre.3")
         copy_tree_files(root / "config" / "schemas", staging / "config" / "schemas" / "implementation")
         copy_tree_files(
-            root / "protocol" / "2.0.0-pre.2" / "handoff" / "schemas",
+            root / "protocol" / "2.0.0-pre.3" / "handoff" / "schemas",
             staging / "config" / "schemas" / "imported",
         )
         copy_tree_files(root / "config" / "examples", staging / "config" / "examples")
+        stage17_controller_runtime: dict[str, Any] | None = None
+        if stage17:
+            # Journal and semantic admission authenticate predecessor ADRs,
+            # Q15 trust-chain records, and repository evidence at their exact
+            # repository-relative paths. Materialize the complete evidence
+            # closure at the directly consumable bundle root.
+            copy_tree_files(root / "config", staging / "config")
+            copy_tree_files(root / "docs", staging / "docs")
+            # The v5 worker bundle carries the executable controller successor
+            # at the exact repository-relative paths authenticated by policy v20
+            # (ADR-0124/0125/0126: the D-124 no-predecessor-attestation branch
+            # and its executor v13 action-readiness binding). The compiled
+            # worker binary itself (release/bin/cpu_prefetch_runner) is
+            # unaffected by that admission-side change and keeps its own
+            # STAGE17-FIXED-ACTION-WORKER-v4 runtime identity below. Keep the
+            # general implementation-schema layout for legacy bundle
+            # validators and also materialize the controller's exact paths.
+            copy_tree_files(root / "config" / "schemas", staging / "config" / "schemas")
+            # The dry-run profile's own identity (STAGE17-HERMETIC-DRY-RUN-
+            # BUNDLE-v3) and the real candidate profile (v20) both bind the
+            # complete v39/v27 successor chain (ADR-0124..0146), now the
+            # promoted, documented production path; they differ only in
+            # worker binaries, synthetic_test_only, and the wider
+            # characterization-suite file set the dry-run profile carries
+            # below. The predecessor v38/v26 chain remains immutable and
+            # readable at its own exact paths for anyone verifying history.
+            # ADR-0138 moves the outer policy (v31 -> v32, S17-EXT-002
+            # schema-binding completion, no preflight-plan change); ADR-0139
+            # then moves both the outer policy (v32 -> v33) and the nested
+            # preflight-plan policy (v22 -> v23) in lockstep; ADR-0140 moves
+            # the outer policy again (v33 -> v34, S17-EXT-002 preflight
+            # receipt-pairing fix, no preflight-plan change); ADR-0141 then
+            # moves both the outer policy (v34 -> v35) and the nested
+            # preflight-plan policy (v23 -> v24) in lockstep; ADR-0142 fixes
+            # the phase-controller family's own journal reachability without
+            # moving the outer policy at all; ADR-0143 moves the outer
+            # policy again (v35 -> v36, pinning the phase-controller/Q15-
+            # session-controller entrypoints ADR-0142 left untracked, no
+            # preflight-plan change); ADR-0144 then moves both the outer
+            # policy (v36 -> v37) and the nested preflight-plan policy
+            # (v24 -> v25) in lockstep, completing the reachability gap
+            # ADR-0143's own move reopened for both the executor and
+            # phase-controller families at once; ADR-0145 moves both the
+            # outer policy (v37 -> v38) and the nested preflight-plan
+            # policy (v25 -> v26) again, this time folding a real Q15
+            # session failure-retention schema fix's own bindings-
+            # completion and reachability lockstep into one generation;
+            # ADR-0146 moves both the outer policy (v38 -> v39) and the
+            # nested preflight-plan policy (v26 -> v27) again, folding in
+            # the real Q15 session execute_session wiring fix ADR-0145's
+            # own rebind never actually reached. This tool's own policy/
+            # controller/nested-policy references then went stale for
+            # several further ADRs never reflected here: ADR-0156 (outer
+            # policy v39 -> v42, fixed-action executor v4 -> v5, phase-
+            # controller v9 -> v15, kernel-thread-tolerant process-group
+            # supervisor), ADR-0157 (outer policy v42 -> v43, nested
+            # preflight-plan policy v27 -> v28), and ADR-0158 (outer
+            # policy v43 -> v44, S17-EXT-001's own preflight-policy
+            # binding fix). ADR-0159 (outer policy v44 -> v45, raising
+            # the compiled fixed-action worker's request-size bound so
+            # Q16b's real 3540-run matrix can be admitted) is the ADR
+            # that actually discovered this tool itself had fallen behind
+            # -- creating a new pilot-candidate bundle from any commit
+            # containing ADR-0156 through ADR-0159's own fixes would
+            # otherwise fail with "Stage 17 controller binding drifted"
+            # against this file's stale v39 references. This move
+            # catches the tool up to the real, current v45/v28/v15
+            # generation in one step.
+            # ADR-0170 moves the outer policy again (v47 -> v48, a
+            # diagnostic fprintf in the Q15-R CPU-identity check, no
+            # entry-point change) -- same class of re-pin as ADR-0159/
+            # ADR-0166/ADR-0168 before it.
+            # ADR-0171 moves the outer policy again (v48 -> v49, the real
+            # Q16b consumer-drain race fix in the same compiled worker
+            # source file) -- same class of re-pin once more, this time
+            # for a genuine correctness change rather than a diagnostic
+            # addition.
+            # ADR-0172 moves the outer policy again (v49 -> v50,
+            # generalizing the Q15-R CPU-identity gate and hardware-
+            # prefetch mapping lookup to a second registered CPU model,
+            # 06_3EH) -- same class of re-pin as ADR-0171/ADR-0170 before
+            # it.
+            # ADR-0173's implementation note 3 moves the outer policy
+            # again (v50 -> v51, re-pinning the same compiled worker
+            # source file after fixing Q15-R/Q15-W's real MSR read/write
+            # path to use the resolved per-model mapping instead of
+            # hardcoded 06_55H literals) -- same class of re-pin once
+            # more.
+            # ADR-0173's implementation note 4 moves the outer policy
+            # again (v51 -> v52, re-pinning the same compiled worker
+            # source file after fixing LinuxHardwarePrefetchMsrBackend's
+            # own CPU whitelist -- previously hardcoded to 06_55H's
+            # {0,1,26} regardless of which mapping a session actually
+            # resolved, now bound per instance to the session's own
+            # resolved mapping's control_cpus) -- same class of re-pin
+            # once more.
+            # ADR-0175 moves the outer policy again (v52 -> v53,
+            # re-pinning the same compiled worker source file after
+            # adding a second, PRFCHW-free software-prefetch mapping and
+            # its own per-run resolution/dispatch in package_capture) --
+            # same class of re-pin once more.
+            policy_relative = pathlib.Path(STAGE17_POLICY_PATH)
+            policy_path = root / policy_relative
+            policy_document = current_stage17_policy(root)
+            controller_files = copy_policy_bound_files(root, staging, policy_document)
+            stage17_controller_runtime = {
+                "controller_id": STAGE17_CONTROLLER_ID,
+                "entrypoint": STAGE17_CONTROLLER_ENTRYPOINT,
+                "invocation": ["python3", STAGE17_CONTROLLER_ENTRYPOINT],
+                "policy": {
+                    "path": policy_relative.as_posix(),
+                    "size_bytes": policy_path.stat().st_size,
+                    "sha256": sha256(policy_path),
+                },
+                "bound_files": controller_files,
+                "production_test_mode_available": False,
+                "authority_embedded": False,
+                "repository_evidence_roots": ["config", "docs"],
+            }
+            # Policy v45 binds the complete preflight policy v28 by exact
+            # bytes (ADR-0159 moved v39/v27 -> v45/v28, see above). The
+            # nested policy also binds compatibility modules by pathname
+            # without importing them into the current Python closure.
+            # Carry those exact files so production admission does not
+            # depend on the wider test-only source projection.
+            nested_policy_relative = pathlib.Path(STAGE17_PREFLIGHT_POLICY_PATH)
+            nested_policy_path = root / nested_policy_relative
+            nested_policy = json.loads(nested_policy_path.read_text(encoding="utf-8"))
+            nested_bound_files: list[dict[str, object]] = []
+            for group_name in ("implementations", "operational_implementations"):
+                for key, binding in nested_policy[group_name].items():
+                    relative = pathlib.Path(binding["path"])
+                    if relative.is_absolute() or ".." in relative.parts:
+                        raise ValueError(
+                            f"unsafe nested Stage 17 binding: {relative}"
+                        )
+                    source = root / relative
+                    if (not source.is_file() or source.is_symlink()
+                            or source.stat().st_size != binding["size_bytes"]
+                            or sha256(source) != binding["sha256"]):
+                        raise ValueError(
+                            f"nested Stage 17 binding drifted: {relative}"
+                        )
+                    target = staging / relative
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    if not target.exists():
+                        shutil.copyfile(source, target)
+                        target.chmod(0o755 if os.access(source, os.X_OK) else 0o644)
+                    nested_bound_files.append({
+                        "group": group_name,
+                        "key": key,
+                        "path": relative.as_posix(),
+                        "size_bytes": binding["size_bytes"],
+                        "sha256": binding["sha256"],
+                    })
+            stage17_controller_runtime["nested_preflight_policy"] = {
+                "path": nested_policy_relative.as_posix(),
+                "size_bytes": nested_policy_path.stat().st_size,
+                "sha256": sha256(nested_policy_path),
+                "bound_files": nested_bound_files,
+            }
+            if stage17_dry_run:
+                # The hermetic regression harness preserves predecessor suites
+                # as characterization evidence.  Their import graph is wider
+                # than the current production policy closure, so carry every
+                # versioned Stage 17 Python module in this test-only profile.
+                for source in sorted((root / "tools").glob("stage17_*.py")):
+                    target = staging / "tools" / source.name
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copyfile(source, target)
+                    target.chmod(0o755)
+                for name in (
+                    "check_stage17_complete_operational_admission.py",
+                    "check_stage17_pilot_semantics_v3.py",
+                    "check_stage17_fixed_action_production.py",
+                    "check_stage17_pilot_semantics_v4.py",
+                    "check_stage17_production_handoff_v4.py",
+                    "run_stage17_hermetic_handoff.py",
+                ):
+                    source = root / "tools" / name
+                    target = staging / "tools" / name
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copyfile(source, target)
+                    target.chmod(0o755)
+        if q15_tool:
+            copy_tree_files(root / "config" / "q15", staging / "config" / "q15")
+            for relative in (
+                pathlib.Path(
+                    "docs/evidence/stage16/"
+                    "STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-02/"
+                    "STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-02.json"
+                ),
+                pathlib.Path(
+                    "docs/evidence/stage16/"
+                    "STAND-TOPOLOGY-XEON-CPU-FETCH-20260822-01/SHA256SUMS"
+                ),
+                pathlib.Path(
+                    "docs/evidence/stage16/"
+                    "STAND-STORAGE-XEON-CPU-FETCH-20260822-01/SHA256SUMS"
+                ),
+            ):
+                target = staging / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(root / relative, target)
         licenses = staging / "licenses"
         licenses.mkdir()
         shutil.copyfile(root / "config" / "dependencies.json", licenses / "dependencies.json")
         shutil.copyfile(root / "docs" / "NO_LICENSE_GRANT.md", licenses / "NO_LICENSE_GRANT.md")
-        for document in (
+        documents = [
             "PRE_PILOT_READINESS_REPORT.md",
             "STAND_BUNDLE.md",
             "STAND_RUNBOOK.md",
-        ):
+        ]
+        if stage17:
+            documents.extend(
+                [
+                    "PRODUCTION_RUNNER.md",
+                    "STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md",
+                    "STAGE17_OPERATIONAL_AUTHORIZATION.md",
+                    "STAGE17_STAND_HANDOFF.md",
+                ]
+            )
+        if q15_tool:
+            documents.extend(
+                [
+                    "PLATFORM_CONTROL.md",
+                    "Q15_DYNAMIC_IMPLEMENTATION_DECISION_BUNDLE.md",
+                    "Q15_PREREQUISITE_CLOSURE.md",
+                    "Q15_QUALIFICATION_CONTRACT.md",
+                    "Q15_QUALIFICATION_TOOL.md",
+                    "Q15_R_CONTROLLER.md",
+                    "Q15_R_DECISION_INPUT_BUNDLE.md",
+                    "Q15_R_EXTERNAL_INPUT_ACQUISITION_DECISION_BUNDLE.md",
+                    "Q15_R_OPERATIONAL_PREREQUISITE_DECISION_BUNDLE.md",
+                    "Q15_R_ROLE_CUSTODY_SETUP_PLAN.md",
+                    "Q15_R_STAND_SETUP_AUTHORIZATION_BUNDLE.md",
+                    "Q15_R_PRESTATE_COLLECTOR.md",
+                    "Q15_STAND_QUALIFICATION_DECISION_BUNDLE.md",
+                ]
+            )
+        for document in documents:
             target = staging / "docs" / document
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(root / "docs" / document, target)
 
-        validator_names = (
+        validator_names = [
             "check_calibration_schemas.py",
             "check_canonical.py",
             "check_orchestration_schemas.py",
@@ -236,7 +795,53 @@ def main() -> int:
             "check_reconciliation_schema.py",
             "check_storage_schemas.py",
             "verify_stand_bundle.py",
-        )
+        ]
+        if stage17:
+            validator_names.extend(
+                [
+                    "check_qualification_schema.py",
+                    "check_hardware_prefetch_schema.py",
+                    "check_runner_schema.py",
+                    "check_stage17_authorization_schema.py",
+                    "check_stage17_pilot_candidate_artifact.py",
+                    "stage17_pilot_candidate_artifact.py",
+                ]
+            )
+        if q15_tool:
+            validator_names.extend(
+                [
+                    "check_hardware_prefetch_schema.py",
+                    "check_q15_authorization_schema.py",
+                    "check_q15_authorization_v2.py",
+                    "check_q15_controller_codegen.py",
+                    "check_q15_controller_profile.py",
+                    "check_q15_r_decision_input.py",
+                    "check_q15_r_operational_prerequisite.py",
+                    "check_q15_r_p2_acceptance.py",
+                    "validate_q15_r_prestate.py",
+                    "check_q15_r_stand_setup_authorization_preparation.py",
+                    "check_q15_trust_anchor_adapter_profile.py",
+                    "check_q15_dynamic_implementation.py",
+                    "check_q15_probe_collector_contract.py",
+                    "check_q15_probe_implementation.py",
+                    "check_qualification_schema.py",
+                    "check_stage17_authorization_schema.py",
+                ]
+            )
+        if stage17:
+            validator_names.extend(("check_discovery_codegen.py", "check_formal_codegen.py",
+                                    "stage17_archive_bundle_profile_v1.py"))
+            # Retain the exact closed source evidence needed by the two native gates.
+            import check_discovery_codegen as discovery_codegen
+            import check_formal_codegen as formal_codegen
+            for relative in sorted(set(discovery_codegen.SOURCE_PATHS) | set(formal_codegen.SOURCE_PATHS) | {"tools/check_formal_codegen.py"}):
+                source = root / relative
+                target = staging / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                if target.exists() and sha256(target) != sha256(source):
+                    raise ValueError("native codegen source projection conflict: " + relative)
+                if not target.exists():
+                    shutil.copyfile(source, target)
         validators = staging / "validators"
         validators.mkdir()
         for name in validator_names:
@@ -247,7 +852,15 @@ def main() -> int:
         dependencies = json.loads(
             (root / "config" / "dependencies.json").read_text(encoding="utf-8")
         )
-        write_json(staging / "SBOM.spdx.json", make_sbom(root, dependencies, revision))
+        write_json(
+            staging / "SBOM.spdx.json",
+            make_sbom(root, dependencies, revision, profile),
+        )
+
+        archive_implementation = None
+        if stage17:
+            archive_implementation = materialize_archive_profile(root=root, staging=staging,
+                runtime_root=args.archive_runtime_root, window_log=args.archive_window_log)
 
         release_artifacts = []
         for path in sorted((staging / "release").rglob("*")):
@@ -260,35 +873,287 @@ def main() -> int:
                     }
                 )
         manifest = {
-            "bundle_profile": PROFILE,
+            "bundle_profile": profile,
             "confirmatory_authorized": False,
+            "debug_symbol_strategy":
+                "UNSTRIPPED_RELEASE_BINARIES_WITH_EXACT_BUILD_PROVENANCE",
+            "dynamic_qualification_authorized": False,
+            "measurement_execution_command_present": False,
             "pilot_authorized": False,
             "protocol_import_manifest_sha256": sha256(
-                root / "protocol" / "2.0.0-pre.2" / "IMPORT_MANIFEST.json"
+                root / "protocol" / "2.0.0-pre.3" / "IMPORT_MANIFEST.json"
             ),
-            "protocol_version": "2.0.0-pre.2",
-            "readiness_state": "READY_FOR_STAND_PREFLIGHT",
+            "protocol_version": "2.0.0-pre.3",
+            "readiness_state": (
+                "RELEASE_INPUT_READY_FOR_Q15_PREPARATION"
+                if stage17
+                else "Q15_TOOL_RELEASE_NO_AUTHORITY"
+                if q15_tool
+                else "READY_FOR_STAND_PREFLIGHT"
+            ),
             "release_artifacts": release_artifacts,
             "repository_license": "NO-LICENSE-GRANT",
-            "schema_version": "cpu-prefetch-stand-bundle/1",
+            "schema_version": (
+                "cpu-prefetch-pilot-candidate-bundle/14"
+                if stage17
+                else "cpu-prefetch-q15-qualification-tool-bundle/3"
+                if q15_tool
+                else "cpu-prefetch-stand-bundle/1"
+            ),
             "source_archive": {
                 "path": source_archive.relative_to(staging).as_posix(),
                 "sha256": sha256(source_archive),
                 "source_dirty": dirty,
                 "source_revision": revision,
             },
-            "unresolved_before_pilot": [
-                "production measurement executable and final integrated worker codegen",
-                "eligible stand, selected worker pairs, and runtime atomic checks",
-                "privileged authority, exact controls, independent readback, probes, and restoration",
-                "clock, address residency, storage domains/capacity/custody, and recovery evidence",
-                "prospective calibration and pilot inputs and authorization",
-            ],
+            "unresolved_before_pilot": (
+                [
+                    "exact Q15 stand-qualification authorization and evidence",
+                    "two exact start-barrier limits, an external process-watchdog record, and every platform/control/restoration record",
+                    "clock, atomic/layout, actual-CPU/migration, address-residency, and storage/custody evidence",
+                    "separate dependency-ready Q16 phase inputs and authorization",
+                ]
+                if stage17
+                else [
+                    "separately signed exact Q15-R authorization before any dynamic read or collection",
+                    "clean release hashes and exact authorized Q15-R/Q15-W argv binding the implemented dynamic probe and seven collectors",
+                    "sealed Q15-R evidence and complete CPU 0/1/26 prestates before Q15-W",
+                    "separately signed exact Q15-W authorization before any MSR write",
+                    "four effective roles, negative access evidence, exact limits, custody, and restoration policy",
+                ]
+                if q15_tool
+                else [
+                    "production measurement executable and final integrated worker codegen",
+                    "eligible stand, selected worker pairs, and runtime atomic checks",
+                    "privileged authority, exact controls, independent readback, probes, and restoration",
+                    "clock, address residency, storage domains/capacity/custody, and recovery evidence",
+                    "prospective calibration and pilot inputs and authorization",
+                ]
+            ),
         }
+        if stage17:
+            manifest["software_prefetch_mapping_id"] = (
+                "X86-64-PREFETCHW-PREFETCHT0-v1"
+            )
+            worker = staging / "release/bin/cpu_prefetch_runner"
+            manifest["stage17_fixed_action_runtime"] = {
+                "member_path": "release/bin/cpu_prefetch_runner",
+                "size_bytes": worker.stat().st_size,
+                "sha256": sha256(worker),
+                "role": "STAGE17_FIXED_ACTION_WORKER",
+                "runtime_profile": "STAGE17-FIXED-ACTION-WORKER-v4",
+                "supported_actions": [
+                    "Q15-R", "Q15-W", "Q16a", "Q16b", "Q16c",
+                    "STAGE17-BLINDED-PILOT", "Q16A-DURATION-DISCOVERY",
+                ],
+                "synthetic_test_only": stage17_dry_run,
+            }
+            assert stage17_controller_runtime is not None
+            manifest["stage17_controller_runtime"] = stage17_controller_runtime
+            manifest["stage17_archive_implementation"] = archive_implementation
+        if q15_tool:
+            probe_contract_path = (
+                root / "config" / "q15" / "q15-probe-collector-contract-v1.json"
+            )
+            probe_profile_path = (
+                root / "config" / "q15" / "q15-probe-implementation-profile-v1.json"
+            )
+            dynamic_profile_path = (
+                root / "config" / "q15" / "q15-dynamic-implementation-profile-v1.json"
+            )
+            controller_profile_path = (
+                root / "config" / "q15" / "q15-r-controller-profile-v1.json"
+            )
+            authorization_schema_path = (
+                root
+                / "config"
+                / "schemas"
+                / "q15-qualification-authorization-v2.schema.json"
+            )
+            setup_plan_path = (
+                root
+                / "config"
+                / "q15"
+                / "q15-r-role-custody-setup-plan-v1.json"
+            )
+            adapter_profile_path = (
+                root
+                / "config"
+                / "q15"
+                / "q15-r-trust-anchor-adapter-profile-v1.json"
+            )
+            p2_acceptance_path = (
+                root / "config" / "q15" / "q15-r-p2-acceptance-v1.json"
+            )
+            stand_setup_preparation_path = (
+                root
+                / "config"
+                / "q15"
+                / "q15-r-stand-setup-authorization.preparation.json"
+            )
+            prestate_contract_path = (
+                root
+                / "config"
+                / "q15"
+                / "q15-r-stand-prestate-collector-contract-v1.json"
+            )
+            p4_d_acceptance_path = (
+                root / "config" / "q15" / "q15-r-p4-d-acceptance-v1.json"
+            )
+            p4_r_preparation_path = (
+                root / "config" / "q15" / "q15-r-p4-r.preparation.json"
+            )
+            p4_k_preparation_path = (
+                root / "config" / "q15" / "q15-r-p4-k.preparation.json"
+            )
+            manifest.update(
+                {
+                    "account_or_key_changes_authorized": False,
+                    "authorization_v2_contract": {
+                        "path": (
+                            "config/schemas/implementation/"
+                            "q15-qualification-authorization-v2.schema.json"
+                        ),
+                        "schema_version": (
+                            "cpu-prefetch-q15-qualification-authorization/2"
+                        ),
+                        "sha256": sha256(authorization_schema_path),
+                    },
+                    "bundle_transfer_or_install_authorized": False,
+                    "calibration_authorized": False,
+                    "controller_profile": {
+                        "path": "config/q15/q15-r-controller-profile-v1.json",
+                        "profile_id": "Q15-R-STATIC-CONTROLLER-v1",
+                        "sha256": sha256(controller_profile_path),
+                    },
+                    "dynamic_implementation_profile": {
+                        "profile_id": "Q15-DYNAMIC-IMPLEMENTATION-PROFILE-v1",
+                        "path": "config/q15/q15-dynamic-implementation-profile-v1.json",
+                        "sha256": sha256(dynamic_profile_path),
+                    },
+                    "hardware_prefetch_mapping_id": "INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1",
+                    "measurement_authorized": False,
+                    "msr_read_authorized": False,
+                    "msr_write_authorized": False,
+                    "probe_collector_contract": {
+                        "contract_id": "Q15-PROBE-COLLECTOR-CONTRACT-v1",
+                        "path": "config/q15/q15-probe-collector-contract-v1.json",
+                        "sha256": sha256(probe_contract_path),
+                    },
+                    "probe_implementation_profile": {
+                        "profile_id": "Q15-PROBE-IMPLEMENTATION-PROFILE-v1",
+                        "path": "config/q15/q15-probe-implementation-profile-v1.json",
+                        "sha256": sha256(probe_profile_path),
+                    },
+                    "qualification_tool_profile_id": "Q15-FIXED-QUALIFICATION-TOOL-v1",
+                    "q15_r_authorized": False,
+                    "q15_w_authorized": False,
+                    "real_affinity_numa_authorized": False,
+                    "real_pmu_authorized": False,
+                    "role_custody_setup_plan": {
+                        "path": "config/q15/q15-r-role-custody-setup-plan-v1.json",
+                        "plan_id": "Q15-R-ROLE-CUSTODY-SETUP-PLAN-v1",
+                        "sha256": sha256(setup_plan_path),
+                        "status": "PREPARED_NO_STAND_AUTHORITY",
+                    },
+                    "q15_r_p2_acceptance": {
+                        "acceptance_id": "Q15-R-P2-ACCEPTANCE-20260825-01",
+                        "authority": "REPOSITORY_LOCAL_ONLY",
+                        "path": "config/q15/q15-r-p2-acceptance-v1.json",
+                        "sha256": sha256(p2_acceptance_path),
+                    },
+                    "q15_r_p4_d_acceptance": {
+                        "acceptance_id": "Q15-R-P4-D-ACCEPTANCE-20260825-01",
+                        "authority": "REPOSITORY_LOCAL_ONLY",
+                        "path": "config/q15/q15-r-p4-d-acceptance-v1.json",
+                        "sha256": sha256(p4_d_acceptance_path),
+                    },
+                    "q15_r_p4_k_preparation": {
+                        "path": "config/q15/q15-r-p4-k.preparation.json",
+                        "preparation_id": "Q15-R-P4-K-PREPARATION-20260825-01",
+                        "sha256": sha256(p4_k_preparation_path),
+                        "status": (
+                            "BLOCKED_OWNER_KEY_SOURCE_CUSTODY_AND_EXACT_AUTHORITY_REQUIRED"
+                        ),
+                    },
+                    "q15_r_p4_r_preparation": {
+                        "path": "config/q15/q15-r-p4-r.preparation.json",
+                        "preparation_id": "Q15-R-P4-R-PREPARATION-20260825-01",
+                        "sha256": sha256(p4_r_preparation_path),
+                        "status": (
+                            "BLOCKED_CLEAN_COLLECTOR_RELEASE_AND_EXACT_AUTHORITY_REQUIRED"
+                        ),
+                    },
+                    "q15_r_prestate_collector_contract": {
+                        "contract_id": "Q15-R-STAND-PRESTATE-COLLECTOR-CONTRACT-v1",
+                        "path": (
+                            "config/q15/"
+                            "q15-r-stand-prestate-collector-contract-v1.json"
+                        ),
+                        "sha256": sha256(prestate_contract_path),
+                        "status": (
+                            "ACCEPTED_IMPLEMENTED_REPOSITORY_LOCAL_NO_EXECUTION_AUTHORITY"
+                        ),
+                    },
+                    "q15_r_prestate_artifact_validator": {
+                        "path": "validators/validate_q15_r_prestate.py",
+                        "sha256": sha256(
+                            root / "tools" / "validate_q15_r_prestate.py"
+                        ),
+                        "state": "OFFLINE_READ_ONLY_VALIDATOR",
+                    },
+                    "stand_setup_authorization_preparation": {
+                        "path": (
+                            "config/q15/"
+                            "q15-r-stand-setup-authorization.preparation.json"
+                        ),
+                        "preparation_id": (
+                            "Q15-R-STAND-SETUP-AUTHORIZATION-PREPARATION-20260825-01"
+                        ),
+                        "sha256": sha256(stand_setup_preparation_path),
+                        "status": "BLOCKED_INPUTS_REQUIRED_NO_AUTHORITY",
+                    },
+                    "trust_anchor_adapter_profile": {
+                        "implementation_state": (
+                            "IMPLEMENTED_REPOSITORY_LOCAL_FAKE_BACKEND_ONLY_NO_AUTHORITY"
+                        ),
+                        "path": (
+                            "config/q15/"
+                            "q15-r-trust-anchor-adapter-profile-v1.json"
+                        ),
+                        "profile_id": "Q15-R-TRUST-ANCHOR-ADAPTER-v1",
+                        "sha256": sha256(adapter_profile_path),
+                    },
+                    "scientific_schedule_access_authorized": False,
+                    "stand_access_authorized": False,
+                }
+            )
         write_json(staging / "BUNDLE_MANIFEST.json", manifest)
 
+        inventory_files = sorted(
+            path for path in staging.rglob("*")
+            if path.is_file() and path not in {
+                staging / "BUNDLE_INVENTORY.json", staging / "SHA256SUMS"
+            }
+        )
+        write_json(
+            staging / "BUNDLE_INVENTORY.json",
+            {
+                "schema_version": "cpu-prefetch-stand-bundle-inventory/1",
+                "bundle_profile": profile,
+                "source_revision": revision,
+                "files": [
+                    {"path": path.relative_to(staging).as_posix(),
+                     "size_bytes": path.stat().st_size, "sha256": sha256(path)}
+                    for path in inventory_files
+                ],
+            },
+        )
+
         checksum_files = sorted(
-            path for path in staging.rglob("*") if path.is_file() and path.name != "SHA256SUMS"
+            path
+            for path in staging.rglob("*")
+            if path.is_file() and path != staging / "SHA256SUMS"
         )
         (staging / "SHA256SUMS").write_text(
             "".join(
@@ -299,8 +1164,15 @@ def main() -> int:
         )
 
         source_hash_short = sha256(source_archive)[:12]
+        bundle_prefix = (
+            "cpu-prefetch-pilot-candidate"
+            if stage17
+            else "cpu-prefetch-q15-qualification-tool"
+            if q15_tool
+            else "cpu-prefetch-stand-bundle"
+        )
         bundle_name = (
-            f"cpu-prefetch-stand-bundle-2.0.0-{revision_short}-{source_state}-"
+            f"{bundle_prefix}-2.0.0-{revision_short}-{source_state}-"
             f"{source_hash_short}.tar.gz"
         )
         output = output_dir / bundle_name
@@ -315,7 +1187,10 @@ def main() -> int:
         output.with_suffix(output.suffix + ".sha256").write_text(
             f"{outer_hash}  {output.name}\n", encoding="utf-8"
         )
-        print(f"stand-bundle: PASS path={output} sha256={outer_hash}")
+        print(
+            f"{'pilot-candidate-bundle' if stage17 else 'q15-tool-bundle' if q15_tool else 'stand-bundle'}: "
+            f"PASS path={output} sha256={outer_hash} authority=NONE"
+        )
     return 0
 
 

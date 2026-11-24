@@ -1,0 +1,19 @@
+{
+  "actual_scoped_admission": false,
+  "affected_registered_cases": 125,
+  "affected_registered_suites": 10,
+  "environment_development_debug_cases": 16,
+  "launcher_development_debug_cases": 18,
+  "python_ast_passed": true,
+  "repository_checks_passed": true,
+  "frozen_native_worktree_clean": true,
+  "original_isolation_core_unchanged": true,
+  "original_base_custody_unchanged": true,
+  "production_cpp_protocol_diff_empty": true,
+  "stand_read_only_access_performed": true,
+  "stand_hardware_writes": 0,
+  "operational_window_started": false,
+  "execution_authority": false,
+  "phase18_authority": false,
+  "scientific_validity": "NOT_ASSESSED"
+}

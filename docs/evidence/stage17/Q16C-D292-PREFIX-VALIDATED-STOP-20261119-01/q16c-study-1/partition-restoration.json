@@ -1,0 +1,1 @@
+{"compaction_restored":true,"errors":[],"msr_readback":[{"cpu":0,"expected_hex":"0000000000000000","matches":true,"observed_hex":"0000000000000000"},{"cpu":1,"expected_hex":"0000000000000000","matches":true,"observed_hex":"0000000000000000"},{"cpu":8,"expected_hex":"0000000000000000","matches":true,"observed_hex":"0000000000000000"}],"verified":true}

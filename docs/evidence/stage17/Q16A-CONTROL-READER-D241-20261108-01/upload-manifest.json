@@ -1,0 +1,32 @@
+[
+  {
+    "path": "validate_prefix.py",
+    "sha256": "b62ad1ee2d9f43e3b895f8aad6709e80762eca76a2d883b37dbdee80a232f218",
+    "size_bytes": 30422
+  },
+  {
+    "path": "original_analysis.py",
+    "sha256": "5ed34087443a79c81ff00135bbfd4adb2e3f516770dd034be9f998ae69b0ac99",
+    "size_bytes": 22521
+  },
+  {
+    "path": "d234_supervision.py",
+    "sha256": "82571bf245012b0d7b444924803909f8d3a0ba802001d7ad9a5d9410195f9403",
+    "size_bytes": 21699
+  },
+  {
+    "path": "stage17_discovery_validation_parallel_v2.py",
+    "sha256": "07a4bba1379c686a8f31e42aadeb93200a8574d55c7a1ffaea7b92606a6303f7",
+    "size_bytes": 12744
+  },
+  {
+    "path": "prefix-manifest.schema.json",
+    "sha256": "ae46c046e7466c2478e3600db29222c347a293b94c8d1fc8ae5b664456e1046c",
+    "size_bytes": 14783
+  },
+  {
+    "path": "prepare_config.py",
+    "sha256": "555f02c9c54e4c1ece4a556a92097b55b873518c393af4e600f96eaabc84df6f",
+    "size_bytes": 6489
+  }
+]

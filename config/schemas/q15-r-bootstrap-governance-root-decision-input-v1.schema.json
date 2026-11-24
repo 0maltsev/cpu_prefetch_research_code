@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-bootstrap-governance-root-decision-input:v1",
+  "title": "Bootstrap governance-root decision/input bundle without action authority",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "bundle_id", "protocol_version", "status", "lineage", "decisions", "external_inputs", "owner_questions", "authority_boundary"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-bootstrap-governance-root-decision-input/1"},
+    "bundle_id": {"const": "Q15-R-BOOTSTRAP-GOVERNANCE-ROOT-DECISION-INPUT-20260825-01"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "status": {"const": "PROPOSED_D087_D092_EXTERNAL_GENESIS_IDENTITY_AND_OFFLINE_CUSTODY_EVIDENCE_REQUIRED_NO_KEY_OR_EXECUTION_AUTHORITY"},
+    "lineage": {"type": "object", "additionalProperties": false, "required": ["p4_k_a_policy_acceptance_path", "p4_k_a_policy_acceptance_sha256", "bootstrap_blocking_adr_path", "bootstrap_blocking_adr_sha256", "generic_controller_profile_path", "generic_controller_profile_sha256"], "properties": {
+      "p4_k_a_policy_acceptance_path": {"const": "config/q15/q15-r-p4-k-a-d-acceptance-v1.json"},
+      "p4_k_a_policy_acceptance_sha256": {"const": "c68e1b9427df9306a53cac590dfe268862fa528ef5bf665bf0002972cf77ffaf"},
+      "bootstrap_blocking_adr_path": {"const": "docs/decisions/0083-q15-r-p4-k-a-bootstrap-governance-root.md"},
+      "bootstrap_blocking_adr_sha256": {"const": "fd608cabbf9a9bf01cc70c6f991a2c19564548ddf2baa45d017b31f7a505cfe5"},
+      "generic_controller_profile_path": {"const": "config/q15/q15-r-p4-k-a-controller-profile-v1.json"},
+      "generic_controller_profile_sha256": {"const": "0ceafd80200ba62584532e035a4c2a21015c2b56f75d0ebbfdffbd7f3b945875"}
+    }},
+    "decisions": {"type": "array", "minItems": 6, "maxItems": 6, "items": {"type": "object", "additionalProperties": false, "required": ["decision_id", "classification", "subject", "options_considered", "recommended_option", "selected_option", "state", "scientific_effect", "compatibility_effect", "owner", "deadline_gate", "supersession_rule"], "properties": {
+      "decision_id": {"pattern": "^D-09[0-2]$|^D-08[7-9]$"},
+      "classification": {"type": "string", "minLength": 1},
+      "subject": {"type": "string", "minLength": 1},
+      "options_considered": {"type": "array", "minItems": 4, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+      "recommended_option": {"type": "string", "minLength": 1},
+      "selected_option": {"type": "null"},
+      "state": {"pattern": "^UNRESOLVED_[A-Z_]+$"},
+      "scientific_effect": {"const": "none"},
+      "compatibility_effect": {"type": "string", "minLength": 1},
+      "owner": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+      "deadline_gate": {"type": "string", "minLength": 1},
+      "supersession_rule": {"type": "string", "minLength": 1}
+    }}},
+    "external_inputs": {"type": "array", "minItems": 8, "maxItems": 8, "items": {"type": "object", "additionalProperties": false, "required": ["name", "value"], "properties": {"name": {"type": "string", "minLength": 1}, "value": {"type": "null"}}}},
+    "owner_questions": {"type": "array", "minItems": 6, "maxItems": 6, "items": {"type": "object", "additionalProperties": false, "required": ["question_id", "decision_id", "answer"], "properties": {"question_id": {"pattern": "^BGR-Q[1-6]$"}, "decision_id": {"pattern": "^D-09[0-2]$|^D-08[7-9]$"}, "answer": {"type": "null"}}}},
+    "authority_boundary": {"const": {
+      "repository_local_decision_bundle_preparation_authorized": true,
+      "repository_local_acceptance_adr_controller_schema_or_template_implementation_authorized": false,
+      "genesis_identity_or_witness_action_authorized": false,
+      "offline_environment_access_or_inventory_authorized": false,
+      "bootstrap_key_generation_import_copy_fingerprint_or_use_authorized": false,
+      "private_key_path_bytes_passphrase_or_seed_collection_authorized": false,
+      "custody_or_public_export_path_creation_authorized": false,
+      "public_trust_artifact_creation_authorized": false,
+      "signing_activation_rotation_revocation_or_recovery_authorized": false,
+      "p4_k_a_or_p4_k_r_authorized": false,
+      "stand_access_authorized": false,
+      "q15_r_or_q15_w_authorized": false,
+      "calibration_pilot_measurement_or_confirmatory_authorized": false
+    }}
+  }
+}

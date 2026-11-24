@@ -1,0 +1,85 @@
+E25 CONTINUATION HANDOFF — no automatic execution
+
+Original 177 complete captures + failed original ordinal177 remain in E23.
+One fresh531 suffix only. No restart708, automatic retry, quota reset or deletion.
+Qualified candidate source is 42f2ebb96f751319cd55fc1fabdcf7f91ab1c8d0.
+Later documentation commits are not a different qualified worker.
+
+CURRENT WAIT:
+E23/continuation-prefix-1/analysis4, launched 2026-11-08T14:00:31Z, PID109395.
+Configuration SHA256 5fac00e4596db73e602af859d9ba9ad01dace1806e1ce9cd2216fc9e73faf78a.
+Four8GiB workers;24h deadline;36GiB total +8GiB reserve;256GiB scratch ceiling.
+Old retained scratch27,620,093,952B plus prospective new103,830,850,952B =
+131,450,944,904B, below274,877,906,944B. Old analysis evidence stays intact.
+The corrected retained-capture173 check passed13:47:16Z, exit0/all reaped.
+E25 prerequisites passed: EXT001/002/003/006, journal000006.
+No E25 clock/Q15/Q16 invocation has occurred.
+
+1. At the next30-minute result poll, read analysis4 supervisor/report counts.
+   Do not start qualification until accepted-prefix-manifest.json has177 ordered
+   original reports AND analysis-process-result.json reports ANALYSIS_EXITED,
+   exit0, all_own_children_reaped=true. Confirm no other analysis/package work.
+   A new experimental Q15/Q16 failure stops dependent work. An offline error
+   may be diagnosed against retained bytes; it is not an experimental retry.
+
+2. After that gate, run the already reviewed E25 driver ONCE:
+   /usr/bin/python3 -B /home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/operator-preparation-v25/run_qualification_v25.py --qualify --packet-inventory-sha256 f0e1cba439d46c36c81d00290b4525b122ef488bc0a4916af80d16290e881c8b
+   Detach with an exclusive launch receipt/log, as for prerequisites. Driver
+   runs near then far once, one persistent Q15-R/W, stops/restores on failure.
+   Require actual complete receipt, new six-resolution journal, Q15W restoration
+   and successful supervisor exit. Isolation remains owned for formal handoff.
+
+3. Create the actual renderer spec described in COMMANDS.txt, using real
+   successful analysis4 manifest, latest E25 journal, new bundle and original
+   E23 bundle/failure/plan. Five paths move to:
+   /sys/fs/cgroup/cpu-prefetch-recovery-v25-qualified-1.service/reserved
+   render_continuation.py writes only compatibility.json, namespace_registry.json,
+   plan.json in E25/formal-q16a-continuation-authoring-1. It rechecks qualification,
+   original prefix and all124 source dependencies. No fake success inputs.
+
+4. Audit exact final plan/identities on PC and stand with audit_namespaces_v25.py.
+   Use the CLI in its --help and bound actual final plan, parent, identities.
+   Copy only metadata to PC. Both scoped audits must pass without collisions
+   or errors. Transfer only the small PC audit back to the authoring directory.
+   prepare_launch_inputs.py --repository-root E25/admission-root --spec SPEC
+   --spec-sha256 SHA --audit LOCAL_REPORT SHA --audit STAND_REPORT SHA
+   writes action-inputs.json and preparation-provenance.json only after the full
+   production input gate. All uppercase bindings here require actual existing
+   files; this handoff is not an executable shell script.
+
+5. With fresh remaining isolation lifetime/resources, create a new
+   E25/admission-root/evidence/formal-q16a-1 directory as UID1000. Use the reviewed
+   register_family.py with E25 repository/evidence/archive/sidecar/current profile,
+   exact new plan and the ORIGINAL E23 program/scope/storage admission.
+   Supply --evidence-root, --pilot-archive and --pilot-sidecar (new requirements
+   compared with historical render-formal-v23-sequence.py). Derive registration
+   deadline from current monotonic time + plan.budget.setup_ns. Register once.
+   Never run the old E23 sequence generator unchanged.
+
+6. Existing CLI18 commands author-formal-request and author-formal-authorization
+   use the new531 plan/inputs and registered root. IDs use CPU-PREFETCH-V5-V25-Q16A.
+   Derive authorization expiry from controller26.deadline_policy(actual_extent),
+   not from a stale precomputed timestamp. Owner signing is authorized; invoke
+   ssh-keygen -Y sign with the existing owner key, never read private key bytes.
+   Verify-formal-signature must pass before any launch.
+
+7. render_config.py binds all15 actual inputs. Use original E23 admission/scope,
+   new E25 bundle/profile, E25 isolation-preparation-v25-1/prospective-prestate.json,
+   root-owned /run/cpu-prefetch-recovery-v25-qualified-1/isolation_core.py,
+   E25/clock-qualification-v25-1/q15w-isolation-handoff.json and complete.json,
+   E25/stage17-q15-w-result-v4.json and stage17-q15_w-completion-v4.json.
+   formal_launch.py --check uses exact config SHA, --address-space-bytes240518168576
+   and --memlock-bytes25769803776 (separate argument values in actual command).
+   Only after it passes, --launch once with the same arguments. Launcher owns
+   restoration, reaping and first-failure stop. Confirm startup, then30min polls.
+
+8. After successful531 collection, independently validate its saved raw streams
+   and compose177+531 through a versioned composite result path. That result
+   path remains to be implemented; calibration_v2 correctly rejects suffix-only
+   evaluation. No manufactured708 execution result or relabeled old identities.
+   Q16b/Q16c and EXT007 admission remain downstream; Stage17 is not complete.
+
+On any preparation error after Q15W, restore the owned isolation with the
+reviewed clock adapter cleanup_after_external_failure(error,
+quiescence_timeout_seconds=2100), loaded from the byte-verified E25 packet.
+Retain its cleanup result. Never call its main() again or adopt a used namespace.

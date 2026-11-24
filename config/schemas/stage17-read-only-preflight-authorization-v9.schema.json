@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:read-only-preflight-authorization:v9",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "authorization_id", "attempt_id", "input_id", "actor", "issued_at_utc", "expires_at_utc", "authority_scope", "target_scope", "target", "frozen_observation_ids", "fixed_action_plan", "supporting_observation_contract", "evidence_root", "limits", "role_collapse_acknowledged", "independent_review_claimed", "permissions", "automatic_transition", "retry_allowed", "stage18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-read-only-preflight-authorization/9"},
+    "authorization_id": {"type": "string", "minLength": 1}, "attempt_id": {"type": "string", "minLength": 1},
+    "input_id": {"const": "S17-EXT-001"}, "actor": {"type": "string", "minLength": 1},
+    "issued_at_utc": {"$ref": "#/$defs/exact_second_utc"}, "expires_at_utc": {"$ref": "#/$defs/exact_second_utc"},
+    "authority_scope": {"const": "READ_ONLY_PREFLIGHT"}, "target_scope": {"type": "string", "minLength": 1},
+    "target": {"type": "object", "additionalProperties": false, "required": ["stand_id", "ssh_target", "known_hosts_host", "pinned_host_key_evidence_sha256", "pinned_known_hosts_sha256", "transport_identity_sha256"], "properties": {"stand_id": {"type": "string", "minLength": 1}, "ssh_target": {"type": "string", "minLength": 1}, "known_hosts_host": {"type": "string", "minLength": 1}, "pinned_host_key_evidence_sha256": {"$ref": "#/$defs/sha256"}, "pinned_known_hosts_sha256": {"$ref": "#/$defs/sha256"}, "transport_identity_sha256": {"$ref": "#/$defs/sha256"}}},
+    "frozen_observation_ids": {"const": ["S17-RO-PREFLIGHT-001-TARGET-AND-TRANSPORT-IDENTITY", "S17-RO-PREFLIGHT-002-ARCHIVE-AND-SIDECAR-BYTE-VERIFICATION", "S17-RO-PREFLIGHT-003-BUNDLE-INTERNAL-VERIFICATION", "S17-RO-PREFLIGHT-004-NONPRIVILEGED-SELF-TESTS", "S17-RO-PREFLIGHT-005-RUNTIME-TOOL-IDENTITIES", "S17-RO-PREFLIGHT-006-READ-ONLY-PLATFORM-INVENTORY"]},
+    "fixed_action_plan": {"$ref": "#/$defs/typed_binding"}, "supporting_observation_contract": {"$ref": "#/$defs/typed_binding"},
+    "evidence_root": {"type": "string", "pattern": "^/"}, "limits": {"$ref": "#/$defs/limits"},
+    "role_collapse_acknowledged": {"const": true}, "independent_review_claimed": {"const": false}, "permissions": {"$ref": "#/$defs/permissions"},
+    "automatic_transition": {"const": false}, "retry_allowed": {"const": false}, "stage18_authority": {"const": false}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "exact_second_utc": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "typed_binding": {"type": "object", "additionalProperties": false, "required": ["path", "size_bytes", "sha256", "schema_identity"], "properties": {"path": {"type": "string", "minLength": 1}, "size_bytes": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/$defs/sha256"}, "schema_identity": {"type": "string", "minLength": 1}}},
+    "limits": {"const": {"max_commands": 6, "max_wall_seconds": 180, "max_total_output_bytes": 6291456, "max_output_bytes_per_observation": 1048576, "timeout_seconds_per_observation": 30, "attempts_per_observation": 1, "retries": 0}},
+    "permissions": {"const": {"stand_read_only": true, "stand_mutation": false, "privileged_controls": false, "qualification": false, "calibration": false, "pilot_execution": false, "measurement": false, "stage18_authority": false}}
+  }
+}

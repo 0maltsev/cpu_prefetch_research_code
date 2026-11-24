@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:operational-evidence-admission-policy:v2",
+  "title": "Stage 17 operational evidence semantic-admission policy",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "policy_id", "policy_version", "protocol_version", "predecessor", "entries", "default_action", "synthetic_bypass_available", "stage18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-operational-evidence-admission-policy/2"},
+    "policy_id": {"const": "STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v2"},
+    "policy_version": {"const": "2"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "predecessor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["graph_path", "graph_sha256", "catalog_path", "catalog_sha256", "genesis_path", "genesis_file_sha256", "genesis_record_sha256", "resolution_schema_path", "resolution_schema_sha256", "adr_path", "adr_sha256"],
+      "properties": {
+        "graph_path": {"const": "config/stage17/stage17-operational-graph-definition-v1.json"},
+        "graph_sha256": {"$ref": "#/$defs/sha256"},
+        "catalog_path": {"const": "config/stage17/stage17-external-input-catalog-v1.json"},
+        "catalog_sha256": {"$ref": "#/$defs/sha256"},
+        "genesis_path": {"const": "config/stage17/journal/stage17-state-journal-000000.json"},
+        "genesis_file_sha256": {"$ref": "#/$defs/sha256"},
+        "genesis_record_sha256": {"$ref": "#/$defs/sha256"},
+        "resolution_schema_path": {"const": "config/schemas/stage17-external-input-resolution-v1.schema.json"},
+        "resolution_schema_sha256": {"$ref": "#/$defs/sha256"},
+        "adr_path": {"const": "docs/decisions/0105-stage17-append-only-operational-state-journal.md"},
+        "adr_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 10,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["input_id", "status", "verifier_id", "verifier_version"],
+        "properties": {
+          "input_id": {"pattern": "^S17-EXT-[0-9]{3}$"},
+          "status": {"enum": ["IMPLEMENTED", "SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED"]},
+          "verifier_id": {"type": "string", "minLength": 1},
+          "verifier_version": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "default_action": {"const": "REJECT_SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED"},
+    "synthetic_bypass_available": {"const": false},
+    "stage18_authority": {"const": false}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

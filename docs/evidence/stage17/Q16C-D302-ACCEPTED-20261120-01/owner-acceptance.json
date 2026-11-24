@@ -1,0 +1,23 @@
+{
+  "additional_manual_continuations": 0,
+  "admitted_day_deadline_monotonic_ns": 1636624784571258,
+  "applies_to_decision": "D301",
+  "automatic_retry": false,
+  "decision_id": "D302",
+  "exact_decision_text_approved": true,
+  "latest_start_monotonic_ns": 1605164784571258,
+  "maximum_remaining_seconds": 31460,
+  "new_execution_windows": 0,
+  "original_total_deadline_monotonic_ns": 1589604784571258,
+  "owner_message": "continue",
+  "phase18_authority": false,
+  "recorded_at_utc": "2026-11-19T21:59:13.686812+00:00",
+  "recorded_decision_sha256": "29f5dfcf84a2736aade41718a105d811c03e883ca7c0334a22ebd27d9d1f9d8e",
+  "remaining_capture_count": 94,
+  "repeat_completed_measurements": false,
+  "repeat_completed_raw_validations": false,
+  "repeat_qualification": false,
+  "reused_capture_count": 86,
+  "schema_version": "cpu-prefetch-stage17-owner-decision/1",
+  "window_started": false
+}

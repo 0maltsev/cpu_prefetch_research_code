@@ -1,0 +1,10 @@
+test_bad_geometry_and_expiry_fail_without_a_fallback (__main__.NativeInverseTests.test_bad_geometry_and_expiry_fail_without_a_fallback) ... ok
+test_independent_forward_transform_and_reference_parity (__main__.NativeInverseTests.test_independent_forward_transform_and_reference_parity) ... ok
+test_loaded_image_is_sealed_and_not_dependent_on_source_path (__main__.NativeInverseTests.test_loaded_image_is_sealed_and_not_dependent_on_source_path) ... ok
+test_wraparound_and_every_opaque_word_survives (__main__.NativeInverseTests.test_wraparound_and_every_opaque_word_survives) ... ok
+test_wrong_native_bytes_and_binding_types_rejected (__main__.NativeInverseTests.test_wrong_native_bytes_and_binding_types_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.783s
+
+OK

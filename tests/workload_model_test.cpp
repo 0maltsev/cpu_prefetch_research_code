@@ -200,6 +200,99 @@ TEST(EventArena, DetectsUnexpectedPointersIndexCorruptionAndContentChanges) {
   EXPECT_EQ(arena.content_checksum(), arena.prepared_content_checksum());
 }
 
+TEST(EventArena, CallerOwnedOrderPreservesSeededLookupPayloadAndChecksums) {
+  const EventArenaConfig config{64U, kLine.value, kPage.value, test_seed(),
+                                "external-order-test"};
+  const EventArena owned(config);
+  alignas(4096) std::array<std::byte, 4096U> records{};
+  alignas(4096) std::array<std::byte, 4096U> legacy_records{};
+  alignas(4096) std::array<std::size_t, 64U> order{};
+  const EventArena legacy_external(config, legacy_records);
+  const EventArena external(config, records, order);
+  EXPECT_EQ(external.storage_address(), records.data());
+  EXPECT_EQ(external.record_order().data(), order.data());
+  EXPECT_TRUE(std::ranges::equal(external.record_order(), owned.record_order()));
+  EXPECT_EQ(external.prepared_content_checksum(), owned.prepared_content_checksum());
+  EXPECT_EQ(external.ordered_index_checksum(), owned.ordered_index_checksum());
+  EXPECT_EQ(external.address_delta_checksum(), owned.address_delta_checksum());
+  EXPECT_EQ(external.address_deltas(), owned.address_deltas());
+  EXPECT_TRUE(std::ranges::equal(legacy_external.record_order(), owned.record_order()));
+  EXPECT_EQ(legacy_external.prepared_content_checksum(),
+            owned.prepared_content_checksum());
+  EXPECT_EQ(legacy_external.ordered_index_checksum(), owned.ordered_index_checksum());
+  EXPECT_EQ(legacy_external.address_delta_checksum(), owned.address_delta_checksum());
+  ConsumerState owned_state{17U};
+  ConsumerState external_state{17U};
+  ConsumerState legacy_state{17U};
+  for (std::uint64_t sequence = 0U; sequence < 193U; ++sequence) {
+    const auto expected = owned.select({sequence});
+    const auto actual = external.select({sequence});
+    const auto legacy = legacy_external.select({sequence});
+    EXPECT_EQ(actual.record_index, expected.record_index);
+    EXPECT_EQ(actual.record->payload, expected.record->payload);
+    EXPECT_EQ(legacy.record_index, expected.record_index);
+    EXPECT_EQ(legacy.record->payload, expected.record->payload);
+    EXPECT_EQ(external.access_and_mix(actual.record, external_state).status,
+              RecordAccessStatus::valid);
+    EXPECT_EQ(owned.access_and_mix(expected.record, owned_state).status,
+              RecordAccessStatus::valid);
+    EXPECT_EQ(legacy_external.access_and_mix(legacy.record, legacy_state).status,
+              RecordAccessStatus::valid);
+    EXPECT_EQ(external_state, owned_state);
+    EXPECT_EQ(legacy_state, owned_state);
+  }
+  EXPECT_EQ(external.content_checksum(), external.prepared_content_checksum());
+}
+
+TEST(EventArena, RejectsInvalidExternalOrderWithoutWritingEitherRegion) {
+  const EventArenaConfig config{64U, kLine.value, kPage.value, test_seed(),
+                                "external-order-rejection"};
+  alignas(4096) std::array<std::byte, 8192U> records{};
+  alignas(4096) std::array<std::size_t, 65U> order{};
+  records.fill(std::byte{0xA5});
+  order.fill(777U);
+  const std::span<std::byte> bytes(records);
+  const std::span<std::size_t> indices(order);
+  EXPECT_THROW((EventArena(config, bytes.first(4096U), indices.first(63U))),
+               WorkloadSetupError);
+  EXPECT_THROW((EventArena(config, bytes.first(4096U), indices)), WorkloadSetupError);
+  EXPECT_THROW((EventArena(config, bytes.first(4095U), indices.first(64U))),
+               WorkloadSetupError);
+  EXPECT_THROW((EventArena(config, bytes.subspan(1U, 4096U), indices.first(64U))),
+               WorkloadSetupError);
+  EXPECT_TRUE(std::ranges::all_of(records,
+                                  [](auto value) { return value == std::byte{0xA5}; }));
+  EXPECT_TRUE(std::ranges::all_of(order, [](auto value) { return value == 777U; }));
+
+  alignas(4096) std::array<std::size_t, 512U> overlapping{};
+  overlapping.fill(333U);
+  const std::span<std::size_t> overlap(overlapping);
+  EXPECT_THROW(
+      (EventArena(config, std::as_writable_bytes(overlap), overlap.first(64U))),
+      WorkloadSetupError);
+  EXPECT_TRUE(
+      std::ranges::all_of(overlapping, [](auto value) { return value == 333U; }));
+}
+
+TEST(EventArena, CallerRetainsBothRegionsAfterDestruction) {
+  const EventArenaConfig config{64U, kLine.value, kPage.value, test_seed(),
+                                "external-order-lifetime"};
+  alignas(4096) std::array<std::byte, 4096U> records{};
+  alignas(4096) std::array<std::size_t, 64U> order{};
+  for (unsigned generation = 0U; generation < 2U; ++generation) {
+    {
+      const EventArena external(config, records, order);
+      EXPECT_EQ(external.select({0U}).record_index,
+                external.select({64U}).record_index);
+      EXPECT_EQ(external.record_order().data(), order.data());
+    }
+    records.fill(std::byte{0x6B});
+    order.fill(99U);
+    EXPECT_EQ(records[0U], std::byte{0x6B});
+    EXPECT_EQ(order[0U], 99U);
+  }
+}
+
 TEST(Integrity, MixerOrderAndSignedClosureDeltasAreExact) {
   EXPECT_EQ(
       cpu_prefetch::workload::mix_consumer_state(

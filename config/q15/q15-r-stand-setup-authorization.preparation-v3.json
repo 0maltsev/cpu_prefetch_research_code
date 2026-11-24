@@ -1,0 +1,72 @@
+{
+  "schema_version": "cpu-prefetch-q15-r-stand-setup-authorization-preparation/3",
+  "preparation_id": "Q15-R-STAND-SETUP-AUTHORIZATION-PREPARATION-20260826-03",
+  "protocol_version": "2.0.0-pre.2",
+  "stand_id": "XEON-CPU-FETCH",
+  "status": "D097_PUBLIC_TRUST_RESOLVED_THREE_EXTERNAL_INPUTS_REMAIN_NO_AUTHORITY",
+  "lineage": {
+    "predecessor_path": "config/q15/q15-r-stand-setup-authorization.preparation-v2.json",
+    "predecessor_sha256": "25ab86661f2a0ea1c92237aea06585e585bea9303f9309678e110978c7bd5338",
+    "d097_complete_evidence_path": "config/q15/q15-r-p4-k-r-d097-complete-evidence-v1.json",
+    "d097_complete_evidence_sha256": "b7c6125d216e01e4207ce54872b2fdb02fd7bf41bb97f99f495006ee28ce4a90"
+  },
+  "resolved_input_groups": [
+    {
+      "name": "ALLOWED_SIGNERS_SOURCE",
+      "state": "RESOLVED_BY_D097_REVIEWED_PUBLIC_EVIDENCE_NOT_INSTALLED",
+      "value": {
+        "absolute_source_path": "/home/omaltsev/.local/share/cpu-prefetch-q15/p4-k-v2/public/target_allowed_signers",
+        "sha256": "b08f32720b7987218a5c51f31f822f2ea1d22ff948beb41382518927d815c718",
+        "fingerprint": "SHA256:bOmXmBSxD0rBKid1AKOXQ25jIUjCOrijbM5sN18qLGM",
+        "principal": "cpu-prefetch-q15-authorization",
+        "namespace": "cpu-prefetch-q15-authorization",
+        "review_receipt_sha256": "5a3233fbbab534a762549455d3d8b7eefa2f7497c8ec0b0871da19cfdcee00f1",
+        "accepted_public_trust_evidence_sha256": "8d1a906d8c54576dd8bba179a5847dd1f735a874e8a8fb66ee957db5a41875a4"
+      }
+    },
+    {
+      "name": "ACTUAL_ALLOWED_SIGNERS_ARTIFACT_ID_SHA256_AND_ED25519_FINGERPRINT",
+      "state": "RESOLVED_BY_D097_REVIEWED_PUBLIC_EVIDENCE_NOT_INSTALLED",
+      "value": {
+        "artifact_id": "Q15-R-P4-K-R-D097-REVIEWED-PUBLIC-TRUST-20260826-01",
+        "sha256": "b08f32720b7987218a5c51f31f822f2ea1d22ff948beb41382518927d815c718",
+        "fingerprint": "SHA256:bOmXmBSxD0rBKid1AKOXQ25jIUjCOrijbM5sN18qLGM"
+      }
+    }
+  ],
+  "remaining_required_inputs": [
+    {"name": "@OPERATIONAL_RELEASE_ROOT@", "state": "UNRESOLVED", "value": null},
+    {"name": "@SECONDARY_CUSTODY_ROOT@", "state": "UNRESOLVED", "value": null},
+    {"name": "CURRENT_STAND_PRESTATE_ARTIFACT_ID_AND_SHA256", "state": "UNRESOLVED", "value": null}
+  ],
+  "transaction_contract": {
+    "setup_command_count": 20,
+    "access_probe_count": 24,
+    "required_denial_count": 18,
+    "rollback_command_count": 10,
+    "execution_order": "SETUP_ASCENDING_THEN_ACCESS_ASCENDING_STOP_FIRST_MISMATCH",
+    "rollback_behavior": "STOP_FIRST_FAILURE_QUARANTINE_COMPLETED_PREFIX_NO_DELETE"
+  },
+  "future_authorization_contract": {
+    "authorization_id": null,
+    "authorization_sha256": null,
+    "issued_at_utc": null,
+    "expires_at_utc": null,
+    "signature_sha256": null,
+    "independent_review_sha256": null,
+    "status": "NOT_ISSUED"
+  },
+  "authority_boundary": {
+    "repository_local_successor_preparation_authorized": true,
+    "stand_access_authorized": false,
+    "bundle_transfer_or_install_authorized": false,
+    "account_group_key_path_or_permission_changes_authorized": false,
+    "trust_anchor_installation_or_activation_authorized": false,
+    "access_probe_execution_authorized": false,
+    "p5_authorized": false,
+    "p4_r_i_or_p4_r_c_authorized": false,
+    "q15_r_or_q15_w_authorized": false,
+    "platform_controls_authorized": false,
+    "calibration_pilot_measurement_or_confirmatory_authorized": false
+  }
+}

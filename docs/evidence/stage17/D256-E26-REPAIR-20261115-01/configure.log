@@ -1,0 +1,7 @@
+CMake Error at cmake/VersionPolicy.cmake:3 (message):
+  CMake 4.3.x is required; found 4.4.5.
+Call Stack (most recent call first):
+  CMakeLists.txt:2189 (cpu_prefetch_enforce_tool_versions)
+
+
+-- Configuring incomplete, errors occurred!

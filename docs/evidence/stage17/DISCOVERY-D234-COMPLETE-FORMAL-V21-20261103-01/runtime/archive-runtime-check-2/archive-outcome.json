@@ -1,0 +1,38 @@
+{
+  "cleanup": {
+    "cleanup_deadline_overrun": false,
+    "cleanup_diagnostics": [],
+    "descendants_detected_after_leader_exit": false,
+    "leader_reaped": true,
+    "leader_wait_timed_out": false,
+    "maximum_descendant_count": 0,
+    "namespace_snapshot": {
+      "local_pgid": 37106,
+      "local_pid": 37107,
+      "namespace_inode": "4026531836",
+      "nspgid": [
+        37106
+      ],
+      "nspid": [
+        37107
+      ],
+      "procfs_namespace_inode": "4026531836",
+      "visible_pgid": 37106,
+      "visible_pid": 37107
+    },
+    "process_group_gone": true,
+    "returncode": 0,
+    "terminal_cleanup_outcome": "NORMAL_LEADER_REAPED_GROUP_QUIESCENT"
+  },
+  "receipt": {
+    "file_name": "formal-capture-0-archive-custody.json",
+    "sha256": "0b6fd8344e552231dd89fbf79c05f1059e46178d0aeecdf0f7f96e0b1c6ed7e8",
+    "size_bytes": 7826
+  },
+  "receipt_ledger_record": {
+    "file_name": "0000000000000083.json",
+    "sha256": "3d3fcef1b09f4994264619e85cf0bd0482285831f60ac707238e6bbb41a12434",
+    "size_bytes": 673
+  },
+  "status": "ARCHIVED_AND_RELEASED"
+}

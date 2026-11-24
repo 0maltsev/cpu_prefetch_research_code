@@ -566,11 +566,11 @@ auto Stage12CrossRecordSemanticValidator::validate(
   for (const auto& record : record_set.records) {
     auto local_errors = local.validate(record);
     errors.insert(errors.end(), local_errors.begin(), local_errors.end());
-    if (protocol_version_of(record) != protocol::ProtocolVersion::v2_0_0_pre_2 ||
-        schema_version_of(record) != protocol::ProtocolVersion::v2_0_0_pre_2) {
+    if (protocol_version_of(record) != schema_version_of(record) ||
+        protocol_version_of(record) == protocol::ProtocolVersion::v2_0_0_pre_1) {
       add(errors, ErrorCategory::unsupported_version, "$records/protocol_version",
           "REC-PRE2-REQUIRED",
-          "Stage 12 final semantics require matching protocol/schema 2.0.0-pre.2");
+          "Stage 12 final semantics require matching protocol/schema pre.2 or pre.3");
     }
   }
 
@@ -763,7 +763,7 @@ auto Stage12CrossRecordSemanticValidator::validate(
             string_member(*object, "schema_version") !=
                 "cpu-prefetch-queue-provenance/1" ||
             string_member(*object, "protocol_version") !=
-                protocol::kPreviousProtocolVersion ||
+                protocol::kOldestReadableProtocolVersion ||
             string_member(*object, "queue_id") !=
                 manifest->queue_provenance_id.value()) {
           add(errors, ErrorCategory::reference_mismatch, base + "/provenance",

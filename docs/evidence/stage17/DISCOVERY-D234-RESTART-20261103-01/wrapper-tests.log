@@ -1,0 +1,18 @@
+test_actual_supervisor_plus_controller_quiescence (__main__.Successor.test_actual_supervisor_plus_controller_quiescence) ... ok
+test_admission_failure_never_calls_validator_or_creates_output (__main__.Successor.test_admission_failure_never_calls_validator_or_creates_output) ... ok
+test_admission_requires_actual_command_exit_outputs_and_bindings (__main__.Successor.test_admission_requires_actual_command_exit_outputs_and_bindings) ... ok
+test_bounded_metadata_exact_bytes_duplicates_symlinks_fifo (__main__.Successor.test_bounded_metadata_exact_bytes_duplicates_symlinks_fifo) ... ok
+test_current_production_module_wiring (__main__.Successor.test_current_production_module_wiring) ... ok
+test_d206_exact_scope_only_no_pc_gate (__main__.Successor.test_d206_exact_scope_only_no_pc_gate) ... ok
+test_full36_required_and_original_stability (__main__.Successor.test_full36_required_and_original_stability) ... ok
+test_missing_arguments_and_exclusive_scratch_boundary (__main__.Successor.test_missing_arguments_and_exclusive_scratch_boundary) ... ok
+test_orchestration_after_admission_scratch_and_rejection (__main__.Successor.test_orchestration_after_admission_scratch_and_rejection) ... ok
+test_prior_rejection_must_match_exact_study_and_error (__main__.Successor.test_prior_rejection_must_match_exact_study_and_error) ... ok
+test_real_registry_bounded_raw_hash_integrity (__main__.Successor.test_real_registry_bounded_raw_hash_integrity) ... ok
+test_rejected_report_hash_pinned (__main__.Successor.test_rejected_report_hash_pinned) ... ok
+test_successor_code_and_decision_hash_pinned (__main__.Successor.test_successor_code_and_decision_hash_pinned) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.266s
+
+OK

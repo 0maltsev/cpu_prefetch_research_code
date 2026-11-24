@@ -1,0 +1,32 @@
+{
+  "scope": "READ_ONLY_COLD_METADATA_BENCHMARK",
+  "execution_authority": false,
+  "observations_added": 0,
+  "started_utc": "2026-11-15T15:03:43.060780+00:00",
+  "profiled_replay_seconds": 27.8352587739937,
+  "ledger_records": 59747,
+  "ledger_tip": {
+    "file_name": "0000000000059746.json",
+    "size_bytes": 676,
+    "sha256": "3b3198273f0b2d2ad49aa46980b0de42ea269d8722dec2593c7bd98781ac852c"
+  },
+  "pending": 0,
+  "reserved_bytes": 0,
+  "inventory_seconds": [
+    0.7169059908483177,
+    0.7132097419817001,
+    0.71140929707326
+  ],
+  "physical_usage": {
+    "logical_size_bytes": 469305483312,
+    "allocated_bytes": 469481541632,
+    "quota_bytes": 469481541632,
+    "unique_objects": 74889
+  },
+  "plan_canonical_seconds": {
+    "original": 7.07276705512777,
+    "fast": 2.3479735672008246
+  },
+  "completed_utc": "2026-11-15T15:04:38.703226+00:00",
+  "ledger_mutated": false
+}

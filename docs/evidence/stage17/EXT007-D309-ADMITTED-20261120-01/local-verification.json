@@ -1,0 +1,13 @@
+{
+  "actual_policy_matches_local_source": true,
+  "canonical_receipt_manifest_joins_verified": true,
+  "checked_at_utc": "2026-11-20T04:38:34.459129+00:00",
+  "checked_public_artifacts": 42,
+  "original_journal_prefix_preserved": true,
+  "phase18_authority": false,
+  "pilot_ready": false,
+  "preview_custody_preserved": true,
+  "recovery_source_matches_committed_source": true,
+  "stage17_complete": false,
+  "status": "PASS"
+}

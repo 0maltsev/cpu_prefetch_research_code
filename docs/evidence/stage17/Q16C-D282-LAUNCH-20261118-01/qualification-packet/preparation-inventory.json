@@ -1,0 +1,153 @@
+{
+  "execution_authority": false,
+  "files": [
+    {
+      "path": "author_codegen_facts.py",
+      "sha256": "73d4db0f6d58d7caefef1935ee4cf31a5b2338147147b79f499e175cf783e9e6",
+      "size_bytes": 8151
+    },
+    {
+      "path": "author_ext004005_records.py",
+      "sha256": "0a14be96a65e0590a18b3ccc3fbf58975b20ac5daef85b69400cc061ad1a69f6",
+      "size_bytes": 11222
+    },
+    {
+      "path": "author_fresh_qualification_records.py",
+      "sha256": "1bca8e64ee73a9094c5dfc120b314f54e77bb499b34e84b7ebd00c6157ef50ec",
+      "size_bytes": 19600
+    },
+    {
+      "path": "author_fresh_qualification_records_v2.py",
+      "sha256": "bc960c9c8dcd5d1730d5e965330e8e8201f81fe97f201fbaeba1adf1358d4472",
+      "size_bytes": 5698
+    },
+    {
+      "path": "author_fresh_qualification_records_v3.py",
+      "sha256": "5fb5d85d5a58cc329020af801c462640799793eac5aa16fd27fb7030d22d2813",
+      "size_bytes": 4949
+    },
+    {
+      "path": "author_platform_facts.py",
+      "sha256": "2f54c2e9cc09d0e43bd63fc1dcfdedcf71370d6087e78fe7a4caf7881a321d00",
+      "size_bytes": 17906
+    },
+    {
+      "path": "clock-bindings-v29.json",
+      "sha256": "66cfaae5c0c123fd394e061b67a2092911a6aeace573bfde3d59b190b20deefd",
+      "size_bytes": 1589
+    },
+    {
+      "path": "collect_qualification_snapshot.py",
+      "sha256": "ecfb35833cabf604f397d793fa4f2411162c5f4cda1bfd088020d44a2cf3023e",
+      "size_bytes": 11154
+    },
+    {
+      "path": "emit_qualification_envelope_commands.py",
+      "sha256": "1f9d40f65e8de03ff0443726d77b3f334732141dabe0a2e173f48a98784ad584",
+      "size_bytes": 8461
+    },
+    {
+      "path": "finite-qualification-plan.json",
+      "sha256": "ca36078439caaf73873cbf422cb3a7d898db9ae1940b2ca0251f8bc51707024d",
+      "size_bytes": 6386
+    },
+    {
+      "path": "initialize-v29.py",
+      "sha256": "45be0c7029b0081351495ad1447a3abc6b32bd72b88027183fb9c2d392fd599e",
+      "size_bytes": 1299
+    },
+    {
+      "path": "install_v29.py",
+      "sha256": "1357b2b2f93e5869aaa8f8bba5ca1dc4f4f2376ba57e30de52d4ff24cf2eed09",
+      "size_bytes": 5772
+    },
+    {
+      "path": "isolation-config-v29.json",
+      "sha256": "893ff87c4b27303608512831c275a35f506c057310cac0211694b3752a5f1fd5",
+      "size_bytes": 398
+    },
+    {
+      "path": "isolation_core.py",
+      "sha256": "49e20041be148142898e46bb6bc72d15cbb4b23859aee12403c5586594358a8a",
+      "size_bytes": 23863
+    },
+    {
+      "path": "q15-launch-8gib-v2.py",
+      "sha256": "565c73b613eb0a79230c837b6c9a91a7d8cdd1e0a6beccf70aef0ae78c59acc1",
+      "size_bytes": 6195
+    },
+    {
+      "path": "release-bindings.json",
+      "sha256": "2793052459d513cced4d58022916547f82ef9a369a187944f306362a5b8cab87",
+      "size_bytes": 533
+    },
+    {
+      "path": "run_clock_qualification_v29.py",
+      "sha256": "827a02579c1003c0b2c0c962090be68350ec27f7d2eba78b8ed3c7797a1bcda0",
+      "size_bytes": 19546
+    },
+    {
+      "path": "run_qualification_v29.py",
+      "sha256": "eff9ff955e65dcd6fa2e8e1fad0cac8a0099f38559978ae85f216a6fef7c87c0",
+      "size_bytes": 9570
+    },
+    {
+      "path": "stage17_q16c_execution_window_v2.py",
+      "sha256": "1d2f01e2cf5dd848b15f9cd4b37b4ea79bbf20c2fcf5984f3634cf01a783d3c9",
+      "size_bytes": 9419
+    },
+    {
+      "path": "v29-admit-002-003-006.py",
+      "sha256": "1165b17480756110f3478ca8f574b87d37cd90da600086069d342dc044ff8d57",
+      "size_bytes": 1788
+    },
+    {
+      "path": "v29-admit-ext005.py",
+      "sha256": "edde6ef128d4be853a2c8dabb48b5698816c9685f503ee92a86840ed8a8caca7",
+      "size_bytes": 1693
+    },
+    {
+      "path": "v29-author-admit-ext004.py",
+      "sha256": "db34b6dd17d8b309ccf1fc8f3ff0b21e762d213bab2d7d8e865010d0c5d9b727",
+      "size_bytes": 3114
+    },
+    {
+      "path": "v29-clock-envelope-and-inventory.py",
+      "sha256": "cd87bbe7eeb9f5a6b729feae17bf17a7dcaa690b23ad4d82b540dfbfddece9b0",
+      "size_bytes": 1760
+    },
+    {
+      "path": "v29-codegen-facts.json",
+      "sha256": "b5caf401e7b6b9bebf21842542f90bb05321d5c8136491a33ab486d89d5a6cef",
+      "size_bytes": 1662
+    },
+    {
+      "path": "v29-ext001-execute.py",
+      "sha256": "2f62151c55cae539a8da266cbdfa739e6281120fc891c2fdebb5658b4e001d28",
+      "size_bytes": 3293
+    },
+    {
+      "path": "v29-platform-build-facts.json",
+      "sha256": "e2e4ae4ea1f6d6b7d41634b2bacff0a1b1154501142f9c65e9255855f0eb0d27",
+      "size_bytes": 8286
+    },
+    {
+      "path": "v29-prepare-continue-q15w.py",
+      "sha256": "618f5f3b12f4bbf650436cba914e149658de05acb5f8c806b1c28f4228cbe5ae",
+      "size_bytes": 2923
+    },
+    {
+      "path": "v29-prepare-q15r.py",
+      "sha256": "ab8c3a157aae8bcaa8424355ccae05d9e050da766d9be90af2fdfb1a858885fa",
+      "size_bytes": 2421
+    },
+    {
+      "path": "v29-start-q15-session.py",
+      "sha256": "83c1f8465d5e196f1c7e54a4e1c0d1d7356f3df508d60656b5b3d2a47bdac324",
+      "size_bytes": 1840
+    }
+  ],
+  "phase18_authority": false,
+  "preparation_only": true,
+  "schema_version": "cpu-prefetch-v29-d282-qualification-packet/1"
+}

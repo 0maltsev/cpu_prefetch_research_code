@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:read-only-preflight-fixed-action-plan:v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "plan_id", "protocol_version", "predecessor", "owner_command_bytes_allowed", "fixed_environment", "transport", "evidence_root_policy", "typed_owner_values", "observations", "record_formats", "forbidden_semantics", "authority_boundary"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-read-only-preflight-fixed-action-plan/2"},
+    "plan_id": {"const": "STAGE17-READ-ONLY-PREFLIGHT-FIXED-ACTION-PLAN-v2"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "predecessor": {"$ref": "#/$defs/file_binding"},
+    "owner_command_bytes_allowed": {"const": false},
+    "fixed_environment": {"const": {"LANG": "C", "LC_ALL": "C", "TZ": "UTC0"}},
+    "transport": {"type": "object"},
+    "evidence_root_policy": {"type": "object"},
+    "typed_owner_values": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "observations": {"type": "array", "minItems": 6, "maxItems": 6, "uniqueItems": true, "items": {"type": "object"}},
+    "record_formats": {"type": "object"},
+    "forbidden_semantics": {"type": "object"},
+    "authority_boundary": {"$ref": "#/$defs/permissions"}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "file_binding": {"type": "object", "additionalProperties": false, "required": ["path", "size_bytes", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "size_bytes": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/$defs/sha256"}}},
+    "permissions": {"const": {"stand_read_only": true, "stand_mutation": false, "privileged_controls": false, "qualification": false, "calibration": false, "pilot_execution": false, "measurement": false, "stage18_authority": false}}
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "experimental_raw_transferred": false,
+  "files": [
+    {
+      "path": "serial-stop-intent.json",
+      "sha256": "864aa0d34bf67b24826b45c2a0e79783578c7e1c6c0fc1ad0fc794d10991886d",
+      "size_bytes": 498,
+      "stand_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-d234-1/serial-stop-intent.json"
+    },
+    {
+      "path": "serial-stop-result.json",
+      "sha256": "1e52f5f246c471e2fd119dd05828b2c51c7de71df9f57a1ccf4ced6a47d4cf69",
+      "size_bytes": 843,
+      "stand_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-d234-1/serial-stop-result.json"
+    },
+    {
+      "path": "serial-original-terminal.json",
+      "sha256": "d619ca4b987e6a9d6eb6a91bcaaa5aea7fc0b245daba4a7a7fdbe4ad94d73a03",
+      "size_bytes": 109,
+      "stand_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-d213-1/analysis-process-result.json"
+    },
+    {
+      "path": "journal-000006.json",
+      "sha256": "26643bbe88f2f318dab2e1ccee6e8c848b00960a1422551a54b751e33cef4527",
+      "size_bytes": 3341,
+      "stand_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/journal/stage17-state-journal-000006.json"
+    },
+    {
+      "path": "ext001-v21.log",
+      "sha256": "fbda88d433e64c56ce5da1c91545eceaabecde8f72573b3e00dbe31c43bda8e7",
+      "size_bytes": 6956,
+      "stand_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/ext001-v21.log"
+    },
+    {
+      "path": "ext002-003-006-v21.log",
+      "sha256": "77fb3e0743d9c7b847df626a9bbbdd4e0f2d4c345c5e31ece17f32f541416e7e",
+      "size_bytes": 9522,
+      "stand_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/ext002-003-006-v21.log"
+    },
+    {
+      "path": "clock-launch-intent-1.json",
+      "sha256": "437709feb7b971928fff65f5d514379834fc023b313928fe758b0ded13aedde0",
+      "size_bytes": 521,
+      "stand_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/clock-launch-intent-1.json"
+    },
+    {
+      "path": "clock-launch-pid-1.json",
+      "sha256": "6445d8ef7843b26ae02248ad033a556b03e74022be3a0d610fcf5cb09915468d",
+      "size_bytes": 39,
+      "stand_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-21/clock-launch-pid-1.json"
+    }
+  ]
+}

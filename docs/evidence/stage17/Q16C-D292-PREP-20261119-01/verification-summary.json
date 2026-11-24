@@ -1,0 +1,21 @@
+{
+  "experiment_started": false,
+  "failure_reason": "Test expected old C30 identity after the approved V31 namespace change; corrected to assert C31 and the exact V31 plan identity.",
+  "initial_failures": 1,
+  "initial_integration_passes": 83,
+  "phase18_authority": false,
+  "phase_budgets_seconds": [
+    3600,
+    7200,
+    1200,
+    24860,
+    2400,
+    3600
+  ],
+  "skipped_tests": 0,
+  "status": "D292_AUTHORITY_SOFTWARE_VERIFIED",
+  "targeted_prospective_tests_passed": 5,
+  "total_seconds": 42860,
+  "unique_tests_verified": 84,
+  "window_started": false
+}

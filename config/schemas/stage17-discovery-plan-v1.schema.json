@@ -1,0 +1,508 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:discovery-plan:v1",
+  "title": "D-178 prospective discovery plan or non-authorizing plan request",
+  "description": "Structural validation only. stage17_discovery_contract_v1 validates exact ordered design, identity separation, geometry consistency and checked budgets. Neither validates external binding bytes or grants execution authority. Canonical binding uses JCS-I64-v1 UTF-8 bytes without a trailing newline. drain_ns is a per-phase window counted twice; setup covers preparation, barriers, reset and out-of-window monitoring. Memory is sequential capture peak plus study controller; custody bytes cover all declared output copies.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/plan"
+    },
+    {
+      "$ref": "#/$defs/request"
+    }
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,255}$"
+    },
+    "uint": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615
+    },
+    "positive": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 18446744073709551615
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_id",
+        "size_bytes",
+        "sha256"
+      ],
+      "properties": {
+        "artifact_id": {
+          "$ref": "#/$defs/id"
+        },
+        "size_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "dependency": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "input_id",
+        "resolution"
+      ],
+      "properties": {
+        "input_id": {
+          "enum": [
+            "S17-EXT-001",
+            "S17-EXT-002",
+            "S17-EXT-003",
+            "S17-EXT-004",
+            "S17-EXT-005",
+            "S17-EXT-006"
+          ]
+        },
+        "resolution": {
+          "$ref": "#/$defs/binding"
+        }
+      }
+    },
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "run_id",
+        "seed_id",
+        "seed_hex",
+        "namespace_id"
+      ],
+      "properties": {
+        "run_id": {
+          "$ref": "#/$defs/id"
+        },
+        "seed_id": {
+          "$ref": "#/$defs/id"
+        },
+        "seed_hex": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "namespace_id": {
+          "$ref": "#/$defs/id"
+        }
+      }
+    },
+    "geometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "producer_cpu",
+        "consumer_cpu",
+        "producer_node",
+        "consumer_node",
+        "shared_node",
+        "capacity",
+        "cache_line_bytes",
+        "base_page_bytes"
+      ],
+      "properties": {
+        "producer_cpu": {
+          "$ref": "#/$defs/uint"
+        },
+        "consumer_cpu": {
+          "$ref": "#/$defs/uint"
+        },
+        "producer_node": {
+          "$ref": "#/$defs/uint"
+        },
+        "consumer_node": {
+          "$ref": "#/$defs/uint"
+        },
+        "shared_node": {
+          "$ref": "#/$defs/uint"
+        },
+        "capacity": {
+          "$ref": "#/$defs/positive"
+        },
+        "cache_line_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "base_page_bytes": {
+          "$ref": "#/$defs/positive"
+        }
+      }
+    },
+    "capture_budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "setup_ns",
+        "drain_ns",
+        "publication_ns",
+        "cleanup_ns",
+        "watchdog_ns",
+        "warmup_attempt_capacity",
+        "measurement_attempt_capacity",
+        "drain_attempt_capacity",
+        "barrier_poll_limit",
+        "memory_bytes",
+        "retained_output_bytes",
+        "metadata_output_bytes",
+        "max_output_bytes"
+      ],
+      "properties": {
+        "setup_ns": {
+          "$ref": "#/$defs/positive"
+        },
+        "drain_ns": {
+          "$ref": "#/$defs/positive"
+        },
+        "publication_ns": {
+          "$ref": "#/$defs/positive"
+        },
+        "cleanup_ns": {
+          "$ref": "#/$defs/positive"
+        },
+        "watchdog_ns": {
+          "$ref": "#/$defs/positive"
+        },
+        "warmup_attempt_capacity": {
+          "$ref": "#/$defs/positive"
+        },
+        "measurement_attempt_capacity": {
+          "$ref": "#/$defs/positive"
+        },
+        "drain_attempt_capacity": {
+          "$ref": "#/$defs/positive"
+        },
+        "barrier_poll_limit": {
+          "$ref": "#/$defs/positive"
+        },
+        "memory_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "retained_output_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "metadata_output_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "max_output_bytes": {
+          "$ref": "#/$defs/positive"
+        }
+      }
+    },
+    "custody": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "domain_id",
+        "copies",
+        "budget_bytes"
+      ],
+      "properties": {
+        "domain_id": {
+          "$ref": "#/$defs/id"
+        },
+        "copies": {
+          "$ref": "#/$defs/positive"
+        },
+        "budget_bytes": {
+          "$ref": "#/$defs/positive"
+        }
+      }
+    },
+    "capture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ordinal",
+        "context_ordinal",
+        "hardware_state",
+        "placement",
+        "working_set_class",
+        "warmup_ns",
+        "measurement_ns",
+        "warmup",
+        "measurement",
+        "geometry",
+        "budget",
+        "arena_seed",
+        "seed_use"
+      ],
+      "properties": {
+        "ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 35
+        },
+        "context_ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 11
+        },
+        "hardware_state": {
+          "enum": [
+            "H0",
+            "H1"
+          ]
+        },
+        "placement": {
+          "enum": [
+            "NEAR",
+            "FAR"
+          ]
+        },
+        "working_set_class": {
+          "enum": [
+            "L2_RESIDENT",
+            "LLC_RESIDENT",
+            "BEYOND_LLC"
+          ]
+        },
+        "warmup_ns": {
+          "const": 5000000000
+        },
+        "measurement_ns": {
+          "enum": [
+            100000000,
+            1000000000,
+            5000000000
+          ]
+        },
+        "warmup": {
+          "$ref": "#/$defs/identity"
+        },
+        "measurement": {
+          "$ref": "#/$defs/identity"
+        },
+        "geometry": {
+          "$ref": "#/$defs/geometry"
+        },
+        "budget": {
+          "$ref": "#/$defs/capture_budget"
+        },
+        "arena_seed": {
+          "$ref": "#/$defs/identity"
+        },
+        "seed_use": {
+          "const": "ONE_PERSISTENT_ARENA_MEASUREMENT_SEED_WARMUP_RESERVED_NO_DRAWS"
+        }
+      }
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "setup_ns",
+        "cleanup_ns",
+        "watchdog_ns",
+        "controller_memory_bytes",
+        "memory_budget_bytes",
+        "metadata_output_bytes",
+        "output_budget_bytes",
+        "custody_domains"
+      ],
+      "properties": {
+        "setup_ns": {
+          "$ref": "#/$defs/positive"
+        },
+        "cleanup_ns": {
+          "$ref": "#/$defs/positive"
+        },
+        "watchdog_ns": {
+          "$ref": "#/$defs/positive"
+        },
+        "controller_memory_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "memory_budget_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "metadata_output_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "output_budget_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "custody_domains": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/custody"
+          }
+        }
+      }
+    },
+    "plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "protocol_version",
+        "design_id",
+        "plan_id",
+        "stand_id",
+        "source_revision",
+        "clean_source",
+        "release",
+        "stand",
+        "qualification",
+        "resource_plan",
+        "monitoring_plan",
+        "namespace_registry",
+        "dependencies",
+        "warmup_namespace",
+        "measurement_namespace",
+        "minimum_observations",
+        "captures",
+        "budget",
+        "diagnostic_only",
+        "execution_authority",
+        "phase18_authority",
+        "retries"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "cpu-prefetch-stage17-discovery-plan/1"
+        },
+        "protocol_version": {
+          "const": "2.0.0-pre.3"
+        },
+        "design_id": {
+          "const": "D178-Q16A-SETUP-DISCOVERY-v1"
+        },
+        "plan_id": {
+          "$ref": "#/$defs/id"
+        },
+        "stand_id": {
+          "$ref": "#/$defs/id"
+        },
+        "source_revision": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "clean_source": {
+          "const": true
+        },
+        "release": {
+          "$ref": "#/$defs/binding"
+        },
+        "stand": {
+          "$ref": "#/$defs/binding"
+        },
+        "qualification": {
+          "$ref": "#/$defs/binding"
+        },
+        "resource_plan": {
+          "$ref": "#/$defs/binding"
+        },
+        "monitoring_plan": {
+          "$ref": "#/$defs/binding"
+        },
+        "namespace_registry": {
+          "$ref": "#/$defs/binding"
+        },
+        "dependencies": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "items": {
+            "$ref": "#/$defs/dependency"
+          }
+        },
+        "warmup_namespace": {
+          "$ref": "#/$defs/id"
+        },
+        "measurement_namespace": {
+          "$ref": "#/$defs/id"
+        },
+        "minimum_observations": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "producer_demand",
+            "consumer_demand",
+            "producer_issue",
+            "consumer_issue"
+          ],
+          "properties": {
+            "producer_demand": {
+              "const": 100000
+            },
+            "consumer_demand": {
+              "const": 100000
+            },
+            "producer_issue": {
+              "const": 100000
+            },
+            "consumer_issue": {
+              "const": 100000
+            }
+          }
+        },
+        "captures": {
+          "type": "array",
+          "minItems": 36,
+          "maxItems": 36,
+          "items": {
+            "$ref": "#/$defs/capture"
+          }
+        },
+        "budget": {
+          "$ref": "#/$defs/budget"
+        },
+        "diagnostic_only": {
+          "const": true
+        },
+        "execution_authority": {
+          "const": false
+        },
+        "phase18_authority": {
+          "const": false
+        },
+        "retries": {
+          "const": 0
+        }
+      }
+    },
+    "request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "request_id",
+        "plan_binding",
+        "diagnostic_only",
+        "execution_authority",
+        "phase18_authority"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "cpu-prefetch-stage17-discovery-request/1"
+        },
+        "request_id": {
+          "$ref": "#/$defs/id"
+        },
+        "plan_binding": {
+          "$ref": "#/$defs/binding"
+        },
+        "diagnostic_only": {
+          "const": true
+        },
+        "execution_authority": {
+          "const": false
+        },
+        "phase18_authority": {
+          "const": false
+        }
+      }
+    }
+  }
+}

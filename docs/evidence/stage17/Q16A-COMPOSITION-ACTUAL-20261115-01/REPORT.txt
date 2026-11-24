@@ -1,0 +1,46 @@
+D246: actual authenticated Q16a composition and native geometry COMPLETE
+
+Stand job06:57:58–07:03:25UTC Nov15 (09:57–10:03Moscow), exit0, child reaped,
+no error. Operator source revisiond756b195784cefc51ef50f3bdcb0a2e4015d170f;
+installed packet SHA25610394473ab6d7241b66ac1b26b9c6bd5bf350e4aa53c9836a84f17f14772d3e5.
+No native capture, raw decoding, qualification repeat or original-report rewrite.
+
+Original signed collection preparation passed. The D245 consumer authenticated
+finished suffix/finalization evidence, original prefix and full compatibility
+proof. Composition preserves708 actual slots,177 old and531 new, with their
+original plan/revision/run identities:708 VALID,0 INVALID,0 MISSING;1416 unique
+original warmup/measurement identities. Historical failure and correction
+receipts remain unchanged.
+
+Geometry verification passed against actual admitted EXT004 platform evidence.
+The actual queue library and all three query headers match both qualified
+inventories. The retained sealed native query reproduced its exact original
+output, with original dd981b4 identity preserved and no hardware/performance
+observation. Actual native slot storage is8bytes per slot; admitted cache line
+is64bytes. Capacities512/65536/1048576 and slot-storage bytes4096/524288/8388608
+remain bound for each applicable placement/state context.
+
+All six placement/working-set contexts are VALIDATED. Each derives:
+d1=8slots; d2=2cachelines; producer distance=consumer distance=16slots.
+The accepted exact rank/minimum/duration/source-summary arithmetic was freshly
+recomputed against the published packet and matched exactly. No thresholds,
+seeds, durations or observations were changed or selected.
+
+Separate gates: measurement zero lossFAIL (125 valid runs with FULL), warmup
+zero lossFAIL (352 valid warmups with FULL). All reconciled outcomes remain valid
+and retained; no data is discarded or rerun. This is not a failure of raw-data
+validation or a grant of confirmatory zero-loss estimability.
+
+Authenticated composition:
+3c84e5436cedf2e513b28be3f7dc44fa6f44afc3632a728eb3b82d66be89192f,629535bytes.
+Native geometry proof:
+9076992ec8d993a314fd7d8b8134b7642e1127b1bfe730001bf1c663e7d76e87,4329bytes.
+Small reports/manifests only were transferred to the PC; raw stays on the stand.
+
+The D245 mathematical subpacket keeps its conservative standalone source/
+family/authority flags. D246's separate completion record binds the actual
+successful authenticated consumer and geometry verification; it does not
+rewrite those flags or manufacture a708-capture native result. Formal Q16a
+handoff/export/admission must consume this exact completed evidence. Q16b/Q16c,
+calibration freeze, EXT007 and Stage17 admission remain outstanding. No Stage18
+authority is granted by this checkpoint.

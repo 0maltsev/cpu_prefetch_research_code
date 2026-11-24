@@ -1,0 +1,11 @@
+test_invalid_receipt_requires_original_archive_plan_hash_missing_stays_unresolved (__main__.ArchiveLineageTests.test_invalid_receipt_requires_original_archive_plan_hash_missing_stays_unresolved) ... ok
+test_original_packet_hashes_are_not_relabelled (__main__.ArchiveLineageTests.test_original_packet_hashes_are_not_relabelled) ... ok
+test_original_v2_full_families_math_and_lineage_without_false_freeze (__main__.ArchiveLineageTests.test_original_v2_full_families_math_and_lineage_without_false_freeze) ... ok
+test_predecessor_globals_and_old_public_behavior_are_unchanged (__main__.ArchiveLineageTests.test_predecessor_globals_and_old_public_behavior_are_unchanged) ... ok
+test_revalidation_uses_archive_adapter_and_rejects_old_calibration_binding (__main__.ArchiveLineageTests.test_revalidation_uses_archive_adapter_and_rejects_old_calibration_binding) ... ok
+test_storage_and_unknown_version_rejected_before_any_math (__main__.ArchiveLineageTests.test_storage_and_unknown_version_rejected_before_any_math) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 163.372s
+
+OK

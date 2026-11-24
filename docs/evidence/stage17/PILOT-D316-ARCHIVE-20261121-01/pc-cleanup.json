@@ -1,0 +1,10 @@
+{
+  "removed": [
+    {
+      "directory": "build/s180-custody-cqo_2amg",
+      "bytes": 6671,
+      "kind": "synthetic_test_temporary_only"
+    }
+  ],
+  "experimental_raw_on_pc": false
+}

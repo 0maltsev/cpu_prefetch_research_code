@@ -1,0 +1,27 @@
+{
+  "execution_authority": false,
+  "payload_bytes_read": 0,
+  "read_only": true,
+  "root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/formal-archive-program-1",
+  "rows": {
+    "release-hold": {
+      "allocated_bytes": 0,
+      "charged_bytes": 0,
+      "logical_bytes": 0,
+      "regular_files": 0
+    },
+    "spool": {
+      "allocated_bytes": 0,
+      "charged_bytes": 0,
+      "logical_bytes": 0,
+      "regular_files": 0
+    },
+    "working": {
+      "allocated_bytes": 38572032,
+      "charged_bytes": 38572032,
+      "logical_bytes": 35271326,
+      "regular_files": 2084
+    }
+  },
+  "utc": "2026-11-23T20:54:25.187254+00:00"
+}

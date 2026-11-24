@@ -1,0 +1,15 @@
+{
+  "python_ast_files": [
+    "tools/stage17_s180_archive_custody_v1.py",
+    "tools/stage17_s180_archive_reservation_v1.py",
+    "tests/test_stage17_s180_archive_reservation_v1.py",
+    "tests/test_stage17_s180_archive_broker_v1.py",
+    "tests/test_stage17_s180_authority_v1.py"
+  ],
+  "ast_status": "PASS",
+  "formal_base_store_unchanged": true,
+  "native_and_immutable_protocol_sources_unchanged": true,
+  "native_source_revision": "34247cedab4abe4b44732daae8fdac1700eccffd",
+  "native_worker_sha256": "7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc",
+  "native_worker_size_bytes": 6151832
+}

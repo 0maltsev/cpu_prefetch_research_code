@@ -1,0 +1,89 @@
+{
+  "schema_version": "cpu-prefetch-software-prefetch-mapping-codegen/1",
+  "scope": "correctness-only; no timing or performance observation",
+  "mapping_id": "X86-64-PREFETCHW-PREFETCHT0-v1",
+  "binary": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-prefetch-t0/gcc/cpu_prefetch_software_prefetch_mapping_codegen_probe",
+    "sha256": "1eb6d40bfe6a82b0f50ab964c0a27e91893db80dcfed1f61449100b7c142656b"
+  },
+  "mutant": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-prefetch-t0/gcc/cpu_prefetch_software_prefetch_mapping_codegen_mutant",
+    "sha256": "c3529b1c6f419d675c9c6ef31ce0918652d1f23b9e8752d40d6b57a5663c5927"
+  },
+  "rule_set": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_software_prefetch_mapping_codegen.py",
+    "sha256": "9aecd8193f9a94e076d3f31272e868e324e4a425cb97d70eb71e84c00034cc94"
+  },
+  "tools": {
+    "GNU_OBJDUMP": {
+      "status": "PASS",
+      "path": "/usr/bin/objdump",
+      "version": "GNU Binutils 2.47",
+      "mapping": {
+        "ring_producer_write": {
+          "status": "PASS",
+          "instruction": "PREFETCHW",
+          "body_sha256": "41a0378e9b4d070c1dac16ba2c084a1a7c9c9ed27449c7ee5cb1ceea33de4065"
+        },
+        "ring_consumer_read": {
+          "status": "PASS",
+          "instruction": "PREFETCHT0",
+          "body_sha256": "1d5f90ea3a5ee6dfabd8fefe75d5e7d31c63ddb5e5f858e441761cdf41f31373"
+        },
+        "successor_header": {
+          "status": "PASS",
+          "instruction": "PREFETCHT0",
+          "body_sha256": "2c1e4aad3bb7bf9beb3199549c7c44dbc537dd1c4123e04fbea928fe1d30af8d"
+        }
+      },
+      "mutant": {
+        "ring_producer_write_mutant": {
+          "status": "PASS",
+          "instruction": "PREFETCHT0",
+          "body_sha256": "5ef0d5415c31786fd08ed3b2f59f88eb443c57e0dc2f0b39a5d1f7abe0fffd6f"
+        },
+        "ring_consumer_read_mutant": {
+          "status": "PASS",
+          "instruction": "PREFETCHW",
+          "body_sha256": "74cf9cdf14786e61cd766f1d0365599869d7dcdc239bead2efde53f91fd66063"
+        }
+      }
+    },
+    "LLVM_OBJDUMP": {
+      "status": "PASS",
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/bin/llvm-objdump",
+      "version": "LLVM 22.1.6",
+      "mapping": {
+        "ring_producer_write": {
+          "status": "PASS",
+          "instruction": "PREFETCHW",
+          "body_sha256": "331535bb45ebd80b376fdf61ad52737dc33a20ad1ff6d03f66052f6330d6b6d0"
+        },
+        "ring_consumer_read": {
+          "status": "PASS",
+          "instruction": "PREFETCHT0",
+          "body_sha256": "9622f0adc8a65e0354dec049ea2b45a3bf8e930583581b870813e7a0d1a5474c"
+        },
+        "successor_header": {
+          "status": "PASS",
+          "instruction": "PREFETCHT0",
+          "body_sha256": "6c303867e87920bcfabffefc59015e3f8bdb394e47107b1f978c603d030cbe6b"
+        }
+      },
+      "mutant": {
+        "ring_producer_write_mutant": {
+          "status": "PASS",
+          "instruction": "PREFETCHT0",
+          "body_sha256": "58af4e94f7c8abbd67675b0907ef506d648fe6aa60bd47c576050e2946fcc466"
+        },
+        "ring_consumer_read_mutant": {
+          "status": "PASS",
+          "instruction": "PREFETCHW",
+          "body_sha256": "9f621d783671d811dd392d398c7dfec38bd79b27f4292d49965f191df12d2075"
+        }
+      }
+    }
+  },
+  "status": "PASS",
+  "missing_tools": []
+}

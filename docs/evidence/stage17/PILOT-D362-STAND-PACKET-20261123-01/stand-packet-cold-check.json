@@ -1,0 +1,14 @@
+{
+  "archive_profile_sha256": "23fac285def38a913d4fbb2727eebdb4cda0a18a8f9352bfa9aafa6bee3ca9f6",
+  "elapsed_ns": 14913058765,
+  "execution_authority": false,
+  "native_sha256": "7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc",
+  "native_source_or_arrays_prepared": false,
+  "only_changed_field": "storage.implementation_profile_sha256",
+  "operational_window_started": false,
+  "phase18_authority": false,
+  "qualification_performed": false,
+  "sizing_sha256": "ece6975ba86ea0b18547915df4817b11661c9e3cc6603f95d24d4b230f1f97f5",
+  "source_bank_upper_bytes": 1518870912,
+  "status": "COLD_STAND_RUNTIME_PACKET_PASS"
+}

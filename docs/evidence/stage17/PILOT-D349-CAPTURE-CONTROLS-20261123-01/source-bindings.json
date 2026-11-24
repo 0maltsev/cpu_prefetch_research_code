@@ -1,0 +1,61 @@
+{
+  "execution_authority": false,
+  "files": [
+    {
+      "path": "CMakeLists.txt",
+      "sha256": "04a8eb640e80a33da7f76ad2b18c65538f6adf37b3d0de008b8e9211b1501192",
+      "size_bytes": 202315
+    },
+    {
+      "path": "tools/stage17_s180_capture_controls_v1.py",
+      "sha256": "3e18e7a81f2a7c7965c4802669c06aaa48dec053b295a744b8c24e426b3e3afa",
+      "size_bytes": 18618
+    },
+    {
+      "path": "tools/stage17_discovery_validation_v3.py",
+      "sha256": "0a8c3f066b035c9ce38cfe405ad5bcf4d14272eaa71fcebc0de36d4147b7b12f",
+      "size_bytes": 70322
+    },
+    {
+      "path": "tools/stage17_discovery_environment_v1.py",
+      "sha256": "f24b7c8f87cfbfd74b8bd08fe3a15c1fa4912ea70e0bd85ed306b37076a306c2",
+      "size_bytes": 19396
+    },
+    {
+      "path": "tests/test_stage17_s180_capture_controls_v1.py",
+      "sha256": "9e2b242450b5763be3bcb2b638484eaf05b3482d02b8c0489c294047709f693c",
+      "size_bytes": 17715
+    },
+    {
+      "path": "docs/decisions/0349-s180-nine-region-capture-control-validation.md",
+      "sha256": "895cde4b9e967b17c71a4ab53b61f061005d92d0d38c216d89a17ec86cd77df7",
+      "size_bytes": 7245
+    },
+    {
+      "path": "include/cpu_prefetch/calibration/detail/native_service_envelope.hpp",
+      "sha256": "ded21dd842f9836ab77e61375699a6879673a1af71ed4c30aab8dc867c082670",
+      "size_bytes": 28149
+    },
+    {
+      "path": "src/runner/stage17_discovery_publication.cpp",
+      "sha256": "27faf8bf3d16d7566f4d10e266a4a6a46ddf638691dba747a0a4c9cc57d11413",
+      "size_bytes": 96220
+    },
+    {
+      "path": "include/cpu_prefetch/calibration/mapped_pilot_capture.hpp",
+      "sha256": "19da86114085b1958032f4b04c42873728dbaaf6baf23eec9116df0fe6c4e395",
+      "size_bytes": 15982
+    },
+    {
+      "path": "include/cpu_prefetch/calibration/mapped_pilot_data.hpp",
+      "sha256": "6646000e13493f4346c6bc181bde2ff6cd2f9b1913c39ddde6db50068dc0a846",
+      "size_bytes": 8970
+    }
+  ],
+  "frozen_native": {
+    "path": "build/stage17-s180-release-34247ce/cpu_prefetch_runner",
+    "sha256": "7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc",
+    "size_bytes": 6151832
+  },
+  "recorded_at_utc": "2026-11-23T16:09:00.300260+00:00"
+}

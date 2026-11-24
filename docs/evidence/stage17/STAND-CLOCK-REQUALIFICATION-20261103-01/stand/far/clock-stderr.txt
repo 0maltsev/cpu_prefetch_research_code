@@ -1,0 +1,1 @@
+q15-clock-tool: FAIL pair=far producer_pinned=1 consumer_pinned=0 complete=0

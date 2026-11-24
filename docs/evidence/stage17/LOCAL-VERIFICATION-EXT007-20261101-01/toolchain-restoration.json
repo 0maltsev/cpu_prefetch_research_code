@@ -1,0 +1,251 @@
+{
+  "captured_at_utc": "2026-11-01T20:22:33.657219+00:00",
+  "clean_release_qualified": false,
+  "execution_authority": false,
+  "isolated_python": "build/ext007-toolchain-20261101/python/bin/python",
+  "observed_versions": {
+    "clang": "clang version 22.1.6",
+    "cmake": "cmake version 4.3.3",
+    "gcc": "g++ (GCC) 16.1.1 20260430",
+    "git": "git version 2.54.0",
+    "host_glibc": "glibc 2.44",
+    "python": "Python 3.14.9"
+  },
+  "persistent_prefix": "build/ext007-toolchain-20261101",
+  "purpose": "LOCAL_SOFTWARE_VERIFICATION_ONLY",
+  "release_blockers": [
+    "HOST_GLIBC_2_44_OUTSIDE_ACCEPTED_2_43_MATRIX",
+    "LIVE_DIAGNOSTIC_BACKEND_AND_ADMISSION_NOT_COMPLETE",
+    "PREEXISTING_GLOBAL_FORMAT_STATIC_ANALYSIS_BLOCKERS_NOT_WAIVED"
+  ],
+  "signature_keyring_sha256": "f7af717a90821803e5c366032f3135c236c4100962716b3c1ed352f8b9330f51",
+  "source_base_revision": "0454d00afc10c3007d3a1087e45552ccf23662db",
+  "source_sha256": {
+    "CMakeLists.txt": "86daea27776f562672c17681e33f7f2bd57f37d1c077c81fda0721f526ff27a7",
+    "config/dependencies.json": "e4a2fb7278385aacb0e5e6138c2036dec545c61727158d1b53d6e20bf68ef678",
+    "include/cpu_prefetch/calibration/discovery_session.hpp": "bb165454a6335a8d31850cacb83cab149909813473cdf988229d107a85539212",
+    "tests/calibration_discovery_session_test.cpp": "a50b188db87a2dc6cd4ae5f2fcb259f633c6db48afc15e5c0494cd847d41f982"
+  },
+  "stand_experiment_executed": false,
+  "verified_cached_packages": [
+    {
+      "archive": "gcc-16.1.1+r12+g301eb08fa2c5-1-x86_64.pkg.tar.zst",
+      "licenses": [
+        "GPL-3.0-or-later WITH GCC-exception-3.1",
+        "GFDL-1.3-or-later"
+      ],
+      "sha256": "80ecc89c7ca567a2c1d460803e1efa434040861f824c34d8fe7000bf27ad82c0",
+      "signature_sha256": "98d802d3d2c261057f665a96b435f315874c2d3b9f6530db2722a2c871fe699a",
+      "signature_verified": true,
+      "signing_fingerprint": "05C7775A9E8B977407FE08E69D4C5AA15426DA0A"
+    },
+    {
+      "archive": "libgcc-16.1.1+r12+g301eb08fa2c5-1-x86_64.pkg.tar.zst",
+      "licenses": [
+        "GPL-3.0-or-later WITH GCC-exception-3.1",
+        "GFDL-1.3-or-later"
+      ],
+      "sha256": "01fbf0e50872c2f4538ea067f97b143124963e9037ca8eb69cdc8b693779c11b",
+      "signature_sha256": "e25f99ae439b5914cbf2ba38708ecc335adcfc285d26d39dbdbd139cb2e77114",
+      "signature_verified": true,
+      "signing_fingerprint": "05C7775A9E8B977407FE08E69D4C5AA15426DA0A"
+    },
+    {
+      "archive": "libstdc++-16.1.1+r12+g301eb08fa2c5-1-x86_64.pkg.tar.zst",
+      "licenses": [
+        "GPL-3.0-or-later WITH GCC-exception-3.1",
+        "GFDL-1.3-or-later"
+      ],
+      "sha256": "5eb8ab787086682875805e7eaad8728e73bad687aba00c9460ecb261c3762aeb",
+      "signature_sha256": "4a616f19a328bb240a2c81ddabd3330aa318387ea0720840dd33e801d6de3469",
+      "signature_verified": true,
+      "signing_fingerprint": "05C7775A9E8B977407FE08E69D4C5AA15426DA0A"
+    },
+    {
+      "archive": "libasan-16.1.1+r12+g301eb08fa2c5-1-x86_64.pkg.tar.zst",
+      "licenses": [
+        "GPL-3.0-or-later WITH GCC-exception-3.1",
+        "GFDL-1.3-or-later"
+      ],
+      "sha256": "515b059542bac82337f931bad32b07fd04e3a68fe9643244c5c555a66040d1c3",
+      "signature_sha256": "7701dca700014943ae18a836005b3624f249a0ee458e0a71e21313ac115387bc",
+      "signature_verified": true,
+      "signing_fingerprint": "05C7775A9E8B977407FE08E69D4C5AA15426DA0A"
+    },
+    {
+      "archive": "libatomic-16.1.1+r12+g301eb08fa2c5-1-x86_64.pkg.tar.zst",
+      "licenses": [
+        "GPL-3.0-or-later WITH GCC-exception-3.1",
+        "GFDL-1.3-or-later"
+      ],
+      "sha256": "63f385b4b6b3a34ac9c7b85030e91872fedbe18caa6d7cefaef57469f7811ced",
+      "signature_sha256": "a0389ef2d1c70216507c2cbcec6240192b129a7522c8fd0917fd6e1f3f16d25d",
+      "signature_verified": true,
+      "signing_fingerprint": "05C7775A9E8B977407FE08E69D4C5AA15426DA0A"
+    },
+    {
+      "archive": "liblsan-16.1.1+r12+g301eb08fa2c5-1-x86_64.pkg.tar.zst",
+      "licenses": [
+        "GPL-3.0-or-later WITH GCC-exception-3.1",
+        "GFDL-1.3-or-later"
+      ],
+      "sha256": "3b30d7c82d03d92723705a4987bf0c0ed7dd54141b265c8bb6e6dd27d62e107e",
+      "signature_sha256": "b1c8eabbcf601f25a98432f4ec605f7d926f974adcf46dfd449df1afd33ae3ab",
+      "signature_verified": true,
+      "signing_fingerprint": "05C7775A9E8B977407FE08E69D4C5AA15426DA0A"
+    },
+    {
+      "archive": "libtsan-16.1.1+r12+g301eb08fa2c5-1-x86_64.pkg.tar.zst",
+      "licenses": [
+        "GPL-3.0-or-later WITH GCC-exception-3.1",
+        "GFDL-1.3-or-later"
+      ],
+      "sha256": "4526e2f7dae3de2638f4c053c3f6588d4fdc1cdf6e3ddd37728e24e4277640ac",
+      "signature_sha256": "052bd188fafe17d73ee366a9b61ac77112270a5223e1abb796fd47ab4957f68e",
+      "signature_verified": true,
+      "signing_fingerprint": "05C7775A9E8B977407FE08E69D4C5AA15426DA0A"
+    },
+    {
+      "archive": "libubsan-16.1.1+r12+g301eb08fa2c5-1-x86_64.pkg.tar.zst",
+      "licenses": [
+        "GPL-3.0-or-later WITH GCC-exception-3.1",
+        "GFDL-1.3-or-later"
+      ],
+      "sha256": "51c91ebba200364376a0aff40203646fc2e2b60feffc5f2b0912217f2d2b0497",
+      "signature_sha256": "9f9c9e2ada55e5374215fc85387c7c89d43f8f24bb239d92bf741e9c23fc1280",
+      "signature_verified": true,
+      "signing_fingerprint": "05C7775A9E8B977407FE08E69D4C5AA15426DA0A"
+    },
+    {
+      "archive": "clang-22.1.6-1-x86_64.pkg.tar.zst",
+      "licenses": [
+        "Apache-2.0 WITH LLVM-exception"
+      ],
+      "sha256": "85ab6fcefbe196cb72e029038242cc003c92262a61a337597bbc2f5da4dba66c",
+      "signature_sha256": "2efd09c26876b60cd2717a63c2b869aa070772034b6a642a92c7bc653391e9c9",
+      "signature_verified": true,
+      "signing_fingerprint": "D2E95FEC015CF1F911AAAB0C3D4C5008BB5C8D29"
+    },
+    {
+      "archive": "llvm-libs-22.1.6-1-x86_64.pkg.tar.zst",
+      "licenses": [
+        "Apache-2.0 WITH LLVM-exception"
+      ],
+      "sha256": "6ced8a3e24c933e7b4c1c37cbaf26e497fe4a1f9f891ffe249fde0521900e339",
+      "signature_sha256": "a104809cbe05d14a446a62ad40caf0f7c525c652b7d92bc6065609d283c47292",
+      "signature_verified": true,
+      "signing_fingerprint": "D2E95FEC015CF1F911AAAB0C3D4C5008BB5C8D29"
+    },
+    {
+      "archive": "llvm-22.1.6-1-x86_64.pkg.tar.zst",
+      "licenses": [
+        "Apache-2.0 WITH LLVM-exception"
+      ],
+      "sha256": "272b342b7ad7432595ec440df3b6cbd75cfc72dc73e35f57acb8de836eb6c128",
+      "signature_sha256": "322f7f657dcf181a3644bca928ab26992165fa2388b29910c2d44ad4570b8c5c",
+      "signature_verified": true,
+      "signing_fingerprint": "D2E95FEC015CF1F911AAAB0C3D4C5008BB5C8D29"
+    },
+    {
+      "archive": "compiler-rt-22.1.6-1-x86_64.pkg.tar.zst",
+      "licenses": [
+        "Apache-2.0 WITH LLVM-exception"
+      ],
+      "sha256": "7b5e7ad63bd4cf58cbe7cbdb4bccb2df7b3f6186868fe08000faa2432e0fe5f6",
+      "signature_sha256": "41cf74213600a7720f2a4ed5380ed32e2631e0b0c38707ccd1c9474475500aa7",
+      "signature_verified": true,
+      "signing_fingerprint": "D2E95FEC015CF1F911AAAB0C3D4C5008BB5C8D29"
+    },
+    {
+      "archive": "cmake-4.3.3-1-x86_64.pkg.tar.zst",
+      "licenses": [
+        "BSD-3-Clause"
+      ],
+      "sha256": "aee1950f84e7f509d5ceb9d52f3214f9307ee7f6455fd4165d59a000740be9be",
+      "signature_sha256": "5a394b5bc263629ef1996f17c98fef742adff38be97cd380056e7dee7b8b5cd4",
+      "signature_verified": true,
+      "signing_fingerprint": "1519D5ABA65BF6FC2B73C7567A4E76095D8A52E4"
+    },
+    {
+      "archive": "git-2.54.0-1-x86_64.pkg.tar.zst",
+      "licenses": [
+        "GPL-2.0-only"
+      ],
+      "sha256": "e9bdaf65025b379016a280ea5586f4c6325aae006a6e2faf802f461d667694c9",
+      "signature_sha256": "6bbb30a13f55147a80614582eea59b323a19e5c870a7ffd7f57e690642d1e702",
+      "signature_verified": true,
+      "signing_fingerprint": "F00B96D15228013FFC9C9D0393B11DAA4C197E3D"
+    },
+    {
+      "archive": "gtest-1.17.0-2-x86_64.pkg.tar.zst",
+      "licenses": [
+        "BSD-3-Clause"
+      ],
+      "sha256": "fe0603bf90c88de529881dafa5e348259ed663da4c680c5025efb11edd17e943",
+      "signature_sha256": "d8afa130b8b9b3e70303b9d37c1b06b72b23564575fc4b9d73de263722cd4c35",
+      "signature_verified": true,
+      "signing_fingerprint": "EB3D764FF5D87E0818A3E0E5F05E8C12131AEB5E"
+    },
+    {
+      "archive": "jsoncpp-1.9.6-3-x86_64.pkg.tar.zst",
+      "licenses": [
+        "MIT",
+        "custom:Public_Domain"
+      ],
+      "sha256": "2aa066e1840850aad3b901dec9e8aaa047afcd1835576378f6ba16285c268fcb",
+      "signature_sha256": "66f2770e60733b95f3fc479ce8535039d731394f3ce395b6dfd0b80984d269d2",
+      "signature_verified": true,
+      "signing_fingerprint": "1519D5ABA65BF6FC2B73C7567A4E76095D8A52E4"
+    },
+    {
+      "archive": "python-jsonschema-4.26.0-1-any.pkg.tar.zst",
+      "licenses": [
+        "MIT"
+      ],
+      "sha256": "f41f47d9916ba1afdcb46dfe0788f8dd1b463230537b149927ff223d0c113af2",
+      "signature_sha256": "8433166ea90c39265402e77063e9b860aba921f11cd9e08cb5936b02135bfcb3",
+      "signature_verified": true,
+      "signing_fingerprint": "E75CD4814A77AD943C7AB5A3E0959FEA8B550539"
+    },
+    {
+      "archive": "python-attrs-26.1.0-1-any.pkg.tar.zst",
+      "licenses": [
+        "MIT"
+      ],
+      "sha256": "197dc210fd563c3a721a7b4d0f19cb8bef6db7b3ca868d85571a2ecf6a3eaf50",
+      "signature_sha256": "15250ddbea7665e49284b8d1aa0379b1c80ae3da7fd07b17850fad2c824666aa",
+      "signature_verified": true,
+      "signing_fingerprint": "B5971F2C5C10A9A08C60030F786C63F330D7CB92"
+    },
+    {
+      "archive": "python-rpds-py-2026.5.1-1-x86_64.pkg.tar.zst",
+      "licenses": [
+        "MIT"
+      ],
+      "sha256": "e653f1e59319cdae065d3adbb66d0b2619aab7127a80e67e5d4f8dfbca39ed6c",
+      "signature_sha256": "83ba2eb88c814462163cf990aaceb855fb71b37d9e8cecdd6a686105b6fa892a",
+      "signature_verified": true,
+      "signing_fingerprint": "E75CD4814A77AD943C7AB5A3E0959FEA8B550539"
+    },
+    {
+      "archive": "python-referencing-0.37.0-3-any.pkg.tar.zst",
+      "licenses": [
+        "MIT"
+      ],
+      "sha256": "bb87cdd393dde3565952c859d6eab43d78c6b2b0d6d7f34604090d5a5f5ae9da",
+      "signature_sha256": "b7edaf52709e0f2e070f77a2d17025d61021b2a0ab3c55e3a4650faf508cf419",
+      "signature_verified": true,
+      "signing_fingerprint": "E499C79F53C96A54E572FEE1C06086337C50773E"
+    },
+    {
+      "archive": "python-jsonschema-specifications-2025.9.1-2-any.pkg.tar.zst",
+      "licenses": [
+        "MIT"
+      ],
+      "sha256": "f523249021d380e0823b53b35b94a23de373255e3140288790e07dbe08cfd0f2",
+      "signature_sha256": "ba65283101f8a945a01446e1245c09f31c402cd7c6632cf3204104696ceaf15e",
+      "signature_verified": true,
+      "signing_fingerprint": "E499C79F53C96A54E572FEE1C06086337C50773E"
+    }
+  ]
+}

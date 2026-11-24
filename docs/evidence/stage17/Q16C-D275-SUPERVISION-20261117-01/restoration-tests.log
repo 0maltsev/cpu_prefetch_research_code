@@ -1,0 +1,7 @@
+test_complete_cpu_readback_and_authentication_are_required (test_stage17_q16c_restoration_v1.RestorationTests.test_complete_cpu_readback_and_authentication_are_required) ... ok
+test_original_proof_changes_only_explicit_action_constant (test_stage17_q16c_restoration_v1.RestorationTests.test_original_proof_changes_only_explicit_action_constant) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.016s
+
+OK

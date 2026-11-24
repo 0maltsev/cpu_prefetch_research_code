@@ -1,0 +1,12 @@
+# Preserve intentional Markdown hard-break bytes in the imported protocol snapshot.
+protocol/2.0.0-pre.3/handoff/HANDOFF_READINESS_REPORT.md -whitespace
+# Preserve the exact hash-bound original stand isolation helper, including its EOF.
+tools/stage17_recovery_isolation_core_v1.py whitespace=-blank-at-eof
+# Retain the original CTest transcript bytes, including its final blank line.
+docs/evidence/stage17/PILOT-D334-COMPACTION-INTEGRATION-20261123-01/integrated-last-test.log whitespace=-blank-at-eof
+# Preserve original diagnostic tool output, including its trailing spaces.
+docs/evidence/stage17/PILOT-D335-CLOCK-QUALIFICATION-20261123-01/asan-fixture.txt whitespace=-blank-at-eol
+docs/evidence/stage17/PILOT-D335-CLOCK-QUALIFICATION-20261123-01/repository-checks.txt whitespace=-blank-at-eol
+# Preserve the two original D337 diagnostic transcripts' trailing spaces.
+docs/evidence/stage17/PILOT-D337-Q15-SESSION-20261123-01/initial-build-failure.txt whitespace=-blank-at-eol
+docs/evidence/stage17/PILOT-D337-Q15-SESSION-20261123-01/initial-sanitizer-harness-failure.txt whitespace=-blank-at-eol

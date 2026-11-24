@@ -1,0 +1,35 @@
+["cmake", "--preset", "release-gcc", "-B", "build/accepted-release-gcc"]
+-- Configuring done (0.2s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-release-gcc
+EXIT 0
+["cmake", "--build", "build/accepted-release-gcc", "--target", "cpu_prefetch_q15_clock_qualification_tool", "cpu_prefetch_q15_qualification_evidence_tool", "pilot-candidate-bundle", "-j1"]
+[1/20] Building CXX object CMakeFiles/cpu_prefetch_foundation.dir/src/repository_info.cpp.o
+[2/20] Linking CXX static library libcpu_prefetch_foundation.a
+[3/20] Building CXX object CMakeFiles/cpu_prefetch_q15_qualification.dir/src/qualification/q15_clock_pair_qualification.cpp.o
+[4/20] Linking CXX executable cpu_prefetch_runner
+[5/20] Linking CXX executable cpu_prefetch_runner_codegen_probe
+[6/20] Linking CXX executable cpu_prefetch_runner_combined_codegen_probe
+[7/20] Linking CXX static library libcpu_prefetch_q15_qualification.a
+[8/20] Linking CXX executable cpu_prefetch_smoke
+[9/20] Linking CXX executable cpu_prefetch_preflight
+[10/20] Linking CXX executable cpu_prefetch_qualification
+[11/20] Requiring dual-disassembler queue generated-code evidence
+queue-codegen-check: PASS (two disassemblers, four operations, one mutant)
+[12/20] Requiring dual-disassembler Stage 6 generated-code evidence
+workload-codegen-check: PASS (two disassemblers, six operations, one mutant)
+[13/20] Requiring dual-disassembler Stage 8 timestamp evidence
+timing-codegen-check: PASS (11 operations, 6 source mutants, 3 machine mutants)
+[14/20] Requiring dual-disassembler Stage 11 bounded-writer evidence
+storage-codegen-check: PASS (two disassemblers, two append bodies, one mutant)
+[15/20] Requiring dual-disassembler Q13 one-PAUSE relax evidence
+runner-relax-codegen-check: PASS (two disassemblers, one PAUSE, mutant)
+[16/20] Requiring resolved Q14 combined-operation generated code
+runner-combined-codegen-check: PASS (two disassemblers, 16 operations, exact D-047/ADR-0175 mappings, five mutants)
+[17/20] Requiring both disassemblers to qualify the actual native discovery worker
+discovery-codegen-check: PASS
+[18/20] Linking CXX executable cpu_prefetch_q15_clock_qualification_tool
+[19/20] Linking CXX executable cpu_prefetch_q15_qualification_evidence_tool
+[20/20] Creating the clean, no-authority Stage 17 pilot-candidate bundle; all strict codegen gates must pass
+pilot-candidate-bundle: PASS path=/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-release-gcc/pilot-candidate-bundle/cpu-prefetch-pilot-candidate-2.0.0-ac64633-clean-91a93014b4eb.tar.gz sha256=428b69b160429bca9c6ba0690e1136e4c2e131d6a1ba7d53377c69fc088ef5e7 authority=NONE
+EXIT 0

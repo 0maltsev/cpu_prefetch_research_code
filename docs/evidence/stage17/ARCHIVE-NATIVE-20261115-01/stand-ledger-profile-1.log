@@ -1,0 +1,36 @@
+OPEN_SECONDS 42.627718870993704 ledger 0000000000059577.json pending set() reserved 0
+ACCOUNT_SECONDS 2.4101893820334226 families 3
+         65654039 function calls (59510960 primitive calls) in 45.031 seconds
+
+   Ordered by: cumulative time
+   List reduced from 278 to 25 due to restriction <25>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.084    0.084   42.627   42.627 stage17_formal_archive_custody_v1.py:211(__enter__)
+        1    1.461    1.461   42.541   42.541 stage17_formal_archive_custody_v1.py:303(_replay)
+    59580    0.219    0.000   24.425    0.000 stage17_formal_archive_v1.py:83(parse_json)
+    59580    0.066    0.000   21.904    0.000 stage17_formal_archive_v1.py:49(canonical)
+2618965/59580    2.781    0.000   21.788    0.000 check_canonical.py:55(canonicalize)
+915969/537732    1.200    0.000   20.960    0.000 {method 'join' of 'str' objects}
+2847923/536222    2.149    0.000   20.587    0.000 check_canonical.py:76(<genexpr>)
+    59580    0.624    0.000   13.221    0.000 stage17_formal_archive_custody_v1.py:288(_read_bound)
+  3640833    1.915    0.000   11.613    0.000 check_canonical.py:51(quote)
+    59581    0.732    0.000    9.843    0.000 stage17_formal_archive_v1.py:100(open_regular)
+  3640833    5.416    0.000    9.698    0.000 __init__.py:185(dumps)
+   476646    0.287    0.000    4.282    0.000 <frozen _collections_abc>:1027(__reversed__)
+   417071    0.665    0.000    3.933    0.000 __init__.py:62(__getitem__)
+   372505    0.861    0.000    3.253    0.000 {built-in method builtins.sorted}
+  3640833    1.601    0.000    3.074    0.000 encoder.py:185(encode)
+   417070    0.356    0.000    2.556    0.000 __init__.py:268(_from_parsed_parts)
+   417077    0.262    0.000    2.444    0.000 __init__.py:704(is_symlink)
+        1    0.099    0.099    2.399    2.399 stage17_formal_archive_custody_v1.py:367(physical_accounting)
+  2475418    0.755    0.000    2.392    0.000 check_canonical.py:73(<lambda>)
+    59580    0.278    0.000    2.207    0.000 __init__.py:304(loads)
+   417077    0.264    0.000    2.182    0.000 <frozen genericpath>:60(islink)
+   555704    0.655    0.000    2.123    0.000 __init__.py:156(with_segments)
+   417077    1.544    0.000    1.835    0.000 {built-in method posix.lstat}
+   417070    0.203    0.000    1.800    0.000 __init__.py:275(_from_parsed_string)
+    76118    0.235    0.000    1.750    0.000 stage17_formal_archive_custody_v1.py:371(account)
+
+
+

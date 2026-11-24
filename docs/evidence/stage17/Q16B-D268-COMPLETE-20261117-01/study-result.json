@@ -1,0 +1,71 @@
+{
+  "analysis_complete": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-analysis-1/analysis-complete.json",
+    "sha256": "129eb45545bb1e47b064901380cb17a4e773cce19dd1db7d266ad34b0cda9e6c",
+    "size_bytes": 562
+  },
+  "automatic_retries": 0,
+  "collection_receipt": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/formal-archive-program-1/working/1ccafebafafea4b8491b4daf5b70f1065d1ea2c0b854d662bae388bfb031b2ba/stage17-q16b-completion-v6.json",
+    "sha256": "0b940bbd17f2684fe3d29dc1e1ea637bb8745a55965881eaac1ada5a99343f2c",
+    "size_bytes": 120922
+  },
+  "completed_monotonic_ns": 1302347629107109,
+  "configuration_sha256": "0e6ad4e71cd6740a79cc9f914bdfc52fea7edc5c9364c176bc8fbc436d27e021",
+  "errors": [],
+  "ext007_admitted": false,
+  "global_deadline_ns": 1345017879790668,
+  "native_terminal_receipt": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/formal-archive-program-1/working/1ccafebafafea4b8491b4daf5b70f1065d1ea2c0b854d662bae388bfb031b2ba/stage17-q16b-completion-v6.json",
+    "sha256": "0b940bbd17f2684fe3d29dc1e1ea637bb8745a55965881eaac1ada5a99343f2c",
+    "size_bytes": 120922
+  },
+  "new_captures": 103,
+  "partition_restoration": {
+    "errors": [],
+    "receipt": {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/isolation-preparation-v27-resume-1/restoration.json",
+      "sha256": "58b014d0f4a4d9466ac06855275cc25e4c61f45cf5867548099027e003e1dc2b",
+      "size_bytes": 842
+    },
+    "verified": true
+  },
+  "phase18_authority": false,
+  "phases": [
+    {
+      "completed_monotonic_ns": 1270874909879089,
+      "deadline_ns": 1273257879790668,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "phase": "check",
+      "pid": 252996,
+      "started_monotonic_ns": 1270758421463287
+    },
+    {
+      "completed_monotonic_ns": 1294286743779104,
+      "deadline_ns": 1327334921630888,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "phase": "collection",
+      "pid": 253163,
+      "started_monotonic_ns": 1270875053805326
+    },
+    {
+      "completed_monotonic_ns": 1302347623267981,
+      "deadline_ns": 1307789470438595,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "phase": "analysis",
+      "pid": 257461,
+      "started_monotonic_ns": 1294289626419206
+    }
+  ],
+  "qualification_repeated": false,
+  "retained_captures": 17,
+  "schema_version": "software-d260-collection-study/1",
+  "source_revision": "07a93fb4cfbf423ab4ed29912d3aa3ce4aaebbe8",
+  "started_monotonic_ns": 1270754951468730,
+  "success": true,
+  "supervisor_pid": 252643,
+  "supervisor_start_ticks": 127075476
+}

@@ -1,0 +1,21 @@
+{
+  "cached_prefix_admitted": true,
+  "checked_at_utc": "2026-11-19T18:42:28.173474+00:00",
+  "guard_started": true,
+  "logs": {
+    "d295-service-console-1.log": "",
+    "prefix.log": "{\"status\": \"COMPLETED_86_REPORTS_REUSED_NO_RAW_VALIDATION\", \"reports\": 86, \"scientific_dependencies\": 198, \"accepted_prefix\": {\"path\": \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/q16c-prefix-analysis-1/accepted-prefix.json\", \"size_bytes\": 12698, \"sha256\": \"5fcb47af34943777bb60ca9cf1900d22f609bfd3d20ae147119151cd9a135f3a\"}, \"completion\": {\"path\": \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/q16c-prefix-analysis-1/complete.json\", \"size_bytes\": 19637, \"sha256\": \"3bba1f5820a2a238f818f07234bd641aa18e252330ef93e08e51d6d739469b2a\"}, \"raw_validation_repeated\": false, \"all_workers_reaped\": true, \"execution_authority\": false, \"phase18_authority\": false}\n"
+  },
+  "new_family_prepared": false,
+  "qualification_steps": [
+    "v32-ext001-execute.py.result.json"
+  ],
+  "unit": {
+    "ActiveState": "active",
+    "ExecMainStartTimestamp": "Thu 2026-11-19 21:41:30 MSK",
+    "ExecMainStatus": "0",
+    "InvocationID": "641abfe2caf8432c82b9d15fa54287da",
+    "MainPID": "339811",
+    "SubState": "running"
+  }
+}

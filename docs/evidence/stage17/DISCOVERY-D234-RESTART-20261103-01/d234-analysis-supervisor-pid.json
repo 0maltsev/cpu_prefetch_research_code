@@ -1,0 +1,15 @@
+{
+  "analysis_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-d234-1",
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-d234-1/run_parallel_analysis.py",
+    "--manifest-sha256",
+    "36a4633a0b09b6aecc60785370bbafc650d1838afce32c586910c17707d08764"
+  ],
+  "execution_authority": false,
+  "installation_sha256": "36a4633a0b09b6aecc60785370bbafc650d1838afce32c586910c17707d08764",
+  "raw_mutation": false,
+  "started_at_utc": "2026-11-03T17:45:42.033346+00:00",
+  "supervisor_pid": 35143
+}

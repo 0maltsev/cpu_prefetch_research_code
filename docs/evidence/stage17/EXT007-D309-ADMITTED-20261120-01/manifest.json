@@ -1,0 +1,225 @@
+{
+  "files": [
+    {
+      "path": "REPORT.md",
+      "sha256": "7155c11ddf598f5aaf1f401a62c2122d7d3e46c648a13e3466d17e8c93d40dde",
+      "size_bytes": 5076
+    },
+    {
+      "path": "final-metadata-check.json",
+      "sha256": "49c969470464eab0c7ffbda1f95ab63d1cc8a0eab3588a4964330c096208eebc",
+      "size_bytes": 791
+    },
+    {
+      "path": "install_additions.py",
+      "sha256": "9b42b8b219579c87a1cceab0ca453d8465b0b53126e8fc1d35c1f16b488931ef",
+      "size_bytes": 3343
+    },
+    {
+      "path": "installation-manifest.json",
+      "sha256": "cb06c4099971ab5428d586b0ddb141c9ddd3a7a98ab0104e2ed1d5f0d46b7dab",
+      "size_bytes": 1991
+    },
+    {
+      "path": "installation.json",
+      "sha256": "6c1b9c0aa92b13b2992916d84f0bb5c392bcfdf825ae87f1c71fbe1fdc12be44",
+      "size_bytes": 1964
+    },
+    {
+      "path": "integrated-tests.txt",
+      "sha256": "04c095acf3cdf49ba5d40431e9b52133097275825d9c4e70b1f7623aa78d65e1",
+      "size_bytes": 4831
+    },
+    {
+      "path": "local-verification.json",
+      "sha256": "c3188e0a8cd55629a241af84223652b5dfb5524946fef7f67d9b9541381ca07e",
+      "size_bytes": 429
+    },
+    {
+      "path": "post-recovery/d308-admission-install-1.json",
+      "sha256": "bece8c6b0c918519b868914a4bbd7a0669f2e8bb47d63b4210e115a5c0dc82ad",
+      "size_bytes": 2243
+    },
+    {
+      "path": "post-recovery/d308-ext007-admission-1/preview-verified.json",
+      "sha256": "c175ce8a59812dfdf8c9b39b8ea48279a957c17a4a369604079caa2ec9f35fdf",
+      "size_bytes": 1233
+    },
+    {
+      "path": "post-recovery/d309-ext007-final-replay-1/complete.json",
+      "sha256": "119f1c7978ec75a30fdab16acd1be267355784c40cf7e248b1976e0fba6bfdd2",
+      "size_bytes": 2157
+    },
+    {
+      "path": "post-recovery/d309-ext007-final-replay-1/preserved-preview.json",
+      "sha256": "3dfcbdfb3efdf7b5d9c26ad5b8cc32dcd672473e1088bb288ae652e63da7d935",
+      "size_bytes": 3838
+    },
+    {
+      "path": "post-recovery/d309-ext007-final-replay-1/relocation-intent.json",
+      "sha256": "bf93ab395cb0453340ec30f65ff242a175433614e62cc489d4ca3420ad19a716",
+      "size_bytes": 1210
+    },
+    {
+      "path": "post-recovery/d309-ext007-final-replay-1/relocation.json",
+      "sha256": "d53186792ecbe86d4389d80c1ac2071ca52a29710051c7516b0af268c170fc4e",
+      "size_bytes": 482
+    },
+    {
+      "path": "post-recovery/d309-final-replay-console-1.log",
+      "sha256": "d6e1c40395c0708c6ae351bf3ceea5acebcf0c13640c4c5b24a83abb789e1e9d",
+      "size_bytes": 2241
+    },
+    {
+      "path": "post-recovery/d309-final-replay-packet-1/manifest.json",
+      "sha256": "2fa698bdb0fe785e316025b7a04a31ca938c1f2266ccd610c226c3caee64ddcc",
+      "size_bytes": 587
+    },
+    {
+      "path": "post-recovery/descriptive-calibration-freeze-1/ext007-manifest-v5.json",
+      "sha256": "6cb01eb507a8c02070c7b3970356f8ce91d92b52233bc2f1734672875037ce85",
+      "size_bytes": 2126
+    },
+    {
+      "path": "post-recovery/journal/stage17-state-journal-000010.json",
+      "sha256": "9a7766e806b872133dbd0f6a746d75ae315dae69bc8c5e7b9bad9f95c9c003e0",
+      "size_bytes": 3838
+    },
+    {
+      "path": "post-recovery/receipts/d308-ext007-descriptive-freeze-1.json",
+      "sha256": "4b5d57a048eb6d8c522b7ea1f1fa8bc598a0fb8cc47b9f8207ef918d898e5387",
+      "size_bytes": 1535
+    },
+    {
+      "path": "post-recovery/records/d308-preview-resolution-007.json",
+      "sha256": "60c9395536481603fddb0bf7a26a0252f441523c37a7cf8d4d2e35316f9b19b4",
+      "size_bytes": 1427
+    },
+    {
+      "path": "post-recovery/records/resolution-007-s17-ext-007.json",
+      "sha256": "fd4a2b1a1c0c9cf0ab6ecf47fa838de81e67746c67caebad8b15779f4c70f104",
+      "size_bytes": 1428
+    },
+    {
+      "path": "pre-recovery/d308-admission-console-1.log",
+      "sha256": "23fa845b08d9547e112ed67e8567d37be4ef31207adaf2ba6e5a8ecb1b504753",
+      "size_bytes": 2467
+    },
+    {
+      "path": "pre-recovery/d308-ext007-admission-1/failure.json",
+      "sha256": "172568aa6f14d2d557632a871d5d7d6fdd4eb973e3099e658e7a3dbd975df295",
+      "size_bytes": 162
+    },
+    {
+      "path": "pre-recovery/d308-ext007-admission-1/preview-verified.json",
+      "sha256": "c175ce8a59812dfdf8c9b39b8ea48279a957c17a4a369604079caa2ec9f35fdf",
+      "size_bytes": 1233
+    },
+    {
+      "path": "pre-recovery/journal/d308-scoped-admission-preview.json",
+      "sha256": "3dfcbdfb3efdf7b5d9c26ad5b8cc32dcd672473e1088bb288ae652e63da7d935",
+      "size_bytes": 3838
+    },
+    {
+      "path": "pre-recovery/journal/stage17-state-journal-000000.json",
+      "sha256": "da9ba7f6072b2e4555db98db8d7c886c133c7f5e98c4f2964b5ef67ba438fafe",
+      "size_bytes": 2791
+    },
+    {
+      "path": "pre-recovery/journal/stage17-state-journal-000001.json",
+      "sha256": "cb9513ac021191941688f4ef1709c254b8a0b4f8e817560ec285e9d7aa00bca2",
+      "size_bytes": 2731
+    },
+    {
+      "path": "pre-recovery/journal/stage17-state-journal-000002.json",
+      "sha256": "719e9612a60f807c0d62c4c2a4c55e1ada2ce2b1fde8a295a8228caf24c4991e",
+      "size_bytes": 2845
+    },
+    {
+      "path": "pre-recovery/journal/stage17-state-journal-000003.json",
+      "sha256": "7c992d81f94c41c7c07cf2f1fdd5d8908dbbffda560edab32aca2e98889a13fd",
+      "size_bytes": 2972
+    },
+    {
+      "path": "pre-recovery/journal/stage17-state-journal-000004.json",
+      "sha256": "8217c021e6f05eee290399985f41dc4bd37c9cb52e247574fd8adce6d82d09f2",
+      "size_bytes": 3099
+    },
+    {
+      "path": "pre-recovery/journal/stage17-state-journal-000005.json",
+      "sha256": "413c7a269a8c6ccec63eff20e8e290d6d5e91d8935f94201774416c57a664e32",
+      "size_bytes": 3214
+    },
+    {
+      "path": "pre-recovery/journal/stage17-state-journal-000006.json",
+      "sha256": "24115e0295c16c3c38c2c08918b56b464d194f88240c7e03f076a65375e3109c",
+      "size_bytes": 3341
+    },
+    {
+      "path": "pre-recovery/journal/stage17-state-journal-000007.json",
+      "sha256": "328db07e4a71a774f01e6745c2772a1943416b6e791415f4ff0976ca147104db",
+      "size_bytes": 3468
+    },
+    {
+      "path": "pre-recovery/journal/stage17-state-journal-000008.json",
+      "sha256": "420e66a6bd3761503e7df6c46001afb10b59f70a446a3135a05475a70690ec80",
+      "size_bytes": 3595
+    },
+    {
+      "path": "pre-recovery/journal/stage17-state-journal-000009.json",
+      "sha256": "2fab0d69e3350dea0106a1fd5a0aa0ddd04dab8bae1956815e66ad47a378f5aa",
+      "size_bytes": 3710
+    },
+    {
+      "path": "pre-recovery/journal/stage17-state-journal-000010.json",
+      "sha256": "9a7766e806b872133dbd0f6a746d75ae315dae69bc8c5e7b9bad9f95c9c003e0",
+      "size_bytes": 3838
+    },
+    {
+      "path": "pre-recovery/receipts/d308-ext007-descriptive-freeze-1.json",
+      "sha256": "4b5d57a048eb6d8c522b7ea1f1fa8bc598a0fb8cc47b9f8207ef918d898e5387",
+      "size_bytes": 1535
+    },
+    {
+      "path": "pre-recovery/records/d308-preview-resolution-007.json",
+      "sha256": "60c9395536481603fddb0bf7a26a0252f441523c37a7cf8d4d2e35316f9b19b4",
+      "size_bytes": 1427
+    },
+    {
+      "path": "pre-recovery/records/resolution-007-s17-ext-007.json",
+      "sha256": "fd4a2b1a1c0c9cf0ab6ecf47fa838de81e67746c67caebad8b15779f4c70f104",
+      "size_bytes": 1428
+    },
+    {
+      "path": "preview-recovery-tests.txt",
+      "sha256": "f975284ed73ac7bd892c35dad5e203ac646fc581df1619e4e2d84a4333a19b77",
+      "size_bytes": 713
+    },
+    {
+      "path": "recovery-packet-installation.json",
+      "sha256": "561b6b306eaa42c1b96bbf6c0415edb77bc2b3ea0e058fd26f2672401b8f98aa",
+      "size_bytes": 175
+    },
+    {
+      "path": "recovery-packet-manifest.json",
+      "sha256": "2fa698bdb0fe785e316025b7a04a31ca938c1f2266ccd610c226c3caee64ddcc",
+      "size_bytes": 587
+    },
+    {
+      "path": "verification/check_local_joins.py",
+      "sha256": "415f639301fa99c95aa7a050817f2a0249f6717a27d7c52200bf2ee44ad679c5",
+      "size_bytes": 3463
+    },
+    {
+      "path": "verification/export_final_metadata.py",
+      "sha256": "6c3489d498fd295eeb385fb026414c53a74961a4680717b3f6b51a4f08550821",
+      "size_bytes": 3645
+    },
+    {
+      "path": "verification/finalize_stage17_descriptive_admission_v1.py",
+      "sha256": "62068a0296ca8c601422f51e6d3713a8c9d55ecabcc3705bdedced9e860ad860",
+      "size_bytes": 6784
+    }
+  ],
+  "schema_version": "stage17-public-evidence-manifest/1"
+}

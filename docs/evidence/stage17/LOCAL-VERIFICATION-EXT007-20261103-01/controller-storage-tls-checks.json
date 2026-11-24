@@ -1,0 +1,195 @@
+{
+  "authority": "NONE",
+  "empirical_results": false,
+  "release_qualified": false,
+  "recorded_utc": "2026-11-02T23:30:21.627668+00:00",
+  "source_base_commit": "398ec7cd67cdf6eaec6ba8fbc59865c3604c1422",
+  "source_state": "D-200 changes before local commit; exact source digests below",
+  "source_sha256": {
+    "CMakeLists.txt": "b943901a053ceee33b09d1d2a1dfdea98d3452cc29d3583864cf83237826f01e",
+    "include/cpu_prefetch/calibration/discovery_session.hpp": "b8852cc2a9af4ef4e424589ad26898ebf25639980ad9dacf42b155f78439c364",
+    "tests/calibration_discovery_session_test.cpp": "c27668613dbdc2ca59254a514312cbbd378dc176cfb991e401b7b6901edfa07b",
+    "tests/calibration_mapped_discovery_test.cpp": "b19dfe9f55d666042a0dbd9365af814a9005289d17696c9bb86854b59ec98267",
+    "include/cpu_prefetch/platform/thread_tls.hpp": "f0c7064f19dc2b02102226dbac2ef8265a977546d18123158179c9c28f627b46",
+    "src/platform/thread_tls.cpp": "afc319d0c01a56bb71b4383b3c148db97c2788dd8681bbc2d39145c0b5866c2c",
+    "tests/platform_thread_tls_test.cpp": "524820d2ea437e8a9a5328f9a7fdba287f5530a61a3c5f6c0970f8465a03955a"
+  },
+  "protocol_version": "2.0.0-pre.3",
+  "runtime_manifest": {
+    "path": "docs/evidence/stage17/LOCAL-VERIFICATION-EXT007-20261102-01/runtime-restoration.json",
+    "sha256": "4ecb9df69719223ae15bb337896ebf5c91faa3df653c2af3253216e2d9ace7a0"
+  },
+  "command_prefix": "python3 build/ext007-runtime-20261101/run.py -- /usr/bin/bash --noprofile --norc -c",
+  "full_ctest": {
+    "dev-gcc": {
+      "path": "build/ext007-runtime-20261101/controller-tls-final-dev-gcc-tests.log",
+      "sha256": "8ba1bb4c7d1f6cb7603116a515a303cbe667134321dfc4f4f5d4ff903aebc6d1",
+      "exit_code": 0,
+      "cases": 519,
+      "build_log": {
+        "path": "build/ext007-runtime-20261101/controller-tls-final-dev-gcc-build.log",
+        "sha256": "c97d8ba5c1ac6af34cd86664cf2f387c967224e36d898d52b55ff2e606f04ffb"
+      },
+      "command": "cmake --build build/accepted-dev-gcc -j2 && ctest --test-dir build/accepted-dev-gcc --output-on-failure -j2"
+    },
+    "dev-clang-libcxx": {
+      "path": "build/ext007-runtime-20261101/controller-tls-final-dev-clang-libcxx-tests.log",
+      "sha256": "436a8526a93edb6cc32acb0e92dc965bf3ec8f09c1cc50b22c809817b8242eb5",
+      "exit_code": 0,
+      "cases": 519,
+      "build_log": {
+        "path": "build/ext007-runtime-20261101/controller-tls-final-dev-clang-libcxx-build.log",
+        "sha256": "bbb52b321bf8f8a64fdb4c0ed577e384a7409ee845cc977fc287aa0afde09b2c"
+      },
+      "command": "cmake --build build/accepted-dev-clang-libcxx -j2 && ctest --test-dir build/accepted-dev-clang-libcxx --output-on-failure -j2"
+    }
+  },
+  "sanitizers": {
+    "asan-ubsan-gcc": {
+      "calibration": {
+        "path": "build/ext007-runtime-20261101/controller-tls-final-asan-ubsan-gcc-tests.log",
+        "sha256": "38fe2a6a9252248eea4a857285cc14c7b67c360c27bf5016ce9a6e55ec20664e",
+        "exit_code": 0,
+        "cases": 107,
+        "build_log": {
+          "path": "build/ext007-runtime-20261101/controller-tls-final-asan-ubsan-gcc-build.log",
+          "sha256": "61dffb0489e7104566adcc42a45b8c74806bdec47493c72f416dc1bab824f8f3"
+        },
+        "command": "cmake --build build/accepted-asan-ubsan-gcc --target cpu_prefetch_calibration_tests -j2 && build/accepted-asan-ubsan-gcc/cpu_prefetch_calibration_tests"
+      },
+      "platform": {
+        "path": "build/ext007-runtime-20261101/thread-tls-final-asan-ubsan-gcc-tests.log",
+        "sha256": "e9ebdd1a6081ee92aed4f4ef79f07a925d6296ef6a6566c35637542d98dee639",
+        "exit_code": 0,
+        "cases": 44,
+        "build_log": {
+          "path": "build/ext007-runtime-20261101/thread-tls-final-asan-ubsan-gcc-build.log",
+          "sha256": "dbc700340151996e2a1bbc0dd542ad5971e1ddac386ed009669af80c2b1f149b"
+        },
+        "command": "cmake --build build/accepted-asan-ubsan-gcc --target cpu_prefetch_platform_tests -j2 && build/accepted-asan-ubsan-gcc/cpu_prefetch_platform_tests"
+      }
+    },
+    "tsan-gcc": {
+      "calibration": {
+        "path": "build/ext007-runtime-20261101/controller-tls-final-tsan-gcc-tests.log",
+        "sha256": "843801da498969f8500db64dce38df49dc4a3df22db3b757f97270f20ddcaf5c",
+        "exit_code": 0,
+        "cases": 107,
+        "build_log": {
+          "path": "build/ext007-runtime-20261101/controller-tls-final-tsan-gcc-build.log",
+          "sha256": "61dffb0489e7104566adcc42a45b8c74806bdec47493c72f416dc1bab824f8f3"
+        },
+        "command": "cmake --build build/accepted-tsan-gcc --target cpu_prefetch_calibration_tests -j2 && build/accepted-tsan-gcc/cpu_prefetch_calibration_tests"
+      },
+      "platform": {
+        "path": "build/ext007-runtime-20261101/thread-tls-final-tsan-gcc-tests.log",
+        "sha256": "f61c62fb4fb11876a9a2e129c50df5deafbe40bccd6d4a9daf8f8408d4514997",
+        "exit_code": 0,
+        "cases": 44,
+        "build_log": {
+          "path": "build/ext007-runtime-20261101/thread-tls-final-tsan-gcc-build.log",
+          "sha256": "dbc700340151996e2a1bbc0dd542ad5971e1ddac386ed009669af80c2b1f149b"
+        },
+        "command": "cmake --build build/accepted-tsan-gcc --target cpu_prefetch_platform_tests -j2 && build/accepted-tsan-gcc/cpu_prefetch_platform_tests"
+      }
+    },
+    "asan-ubsan-clang-libcxx": {
+      "calibration": {
+        "path": "build/ext007-runtime-20261101/controller-tls-final-asan-ubsan-clang-libcxx-tests.log",
+        "sha256": "259aedaa704743c985723294652db1173e9367706d8eae94039272f06a4a747b",
+        "exit_code": 0,
+        "cases": 107,
+        "build_log": {
+          "path": "build/ext007-runtime-20261101/controller-tls-final-asan-ubsan-clang-libcxx-build.log",
+          "sha256": "61dffb0489e7104566adcc42a45b8c74806bdec47493c72f416dc1bab824f8f3"
+        },
+        "command": "cmake --build build/accepted-asan-ubsan-clang-libcxx --target cpu_prefetch_calibration_tests -j2 && build/accepted-asan-ubsan-clang-libcxx/cpu_prefetch_calibration_tests"
+      },
+      "platform": {
+        "path": "build/ext007-runtime-20261101/thread-tls-final-asan-ubsan-clang-libcxx-tests.log",
+        "sha256": "7119576599144bd12d072a574ffa976fe6fe477c0b0d55a4a794ce7fb61f5272",
+        "exit_code": 0,
+        "cases": 44,
+        "build_log": {
+          "path": "build/ext007-runtime-20261101/thread-tls-final-asan-ubsan-clang-libcxx-build.log",
+          "sha256": "dbc700340151996e2a1bbc0dd542ad5971e1ddac386ed009669af80c2b1f149b"
+        },
+        "command": "cmake --build build/accepted-asan-ubsan-clang-libcxx --target cpu_prefetch_platform_tests -j2 && build/accepted-asan-ubsan-clang-libcxx/cpu_prefetch_platform_tests"
+      }
+    },
+    "tsan-clang-libcxx": {
+      "calibration": {
+        "path": "build/ext007-runtime-20261101/controller-tls-final-tsan-clang-libcxx-tests.log",
+        "sha256": "f6fc51c0d343f87e2572a988a886d2475b5f69379f984db7759f372fbccce8d6",
+        "exit_code": 0,
+        "cases": 107,
+        "build_log": {
+          "path": "build/ext007-runtime-20261101/controller-tls-final-tsan-clang-libcxx-build.log",
+          "sha256": "61dffb0489e7104566adcc42a45b8c74806bdec47493c72f416dc1bab824f8f3"
+        },
+        "command": "cmake --build build/accepted-tsan-clang-libcxx --target cpu_prefetch_calibration_tests -j2 && build/accepted-tsan-clang-libcxx/cpu_prefetch_calibration_tests"
+      },
+      "platform": {
+        "path": "build/ext007-runtime-20261101/thread-tls-final-tsan-clang-libcxx-tests.log",
+        "sha256": "bebd6cf5981338c2645a0a6aa4abff16bee5ad93156f40871182cedf48bc63c7",
+        "exit_code": 0,
+        "cases": 44,
+        "build_log": {
+          "path": "build/ext007-runtime-20261101/thread-tls-final-tsan-clang-libcxx-build.log",
+          "sha256": "dbc700340151996e2a1bbc0dd542ad5971e1ddac386ed009669af80c2b1f149b"
+        },
+        "command": "cmake --build build/accepted-tsan-clang-libcxx --target cpu_prefetch_platform_tests -j2 && build/accepted-tsan-clang-libcxx/cpu_prefetch_platform_tests"
+      }
+    }
+  },
+  "strict_analysis": {
+    "path": "build/ext007-runtime-20261101/controller-tls-tidy-final.log",
+    "sha256": "c335cab2b549720efa62653b2770473f1f7b63bfce1e4e8a6a6262fa3ee8896b",
+    "exit_code": 0,
+    "translation_units": 4,
+    "command": "clang-tidy -p build/accepted-dev-gcc --warnings-as-errors=\"*\" tests/calibration_discovery_session_test.cpp tests/calibration_mapped_discovery_test.cpp src/platform/thread_tls.cpp tests/platform_thread_tls_test.cpp"
+  },
+  "contract_checks": {
+    "path": "build/ext007-runtime-20261101/controller-tls-contract-checks.log",
+    "sha256": "75cabdb4fd4a5e75b15cdffee9e3eb5d2680a021dd3ae72b51e9752480f6fb2e",
+    "exit_code": 0,
+    "command": "cmake --build build/accepted-dev-gcc --target format-check protocol-check schema-fixture-check canonical-check document-check"
+  },
+  "initial_rejected_analysis": {
+    "path": "build/ext007-runtime-20261101/controller-tls-tidy.log",
+    "sha256": "65190be78c89064a241a1145eb8f9a522bc815a695f1efe45d9b4c8ad35d9aef",
+    "exit_code": 1,
+    "resolution": "Four unchecked optional diagnostics fixed with explicit guards; no suppression. Final full affected analysis exits zero."
+  },
+  "stand_refresh": {
+    "path": "docs/evidence/stage17/STAND-AUDIT-CPU-PREFETCH-V5-20261103-01/refresh-evidence.json",
+    "sha256": "4e8cbb560215560c7e8cf2d1b6453c4bd56cd4006bd9f55e12d5e1b522f7b906"
+  },
+  "test_scope": "Real mapped controller and worker stacks, mapped runtime/coordination objects, real ring/arena/primary streams and exact joins. NUMA binding injected; capture clocks synthetic. TLS observations use actual native per-thread loader/FS/TID facts; no NUMA or full libc footprint qualification.",
+  "exact_discovery_boundary_qualification": "NOT_PERFORMED",
+  "existing_codegen": "No claim of new exact-worker qualification; existing queue/runner/timing/workload/storage implementations unchanged in this increment.",
+  "downstream_read_only_audit": {
+    "path": "src/runner/stage17_fixed_action.cpp",
+    "sha256": "fd98285ce109c9d1ca71e60b56dbec24e9f82a861eb46a4c8b72b99e5c33de55",
+    "findings": [
+      "Service-rate consumed_count includes drain and has no separate fixed-interval completion count",
+      "Nonpilot warmup_reset_verified is literal success rather than executed warmup evidence"
+    ],
+    "disposition": "Existing path remains unqualified; version actual runtime/output/admission before formal collection."
+  },
+  "remaining": [
+    "Complete libc/runtime footprint and actual control/residency monitoring",
+    "Finite resource and memlock budgets under actual launch identity",
+    "Durable publication, partial failure retention, watchdog and restoration",
+    "Integrated Q16a/b/c and pilot semantics with truthful warmup/interval evidence",
+    "Clean source-bound qualified runtime and exact diagnostic admission",
+    "36 diagnostic captures then fresh prospectively frozen formal calibration",
+    "EXT008-010, blinded pilot, final precision input and freeze/exit before Stage18"
+  ],
+  "final_document_check": {
+    "path": "build/ext007-runtime-20261101/controller-tls-document-final.log",
+    "sha256": "23d61aad20a80b2d932986eb5a9cc8d2c211a16a7479f2d60b29b3610865272e",
+    "exit_code": 0,
+    "command": "cmake --build build/accepted-dev-gcc --target document-check"
+  }
+}

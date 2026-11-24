@@ -1,0 +1,19 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/dev-gcc
+    Start 543: runner.formal_plan_v2
+1/4 Test #543: runner.formal_plan_v2 ....................   Passed   51.17 sec
+    Start 583: runner.formal_scheduled_descriptive_v1
+2/4 Test #583: runner.formal_scheduled_descriptive_v1 ...   Passed    8.28 sec
+    Start 584: runner.q16c_schedule_provenance_v2
+3/4 Test #584: runner.q16c_schedule_provenance_v2 .......   Passed   78.40 sec
+    Start 585: runner.q16c_source_execution_v1
+4/4 Test #585: runner.q16c_source_execution_v1 ..........   Passed    5.84 sec
+
+100% tests passed, 0 tests failed out of 4
+
+Label Time Summary:
+archive      = 143.68 sec*proc (4 tests)
+python       = 143.68 sec*proc (4 tests)
+runner       = 143.68 sec*proc (4 tests)
+synthetic    =  51.17 sec*proc (1 test)
+
+Total Test time (real) = 143.70 sec

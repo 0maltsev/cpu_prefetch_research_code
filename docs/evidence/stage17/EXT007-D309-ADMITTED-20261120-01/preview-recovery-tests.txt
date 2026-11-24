@@ -1,0 +1,8 @@
+test_a_genuine_second_branch_remains_blocking (test_stage17_descriptive_preview_recovery_v1.PreviewRecoveryTests.test_a_genuine_second_branch_remains_blocking) ... ok
+test_actual_failure_then_unchanged_lineage_passes_with_preserved_preview (test_stage17_descriptive_preview_recovery_v1.PreviewRecoveryTests.test_actual_failure_then_unchanged_lineage_passes_with_preserved_preview) ... ok
+test_changed_preview_or_existing_custody_destination_cannot_remove_evidence (test_stage17_descriptive_preview_recovery_v1.PreviewRecoveryTests.test_changed_preview_or_existing_custody_destination_cannot_remove_evidence) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.411s
+
+OK

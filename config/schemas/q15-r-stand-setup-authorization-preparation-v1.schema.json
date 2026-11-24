@@ -1,0 +1,93 @@
+{
+  "$id": "urn:cpu-prefetch:q15-r-stand-setup-authorization-preparation:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "$defs": {
+    "unresolved": {
+      "additionalProperties": false,
+      "properties": {"name": {"type": "string", "minLength": 1}, "state": {"const": "UNRESOLVED"}, "value": {"type": "null"}},
+      "required": ["name", "state", "value"],
+      "type": "object"
+    }
+  },
+  "properties": {
+    "authority_boundary": {
+      "const": {
+        "account_or_key_changes_authorized": false,
+        "access_probe_execution_authorized": false,
+        "bundle_transfer_or_install_authorized": false,
+        "filesystem_or_permission_changes_authorized": false,
+        "q15_r_authorized": false,
+        "q15_w_authorized": false,
+        "stand_access_authorized": false,
+        "stand_setup_authorization_issued": false,
+        "stand_setup_execution_authorized": false
+      }
+    },
+    "base_release_binding": {
+      "const": {
+        "archive_name": "cpu-prefetch-q15-qualification-tool-2.0.0-a75bcdd-clean-b4438745f3ca.tar.gz",
+        "archive_sha256": "48c460b008790e3b73aefbda94cacddaeb3c842622ca5bac5c763e50515ae035",
+        "release_state": "VERIFIED_LOCAL_PREREQUISITE_NO_AUTHORITY",
+        "source_commit": "a75bcdd0367d79f8ee0496c55edda74311c9ef7d"
+      }
+    },
+    "decision_binding": {
+      "const": {
+        "acceptance_id": "Q15-R-P2-ACCEPTANCE-20260825-01",
+        "acceptance_sha256": "2c280b46c8cf196f52f9446089c1749b2b0fe754033049b5cac0e472353245eb",
+        "decision_ids": ["D-061", "D-062", "D-063", "D-064"]
+      }
+    },
+    "future_authorization_contract": {
+      "const": {
+        "authorization_id": null,
+        "authorization_sha256": null,
+        "expires_at_utc": null,
+        "independent_review_artifact_id": null,
+        "independent_review_sha256": null,
+        "issued_at_utc": null,
+        "named_authority_principal": null,
+        "signature_artifact_id": null,
+        "signature_sha256": null,
+        "signer_key_fingerprint": null,
+        "status": "NOT_ISSUED"
+      }
+    },
+    "implementation_binding": {
+      "const": {
+        "adapter_profile_id": "Q15-R-TRUST-ANCHOR-ADAPTER-v1",
+        "adapter_profile_sha256": "a41ee172b4997bf08d4f564c585811a4a04795dad75ba8598b8d7a85c51fd3d2",
+        "clean_operational_release_sha256": null,
+        "implementation_state": "REPOSITORY_LOCAL_FAKE_BACKEND_VERIFIED_NO_OPERATIONAL_RELEASE",
+        "operational_controller_binary_sha256": null
+      }
+    },
+    "preparation_id": {"const": "Q15-R-STAND-SETUP-AUTHORIZATION-PREPARATION-20260825-01"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "required_literal_inputs": {"items": {"$ref": "#/$defs/unresolved"}, "minItems": 6, "type": "array", "uniqueItems": true},
+    "schema_version": {"const": "cpu-prefetch-q15-r-stand-setup-authorization-preparation/1"},
+    "stand_id": {"const": "XEON-CPU-FETCH"},
+    "status": {"const": "BLOCKED_INPUTS_REQUIRED_NO_AUTHORITY"},
+    "transaction_contract": {
+      "additionalProperties": false,
+      "properties": {
+        "access_probe_ids": {"items": {"pattern": "^NA-[0-9]{3}$", "type": "string"}, "maxItems": 24, "minItems": 24, "type": "array", "uniqueItems": true},
+        "access_probe_required_deny_count": {"const": 18},
+        "command_source_bundle_id": {"const": "Q15-R-OPERATIONAL-PREREQUISITE-DECISION-INPUT-20260825-01"},
+        "command_source_path": {"const": "config/q15/q15-r-operational-prerequisite-decision-input-v1.json"},
+        "command_source_sha256": {"const": "6e27f16c8c4280b96cb0e6c58a02247e87f595399743218612325e037f8b85e7"},
+        "execution_order": {"const": "SETUP_ASCENDING_THEN_ACCESS_ASCENDING_STOP_FIRST_MISMATCH"},
+        "placeholder_names": {"const": ["@ALLOWED_SIGNERS_SOURCE@", "@OPERATIONAL_RELEASE_ROOT@", "@SECONDARY_CUSTODY_ROOT@"]},
+        "rollback_behavior": {"const": "STOP_FIRST_FAILURE_QUARANTINE_COMPLETED_PREFIX_NO_DELETE"},
+        "rollback_ids": {"items": {"pattern": "^RB-[0-9]{3}$", "type": "string"}, "maxItems": 10, "minItems": 10, "type": "array", "uniqueItems": true},
+        "setup_command_ids": {"items": {"pattern": "^SETUP-[0-9]{3}$", "type": "string"}, "maxItems": 20, "minItems": 20, "type": "array", "uniqueItems": true}
+      },
+      "required": ["access_probe_ids", "access_probe_required_deny_count", "command_source_bundle_id", "command_source_path", "command_source_sha256", "execution_order", "placeholder_names", "rollback_behavior", "rollback_ids", "setup_command_ids"],
+      "type": "object"
+    }
+  },
+  "required": ["authority_boundary", "base_release_binding", "decision_binding", "future_authorization_contract", "implementation_binding", "preparation_id", "protocol_version", "required_literal_inputs", "schema_version", "stand_id", "status", "transaction_contract"],
+  "title": "Blocked no-authority preparation for a future exact Q15-R stand-setup authorization",
+  "type": "object"
+}

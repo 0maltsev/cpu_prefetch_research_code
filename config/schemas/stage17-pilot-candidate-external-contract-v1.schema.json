@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:pilot-candidate-external-contract:v1",
+  "title": "Exact external pilot-candidate archive contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "contract_id", "protocol_version", "source_revision", "archive", "sidecar", "release_identity", "verifier", "custody_recovery", "authority_boundary"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-pilot-candidate-external-contract/1"},
+    "contract_id": {"const": "STAGE17-PILOT-CANDIDATE-EXTERNAL-CONTRACT-v1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "source_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "archive": {"$ref": "#/$defs/file"},
+    "sidecar": {
+      "allOf": [
+        {"$ref": "#/$defs/file"},
+        {"type": "object", "required": ["exact_ascii"], "properties": {"exact_ascii": {"type": "string", "minLength": 1}}}
+      ]
+    },
+    "release_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["top_level_directory", "manifest_path", "manifest_sha256", "bundle_profile", "file_count"],
+      "properties": {
+        "top_level_directory": {"type": "string", "minLength": 1},
+        "manifest_path": {"const": "BUNDLE_MANIFEST.json"},
+        "manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "bundle_profile": {"const": "STAGE17-PILOT-CANDIDATE-BUNDLE-v1"},
+        "file_count": {"type": "integer", "minimum": 1, "description": "Number of files declared by the bundle's internal SHA256SUMS inventory; the SHA256SUMS file itself is the one additional regular archive member."}
+      }
+    },
+    "verifier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version", "path"],
+      "properties": {
+        "id": {"const": "STAGE17-PILOT-CANDIDATE-EXTERNAL-VERIFIER"},
+        "version": {"const": "1"},
+        "path": {"const": "tools/check_stage17_pilot_candidate_artifact.py"}
+      }
+    },
+    "custody_recovery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["policy", "clean_checkout_configure_command", "clean_checkout_build_command", "acceptance_rule"],
+      "properties": {
+        "policy": {"const": "BYTE_IDENTICAL_CUSTODY_COPY_OR_REPRODUCIBLE_REBUILD"},
+        "clean_checkout_configure_command": {"const": "cmake --preset release-gcc"},
+        "clean_checkout_build_command": {"const": "cmake --build --preset release-gcc --target pilot-candidate-bundle"},
+        "acceptance_rule": {"const": "REBUILT_ARCHIVE_AND_SIDECAR_MUST_MATCH_EVERY_CONTRACTED_BYTE_SIZE_AND_SHA256_OR_S17_EXT_006_REMAINS_UNRESOLVED"}
+      }
+    },
+    "authority_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stand_access", "preflight", "calibration", "pilot", "stage18"],
+      "properties": {
+        "stand_access": {"const": false},
+        "preflight": {"const": false},
+        "calibration": {"const": false},
+        "pilot": {"const": false},
+        "stage18": {"const": false}
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "file": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["filename", "size_bytes", "sha256"],
+      "properties": {
+        "filename": {"type": "string", "minLength": 1},
+        "size_bytes": {"type": "integer", "minimum": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "exact_ascii": {"type": "string"}
+      }
+    }
+  }
+}

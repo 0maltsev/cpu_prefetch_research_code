@@ -1,0 +1,42 @@
+{
+  "executed": false,
+  "execution_authority": false,
+  "expected_uid": 1000,
+  "files": [
+    {
+      "name": "stage17_discovery_validation_v3.py",
+      "sha256": "661613aedbc77fd538970b8c5e79a4bbaa3d2acb7f503cb802725239b25e94bf",
+      "size_bytes": 69410
+    },
+    {
+      "name": "stage17_discovery_validation_parallel_v2.py",
+      "sha256": "07a4bba1379c686a8f31e42aadeb93200a8574d55c7a1ffaea7b92606a6303f7",
+      "size_bytes": 12744
+    },
+    {
+      "name": "validate_d207_retained_study_parallel_v2.py",
+      "sha256": "ecef9b74ba1bd4c67ab7bfc18b9a6e9b1f0af6f6df380d83c7bf011889131d0f",
+      "size_bytes": 20391
+    },
+    {
+      "name": "0213-discovery-whole-plot-readback-validation.md",
+      "sha256": "55b4e21c3f10d7321dfa1162c748f5bd35bfc22cacfa506d5378d7088e56060a",
+      "size_bytes": 2963
+    },
+    {
+      "name": "0234-offline-analysis-exit-race-and-bounded-pool.md",
+      "sha256": "0e3fa34f972f6b36f3bbe9c83a5c7649350b63eead56075d4ba1a83d82d659d5",
+      "size_bytes": 3166
+    },
+    {
+      "name": "run_parallel_analysis.py",
+      "sha256": "82571bf245012b0d7b444924803909f8d3a0ba802001d7ad9a5d9410195f9403",
+      "size_bytes": 21699
+    }
+  ],
+  "installation_sha256": "36a4633a0b09b6aecc60785370bbafc650d1838afce32c586910c17707d08764",
+  "installer_path": "build/stage17-step4-prep/d224-parallel-analysis/installation-3/install-and-start.py",
+  "installer_sha256": "271ea1fcfb01e42ea5b77d9992ea152f6dc78733150458335fad23000fd420dc",
+  "raw_mutation": false,
+  "remote_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-d234-1"
+}

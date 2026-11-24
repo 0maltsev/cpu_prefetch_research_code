@@ -1,0 +1,11 @@
+test_authenticated_empty_evidence_is_valid_without_weakening_worker_identity (test_check_stage17_execution_owner_v1.OwnerTests.test_authenticated_empty_evidence_is_valid_without_weakening_worker_identity) ... ok
+test_changed_missing_and_unlisted_files_reject (test_check_stage17_execution_owner_v1.OwnerTests.test_changed_missing_and_unlisted_files_reject) ... ok
+test_complete_owner_and_exact_byte_admission_executes_nothing (test_check_stage17_execution_owner_v1.OwnerTests.test_complete_owner_and_exact_byte_admission_executes_nothing) ... ok
+test_executable_mode_and_group_write_guards (test_check_stage17_execution_owner_v1.OwnerTests.test_executable_mode_and_group_write_guards) ... ok
+test_real_wrong_owner_is_rejected_at_the_original_failure_boundary (test_check_stage17_execution_owner_v1.OwnerTests.test_real_wrong_owner_is_rejected_at_the_original_failure_boundary) ... ok
+test_symlink_cannot_replace_owned_regular_worker (test_check_stage17_execution_owner_v1.OwnerTests.test_symlink_cannot_replace_owned_regular_worker) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.006s
+
+OK

@@ -1,0 +1,55 @@
+{
+  "acceptance_id": "Q15-R-P3-ACCEPTANCE-20260825-01",
+  "accepted_decision": {
+    "decision_id": "D-065",
+    "selected_option": "SELECT_C8B69AB_NO_AUTHORITY_OPERATIONAL_RELEASE_EVIDENCE_ONLY",
+    "state": "ACCEPTED_REPOSITORY_LOCAL_SUCCESSOR_PREPARATION_ONLY"
+  },
+  "authority_boundary": {
+    "access_probe_execution_authorized": false,
+    "account_or_key_changes_authorized": false,
+    "bundle_transfer_or_install_authorized": false,
+    "calibration_authorized": false,
+    "confirmatory_authorized": false,
+    "dynamic_qualification_authorized": false,
+    "filesystem_or_permission_changes_authorized": false,
+    "measurement_authorized": false,
+    "msr_read_authorized": false,
+    "msr_write_authorized": false,
+    "pilot_authorized": false,
+    "q15_r_authorized": false,
+    "q15_w_authorized": false,
+    "real_affinity_numa_authorized": false,
+    "real_pmu_authorized": false,
+    "repository_local_successor_preparation_authorized": true,
+    "stand_access_authorized": false,
+    "stand_setup_authorized": false
+  },
+  "decision_input_binding": {
+    "bundle_id": "Q15-R-OPERATIONAL-RELEASE-DECISION-INPUT-20260825-01",
+    "path": "config/q15/q15-r-operational-release-decision-input-v1.json",
+    "sha256": "c7f7401f99ac25f2e56ceac889a6e64174efa047d2e06f71e74c2065aa2faa58"
+  },
+  "protocol_version": "2.0.0-pre.2",
+  "release_selection": {
+    "archive_name": "cpu-prefetch-q15-qualification-tool-2.0.0-c8b69ab-clean-8d27197443f2.tar.gz",
+    "archive_sha256": "8e8ad6d781b2bffadcfc10cf3b12d5666c7a1d4c7d7e291d7318a19503e6ab01",
+    "authority": "NONE",
+    "source_commit": "c8b69abf0c6aec7b740efe78d998a93545302a94"
+  },
+  "schema_version": "cpu-prefetch-q15-r-p3-acceptance/1",
+  "successor_constraints": {
+    "predecessor_path": "config/q15/q15-r-stand-setup-authorization.preparation.json",
+    "predecessor_sha256": "a671fad5b45823a617140d9ee1f684235812daede0048fb67e1255ce74ecb057",
+    "remaining_external_input_names": [
+      "@ALLOWED_SIGNERS_SOURCE@",
+      "@OPERATIONAL_RELEASE_ROOT@",
+      "@SECONDARY_CUSTODY_ROOT@",
+      "CURRENT_STAND_PRESTATE_ARTIFACT_ID_AND_SHA256",
+      "ACTUAL_ALLOWED_SIGNERS_ARTIFACT_ID_SHA256_AND_ED25519_FINGERPRINT"
+    ],
+    "resolve_only_input_group": "CLEAN_OPERATIONAL_RELEASE_ARCHIVE_MANIFEST_SBOM_BINARY_AND_REPORT_HASHES",
+    "stand_setup_requires_separate_explicit_approval": true
+  },
+  "user_acceptance": "Q15-R-P3 — accept D-065 and select clean commit c8b69abf0c6aec7b740efe78d998a93545302a94 with no-authority archive SHA-256 8e8ad6d781b2bffadcfc10cf3b12d5666c7a1d4c7d7e291d7318a19503e6ab01 as the exact Q15-R operational-release evidence input. Authorize repository-local creation and verification of a versioned successor stand-setup preparation that resolves only the clean-release evidence group and leaves all five external input groups unresolved. Do not access or modify the stand, create accounts or keys, transfer or install artifacts, execute access probes, issue/sign/execute Q15-R or Q15-W, use real PMU/MSR/affinity/NUMA operations, calibrate, pilot, measure, or perform confirmatory work. Stand setup and every later phase require separate explicit approval."
+}

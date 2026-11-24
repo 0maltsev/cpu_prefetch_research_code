@@ -1,0 +1,15 @@
+{
+  "all120_original_reports_recomposed_byte_identically": true,
+  "changed_document_links": 389,
+  "consumer_regression_tests": 7,
+  "exact_handoff_and_basis_bytes_verified": true,
+  "native_code_changes": false,
+  "new_measurements": 0,
+  "phase18_authority": false,
+  "publisher_tests": 2,
+  "q16c_owner_decision": "PENDING",
+  "raw_validation_repeated": false,
+  "stand_exit_code": 0,
+  "stand_handoff_status": "VERIFIED_Q16B_DESCRIPTIVE_HANDOFF",
+  "syntax_and_whitespace": "PASS"
+}

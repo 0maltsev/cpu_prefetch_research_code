@@ -1,0 +1,93 @@
+{
+  "schema_version": "software-retained-validation-timing/1",
+  "execution_authority": false,
+  "observations_added": 0,
+  "input_capture_ordinal": 0,
+  "input_plan_sha256": "6302de1e50b6178004eb3a8e4d24579c0b5ef74e8a1504e254297faed9f1f847",
+  "logical_bytes": 5130136113,
+  "utc_started": "2026-11-15T15:59:17.364550+00:00",
+  "control_parse_seconds": 5.370975117199123,
+  "raw_validation_seconds": 338.5573476369027,
+  "status": "VALIDATION_PASS",
+  "validation_report": {
+    "schema_version": "cpu-prefetch-stage17-formal-service-capture-validation/1",
+    "action_id": "Q16b",
+    "method_id": "SERVICE-RATE-NP-LTL95C95-MIN-v1",
+    "source_versions": {
+      "raw_format": "RAW-OBS-U64LE-LP-RUNID-v1",
+      "raw_codec": "stage17_raw_stream_decoder_v1",
+      "clock": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+      "clock_window": "stage17_raw_stream_decoder_v2",
+      "common_capture": "stage17_q16a_capture_validation_v1",
+      "common_controls": "stage17_discovery_validation_v3",
+      "input_contract": "stage17_formal_plan_v1",
+      "control": "cpu-prefetch-stage17-formal-service-control/1"
+    },
+    "capture_ordinal": 0,
+    "phases": [
+      {
+        "phase": "warmup",
+        "run_id": "B26W00000000",
+        "counts": {
+          "attempted": 16060968,
+          "accepted": 16060968,
+          "full": 0,
+          "consumed_including_drain": 16060968
+        },
+        "zero_loss": true,
+        "stream_sha256": {
+          "producer": "3cd5741632c5301939da9f5ecfe40171428d432bdfef496ea12882280dbac867",
+          "consumer": "f9a9a3937716b92243e687a6768827bd6c8181a8af1181de4f89178cf608e169"
+        }
+      },
+      {
+        "phase": "measurement",
+        "run_id": "B26M00000000",
+        "counts": {
+          "attempted": 3753653,
+          "accepted": 3753653,
+          "full": 0,
+          "consumed_including_drain": 3753653
+        },
+        "zero_loss": true,
+        "stream_sha256": {
+          "producer": "552850a249110f262b5f2f6a37991539d5882a62292918b471702d621c635650",
+          "consumer": "eb0bf5dc8e0cb2cc3d46ec5aabc25c8584bea3fd77ebdd785792009d5dc360b5"
+        },
+        "completion_interval": {
+          "completion_counting_rule_id": "AMEND-2.0.0-pre.3-Q16B-INTERVAL-COMPLETIONS-v1",
+          "measurement_window": {
+            "clock_suite_id": "LINUX-CLOCK-MONOTONIC-RAW-VDSO-PS-v1",
+            "time_unit": "PICOSECONDS",
+            "ticks_per_second": 1000000000000,
+            "clock_origin_absolute_nanoseconds": 1190345166288717,
+            "duration_ticks": 1000000000000,
+            "measurement_origin": {
+              "absolute_nanoseconds": 1190369727355369,
+              "relative_picoseconds": 24561066652000
+            }
+          },
+          "interval_end_ticks": 25561066652000,
+          "consumed_count": 3753653,
+          "interval_consumed_count": 3753652,
+          "outside_interval_consumed_count": 1
+        }
+      }
+    ],
+    "node_order": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "schedules": null,
+    "raw_reconciliation_validated": true,
+    "capture_execution_evidence_validated": true,
+    "zero_loss_all_phases": true,
+    "measurement_zero_loss": true,
+    "family_validity_established": false,
+    "execution_authority": false,
+    "phase18_authority": false
+  },
+  "total_seconds": 343.92838496598415,
+  "maximum_resident_kib": 2195552,
+  "utc_completed": "2026-11-15T16:05:01.292985+00:00"
+}

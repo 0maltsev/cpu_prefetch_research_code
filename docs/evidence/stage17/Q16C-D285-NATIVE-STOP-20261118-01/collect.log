@@ -1,0 +1,49 @@
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/admission-root/tools/stage17_fixed_action_executor_v12.py", line 215, in run_archived_worker
+    receipt = _finish_archived_capture(request, pending, outcome, cold_deadline,
+                                       directory_fd=directory_fd, extent=extent)
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/admission-root/tools/stage17_fixed_action_executor_v12.py", line 130, in _finish_archived_capture
+    raise FixedActionExecutionError("NATIVE_FAILURE", "archived native failure stops the family")
+stage17_fixed_action_executor_v5.FixedActionExecutionError: archived native failure stops the family
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/q16c-continuation-1/stage17_q16c_operator_v4.py", line 61, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/q16c-continuation-1/stage17_q16c_operator_v4.py", line 55, in main
+    result=cli.execute_formal(**common)
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/admission-root/tools/stage17_operational_cli_daycap_v2.py", line 493, in execute_formal
+    return controller.execute_once(**arguments)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/q16c-configuration-1/stage17_q16c_descriptive_administration_v3.py", line 184, in execute_once
+    return executor.execute_fixed_action(repository_root=prepared.root,authorization=prepared.authorization,
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        authorization_bytes=prepared.authorization_bytes,request=prepared.request,request_bytes=prepared.request_bytes,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        archive_runtime_profile=prepared.archive_runtime_profile,q16c_source_bindings=admitted['source_bindings'],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        synthetic_test_only=arguments.get('synthetic_test_only',False))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/admission-root/tools/stage17_q16c_source_execution_v1.py", line 163, in execute_fixed_action
+    return previous.metadata._clone(execute, local)(**arguments)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/admission-root/tools/stage17_service_daycap_execution_v1.py", line 93, in _execute_fixed_action
+    return execute(**arguments)
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/admission-root/tools/stage17_fixed_action_executor_v10.py", line 260, in execute_fixed_action
+    transport = _run_formal_worker(
+        argv,
+    ...<3 lines>...
+        authority_guard=authority_guard,
+    )
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/admission-root/tools/stage17_service_daycap_execution_v1.py", line 80, in worker
+    return run_archived_worker(argv, pass_fds, request=request, profile=archive_runtime_profile,
+                               extent=extent, **values)
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/admission-root/tools/stage17_q16c_source_execution_v1.py", line 160, in run_archived_worker
+    return base.run_archived_worker(args, fds, **values)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/admission-root/tools/stage17_fixed_action_executor_v12.py", line 268, in run_archived_worker
+    raise failure from primary
+stage17_fixed_action_executor_v5.FixedActionExecutionError: archived native failure stops the family

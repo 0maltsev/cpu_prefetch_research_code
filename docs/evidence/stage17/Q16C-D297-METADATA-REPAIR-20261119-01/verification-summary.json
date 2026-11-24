@@ -1,0 +1,17 @@
+{
+  "actual_frozen_constructor_passed": true,
+  "administrative_helper_final": {
+    "path": "tools/stage17_q16c_incident_metadata_v1.py",
+    "sha256": "5c691aa69442f0619180b71b1701a084de98c75ce7a6c4dd2d9f54643617a6c8"
+  },
+  "affected_existing_tests": 17,
+  "capture_started": false,
+  "execution_authority": false,
+  "focused_tests": 6,
+  "native_source_revision": "7b7c263cb850690cf333df0d196b18c875b4a53c",
+  "original_configuration_unchanged": true,
+  "phase18_authority": false,
+  "qualification_repeated": false,
+  "raw_validation_repeated": false,
+  "status": "METADATA_REPAIR_AND_FULL_UNSIGNED_CONSTRUCTION_PASS"
+}

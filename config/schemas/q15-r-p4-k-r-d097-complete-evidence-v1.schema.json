@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-p4-k-r-d097-complete-evidence:v1",
+  "title": "Complete public-only D-097 P4-K-R evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-k-r-d097-complete-evidence/1"},
+    "evidence_id": {"const": "Q15-R-P4-K-R-D097-COMPLETE-EVIDENCE-20260826-01"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "decision_id": {"const": "D-097"},
+    "transaction_id": {"const": "Q15-R-P4-K-R-D097-20260826-01"},
+    "status": {"const": "COMPLETE_VALID_PUBLIC_ONLY_REVIEW_STOPPED_BEFORE_P5"},
+    "completed_at_utc": {"type": "string"},
+    "lineage": {"type": "object"},
+    "external_review_root": {"const": "/home/omaltsev/.local/share/cpu-prefetch-q15/p4-k-v2/review-v1"},
+    "public_artifacts": {"type": "array", "minItems": 6, "maxItems": 6, "items": {"type": "object", "required": ["filename", "sha256", "size_bytes"]}},
+    "review_evidence": {"type": "object"},
+    "disposition": {"type": "object"},
+    "authority_boundary": {"type": "object", "additionalProperties": {"type": "boolean"}}
+  },
+  "required": ["authority_boundary", "completed_at_utc", "decision_id", "disposition", "evidence_id", "external_review_root", "lineage", "protocol_version", "public_artifacts", "review_evidence", "schema_version", "status", "transaction_id"]
+}

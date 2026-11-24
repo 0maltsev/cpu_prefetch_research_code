@@ -1,0 +1,17 @@
+stage17-pid-namespace-supervisor: PASS same_and_distinct_namespace_mapping
+stage17-pid-namespace-supervisor: PASS actual_group_quiescence
+stage17-pid-namespace-supervisor: PASS actual_sigkill_quiescence
+stage17-pid-namespace-supervisor: PASS waitid_eintr
+stage17-pid-namespace-supervisor: PASS waitid_echild_transient
+stage17-pid-namespace-supervisor: PASS transient_procfs_scan
+stage17-pid-namespace-supervisor: PASS held_leader_blocks_pid_pgid_reuse
+stage17-pid-namespace-supervisor: PASS unrelated_candidate_esrch_status_namespace_stat
+stage17-pid-namespace-supervisor: PASS predecessor_mixed_id_characterization
+stage17-pid-namespace-supervisor: PASS foreign_namespace_numeric_reuse
+stage17-pid-namespace-supervisor: PASS impossible_mapping
+stage17-pid-namespace-supervisor: PASS malformed_mapping
+stage17-pid-namespace-supervisor: PASS namespace_drift
+stage17-pid-namespace-supervisor: PASS procfs_access_denied
+stage17-pid-namespace-supervisor: PASS required_identity_disappearance
+stage17-pid-namespace-supervisor: PASS other_candidate_read_errors
+stage17-pid-namespace-supervisor: PASS positive=8 negative=8 stand=NOT_ACCESSED

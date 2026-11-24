@@ -1,0 +1,26 @@
+{
+  "blueprint": {
+    "path": "config/stage17/d310-s180-blueprint-v1.json",
+    "sha256": "e95183365023a06b9da0d6cdff042bce556b9eb60c701dfb0f9e6df6ca22685c",
+    "size_bytes": 228428
+  },
+  "existing_descriptive_tests_passed": 25,
+  "launch_ready": false,
+  "measurement_captures": 180,
+  "new_measurements": 0,
+  "new_tests_passed": 8,
+  "operational_window_started": false,
+  "persistent_arena_contexts": 6,
+  "phase18_authority": false,
+  "phase_identities": 360,
+  "profile": "S180",
+  "raw_data_read": false,
+  "repetitions": 1,
+  "settings": 180,
+  "shared_schedule_groups_per_phase": 18,
+  "status": "S180_PROSPECTIVE_BLUEPRINT_VERIFIED",
+  "whole_plot_order": [
+    "H1",
+    "H0"
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "status": "FULL_FRESH_METADATA_AND_INVENTORY_PARITY_PASS",
+  "execution_authority": false,
+  "observations_added": 0,
+  "ledger_mutated": false,
+  "complete_replay_state_equal": true,
+  "all_inventory_fields_equal": true,
+  "utc": "2026-11-15T15:38:53.188048+00:00",
+  "samples": [
+    {
+      "implementation": "previous",
+      "replay_seconds": 15.391745302826166,
+      "inventory_seconds": [
+        0.7166528080124408,
+        0.7108409919310361,
+        0.7053309108596295
+      ],
+      "ledger_records": 59747,
+      "states": 6477,
+      "usage": {
+        "logical_size_bytes": 469305483312,
+        "allocated_bytes": 469481541632,
+        "quota_bytes": 469481541632,
+        "unique_objects": 74889
+      },
+      "ledger_tip": {
+        "file_name": "0000000000059746.json",
+        "size_bytes": 676,
+        "sha256": "3b3198273f0b2d2ad49aa46980b0de42ea269d8722dec2593c7bd98781ac852c"
+      }
+    },
+    {
+      "implementation": "candidate",
+      "replay_seconds": 13.46040559001267,
+      "inventory_seconds": [
+        0.1481762861367315,
+        0.14425050979480147,
+        0.14473478496074677
+      ],
+      "ledger_records": 59747,
+      "states": 6477,
+      "usage": {
+        "logical_size_bytes": 469305483312,
+        "allocated_bytes": 469481541632,
+        "quota_bytes": 469481541632,
+        "unique_objects": 74889
+      },
+      "ledger_tip": {
+        "file_name": "0000000000059746.json",
+        "size_bytes": 676,
+        "sha256": "3b3198273f0b2d2ad49aa46980b0de42ea269d8722dec2593c7bd98781ac852c"
+      }
+    },
+    {
+      "implementation": "candidate",
+      "replay_seconds": 13.541956417961046,
+      "inventory_seconds": [
+        0.14881085883826017,
+        0.14599705603905022,
+        0.14558851905167103
+      ],
+      "ledger_records": 59747,
+      "states": 6477,
+      "usage": {
+        "logical_size_bytes": 469305483312,
+        "allocated_bytes": 469481541632,
+        "quota_bytes": 469481541632,
+        "unique_objects": 74889
+      },
+      "ledger_tip": {
+        "file_name": "0000000000059746.json",
+        "size_bytes": 676,
+        "sha256": "3b3198273f0b2d2ad49aa46980b0de42ea269d8722dec2593c7bd98781ac852c"
+      }
+    },
+    {
+      "implementation": "previous",
+      "replay_seconds": 15.372807668056339,
+      "inventory_seconds": [
+        0.7093809770885855,
+        0.7096706270240247,
+        0.705305309034884
+      ],
+      "ledger_records": 59747,
+      "states": 6477,
+      "usage": {
+        "logical_size_bytes": 469305483312,
+        "allocated_bytes": 469481541632,
+        "quota_bytes": 469481541632,
+        "unique_objects": 74889
+      },
+      "ledger_tip": {
+        "file_name": "0000000000059746.json",
+        "size_bytes": 676,
+        "sha256": "3b3198273f0b2d2ad49aa46980b0de42ea269d8722dec2593c7bd98781ac852c"
+      }
+    }
+  ],
+  "candidate": {
+    "schema_version": "cpu-prefetch-stage17-cold-inventory-candidate/1",
+    "execution_authority": false,
+    "measurement_changes": false,
+    "baseline_profile_sha256": "6d24a8b14106cde5ff88b9b9883b59265c8c351712210d5b28048dd1473250a4",
+    "profile": {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/archive-overhead-bench-1/candidate-2/config/stage17/formal-archive-implementation-profile-v1.json",
+      "size_bytes": 7962,
+      "sha256": "729e239dacf28da3fa4d5e84c059fe36bbe37c7527c6492a5372ada6c135770f"
+    },
+    "native_image": {
+      "size_bytes": 25104,
+      "sha256": "3187d8a5d86deecb440af4468f80e31149e7a4fa0c8c23f4a3decc3cf46d2071"
+    }
+  }
+}

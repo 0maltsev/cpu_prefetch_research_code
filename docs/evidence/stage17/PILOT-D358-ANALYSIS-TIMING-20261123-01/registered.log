@@ -1,0 +1,26 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+    Start 685: runner.s180_tail_numerics_v1
+1/7 Test #685: runner.s180_tail_numerics_v1 ........   Passed    2.25 sec
+    Start 686: runner.s180_raw_join_v1
+2/7 Test #686: runner.s180_raw_join_v1 .............   Passed    0.26 sec
+    Start 688: runner.s180_capture_validation_v1
+3/7 Test #688: runner.s180_capture_validation_v1 ...   Passed    5.00 sec
+    Start 689: runner.s180_family_validation_v1
+4/7 Test #689: runner.s180_family_validation_v1 ....   Passed   39.34 sec
+    Start 691: runner.s180_archive_analysis_v1
+5/7 Test #691: runner.s180_archive_analysis_v1 .....   Passed    5.14 sec
+    Start 692: runner.s180_analysis_pool_v1
+6/7 Test #692: runner.s180_analysis_pool_v1 ........   Passed   25.10 sec
+    Start 693: runner.s180_family_analysis_v1
+7/7 Test #693: runner.s180_family_analysis_v1 ......   Passed   15.06 sec
+
+100% tests passed, 0 tests failed out of 7
+
+Label Time Summary:
+archive      =  45.31 sec*proc (3 tests)
+pilot        =  92.16 sec*proc (7 tests)
+python       =  92.16 sec*proc (7 tests)
+runner       =  92.16 sec*proc (7 tests)
+synthetic    =  92.16 sec*proc (7 tests)
+
+Total Test time (real) =  92.17 sec

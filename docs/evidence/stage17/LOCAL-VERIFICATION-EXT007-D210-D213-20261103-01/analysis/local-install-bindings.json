@@ -1,0 +1,22 @@
+[
+  {
+    "name": "stage17_discovery_validation_v3.py",
+    "size_bytes": 69410,
+    "sha256": "661613aedbc77fd538970b8c5e79a4bbaa3d2acb7f503cb802725239b25e94bf"
+  },
+  {
+    "name": "validate_d207_retained_study_v2.py",
+    "size_bytes": 18667,
+    "sha256": "0c6013b6125df298c2937498842ead24aeaa0592a398cf76865f32347e102c29"
+  },
+  {
+    "name": "0213-discovery-whole-plot-readback-validation.md",
+    "size_bytes": 2963,
+    "sha256": "55b4e21c3f10d7321dfa1162c748f5bd35bfc22cacfa506d5378d7088e56060a"
+  },
+  {
+    "name": "run_reanalysis.py",
+    "size_bytes": 4274,
+    "sha256": "3c7072202e4b8dd5a42fed1d83531e4fb2c57a282570e1d95a3b0fdb14a78e94"
+  }
+]

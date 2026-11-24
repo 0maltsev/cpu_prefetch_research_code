@@ -1,0 +1,40 @@
+{
+  "status": "SOFTWARE_FIXTURE_CLEANUP_COMPLETE",
+  "utc": "2026-11-15T16:29:19.223422+00:00",
+  "original_program_unchanged": true,
+  "original_ledger_tip_sha256": "3b3198273f0b2d2ad49aa46980b0de42ea269d8722dec2593c7bd98781ac852c",
+  "experimental_raw_deleted": false,
+  "paths": [
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/archive-overhead-bench-1/dataset",
+      "files": 1,
+      "allocated_bytes": 4096,
+      "logical_bytes_including_sparse_placeholders": 4096
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/archive-overhead-bench-1/dataset-2",
+      "files": 6,
+      "allocated_bytes": 5130170368,
+      "logical_bytes_including_sparse_placeholders": 5130140209
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/archive-overhead-bench-1/program-previous",
+      "files": 74897,
+      "allocated_bytes": 5440532480,
+      "logical_bytes_including_sparse_placeholders": 474437467482
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/archive-overhead-bench-1/program-previous-2",
+      "files": 74950,
+      "allocated_bytes": 903024640,
+      "logical_bytes_including_sparse_placeholders": 469899857340
+    },
+    {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/archive-overhead-bench-1/program-candidate-2",
+      "files": 74950,
+      "allocated_bytes": 903024640,
+      "logical_bytes_including_sparse_placeholders": 469899857338
+    }
+  ],
+  "allocated_bytes_released": 12376756224
+}

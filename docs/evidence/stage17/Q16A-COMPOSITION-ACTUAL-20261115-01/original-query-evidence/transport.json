@@ -1,0 +1,42 @@
+{
+  "files": [
+    {
+      "name": "query.cpp",
+      "original_path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step5-prep/formal-q16a-analysis-1/native-geometry-dd981b4/native_geometry.cpp",
+      "size_bytes": 2050,
+      "sha256": "5425e2e00226565beb225eb3c5ed06a69ac392a80ba81544ce9c91d6528595f2"
+    },
+    {
+      "name": "query",
+      "original_path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step5-prep/formal-q16a-analysis-1/native-geometry-dd981b4/native_geometry",
+      "size_bytes": 30376,
+      "sha256": "5a881f2c14960ea32cc3ca9e39222f109344ee480752a5cc89a919012b39cf84"
+    },
+    {
+      "name": "native-output.json",
+      "original_path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step5-prep/formal-q16a-analysis-1/native-geometry-dd981b4/native-geometry.json",
+      "size_bytes": 947,
+      "sha256": "ef00e2b07a2dc0ad3d6032caf646320d090d147461c81e93cdadbea435caf9ce"
+    },
+    {
+      "name": "query-provenance.json",
+      "original_path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step5-prep/formal-q16a-analysis-1/native-geometry-dd981b4/provenance.json",
+      "size_bytes": 4574,
+      "sha256": "cb24bf9515f23963133708300e67b3e960306aae8ba92563a8dad89b396c3bd2"
+    },
+    {
+      "name": "original-sizing-provenance.json",
+      "original_path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step5-prep/formal-ring-sizing/clean-dd981b4/provenance.json",
+      "size_bytes": 51335,
+      "sha256": "ddf90217a08bfd1fb369c9cd13349fdb9914eeea65d2c9340c84b6c0ca760f87"
+    },
+    {
+      "name": "query-dependencies.d",
+      "original_path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step5-prep/formal-q16a-analysis-1/native-geometry-dd981b4/native_geometry.d",
+      "size_bytes": 1146,
+      "sha256": "79543cb7a551669787e42fb2d9530cf2f57f86034139ab9fc4af1c9612b929d7"
+    }
+  ],
+  "raw_data": false,
+  "hardware_observation": false
+}

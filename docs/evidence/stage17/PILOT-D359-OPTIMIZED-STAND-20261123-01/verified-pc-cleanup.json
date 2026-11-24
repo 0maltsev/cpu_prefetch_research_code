@@ -1,0 +1,189 @@
+{
+  "needed_clean_archive_component_preserved": true,
+  "needed_runtime_software_prefix_preserved": true,
+  "removed": [
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/concurrency-large.py",
+      "reason": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "sha256": "150a835e79a5d68e2d28675e62628fd15aad47783f5c547114a381571a3fb9e7",
+      "size_bytes": 4946
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/context-timing.py",
+      "reason": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "sha256": "2d6bfe2d9f5fd68a89a8c743a0db4e642a47c3b7abdd39e673d5f395c0888fde",
+      "size_bytes": 2175
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/fresh-programme-probe-corrected.py",
+      "reason": "REGENERABLE_SOFTWARE_TRANSPORT_OR_SUMMARIZED_PREEXECUTION_SYNTAX_FAILURE",
+      "sha256": "22020b58ff2c9abb6451b168b181fa66d745a0a7994cbeb0c3c8d5d9fed3a034",
+      "size_bytes": 3159992
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/fresh-programme-probe.py",
+      "reason": "REGENERABLE_SOFTWARE_TRANSPORT_OR_SUMMARIZED_PREEXECUTION_SYNTAX_FAILURE",
+      "sha256": "2e49958cc1ed096d9e44fc338cc3500476e4412d0c136eeda693f401f1ef3037",
+      "size_bytes": 3160070
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/page-concurrency.py",
+      "reason": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "sha256": "6e08aa92c584ea44dfa4d33db08e75e7b9ef778f48b7dd7704c4f63745bdb3a1",
+      "size_bytes": 1991
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/page-concurrent-worker.py",
+      "reason": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "sha256": "d6e8a23c0b7f87c6ec93c4ffd893652f96f991e422b829d2e3bdaa3bb14c998c",
+      "size_bytes": 2611
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/page-drivers.tar",
+      "reason": "REGENERABLE_SOFTWARE_TRANSPORT_OR_SUMMARIZED_PREEXECUTION_SYNTAX_FAILURE",
+      "sha256": "52f9bf93462c6e716674c75d5e03440ac99e5b2d7b24001a231972cd8465943a",
+      "size_bytes": 10240
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/page-timing.py",
+      "reason": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "sha256": "ab03b14f6f903825774ae0307713799d2603a1ea92fb240c5ab43f75244985e6",
+      "size_bytes": 2555
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/software-packet.tar",
+      "reason": "REGENERABLE_SOFTWARE_TRANSPORT_OR_SUMMARIZED_PREEXECUTION_SYNTAX_FAILURE",
+      "sha256": "37f589d9f472121112a700ad7dfd41b6c7e3bd382122f21e735cb9e5d236e578",
+      "size_bytes": 9267200
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/source-closure.json",
+      "reason": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "sha256": "da0b211f1b5a891bfe0510923b34f3fa153bf96a0622108b68c8899fb738124c",
+      "size_bytes": 151740
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/stand-component-build.json",
+      "reason": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "sha256": "035843b67bf5a87ffc4072d63852584176d5a7a04bf23d02973417dbbd0079f8",
+      "size_bytes": 389
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/stand-component-build.stderr.log",
+      "reason": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/stand-component-verified.json",
+      "reason": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "sha256": "8e0213208444ffdb37f8ead996203ae524ea3294af346a94637ec543ddff56b4",
+      "size_bytes": 1054
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/stand-component.tar",
+      "reason": "REGENERABLE_SOFTWARE_TRANSPORT_OR_SUMMARIZED_PREEXECUTION_SYNTAX_FAILURE",
+      "sha256": "da72b36f92ad20ca6da5d365ac3806339f36cf7cc6b76fab1adb3665e7990dfa",
+      "size_bytes": 1730560
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/stand-concurrency-large.json",
+      "reason": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "sha256": "a76d847e1610e30f866a068f5d1149eddbc35f10eab89ccc680226336447bde4",
+      "size_bytes": 10472
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/stand-concurrency-large.stderr.log",
+      "reason": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/stand-concurrency.json",
+      "reason": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "sha256": "3a0f1ab7951403fb37876ffe96949e8f77a5ced37878d15d8164a9574ebd132e",
+      "size_bytes": 10415
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/stand-concurrency.stderr.log",
+      "reason": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/stand-context.json",
+      "reason": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "sha256": "67b19236382d83194665d92b0408ba4bdf028904637953dea069048134817e3e",
+      "size_bytes": 970
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/stand-context.stderr.log",
+      "reason": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/stand-pages-concurrency.json",
+      "reason": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "sha256": "aa0623c461123d360cc0e89247754a1134cdb72345b1e38fb27329f2c2328ced",
+      "size_bytes": 8783
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/stand-pages-concurrency.stderr.log",
+      "reason": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/stand-pages.json",
+      "reason": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "sha256": "6e0b9d17c4c05464ea3920ac891b7a84541c16a80b6a63a3616c5526e4146e5f",
+      "size_bytes": 612
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/stand-pages.stderr.log",
+      "reason": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/stand-programme-corrected.json",
+      "reason": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "sha256": "d24ec2eab19107cd82e9abd1ee3f4ba2b82eb0603a13be053f411765bcfceb29",
+      "size_bytes": 37028
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/stand-programme-corrected.stderr.log",
+      "reason": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/stand-programme-current.json",
+      "reason": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/stand-programme-current.stderr.log",
+      "reason": "REGENERABLE_SOFTWARE_TRANSPORT_OR_SUMMARIZED_PREEXECUTION_SYNTAX_FAILURE",
+      "sha256": "3506f096cb090c7108eca4be05bc687689c6630b3021f4851d7480b9a3303bdc",
+      "size_bytes": 26380
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/stand-retained-metadata-census.json",
+      "reason": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "sha256": "2228a0ea6f0badf010cfb31917202c8801bafb08527301015ae6e3ea5a330203",
+      "size_bytes": 6826
+    },
+    {
+      "path": "build/stage17-s180-optimized-timing-prep/stand-runtime-profile-readonly.json",
+      "reason": "VERIFIED_BYTE_IDENTICAL_METADATA",
+      "sha256": "7dcf8955ddd022c7ac35e3ca51844c04292293c8b8306d4223c4679251d21bcd",
+      "size_bytes": 1148
+    }
+  ],
+  "removed_bytes": 17598157,
+  "required_local_audit_preserved": true,
+  "research_raw_deleted": false
+}

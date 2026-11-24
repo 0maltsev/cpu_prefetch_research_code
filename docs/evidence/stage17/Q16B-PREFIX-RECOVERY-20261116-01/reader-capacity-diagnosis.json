@@ -1,0 +1,347 @@
+{
+  "source": "actual canonical original plan53ef4b; planned42 residency records times2arrays, before/after full regions and during declared page counts",
+  "formula": "8*sum(round_up(region_pages,8192)*8) + 4*sum(round_up(during_page_count,8192)*8)",
+  "rows": [
+    {
+      "ordinal": 0,
+      "region_pages": [
+        9,
+        4316408,
+        3046876,
+        512,
+        512,
+        4,
+        512,
+        512,
+        512,
+        4,
+        512
+      ],
+      "packed_array_count": 84,
+      "required_rounded_packed_capacity_bytes": 477888512,
+      "reader_capacity_bytes": 268435456,
+      "exceeds_existing_reader": true
+    },
+    {
+      "ordinal": 1,
+      "region_pages": [
+        9,
+        4316408,
+        3046876,
+        512,
+        512,
+        4,
+        512,
+        512,
+        512,
+        4,
+        512
+      ],
+      "packed_array_count": 84,
+      "required_rounded_packed_capacity_bytes": 477888512,
+      "reader_capacity_bytes": 268435456,
+      "exceeds_existing_reader": true
+    },
+    {
+      "ordinal": 2,
+      "region_pages": [
+        1152,
+        4316535,
+        3046876,
+        512,
+        512,
+        4,
+        512,
+        512,
+        512,
+        4,
+        512
+      ],
+      "packed_array_count": 84,
+      "required_rounded_packed_capacity_bytes": 477888512,
+      "reader_capacity_bytes": 268435456,
+      "exceeds_existing_reader": true
+    },
+    {
+      "ordinal": 3,
+      "region_pages": [
+        1152,
+        4316535,
+        3046876,
+        512,
+        512,
+        4,
+        512,
+        512,
+        512,
+        4,
+        512
+      ],
+      "packed_array_count": 84,
+      "required_rounded_packed_capacity_bytes": 477888512,
+      "reader_capacity_bytes": 268435456,
+      "exceeds_existing_reader": true
+    },
+    {
+      "ordinal": 4,
+      "region_pages": [
+        18432,
+        4318455,
+        3046876,
+        512,
+        512,
+        4,
+        512,
+        512,
+        512,
+        4,
+        512
+      ],
+      "packed_array_count": 84,
+      "required_rounded_packed_capacity_bytes": 479461376,
+      "reader_capacity_bytes": 268435456,
+      "exceeds_existing_reader": true
+    },
+    {
+      "ordinal": 5,
+      "region_pages": [
+        18432,
+        4318455,
+        3046876,
+        512,
+        512,
+        4,
+        512,
+        512,
+        512,
+        4,
+        512
+      ],
+      "packed_array_count": 84,
+      "required_rounded_packed_capacity_bytes": 479461376,
+      "reader_capacity_bytes": 268435456,
+      "exceeds_existing_reader": true
+    },
+    {
+      "ordinal": 6,
+      "region_pages": [
+        9,
+        4316408,
+        3046876,
+        512,
+        512,
+        4,
+        512,
+        512,
+        512,
+        4,
+        512
+      ],
+      "packed_array_count": 84,
+      "required_rounded_packed_capacity_bytes": 477888512,
+      "reader_capacity_bytes": 268435456,
+      "exceeds_existing_reader": true
+    },
+    {
+      "ordinal": 7,
+      "region_pages": [
+        9,
+        4316408,
+        3046876,
+        512,
+        512,
+        4,
+        512,
+        512,
+        512,
+        4,
+        512
+      ],
+      "packed_array_count": 84,
+      "required_rounded_packed_capacity_bytes": 477888512,
+      "reader_capacity_bytes": 268435456,
+      "exceeds_existing_reader": true
+    },
+    {
+      "ordinal": 8,
+      "region_pages": [
+        1152,
+        4316535,
+        3046876,
+        512,
+        512,
+        4,
+        512,
+        512,
+        512,
+        4,
+        512
+      ],
+      "packed_array_count": 84,
+      "required_rounded_packed_capacity_bytes": 477888512,
+      "reader_capacity_bytes": 268435456,
+      "exceeds_existing_reader": true
+    },
+    {
+      "ordinal": 9,
+      "region_pages": [
+        1152,
+        4316535,
+        3046876,
+        512,
+        512,
+        4,
+        512,
+        512,
+        512,
+        4,
+        512
+      ],
+      "packed_array_count": 84,
+      "required_rounded_packed_capacity_bytes": 477888512,
+      "reader_capacity_bytes": 268435456,
+      "exceeds_existing_reader": true
+    },
+    {
+      "ordinal": 10,
+      "region_pages": [
+        18432,
+        4318455,
+        3046876,
+        512,
+        512,
+        4,
+        512,
+        512,
+        512,
+        4,
+        512
+      ],
+      "packed_array_count": 84,
+      "required_rounded_packed_capacity_bytes": 479461376,
+      "reader_capacity_bytes": 268435456,
+      "exceeds_existing_reader": true
+    },
+    {
+      "ordinal": 11,
+      "region_pages": [
+        18432,
+        4318455,
+        3046876,
+        512,
+        512,
+        4,
+        512,
+        512,
+        512,
+        4,
+        512
+      ],
+      "packed_array_count": 84,
+      "required_rounded_packed_capacity_bytes": 479461376,
+      "reader_capacity_bytes": 268435456,
+      "exceeds_existing_reader": true
+    },
+    {
+      "ordinal": 12,
+      "region_pages": [
+        9,
+        4316408,
+        3046876,
+        512,
+        512,
+        4,
+        512,
+        512,
+        512,
+        4,
+        512
+      ],
+      "packed_array_count": 84,
+      "required_rounded_packed_capacity_bytes": 477888512,
+      "reader_capacity_bytes": 268435456,
+      "exceeds_existing_reader": true
+    },
+    {
+      "ordinal": 13,
+      "region_pages": [
+        9,
+        4316408,
+        3046876,
+        512,
+        512,
+        4,
+        512,
+        512,
+        512,
+        4,
+        512
+      ],
+      "packed_array_count": 84,
+      "required_rounded_packed_capacity_bytes": 477888512,
+      "reader_capacity_bytes": 268435456,
+      "exceeds_existing_reader": true
+    },
+    {
+      "ordinal": 14,
+      "region_pages": [
+        1152,
+        4316535,
+        3046876,
+        512,
+        512,
+        4,
+        512,
+        512,
+        512,
+        4,
+        512
+      ],
+      "packed_array_count": 84,
+      "required_rounded_packed_capacity_bytes": 477888512,
+      "reader_capacity_bytes": 268435456,
+      "exceeds_existing_reader": true
+    },
+    {
+      "ordinal": 15,
+      "region_pages": [
+        1152,
+        4316535,
+        3046876,
+        512,
+        512,
+        4,
+        512,
+        512,
+        512,
+        4,
+        512
+      ],
+      "packed_array_count": 84,
+      "required_rounded_packed_capacity_bytes": 477888512,
+      "reader_capacity_bytes": 268435456,
+      "exceeds_existing_reader": true
+    },
+    {
+      "ordinal": 16,
+      "region_pages": [
+        18432,
+        4318455,
+        3046876,
+        512,
+        512,
+        4,
+        512,
+        512,
+        512,
+        4,
+        512
+      ],
+      "packed_array_count": 84,
+      "required_rounded_packed_capacity_bytes": 479461376,
+      "reader_capacity_bytes": 268435456,
+      "exceeds_existing_reader": true
+    }
+  ],
+  "execution_authority": false
+}

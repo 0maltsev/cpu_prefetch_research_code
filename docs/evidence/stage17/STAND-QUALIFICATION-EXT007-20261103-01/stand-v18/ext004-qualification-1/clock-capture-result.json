@@ -1,0 +1,36 @@
+{
+  "capture_id": "CPU-PREFETCH-V5-V18-CLOCK-CAPTURE-1",
+  "command": [
+    "runuser",
+    "-u",
+    "omaltsev",
+    "--",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-817c652-clean-2cafad333953/release/bin/cpu_prefetch_q15_clock_qualification_tool",
+    "--qualify-pair",
+    "near",
+    "--output",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/ext004-qualification-1/clock-raw.json"
+  ],
+  "binary_sha256": "0ccefc493c48de378f4611570e6839dabbb0a7589d2c09caad3e63e734961f8d",
+  "source_revision": "817c6522e3954efce53797e2bcc202a3bfc5d9af",
+  "started_at_utc": "2026-11-03T07:13:53Z",
+  "timeout_seconds": 600,
+  "scope": "INDEPENDENT_CLOCK_QUALIFICATION_ADR0150",
+  "clock_api": "CLOCK_MONOTONIC_RAW",
+  "timestamp_units": "relative picoseconds",
+  "exit_code": 1,
+  "timed_out": false,
+  "completed_at_utc": "2026-11-03T07:15:54Z",
+  "clock-raw.json": {
+    "size_bytes": 487,
+    "sha256": "fc39d4983fca29dfb5c61f7ba62140bfb10d2146fcbd8dd9b74c93b2a9e0f7f2"
+  },
+  "clock-stdout.txt": {
+    "size_bytes": 1103,
+    "sha256": "0f64e140d7c2ecc2d8da4097c5d330267b51e03ca2f16abf6429b9981156e376"
+  },
+  "clock-stderr.txt": {
+    "size_bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

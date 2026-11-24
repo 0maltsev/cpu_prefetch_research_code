@@ -1,0 +1,8 @@
+{
+  "final_check_exit_code": 0,
+  "first_metadata_only_check": "Missing qualified tool import path before composition import; fixed in audit script",
+  "formal_run_success": true,
+  "measurement_repeated": false,
+  "production_source_changed": false,
+  "raw_validation_repeated": false
+}

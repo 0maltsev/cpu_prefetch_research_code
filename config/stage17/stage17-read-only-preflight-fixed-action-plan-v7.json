@@ -1,0 +1,18 @@
+{
+  "schema_version": "cpu-prefetch-stage17-read-only-preflight-fixed-action-plan/7",
+  "plan_id": "STAGE17-READ-ONLY-PREFLIGHT-FIXED-ACTION-PLAN-v7",
+  "protocol_version": "2.0.0-pre.2",
+  "predecessor": {"path": "config/stage17/stage17-read-only-preflight-fixed-action-plan-v6.json", "size_bytes": 11546, "sha256": "41ef692166148c29b6d880b6c551fa8e51173c116ac40c950489a78dec8ef4fe"},
+  "effective_action_plan": {"path": "config/stage17/stage17-read-only-preflight-fixed-action-plan-v6.json", "size_bytes": 11546, "sha256": "41ef692166148c29b6d880b6c551fa8e51173c116ac40c950489a78dec8ef4fe"},
+  "pid_namespace_identity": {
+    "model": "NAMESPACE_LOCAL_SYSCALL_IDS_PLUS_PROCFS_VISIBLE_NSPID_NSPGID-v1",
+    "pid_namespace_inode_required": true,
+    "mapping_unambiguous_before_marker": true,
+    "mapping_stable_through_cleanup": true,
+    "foreign_namespace_numeric_reuse_rejected": true,
+    "leader_held_before_group_signal_and_reap": true,
+    "procfs_failure": "FAIL_CLOSED"
+  },
+  "one_shot": {"attempts": 1, "retries": 0, "cross_version_markers_block": true},
+  "stage18_authority": false
+}

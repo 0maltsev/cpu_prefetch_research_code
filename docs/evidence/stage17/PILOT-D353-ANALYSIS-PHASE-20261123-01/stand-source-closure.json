@@ -1,0 +1,900 @@
+{
+  "files": [
+    {
+      "path": "tools/stage17_s180_raw_join_v1.py",
+      "size_bytes": 11647,
+      "sha256": "4afb09b46b722d9eb11b92c774d0343e3ddb7699cbbcdfbc8862a21dbc2e4f61"
+    },
+    {
+      "path": "tools/stage17_discovery_validation_v3.py",
+      "size_bytes": 70322,
+      "sha256": "0a8c3f066b035c9ce38cfe405ad5bcf4d14272eaa71fcebc0de36d4147b7b12f"
+    },
+    {
+      "path": "tools/stage17_phase_controller_v24.py",
+      "size_bytes": 25178,
+      "sha256": "aebd376f75de421c27e6e237fae22ae1a4d7f33e9babc1244fdcd0381833c9d3"
+    },
+    {
+      "path": "tools/stage17_fixed_action_executor_v9.py",
+      "size_bytes": 19597,
+      "sha256": "9a8b504b8a0cb9a2b1003c78a746a0b523d6c590be256eb3050cf17626dcdb00"
+    },
+    {
+      "path": "tools/stage17_discovery_contract_v2.py",
+      "size_bytes": 18181,
+      "sha256": "edbb8eef431219815e8f4a9c4d84f1ad80658995a18af34a0f44ffbdb57cb7ca"
+    },
+    {
+      "path": "tools/stage17_q16a_discovery_v2.py",
+      "size_bytes": 5536,
+      "sha256": "7aa418ca1b871d62283a83dd97ec423ea3c39e2b695ff14d490c4848fb6fac9b"
+    },
+    {
+      "path": "tools/stage17_q16a_discovery_v1.py",
+      "size_bytes": 6720,
+      "sha256": "5af8082cc9c76c5d2f73aa465719946ee7bd9b7df73fbd549b0f95b4bd995750"
+    },
+    {
+      "path": "tools/check_canonical.py",
+      "size_bytes": 3741,
+      "sha256": "68a914c321d6a5f03e5e1aca687eb9bf09c4245dc074adb5fe116341b0b8b044"
+    },
+    {
+      "path": "tools/stage17_output_registry_v10.py",
+      "size_bytes": 8461,
+      "sha256": "c492c512439770b407b2fc97dbfdfd34c88809f0252369f83e1204ca86e7875b"
+    },
+    {
+      "path": "tools/stage17_output_registry_v8.py",
+      "size_bytes": 3914,
+      "sha256": "f6abaab10a73c2621b10e5465d1cc01b66d92ff7226d8439773b0fdd88beba6c"
+    },
+    {
+      "path": "tools/stage17_output_registry_v7.py",
+      "size_bytes": 1907,
+      "sha256": "466e7121b9025fed0fcf5a69bec9d9ee1dcf77cd580b9da514e85d045869bd81"
+    },
+    {
+      "path": "tools/stage17_output_registry_v6.py",
+      "size_bytes": 2513,
+      "sha256": "9c18bd5d3e71e6bddc6e2989193d7d346d706435b7cb55ba031396b65a0384a5"
+    },
+    {
+      "path": "tools/stage17_output_registry_v5.py",
+      "size_bytes": 9570,
+      "sha256": "8c30451fe5c01cbd954bc83da0cb3029dd060d4ae7aa1f16fa0989f2a1f4f815"
+    },
+    {
+      "path": "tools/stage17_raw_stream_decoder_v1.py",
+      "size_bytes": 15706,
+      "sha256": "6a393bbd7c6721f715cd7b23c5a5c59368365ad3e77d950f2337d52089bfcab3"
+    },
+    {
+      "path": "tools/stage17_output_registry_v4.py",
+      "size_bytes": 37444,
+      "sha256": "782fdf42ecc330115e156293437cf5d5ad37cb60545895024ad838c0090c5763"
+    },
+    {
+      "path": "tools/stage17_fixed_action_executor_v6.py",
+      "size_bytes": 21211,
+      "sha256": "99d503eb155c881423112be767a3297a34d61c5951096b54ce223620442340c4"
+    },
+    {
+      "path": "tools/stage17_fixed_action_executor_v5.py",
+      "size_bytes": 28067,
+      "sha256": "885590d8cbd249a2d0415a64d3346eb27d956530442ecea3b5e0214b9369c4cf"
+    },
+    {
+      "path": "tools/stage17_process_group_supervisor_v3.py",
+      "size_bytes": 8354,
+      "sha256": "37e3fb93fe2176f24d560608fd6d8fb3bcb02ef744ea6afa75db44b1d7be553b"
+    },
+    {
+      "path": "tools/stage17_process_group_supervisor_v2.py",
+      "size_bytes": 21022,
+      "sha256": "e32016e241822c5066519b66dff7553eaa57b2f487dbc605f8c7aff95f1cccc9"
+    },
+    {
+      "path": "tools/stage17_openssh_parent_snapshot_v1.py",
+      "size_bytes": 17645,
+      "sha256": "9dbeb2676eefbf41951548cd0c96b8c0c44ecbf3884f9d5472127d819123e767"
+    },
+    {
+      "path": "tools/stage17_hardware_recovery_v1.py",
+      "size_bytes": 5168,
+      "sha256": "77d4695683261e9f5b06c37b4a34a2fa11ca18ae5edcb74f08bfc9cfb9164b70"
+    },
+    {
+      "path": "tools/stage17_fixed_action_executor_v4.py",
+      "size_bytes": 31312,
+      "sha256": "e2fe3798b632ef90e6df473fab2bb094345a1a32ddbe3f34af18f2095a03f620"
+    },
+    {
+      "path": "tools/stage17_fixed_action_executor_v2.py",
+      "size_bytes": 29297,
+      "sha256": "0898bf13529cba5e3c4706d40ed9a4c01bb4d5322b24109755afc395c6439608"
+    },
+    {
+      "path": "tools/stage17_fixed_action_executor_v7.py",
+      "size_bytes": 1028,
+      "sha256": "3a052e1ba4ff48f0fea31a1dcc24415ff043167b1887040e0156f9212df47080"
+    },
+    {
+      "path": "tools/stage17_state_journal_v51.py",
+      "size_bytes": 1302,
+      "sha256": "628cdee9c22bb6df601772e461e01519f4a0ab9f8d3c60381ebc1d45b9948de4"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v57.py",
+      "size_bytes": 4963,
+      "sha256": "93fb7b94656923d86f72cfd7af2455e753ec58c761ba9dc197c5228067b2ec64"
+    },
+    {
+      "path": "tools/stage17_pilot_candidate_artifact_v11.py",
+      "size_bytes": 17183,
+      "sha256": "6e7bbb24bed3691a0381844abef1c8236edf2555b572e18d624f20548ba752d1"
+    },
+    {
+      "path": "tools/stage17_pilot_candidate_artifact_v10.py",
+      "size_bytes": 17684,
+      "sha256": "140f3c05d08ff04ba00ab85e6a819d43ffc89451b74307423b2606810a9be090"
+    },
+    {
+      "path": "tools/stage17_pilot_candidate_artifact_v9.py",
+      "size_bytes": 17748,
+      "sha256": "2f04c44bcf7cb7687b7f0e81c638dc59e5fdaf031db824ea6f98dabdbd1d8f1b"
+    },
+    {
+      "path": "tools/stage17_pilot_candidate_artifact_v8.py",
+      "size_bytes": 4615,
+      "sha256": "9cf492be8404c8bb48803631b4c1a9bdfdb6cc00062c955df5ed359e7a200b45"
+    },
+    {
+      "path": "tools/stage17_pilot_candidate_artifact_v7.py",
+      "size_bytes": 12517,
+      "sha256": "4e3efc42f1c637e122ed629eb29fe1cc2194058d53cf2ddb43d72a434426e8f7"
+    },
+    {
+      "path": "tools/stage17_pilot_candidate_artifact_v6.py",
+      "size_bytes": 13442,
+      "sha256": "2094891b8a75464de57b3b9c32b8f31b796e01d57f8f0ddff64c239a2e72f8e3"
+    },
+    {
+      "path": "tools/stage17_pilot_candidate_artifact_v5.py",
+      "size_bytes": 12366,
+      "sha256": "bd727f76ed30f96bf23fb731ca1930c4d8ecd3d9829a35a37862210867021850"
+    },
+    {
+      "path": "tools/stage17_pilot_candidate_artifact_v4.py",
+      "size_bytes": 22808,
+      "sha256": "ec7e0f799f0bfdf1084fe1374d082fa11b5cdfe1a20378858df065a0c7cf1217"
+    },
+    {
+      "path": "tools/stage17_operational_semantics_v15.py",
+      "size_bytes": 2342,
+      "sha256": "d7353c86b70423cd71f6e73ebc983e244f978dc5d41458b8d2404543a3cf85b2"
+    },
+    {
+      "path": "tools/stage17_operational_semantics_v5.py",
+      "size_bytes": 24298,
+      "sha256": "152616762b04327a7c1ddbd7c3b844e58f9ac050217e6e4e48f632a2ea56b72b"
+    },
+    {
+      "path": "tools/stage17_operational_semantics_v4.py",
+      "size_bytes": 60815,
+      "sha256": "492f5c667f734b838fd69c769db1aa2fd44dfc6f36d185260315f8cee1a7407a"
+    },
+    {
+      "path": "tools/stage17_pilot_plan_v4.py",
+      "size_bytes": 25577,
+      "sha256": "461f9eefc64c75cd5e031b6394b2c459f7472042255c42c550768205eb5307a9"
+    },
+    {
+      "path": "tools/generate_schedule.py",
+      "size_bytes": 24093,
+      "sha256": "2997834dbe2018dd75843b9446e09b0ab9f0c17f423e5522c433a6cb41cc919f"
+    },
+    {
+      "path": "tools/stage17_operational_semantics_v11.py",
+      "size_bytes": 22505,
+      "sha256": "72cce2a792b7da25d44188c1f788b6973d991fa192fbff9074c9cc45e5c59e18"
+    },
+    {
+      "path": "tools/stage17_operational_semantics_v8.py",
+      "size_bytes": 23155,
+      "sha256": "2530e03a5d6fe88560aa1e742ea51c72c1a5e8bc0219f204383bb42e62edb1ad"
+    },
+    {
+      "path": "tools/stage17_operational_semantics_v7.py",
+      "size_bytes": 20424,
+      "sha256": "a11500dd8219e9e71f12e3bcda5b37c6c1eaccbc736ea4e6df9f4919db94d311"
+    },
+    {
+      "path": "tools/stage17_operational_semantics_v6.py",
+      "size_bytes": 22201,
+      "sha256": "d65c921bb2f9bef60624ce32d090774c1c5d527b26380ee6840dce4afabb4ace"
+    },
+    {
+      "path": "tools/stage17_operational_semantics_v14.py",
+      "size_bytes": 2342,
+      "sha256": "a954fbcd347cf6d717d9d13590593d6613844d8e66adedd9bfc20121a150e55b"
+    },
+    {
+      "path": "tools/stage17_operational_semantics_v13.py",
+      "size_bytes": 2340,
+      "sha256": "871686735986ff0a34e773aa432b3705c3bd41cb6ab4f775011641bd52159a5d"
+    },
+    {
+      "path": "tools/stage17_operational_semantics_v12.py",
+      "size_bytes": 2611,
+      "sha256": "6744c9b957afe39e877782d315446110dcd2fca491e872b7b284c87ac878baeb"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_semantic_verifier_v31.py",
+      "size_bytes": 5238,
+      "sha256": "8459484ebd9242bfd4dad4afc67ce5c1d9f3f60fc2223b414e11a9f4d0fc6add"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v3.py",
+      "size_bytes": 34177,
+      "sha256": "cbc6c54f5949ef12545f58b82b216c6a38bd681453620b2d18820c6dfed39636"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_semantic_verifier_v30.py",
+      "size_bytes": 5245,
+      "sha256": "ac2dbe89a0fb419c196bcc53ea9e744e5b90d12d5114c7d018c731ebf5813bb1"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_semantic_verifier_v29.py",
+      "size_bytes": 11055,
+      "sha256": "84adbe9e81c6a96841d92bbc6399bc469bb006adff8c6403e752245b4563cd20"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_semantic_verifier_v28.py",
+      "size_bytes": 10988,
+      "sha256": "1808f34993d0cea28e97d69473e2da7ded3b56c56f55b8c3cb5d9815e7484bf4"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_semantic_verifier_v27.py",
+      "size_bytes": 9853,
+      "sha256": "7d97c81ecd4b5fa23549eb1211f208b5eed68aa8c468266f46989e6771fd282c"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_semantic_verifier_v26.py",
+      "size_bytes": 9846,
+      "sha256": "8372b1a121ccdf29bd1769029f883a339f7ed704acd1048a87ba8df458ff08d2"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_semantic_verifier_v25.py",
+      "size_bytes": 9914,
+      "sha256": "e0aca8bf4ab15475d641bfb7d739452ba1a197f57b72236402970b2f82040e9f"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_semantic_verifier_v24.py",
+      "size_bytes": 9825,
+      "sha256": "08ae80a0ffc8ea1765e778bc9e326fc84200ca50dffff689b1e782c0ccfc3494"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_semantic_verifier_v23.py",
+      "size_bytes": 9823,
+      "sha256": "39f833b3a6d59b4b58b47a05995c9ec6e1794dd1f6ee47291af96650b274d7aa"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_semantic_verifier_v22.py",
+      "size_bytes": 9614,
+      "sha256": "ad45fe1480fa26258d31f3aac5328ffc94e55f859ffa860bab27122cefda616f"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_semantic_verifier_v21.py",
+      "size_bytes": 10592,
+      "sha256": "17006b601e0e75f43fedcd94f88338a67c9fd92815ebba37358e8e4025b9247b"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_semantic_verifier_v20.py",
+      "size_bytes": 35537,
+      "sha256": "1e51ba22f9c215bcb2c8be906909b35588b2076565c6c2a41770872962b6813e"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v5.py",
+      "size_bytes": 32406,
+      "sha256": "d2a11839849bba2de9254aaea17d1931ed1822d6ec8a16fe721c6689928e1e22"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v4.py",
+      "size_bytes": 33018,
+      "sha256": "da24dfc0dd73698c586603818c6083d03df476cc498fe790c7a19ab8a273cc01"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_collector_v2.py",
+      "size_bytes": 1889,
+      "sha256": "dbbb2720047fec0b5a757d58f51c38d6262b1b0a6a5d0fc62ccf057a1466aa6a"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_collector_v1.py",
+      "size_bytes": 11963,
+      "sha256": "ff19f0cf370d558a1309d684049b59beced6c9c9520b983180920090c5baae48"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_semantic_verifier_v19.py",
+      "size_bytes": 10119,
+      "sha256": "584fb131feb498a1d13698e81b96a5275d9b7167d5f2fd3e20e11719523f74ca"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_semantic_verifier_v18.py",
+      "size_bytes": 10193,
+      "sha256": "655eb81c920ec80d4acfce4ef257f4b64c976e079748df1e42ee4526d1ca4d55"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_semantic_verifier_v17.py",
+      "size_bytes": 10169,
+      "sha256": "72782c0d60d34b293d78bc426a1a17f93e6024852f28bafbc7458e893fbda20f"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_semantic_verifier_v16.py",
+      "size_bytes": 9907,
+      "sha256": "06b6b38ba8aa03c2a92f7ec198123c9863f6042300b30e42385aed84de3c0dda"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_semantic_verifier_v15.py",
+      "size_bytes": 25311,
+      "sha256": "9e1cd6f321c2804b37c251827dc018837ac2f885a3d3255e67ecb26a284d6939"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_semantic_verifier_v14.py",
+      "size_bytes": 39198,
+      "sha256": "c02175ffd8795ffa0aaac0c2b41df66fcbbb9924267f66c6764873490cb98f73"
+    },
+    {
+      "path": "tools/stage17_operational_semantics_v1.py",
+      "size_bytes": 35970,
+      "sha256": "0e0a5e2aabe3b4767200fc18ea93a3d2028bbd6d99547bfc8745b541649f19fb"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v8.py",
+      "size_bytes": 33679,
+      "sha256": "8d20a62841269e543eeab2b49e7a4912342a9d52c8268317ef926d9c7318d94e"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_semantic_verifier_v13.py",
+      "size_bytes": 29651,
+      "sha256": "8221245b79150040004c8b45f75e16d1f955df790a2c4afadbd1ec7fe35356d0"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_semantic_verifier_v10.py",
+      "size_bytes": 22598,
+      "sha256": "10913aa9076d054fecf40d983d7660e6393a26adde0b3bbfa662918ebaedfb53"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v39.py",
+      "size_bytes": 7545,
+      "sha256": "d1ed9713e5c2294351375cb85887210f935f6b55deccaee7d50a71a696520ef4"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v38.py",
+      "size_bytes": 7621,
+      "sha256": "6d47195dd979fb6dcd30a0f837a226f9865c875b49aa2b92093ddd71ad6b0329"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v37.py",
+      "size_bytes": 7483,
+      "sha256": "ae5fbebd3bedd0b5e3ba62742fae4a3a776ed42c70e96dc0e8b2698122ceb142"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v36.py",
+      "size_bytes": 6438,
+      "sha256": "bcd3f93fabfd47882c6ad1f92d02ba2095ef553916e24dfceaa47eb1923e66f9"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v35.py",
+      "size_bytes": 6982,
+      "sha256": "7724dd7615166bb0e5a6fbe4c4b57ac66b9fe28ccd5ac27677f6d5eeef9c8a54"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v34.py",
+      "size_bytes": 8232,
+      "sha256": "e4a89ff8e07cb86504d25f658a5dd091f1f6fbdfb643f7984ac8f9d988615f17"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v33.py",
+      "size_bytes": 6938,
+      "sha256": "9397e776b803f5f0161e8639450255fa36c0e0a55fcaa0e1251b529d09a62e20"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v32.py",
+      "size_bytes": 5770,
+      "sha256": "fb98ad552a1515d4fcc538b173ac24b73ce21dfd045e239b47ed9098ace00585"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v31.py",
+      "size_bytes": 6897,
+      "sha256": "351e3737cc52f6e26e1f838d5ec9ee32954243d49eb79a6584f52a50e1552a28"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v30.py",
+      "size_bytes": 8330,
+      "sha256": "944723390d58dbce9c0b8285919c8ec43cac8c81811c341f18af63d53c30c6fa"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v29.py",
+      "size_bytes": 6948,
+      "sha256": "fe5b2da3eb367f02c72d021bb3dc627d536d7d221e8184afa36851f9837a46ee"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v28.py",
+      "size_bytes": 7089,
+      "sha256": "3fc149b20ff10f5be5fc29eb907e498c6ad7d540580146b830ca2c5c0a730d47"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v27.py",
+      "size_bytes": 6707,
+      "sha256": "f9f1b911ae8c65b0d7203d6e7656b1d0b5c6d57456ac00f51d74920b9a53bf2b"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v26.py",
+      "size_bytes": 6784,
+      "sha256": "8ee83fb73f6faa351dc82a2097d8ff3c9a2ebaba60d23ac9724100d7f3f7853d"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v25.py",
+      "size_bytes": 6674,
+      "sha256": "cbef021e5d88b7c9603d1c41906ff712a1141e0c8d27a4756f8a29a6784720fa"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v24.py",
+      "size_bytes": 6034,
+      "sha256": "c55a8c2e0854736920be6e65d475ec9ede19a91687d5eb6e932788ca14bcc213"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v23.py",
+      "size_bytes": 7858,
+      "sha256": "9839123b936553b60fd7f626922e427376726eb5cd6061c7a3d187d94d8b7e5e"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v22.py",
+      "size_bytes": 9747,
+      "sha256": "03c4fcdec53b69b8074396493665d6deaf664f44f832d0a67c0762e749847cbd"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v21.py",
+      "size_bytes": 5649,
+      "sha256": "a4e61008556f94fba3962034be73b90bf6fce3d0fadae57ccad2b45a0bc1adf1"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v20.py",
+      "size_bytes": 5491,
+      "sha256": "a055ef598eeb293c6286b478c885a01e23a58829b206e08962e7c7ca2df5b72b"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v19.py",
+      "size_bytes": 5052,
+      "sha256": "9e6a6c34c57bee02f9b7796fdc04b3d46b71642fad1e05af74acd883db59cde9"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v18.py",
+      "size_bytes": 4517,
+      "sha256": "744505297afd6126e06cf274f7a177018edbf07e26105807639df96ffe7fe8d6"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v17.py",
+      "size_bytes": 4414,
+      "sha256": "df29ef4588d4926fc2e7ebb9569fbb22bf4ec1db31f435cab88c4f10d1bdb805"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v16.py",
+      "size_bytes": 4371,
+      "sha256": "65f1dc1e609beabdc2a2f83765fba663b22cce7b2ee9dbe1f869643ca001f0c4"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v15.py",
+      "size_bytes": 4066,
+      "sha256": "673674d3a70294fc818e4765674b965f1122c8117d077cadb065eeca7b4e4811"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v14.py",
+      "size_bytes": 15446,
+      "sha256": "62bf1a52be19fed3cda2193358d23a4fa367eed50b078a1e25da8200f1bca81d"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_semantic_verifier_v11.py",
+      "size_bytes": 22898,
+      "sha256": "2610ec2c1b932a51f3cb46f7d51168c4e24cb9e07645ceb13b86aa5c1f365b35"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v13.py",
+      "size_bytes": 15428,
+      "sha256": "4cce61bb7faed17bb30d237042b0bc48bdf4b550be178040455b385d23dfc7ad"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v12.py",
+      "size_bytes": 14653,
+      "sha256": "9dc2e0f04c0899d13e422cc941e7c691ab0db25e6c702f29d38587482f322415"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v10.py",
+      "size_bytes": 14396,
+      "sha256": "243f580a678e39e3c09780a663894dda61b31ec26b4a526a180259169bcff785"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v9.py",
+      "size_bytes": 21780,
+      "sha256": "94972802bc36aed349857eda05575101c330fdcd6fc12980c75dc2932edd37e1"
+    },
+    {
+      "path": "tools/stage17_pilot_candidate_artifact_v2.py",
+      "size_bytes": 7461,
+      "sha256": "f6f102552ea705b1fc4960149d079519c30881a389ccefa53d4376509eae6b35"
+    },
+    {
+      "path": "tools/stage17_operational_semantics_v2.py",
+      "size_bytes": 44248,
+      "sha256": "054b3f94c52606a6eb77e2120b43b74b61bc12c804462ed1f783d749962b6e1c"
+    },
+    {
+      "path": "tools/stage17_read_only_preflight_semantic_verifier_v12.py",
+      "size_bytes": 25752,
+      "sha256": "d6b3e26e541e205f39223ca83885daa12ce333860cc57fbea2f259f400c0211d"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v55.py",
+      "size_bytes": 13867,
+      "sha256": "2611ce8b933e91e7ce21baddbe1fe9f5a6326f538fdb31badc90e99ce4a619bb"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v54.py",
+      "size_bytes": 7628,
+      "sha256": "5f281b64db8b3b40446017afc9eebd00ac999d0252656df9436010c60599b41b"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v53.py",
+      "size_bytes": 9508,
+      "sha256": "8aec7aed7083354629464cd622e79ac4d8e4669a7f5f1065ca70cdd9c185d47b"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v52.py",
+      "size_bytes": 7123,
+      "sha256": "b3ca3e0500345d6c96110486723eeafa3b9577b02c7f23a6575ea329177f2c01"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v51.py",
+      "size_bytes": 6485,
+      "sha256": "94c2857f580f78abafc8dacb8616b3a16a9d3058993d11f105d27721a40a1ca5"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v50.py",
+      "size_bytes": 6465,
+      "sha256": "36ece2e24109e623e98240d0cd4a386eb61b29d034ebca448cfef16676fb2da9"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v49.py",
+      "size_bytes": 6368,
+      "sha256": "3f94ece33234e4ca090d7e186f03883607624652bf90c4d8e036f050e5c8f22e"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v48.py",
+      "size_bytes": 6363,
+      "sha256": "5543afd0e5d335be47a75b755e1f96d26d4ff987767af82cc2b6f19d4f7b48e6"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v47.py",
+      "size_bytes": 5690,
+      "sha256": "88460f896a3958d6ef524df81d3d527ea8b53ac7fe96f2276b42b0fe6e8c9c94"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v46.py",
+      "size_bytes": 5668,
+      "sha256": "e4acb7aadcf65da6ca007a3592f2f38d46fe4c2698b9429379fe100cb0635f6e"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v45.py",
+      "size_bytes": 5734,
+      "sha256": "9e7c805c5cf3023b6171d9ae8a69c2d9128afac834b536588a3bf4eb6a4c11fe"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v44.py",
+      "size_bytes": 6656,
+      "sha256": "c1e323b3485940f40def8974a5ed3d87374d6d999607bc50893eb21ecca0a763"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v43.py",
+      "size_bytes": 6124,
+      "sha256": "ea189737aea4e48e186b23c889d0119b1ca0089c685aae98a79a95845417ec50"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v42.py",
+      "size_bytes": 7070,
+      "sha256": "8d065e57030b18c543208c150f427f10e9e87b2dbc5b9265d64c414a292eb153"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v41.py",
+      "size_bytes": 14773,
+      "sha256": "7a5fb9e4578409908b65edba253a610d73d62dcf292a62eb5b86d54ab62ede91"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v40.py",
+      "size_bytes": 9817,
+      "sha256": "6b3b15164d9133c362c547733d428363bf67d2714b51df3cc03e2d541266c34b"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v56.py",
+      "size_bytes": 3597,
+      "sha256": "769f2e038eedba33a5943e49edcc942004dbdf6f38b064ff2fcb593c38727459"
+    },
+    {
+      "path": "tools/stage17_state_journal_v50.py",
+      "size_bytes": 1302,
+      "sha256": "9bb9af9bb463f1a431b4bc2c9a90729d5801073c911814eef9ab36779e885cca"
+    },
+    {
+      "path": "tools/stage17_state_journal_v49.py",
+      "size_bytes": 1258,
+      "sha256": "59c50e0ef9fa69ccc964c1e13d07bec41aafc2fff54a2d5e3dc397d6a3fb1222"
+    },
+    {
+      "path": "tools/stage17_state_journal_v48.py",
+      "size_bytes": 1258,
+      "sha256": "c081a8eb411f6c192917b59dad4d5f68317325e762f631149cbb06a247862de7"
+    },
+    {
+      "path": "tools/stage17_state_journal_v47.py",
+      "size_bytes": 2100,
+      "sha256": "50de730d783c54535958288f38fa87a751da2f4f012fd2c1761f6021d1ca0971"
+    },
+    {
+      "path": "tools/stage17_state_journal_v46.py",
+      "size_bytes": 2017,
+      "sha256": "048ee0ddc84e1034bbada1e8a54de72587cb5712b3e95e0773cbecc448ee44af"
+    },
+    {
+      "path": "tools/stage17_state_journal_v45.py",
+      "size_bytes": 2021,
+      "sha256": "3734f081e8730d9c1de6e8552d45752d245725067e9819aa0326742236766faf"
+    },
+    {
+      "path": "tools/stage17_state_journal_v44.py",
+      "size_bytes": 2052,
+      "sha256": "125e272c2ec0a0ef3b8f05ceb8c8afbbb0096d6fe299231a69480d3e776579e0"
+    },
+    {
+      "path": "tools/stage17_state_journal_v43.py",
+      "size_bytes": 2038,
+      "sha256": "09a08733b8def4a99587704c19b649b7ca72127718eb0d9e53643a49ae33cf46"
+    },
+    {
+      "path": "tools/stage17_state_journal_v42.py",
+      "size_bytes": 2041,
+      "sha256": "22064772a462947cb949a1a8ee50eb483739d9ce5367acea9b5866018ab11714"
+    },
+    {
+      "path": "tools/stage17_state_journal_v41.py",
+      "size_bytes": 2917,
+      "sha256": "074fc6b701789262006eadee15701a518cef2b2c8dc38576205ba3950a2c0ff0"
+    },
+    {
+      "path": "tools/stage17_state_journal_v40.py",
+      "size_bytes": 2128,
+      "sha256": "a12b9f61e78df72287a880e9682e32da527f175f6a09680aa5a1780de72f2f55"
+    },
+    {
+      "path": "tools/stage17_state_journal_v39.py",
+      "size_bytes": 1909,
+      "sha256": "a3f102881a2d84081ba250f15448aa2047dd7b5371f5cd2f8ca9eb3cc9af9047"
+    },
+    {
+      "path": "tools/stage17_state_journal_v16.py",
+      "size_bytes": 1303,
+      "sha256": "657dcf47aef25abd671d537fe6e604e15040693e5f5005522511f8603dbb577e"
+    },
+    {
+      "path": "tools/stage17_state_journal_v15.py",
+      "size_bytes": 1397,
+      "sha256": "7e3544859b0542a5b6c2766e839338abb83a6a385fa82c6bc9ca1cb8d74112ae"
+    },
+    {
+      "path": "tools/stage17_state_journal_v14.py",
+      "size_bytes": 1253,
+      "sha256": "98af8fd208692620bd8056a42d9c2132bb001c53a09f9251ccf4dd47362efb58"
+    },
+    {
+      "path": "tools/stage17_state_journal_v13.py",
+      "size_bytes": 1186,
+      "sha256": "42dc3fac7f6ec0937bc427a355553cea3dbad405b842cdc1d7fa44a38842df0d"
+    },
+    {
+      "path": "tools/stage17_state_journal_v12.py",
+      "size_bytes": 27470,
+      "sha256": "650912a904356c26904da48ecf04c1531a6f6cd4f1c4aa4661db01787c12f0f7"
+    },
+    {
+      "path": "tools/stage17_state_journal_v11.py",
+      "size_bytes": 27203,
+      "sha256": "58fc8eabe844c255bfbefa0c8b65027d8d43b8e26bc0d8babec6e764ec35b83b"
+    },
+    {
+      "path": "tools/stage17_state_journal_v10.py",
+      "size_bytes": 27214,
+      "sha256": "9389fc3ba8801a1b023b3c6fb6256ea178b59e12cd1b1736f7993e625afc7cbd"
+    },
+    {
+      "path": "tools/stage17_state_journal_v9.py",
+      "size_bytes": 26555,
+      "sha256": "8752f239850dc5da6959033e15df593e4684fe8da25fa75f408303e560ab8648"
+    },
+    {
+      "path": "tools/stage17_state_journal_v8.py",
+      "size_bytes": 12232,
+      "sha256": "1b45971bf1ac4c477ce533e2e06a2f17e47f0843b7644d394e93f18bfa8bd596"
+    },
+    {
+      "path": "tools/stage17_state_journal_v7.py",
+      "size_bytes": 15271,
+      "sha256": "7b9c1c7df9952a2004ba95a5eefbde0b1f1d6ba2eef5a0ec72587b7ff538228e"
+    },
+    {
+      "path": "tools/stage17_state_journal.py",
+      "size_bytes": 59304,
+      "sha256": "d617e121ea11ca6b4b576b6e7c693117c8844ba85d2fa74dffb442b18bf9fd62"
+    },
+    {
+      "path": "tools/stage17_pilot_candidate_artifact.py",
+      "size_bytes": 8311,
+      "sha256": "d25d7340891987bfb2c5db652f8f279ca30d7f5c65452d53e1dc05f0b11ff8a1"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v11.py",
+      "size_bytes": 14653,
+      "sha256": "1acbb1b98f3be4ae66cda74cc2494457ed61062fc1ad269ea5b6029bd1da6e16"
+    },
+    {
+      "path": "tools/stage17_pilot_candidate_artifact_v3.py",
+      "size_bytes": 22808,
+      "sha256": "b7a0ab93626f48c30cbb30d9b2031698e20e997a6116f2f16796dfefa6ba0c32"
+    },
+    {
+      "path": "tools/stage17_operational_semantics_v3.py",
+      "size_bytes": 58559,
+      "sha256": "215f6d7169daac0cff45c8cff8d2e82f46db7a3d7ae70b550d17f65e042302dc"
+    },
+    {
+      "path": "tools/stage17_output_registry_v3.py",
+      "size_bytes": 29492,
+      "sha256": "d11fa06d91b30c27331a2f0774346a7b4d3cb5d4174f006bc73697291c3ea513"
+    },
+    {
+      "path": "tools/stage17_phase_controller_v4.py",
+      "size_bytes": 24101,
+      "sha256": "38c4c7b2a1c4610befc26c3b9acb2b9e1ebba242d1a436c71a5e0da8f92cb0bc"
+    },
+    {
+      "path": "tools/stage17_phase_controller_v2.py",
+      "size_bytes": 27067,
+      "sha256": "4fdaf306e03510b03dbfa9ad6d1d58dd51b38e842a80a09dc5999454adddee3b"
+    },
+    {
+      "path": "tools/stage17_phase_controller_v3.py",
+      "size_bytes": 22239,
+      "sha256": "c306ad48bd61a4c892014d3cbe21a070f47fccea5e6eb206bfbc282f5c7282e4"
+    },
+    {
+      "path": "tools/stage17_fixed_action_executor_v3.py",
+      "size_bytes": 29737,
+      "sha256": "19fd4a285f5035df28fd14574a7919c8913d2748871f4d31e9531b6791f18c18"
+    },
+    {
+      "path": "tools/stage17_phase_controller_v21.py",
+      "size_bytes": 1878,
+      "sha256": "0384b9dae38e522db200760858d9b6ee6f112da16f4772e901df399074f75f52"
+    },
+    {
+      "path": "tools/stage17_phase_controller_v20.py",
+      "size_bytes": 2073,
+      "sha256": "45edaf0fda20073406d2feae2d7d64ec8b556f66cad47f6886ff5f89c3ca3608"
+    },
+    {
+      "path": "tools/stage17_phase_controller_v19.py",
+      "size_bytes": 1599,
+      "sha256": "f1a905909e541d484c2d498bdcb626920b1775d767b78845d7367baa39ec0f28"
+    },
+    {
+      "path": "tools/stage17_phase_controller_v18.py",
+      "size_bytes": 10942,
+      "sha256": "44172705de432186818ce3018bbac7420ec40bc8758dc8f9687872edd1202fe5"
+    },
+    {
+      "path": "tools/stage17_phase_controller_v17.py",
+      "size_bytes": 1478,
+      "sha256": "8965389a0069fdffd54718cc4a3816f9aa8455236e8e74ed822a5a4bb94587d9"
+    },
+    {
+      "path": "tools/stage17_phase_controller_v16.py",
+      "size_bytes": 1995,
+      "sha256": "807ae4254b589bb7f474149b3f7396a1f9d8ced57c0b1f266c80738dd51a5dc4"
+    },
+    {
+      "path": "tools/stage17_phase_controller_v15.py",
+      "size_bytes": 4884,
+      "sha256": "cb071297dc7019bfd5209946064d11999afd9f6a196e37acd0c0bd887d03c3be"
+    },
+    {
+      "path": "tools/stage17_phase_controller_v14.py",
+      "size_bytes": 1446,
+      "sha256": "1cc7e0b373764506adeb22d067790323ce2eac3e10ee9e501260d98d4ddb15f0"
+    },
+    {
+      "path": "tools/stage17_state_journal_v35.py",
+      "size_bytes": 2130,
+      "sha256": "43e06923f7e116a5fdadabf13b4dd95eb1403bcbf025eec8bd3ed97d5fd6dbdf"
+    },
+    {
+      "path": "tools/stage17_phase_controller_v13.py",
+      "size_bytes": 1448,
+      "sha256": "c3d25f9506e296e00d4014e693dee88cec4cc5d42d9970692e69d5686a130122"
+    },
+    {
+      "path": "tools/stage17_state_journal_v34.py",
+      "size_bytes": 2078,
+      "sha256": "2b33af171937880ca6b5e80705e02104798cd062f739d423ceaa9330e2973115"
+    },
+    {
+      "path": "tools/stage17_phase_controller_v12.py",
+      "size_bytes": 1772,
+      "sha256": "54e8f5cdfc802870ce2ea8fa46e1182b1b3f7bb1a41ddfff23152b8e8aede5d6"
+    },
+    {
+      "path": "tools/stage17_state_journal_v33.py",
+      "size_bytes": 2026,
+      "sha256": "53f0a929cb51dce7db4e68197433f741a2bbd6c1e2b72d1cfc4d0c3f08793393"
+    },
+    {
+      "path": "tools/stage17_phase_controller_v11.py",
+      "size_bytes": 3118,
+      "sha256": "0f81b70a852216a77276c5e567d52cb04b057f1483a0ed6c9e76b845544b4c55"
+    },
+    {
+      "path": "tools/stage17_state_journal_v31.py",
+      "size_bytes": 2026,
+      "sha256": "10b0ed878d6c18edfcaefdcb92385e91338db2c0ed4ca90a63c6c8addf306f67"
+    },
+    {
+      "path": "tools/stage17_phase_controller_v10.py",
+      "size_bytes": 5574,
+      "sha256": "f4dedfeb54944dc6d5792b7b4aa4dbbaaa7942b2185e7cf5c8ca030a5fe869dc"
+    },
+    {
+      "path": "tools/stage17_phase_controller_v9.py",
+      "size_bytes": 5026,
+      "sha256": "d887c9a30010561ae41547a0f22b36959e6d903ef064810f85a608867c8da5c3"
+    },
+    {
+      "path": "tools/stage17_phase_controller_v8.py",
+      "size_bytes": 611,
+      "sha256": "181ebbfc56229136450312a1420c1e23412db0ab8e62fb1a227ad5f89e774a09"
+    },
+    {
+      "path": "tools/stage17_phase_controller_v7.py",
+      "size_bytes": 578,
+      "sha256": "a587f33367fe6c53aa00b41c2344af8127bb5026932cee502647358a1790e32e"
+    },
+    {
+      "path": "tools/stage17_phase_controller_v6.py",
+      "size_bytes": 576,
+      "sha256": "ab9868a0ba445eee55c7289bf4ace5e843d05e94191a10200f1c6f4c4616a6c0"
+    },
+    {
+      "path": "tools/stage17_phase_controller_v5.py",
+      "size_bytes": 2374,
+      "sha256": "264d4eba0c0c48b6658e2dcbfb617ff4aba1e1ddb30ba5f39fe6d66bf2b215a6"
+    },
+    {
+      "path": "tools/stage17_discovery_environment_v1.py",
+      "size_bytes": 19396,
+      "sha256": "f24b7c8f87cfbfd74b8bd08fe3a15c1fa4912ea70e0bd85ed306b37076a306c2"
+    },
+    {
+      "path": "tools/stage17_raw_stream_decoder_v2.py",
+      "size_bytes": 13067,
+      "sha256": "a2349a5443debb051b7cb524bc86724ed6ba966dcb4a18582ed0248052b0fdca"
+    }
+  ],
+  "longest_admitted_run_id_utf8_bytes": 44
+}

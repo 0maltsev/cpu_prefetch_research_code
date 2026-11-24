@@ -1,0 +1,12 @@
+{
+  "execution_authority": false,
+  "qualified_source_revision": "c989ca84b93f532b7ee32cc1a947463e280033e9",
+  "schema_version": "cpu-prefetch-software-test-source-fixture/1",
+  "source_member": {
+    "path": "run_qualification_v31.py",
+    "sha256": "58845d94dbe52c3d69dd1a5c984611aea2f8667b2cb621028717d19368122025",
+    "size_bytes": 9605
+  },
+  "source_packet_inventory_sha256": "72663c92892ae80d0e833cc1b9433c5e3d62435fc7169064b94e582d82e58b10",
+  "test_fixture": "run_qualification_v31.py.txt"
+}

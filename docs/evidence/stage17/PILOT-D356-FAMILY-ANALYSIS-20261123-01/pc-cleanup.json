@@ -1,0 +1,40 @@
+{
+  "actual_raw_copied_from_stand": false,
+  "recorded_at_utc": "2026-11-23T19:03:30.767789+00:00",
+  "removed_bytes": 4084,
+  "required_original_namespace_audit_preserved": true,
+  "stand_raw_deleted": false,
+  "synthetic_test_data_removed_by_finalizers": true,
+  "verified_duplicate_staging_metadata_removed": [
+    {
+      "path": "build/stage17-s180-family-analysis-prep/first-tests.txt",
+      "sha256": "66626608ed488660bbd98e901acbb33389ba970dec49e60beee437a11a35b36b",
+      "size_bytes": 2248
+    },
+    {
+      "path": "build/stage17-s180-family-analysis-prep/second-tests.txt",
+      "sha256": "e15d8d51e60795c36169ab8110eaadbfee51f1dab5a8dd454047c993d98fa54e",
+      "size_bytes": 105
+    },
+    {
+      "path": "build/stage17-s180-family-analysis-prep/final-debug.txt",
+      "sha256": "9a727c3328fb121cb4d98118cbfb02b40949a6062af3d107352b826ee4611023",
+      "size_bytes": 106
+    },
+    {
+      "path": "build/stage17-s180-family-analysis-prep/configure.txt",
+      "sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e",
+      "size_bytes": 177
+    },
+    {
+      "path": "build/stage17-s180-family-analysis-prep/registered.txt",
+      "sha256": "4254551dc2b05dc6b20bef9f605b3668e82223fd8eec157afd190600f7c72bb9",
+      "size_bytes": 986
+    },
+    {
+      "path": "build/stage17-s180-family-analysis-prep/contract-checks.txt",
+      "sha256": "ad0bf80897c8f303cef1ec9fefd9ef18682c3af4eee76ad82a11ec89f7ac3ca0",
+      "size_bytes": 462
+    }
+  ]
+}

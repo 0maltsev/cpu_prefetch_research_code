@@ -1,0 +1,18 @@
+{
+  "check": "repository-wide format-check",
+  "status": "FAIL_PREEXISTING_UNCHANGED_FILES",
+  "files": [
+    {
+      "path": "include/cpu_prefetch/runner/stage17_fixed_action.hpp",
+      "sha256": "143352fb743586f9270c2dca2ac9c144f117201ad0b5edd44a41ab373ea06ce0",
+      "identical_to_original_qualified_source": true
+    },
+    {
+      "path": "src/runner/stage17_fixed_action.cpp",
+      "sha256": "0128159b4f94c770891451c6879232fe6fdf0b6af5a07e159700dbbf32c61b6c",
+      "identical_to_original_qualified_source": true
+    }
+  ],
+  "changed_cpp_files_format_passed": true,
+  "source_changes_to_avoid_mixing_measurement_dependencies": false
+}

@@ -1,14 +1,20 @@
 #include <gtest/gtest.h>
 
+#include "cpu_prefetch/calibration/caller_owned_trace.hpp"
+#include "cpu_prefetch/calibration/discovery_event_capture.hpp"
+#include "cpu_prefetch/platform/prepared_residency.hpp"
 #include "cpu_prefetch/workload/packages.hpp"
 #include "cpu_prefetch/workload/records.hpp"
 #include "cpu_prefetch/workload/working_set.hpp"
+#include "queue_phase_test_access.hpp"
 
 #include <array>
 #include <atomic>
 #include <cstddef>
 #include <cstdlib>
 #include <new>
+#include <span>
+#include <vector>
 
 namespace {
 std::atomic<std::size_t> allocation_count{0U};
@@ -109,6 +115,110 @@ cpu_prefetch::queue::EventPointer required_pointer(const void* pointer) {
   return *result;
 }
 
+TEST(PreparedWorkload, LinkedWarmStartResetPreservesStorageAndAllocatesNothing) {
+  constexpr cpu_prefetch::queue::CacheLineBytes line{64U};
+  constexpr cpu_prefetch::queue::ArenaAlignmentBytes page{4096U};
+  const std::array<std::size_t, 9U> order{5U, 1U, 8U, 3U, 0U, 7U, 4U, 2U, 6U};
+  cpu_prefetch::queue::LinkedSpscQueue queue({8U}, line, page, order);
+  const auto* arena_before = queue.node_arena_base();
+  const auto layout_before = queue.layout_evidence();
+  int event{17};
+  const auto pointer = required_pointer(&event);
+  for (std::size_t index = 0U; index < 37U; ++index) {
+    ASSERT_EQ(queue.try_enqueue(pointer), cpu_prefetch::queue::EnqueueResult::accepted);
+    ASSERT_EQ(queue.try_dequeue().event, &event);
+  }
+  EXPECT_EQ(queue.audit_quiescent().reachable_order,
+            std::vector<std::size_t>{order[1U]});
+  for (unsigned reset_number = 0U; reset_number < 2U; ++reset_number) {
+    const auto before = allocation_count.load(std::memory_order_relaxed);
+    const bool reset = queue.reset_quiescent();
+    const auto after = allocation_count.load(std::memory_order_relaxed);
+    ASSERT_TRUE(reset);
+    EXPECT_EQ(after, before) << "logical reset allocated scratch storage";
+    EXPECT_EQ(queue.node_arena_base(), arena_before);
+    EXPECT_EQ(queue.layout_evidence().storage_bytes, layout_before.storage_bytes);
+    const auto audit = queue.audit_quiescent();
+    EXPECT_EQ(audit.queued_events, 0U);
+    EXPECT_EQ(audit.reachable_order, std::vector<std::size_t>{order[0U]});
+    EXPECT_EQ(audit.recycler_order,
+              std::vector<std::size_t>(order.begin() + 1, order.end()));
+    EXPECT_TRUE(audit.every_node_owned_once);
+    EXPECT_TRUE(audit.recycler_fifo_shape);
+  }
+}
+
+TEST(PreparedWorkload, LinkedResetRejectsPendingEventsWithoutAllocationOrMutation) {
+  constexpr cpu_prefetch::queue::CacheLineBytes line{64U};
+  constexpr cpu_prefetch::queue::ArenaAlignmentBytes page{4096U};
+  const std::array<std::size_t, 9U> order{5U, 1U, 8U, 3U, 0U, 7U, 4U, 2U, 6U};
+  cpu_prefetch::queue::LinkedSpscQueue queue({8U}, line, page, order);
+  int event{19};
+  ASSERT_EQ(queue.try_enqueue(required_pointer(&event)),
+            cpu_prefetch::queue::EnqueueResult::accepted);
+  const auto before = allocation_count.load(std::memory_order_relaxed);
+  const bool reset = queue.reset_quiescent();
+  const auto after = allocation_count.load(std::memory_order_relaxed);
+  EXPECT_FALSE(reset);
+  EXPECT_EQ(after, before) << "rejected logical reset allocated scratch storage";
+  const auto consumed = queue.try_dequeue();
+  EXPECT_EQ(consumed.status, cpu_prefetch::queue::DequeueStatus::item);
+  EXPECT_EQ(consumed.event, &event);
+}
+
+TEST(PreparedWorkload, LinkedResetRejectsCorruptCycleWithoutAllocationOrMutation) {
+  constexpr cpu_prefetch::queue::CacheLineBytes line{64U};
+  constexpr cpu_prefetch::queue::ArenaAlignmentBytes page{4096U};
+  const std::array<std::size_t, 9U> order{5U, 1U, 8U, 3U, 0U, 7U, 4U, 2U, 6U};
+  cpu_prefetch::queue::LinkedSpscQueue queue({8U}, line, page, order);
+  cpu_prefetch::queue::testing::QueuePhaseTestAccess::swap_first_linked_recycler_nodes(
+      queue);
+  const auto corrupted = queue.audit_quiescent();
+  ASSERT_TRUE(corrupted.every_node_owned_once);
+  ASSERT_TRUE(corrupted.recycler_fifo_shape);
+  const auto before = allocation_count.load(std::memory_order_relaxed);
+  const bool reset = queue.reset_quiescent();
+  const auto after = allocation_count.load(std::memory_order_relaxed);
+  EXPECT_FALSE(reset) << "logical reset concealed a corrupted frozen node cycle";
+  EXPECT_EQ(after, before);
+  EXPECT_EQ(queue.audit_quiescent().recycler_order, corrupted.recycler_order);
+}
+
+TEST(PreparedWorkload, LinkedResetHandlesEverySentinelAndRecyclerRotation) {
+  const auto check = [](std::span<const std::size_t> order) {
+    constexpr cpu_prefetch::queue::CacheLineBytes line{64U};
+    constexpr cpu_prefetch::queue::ArenaAlignmentBytes page{4096U};
+    const auto capacity = order.size() - 1U;
+    cpu_prefetch::queue::LinkedSpscQueue queue({capacity}, line, page, order);
+    int event{23};
+    const auto pointer = required_pointer(&event);
+    // Consecutive C and C+1 are coprime: these transfer counts cover every
+    // pair of recycler-cursor and sentinel-cycle positions independently.
+    for (std::size_t transfers = 0U; transfers < capacity * order.size(); ++transfers) {
+      for (std::size_t count = 0U; count < transfers; ++count) {
+        ASSERT_EQ(queue.try_enqueue(pointer),
+                  cpu_prefetch::queue::EnqueueResult::accepted);
+        ASSERT_EQ(queue.try_dequeue().event, &event);
+      }
+      const auto before = allocation_count.load(std::memory_order_relaxed);
+      const bool reset = queue.reset_quiescent();
+      const auto after = allocation_count.load(std::memory_order_relaxed);
+      ASSERT_TRUE(reset) << "transfers=" << transfers;
+      EXPECT_EQ(after, before);
+      EXPECT_EQ(event, 23);
+      const auto audit = queue.audit_quiescent();
+      EXPECT_EQ(audit.reachable_order, std::vector<std::size_t>{order[0U]});
+      EXPECT_EQ(audit.recycler_order,
+                std::vector<std::size_t>(order.begin() + 1, order.end()));
+      EXPECT_TRUE(audit.every_node_owned_once);
+    }
+  };
+  const std::array<std::size_t, 2U> one_slot{1U, 0U};
+  const std::array<std::size_t, 9U> eight_slots{5U, 1U, 8U, 3U, 0U, 7U, 4U, 2U, 6U};
+  check(one_slot);
+  check(eight_slots);
+}
+
 TEST(PreparedWorkload, LookupRecordActionAndAllPackageOperationsAllocateNothing) {
   constexpr cpu_prefetch::queue::CacheLineBytes line{64U};
   constexpr cpu_prefetch::queue::ArenaAlignmentBytes page{4096U};
@@ -165,6 +275,119 @@ TEST(PreparedWorkload, LookupRecordActionAndAllPackageOperationsAllocateNothing)
   const auto after = allocation_count.load(std::memory_order_relaxed);
   EXPECT_EQ(after, before);
   EXPECT_NE(emitter.last_target, nullptr);
+}
+
+TEST(WorkloadNoAllocation, CallerOwnedTracePreparationAndRecordingDoNotAllocate) {
+  namespace calibration = cpu_prefetch::calibration;
+  std::array<std::uint64_t, 64U> producer_demand{};
+  std::array<std::uint64_t, 64U> producer_issue{};
+  std::array<std::uint64_t, 64U> consumer_demand{};
+  std::array<std::uint64_t, 64U> consumer_issue{};
+  const auto before = allocation_count.load(std::memory_order_relaxed);
+  calibration::CallerOwnedRingDemandWorker producer(calibration::RingWorker::producer,
+                                                    producer_demand, producer_issue);
+  calibration::CallerOwnedRingDemandWorker consumer(calibration::RingWorker::consumer,
+                                                    consumer_demand, consumer_issue);
+  calibration::CallerOwnedRingDemandTrace trace(producer, consumer);
+  bool ok = trace.prepare_worker(calibration::RingWorker::producer) &&
+            trace.prepare_worker(calibration::RingWorker::consumer);
+  for (std::uint64_t sequence = 0U; sequence < 64U; ++sequence) {
+    for (const auto role :
+         {calibration::RingWorker::producer, calibration::RingWorker::consumer}) {
+      ok = trace.record(role, 3U * sequence, 3U * sequence + 1U,
+                        calibration::RingAttemptOutcome::advanced) &&
+           ok;
+    }
+  }
+  const auto after = allocation_count.load(std::memory_order_relaxed);
+  EXPECT_TRUE(ok);
+  EXPECT_EQ(after, before);
+  EXPECT_EQ(trace.worker_series(calibration::RingWorker::producer).issue_ticks.size(),
+            63U);
+  EXPECT_EQ(trace.worker_series(calibration::RingWorker::consumer).issue_ticks.size(),
+            63U);
+}
+
+TEST(WorkloadNoAllocation, PreparedResidencyQueriesDoNotAllocate) {
+  namespace platform = cpu_prefetch::platform;
+  alignas(4096) std::array<std::byte, 8192U> mapping{};
+  std::array<void*, 2U> pages{};
+  std::array<int, 2U> status{};
+  struct Query final {
+    auto query_pages(std::span<void* const> addresses,
+                     std::span<int> statuses) const noexcept
+        -> platform::PageResidencyQueryResult {
+      for (std::size_t index = 0U; index < addresses.size(); ++index) {
+        statuses[index] = 3;
+      }
+      return {0, 0};
+    }
+  } query;
+  const auto before = allocation_count.load(std::memory_order_relaxed);
+  platform::PreparedPageResidencyQuery prepared(mapping, 4096U, pages, status);
+  bool valid = true;
+  for (std::size_t observation = 0U; observation < 1000U; ++observation) {
+    valid = prepared.all_pages_on(prepared.sample(query), 3U) && valid;
+  }
+  const auto after = allocation_count.load(std::memory_order_relaxed);
+  EXPECT_TRUE(valid);
+  EXPECT_EQ(after, before);
+}
+
+TEST(WorkloadNoAllocation, DiscoveryEventAndDemandCaptureDoNotAllocate) {
+  namespace calibration = cpu_prefetch::calibration;
+  namespace workload = cpu_prefetch::workload;
+  std::array<std::uint64_t, 64U> producer_demand{};
+  std::array<std::uint64_t, 64U> producer_issue{};
+  std::array<std::uint64_t, 64U> consumer_demand{};
+  std::array<std::uint64_t, 64U> consumer_issue{};
+  calibration::CallerOwnedRingDemandWorker producer(calibration::RingWorker::producer,
+                                                    producer_demand, producer_issue);
+  calibration::CallerOwnedRingDemandWorker consumer(calibration::RingWorker::consumer,
+                                                    consumer_demand, consumer_issue);
+  calibration::CallerOwnedRingDemandTrace trace(producer, consumer);
+  ASSERT_TRUE(trace.prepare_worker(calibration::RingWorker::producer));
+  ASSERT_TRUE(trace.prepare_worker(calibration::RingWorker::consumer));
+  workload::EventArena arena({8U, 64U, 4096U,
+                              workload::MasterSeed::from_hex(std::string(64U, '0')),
+                              "discovery-event-noalloc-test"});
+  cpu_prefetch::queue::RingSpscQueue ring({8U}, {64U});
+  struct Clock final {
+    std::uint64_t tick{0U};
+    auto read() noexcept -> cpu_prefetch::timing::ClockReadResult {
+      tick += 10U;
+      return {cpu_prefetch::timing::ClockReadStatus::ok, {0U, tick}};
+    }
+  } clock;
+  calibration::DiscoveryProducerEventCapture producer_row;
+  calibration::DiscoveryConsumerEventCapture consumer_row;
+  workload::ConsumerState state{17U};
+  const auto before = allocation_count.load(std::memory_order_relaxed);
+  bool valid = true;
+  for (std::uint64_t sequence = 0U; sequence < 32U; ++sequence) {
+    const auto produced = calibration::capture_discovery_producer_event(
+        clock, arena, ring, trace, {sequence}, 0U, {sequence}, producer_row);
+    const auto consumed = calibration::capture_discovery_consumer_event(
+        clock, arena, ring, trace, state, {sequence}, consumer_row);
+    valid = produced.outcome == calibration::RingAttemptOutcome::advanced &&
+            consumed.outcome == calibration::RingAttemptOutcome::advanced &&
+            producer_row.primary.has_value() && consumer_row.primary.has_value() &&
+            valid;
+  }
+  const auto after = allocation_count.load(std::memory_order_relaxed);
+  EXPECT_TRUE(valid);
+  EXPECT_EQ(after, before);
+  workload::ConsumerState expected{17U};
+  for (std::uint64_t sequence = 0U; sequence < 32U; ++sequence) {
+    const auto event = arena.select({sequence});
+    expected = workload::mix_consumer_state(expected, event.record_index,
+                                            event.record->payload);
+  }
+  EXPECT_EQ(state, expected);
+  EXPECT_EQ(trace.worker_series(calibration::RingWorker::producer).demand_ticks.size(),
+            32U);
+  EXPECT_EQ(trace.worker_series(calibration::RingWorker::consumer).issue_ticks.size(),
+            31U);
 }
 
 } // namespace

@@ -1,0 +1,26 @@
+{
+  "checked_at_utc": "2026-11-19T20:11:54.486555+00:00",
+  "collection_owner_started": true,
+  "formal_prepared": false,
+  "guard_started": true,
+  "guard_value": "0",
+  "isolation_prepared": true,
+  "logs": {
+    "d298-service-console-1.log": "{\"schema_version\": \"cpu-prefetch-stage17-execution-owner-admission/1\", \"status\": \"PASS\", \"bundle_root\": \"/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b\", \"requested_execution_uid\": 1000, \"verified_execution_uid\": 1000, \"source_revision\": \"7b7c263cb850690cf333df0d196b18c875b4a53c\", \"inventory_sha256\": \"828fe1a3482b4b6c9d7249582648be43e920051033f103808e0fc7644362bf8a\", \"worker\": {\"size_bytes\": 5052696, \"sha256\": \"bc064c13afd7eb5142ae8ee434e95962e9b3fc3095c6c159d83376c3e7e8c019\"}, \"inventory_entries\": 4823, \"checked_files\": 4825, \"checked_directories\": 378, \"checked_bytes\": 202423601, \"elapsed_ns\": 1158033977, \"worker_executed\": false, \"permissions_changed\": false, \"execution_authority\": false, \"phase18_authority\": false}\n",
+    "d298-study-1/sign-collect.log": ""
+  },
+  "native_attempt_started": false,
+  "native_completed_captures": [],
+  "native_terminal_files": [],
+  "raw_data_transferred": false,
+  "same_original_window": true,
+  "unit": {
+    "ActiveState": "active",
+    "ExecMainStartTimestamp": "Thu 2026-11-19 23:09:32 MSK",
+    "ExecMainStatus": "0",
+    "InvocationID": "7246600986444973a213d4ec386f1592",
+    "MainPID": "346747",
+    "Result": "success",
+    "SubState": "running"
+  }
+}

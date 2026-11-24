@@ -1,0 +1,50 @@
+.F.F..EF
+======================================================================
+ERROR: test_lossless_but_invalid_primary_fails_and_keeps_canonical_evidence (__main__.ArchivedTests.test_lossless_but_invalid_primary_fails_and_keeps_canonical_evidence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_analysis_v1.py", line 139, in test_lossless_but_invalid_primary_fails_and_keeps_canonical_evidence
+    self.fixture.control['phases'][1]['session']['producer']['attempted']=999
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+KeyError: 'session'
+
+======================================================================
+FAIL: test_all_full_is_valid_data_with_empty_derived_output_and_undefined_tail (__main__.ArchivedTests.test_all_full_is_valid_data_with_empty_derived_output_and_undefined_tail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_analysis_v1.py", line 125, in test_all_full_is_valid_data_with_empty_derived_output_and_undefined_tail
+    self.assertEqual(result['status'],'PASSED',result)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'REJECTED' != 'PASSED'
+- REJECTED
++ PASSED
+ : {'status': 'REJECTED', 'reason': 'decoded write would consume failure reserve', 'codec_failed': True, 'restored_as': [17179869184, 17179869184]}
+
+======================================================================
+FAIL: test_every_original_is_reconstructed_then_both_phases_published_with_durable_archive_uris (__main__.ArchivedTests.test_every_original_is_reconstructed_then_both_phases_published_with_durable_archive_uris)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_analysis_v1.py", line 106, in test_every_original_is_reconstructed_then_both_phases_published_with_durable_archive_uris
+    self.assertEqual(result['status'],'PASSED',result)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'REJECTED' != 'PASSED'
+- REJECTED
++ PASSED
+ : {'status': 'REJECTED', 'reason': 'decoded write would consume failure reserve', 'codec_failed': True, 'restored_as': [17179869184, 17179869184]}
+
+======================================================================
+FAIL: test_repeated_original_capture_is_rejected_without_second_publication (__main__.ArchivedTests.test_repeated_original_capture_is_rejected_without_second_publication)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_analysis_v1.py", line 167, in test_repeated_original_capture_is_rejected_without_second_publication
+    result=self.invoke('repeat');self.assertEqual(result['status'],'PASSED',result)
+                                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'REJECTED' != 'PASSED'
+- REJECTED
++ PASSED
+ : {'status': 'REJECTED', 'reason': 'decoded write would consume failure reserve', 'codec_failed': True, 'restored_as': [17179869184, 17179869184]}
+
+----------------------------------------------------------------------
+Ran 8 tests in 4.274s
+
+FAILED (failures=3, errors=1)

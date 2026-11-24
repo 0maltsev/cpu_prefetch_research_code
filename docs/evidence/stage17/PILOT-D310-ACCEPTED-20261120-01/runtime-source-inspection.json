@@ -1,0 +1,28 @@
+{
+  "confirmed_by_source_inspection_only": true,
+  "execution_authority": false,
+  "findings": [
+    {
+      "function": "run_fixed_action_worker",
+      "gap": "sealed source context is restricted to Q16c"
+    },
+    {
+      "function": "package_capture",
+      "gap": "persistent key includes load level, separating the six placement/working-set arenas into eighteen contexts"
+    },
+    {
+      "function": "capture_pilot_after_warmup",
+      "gap": "only warmup report copied; warmup producer/consumer byte vectors discarded"
+    },
+    {
+      "function": "capture_ticketed_run",
+      "gap": "new producer/consumer storage allocated for the measured phase after warmup"
+    }
+  ],
+  "native_source": {
+    "path": "src/runner/stage17_fixed_action.cpp",
+    "sha256": "03130e61fcd1b61b4cb7b2d1bfc564f1420e87eebcbff428a2b3f7ff4eec764e",
+    "size_bytes": 267565
+  },
+  "new_measurements": 0
+}

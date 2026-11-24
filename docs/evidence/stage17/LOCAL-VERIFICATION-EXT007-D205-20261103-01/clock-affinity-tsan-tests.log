@@ -1,0 +1,15 @@
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+[==========] Running 3 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 3 tests from Q15ClockPairQualification
+[ RUN      ] Q15ClockPairQualification.RealTwoThreadRunOnNearPairCompletesWithNoFailuresOrRegressions
+[       OK ] Q15ClockPairQualification.RealTwoThreadRunOnNearPairCompletesWithNoFailuresOrRegressions (423 ms)
+[ RUN      ] Q15ClockPairQualification.PinningFailsClosedForACpuOutsideTheAffinityRange
+[       OK ] Q15ClockPairQualification.PinningFailsClosedForACpuOutsideTheAffinityRange (13 ms)
+[ RUN      ] Q15ClockPairQualification.RegisteredV5PairCompletesBothCapturePhases
+[       OK ] Q15ClockPairQualification.RegisteredV5PairCompletesBothCapturePhases (421 ms)
+[----------] 3 tests from Q15ClockPairQualification (857 ms total)
+
+[----------] Global test environment tear-down
+[==========] 3 tests from 1 test suite ran. (857 ms total)
+[  PASSED  ] 3 tests.

@@ -1,0 +1,10 @@
+test_accepted_code_change_or_signed_fake_reaping_rejected (test_stage17_q16c_source_receipts_v1.ReceiptTests.test_accepted_code_change_or_signed_fake_reaping_rejected) ... ok
+test_actual_signature_complete_order_and_exact_current_bytes (test_stage17_q16c_source_receipts_v1.ReceiptTests.test_actual_signature_complete_order_and_exact_current_bytes) ... ok
+test_changed_seed_cannot_hide_behind_same_seed_id_and_provenance (test_stage17_q16c_source_receipts_v1.ReceiptTests.test_changed_seed_cannot_hide_behind_same_seed_id_and_provenance) ... ok
+test_current_original_corruption_and_incomplete_signed_family_rejected (test_stage17_q16c_source_receipts_v1.ReceiptTests.test_current_original_corruption_and_incomplete_signed_family_rejected) ... ok
+test_wrong_signature_and_signed_clock_reset_rejected (test_stage17_q16c_source_receipts_v1.ReceiptTests.test_wrong_signature_and_signed_clock_reset_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 1.804s
+
+OK

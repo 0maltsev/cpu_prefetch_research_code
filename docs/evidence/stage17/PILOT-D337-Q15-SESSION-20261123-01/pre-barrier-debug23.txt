@@ -1,0 +1,28 @@
+test_changed_image_rejects_before_signature (__main__.SessionTests.test_changed_image_rejects_before_signature) ... ok
+test_changed_preparation_blocks_dispatch (__main__.SessionTests.test_changed_preparation_blocks_dispatch) ... ok
+test_complete_file_ceiling_fits_explicit_external_reservation (__main__.SessionTests.test_complete_file_ceiling_fits_explicit_external_reservation) ... ok
+test_console_overflow_stops_before_write (__main__.SessionTests.test_console_overflow_stops_before_write) ... ok
+test_denied_read_signature_never_spawns_or_signs_write (__main__.SessionTests.test_denied_read_signature_never_spawns_or_signs_write) ... ok
+test_denied_write_signature_reaps_waiting_read_worker (__main__.SessionTests.test_denied_write_signature_reaps_waiting_read_worker) ... ok
+test_escaped_child_is_reaped_and_rejects_success (__main__.SessionTests.test_escaped_child_is_reaped_and_rejects_success) ... ok
+test_exceeded_native_counter_tolerance_stops (__main__.SessionTests.test_exceeded_native_counter_tolerance_stops) ... ok
+test_existing_native_counter_tolerance_is_retained (__main__.SessionTests.test_existing_native_counter_tolerance_is_retained) ... ok
+test_invalid_actual_cache_latches_preparation_without_creating_root (__main__.SessionTests.test_invalid_actual_cache_latches_preparation_without_creating_root) ... ok
+test_live_write_timeout_reaps_without_retry (__main__.SessionTests.test_live_write_timeout_reaps_without_retry) ... ok
+test_migrated_cpu_rejects_before_write_signature (__main__.SessionTests.test_migrated_cpu_rejects_before_write_signature) ... ok
+test_nonlockfree_atomic_rejects_before_write_signature (__main__.SessionTests.test_nonlockfree_atomic_rejects_before_write_signature) ... ok
+test_nonzero_write_exit_retains_read_evidence (__main__.SessionTests.test_nonzero_write_exit_retains_read_evidence) ... ok
+test_one_native_buffer_separate_signed_write_and_verified_restoration (__main__.SessionTests.test_one_native_buffer_separate_signed_write_and_verified_restoration) ... ok
+test_preexisting_signature_path_is_never_adopted (__main__.SessionTests.test_preexisting_signature_path_is_never_adopted) ... ok
+test_repeat_attempt_and_namespace_never_adopt_completed_work (__main__.SessionTests.test_repeat_attempt_and_namespace_never_adopt_completed_work) ... ok
+test_sanitized_cpp_peer_uses_same_real_signature_and_pipe_protocol (__main__.SessionTests.test_sanitized_cpp_peer_uses_same_real_signature_and_pipe_protocol) ... ok
+test_signing_deadline_interrupts_callback_and_restores_timer_handler (__main__.SessionTests.test_signing_deadline_interrupts_callback_and_restores_timer_handler) ... ok
+test_uninformative_h0_regular_counter_never_authorizes_write (__main__.SessionTests.test_uninformative_h0_regular_counter_never_authorizes_write) ... ok
+test_wrong_full_restore_readback_fails_despite_zero_exit (__main__.SessionTests.test_wrong_full_restore_readback_fails_despite_zero_exit) ... ok
+test_wrong_page_rejects_before_write_signature (__main__.SessionTests.test_wrong_page_rejects_before_write_signature) ... ok
+test_wrong_prefetch_capability_rejects_before_write_signature (__main__.SessionTests.test_wrong_prefetch_capability_rejects_before_write_signature) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 162.516s
+
+OK

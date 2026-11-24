@@ -1,0 +1,6 @@
+[1/6] Building CXX object CMakeFiles/cpu_prefetch_q15_controller.dir/tools/q15_controller_main.cpp.o
+[2/6] Building CXX object CMakeFiles/cpu_prefetch_q15_prestate_collector.dir/tools/q15_prestate_collector_main.cpp.o
+[3/6] Linking CXX executable cpu_prefetch_q15_controller
+[4/6] Building CXX object CMakeFiles/cpu_prefetch_preflight.dir/tools/stand_preflight_main.cpp.o
+[5/6] Linking CXX executable cpu_prefetch_q15_prestate_collector
+[6/6] Linking CXX executable cpu_prefetch_preflight

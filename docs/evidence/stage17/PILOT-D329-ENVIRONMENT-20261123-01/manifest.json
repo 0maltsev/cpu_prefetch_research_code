@@ -1,0 +1,151 @@
+{
+  "actual_scoped_admission": false,
+  "baseline_revision": "ce2bf227a330b147379926a8b69a971583e59132",
+  "evidence_files": {
+    "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/COMMANDS.md": {
+      "sha256": "62769a7307c58b7cb50b55cd11f6fe7046b89afe9fa3d5bd6a1aea7fa520671b",
+      "size_bytes": 3183
+    },
+    "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/REPORT.md": {
+      "sha256": "aa357f6ca19e1f75335ea8de21f84b03f2e74b224199bad0daa3fd7982506461",
+      "size_bytes": 3545
+    },
+    "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/configure.txt": {
+      "sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e",
+      "size_bytes": 177
+    },
+    "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/describe-managed-packet.py": {
+      "sha256": "341dad6456372acd00588030322b264e2408bab94b926a841c006cf27b35d6a2",
+      "size_bytes": 2817
+    },
+    "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/environment-debug-final.txt": {
+      "sha256": "41cfa7f2952df3df3e41c2522dd1f37493a1414e54fc903d94fbcfbebde46431",
+      "size_bytes": 2677
+    },
+    "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/final-checks.json": {
+      "sha256": "604b9a51246323179820219c53c60a777bea67a64667bf88d57bf551e49cb683",
+      "size_bytes": 653
+    },
+    "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/launcher-debug-tests.txt": {
+      "sha256": "911c0d9f6608cbed5143dd8949a8e050781582a3cde59918c96b853cda23d394",
+      "size_bytes": 118
+    },
+    "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/launcher-placement-tests-final.txt": {
+      "sha256": "f3106693d3aebb20a3848d85726e35c8e7703b1c7a08a8e2af882ce09a1a8d90",
+      "size_bytes": 3042
+    },
+    "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/launcher-placement-tests.txt": {
+      "sha256": "5b4244ed8cc2463431607d79ae41f29fb4a2acb54bfd76882f231f24f47fb51b",
+      "size_bytes": 3120
+    },
+    "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/log-normalization.json": {
+      "sha256": "4809ef04dc1ecdfcae4ffb5851e370ad0204358e2ea14151f9bd8e2fb5a4e689",
+      "size_bytes": 6213
+    },
+    "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/managed-native-description-v2.json": {
+      "sha256": "61bd81a06966676ac4d322a4f39b04fa0987ba89cc8755bc8a999cce8c9edfbd",
+      "size_bytes": 131888
+    },
+    "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/managed-packet-build.txt": {
+      "sha256": "7e064e8f5e0c80a28ddb4dcf4ff556d289946cddb8ceb45e21605c8c3d45875a",
+      "size_bytes": 770
+    },
+    "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/managed-packet-summary.json": {
+      "sha256": "598d32a33d41b4cd0ad897f5a0d8b2e5fec47ac78bfdcac73b26114b46860213",
+      "size_bytes": 744
+    },
+    "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/managed-process-envelope-v2.json": {
+      "sha256": "8a354beb3835481093f150aa2b6a05089add1161cf46469fd962404f7d510d89",
+      "size_bytes": 1317
+    },
+    "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/managed-resource-envelope-v2.json": {
+      "sha256": "ad12c97ad81b3eb4526aa10eca33409d2a18f773ecc7c012c2c9f8b40879618d",
+      "size_bytes": 92256
+    },
+    "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/managed-sizing-v2.json": {
+      "sha256": "0269ca1d6fd598d41d3bfce0d7139f7852591a8affe5deb1203789fea7e35448",
+      "size_bytes": 3071698
+    },
+    "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/managed-time-envelope-v2.json": {
+      "sha256": "5d7bb367536f51aaae88fb9d4a32afe52071b9303920b12632f8ee77b061a346",
+      "size_bytes": 575
+    },
+    "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/pc-cleanup.json": {
+      "sha256": "267331f2ca745ee998a50183d7ad44fc2cacbf547d54ce47ccf5c64cb64f30c7",
+      "size_bytes": 1360
+    },
+    "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/placement-diagnostic.txt": {
+      "sha256": "ee80ee12aa4bf71854af555f48a90eee12416a6ed3da5a0b7a35cbadcf3bf263",
+      "size_bytes": 2788
+    },
+    "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/registered-final-details.txt": {
+      "sha256": "ad4d89a5f2ddd86c492281b55445b65951864c41939b794f97c2a0a253e3ed50",
+      "size_bytes": 9780
+    },
+    "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/registered-final.txt": {
+      "sha256": "b7140d028f0d1aee598e1985e29de67026693f1c1f092c6cea615d7acaddc089",
+      "size_bytes": 1627
+    },
+    "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/repository-checks.txt": {
+      "sha256": "ad71f070c21a3c519ad49f967177bc6b1a504fbdf717a0f6c9338b747a70f32f",
+      "size_bytes": 6025
+    },
+    "docs/evidence/stage17/PILOT-D329-ENVIRONMENT-20261123-01/stand-operator-readonly.json": {
+      "sha256": "2661ab0fad1982d1b76844515c4ef5b294ad6baa9f0e2ce450f2f4838111eceb",
+      "size_bytes": 1806
+    }
+  },
+  "execution_authority": false,
+  "implementation_files": {
+    ".gitattributes": {
+      "sha256": "b7afa582353a943174c9da3b5b002fd09a362dac530e3fb443bdb2ee498cb0f9",
+      "size_bytes": 306
+    },
+    "CMakeLists.txt": {
+      "sha256": "14acc33577ee7a45df3bc5d9afd08a4fe34e50ba438570c631f8217f33dfa6d7",
+      "size_bytes": 195269
+    },
+    "PLAN.md": {
+      "sha256": "fa62a3148da38d4e34aa234b7432504cc0a2f08dbefb0fb23ae28bc6cf30ed83",
+      "size_bytes": 119342
+    },
+    "README.md": {
+      "sha256": "e3d55a2886248519914f6b17d440d804c5d67966e39e10284b69dcd5e3065460",
+      "size_bytes": 126795
+    },
+    "STATUS.md": {
+      "sha256": "a1c7fcf8e4980495a7cdb9c19f20a342f64404cd15639315094534d803fb9909",
+      "size_bytes": 145712
+    },
+    "docs/STAGE17_PILOT_PREPARATION.md": {
+      "sha256": "7515347b279fb9b9766ee5dbbacb1be59adc8348b2c8e16716156e498ce01e70",
+      "size_bytes": 18281
+    },
+    "docs/decisions/0329-s180-fixed-stand-environment-and-native-placement.md": {
+      "sha256": "ffe2b3c0b07eda8466e7487dbfaa24ebe75fcdcd39d2df92c646c01b22194677",
+      "size_bytes": 6187
+    },
+    "tests/test_stage17_s180_environment_v1.py": {
+      "sha256": "af977bccd18c5239c870c5398ee1836ddfa26fb1f5ada6cb42afe2583eec5293",
+      "size_bytes": 14182
+    },
+    "tests/test_stage17_s180_launcher_v1.py": {
+      "sha256": "c7491566d54041b36f0f2c741518bbb7b803c6cf276c0a885211e2f5ee88c673",
+      "size_bytes": 23789
+    },
+    "tools/stage17_recovery_isolation_core_v1.py": {
+      "sha256": "49e20041be148142898e46bb6bc72d15cbb4b23859aee12403c5586594358a8a",
+      "size_bytes": 23863
+    },
+    "tools/stage17_s180_environment_v1.py": {
+      "sha256": "677241613741505cbe14f5c133a88baa22c4a6bc57f82ee64b7cbdfb65220a57",
+      "size_bytes": 18648
+    },
+    "tools/stage17_s180_launcher_v1.py": {
+      "sha256": "374a1224072b7a8db3adb8eabb676d3022b379dacbd2b695267d35ca1c9330b9",
+      "size_bytes": 28158
+    }
+  },
+  "operational_window_started": false,
+  "phase18_authority": false
+}

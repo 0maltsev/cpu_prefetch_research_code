@@ -1,0 +1,75 @@
+{
+  "$id": "urn:cpu-prefetch:q15-r-p3-acceptance:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "$defs": {
+    "sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"}
+  },
+  "properties": {
+    "acceptance_id": {"const": "Q15-R-P3-ACCEPTANCE-20260825-01"},
+    "accepted_decision": {
+      "const": {
+        "decision_id": "D-065",
+        "selected_option": "SELECT_C8B69AB_NO_AUTHORITY_OPERATIONAL_RELEASE_EVIDENCE_ONLY",
+        "state": "ACCEPTED_REPOSITORY_LOCAL_SUCCESSOR_PREPARATION_ONLY"
+      }
+    },
+    "authority_boundary": {
+      "const": {
+        "access_probe_execution_authorized": false,
+        "account_or_key_changes_authorized": false,
+        "bundle_transfer_or_install_authorized": false,
+        "calibration_authorized": false,
+        "confirmatory_authorized": false,
+        "dynamic_qualification_authorized": false,
+        "filesystem_or_permission_changes_authorized": false,
+        "measurement_authorized": false,
+        "msr_read_authorized": false,
+        "msr_write_authorized": false,
+        "pilot_authorized": false,
+        "q15_r_authorized": false,
+        "q15_w_authorized": false,
+        "real_affinity_numa_authorized": false,
+        "real_pmu_authorized": false,
+        "repository_local_successor_preparation_authorized": true,
+        "stand_access_authorized": false,
+        "stand_setup_authorized": false
+      }
+    },
+    "decision_input_binding": {
+      "const": {
+        "bundle_id": "Q15-R-OPERATIONAL-RELEASE-DECISION-INPUT-20260825-01",
+        "path": "config/q15/q15-r-operational-release-decision-input-v1.json",
+        "sha256": "c7f7401f99ac25f2e56ceac889a6e64174efa047d2e06f71e74c2065aa2faa58"
+      }
+    },
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "release_selection": {
+      "const": {
+        "archive_name": "cpu-prefetch-q15-qualification-tool-2.0.0-c8b69ab-clean-8d27197443f2.tar.gz",
+        "archive_sha256": "8e8ad6d781b2bffadcfc10cf3b12d5666c7a1d4c7d7e291d7318a19503e6ab01",
+        "authority": "NONE",
+        "source_commit": "c8b69abf0c6aec7b740efe78d998a93545302a94"
+      }
+    },
+    "schema_version": {"const": "cpu-prefetch-q15-r-p3-acceptance/1"},
+    "successor_constraints": {
+      "additionalProperties": false,
+      "properties": {
+        "predecessor_path": {"const": "config/q15/q15-r-stand-setup-authorization.preparation.json"},
+        "predecessor_sha256": {"$ref": "#/$defs/sha256"},
+        "remaining_external_input_names": {
+          "const": ["@ALLOWED_SIGNERS_SOURCE@", "@OPERATIONAL_RELEASE_ROOT@", "@SECONDARY_CUSTODY_ROOT@", "CURRENT_STAND_PRESTATE_ARTIFACT_ID_AND_SHA256", "ACTUAL_ALLOWED_SIGNERS_ARTIFACT_ID_SHA256_AND_ED25519_FINGERPRINT"]
+        },
+        "resolve_only_input_group": {"const": "CLEAN_OPERATIONAL_RELEASE_ARCHIVE_MANIFEST_SBOM_BINARY_AND_REPORT_HASHES"},
+        "stand_setup_requires_separate_explicit_approval": {"const": true}
+      },
+      "required": ["predecessor_path", "predecessor_sha256", "remaining_external_input_names", "resolve_only_input_group", "stand_setup_requires_separate_explicit_approval"],
+      "type": "object"
+    },
+    "user_acceptance": {"minLength": 1, "type": "string"}
+  },
+  "required": ["acceptance_id", "accepted_decision", "authority_boundary", "decision_input_binding", "protocol_version", "release_selection", "schema_version", "successor_constraints", "user_acceptance"],
+  "title": "Q15-R-P3 acceptance of D-065 without stand or execution authority",
+  "type": "object"
+}

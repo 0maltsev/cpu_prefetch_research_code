@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-compatibility-prep/check_actual.py", line 13, in <module>
+    start=time.monotonic();owner=c.verify(base_validation=base,plan_sha256='d'*64,original_bundle=old,source_root=root/'build/stage17-s180-release-source-34247ce',release_root=root/'build/stage17-s180-release-34247ce',codegen_report=root/'docs/evidence/stage17/PILOT-D320-CODEGEN-20261122-01/s180_codegen_report-final.json')
+                                 ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_calibration_compatibility_v1.py", line 167, in verify
+    _same(sorted(_native_names(source)),sorted(native),'current native source closure differs')
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_calibration_compatibility_v1.py", line 38, in _same
+    require(archive.canonical(value)==archive.canonical(expected),message)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_calibration_compatibility_v1.py", line 34, in require
+    if not value:raise CompatibilityError('S180 compatibility: '+message)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_calibration_compatibility_v1.CompatibilityError: S180 compatibility: current native source closure differs

@@ -1,0 +1,68 @@
+{
+  "asan_ubsan_clang_libcxx": {
+    "passed": 12,
+    "skipped": 0
+  },
+  "asan_ubsan_gcc": {
+    "passed": 12,
+    "skipped": 0
+  },
+  "checked_at_utc": "2026-11-20T05:32:51.259037+00:00",
+  "existing_scientific_data_modified": false,
+  "native_adapter_tests": 12,
+  "new_measurements": 0,
+  "new_qualification": false,
+  "operational_window_started": false,
+  "phase18_authority": false,
+  "pilot_test_registration": {
+    "labels": [
+      "calibration",
+      "pilot",
+      "synthetic"
+    ],
+    "tests": 12
+  },
+  "qualified_legacy_native_source_sha256": "03130e61fcd1b61b4cb7b2d1bfc564f1420e87eebcbff428a2b3f7ff4eec764e",
+  "related_ctest_passed": 47,
+  "source_bindings": [
+    {
+      "path": "CMakeLists.txt",
+      "sha256": "b3860d3d8dde378c2140375561b7a125f3669de7f3ecb20da2d506c85ba43a20",
+      "size_bytes": 185469
+    },
+    {
+      "path": "include/cpu_prefetch/calibration/pilot_shared_data.hpp",
+      "sha256": "7d758c7ce02cf0a31de5a8d76c8d1d57fddbcc7ebce4cfb406da71316acc7f7c",
+      "size_bytes": 6866
+    },
+    {
+      "path": "include/cpu_prefetch/calibration/pilot_scheduled_capture.hpp",
+      "sha256": "7dbcf07ff798e804b65499a859ad74e033669aa24f32af1a8bb8f29fa82e0945",
+      "size_bytes": 12916
+    },
+    {
+      "path": "tests/calibration_pilot_capture_test.cpp",
+      "sha256": "ec772f4b2436922e5b40e10f5abb1315181d0a61cb5062782c75facbcd425933",
+      "size_bytes": 23981
+    },
+    {
+      "path": "docs/decisions/0312-s180-persistent-capture-core.md",
+      "sha256": "0f458dacc0b3df1ccea4d195a8eb89819bd85695f82f4fbf2fbc65e5f1e817e2",
+      "size_bytes": 4358
+    }
+  ],
+  "stage17_complete": false,
+  "stand_ready": false,
+  "status": "SOFTWARE_CORE_VERIFIED_NOT_STAND_READY",
+  "targeted_clang_format": "PASS",
+  "targeted_clang_tidy": "PASS",
+  "tsan_clang_libcxx": {
+    "passed": 11,
+    "skip_reason": "existing global allocator interceptor exclusion; gate verified by the other matrices",
+    "skipped": 1
+  },
+  "tsan_gcc": {
+    "passed": 12,
+    "skipped": 0
+  }
+}

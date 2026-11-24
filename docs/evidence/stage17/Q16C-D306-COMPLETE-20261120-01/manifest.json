@@ -1,0 +1,66 @@
+{
+  "files": [
+    {
+      "path": "REPORT.md",
+      "sha256": "1051b5c025dcce1cca203146a0f674862587ae31f8a9b78ae3f23484fb1a7128",
+      "size_bytes": 4479
+    },
+    {
+      "path": "d306-independent-recovery-1.json",
+      "sha256": "6f4e48fb13b28180f448b11f1412f18874dc62850c53cb7b62e444cd26cc483c",
+      "size_bytes": 923
+    },
+    {
+      "path": "d306-study-1/result.json",
+      "sha256": "79186e000e5e77ebe93dbfb3142a63c0e29720d2cf359c7c6901f076a16d92af",
+      "size_bytes": 2263
+    },
+    {
+      "path": "final-analysis-status.json",
+      "sha256": "487490b2d02231605df2cd72cd5448543480fb07d259fbf58a4d4fcd5f47538a",
+      "size_bytes": 24826
+    },
+    {
+      "path": "final-report-check.json",
+      "sha256": "d6d25dac9b7517cc306a3532440d670226cad243f3b410ff0b852c0885918f81",
+      "size_bytes": 2485
+    },
+    {
+      "path": "final-stand-status.json",
+      "sha256": "f4a9e7ded8f3f7e8d73b50cb235f4dc248df279ee8c09d782cd623930cc67bc1",
+      "size_bytes": 549
+    },
+    {
+      "path": "q16c-analysis-1/analysis-intent.json",
+      "sha256": "b3d0cd7f03ae4746f38d1aeceef9c39dcd0c420556692a2098713ad848c60db6",
+      "size_bytes": 314
+    },
+    {
+      "path": "q16c-analysis-1/calibration-validation.json",
+      "sha256": "b866590bbbe2bd779ac30bc686ce31dbb6822d02f9f30ec0a3c8119f63898418",
+      "size_bytes": 180045
+    },
+    {
+      "path": "q16c-analysis-1/complete.json",
+      "sha256": "ff2bd7b2bafede21f332bf05e98dc4e098ca75642ee4b2f543250f7f78245daf",
+      "size_bytes": 20777
+    },
+    {
+      "path": "q16c-analysis-1/finalized.json",
+      "sha256": "0e74b60640000343697c57af278470fa46923a4c2c47cdd58b5cd728113455f2",
+      "size_bytes": 627
+    },
+    {
+      "path": "verification/check-history.json",
+      "sha256": "a465dd6a8610d3b3ee01ee658af94a57d3cc83607e163daee023b595ca80e6ce",
+      "size_bytes": 288
+    },
+    {
+      "path": "verification/check_existing_reports.py",
+      "sha256": "74e3b4a0014d03c56ae4275338c0bcd610a9a5bdb628149fddd91d7246555118",
+      "size_bytes": 7301
+    }
+  ],
+  "raw_data_transferred": false,
+  "schema_version": "cpu-prefetch-public-evidence-manifest/1"
+}

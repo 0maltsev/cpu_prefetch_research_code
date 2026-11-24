@@ -1,0 +1,111 @@
+{
+  "experiment_authority": false,
+  "files": [
+    {
+      "path": "docs/evidence/stage17/Q16C-D286-MIGRATION-DIAGNOSIS-20261119-01/REPORT.md",
+      "sha256": "4cb952e851a35297d1772cf7d06988d553867530eb1df05661b4e0e1f9ce9066",
+      "size_bytes": 5428
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D286-MIGRATION-DIAGNOSIS-20261119-01/control-diagnosis/control-shape.json",
+      "sha256": "1a4901dfa657524c465685571284ce09aba2ab124b8bf79879549f9153fc60d1",
+      "size_bytes": 10230
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D286-MIGRATION-DIAGNOSIS-20261119-01/control-diagnosis/missing-page-location.json",
+      "sha256": "b79dee210e11a5b68d0d1b168e1d02377318c816a6e1cdfc9cbc113a03d5a866",
+      "size_bytes": 2931
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D286-MIGRATION-DIAGNOSIS-20261119-01/control-diagnosis/observation-details.json",
+      "sha256": "acac480997e12d40a04c94cb153ffadc9e99f24c0f426e88d6ee194debf83593",
+      "size_bytes": 496
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D286-MIGRATION-DIAGNOSIS-20261119-01/d285-regressions.txt",
+      "sha256": "031ddcd913a2db7b0f7456019a62ccace8a3d71f5591d3662c6912b150cbe21b",
+      "size_bytes": 104
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D286-MIGRATION-DIAGNOSIS-20261119-01/guard-debug-allocator-tests.txt",
+      "sha256": "a4dfc6ba8d8ee7f993f00a450146247a1360e5c1204cf97b042c9525cb23198e",
+      "size_bytes": 113
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D286-MIGRATION-DIAGNOSIS-20261119-01/guard-tests.txt",
+      "sha256": "eec0b70a6420b56a1f7063d171c73803f2d343594f39bda31fd057e541caf152",
+      "size_bytes": 2541
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D286-MIGRATION-DIAGNOSIS-20261119-01/inspect_failed_control.py",
+      "sha256": "5979027b3f39b8f2d415929cbaa5464dbc923919b631ec5025a8f6fea71acba3",
+      "size_bytes": 2852
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D286-MIGRATION-DIAGNOSIS-20261119-01/migration-reproduction.json",
+      "sha256": "db12d798cf8e26d98001757a78224d1cb2e908ab4e0849c6d849b5fc4237ee65",
+      "size_bytes": 750
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D286-MIGRATION-DIAGNOSIS-20261119-01/reproduce_query_migration.py",
+      "sha256": "298c694018774ee53c12874acc071e12d44092a0e4ec54b468780400c1d1a2a4",
+      "size_bytes": 4081
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D286-MIGRATION-DIAGNOSIS-20261119-01/source-regressions.txt",
+      "sha256": "fd9712bb0db70721a3b41831f6d69efd13be1e1a91009778ede2819d52194f04",
+      "size_bytes": 114
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D286-MIGRATION-DIAGNOSIS-20261119-01/stand-check/current-state.json",
+      "sha256": "bfd0057f35a8387690df67a3c808e28db3c8db830fbc35e86e15961f5293ccac",
+      "size_bytes": 883
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D286-MIGRATION-DIAGNOSIS-20261119-01/stand-check/intent.json",
+      "sha256": "69eb50b05c1e325fc35a0f127cb3895e75d31b35f68d76469edc806cdc027112",
+      "size_bytes": 303
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D286-MIGRATION-DIAGNOSIS-20261119-01/stand-check/prepared.json",
+      "sha256": "992bedaab8ae0981a9a662cb916ba7bb3051956dcad5ba21a03c5a7e481670c5",
+      "size_bytes": 105
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D286-MIGRATION-DIAGNOSIS-20261119-01/stand-check/restoration.json",
+      "sha256": "0c8aa0aba8d06a581747aad45997282caff019862d2ac5fd56422af653b8ccf6",
+      "size_bytes": 252
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D286-MIGRATION-DIAGNOSIS-20261119-01/stand-check/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D286-MIGRATION-DIAGNOSIS-20261119-01/stand-check/stdout.txt",
+      "sha256": "e8722f8cfa9ea15a1dd4bdb13504f3c88cbef7f8fc023c95ec50447c64ee1811",
+      "size_bytes": 326
+    },
+    {
+      "path": "docs/evidence/stage17/Q16C-D286-MIGRATION-DIAGNOSIS-20261119-01/stand-check/unit-verification.json",
+      "sha256": "65d91be91a0bdfcc05cce1eea98329104061e35552a2d8485804665f9b6c752e",
+      "size_bytes": 580
+    },
+    {
+      "path": "tools/stage17_locked_compaction_guard_v1.py",
+      "sha256": "7c5ce9583855cf74becf85210dfb5704e45c22ab81c7a15fb48f13e1207240ab",
+      "size_bytes": 8738
+    },
+    {
+      "path": "tests/test_stage17_locked_compaction_guard_v1.py",
+      "sha256": "b433c4377d3773798707306204870964d2e0d960172cc766c35c8769c36e5398",
+      "size_bytes": 9170
+    },
+    {
+      "path": "docs/decisions/0286-q16c-locked-page-compaction-proposal.md",
+      "sha256": "a81997651d5697355f138908ccb0a101ee5b02644607f719d9bfb212645b3142",
+      "size_bytes": 4628
+    }
+  ],
+  "schema_version": "cpu-prefetch-d286-evidence-manifest/1"
+}

@@ -1,0 +1,11 @@
+{
+  "effective_uid": 1000,
+  "execution_authority": false,
+  "measured_libraries": 9,
+  "original_owner_signatures_verified": 2,
+  "raw_streams_opened": 0,
+  "scientific_dependencies": 198,
+  "source_revision": "c989ca84b93f532b7ee32cc1a947463e280033e9",
+  "status": "ACTUAL_SCIENTIFIC_AND_MEASURED_COMPATIBILITY_PASS",
+  "window_started": false
+}

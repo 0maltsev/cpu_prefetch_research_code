@@ -1,0 +1,34 @@
+{
+  "encoder": {
+    "location": "bundle",
+    "path": "release/bin/cpu_prefetch_stage17_archive_encoder",
+    "sha256": "c34056b6059c3936499fca3156b981ecfe7903b80153a917f76e9193987988ea",
+    "size_bytes": 291424
+  },
+  "options": {
+    "checksum_flag": 1,
+    "compression_level": 3,
+    "content_size_flag": 1,
+    "dictionary_id_flag": 0,
+    "nbWorkers": 0,
+    "window_log": 22,
+    "worker_threads": 1,
+    "zstd_version": "1.5.7"
+  },
+  "profile_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/config/stage17/formal-archive-implementation-profile-v1.json",
+  "profile_sha256": "509ff968ce39a6fb8ed7f61cdc410db68ca7bf28d03446083cc563bd30e97696",
+  "profile_size": 6186,
+  "python": {
+    "location": "runtime",
+    "path": "usr/bin/python3.14",
+    "sha256": "52e0a13e60a981d8c4b6478be2ba5176f69da07948a056bf49cf6f077e30cb41",
+    "size_bytes": 7477160
+  },
+  "source_closure_count": 25,
+  "zstd_library": {
+    "location": "bundle",
+    "path": "release/runtime/lib/libzstd.so.1",
+    "sha256": "f023d49e85fb22057bfdd21857263d2638b73356c06f3b342f678a75212379f8",
+    "size_bytes": 939976
+  }
+}

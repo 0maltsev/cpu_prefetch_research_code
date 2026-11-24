@@ -1,0 +1,4 @@
+[1/4] Building CXX object CMakeFiles/cpu_prefetch_foundation.dir/src/repository_info.cpp.o
+[2/4] Linking CXX static library libcpu_prefetch_foundation.a
+[3/4] Building CXX object CMakeFiles/cpu_prefetch_q15_qualification_evidence_tool.dir/tools/q15_qualification_evidence_tool_main.cpp.o
+[4/4] Linking CXX executable cpu_prefetch_q15_qualification_evidence_tool

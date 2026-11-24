@@ -1,0 +1,22 @@
+{
+  "targeted_ctest_suites": 2,
+  "targeted_ctest_status": "PASS",
+  "targeted_unit_cases": 17,
+  "regression_ctest_suites": 5,
+  "regression_ctest_status": "PASS",
+  "legacy_calibration_tests": 12,
+  "legacy_calibration_status": "PASS",
+  "real_plan_check": "Exact incident parent and collected suffix with no reports returns708 MISSING/UNRESOLVED, no credit",
+  "finalizer_script_sha256": "2efbac4f4b7e320db1c0694822fadaf41ffa3424cda5bd9f671b417a946c2d95",
+  "empirical_suffix_admission_performed": false,
+  "empirical_composition_performed": false,
+  "geometry_provenance_admitted": false,
+  "ext007_admitted": false,
+  "phase18_authority": false,
+  "finalizer_started": true,
+  "finalizer_pid": 162249,
+  "finalizer_source_revision": "b00c415a463849e6e110548de61d7b03f384d41d",
+  "finalizer_packet_sha256": "6a059504d85d3c413a91eab8561402a773b7f8f473c8bb582d7c622ac8321e80",
+  "original_analysis_continues": true,
+  "correction_applied": false
+}

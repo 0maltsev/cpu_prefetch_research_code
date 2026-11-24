@@ -1,0 +1,14 @@
+{
+  "observed_at_utc": "2026-11-03T11:06:41.105821+00:00",
+  "policy_id": "EXT007-RAW-NONE-STAND-PRIMARY-v1",
+  "reason": "Owner approved stand-only raw storage and PC cleanup",
+  "parent_pid": 425907,
+  "terminated_local_scp_groups": [
+    425910,
+    425913,
+    425914,
+    425916
+  ],
+  "remote_raw_changed": false,
+  "scientific_experiment_restarted": false
+}

@@ -1,0 +1,41 @@
+{
+  "archive_implementation_profile_sha256": "23fac285def38a913d4fbb2727eebdb4cda0a18a8f9352bfa9aafa6bee3ca9f6",
+  "broker_requested_caps": {
+    "broker_address_space_bytes": 2147483648,
+    "cleanup_reserve_ns": 10000000000,
+    "codec_address_space_bytes": 2147483648,
+    "max_children": 24,
+    "max_console_bytes": 16384,
+    "max_input_bytes": 16777216,
+    "max_result_bytes": 2097152
+  },
+  "controller_consumed": false,
+  "decoder_requested_limits": {
+    "deadline_ns": 1908386917341715,
+    "max_archive_bytes": 4836679680,
+    "max_blocks": 587802,
+    "max_canonical_bytes": 4815268979,
+    "max_decoded_block_bytes": 4194304,
+    "max_frame_bytes": 5242880,
+    "max_header_bytes": 1048576,
+    "max_window_bytes": 4194304
+  },
+  "execution_authority": false,
+  "native_requested_limits": {
+    "cleanup_reserve_ns": 120000000000,
+    "max_console_bytes": 16384,
+    "native_address_space_bytes": 68719476736,
+    "native_file_bytes": 2199023255552,
+    "native_memlock_bytes": 68719476736,
+    "native_open_files": 1024,
+    "post_native_reserve_ns": 7200000000000
+  },
+  "operational_window_started": false,
+  "phase18_authority": false,
+  "qualification_performed": false,
+  "scientific_namespace_created": false,
+  "source_preparation_performed": false,
+  "source_sha256": "3e39fe0f3adac07bb112b184c86f7caa0f78218fea2734ccdbb1066b22daaa58",
+  "status": "ACTUAL_STAND_COLD_COORDINATOR_IMPORT_AND_CONTRACT_PASS",
+  "unqualified_report_input_blocked": true
+}

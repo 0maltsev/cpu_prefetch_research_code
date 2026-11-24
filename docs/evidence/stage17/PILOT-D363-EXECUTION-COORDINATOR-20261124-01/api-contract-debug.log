@@ -1,0 +1,75 @@
+.........E...E...
+======================================================================
+ERROR: test_incomplete_analysis_report_cannot_become_a_validated_handoff (__main__.ExecutionTests.test_incomplete_analysis_report_cannot_become_a_validated_handoff)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_execution_v1.py", line 211, in test_incomplete_analysis_report_cannot_become_a_validated_handoff
+    self.patch(execution.analysis,'analyze_family',stopped)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_execution_v1.py", line 88, in patch
+    replacement=mock.create_autospec(current,side_effect=value) if callable(current) and not isinstance(current,mock.Mock) else value
+                ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 2891, in create_autospec
+    new = child_klass(parent=parent, name=entry, _new_name=entry,
+                      _new_parent=parent, **child_kwargs)
+  File "/usr/lib/python3.14/unittest/mock.py", line 2289, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 2183, in __init__
+    _safe_super(MagicMixin, self).__init__(*args, **kw)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1158, in __init__
+    _safe_super(CallableMixin, self).__init__(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        spec, wraps, name, spec_set, parent,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        _spec_state, _new_name, _new_parent, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/usr/lib/python3.14/unittest/mock.py", line 486, in __init__
+    self._mock_add_spec(spec, spec_set, _spec_as_instance, _eat_self)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 537, in _mock_add_spec
+    raise InvalidSpecError(f'Cannot spec a Mock object. [object={spec!r}]')
+unittest.mock.InvalidSpecError: Cannot spec a Mock object. [object=<MagicMock spec='function' id='139686573758752'>]
+
+======================================================================
+ERROR: test_resource_admission_failure_restores_without_native_collection (__main__.ExecutionTests.test_resource_admission_failure_restores_without_native_collection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_execution_v1.py", line 217, in test_resource_admission_failure_restores_without_native_collection
+    self.patch(execution.resources,'verify_resources',rejected)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_execution_v1.py", line 88, in patch
+    replacement=mock.create_autospec(current,side_effect=value) if callable(current) and not isinstance(current,mock.Mock) else value
+                ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 2891, in create_autospec
+    new = child_klass(parent=parent, name=entry, _new_name=entry,
+                      _new_parent=parent, **child_kwargs)
+  File "/usr/lib/python3.14/unittest/mock.py", line 2289, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 2183, in __init__
+    _safe_super(MagicMixin, self).__init__(*args, **kw)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1158, in __init__
+    _safe_super(CallableMixin, self).__init__(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        spec, wraps, name, spec_set, parent,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        _spec_state, _new_name, _new_parent, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/usr/lib/python3.14/unittest/mock.py", line 486, in __init__
+    self._mock_add_spec(spec, spec_set, _spec_as_instance, _eat_self)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 537, in _mock_add_spec
+    raise InvalidSpecError(f'Cannot spec a Mock object. [object={spec!r}]')
+unittest.mock.InvalidSpecError: Cannot spec a Mock object. [object=<MagicMock spec='function' id='139686568198944'>]
+
+----------------------------------------------------------------------
+Ran 17 tests in 13.751s
+
+FAILED (errors=2)

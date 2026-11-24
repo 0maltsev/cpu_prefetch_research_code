@@ -60,7 +60,7 @@ auto add_artifact(
   const auto digest = workload::sha256(payload).hex();
   const protocol::ArtifactReference reference{
       id<protocol::ArtifactId>(std::string(artifact_id)), sha(digest)};
-  artifacts.push_back({protocol::ProtocolVersion::v2_0_0_pre_2, std::string(schema),
+  artifacts.push_back({protocol::ProtocolVersion::v2_0_0_pre_3, std::string(schema),
                        reference, payload, true});
   return reference;
 }
@@ -206,7 +206,7 @@ auto make_run(const protocol::BlockPlan& block, const protocol::StageACell& cell
                       std::to_string(cell.cell_ordinal);
   const auto run_id = id<protocol::RunId>(prefix);
   analysis::SyntheticRunInput run{
-      protocol::ProtocolVersion::v2_0_0_pre_2,
+      protocol::ProtocolVersion::v2_0_0_pre_3,
       std::string(analysis::kRunInputSchema),
       run_id,
       block.block_id,
@@ -299,7 +299,7 @@ auto build_fixture(bool with_replacement = false) -> Fixture {
     }
     const auto plan_ref =
         add_artifact(artifacts, "analysis-block-plan-" + std::to_string(ordinal),
-                     "BLOCK-PLAN-2.0.0-pre.2", generated.value().canonical_json);
+                     "BLOCK-PLAN-2.0.0-pre.3", generated.value().canonical_json);
     plans.push_back(generated.value().plan);
     blocks.push_back(
         {generated.value().plan, std::move(catalog), plan_ref, true, true, true});
@@ -331,7 +331,7 @@ auto build_fixture(bool with_replacement = false) -> Fixture {
       throw std::logic_error("synthetic replacement generation failed");
     }
     const auto plan_ref =
-        add_artifact(artifacts, "analysis-block-plan-20", "BLOCK-PLAN-2.0.0-pre.2",
+        add_artifact(artifacts, "analysis-block-plan-20", "BLOCK-PLAN-2.0.0-pre.3",
                      generated.value().canonical_json);
     replacement_index = blocks.size();
     plans.push_back(generated.value().plan);
@@ -378,7 +378,7 @@ auto build_fixture(bool with_replacement = false) -> Fixture {
       precision_family(analysis::FamilyKind::h3_validation_one_sided, 8U,
                        orchestration::kH3ValidationFamilyCount, validation_sizing)};
   analysis::AnalysisConfiguration configuration{
-      protocol::ProtocolVersion::v2_0_0_pre_2,
+      protocol::ProtocolVersion::v2_0_0_pre_3,
       std::string(analysis::kAnalysisProfile),
       0.5,
       {std::string(analysis::kBootstrapProfile),

@@ -17,7 +17,7 @@ It requires Python 3.14.x and emits three new append-only paths:
 2. a schedule envelope conforming to the imported Draft 2020-12 schedule
    schema; and
 3. an implementation-owned derivation record conforming to
-   `config/schemas/schedule-derivation-v1.schema.json`.
+   `config/schemas/schedule-derivation-v2.schema.json`.
 
 The normalized schedule suite is
 `POISSON-EXPONENTIAL-PHILOX-DECIMAL80-FLOOR-ABS-PS-v1`. Candidate `i` consumes

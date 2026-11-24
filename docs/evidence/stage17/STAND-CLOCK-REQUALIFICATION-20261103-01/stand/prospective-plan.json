@@ -1,0 +1,72 @@
+{
+  "approval_plan_sha256": "29a682a1da16fcdcf1ca315795f11819cdf6ebb947820bfd4d80d0224b6f66c7",
+  "binary_sha256": "0ccefc493c48de378f4611570e6839dabbb0a7589d2c09caad3e63e734961f8d",
+  "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+  "commands": [
+    [
+      "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-817c652-clean-2cafad333953/release/bin/cpu_prefetch_q15_clock_qualification_tool",
+      "--qualify-pair",
+      "near",
+      "--output",
+      "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/clock-requalification-1/near/clock-raw.json"
+    ],
+    [
+      "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-817c652-clean-2cafad333953/release/bin/cpu_prefetch_q15_clock_qualification_tool",
+      "--qualify-pair",
+      "far",
+      "--output",
+      "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/clock-requalification-1/far/clock-raw.json"
+    ]
+  ],
+  "commands_sha256": "4b55997070fa54c52e34d2c1945bce40aae58414d28a3ea9ed94ca06dbfc953c",
+  "maximum_invocations": 2,
+  "operator_script_sha256": "75e290eadf2cd5a56518aedfe1cba5da56b6c6da5e56f726570c3aac630723f1",
+  "ordered_pairs": [
+    "near",
+    "far"
+  ],
+  "owner_approval": "yes, I approve the requalification plan",
+  "partition_mode": "isolated",
+  "partition_path": "/sys/fs/cgroup/cpu-prefetch-v5-clock-qualified-1",
+  "per_invocation_timeout_seconds": 600,
+  "preserved_memlock_bytes": 8388608,
+  "prestate": {
+    "cgroup.controllers": "cpuset cpu io memory hugetlb pids rdma misc dmem",
+    "cgroup.subtree_control": "cpu memory pids",
+    "cpuset.cpus.effective": "0-31",
+    "cpuset.cpus.isolated": "",
+    "cpuset.mems.effective": "0-1"
+  },
+  "requested_cpus": "0-2,8,16-18,24",
+  "requested_mems": "0-1",
+  "rlimit_as_bytes": 8589934592,
+  "rollback": [
+    "reap own capture group",
+    "require empty partition",
+    "partition member",
+    "remove own cgroup",
+    "remove only added cpuset delegation",
+    "verify exact root prestate"
+  ],
+  "source_revision": "817c6522e3954efce53797e2bcc202a3bfc5d9af",
+  "stop_on_first_failure": true,
+  "topology": {
+    "0": "0,16",
+    "1": "1,17",
+    "16": "0,16",
+    "17": "1,17",
+    "18": "2,18",
+    "2": "2,18",
+    "24": "8,24",
+    "8": "8,24"
+  },
+  "unchanged_controls": [
+    "governor",
+    "turbo",
+    "IRQ routing",
+    "boot options",
+    "clocksource",
+    "production binaries"
+  ],
+  "utc": "2026-11-03T08:04:54Z"
+}

@@ -1,0 +1,78 @@
+"""Twelve distinct physical cores, synthetic join timing; no experiment."""
+import ast,datetime,hashlib,json,multiprocessing,os,resource,signal,time
+from pathlib import Path
+from multiprocessing.connection import wait
+ROOT=Path(__file__).resolve().parent
+manifest=json.loads((ROOT/'source-closure.json').read_bytes())
+for row in manifest['files']:
+    data=(ROOT/row['path']).read_bytes()
+    assert len(data)==row['size_bytes'] and hashlib.sha256(data).hexdigest()==row['sha256']
+for proc in Path('/proc').iterdir():
+    if not proc.name.isdecimal():continue
+    try:assert (proc/'comm').read_text().strip()!='cpu_prefetch_runner'[:15]
+    except (FileNotFoundError,ProcessLookupError,PermissionError):pass
+memory={line.split(':',1)[0]:line.split(':',1)[1].split() for line in Path('/proc/meminfo').read_text().splitlines()}
+assert int(memory['MemAvailable'][0])*1024>=52*1024**3
+fs=os.statvfs(ROOT);assert fs.f_bavail*fs.f_frsize>=18*1024**3 and fs.f_favail>=256
+raw=(ROOT/'benchmark.py').read_bytes();tree=ast.parse(raw)
+stop=next(i for i,node in enumerate(tree.body) if isinstance(node,ast.Expr) and
+    isinstance(node.value,ast.Call) and isinstance(node.value.func,ast.Attribute) and node.value.func.attr=='umask')
+scope=dict(__file__=str(ROOT/'benchmark.py'),__name__='synthetic_join_fixture')
+exec(compile(ast.Module(body=tree.body[:stop],type_ignores=[]),str(ROOT/'benchmark.py'),'exec'),scope)
+allowed=set(os.sched_getaffinity(0));cores={};topology={}
+for cpu in sorted(allowed):
+    base=Path(f'/sys/devices/system/cpu/cpu{cpu}/topology')
+    pair=tuple(int((base/name).read_text()) for name in ('physical_package_id','core_id'))
+    topology[cpu]=pair;cores.setdefault(pair,cpu)
+assert len(cores)>=12
+cpus=list(cores.values())[:12]
+resource.setrlimit(resource.RLIMIT_AS,(4*1024**3,4*1024**3))
+resource.setrlimit(resource.RLIMIT_CORE,(0,0))
+def expired(*_):raise TimeoutError('bounded synthetic concurrency timing')
+signal.signal(signal.SIGALRM,expired);signal.alarm(240)
+DEADLINE=time.monotonic_ns()+220*10**9
+def child(sender,cpu,index):
+    try:
+        os.setsid();os.sched_setaffinity(0,{cpu});assert os.sched_getaffinity(0)=={cpu}
+        resource.setrlimit(resource.RLIMIT_FSIZE,(1024**3,1024**3))
+        signal.alarm(200)
+        directory=ROOT/f'worker-{index}';directory.mkdir(mode=0o700)
+        scope['ROOT']=directory;scope['DEADLINE']=DEADLINE
+        phase='MEASUREMENT' if index%2==0 else 'WARMUP'
+        result=scope['run'](500000,phase)
+        sender.send(dict(status='PASSED',pid=os.getpid(),cpu=cpu,actual_affinity=sorted(os.sched_getaffinity(0)),result=result))
+        directory.rmdir()
+    except BaseException as error:
+        sender.send(dict(status='FAILED',cpu=cpu,error=type(error).__name__+': '+str(error)))
+        raise
+    finally:sender.close()
+context=multiprocessing.get_context('fork');active={};processes=[];results=[];started=time.monotonic_ns()
+try:
+    for index,cpu in enumerate(cpus):
+        receiver,sender=context.Pipe(duplex=False);process=context.Process(target=child,args=(sender,cpu,index))
+        process.start();sender.close();processes.append(process);active[receiver]=(process,cpu)
+    while active:
+        assert time.monotonic_ns()<DEADLINE
+        for channel in wait(list(active),timeout=.2):
+            process,cpu=active.pop(channel);result=channel.recv();channel.close();process.join(3)
+            assert result['status']=='PASSED' and result['cpu']==cpu and process.exitcode==0 and not process.is_alive()
+            result['leader_reaped']=True;results.append(result)
+        for channel,(process,cpu) in active.items():assert process.is_alive() or channel.poll()
+    elapsed=time.monotonic_ns()-started;assert len(results)==12
+finally:
+    for process in processes:
+        if process.is_alive():process.kill()
+        process.join(5);assert not process.is_alive()
+    for channel in active:channel.close()
+    for process in processes:process.close()
+signal.alarm(0)
+print(json.dumps(dict(schema_version='cpu-prefetch-stage17-s180-synthetic-join-concurrency/1',
+    observed_at_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),worker_count=12,
+    physical_cpus=[dict(cpu=cpu,package=topology[cpu][0],core=topology[cpu][1]) for cpu in cpus],
+    total_accepted_synthetic_events=6000000,wall_including_fixture_generation_ns=elapsed,
+    results=sorted(results,key=lambda row:row['cpu']),all_workers_reaped=True,
+    benchmark_sha256=hashlib.sha256(raw).hexdigest(),
+    source_closure_sha256=hashlib.sha256((ROOT/'source-closure.json').read_bytes()).hexdigest(),
+    synthetic_fixture_files_removed=True,software_only=True,whole_pipeline_timing=False,
+    original_research_raw_read=False,source_preparation_performed=False,operational_window_started=False,
+    qualification_performed=False,execution_authority=False,phase18_authority=False),sort_keys=True))

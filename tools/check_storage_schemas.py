@@ -33,8 +33,8 @@ def main() -> int:
         root = pathlib.Path(directory)
         subprocess.run([args.fixture_generator, root], check=True)
         cases = (
-            ("phase-integrity-report-v1.schema.json", "integrity.json"),
-            ("copy-ledger-record-v1.schema.json", "copy-ledger.json"),
+            ("phase-integrity-report-v2.schema.json", "integrity.json"),
+            ("copy-ledger-record-v2.schema.json", "copy-ledger.json"),
         )
         validators: dict[str, Draft202012Validator] = {}
         documents: dict[str, dict[str, object]] = {}

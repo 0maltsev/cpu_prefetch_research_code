@@ -1,0 +1,69 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+      Start 360: ServiceSession.AllFiveActualPackagesPersistAcrossWarmupResetAndMeasurement
+ 1/28 Test #360: ServiceSession.AllFiveActualPackagesPersistAcrossWarmupResetAndMeasurement ......   Passed    0.08 sec
+      Start 361: ServiceSession.NoHotOrLogicalResetAllocation
+ 2/28 Test #361: ServiceSession.NoHotOrLogicalResetAllocation ....................................   Passed    0.02 sec
+      Start 362: ServiceSession.PreparationFailureOrExceptionNeverStartsWarmup
+ 3/28 Test #362: ServiceSession.PreparationFailureOrExceptionNeverStartsWarmup ...................   Passed    0.03 sec
+      Start 363: ServiceSession.ValidationAndEveryResetFailurePreventMeasurement
+ 4/28 Test #363: ServiceSession.ValidationAndEveryResetFailurePreventMeasurement .................   Passed    0.05 sec
+      Start 364: ServiceSession.ObservationFailuresCancelBeforeNextPhase
+ 5/28 Test #364: ServiceSession.ObservationFailuresCancelBeforeNextPhase .........................   Passed    0.04 sec
+      Start 365: ServiceSession.SecondThreadStartFailureJoinsFirstWithoutCapture
+ 6/28 Test #365: ServiceSession.SecondThreadStartFailureJoinsFirstWithoutCapture .................   Passed    0.02 sec
+      Start 366: ServiceSession.InvalidBoundsAndOneShotStorageCannotLaunchWorkers
+ 7/28 Test #366: ServiceSession.InvalidBoundsAndOneShotStorageCannotLaunchWorkers ................   Passed    0.01 sec
+      Start 367: ServiceSession.ClockFailureAndOverflowCannotReleaseWarmup
+ 8/28 Test #367: ServiceSession.ClockFailureAndOverflowCannotReleaseWarmup .......................   Passed    0.03 sec
+      Start 368: ServiceSession.AttemptAndPollLimitsFailWithoutExtendingWarmup
+ 9/28 Test #368: ServiceSession.AttemptAndPollLimitsFailWithoutExtendingWarmup ...................   Passed    0.03 sec
+      Start 369: ServiceSession.FinalEnqueueRacingEarlierEmptyPollIsConsumedDuringDrain
+10/28 Test #369: ServiceSession.FinalEnqueueRacingEarlierEmptyPollIsConsumedDuringDrain ..........   Passed    0.01 sec
+      Start 370: ServiceSession.DrainTimeoutRetainsIncompleteWarmupAndPreventsMeasurement
+11/28 Test #370: ServiceSession.DrainTimeoutRetainsIncompleteWarmupAndPreventsMeasurement ........   Passed    0.01 sec
+      Start 371: ServiceSession.TerminalEmptyPollCannotPassAfterDeadlineOrClockFailure
+12/28 Test #371: ServiceSession.TerminalEmptyPollCannotPassAfterDeadlineOrClockFailure ...........   Passed    0.01 sec
+      Start 372: ServiceSession.MeasurementOriginCannotRegressBehindCompletedWarmupDrain
+13/28 Test #372: ServiceSession.MeasurementOriginCannotRegressBehindCompletedWarmupDrain .........   Passed    0.01 sec
+      Start 373: ServiceSession.CheckedWindowDoesNotInventDefaultsOrOverflow
+14/28 Test #373: ServiceSession.CheckedWindowDoesNotInventDefaultsOrOverflow .....................   Passed    0.00 sec
+      Start 429: ServiceIntervalCount.HalfOpenBoundariesCrossingAndDrainRetainEveryRow
+15/28 Test #429: ServiceIntervalCount.HalfOpenBoundariesCrossingAndDrainRetainEveryRow ...........   Passed    0.01 sec
+      Start 430: ServiceIntervalCount.RejectsPreOriginAndCrossingStartMeasurementRows
+16/28 Test #430: ServiceIntervalCount.RejectsPreOriginAndCrossingStartMeasurementRows ............   Passed    0.01 sec
+      Start 431: ServiceIntervalCount.EmptyAndAllOutsideHaveValidZeroNumerator
+17/28 Test #431: ServiceIntervalCount.EmptyAndAllOutsideHaveValidZeroNumerator ...................   Passed    0.01 sec
+      Start 432: ServiceIntervalCount.EqualClocksAndExactNonNanosecondDuration
+18/28 Test #432: ServiceIntervalCount.EqualClocksAndExactNonNanosecondDuration ...................   Passed    0.01 sec
+      Start 433: ServiceIntervalCount.RejectsWrongRunAndOrdinalWithoutPartialCount
+19/28 Test #433: ServiceIntervalCount.RejectsWrongRunAndOrdinalWithoutPartialCount ...............   Passed    0.01 sec
+      Start 434: ServiceIntervalCount.RejectsLiteralRunLengthAndPaddingCorruption
+20/28 Test #434: ServiceIntervalCount.RejectsLiteralRunLengthAndPaddingCorruption ................   Passed    0.01 sec
+      Start 435: ServiceIntervalCount.RejectsTruncatedExtraBytesAndMalformedLayout
+21/28 Test #435: ServiceIntervalCount.RejectsTruncatedExtraBytesAndMalformedLayout ...............   Passed    0.00 sec
+      Start 436: ServiceIntervalCount.RequiresCompleteUnoverflowedStreamAndReconciledTotal
+22/28 Test #436: ServiceIntervalCount.RequiresCompleteUnoverflowedStreamAndReconciledTotal .......   Passed    0.01 sec
+      Start 437: ServiceIntervalCount.RejectsWrongClockDomainUnitAndScale
+23/28 Test #437: ServiceIntervalCount.RejectsWrongClockDomainUnitAndScale ........................   Passed    0.00 sec
+      Start 438: ServiceIntervalCount.RejectsOriginMismatchAndCheckedClockConversionOverflow
+24/28 Test #438: ServiceIntervalCount.RejectsOriginMismatchAndCheckedClockConversionOverflow .....   Passed    0.01 sec
+      Start 439: ServiceIntervalCount.RejectsUnrepresentableAbsoluteEndpointEvenForEmptyStream
+25/28 Test #439: ServiceIntervalCount.RejectsUnrepresentableAbsoluteEndpointEvenForEmptyStream ...   Passed    0.00 sec
+      Start 440: ServiceIntervalCount.ValidatesEveryTimestampIncludingOutsideIntervalRows
+26/28 Test #440: ServiceIntervalCount.ValidatesEveryTimestampIncludingOutsideIntervalRows ........   Passed    0.01 sec
+      Start 441: ServiceIntervalCount.RejectsWithinAndAcrossRowTimestampReversal
+27/28 Test #441: ServiceIntervalCount.RejectsWithinAndAcrossRowTimestampReversal .................   Passed    0.01 sec
+      Start 603: runner.stage17_raw_stream_decoder_v2
+28/28 Test #603: runner.stage17_raw_stream_decoder_v2 ............................................   Passed    0.25 sec
+
+100% tests passed, 0 tests failed out of 28
+
+Label Time Summary:
+calibration    =   0.65 sec*proc (28 tests)
+python         =   0.25 sec*proc (1 test)
+raw            =   0.25 sec*proc (1 test)
+runner         =   0.25 sec*proc (1 test)
+service        =   0.25 sec*proc (1 test)
+synthetic      =   0.25 sec*proc (1 test)
+
+Total Test time (real) =   0.70 sec

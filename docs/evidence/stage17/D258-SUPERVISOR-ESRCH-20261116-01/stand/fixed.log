@@ -1,0 +1,19 @@
+test_disappeared_children_file_is_only_a_missing_subtree (__main__.ProcExitTests.test_disappeared_children_file_is_only_a_missing_subtree) ... ok
+test_enumeration_tolerates_real_stat_exit_after_open (__main__.ProcExitTests.test_enumeration_tolerates_real_stat_exit_after_open) ... ok
+test_error_report_preserves_errno_and_traceback_without_hiding_failure (__main__.ProcExitTests.test_error_report_preserves_errno_and_traceback_without_hiding_failure) ... ok
+test_expired_original_preparation_deadline_is_not_reset_by_the_fix (__main__.ProcExitTests.test_expired_original_preparation_deadline_is_not_reset_by_the_fix) ... ok
+test_healthy_child_remains_observed_when_sibling_exits (__main__.ProcExitTests.test_healthy_child_remains_observed_when_sibling_exits) ... ok
+test_kernel_returns_esrch_after_opened_stat_task_disappears (__main__.ProcExitTests.test_kernel_returns_esrch_after_opened_stat_task_disappears) ... ok
+test_native_identity_signal_guard_remains_fail_closed (__main__.ProcExitTests.test_native_identity_signal_guard_remains_fail_closed) ... ok
+test_nonzero_owner_exit_is_preserved (__main__.ProcExitTests.test_nonzero_owner_exit_is_preserved) ... ok
+test_only_observation_and_diagnostic_functions_changed (__main__.ProcExitTests.test_only_observation_and_diagnostic_functions_changed) ... ok
+test_owner_observation_tolerates_real_stat_exit_after_open (__main__.ProcExitTests.test_owner_observation_tolerates_real_stat_exit_after_open) ... ok
+test_owner_permission_error_still_fails (__main__.ProcExitTests.test_owner_permission_error_still_fails) ... ok
+test_proc_permission_and_io_errors_are_not_hidden (__main__.ProcExitTests.test_proc_permission_and_io_errors_are_not_hidden) ... ok
+test_real_native_loss_is_still_rejected_by_unchanged_archive_broker (__main__.ProcExitTests.test_real_native_loss_is_still_rejected_by_unchanged_archive_broker) ... ok
+test_tracked_child_liveness_tolerates_real_stat_exit_after_open (__main__.ProcExitTests.test_tracked_child_liveness_tolerates_real_stat_exit_after_open) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.405s
+
+OK

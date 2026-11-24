@@ -1,0 +1,13 @@
+{
+  "schema_version": "cpu-prefetch-phase18-authorization-draft/1",
+  "authorization_id": null,
+  "actor": null,
+  "issued_at_utc": null,
+  "expires_at_utc": null,
+  "stage17_completion_sha256": null,
+  "phase18_access_journal_id": null,
+  "allowed_transition": null,
+  "authority_scope": "UNISSUED_NO_AUTHORITY",
+  "stage17_authority_reuse_allowed": false,
+  "automatic_transition": false
+}

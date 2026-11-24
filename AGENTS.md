@@ -2,10 +2,10 @@
 
 ## Authority and scope
 
-- The current immutable scientific source of truth is `protocol/2.0.0-pre.2/`;
-  its predecessor `protocol/2.0.0-pre.1/` remains immutable and readable under
-  its own version. `PAPER_AGENTS.md` is imported source material, not an
-  instruction file for this repository.
+- The current immutable scientific source of truth is `protocol/2.0.0-pre.3/`;
+  its predecessors `protocol/2.0.0-pre.1/` and `protocol/2.0.0-pre.2/` remain
+  immutable and readable under their own versions. `PAPER_AGENTS.md` is
+  imported source material, not an instruction file for this repository.
 - Code must not silently change the experiment design. A contradiction or missing scientific decision blocks the affected implementation and requires a versioned protocol amendment.
 - Never invent a platform-dependent value. Requested hardware state and verified hardware state are distinct fields.
 - Stage B and Stage C are outside the initial implementation scope unless an approved protocol amendment separately authorizes them.
@@ -34,8 +34,10 @@
 - Queue provenance: `cmake --build --preset dev-gcc --target queue-provenance-check`
 - Queue generated code: `cmake --build --preset release-gcc --target queue-codegen-check` (requires both GNU objdump and accepted LLVM 22 `llvm-objdump`; missing LLVM is a blocking failure)
 - Workload generated code: `cmake --build --preset release-gcc --target workload-codegen-check` (same dual-disassembler blocking rule)
-- Runner admission: `ctest --preset dev-gcc -L runner` and `cmake --build --preset dev-gcc --target runner-schema-check`
+- Runner admission/qualification: `ctest --preset dev-gcc -L runner` and `cmake --build --preset dev-gcc --target runner-schema-check qualification-schema-check`
 - Runner relax generated code: `cmake --build --preset release-gcc --target runner-relax-codegen-check` (same dual-disassembler blocking rule)
+- Runner combined generated code: `cmake --build --preset release-gcc --target runner-combined-codegen-check`; D-047 requires exact `PREFETCHW`/`PREFETCHT0` vectors under both disassemblers and rejects wrong-intent, duplicate, and forbidden-work mutants.
+- Pilot candidate: `cmake --build --preset release-gcc --target pilot-candidate-bundle`; it requires a clean revision and every strict codegen report and grants no execution authority.
 - Clean-room verification: use a recorded pre-provisioned dependency prefix, then run the documented configure/build/test/check/package commands in `README.md`; configure and build perform no network fetch.
 
 Replace a placeholder only through a recorded engineering decision and keep `README.md`, `STATUS.md`, and `PLAN.md` synchronized.

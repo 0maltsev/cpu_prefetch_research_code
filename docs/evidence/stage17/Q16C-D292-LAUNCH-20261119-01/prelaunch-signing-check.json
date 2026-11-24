@@ -1,0 +1,7 @@
+{
+  "effective_uid": 1000,
+  "execution_authority": false,
+  "message_sha256": "e3718c0be930ea9a8ac1792da7f30a71f1fc3ee5fbe38ac041acd8ef1e201496",
+  "status": "ACTUAL_OWNER_NONINTERACTIVE_SIGNING_VERIFIED",
+  "window_started": false
+}

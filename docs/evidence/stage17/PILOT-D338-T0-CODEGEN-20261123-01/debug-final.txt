@@ -1,0 +1,15 @@
+test_all_five_negative_sites_are_rejected (__main__.MappingTests.test_all_five_negative_sites_are_rejected) ... ok
+test_exact_software_source_report_replays (__main__.MappingTests.test_exact_software_source_report_replays) ... ok
+test_missing_disassemblers_write_blocked_report_and_exit_three (__main__.MappingTests.test_missing_disassemblers_write_blocked_report_and_exit_three) ... ok
+test_missing_tool_wrong_llvm_partial_sites_and_false_rejection_reject (__main__.MappingTests.test_missing_tool_wrong_llvm_partial_sites_and_false_rejection_reject) ... ok
+test_original_mapping_rejects_t0_probe_and_keeps_original_three_sites (__main__.MappingTests.test_original_mapping_rejects_t0_probe_and_keeps_original_three_sites) ... ok
+test_repaired_or_missing_mutant_cannot_pass_negative_checks (__main__.MappingTests.test_repaired_or_missing_mutant_cannot_pass_negative_checks) ... ok
+test_retained_binary_source_and_rule_drift_reject (__main__.MappingTests.test_retained_binary_source_and_rule_drift_reject) ... ok
+test_t0_cli_requires_source_binding_before_reading_files (__main__.MappingTests.test_t0_cli_requires_source_binding_before_reading_files) ... ok
+test_three_actual_t0_roles_are_required (__main__.MappingTests.test_three_actual_t0_roles_are_required) ... ok
+test_wrong_intent_duplicate_missing_and_other_hints_reject_each_role (__main__.MappingTests.test_wrong_intent_duplicate_missing_and_other_hints_reject_each_role) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.280s
+
+OK

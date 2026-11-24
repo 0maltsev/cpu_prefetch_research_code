@@ -1,0 +1,48 @@
+{
+  "files": [
+    {
+      "path": "operator-manifest.json",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-suffix-operators-1/manifest.json",
+      "size_bytes": 1039,
+      "sha256": "73411f7d55e67e53e1e398755420a906f8804126cfd99f29319e1e0831c7be3c"
+    },
+    {
+      "path": "preparation-process-result.json",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-suffix-preparation-1/preparation-process-result.json",
+      "size_bytes": 609,
+      "sha256": "82cf78471d319fe1bba6189fcedd711031e95d30a0daef3b24e83935f76bc1f0"
+    },
+    {
+      "path": "preparation.log",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-suffix-preparation-1/preparation.log",
+      "size_bytes": 714,
+      "sha256": "918f4018c0aa9ec2265829674fc28a133aa8b7251697998354586b291e4f6693"
+    },
+    {
+      "path": "inputs/preparation.json",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-suffix-preparation-1/inputs/preparation.json",
+      "size_bytes": 680,
+      "sha256": "0d93e9f1d3bc06fda56824356e2b0a096c63793e4f3ed52275690032d30a2ed1"
+    },
+    {
+      "path": "inputs/analysis-config.json",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-suffix-preparation-1/inputs/analysis-config.json",
+      "size_bytes": 4524,
+      "sha256": "5eab201fc805e5eee6921e67719cb3f9a7ffa008cf7d2835a740d9d61b322e93"
+    },
+    {
+      "path": "analysis-pid.json",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-suffix-preparation-1/analysis-pid.json",
+      "size_bytes": 612,
+      "sha256": "1d8e603d8ed6345875b9087c4b9f458e9a57eadb7725f737a56d8af146b79352"
+    },
+    {
+      "path": "analysis/analysis-intent.json",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-suffix-preparation-1/analysis/analysis-intent.json",
+      "size_bytes": 1186,
+      "sha256": "7cf6445152c36978404d64888f06e29427de8d505e299ef9d0476d3a85fce912"
+    }
+  ],
+  "recorded_at_utc": "2026-11-13T07:54:59.849681+00:00",
+  "raw_transferred": false
+}

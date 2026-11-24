@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:read-only-preflight-fixed-action-plan:v7",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "plan_id", "protocol_version", "predecessor", "effective_action_plan", "pid_namespace_identity", "one_shot", "stage18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-read-only-preflight-fixed-action-plan/7"},
+    "plan_id": {"const": "STAGE17-READ-ONLY-PREFLIGHT-FIXED-ACTION-PLAN-v7"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "predecessor": {"$ref": "#/$defs/binding"}, "effective_action_plan": {"$ref": "#/$defs/binding"},
+    "pid_namespace_identity": {"const": {"model": "NAMESPACE_LOCAL_SYSCALL_IDS_PLUS_PROCFS_VISIBLE_NSPID_NSPGID-v1", "pid_namespace_inode_required": true, "mapping_unambiguous_before_marker": true, "mapping_stable_through_cleanup": true, "foreign_namespace_numeric_reuse_rejected": true, "leader_held_before_group_signal_and_reap": true, "procfs_failure": "FAIL_CLOSED"}},
+    "one_shot": {"const": {"attempts": 1, "retries": 0, "cross_version_markers_block": true}},
+    "stage18_authority": {"const": false}
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "binding": {"type": "object", "additionalProperties": false, "required": ["path", "size_bytes", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "size_bytes": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/$defs/sha256"}}}}
+}

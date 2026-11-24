@@ -1,0 +1,13 @@
+{
+  "checked_at_utc": "2026-11-19T21:45:36.648118+00:00",
+  "compact_unevictable_allowed": "1",
+  "d301_guard_exists": false,
+  "d301_study_exists": false,
+  "operational_authorization_exists": false,
+  "previous_unit": {
+    "ActiveState": "failed",
+    "ControlGroup": "",
+    "MainPID": "0"
+  },
+  "raw_data_transferred": false
+}

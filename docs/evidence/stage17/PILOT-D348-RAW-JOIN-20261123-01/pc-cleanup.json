@@ -1,0 +1,60 @@
+{
+  "action": "DELETE_ONLY_VERIFIED_PC_SOFTWARE_LOG_DUPLICATES_AFTER_EVIDENCE_COPY",
+  "namespace_audit_support_preserved": true,
+  "original_raw_deleted": false,
+  "recorded_at_utc": "2026-11-23T15:33:42.733879+00:00",
+  "removed": [
+    {
+      "path": "build/stage17-s180-raw-join-prep/LastTest-initial.log",
+      "sha256": "d2d3f182663f0a03822a84ff0dce1a3225d96f20a8b406962d72cd80c08fe5a5",
+      "size_bytes": 2849
+    },
+    {
+      "path": "build/stage17-s180-raw-join-prep/LastTest-related.log",
+      "sha256": "9e137e439e9b2a61e26b0d36522fbb06c48dfd2e5cb176738c9c9bf84f364476",
+      "size_bytes": 2081
+    },
+    {
+      "path": "build/stage17-s180-raw-join-prep/configure.txt",
+      "sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e",
+      "size_bytes": 177
+    },
+    {
+      "path": "build/stage17-s180-raw-join-prep/corrected-tests.txt",
+      "sha256": "f633ad8e738512bb7562a43fab273ab65cdc5a224925052dd0e38b5bd4931a80",
+      "size_bytes": 113
+    },
+    {
+      "path": "build/stage17-s180-raw-join-prep/final-debug.txt",
+      "sha256": "96a785a02c5a40c662497b4005d9db3666ab278db6b0817c83c2fb42a8fa26bd",
+      "size_bytes": 115
+    },
+    {
+      "path": "build/stage17-s180-raw-join-prep/initial-tests.txt",
+      "sha256": "d2c119b2f706320b15129e32559b2446079ceecb27d1e9c31a084d62ca93eba1",
+      "size_bytes": 11934
+    },
+    {
+      "path": "build/stage17-s180-raw-join-prep/registered.txt",
+      "sha256": "9dbf2602fcc30ae6ccac15744e77e30a7d594b430f7b00a2197537440c0af876",
+      "size_bytes": 808
+    },
+    {
+      "path": "build/stage17-s180-raw-join-prep/related-debug.txt",
+      "sha256": "bfb531eb45c852b23d28ab5ae6ac83e36b3a707eb6b75a64e03c65291c08f26a",
+      "size_bytes": 148
+    },
+    {
+      "path": "build/stage17-s180-raw-join-prep/remaining-related.txt",
+      "sha256": "049d696660f4a166990a8184ae61247b051fb81213ceb0164e9ef8a05206c659",
+      "size_bytes": 728
+    },
+    {
+      "path": "build/stage17-s180-raw-join-prep/stand-idle-check.json",
+      "sha256": "c195ec64faf11dbf2f2f6f6076a62380e7c8e842567e1890ef70ac2c81327a2d",
+      "size_bytes": 934
+    }
+  ],
+  "removed_bytes": 19887,
+  "stand_data_deleted": false
+}

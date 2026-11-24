@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:operational-evidence-admission-policy:v5",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "policy_id", "policy_version", "protocol_version", "predecessor", "schema_bindings", "fixed_action_plan", "implementations", "entries", "action_readiness", "default_action", "synthetic_bypass_available", "stage18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-operational-evidence-admission-policy/5"},
+    "policy_id": {"const": "STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v5"},
+    "policy_version": {"const": "5"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "predecessor": {
+      "type": "object", "additionalProperties": false,
+      "required": ["policy_v4", "adr_0108", "adr_0109", "graph_sha256", "catalog_sha256", "genesis_file_sha256", "genesis_record_sha256", "resolution_schema_sha256"],
+      "properties": {
+        "policy_v4": {"$ref": "#/$defs/file_binding"}, "adr_0108": {"$ref": "#/$defs/file_binding"}, "adr_0109": {"$ref": "#/$defs/file_binding"},
+        "graph_sha256": {"$ref": "#/$defs/sha256"}, "catalog_sha256": {"$ref": "#/$defs/sha256"},
+        "genesis_file_sha256": {"$ref": "#/$defs/sha256"}, "genesis_record_sha256": {"$ref": "#/$defs/sha256"}, "resolution_schema_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "schema_bindings": {"type": "array", "minItems": 9, "maxItems": 9, "uniqueItems": true, "items": {"$ref": "#/$defs/file_binding"}},
+    "fixed_action_plan": {"$ref": "#/$defs/file_binding"},
+    "implementations": {
+      "type": "object", "additionalProperties": false,
+      "required": ["semantic_verifier", "executor", "collector", "state_journal", "semantic_verifier_v4_helper", "semantic_verifier_v3_helper", "collector_v1_helper", "state_journal_v1_helper", "pilot_candidate_verifier"],
+      "properties": {
+        "semantic_verifier": {"$ref": "#/$defs/file_binding"}, "executor": {"$ref": "#/$defs/file_binding"}, "collector": {"$ref": "#/$defs/file_binding"},
+        "state_journal": {"$ref": "#/$defs/file_binding"}, "semantic_verifier_v4_helper": {"$ref": "#/$defs/file_binding"},
+        "semantic_verifier_v3_helper": {"$ref": "#/$defs/file_binding"}, "collector_v1_helper": {"$ref": "#/$defs/file_binding"},
+        "state_journal_v1_helper": {"$ref": "#/$defs/file_binding"}, "pilot_candidate_verifier": {"$ref": "#/$defs/file_binding"}
+      }
+    },
+    "entries": {"type": "array", "minItems": 10, "maxItems": 10, "uniqueItems": true, "items": {"type": "object", "additionalProperties": false, "required": ["input_id", "status", "verifier_id", "verifier_version"], "properties": {"input_id": {"pattern": "^S17-EXT-[0-9]{3}$"}, "status": {"enum": ["IMPLEMENTED", "SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED"]}, "verifier_id": {"type": "string", "minLength": 1}, "verifier_version": {"type": "string", "minLength": 1}}}},
+    "action_readiness": {"const": {"actual_system_utc_required_for_execution": true, "caller_time_authority": false, "final_authority_sample_after_preparation": true, "post_marker_authority_sample_before_transport": true, "clock_rollback_allowed": false, "runtime_identity_context_required": true, "exact_transition_1_required": true, "sealed_openssh_input_snapshots_required": true, "mutable_source_path_reuse_allowed": false, "durable_create_exclusive_marker_required": true, "global_monotonic_deadline_seconds": 180, "retry_allowed": false}},
+    "default_action": {"const": "REJECT_SEMANTIC_VERIFIER_NOT_IMPLEMENTED_FAIL_CLOSED"},
+    "synthetic_bypass_available": {"const": false},
+    "stage18_authority": {"const": false}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "file_binding": {"type": "object", "additionalProperties": false, "required": ["path", "size_bytes", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "size_bytes": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/$defs/sha256"}}}
+  }
+}

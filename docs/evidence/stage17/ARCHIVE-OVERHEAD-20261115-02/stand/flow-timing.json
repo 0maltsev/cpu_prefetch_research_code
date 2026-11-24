@@ -1,0 +1,27 @@
+{
+  "status": "READ_ONLY_RECEIPT_RESOURCE_TRANSACTION_PARITY_PASS",
+  "execution_authority": false,
+  "observations_added": 0,
+  "ledger_mutated": false,
+  "software_cleanup_boundary_fixture": true,
+  "request_sha256": "9d95435d14e1541520831964fd3c57145717a84ceeb59ae9492c8ada5917ab09",
+  "samples": [
+    {
+      "implementation": "previous",
+      "seconds": 31.440923098940402
+    },
+    {
+      "implementation": "candidate",
+      "seconds": 12.971871907822788
+    },
+    {
+      "implementation": "candidate",
+      "seconds": 12.96697545493953
+    },
+    {
+      "implementation": "previous",
+      "seconds": 31.32207932206802
+    }
+  ],
+  "utc": "2026-11-15T15:45:45.367482+00:00"
+}

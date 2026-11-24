@@ -1,12 +1,12 @@
 # Pre-Stage-17 blocker-closure and pilot-authorization decision bundle
 
-Status: **`AWAITING_Q14; NO_STAND_OR_EXECUTION_AUTHORITY`**
+Status: **`Q15_S1_ACCEPTED_LOCAL; CLEAN_V3_CANDIDATE_SEALED; SPLIT_Q15_INPUTS_OPEN; NO_STAND_OR_EXECUTION_AUTHORITY`**
 
 Date prepared: 2026-08-22
 
 Protocol: `2.0.0-pre.2`
 
-Proposed decision IDs: **D-044**, **D-045**, and **D-046**
+Accepted decision IDs: **D-044**, **D-045**, and **D-046**
 
 Owners: repository, build, controller, platform, timing, queue-correctness,
 storage, data-integrity, security, custody, calibration, protocol, and
@@ -21,6 +21,39 @@ outcome, or authorize confirmatory Stage A.
 The current Stage 16 bundle remains an immutable preflight-only artifact. A
 later pilot candidate must be a new clean release with a new profile and
 hashes; it must not overwrite or silently extend that bundle.
+
+### Q15-P0 addendum
+
+On 2026-08-24 the owner accepted only the recommended pre-Q15 prerequisite
+closure. D-048 through D-050 and ADR-0048 through ADR-0050 now correct the
+worker-watchdog boundary, fix the candidate Intel 06_55H H0/H1 mapping in
+software, and fix the four-role/two-domain prerequisite policy. The current
+runner/admission identity is v3. No stand access, dynamic collection, account
+or privilege change, MSR operation, calibration, pilot, or confirmation was
+authorized. The complete local compiler, sanitizer, static-analysis, schema,
+protocol-integrity, and dual-disassembler verification matrix passes. Clean
+revision `693f00b3878ed027dc09aea7916f149874fb12a1` is sealed as a
+no-authority candidate with outer SHA-256
+`f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1`.
+
+### Q15-S1 addendum
+
+On 2026-08-24 the owner accepted D-051/ADR-0051 for repository-local work
+only. The immutable measurement candidate is preserved; a separate
+no-measurement qualification-tool profile and distinct Q15-R read-only and
+Q15-W prestate-bound authorization contracts are implemented. The preparation
+records are blocked and non-authorizing. No clean qualification-tool release,
+stand action, dynamic evidence, MSR access, calibration, pilot, or
+confirmatory authority was created.
+
+### D-052 contract-freeze addendum
+
+On 2026-08-24 the owner also authorized one Q15-S1 commit and clean no-
+authority bundle build after freezing the exact probe/collector contract.
+ADR-0052 binds raw `L2_RQSTS.ALL_PF`, the deterministic regular and pointer-
+dependent probes, diagnostic-only timing, and seven collector acceptance
+boundaries. This closes a definition blocker only. It does not implement the
+collectors/probes, authorize a stand action, or make Q15-R/Q15-W approval-ready.
 
 ## Current evidence boundary
 
@@ -41,20 +74,20 @@ prefetch state, exact watchdog values, page residency, a second durable domain,
 named operational authorities, calibration inputs, a pilot plan, or pilot
 execution authority.
 
-## Proposed decisions
+## Accepted decisions
 
 | ID | Classification | Options considered | Recommended selection | Evidence | Scientific effect | Compatibility effect | Owner | Deadline/gate | Supersession rule |
 |---|---|---|---|---|---|---|---|---|---|
-| D-044 | Pre-pilot production-release closure | Treat component seams as a runner; add a generic runtime-dispatch runner; complete the accepted static profile and issue a new fail-closed pilot-candidate bundle; postpone | Complete the accepted static profile with an affined preparation/execution adapter, qualification-only tools, full combined-worker source/dual-disassembler audit, and a new `STAGE17-PILOT-CANDIDATE-BUNDLE-v1`; keep all execution commands disabled unless an exact phase authorization passes | Q13/ADR-0043; Stage 16 component audit; current absence of an affined combined worker | Changes no scientific operation; it makes the accepted operation graph auditable as one release | Source, build, runner, specialization, codegen, schema, admission-set, and bundle hashes become release identity | Repository/build/controller/queue/timing/storage owners | Accept before remaining local implementation; complete before any stand qualification that depends on the binary | New profile and ADR; repeat complete clean build, sanitizer, codegen, bundle, and stand qualification |
+| D-044 | Pre-pilot production-release closure | Treat component seams as a runner; add a generic runtime-dispatch runner; complete the accepted static profile and issue a new fail-closed pilot-candidate bundle; postpone | Complete the accepted static profile with an affined preparation/execution adapter, qualification-only tools, full combined-worker source/dual-disassembler audit, and a new `STAGE17-PILOT-CANDIDATE-BUNDLE-v1`; keep all execution commands disabled unless an exact phase authorization passes | Q13/ADR-0043; Stage 16 component audit; Q14 local implementation and partial audit | Changes no scientific operation; it makes the accepted operation graph auditable as one release | Source, build, runner, specialization, codegen, schema, admission-set, and bundle hashes become release identity | Repository/build/controller/queue/timing/storage owners | Accepted at Q14; resolve physical emitter and strict clean release before Q15 | New profile and ADR; repeat complete clean build, sanitizer, codegen, bundle, and stand qualification |
 | D-045 | Stand qualification and privilege authority | Reuse inventory; omnibus root session; one broad qualification authorization; separate nonprivileged/dynamic qualification and exact-whitelist privileged rehearsal | Require a hash-bound qualification authorization for the exact release and stand; separate nonprivileged/dynamic evidence from privileged one-control-at-a-time apply/readback/probe/restoration; no scientific schedule or pilot namespace | ADR-0018 through ADR-0020; Stage 9 interfaces; current inventory-only state; Q13 pair selection | Supplies platform eligibility evidence only; no treatment comparison, `mu_ref`, `d2`, or pilot outcome | Stand/release/pair/control/authority/whitelist/pre-state/readback/probe/restoration hashes are qualification identity | Platform, timing, queue-correctness, security, custody, and audit owners | Policy may be accepted at Q14; no stand execution until a complete future Q15 record is explicitly authorized | New qualification record and requalification after any material stand, release, pair, control, kernel, firmware, or policy change |
 | D-046 | Stage 17 calibration/pilot execution authority | One omnibus Stage 17 approval; authorization by shell access; one conditional approval for all dependent phases; immutable phase-scoped authorizations | Authorize only exact dependency-ready phases: D2 calibration, service-rate calibration, feasibility probes, and blinded pilot/freeze collection each receive their own immutable authorization after all phase inputs and predecessor hashes exist | Imported calibration dependency graph; D-035 through D-039; lifecycle/failure/custody rules | Prevents later calibration or pilot inputs from being silently chosen before prerequisite evidence exists; changes no accepted estimator | Authorization ID, phase, run-plan/config/schedule/namespace/seed/budget/stand/build/qualification/storage/authority hashes and expiry are identity | Protocol/statistical/calibration/platform/controller/security/custody owners | Policy may be accepted at Q14; each actual phase requires a later explicit authorization | New prospective authorization linked to the superseded record; completed/failed evidence remains immutable and dependent phases are invalidated by material change |
 
-### Q14 recommendation
+### Q14 disposition
 
-Accept D-044 through D-046 as governance and implementation policy only. This
-is the smallest safe approval now because it permits completion of local,
-non-executing software and records while preserving explicit future authority
-for stand access, privilege, calibration, pilot, and confirmation.
+The owner accepted D-044 through D-046 as governance and implementation policy
+only on 2026-08-22. ADR-0044 through ADR-0046 record the selections. Q14
+preserves explicit future authority for stand access, privilege, calibration,
+pilot, and confirmation; it grants none of them.
 
 ## Non-collapsible authorization gates
 
@@ -76,7 +109,7 @@ is not a substitute for Q15 or any Q16 authorization.
 
 ## Gate 0: local closure after Q14
 
-Q14 would authorize repository-local implementation and verification only:
+Q14 authorizes repository-local implementation and verification only:
 
 1. Complete the affined preparation/execution adapter without supplying
    platform defaults or an execution CLI that can bypass admission.
@@ -98,16 +131,36 @@ Q14 would authorize repository-local implementation and verification only:
 The bundle must contain no invented watchdog, capacity, duration, namespace,
 seed, hardware state, storage path, authority, budget, or pilot authorization.
 
+### Gate 0 implementation result
+
+The v2 admission/profile, owner-thread affinity/readback/actual-CPU preparation,
+private-stream first touch, qualification-only typed artifacts, future Q15/Q16
+authorization schema/semantic checks, ten-shape combined operation audit, and
+strict candidate-bundle target are implemented. GCC passes 207/207 development
+tests; the complete Clang/libc++ development suite and all four targeted
+runner/lifecycle sanitizer matrices pass. Both release compilers pass the
+partial GNU/LLVM audit and forbidden-work mutant.
+
+The owner subsequently accepted D-047/ADR-0047 as
+`X86-64-PREFETCHW-PREFETCHT0-v1`. R1/R2 producers use `PREFETCHW`; R1/R2
+consumers and the L1 successor use `PREFETCHT0`; all other package/role shapes
+contain no software prefetch. Both owner threads must pass PRFCHW capability
+after affinity and before first touch. Both release compilers now pass the
+strict GNU/LLVM ten-operation audit and four negative mutants. The bundle
+creator still rejects dirty trees, drift, overwrite, and authority-bearing
+manifests; the exact clean candidate and SHA-256 are release outputs, not
+execution authority.
+
 ## Inputs that block Q15 stand qualification
 
 Every row remains unresolved until its exact evidence exists.
 
 | Required input | Exact evidence needed | Owner | Current state |
 |---|---|---|---|
-| Clean pilot-candidate release | Source revision, clean-state proof, compiler/library/link flags, binary and specialization hashes, complete combined codegen report, bundle manifest and SHA-256 | Build/repository owners | `BLOCKED`: D-044 not implemented |
-| Five watchdog limits | Exact values for controller start, worker start, producer due poll, consumer empty poll, and drain; prospective rationale and failure mapping | Controller/platform owners | `BLOCKED`: no values; no default permitted |
-| Hardware-prefetch H0/H1 | Vendor/model-specific engines, exact mechanism, scope, whitelist, requested values, independent readback, regular/pointer probes, pre-state, inverse, and failure behavior | Platform/protocol owners | `BLOCKED`: no accepted model-specific mapping |
-| Named authority | Named least-privilege operator, controller, custodian, auditor, permitted combinations, credentials/capabilities, negative-access evidence, validity interval | Security/custody owners | `BLOCKED`: root SSH is not the authority model |
+| Clean pilot-candidate release | Source revision, clean-state proof, compiler/library/link flags, binary and specialization hashes, complete combined codegen report, bundle manifest and SHA-256 | Build/repository owners | `PASS`: clean `693f00b3878ed027dc09aea7916f149874fb12a1`; archive SHA-256 `f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1`; 94-file clean extraction and self-tests pass; authority `NONE` |
+| Start/external watchdog bounds | Exact controller/worker barrier values plus external process wall-clock bound; prospective rationale and failure mapping | Controller/platform owners | `BLOCKED`: ADR-0048 removes unsafe worker-loop caps; remaining exact values have no defaults |
+| Hardware-prefetch H0/H1 dynamic evidence | ADR-0049 mapping plus exact prestate, authorized adapter/command, full readback, regular/pointer probes, inverse/restoration and quarantine evidence | Platform/protocol owners | `SOFTWARE_MAPPING_ACCEPTED; DYNAMIC_BLOCKED`: no MSR access occurred |
+| Named authority | Four distinct least-privilege operator, controller, custodian, auditor identities; credentials/capabilities, negative-access evidence, validity interval | Security/custody owners | `POLICY_ACCEPTED; OPERATIONS_BLOCKED`: no accounts/keys were created |
 | Pair/clock qualification plan | Exact release and pairs, 10,000,000-call traced-vDSO plan, per-core full-count streams, bidirectional three-window plan, thresholds, artifacts, and before-block repetition | Timing/platform owners | `BLOCKED`: software evaluator only |
 | Runtime queue/platform proof | Pointer/u32 lock-free and alignment probes, cache-line layout, actual CPU and migration evidence, topology binding | Queue/platform owners | `BLOCKED` on exact release/stand execution |
 | Address residency | Producer-home shared pages, worker-local private pages, before/during/after mechanism, migration threshold, unavailable-page-frame treatment | Platform/storage owners | `BLOCKED` |
@@ -237,15 +290,25 @@ authorization. If any required input is infeasible, missing, invalid, leaked,
 or over budget, the affected result remains unresolved rather than being
 filled, loosened, or recollected for convenience.
 
-## Approval text
+## Accepted approval text
 
-The only approval currently ready for owner review is:
+The owner accepted exactly:
 
 ```text
 Q14 - accept the pre-Stage-17 blocker-closure and phase-authorization governance bundle (D-044 through D-046), and authorize repository-local implementation and documentation of the remaining fail-closed production-runner, qualification-tool, and pilot-candidate-bundle work only. Do not access the stand, execute dynamic qualification, use privileged controls, run calibration or pilot work, or authorize confirmatory execution.
 ```
 
-Q15 and Q16a through Q16d are deliberately not approval-ready. Their future
+Q15 and Q16a through Q16d remain not approval-ready. Their future
 approval text must embed or reference the exact authorization record ID and
 SHA-256 after every prerequisite field above is complete. Do not answer with a
 generic approval for those phases.
+
+### D-047 disposition
+
+On 2026-08-22 the owner replied `I accept everything` to the immediately
+preceding exact D-047 confirmation/application statement. That statement fixed
+`X86-64-PREFETCHW-PREFETCHT0-v1` and authorized only repository-local
+implementation, strict verification, one clean commit on `f/phase-17`, and
+creation/verification of the no-authority candidate. It explicitly prohibited
+push, stand access, dynamic qualification, privileged controls, calibration,
+pilot, and confirmatory execution. ADR-0047 records the decision.

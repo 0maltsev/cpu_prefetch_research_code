@@ -1,0 +1,65 @@
+{
+  "attempted_file_reads": 9749,
+  "base": "/home/omaltsev/research/cpu_prefetch_research_code",
+  "checked_bytes": 683590014,
+  "checked_files": 9749,
+  "checked_inventory_sha256": "5942311f03c81dd7e79fb7ada92fa120ec465a3b5e1b33bacc1375604216fe4c",
+  "errors": [],
+  "execution_authority": false,
+  "helper_sha256": "4f43c843c505ba123af6bafbc89e1c0eee9652e85491ef90fd7918ba4b0ffb52",
+  "historical_plan_sha256": [
+    "59898ca78f6b79c14e845859052027241c54298c9f65dcb1042b05b18be6af2e",
+    "91c83558b5c5d891cabdd4d875da1292120df5940397298063d55c901a8866c2",
+    "a9bef1239ea03d3871e40a0c52a0a3375d1eac7512d299443dd18405e89572f7",
+    "ba4f0eb1371d3a4dfb0945f9177c98993a08bd6c7ebcf188b4ab40cf5ac2f702",
+    "d6a0b68be8553b77c71b86bdb0ecaaa8cfc30481583b9de6969b733f36e122c9"
+  ],
+  "identities_binding": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-archive-optimization/namespace-2/planned-identities.json",
+    "sha256": "0b24944837d3a9d4a6c034d601444afb07657516a083213d5bfccebc5e8a9e22",
+    "size_bytes": 1835415
+  },
+  "limits": {
+    "max_contexts": 64,
+    "max_depth": 64,
+    "max_entries": 400000,
+    "max_file_bytes": 100663296,
+    "max_files": 200000,
+    "max_json_nodes": 10000000,
+    "max_roots": 1024,
+    "max_total_bytes": 4294967296,
+    "wall_seconds": 300
+  },
+  "matches": [],
+  "mode": "local",
+  "numeric_seeds_collision_scanned": true,
+  "observed_at_utc": "2026-11-15T13:39:32.403275+00:00",
+  "own_prospective_exclusions": [
+    "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-archive-optimization",
+    "/home/omaltsev/research/cpu_prefetch_research_code/docs/evidence/stage17/ARCHIVE-NATIVE-20261115-01"
+  ],
+  "plan_binding": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-archive-optimization/restart-prep/restart-candidate-3/plan.json",
+    "sha256": "6302de1e50b6178004eb3a8e4d24579c0b5ef74e8a1504e254297faed9f1f847",
+    "size_bytes": 61110206
+  },
+  "plan_sha256": "6302de1e50b6178004eb3a8e4d24579c0b5ef74e8a1504e254297faed9f1f847",
+  "planned_linked_order_identities": 1416,
+  "planned_numeric_seeds": 8496,
+  "planned_phase_identities": 7080,
+  "prior_registered_plan_sha256": [
+    "91c83558b5c5d891cabdd4d875da1292120df5940397298063d55c901a8866c2",
+    "a9bef1239ea03d3871e40a0c52a0a3375d1eac7512d299443dd18405e89572f7",
+    "ba4f0eb1371d3a4dfb0945f9177c98993a08bd6c7ebcf188b4ab40cf5ac2f702"
+  ],
+  "registration_performed": false,
+  "schema_version": "cpu-prefetch-stage17-q16b-namespace-audit/1",
+  "scope": "Finite selected public metadata only; all-E stand contexts; no raw reads or whole-disk proof",
+  "status": "PASS_SCOPED_HISTORY_AUDIT",
+  "visited_entries": 18333,
+  "full_report_binding": {
+    "path": "build/stage17-archive-optimization/namespace-2/local-audit-4.json",
+    "sha256": "88903e2a0bb81d998382cc903aa128d8f95289b6911107f3db464ee1f56776f0",
+    "size_bytes": 3829849
+  }
+}

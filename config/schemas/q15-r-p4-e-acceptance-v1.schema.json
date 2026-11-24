@@ -1,0 +1,85 @@
+{
+  "$id": "urn:cpu-prefetch:q15-r-p4-e-acceptance:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "$defs": {
+    "sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"}
+  },
+  "properties": {
+    "acceptance_id": {"const": "Q15-R-P4-E-ACCEPTANCE-20260825-01"},
+    "accepted_decision": {
+      "const": {
+        "decision_id": "D-071",
+        "selected_option": "SELECT_34DA95D_NO_AUTHORITY_COLLECTOR_RELEASE_EVIDENCE_ONLY",
+        "state": "ACCEPTED_REPOSITORY_LOCAL_SUCCESSOR_PREPARATION_ONLY"
+      }
+    },
+    "authority_boundary": {
+      "const": {
+        "account_or_key_changes_authorized": false,
+        "bundle_transfer_or_install_authorized": false,
+        "calibration_authorized": false,
+        "collector_execution_authorized": false,
+        "confirmatory_authorized": false,
+        "dynamic_qualification_authorized": false,
+        "filesystem_or_permission_changes_authorized": false,
+        "literal_path_selection_authorized": false,
+        "measurement_authorized": false,
+        "msr_read_authorized": false,
+        "msr_write_authorized": false,
+        "pilot_authorized": false,
+        "q15_r_authorized": false,
+        "q15_w_authorized": false,
+        "real_affinity_numa_authorized": false,
+        "real_pmu_authorized": false,
+        "repository_local_successor_preparation_authorized": true,
+        "signing_or_key_operation_authorized": false,
+        "stand_access_authorized": false,
+        "stand_setup_authorized": false
+      }
+    },
+    "decision_input_binding": {
+      "const": {
+        "bundle_id": "Q15-R-P4-R-COLLECTOR-RELEASE-DECISION-INPUT-20260825-01",
+        "path": "config/q15/q15-r-p4-r-collector-release-decision-input-v1.json",
+        "sha256": "89092ce9158267a20540878514fb1b629db3ab021f9b49863e57f922672b4b71"
+      }
+    },
+    "p4_k_preservation": {
+      "const": {
+        "path": "config/q15/q15-r-p4-k.preparation.json",
+        "sha256": "c56ae3dc74142d244e448b9a6f638960f0cce1eb1a9e7a106fea90a4bcf55e0f",
+        "state": "UNCHANGED_EIGHT_INPUTS_UNRESOLVED_NOT_ISSUED"
+      }
+    },
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "release_selection": {
+      "const": {
+        "archive_name": "cpu-prefetch-q15-qualification-tool-2.0.0-34da95d-clean-5fc75063e1d1.tar.gz",
+        "archive_sha256": "f45d25f4aa6bff56c39face088c46c4cccd21bfaf903c9c320100b561402ff3a",
+        "authority": "NONE",
+        "bundle_profile": "Q15-QUALIFICATION-TOOL-BUNDLE-v3",
+        "source_commit": "34da95d002e912069c959bfef8e88a23b4880cea"
+      }
+    },
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-e-acceptance/1"},
+    "successor_constraints": {
+      "additionalProperties": false,
+      "properties": {
+        "predecessor_path": {"const": "config/q15/q15-r-p4-r.preparation.json"},
+        "predecessor_sha256": {"const": "1925d9e8d23e42df5feef4bb900de3010a7a612724417f446f8df5d42aa11d9e"},
+        "remaining_external_input_names": {
+          "const": ["COLLECTOR_RELEASE_ROOT", "AUTHORIZATION_ID_CANONICAL_BYTES_AND_SHA256", "NAMED_AUTHORITY_PRINCIPAL_ISSUE_AND_EXPIRY_UTC", "CAPTURE_ID", "OUTPUT_STDOUT_STDERR_AND_SIDECAR_CUSTODY_DESTINATIONS", "DETACHED_SIGNATURE_AND_INDEPENDENT_REVIEW_ARTIFACTS", "FRESH_PRE_EXECUTION_STAND_IDENTITY_BINDING"]
+        },
+        "resolve_only_input_group": {"const": "CLEAN_COLLECTOR_SOURCE_COMMIT_ARCHIVE_MANIFEST_SBOM_BINARY_AND_CONTRACT_HASHES"},
+        "stand_collection_requires_separate_explicit_approval": {"const": true}
+      },
+      "required": ["predecessor_path", "predecessor_sha256", "remaining_external_input_names", "resolve_only_input_group", "stand_collection_requires_separate_explicit_approval"],
+      "type": "object"
+    },
+    "user_acceptance": {"minLength": 1, "type": "string"}
+  },
+  "required": ["acceptance_id", "accepted_decision", "authority_boundary", "decision_input_binding", "p4_k_preservation", "protocol_version", "release_selection", "schema_version", "successor_constraints", "user_acceptance"],
+  "title": "Q15-R-P4-E acceptance of D-071 without stand or execution authority",
+  "type": "object"
+}

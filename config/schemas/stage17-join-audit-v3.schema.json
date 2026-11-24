@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:cpu-prefetch:stage17:join-audit:v3",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "run_id", "producer_raw_sha256", "consumer_raw_sha256", "joined_raw_sha256", "producer_rows", "accepted_rows", "full_rows", "consumer_rows", "join_status", "record_index_is_event_identity"],
+  "properties": {"schema_version": {"const": "cpu-prefetch-stage17-join-audit/3"}, "run_id": {"type": "string", "minLength": 1}, "producer_raw_sha256": {"$ref": "#/$defs/sha256"}, "consumer_raw_sha256": {"$ref": "#/$defs/sha256"}, "joined_raw_sha256": {"$ref": "#/$defs/sha256"}, "producer_rows": {"type": "integer", "minimum": 0}, "accepted_rows": {"type": "integer", "minimum": 0}, "full_rows": {"type": "integer", "minimum": 0}, "consumer_rows": {"type": "integer", "minimum": 0}, "join_status": {"const": "PASSED"}, "record_index_is_event_identity": {"const": false}},
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

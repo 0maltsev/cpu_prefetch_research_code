@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:cpu-prefetch:phase18:authorization-draft:v1",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "authorization_id", "actor", "issued_at_utc", "expires_at_utc", "stage17_completion_sha256", "phase18_access_journal_id", "allowed_transition", "authority_scope", "stage17_authority_reuse_allowed", "automatic_transition"],
+  "properties": {"schema_version": {"const": "cpu-prefetch-phase18-authorization-draft/1"}, "authorization_id": {"type": ["string", "null"]}, "actor": {"type": ["string", "null"]}, "issued_at_utc": {"type": ["string", "null"]}, "expires_at_utc": {"type": ["string", "null"]}, "stage17_completion_sha256": {"oneOf": [{"type": "null"}, {"type": "string", "pattern": "^[0-9a-f]{64}$"}]}, "phase18_access_journal_id": {"type": ["string", "null"]}, "allowed_transition": {"type": ["string", "null"]}, "authority_scope": {"enum": ["UNISSUED_NO_AUTHORITY", "PHASE18_ACCESS_TRANSITION_ONLY"]}, "stage17_authority_reuse_allowed": {"const": false}, "automatic_transition": {"const": false}}
+}

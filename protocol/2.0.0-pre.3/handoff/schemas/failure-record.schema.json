@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/cpu-prefetch/2.0.0-pre.3/failure-record.schema.json",
+  "title": "Run or protocol failure record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "protocol_version", "failure_record_id", "platform_id",
+    "stage", "scope", "category", "detected_phase", "observed_at_utc",
+    "description", "invalidates_run", "block_consequence", "resolution_status",
+    "evidence_refs", "record_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "2.0.0-pre.3"},
+    "protocol_version": {"const": "2.0.0-pre.3"},
+    "failure_record_id": {"type": "string", "minLength": 1},
+    "platform_id": {"type": "string", "minLength": 1},
+    "stage": {"enum": ["CALIBRATION", "PILOT", "STAGE_A", "STAGE_B", "STAGE_C", "DIAGNOSTIC"]},
+    "scope": {"enum": ["RUN", "BLOCK", "PLATFORM", "BUILD", "PROTOCOL", "ACCESS"]},
+    "run_id": {"type": ["string", "null"]},
+    "block_id": {"type": ["string", "null"]},
+    "build_id": {"type": ["string", "null"]},
+    "category": {
+      "enum": [
+        "CORRECTNESS", "COUNT_RECONCILIATION", "CLOCK", "AFFINITY", "NUMA",
+        "HARDWARE_STATE", "PROCESS_INTERRUPTION", "SAMPLE_LOSS", "BUFFER_OVERFLOW",
+        "CORRUPT_OUTPUT", "MANIFEST", "ADDRESS_PATTERN", "PHASE_RESET", "ENVIRONMENT",
+        "ACCESS_LEAKAGE", "OTHER_MEASUREMENT"
+      ]
+    },
+    "detected_phase": {"enum": ["PRE_RUN", "WARMUP", "RESET", "MEASUREMENT", "DRAIN", "POST_RUN", "ANALYSIS", "ACCESS_AUDIT"]},
+    "observed_at_utc": {"type": "string", "format": "date-time"},
+    "description": {"type": "string", "minLength": 1},
+    "invalidates_run": {"type": "boolean"},
+    "block_consequence": {"enum": ["NONE", "ORIGINAL_BLOCK_INCOMPLETE", "STUDY_UNRESOLVED", "NOT_APPLICABLE"]},
+    "resolution_status": {"enum": ["OPEN", "RETAINED_DIAGNOSTIC_ONLY", "REPLACEMENT_AUTHORIZED", "REPLACEMENT_DENIED", "RESOLVED_BEFORE_MEASUREMENT", "STUDY_STOPPED"]},
+    "replacement_authorization_id": {"type": ["string", "null"]},
+    "replacement_block_id": {"type": ["string", "null"]},
+    "supersedes_id": {"type": ["string", "null"]},
+    "evidence_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["artifact_id", "sha256"],
+        "properties": {
+          "artifact_id": {"type": "string", "minLength": 1},
+          "sha256": {"$ref": "#/$defs/sha256"}
+        }
+      }
+    },
+    "record_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"scope": {"const": "RUN"}}},
+      "then": {"required": ["run_id", "block_id"], "properties": {"run_id": {"type": "string", "minLength": 1}, "block_id": {"type": "string", "minLength": 1}}}
+    },
+    {
+      "if": {"properties": {"invalidates_run": {"const": true}, "stage": {"const": "STAGE_A"}}},
+      "then": {"properties": {"block_consequence": {"enum": ["ORIGINAL_BLOCK_INCOMPLETE", "STUDY_UNRESOLVED"]}}}
+    },
+    {
+      "if": {"properties": {"resolution_status": {"const": "REPLACEMENT_AUTHORIZED"}}},
+      "then": {"required": ["replacement_authorization_id", "replacement_block_id"], "properties": {"replacement_authorization_id": {"type": "string", "minLength": 1}, "replacement_block_id": {"type": "string", "minLength": 1}}}
+    }
+  ],
+  "description": "Correctly reconciled FULL outcomes and genuine effective-tail insufficiency are statuses in the run manifest, not failure records and not replacement triggers.",
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

@@ -1,0 +1,147 @@
+{
+  "schema_version": "cpu-prefetch-q15-r-p4-r-c-d100-decision-input/1",
+  "bundle_id": "Q15-R-P4-R-C-D100-DECISION-INPUT-20260826-01",
+  "protocol_version": "2.0.0-pre.2",
+  "status": "PROPOSED_EXACT_OWNER_ACCEPTANCE_REQUIRED_NO_ACTION_AUTHORITY",
+  "source_commit": "909b698a071203adb97746511b97a9316dd55f07",
+  "stand_id": "XEON-CPU-FETCH",
+  "endpoint": "root@185.184.131.153",
+  "immutable_inputs": {
+    "p4_r_c_template_path": "config/q15/q15-r-p4-r-c.authorization-template-v1.json",
+    "p4_r_c_template_sha256": "22d4aa6f4c4ffa60c3fb31c08f3eea4831a790a0b46907b2aab5af3dcc0377df",
+    "d099_complete_evidence_path": "config/q15/q15-r-p4-r-i-d099-complete-evidence-v1.json",
+    "d099_complete_evidence_sha256": "afc31fca0451e883dc72c86827a814da209da7031c0b2ec66316b92301c4c241",
+    "d099_identity_path": "docs/evidence/stage17/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01/Q15-R-P4-R-IDENTITY-XEON-CPU-FETCH-20260825-01.json",
+    "d099_identity_sha256": "774aca6d192a9adaeeb3daf7bc357c61e957c5b2e6169c9db82cf7722cc3dab6",
+    "d099_review_path": "docs/evidence/stage17/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01/Q15-R-P4-R-IDENTITY-XEON-CPU-FETCH-20260825-01.owner-review.json",
+    "d099_review_sha256": "f01e14303f305210819d633345cf454eb6985e394ab36b30e167491374b3b037",
+    "archive_path": "build/release-gcc/q15-qualification-tool-bundle/cpu-prefetch-q15-qualification-tool-2.0.0-34da95d-clean-5fc75063e1d1.tar.gz",
+    "archive_size": 4642298,
+    "archive_sha256": "f45d25f4aa6bff56c39face088c46c4cccd21bfaf903c9c320100b561402ff3a",
+    "archive_sidecar_path": "build/release-gcc/q15-qualification-tool-bundle/cpu-prefetch-q15-qualification-tool-2.0.0-34da95d-clean-5fc75063e1d1.tar.gz.sha256",
+    "archive_sidecar_sha256": "f2bf9e3f2ed97541905b7e0fbc24dfa15d3b5c3096bd7e9ab0d23dcdbe0fffd4",
+    "collector_binary_sha256": "4716e1dfc2e65fd61dce1ea54a70fd876a0b4322b69d9ad1fde5c67a65c48a57",
+    "collector_contract_sha256": "4123735a940da144e00247957d0210216cde4bf19fbdbea0378b52dab2161b87",
+    "pinned_hosts_path": "config/q15/q15-r-p4-r-i-d099-pinned-host-v1.known_hosts",
+    "pinned_hosts_sha256": "89ddf9b9d9dc48520c9d30968bb4a63a58aa976bf9be341ac811f735eaef757d",
+    "pinned_host_fingerprint": "SHA256:HZMyUcQIuSQIodYGxXGQ3RCoqR8UcOWPPzuTDhXKtS4",
+    "transport_public_evidence_path": "config/q15/q15-r-p4-r-i-d099-transport-public-evidence-v1.json",
+    "transport_public_evidence_sha256": "8e8dc9501a6cfb430ee1504aa5066c3c6db825999dd0089214043a305d88bb12",
+    "target_allowed_signers_sha256": "b08f32720b7987218a5c51f31f822f2ea1d22ff948beb41382518927d815c718",
+    "target_signer_fingerprint": "SHA256:bOmXmBSxD0rBKid1AKOXQ25jIUjCOrijbM5sN18qLGM"
+  },
+  "conflicts_requiring_decision": [
+    {
+      "decision_id": "D-100",
+      "classification": "SECURITY_ROLE_AND_REVIEW_DOWNGRADE",
+      "conflict": "ADR-0074 requires a distinct auditor, but only the single owner is available.",
+      "options": [
+        "REMAIN_BLOCKED_UNTIL_DISTINCT_AUDITOR_EXISTS",
+        "ACCEPT_SINGLE_OWNER_OPERATOR_CUSTODIAN_AUDITOR_COLLAPSE_FOR_ONE_P4_R_C"
+      ],
+      "recommended_option": "ACCEPT_SINGLE_OWNER_OPERATOR_CUSTODIAN_AUDITOR_COLLAPSE_FOR_ONE_P4_R_C",
+      "accepted_risks": [
+        "no independent misuse or evidence-tampering detection",
+        "owner or development-host compromise can authorize, operate, retain, and review the same transaction",
+        "the unencrypted target signing and SSH transport keys amplify impersonation and misuse impact",
+        "permanent key loss has no independent recovery"
+      ],
+      "selected_option": null
+    },
+    {
+      "decision_id": "D-101",
+      "classification": "APPEND_ONLY_CUSTODY_AND_STAGING_COMPATIBILITY",
+      "conflict": "D-099 correctly created the frozen custody root, while the original P4-R-C template broadly requires every custody path to be absent.",
+      "options": [
+        "SUPERSEDE_WITH_NEW_CAPTURE_ID_AND_PATHS",
+        "ALLOW_ONLY_THE_EXACT_VERIFIED_D099_CUSTODY_ROOT_AND_REQUIRE_EVERY_P4_R_C_OUTPUT_TO_BE_ABSENT_AND_CREATE_EXCLUSIVE",
+        "REMAIN_BLOCKED"
+      ],
+      "recommended_option": "ALLOW_ONLY_THE_EXACT_VERIFIED_D099_CUSTODY_ROOT_AND_REQUIRE_EVERY_P4_R_C_OUTPUT_TO_BE_ABSENT_AND_CREATE_EXCLUSIVE",
+      "accepted_risks": [
+        "an implementation defect could confuse permitted predecessor files with overwrite permission",
+        "partial staging is retained and may consume the frozen transaction identity permanently"
+      ],
+      "selected_option": null
+    },
+    {
+      "decision_id": "D-102",
+      "classification": "OPENSSH_FIXED_COMMAND_TRANSPORT_BOUNDARY",
+      "conflict": "OpenSSH remote command execution necessarily passes a command string to the login shell, so literal direct remote argv is unavailable without a preinstalled agent or subsystem.",
+      "options": [
+        "REMAIN_BLOCKED_UNTIL_A_PREINSTALLED_HASH_BOUND_AGENT_OR_SUBSYSTEM_EXISTS",
+        "ACCEPT_ONLY_PRECOMPUTED_HASH_BOUND_CONSTANT_REMOTE_COMMAND_STRINGS_WITH_LOCAL_SHELL_FALSE_NO_USER_INTERPOLATION_AND_STRICT_TOKEN_VALIDATION"
+      ],
+      "recommended_option": "ACCEPT_ONLY_PRECOMPUTED_HASH_BOUND_CONSTANT_REMOTE_COMMAND_STRINGS_WITH_LOCAL_SHELL_FALSE_NO_USER_INTERPOLATION_AND_STRICT_TOKEN_VALIDATION",
+      "accepted_risks": [
+        "the remote login shell remains part of the trusted execution boundary",
+        "a quoting or command-construction defect could widen remote behavior"
+      ],
+      "selected_option": null
+    },
+    {
+      "decision_id": "D-103",
+      "classification": "CREATE_EXCLUSIVE_NAMESPACE_PARENT",
+      "conflict": "The frozen transaction root has a namespace parent whose existence was not captured by D-099 and whose creation semantics were not explicit.",
+      "options": [
+        "REMAIN_BLOCKED_IF_NAMESPACE_PARENT_IS_ABSENT",
+        "AUTHORIZE_CREATE_EXCLUSIVE_MODE_0700_NAMESPACE_PARENT_IF_ABSENT_AND_REQUIRE_EXACT_ROOT_OWNED_NONSYMLINK_STATE_IF_PRESENT"
+      ],
+      "recommended_option": "AUTHORIZE_CREATE_EXCLUSIVE_MODE_0700_NAMESPACE_PARENT_IF_ABSENT_AND_REQUIRE_EXACT_ROOT_OWNED_NONSYMLINK_STATE_IF_PRESENT",
+      "accepted_risks": [
+        "the first authorized mutation may create one additional namespace directory",
+        "a partially created namespace or transaction tree is retained and cannot be retried"
+      ],
+      "selected_option": null
+    }
+  ],
+  "frozen_action_if_accepted": {
+    "transaction_id": "Q15-R-P4-R-C-D100-XEON-CPU-FETCH-20260826-01",
+    "capture_id": "Q15-R-P4-R-XEON-CPU-FETCH-20260825-01",
+    "authorization_validity_seconds": 1800,
+    "external_watchdog_seconds": 900,
+    "target_key_sshsig_attempts": 1,
+    "archive_transfer_attempts": 1,
+    "sidecar_transfer_attempts": 1,
+    "collector_self_test_attempts": 1,
+    "collector_contract_description_attempts": 1,
+    "collector_attempts": 1,
+    "review_attempts": 1,
+    "retry_count": 0,
+    "stand_namespace_parent": "/root/cpu-prefetch-q15-r-p4-r",
+    "stand_transaction_root": "/root/cpu-prefetch-q15-r-p4-r/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01",
+    "stand_incoming_root": "/root/cpu-prefetch-q15-r-p4-r/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01/incoming",
+    "stand_extraction_parent": "/root/cpu-prefetch-q15-r-p4-r/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01/release",
+    "custody_root": "/home/omaltsev/research/cpu_prefetch_research_code/docs/evidence/stage17/Q15-R-P4-R-XEON-CPU-FETCH-20260825-01",
+    "rollback": "STOP_RETAIN_NO_DELETE_NO_OVERWRITE_NO_REUSE_NO_AUTOMATIC_CLEANUP",
+    "mandatory_stop": "STOP_BEFORE_P5_Q15_R_Q15_W_PLATFORM_CONTROL_CALIBRATION_PILOT_MEASUREMENT_AND_CONFIRMATORY_WORK"
+  },
+  "required_before_action": {
+    "repository_local_executor_and_checker_implemented_and_verified": false,
+    "d100_through_d103_exact_owner_acceptance_recorded": false,
+    "fresh_1800_second_canonical_authorization_created": false,
+    "authorization_signed_once_by_active_p4_k_v2_key": false,
+    "signature_verified_against_reviewed_allowed_signers": false,
+    "single_owner_pre_execution_public_review_created": false,
+    "all_authorization_bound_hashes_verified": false
+  },
+  "authority_boundary": {
+    "repository_local_decision_preparation_authorized": true,
+    "repository_local_executor_implementation_authorized": false,
+    "target_private_key_use_authorized": false,
+    "signing_or_authorization_issuance_authorized": false,
+    "stand_access_authorized": false,
+    "stand_filesystem_mutation_authorized": false,
+    "archive_or_sidecar_transfer_authorized": false,
+    "bundle_extraction_authorized": false,
+    "collector_self_test_or_description_authorized": false,
+    "collector_execution_authorized": false,
+    "p4_r_c_authorized": false,
+    "p5_or_q15_r_or_q15_w_authorized": false,
+    "platform_controls_authorized": false,
+    "calibration_pilot_measurement_or_confirmatory_authorized": false
+  },
+  "request_context": "i accept, do everything to move on the next stage, i accept everything and let you do anything",
+  "request_interpretation": "The blanket request authorizes preparation of the smallest exact decision bundle but cannot fabricate distinct review or retrospectively accept exact choices and bytes that had not yet been presented.",
+  "exact_owner_acceptance_template": "Q15-R-P4-R-C-D100 — accept D-100 through D-103 exactly as recommended in decision-input SHA-256 @DECISION_INPUT_SHA256@, bound to commit 909b698a071203adb97746511b97a9316dd55f07, D-099 complete-evidence SHA-256 afc31fca0451e883dc72c86827a814da209da7031c0b2ec66316b92301c4c241, and v3 archive SHA-256 f45d25f4aa6bff56c39face088c46c4cccd21bfaf903c9c320100b561402ff3a. Accept the single-owner review/custody/security downgrade and risks, exact verified pre-existing D-099 custody root with create-exclusive P4-R-C outputs, fixed hash-bound OpenSSH remote-command boundary, and exact namespace-parent rule. Authorize repository-local implementation and verification of the fixed fail-closed P4-R-C executor, schemas, and authorization records only. Do not use keys, sign or issue authorization, access or modify the stand, transfer or extract artifacts, execute self-tests or the collector on the stand, or perform P4-R-C/P5/Q15/platform-control/calibration/pilot/measurement/confirmatory work. The exact one-shot P4-R-C action requires a later separately signed and explicitly approved authorization."
+}

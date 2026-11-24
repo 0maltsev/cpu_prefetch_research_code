@@ -1,0 +1,8 @@
+test_old_coarse_day_lifetime_and_incomplete_protected_work_reject (test_stage17_q16c_window_v1.WindowTests.test_old_coarse_day_lifetime_and_incomplete_protected_work_reject) ... ok
+test_original_day_fits_all_prospective_work_and_restoration (test_stage17_q16c_window_v1.WindowTests.test_original_day_fits_all_prospective_work_and_restoration) ... ok
+test_stale_infrastructure_and_one_second_budget_shortfall_reject (test_stage17_q16c_window_v1.WindowTests.test_stale_infrastructure_and_one_second_budget_shortfall_reject) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.000s
+
+OK

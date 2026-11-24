@@ -1,0 +1,8 @@
+{
+  "automatic_retries": 0,
+  "formal_capture_started": false,
+  "packet_inventory_sha256": "f0e1cba439d46c36c81d00290b4525b122ef488bc0a4916af80d16290e881c8b",
+  "pid": 115001,
+  "qualification_budget_seconds": 14400,
+  "shared_archive_program_modified": false
+}

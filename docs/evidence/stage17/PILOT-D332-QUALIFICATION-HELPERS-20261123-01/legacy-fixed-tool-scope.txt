@@ -1,0 +1,1 @@
+profile=Q15-FIXED-QUALIFICATION-TOOL-v1 mapping=INTEL-06_55H-MSR-1A4-DISABLE-0_3-v1 family=06 model=55 msr=000001a4 mask=000000000000000f cpus=0,1,26 measurement=false calibration=false pilot=false confirmatory=false authority=NONE

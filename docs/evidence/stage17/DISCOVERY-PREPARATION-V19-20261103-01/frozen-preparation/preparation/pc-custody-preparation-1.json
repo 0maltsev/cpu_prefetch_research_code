@@ -1,0 +1,21 @@
+{
+  "schema_version": "cpu-prefetch-discovery-pc-custody-preparation/1",
+  "observed_at_utc": "2026-11-03T09:24:23.617723+00:00",
+  "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-discovery-v19-copy1",
+  "hostname": "archlinux",
+  "boot_id": "5d6c48d2-d320-4965-8696-69c3d636e590",
+  "uid": 1000,
+  "device": 66306,
+  "available_bytes": 396742889472,
+  "filesystem_block_bytes": 4096,
+  "compression": false,
+  "probe": {
+    "file_name": "custody-write-read-probe.bin",
+    "size_bytes": 65536,
+    "sha256": "402f6e134616a6db667812ee3e2f3b0e2bdcfcfb32a00ee125552b393f648cbc",
+    "write_fsync_readback_verified": true
+  },
+  "reserve_bytes": 10737418240,
+  "scope": "STORAGE_PREPARATION_ONLY_NO_EXPERIMENT",
+  "execution_authority": false
+}

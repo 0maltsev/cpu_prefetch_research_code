@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-p4-k-r-authorization-template:v2",
+  "title": "Still-unissued D-096-bound P4-K-R review template",
+  "type": "object",
+  "required": ["schema_version", "template_id", "protocol_version", "status", "lineage", "gate", "resolved_public_evidence", "fixed_review_contract", "unresolved_inputs", "prospective_outputs", "rollback", "authority_boundary"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-k-r-authorization-template/2"},
+    "template_id": {"const": "Q15-R-P4-K-R-AUTHORIZATION-TEMPLATE-20260826-02"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "status": {"const": "STILL_UNISSUED_D096_COMPLETE_EVIDENCE_BOUND_D097_SELECTIONS_REQUIRED"},
+    "lineage": {"type": "object"},
+    "gate": {"type": "object"},
+    "resolved_public_evidence": {"type": "object"},
+    "fixed_review_contract": {"type": "object"},
+    "unresolved_inputs": {"type": "array", "minItems": 4, "maxItems": 4},
+    "prospective_outputs": {"type": "array", "minItems": 2, "maxItems": 2},
+    "rollback": {"type": "object"},
+    "authority_boundary": {"type": "object"}
+  },
+  "additionalProperties": false
+}

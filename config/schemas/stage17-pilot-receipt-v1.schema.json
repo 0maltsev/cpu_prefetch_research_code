@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:cpu-prefetch:stage17:pilot-receipt:v1",
+  "type": "object", "additionalProperties": false,
+  "required": ["attempt", "retries", "run_id", "run_ordinal", "artifact_manifest_sha256", "valid_join", "partial", "leader_reaped", "process_group_gone", "actual_started_at_utc", "actual_completed_at_utc", "stage18_authority"],
+  "properties": {
+    "attempt": {"const": 1}, "retries": {"const": 0}, "run_id": {"type": "string", "minLength": 1},
+    "run_ordinal": {"type": "integer", "minimum": 1}, "artifact_manifest_sha256": {"pattern": "^[0-9a-f]{64}$"},
+    "valid_join": {"const": true}, "partial": {"const": false}, "leader_reaped": {"const": true}, "process_group_gone": {"const": true},
+    "actual_started_at_utc": {"$ref": "#/$defs/utc"}, "actual_completed_at_utc": {"$ref": "#/$defs/utc"}, "stage18_authority": {"const": false}
+  }, "$defs": {"utc": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"}}
+}

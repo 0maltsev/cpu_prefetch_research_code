@@ -1,0 +1,884 @@
+{
+  "analysis_deadline_utc": "2026-11-20T02:40:18.433159+00:00",
+  "analysis_intent": {
+    "deadline_monotonic_ns": 1578952729990390,
+    "execution_authority": false,
+    "kind": "SUFFIX94",
+    "per_capture_seconds": 300,
+    "phase18_authority": false,
+    "physical_cpus": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "retained_failed_scratch_bytes": 37485663884,
+    "scratch_bytes": 77880833288,
+    "started_monotonic_ns": 1575352729990390,
+    "worker_count": 12
+  },
+  "checked_at_utc": "2026-11-20T03:34:26.026525+00:00",
+  "composition_finalization_present": true,
+  "failed_process_receipts": [],
+  "process_receipts": [
+    {
+      "elapsed_ns": 214590474261,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 0,
+      "report_sha256": "16befc8a4a2f9cd32fcde7ab102c04321d1e2b4b0d8f0dd771e1ccabc532c33a",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 92594399129,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 1,
+      "report_sha256": "007085edad99f346f417306811f3e6d0e714b13c2bf8d7a60e75d077439a2ce5",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 83984905538,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 10,
+      "report_sha256": "740c4b38790f7d1d1815982e6dd002c8c4fb26029c6b98d8affcf60871070ede",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 144510359135,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 11,
+      "report_sha256": "b62a7fc7e69efa529ab76f5e9530d7a400294459db25cfc5fad7c531dfa53c28",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 240017231742,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 12,
+      "report_sha256": "e7ffe0f5856f182f8c7dd5cbcd9f753bfd91d0d40171cbf6491345cb2206b2b1",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 68179236091,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 13,
+      "report_sha256": "8555a1f947382df4db15e80de4ebf38db97f0447b32cb8e3cf49e25583f06955",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 132221949907,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 14,
+      "report_sha256": "0b105946f1c7480372d333bc3db116fa62734c4960d233fe7dd2bf44593096dc",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 209624072567,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 15,
+      "report_sha256": "fee6e8af0351dfcd9fdbb062b51f1c77b3d8a98482cdcff4cc6efcb420a9653f",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 69296787400,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 16,
+      "report_sha256": "99d38817064525beefbad38fe7c849585c98cf17fc1b29e52efa5cc53d896895",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 134247363760,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 17,
+      "report_sha256": "c8e980dcda348a1eb33212c47e83eed754cd42ab6550c13b604c74d71651a91b",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 190599891106,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 18,
+      "report_sha256": "62b00b5cd41e0d8aab1b9612c871cbffc5a348dd35bf327ff03089944df56f7a",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 83385885742,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 19,
+      "report_sha256": "1046c957ec10a70813e19b7fd2bab4967a3a99896a1ddc33c7ccd13e18a66de8",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 166233022536,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 2,
+      "report_sha256": "6e82cd9fea44b5c020b0fef9ad5f421f43c8187fde4f3b5d7522ff44e2241ee7",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 148185709453,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 20,
+      "report_sha256": "1ce3a015daa66cdac39e7b484e64dd171c94272133090c5097c27599cf7c3365",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 240317693312,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 21,
+      "report_sha256": "d010a81ff4a16cfae09e2c40842e400a224f801b5e4cc3511d5224de876db008",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 68328614941,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 22,
+      "report_sha256": "00db2dd53d5faf91f1123aa30c0e29189bde3d8b21a2f33a636449deb2f155d3",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 131377940919,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 23,
+      "report_sha256": "3f6eeb386133069ef5c5689c9fa447d53c69d00a40bcf0cef14d2ad30d5fa645",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 205624952826,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 24,
+      "report_sha256": "382bd0f4353b2b3f94b1f4b7daa0d6097d2ee729c452df38f137fd04140e6147",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 69299484916,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 25,
+      "report_sha256": "328547e3d40628da66f5f3ba21b9fd1f6d60b2e6391e6ad17fb408d3a7d3a9b8",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 133999465557,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 26,
+      "report_sha256": "daaeeea2c9fd3a382aa9ea7dd7e4d0669f7686721aa7361af106b32396742dd4",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 212041632144,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 27,
+      "report_sha256": "a7a73d129a28ea10d017d8fdb7f2f5cf20f50fb04d66bbb7db2f97f27f3de210",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 83694718687,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 28,
+      "report_sha256": "5115ecaf173d486a688371b796b64f43eb590c4fcaaec6825268a4e84f1885ef",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 145855126072,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 29,
+      "report_sha256": "3b57034651268dd3ff96ace99857057ad6a9f531366c93e9f0644426acd1ca15",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 238880395242,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 3,
+      "report_sha256": "4ef31528d7981a14b66fa783d1f41b668f73c3c3b61c41edfcfc3bed1e2ad0e8",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 204661537877,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 30,
+      "report_sha256": "668d598ddaf48e36c8f1f5bf5214107768e07c913550872b9943ec8cf47b061c",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 66283872103,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 31,
+      "report_sha256": "8b71aaace4566c209a53d47f17d10dcc24f583a3e8d914a911035472445e06e8",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 130957428239,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 32,
+      "report_sha256": "004696588e6503a58ea049bd16d2d90816ac17c3268322e9c4bbd3cbf01a1de6",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 209101669760,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 33,
+      "report_sha256": "cc0fbaffe974307fb7d54fff4d52e00b02b9f6ccc5a0739db23f2a15cb85d027",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 69714410593,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 34,
+      "report_sha256": "5dc665e97ceb413ea968367b61f7396ae41d5cb8d817396ef869ac8901f63c6b",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 133409654065,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 35,
+      "report_sha256": "4e4613a9c592c3b4621e0fe4cf70e61dbc4575d33d5b32fecd270fa2184a29f5",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 213525950753,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 36,
+      "report_sha256": "30428c1aaf9c7b240087833b64bc24c99b2d351fdfbbc3b0500e30f8f44d5849",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 85907344195,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 37,
+      "report_sha256": "939502612b87cd3030bd3527167a66f8052df6ffdb6658247060f0918584bbed",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 146346264575,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 38,
+      "report_sha256": "a255bc5f398e4867da7b7e440920375810cc5681afdded49c496ea5416551335",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 240225424597,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 39,
+      "report_sha256": "769bcb4f36528b05bc4c2efe613df95db2e616cd2ea0f0eed36449620b4660e4",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 69180112378,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 4,
+      "report_sha256": "a1f5c135cc1550ce84e9fd5ae0d68b6ff90239b3046a67cacd830439eed8c63b",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 68521340953,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 40,
+      "report_sha256": "c49a74350c36e77df65729b006ac6a44dae5ce86be6b58fc8f80f93eb9857c24",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 132278082271,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 41,
+      "report_sha256": "207ebc5690de0cb738704388cd1437377ce48220d750022df02fffef227f5c5b",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 209008308415,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 42,
+      "report_sha256": "229559c0bf734a921c067b33179455c438e394f8adc0abda3dd8b573f4fc5b9d",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 69014041111,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 43,
+      "report_sha256": "45df94ade1682d3f39fd08c724b6233074f8ff3f11c17230e4d4ca89cc5cbf36",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 129603963817,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 44,
+      "report_sha256": "4a4c6fcb444576c512ab9bc8e766a166e6b99c09e1a8a7add7b98aeb4ab6ed60",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 211317558684,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 45,
+      "report_sha256": "cae733d65afec4f16737e9de911a0276d39ada2dcaa9ec51664169f2923ad290",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 86972675215,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 46,
+      "report_sha256": "4f16c902c8d7fbf4dd69079182fd68134a0a360a494db4b8cde1c900d8eb06a9",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 143370193491,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 47,
+      "report_sha256": "efbb0300c06bdf03a7586ec7bb18842d645fcb9dd08b937f34b11e1a77971357",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 240060684944,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 48,
+      "report_sha256": "c8c5b4015beebd95211583b9ee11ae915f2940a3f32721a962a2d30d0d2af4fa",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 65850404298,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 49,
+      "report_sha256": "f89d15556e13a9a1458259b003f9069d5dba7a3586969e11b35c8a2cd7000e24",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 133216831966,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 5,
+      "report_sha256": "a918dd10e2c8bef96d6d0d76a86fe5d856ef9a3df41e4ec563c33b8dff3efdc7",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 131824829244,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 50,
+      "report_sha256": "38c9fd61daa6ec75826456434724992b30bb8d11eebb3987c89615c8144f98b9",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 203281354250,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 51,
+      "report_sha256": "68d12daf6717115b90913802c439dbcbac33b59a339d251e4fce63e2e5d78fb0",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 69565760739,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 52,
+      "report_sha256": "0f84c383890d5fb99cc35796b28fadf6be810b34caac2404c0ad705e8c2822b2",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 134288622029,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 53,
+      "report_sha256": "b3d9779f2d88163693f7c002b2783ed9002b01dd553a6bfadaf4eee38a57387a",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 195655799906,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 54,
+      "report_sha256": "c93308b569d897504db282e1a419eec5752793c1db7f7994c23f204a6e0d1fca",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 87114729633,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 55,
+      "report_sha256": "06f0d7473573aec7b5ac98954f67709846e6eba1018b8009b4708497467bbb32",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 148881177553,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 56,
+      "report_sha256": "c875b0c3fca4db82d2b0e7a9a1d4e8159a81aa6f94037c322ceb7cb321228997",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 240733867588,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 57,
+      "report_sha256": "a633bd744b899ffee0c8ed9c53118584e83eb6f2858c8de2d746eb297a285183",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 68324143849,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 58,
+      "report_sha256": "f349b4015c7d1408d72a71ab0aed845d9d07bfc1681efd6244927743d4b91539",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 132402313875,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 59,
+      "report_sha256": "a0ac5942ca23f1f711ee22ecce6c7cfcac971a3bd052a3479e08b6a1474ee9b9",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 206099279943,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 6,
+      "report_sha256": "fab824e97ddbecd0d9fc059575cadf69d8767c58729cec610dbac8a4b764f132",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 189261120076,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 60,
+      "report_sha256": "9b703ee13f857841dc7a8c9b32b8f80d2c37a63d35da744302fee1e44df99b40",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 70364779989,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 61,
+      "report_sha256": "87b5cd6d4f72c690cbebdae7f9706c166436d7fd0f870b7e86d1974eb09a24b9",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 130912901856,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 62,
+      "report_sha256": "fb5353d3d9c4aff60b664b3563fe7d8a898d030361670200b950716dcf3fac3d",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 224881442675,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 63,
+      "report_sha256": "318e06b287fdf3f9c6e2055f535fa51beaba9b1ffcc275abe58aaec46251e61b",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 94288847011,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 64,
+      "report_sha256": "30b7d19366c945c3f4a174eabf4431fb1a75792402f6d34ff23b71e5195e0888",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 167263845428,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 65,
+      "report_sha256": "a52b4260b31a305c85224a3bf0f6d5b05ea1f3c9aa47402beb694ae88879cb96",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 248765576464,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 66,
+      "report_sha256": "002ad1a8f052292ea396b03ad352a6f4d0af0ab2dc4ceac40452611d3134bcd5",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 69498704002,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 67,
+      "report_sha256": "a9dae052fe871be3239ac3181d769b7f9879c8072cc0785d9add736026934a34",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 131787293304,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 68,
+      "report_sha256": "ed4a856cc6d325f0b143db8513e76b7d18cb807d715db144f1d735c7e420c5ac",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 211265979502,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 69,
+      "report_sha256": "b92d326fc237367eef562cc1183c2bbf65f4550ad70949754af96312e3b8ced8",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 72269861422,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 7,
+      "report_sha256": "eafd7c85a53dc62268a212174d19ac59976687b90e3f88ade81a51c4d88ebbf9",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 71771311672,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 70,
+      "report_sha256": "fa9fb250f558cc54d68c48b620ff53b3c9bd3a795bc3d7c476cab0c56e0556ae",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 130249485973,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 71,
+      "report_sha256": "711ce9f1127f5a799bbf6499efc905f2b039a931214b11982433c03410b0b856",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 212584882250,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 72,
+      "report_sha256": "ee68727ea248c8f53e50c5a2567534bba319839fa75e3062c5c44d6dd0b81141",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 93523751931,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 73,
+      "report_sha256": "93cdefbf41d35e852bbdbaa8d69f1847a3cd1cb7b1c88ba51d495f70e8865377",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 166115475115,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 74,
+      "report_sha256": "f950169f58c9cadf337f5bef6e4f9bc82f1f09c7de9a5bee4f92d786d8afe5d9",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 247533068522,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 75,
+      "report_sha256": "234d850b122704b7fdbe60c3d1f3f88a87c9d714f760e9c7f78718da2d6925e4",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 68611781596,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 76,
+      "report_sha256": "f703a92da38ec0e48aee8ba37f1a7ad9a648536cd889ffa27a245371e078f3b0",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 130716475952,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 77,
+      "report_sha256": "46bc4bd170f0bfb1b655708fc1f26d08a01a99bb61497b2e8be926a66ce7938b",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 212168363732,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 78,
+      "report_sha256": "65500c2a7bba78c6c2b9f1659c7b63899e345556fd04173a6d7f9ccea651c9a7",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 70216619172,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 79,
+      "report_sha256": "eb0bfa5b183bcfdd713f62d18e45c0435c34b97ddd022b45bf63ab72739004c1",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 133138489341,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 8,
+      "report_sha256": "d07aba4e2c7691940b86514d13574a4da7bb4690db8d4d9b3ba394287ba56463",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 132807444908,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 80,
+      "report_sha256": "e7bad2521ff05047b309465da6bfb6e26fc05f9e03976be2b8d56c389176d2c7",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 212339108116,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 81,
+      "report_sha256": "9561bf27d650c30f3fc54cd9cdc815ce1a5f72945dc800cfc1df33f232a8d36a",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 90198573672,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 82,
+      "report_sha256": "9e8115069a8af6c46998fdcb6379607d8e70eced9c7673eb1490f26a3ee10ef8",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 167355193150,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 83,
+      "report_sha256": "77603ebc9b11feb85c8a5fc638ee9d4b8efd65afb885dcfb6e9f443d796f6972",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 247431446860,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 84,
+      "report_sha256": "b3d02b6004ea8d302f8e6db3699b3488d1423409a68e23467c4698e33f600e16",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 65835814565,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 85,
+      "report_sha256": "7aa2d86386a208b23d954dad50432b767c3914254ea74b03598b50ece82ba28a",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 128511402500,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 86,
+      "report_sha256": "4f67cc8e320fca460154531cf8214aa32fc42d7719c0942484ce98b2ca37a42d",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 216748693154,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 87,
+      "report_sha256": "4fe11a5aa70d9bf77d822955a872190a68abef744722d9b92f9c503664683097",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 70701717993,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 88,
+      "report_sha256": "4271289c13da04ee4719ae180a986a57a22993084e8c0e725b7f8d45830b85c2",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 131289961627,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 89,
+      "report_sha256": "6e001048d3543e80fd918ea2877e9281559bb0b0ad22bb799c8a649b6ca5dcc0",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 209234377392,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 9,
+      "report_sha256": "7043c94a65c05b91342d625e24a75a72636cbc69f6ff6e5513beda4c07131f12",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 190757498467,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 90,
+      "report_sha256": "4271c9947917a954a77c0c34b0909f4ae61590d0cc9043776b91c1e4328469c4",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 92374333930,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 91,
+      "report_sha256": "eab91058e053ce56ebecb0f3d83104a2c60e681182bc976963f3093d3eec468f",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 150717086531,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 92,
+      "report_sha256": "f246a26a02f5257a2792a5affd57f3020a6e689442fb2a2c829b8ac5b6260af6",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 247968426358,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 93,
+      "report_sha256": "5eaf5520ee1f566882470e3efccd9823118c8a22eb648c690bbceb6970a40c46",
+      "status": "VALID"
+    }
+  ],
+  "raw_data_transferred": false,
+  "remaining_analysis_seconds": -3247.593366084,
+  "report_count": 94,
+  "scientific_completion_present": true,
+  "valid_reaped_process_count": 94
+}

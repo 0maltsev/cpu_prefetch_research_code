@@ -1,0 +1,61 @@
+{
+  "schema_version": "software-d254-admission-preparation-inventory/1",
+  "files": [
+    {
+      "path": "REPORT.md",
+      "size_bytes": 2086,
+      "sha256": "4c39dcb7546a5d3a0aff6d65d1c0fb0b1682b924f525616231fb434a1fc70f56"
+    },
+    {
+      "path": "analysis-preparation-tests.log",
+      "size_bytes": 103,
+      "sha256": "888a0c0ed615e57d32cf72be501b0c355f33b8613c81dfdaa99db33d7959487e"
+    },
+    {
+      "path": "bundle-tuple-tests.log",
+      "size_bytes": 101,
+      "sha256": "33060fd73862c5e1af97335504d5b45211fce6d229657f556d8deceeadc52ce4"
+    },
+    {
+      "path": "cli-daycap-tests-final.log",
+      "size_bytes": 103,
+      "sha256": "d1aaab86fa02d87997171aeb3220b40f5e28046ec4d1674848f9ec5f589f297c"
+    },
+    {
+      "path": "controller-daycap-main-tests.log",
+      "size_bytes": 124,
+      "sha256": "d8427898b63cf6d37d468d76eb159e2bc1b44bf64cca4e4cdf4e1a97b68795aa"
+    },
+    {
+      "path": "export_original_contexts.py",
+      "size_bytes": 2411,
+      "sha256": "aab0ebd09c1a63562f30344651a9d5230ea9a6980aaa819e8f3de1c6e49467e9"
+    },
+    {
+      "path": "handoff-daycap-main-tests.log",
+      "size_bytes": 131,
+      "sha256": "61ed1c6f65b62d1c90fd49a4a2afd26b3b96c8cdf0306f97398bb9aa2a89f5ab"
+    },
+    {
+      "path": "original-contexts-3.json",
+      "size_bytes": 23801,
+      "sha256": "30101aca1229b0edbd22c3be46c2d26aa8f3be7cd03958dc86f7ea15a70b18c6"
+    },
+    {
+      "path": "original-contexts-admission.json",
+      "size_bytes": 22695,
+      "sha256": "4556895f2223227177bfe9df966159bbb8e19413bb8076330e14ad3696d80cfd"
+    },
+    {
+      "path": "policy59-main-tests.log",
+      "size_bytes": 113,
+      "sha256": "d4529c3b66d58402bcf278cc379624fabc668afe827151c02e1ed6f54a929a5c"
+    },
+    {
+      "path": "sealed-inventory-provenance.json",
+      "size_bytes": 1528,
+      "sha256": "ce1fcea2453dc081ccae69fc366718849725e88747613e19e8273d2dfc7f35f4"
+    }
+  ],
+  "execution_authority": false
+}

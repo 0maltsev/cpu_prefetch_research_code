@@ -1,0 +1,94 @@
+{
+  "$id": "urn:cpu-prefetch:q15-r-p4-r-preparation:v2",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "$defs": {
+    "nonempty": {"minLength": 1, "type": "string"},
+    "sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+    "unresolved": {
+      "additionalProperties": false,
+      "properties": {"name": {"$ref": "#/$defs/nonempty"}, "state": {"const": "UNRESOLVED"}, "value": {"type": "null"}},
+      "required": ["name", "state", "value"],
+      "type": "object"
+    },
+    "release_evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "archive_bytes": {"const": 4642298},
+        "archive_name": {"const": "cpu-prefetch-q15-qualification-tool-2.0.0-34da95d-clean-5fc75063e1d1.tar.gz"},
+        "archive_sha256": {"const": "f45d25f4aa6bff56c39face088c46c4cccd21bfaf903c9c320100b561402ff3a"},
+        "bundle_manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "bundle_profile": {"const": "Q15-QUALIFICATION-TOOL-BUNDLE-v3"},
+        "collector_binary_sha256": {"$ref": "#/$defs/sha256"},
+        "collector_contract_sha256": {"const": "4123735a940da144e00247957d0210216cde4bf19fbdbea0378b52dab2161b87"},
+        "controller_binary_sha256": {"$ref": "#/$defs/sha256"},
+        "controller_codegen_report_sha256": {"$ref": "#/$defs/sha256"},
+        "internal_file_count": {"const": 154},
+        "internal_sha256s_sha256": {"$ref": "#/$defs/sha256"},
+        "p4_d_acceptance_sha256": {"const": "1645c2a7fb356272afbf9377b99784e307f54f8a7df5fbb09f46d70edae3c521"},
+        "prestate_validator_sha256": {"$ref": "#/$defs/sha256"},
+        "probe_codegen_report_sha256": {"$ref": "#/$defs/sha256"},
+        "q15_qualification_library_sha256": {"$ref": "#/$defs/sha256"},
+        "q15_tool_binary_sha256": {"$ref": "#/$defs/sha256"},
+        "repository_license": {"const": "NO-LICENSE-GRANT"},
+        "runtime_codegen_report_sha256": {"$ref": "#/$defs/sha256"},
+        "sbom_sha256": {"$ref": "#/$defs/sha256"},
+        "sidecar_sha256": {"$ref": "#/$defs/sha256"},
+        "source_archive_name": {"const": "cpu-prefetch-source-34da95d-clean.tar.gz"},
+        "source_archive_sha256": {"$ref": "#/$defs/sha256"},
+        "source_commit": {"const": "34da95d002e912069c959bfef8e88a23b4880cea"},
+        "version_metadata_sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "required": ["archive_bytes", "archive_name", "archive_sha256", "bundle_manifest_sha256", "bundle_profile", "collector_binary_sha256", "collector_contract_sha256", "controller_binary_sha256", "controller_codegen_report_sha256", "internal_file_count", "internal_sha256s_sha256", "p4_d_acceptance_sha256", "prestate_validator_sha256", "probe_codegen_report_sha256", "q15_qualification_library_sha256", "q15_tool_binary_sha256", "repository_license", "runtime_codegen_report_sha256", "sbom_sha256", "sidecar_sha256", "source_archive_name", "source_archive_sha256", "source_commit", "version_metadata_sha256"],
+      "type": "object"
+    }
+  },
+  "properties": {
+    "acceptance_binding": {"const": {"acceptance_id": "Q15-R-P4-E-ACCEPTANCE-20260825-01", "path": "config/q15/q15-r-p4-e-acceptance-v1.json", "sha256": "b4eec39ab9a5e760cf011ad79b5c2e416755ba40f2af1769033852e735dfd1f0"}},
+    "authority_boundary": {"const": {"bundle_transfer_or_install_authorized": false, "calibration_pilot_measurement_or_confirmatory_authorized": false, "collector_execution_authorized": false, "filesystem_mutation_authorized": false, "key_or_setup_action_authorized": false, "literal_path_selection_authorized": false, "pmu_msr_affinity_numa_authorized": false, "q15_r_or_q15_w_authorized": false, "repository_local_preparation_authorized": true, "signing_or_issuance_authorized": false, "stand_access_authorized": false}},
+    "decision_binding": {"const": {"decision_id": "D-071", "decision_input_id": "Q15-R-P4-R-COLLECTOR-RELEASE-DECISION-INPUT-20260825-01", "decision_input_path": "config/q15/q15-r-p4-r-collector-release-decision-input-v1.json", "decision_input_sha256": "89092ce9158267a20540878514fb1b629db3ab021f9b49863e57f922672b4b71"}},
+    "exact_invocation_template": {
+      "additionalProperties": false,
+      "properties": {
+        "argv": {"const": ["@COLLECTOR_RELEASE_ROOT@/bin/cpu_prefetch_q15_prestate_collector", "--collect", "@AUTHORIZATION_SHA256@", "@COLLECTOR_BINARY_SHA256@", "4123735a940da144e00247957d0210216cde4bf19fbdbea0378b52dab2161b87", "@CAPTURE_ID@"]},
+        "fixed_environment": {"const": ["LANG=C", "LC_ALL=C", "TZ=UTC0"]},
+        "glob": {"const": false},
+        "inherited_environment": {"const": false},
+        "shell": {"const": false},
+        "stderr_destination": {"type": "null"},
+        "stdout_destination": {"type": "null"}
+      },
+      "required": ["argv", "fixed_environment", "glob", "inherited_environment", "shell", "stderr_destination", "stdout_destination"],
+      "type": "object"
+    },
+    "future_authorization": {"const": {"authorization_id": null, "authorization_sha256": null, "expires_at_utc": null, "independent_review_artifact_id": null, "independent_review_sha256": null, "issued_at_utc": null, "named_authority_principal": null, "signature_artifact_id": null, "signature_sha256": null, "status": "NOT_ISSUED"}},
+    "internal_command_ids": {"items": {"pattern": "^P4R-[0-9]{3}$", "type": "string"}, "maxItems": 25, "minItems": 25, "type": "array", "uniqueItems": true},
+    "limits": {"const": {"external_total_watchdog_seconds": 900, "maximum_artifact_bytes": 67108864, "maximum_stderr_bytes_per_command": 1048576, "maximum_stdout_bytes_per_command": 1048576, "maximum_total_captured_bytes": 16777216, "per_command_timeout_seconds": 30, "retain_partial": true, "retry_count": 0, "stop_first_failure": true}},
+    "lineage": {"const": {"predecessor_path": "config/q15/q15-r-p4-r.preparation.json", "predecessor_preparation_id": "Q15-R-P4-R-PREPARATION-20260825-01", "predecessor_sha256": "1925d9e8d23e42df5feef4bb900de3010a7a612724417f446f8df5d42aa11d9e", "relationship": "VERSIONED_SUCCESSOR_PRESERVE_PREDECESSOR"}},
+    "p4_k_binding": {"const": {"path": "config/q15/q15-r-p4-k.preparation.json", "sha256": "c56ae3dc74142d244e448b9a6f638960f0cce1eb1a9e7a106fea90a4bcf55e0f", "state": "UNCHANGED_EIGHT_INPUTS_UNRESOLVED_NOT_ISSUED"}},
+    "preparation_id": {"const": "Q15-R-P4-R-PREPARATION-20260825-02"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "remaining_required_inputs": {"items": {"$ref": "#/$defs/unresolved"}, "maxItems": 7, "minItems": 7, "type": "array", "uniqueItems": true},
+    "resolved_input_groups": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "name": {"const": "CLEAN_COLLECTOR_SOURCE_COMMIT_ARCHIVE_MANIFEST_SBOM_BINARY_AND_CONTRACT_HASHES"},
+          "state": {"const": "RESOLVED_BY_Q15_R_P4_E_ACCEPTED_VERIFIED_LOCAL_EVIDENCE"},
+          "value": {"$ref": "#/$defs/release_evidence"}
+        },
+        "required": ["name", "state", "value"],
+        "type": "object"
+      },
+      "maxItems": 1,
+      "minItems": 1,
+      "type": "array"
+    },
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-r-preparation/2"},
+    "stand_id": {"const": "XEON-CPU-FETCH"},
+    "status": {"const": "BLOCKED_EXTERNAL_INPUTS_AND_EXACT_AUTHORITY_REQUIRED"}
+  },
+  "required": ["acceptance_binding", "authority_boundary", "decision_binding", "exact_invocation_template", "future_authorization", "internal_command_ids", "limits", "lineage", "p4_k_binding", "preparation_id", "protocol_version", "remaining_required_inputs", "resolved_input_groups", "schema_version", "stand_id", "status"],
+  "title": "Q15-R-P4-E versioned successor P4-R preparation with collector release resolved",
+  "type": "object"
+}

@@ -1,0 +1,30 @@
+{
+  "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+  "decision": "D307",
+  "freeze": [
+    27985,
+    "cdf85bf585c997e079f432f904d93849fa5f69757440c7cefcf61ca7e06d742c"
+  ],
+  "historical_journal": [
+    3710,
+    "2fab0d69e3350dea0106a1fd5a0aa0ddd04dab8bae1956815e66ad47a378f5aa"
+  ],
+  "operational_admission": false,
+  "phase18_authority": false,
+  "provenance": [
+    6612,
+    "b17d0d14fd1fa2e8e06400b3e1db5addb5141c3c05d95b9772f75e425615f834"
+  ],
+  "publisher_completion": [
+    1051,
+    "97d00123faecbc34d9451c00b72274b884d5e523f81583e7fdb9d03f623e72ee"
+  ],
+  "publisher_source_revision": "4d86d6a6009c031bc1ef233675bec846863ad31c",
+  "qualified_release": [
+    "7b7c263cb850690cf333df0d196b18c875b4a53c",
+    "bc064c13afd7eb5142ae8ee434e95962e9b3fc3095c6c159d83376c3e7e8c019",
+    "828fe1a3482b4b6c9d7249582648be43e920051033f103808e0fc7644362bf8a"
+  ],
+  "schema_version": "cpu-prefetch-stage17-descriptive-freeze-audited-bindings/1",
+  "scope": "EXACT_COMPLETED_INCIDENT_ONLY"
+}

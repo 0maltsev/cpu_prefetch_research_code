@@ -1,0 +1,12 @@
+[1/5] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_s180_input.cpp.
+31 warnings generated.
+[2/5] Processing file /home/omaltsev/research/cpu_prefetch_research_code/src/runner/stage17_s180_worker.cpp.
+149 warnings generated.
+[3/5] Processing file /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_input_test.cpp.
+220 warnings generated.
+[4/5] Processing file /home/omaltsev/research/cpu_prefetch_research_code/tests/stage17_s180_session_test.cpp.
+293 warnings generated.
+[5/5] Processing file /home/omaltsev/research/cpu_prefetch_research_code/tools/runner_main.cpp.
+361 warnings generated.
+Suppressed 362 warnings (361 in non-user code, 1 NOLINT).
+Use -header-filter=.* or leave it as default to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.

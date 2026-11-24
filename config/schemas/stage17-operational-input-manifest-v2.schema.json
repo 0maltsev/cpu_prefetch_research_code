@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:cpu-prefetch:stage17:operational-input-manifest:v2",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "manifest_id", "input_id", "protocol_version", "stand_id", "predecessor_resolutions", "artifacts", "synthetic_test_only", "authority_expansion", "phase18_authority"],
+  "properties": {"schema_version": {"const": "cpu-prefetch-stage17-operational-input-manifest/2"}, "manifest_id": {"type": "string", "minLength": 1}, "input_id": {"pattern": "^S17-EXT-0(0[2-9]|10)$"}, "protocol_version": {"const": "2.0.0-pre.2"}, "stand_id": {"type": "string", "minLength": 1}, "predecessor_resolutions": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/resolution"}}, "artifacts": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "stage17-operational-artifact-v2.schema.json"}}, "synthetic_test_only": {"type": "boolean"}, "authority_expansion": {"const": false}, "phase18_authority": {"const": false}},
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "resolution": {"type": "object", "additionalProperties": false, "required": ["input_id", "resolution_id", "sha256"], "properties": {"input_id": {"pattern": "^S17-EXT-[0-9]{3}$"}, "resolution_id": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha256"}}}}
+}

@@ -1,0 +1,10 @@
+{
+  "observed_utc": "2026-11-02T22:44:50.055825+00:00",
+  "host": "cpu-prefetch-v5",
+  "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+  "scope": "READ_ONLY_JOURNAL_FILE_IDENTITY_NOT_OPERATIONAL_REPLAY",
+  "journal_directory": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/journal",
+  "journal_count": 9,
+  "latest_journal": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-12/journal/stage17-state-journal-000008.json",
+  "latest_sha256": "46e6fa35f7393e136e8169e19e1c3ee7c49a8c2f82acc65322dd813b73e21c84"
+}

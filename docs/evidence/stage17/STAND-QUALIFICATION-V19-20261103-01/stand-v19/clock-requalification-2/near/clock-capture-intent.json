@@ -1,0 +1,18 @@
+{
+  "binary_sha256": "1e6bde398d7188e97c05b2293a596c64612b39f54a0c81aec430faa152f784ba",
+  "capture_id": "CPU-PREFETCH-V5-V19-ISOLATED-CLOCK-NEAR-1",
+  "clock_api": "CLOCK_MONOTONIC_RAW",
+  "command": [
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-ac64633-clean-91a93014b4eb/release/bin/cpu_prefetch_q15_clock_qualification_tool",
+    "--qualify-pair",
+    "near",
+    "--output",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/clock-requalification-2/near/clock-raw.json"
+  ],
+  "control_before_sha256": "432bd8a729a3440850280fb37449dba3131495330bfa6cf7939c5809113f77eb",
+  "scope": "OWNER_APPROVED_FINITE_ISOLATED_REQUALIFICATION",
+  "source_revision": "ac64633662c4e61c8dd98e332dc70f77085e2e48",
+  "started_at_utc": "2026-11-03T08:55:10Z",
+  "timeout_seconds": 600,
+  "timestamp_units": "relative picoseconds"
+}

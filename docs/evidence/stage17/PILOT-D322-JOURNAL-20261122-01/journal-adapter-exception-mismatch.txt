@@ -1,0 +1,26 @@
+E.............
+======================================================================
+ERROR: test_base_adapter_forces_actual_time_policy_and_nonsynthetic_replay (__main__.JournalTests.test_base_adapter_forces_actual_time_policy_and_nonsynthetic_replay)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_journal_v1.py", line 286, in test_base_adapter_forces_actual_time_policy_and_nonsynthetic_replay
+    journal.from_authenticated_base(self.root,
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+        base_replay_arguments=dict(locators,allow_synthetic_test_evidence=True),**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_journal_v1.py", line 432, in from_authenticated_base
+    authority.fields(base_replay_arguments, {"repository_root", "evidence_root", "latest_journal",
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "journal_directory", "pilot_archive", "pilot_sidecar"}, "original replay locators")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_authority_v1.py", line 54, in fields
+    require(type(value) is dict and set(value) == set(expected), label + " fields differ")
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_authority_v1.py", line 46, in require
+    raise AuthorityError("S180 authority: " + message)
+stage17_s180_authority_v1.AuthorityError: S180 authority: original replay locators fields differ
+
+----------------------------------------------------------------------
+Ran 14 tests in 11.876s
+
+FAILED (errors=1)

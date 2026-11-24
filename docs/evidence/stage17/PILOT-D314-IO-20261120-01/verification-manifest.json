@@ -1,0 +1,153 @@
+{
+  "schema_version": "cpu-prefetch-engineering-evidence/1",
+  "scope": "SOFTWARE_CORRECTNESS_ONLY",
+  "experimental_runs_started": 0,
+  "operational_window_started": false,
+  "new_io_cases": 7,
+  "original_source_cases": 5,
+  "runner_regression_cases": 139,
+  "source_files": [
+    {
+      "path": "CMakeLists.txt",
+      "size_bytes": 187056,
+      "sha256": "842fa67da87b8f1fb4356edd4c53d979bb0f12c5677c3c82893ef7845e754275"
+    },
+    {
+      "path": "include/cpu_prefetch/runner/stage17_s180_sources.hpp",
+      "size_bytes": 1720,
+      "sha256": "c34471d97ee699545f0a3c4733615cdff58341893d55c4e60e14503a413a67fb"
+    },
+    {
+      "path": "include/cpu_prefetch/runner/stage17_s180_publication.hpp",
+      "size_bytes": 1155,
+      "sha256": "d4e8dfcc5c90ac955034e7f3e44310dabffe5848f2499ba6b12283c5779d6ab2"
+    },
+    {
+      "path": "src/runner/stage17_s180_sources.cpp",
+      "size_bytes": 5496,
+      "sha256": "93809d290f1066e1fa62696e75a9ae8304310bfcfdd0c49a5ad0f24efd09f0df"
+    },
+    {
+      "path": "src/runner/stage17_discovery_publication.cpp",
+      "size_bytes": 95887,
+      "sha256": "ea2456ddf5eba5857b3917ed0c7a1200d8d96b67d3ba7c617bc8ea37384dc370"
+    },
+    {
+      "path": "tests/stage17_s180_io_test.cpp",
+      "size_bytes": 19848,
+      "sha256": "5f6db46fe6b58a6de7a05179484ab10cae4b1d1887db59cec999d6ab0269b2fe"
+    }
+  ],
+  "verification_files": [
+    {
+      "path": "docs/evidence/stage17/PILOT-D314-IO-20261120-01/verification/asan-ubsan-clang-s180io-build.txt",
+      "size_bytes": 1961,
+      "sha256": "1225b649bdb8c0a93330c58faa7e9325f8cb68cbeb08d5c36041032833f39437"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D314-IO-20261120-01/verification/asan-ubsan-clang-s180io-configure.txt",
+      "size_bytes": 184,
+      "sha256": "234de695853fdc112c283d4fffebf7170a6cc8c07621cb1c152822d0e03bd650"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D314-IO-20261120-01/verification/asan-ubsan-clang-s180io-tests.txt",
+      "size_bytes": 1729,
+      "sha256": "dd85f5b87031cc35bec33e3663939710e37b66701b0f1e18c71d12def288f614"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D314-IO-20261120-01/verification/asan-ubsan-gcc-s180io-build.txt",
+      "size_bytes": 437,
+      "sha256": "15ea8cb9992541b8106cd605d762554a58f606685da315788a7e09366473ca13"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D314-IO-20261120-01/verification/asan-ubsan-gcc-s180io-configure.txt",
+      "size_bytes": 182,
+      "sha256": "b9750c3c6401ea5e48ee59552439389125d235fbad8003b03186a0cde5a1a402"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D314-IO-20261120-01/verification/asan-ubsan-gcc-s180io-tests.txt",
+      "size_bytes": 1659,
+      "sha256": "6e4992db1cc6d6210cd7847c7145e17b738d48a43eb92882169b541f3f3c2c68"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D314-IO-20261120-01/verification/build_matrix.py",
+      "size_bytes": 1698,
+      "sha256": "6377ce29357660e6b17b75a1a2bc5ef84e512bef11db0d4b4b7e6ca67bd5815d"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D314-IO-20261120-01/verification/s180-io-ctest.txt",
+      "size_bytes": 3220,
+      "sha256": "59476ead5220ee1cd770a69353050beb1c171321858989ce0bf59c7ceae41f4e"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D314-IO-20261120-01/verification/s180-io-final-build.txt",
+      "size_bytes": 673,
+      "sha256": "de0d2ef187414c206a4831a3715eb82c834fe278195c9c4d236b62347d8b7c02"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D314-IO-20261120-01/verification/s180-io-format-all.txt",
+      "size_bytes": 30,
+      "sha256": "2a2dfb33385f763495a7752721d7f4bcf54c5fe8cfbf144c88c3f1601c5a6653"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D314-IO-20261120-01/verification/s180-io-format.txt",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D314-IO-20261120-01/verification/s180-io-protocol-checks.txt",
+      "size_bytes": 576,
+      "sha256": "24ed5d8138d0288a6bbd5bc9b4becd91b5e05f341169e9e022efc2f91c4c3fcf"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D314-IO-20261120-01/verification/s180-io-tidy.txt",
+      "size_bytes": 621,
+      "sha256": "c1625bf56d83d7c9cc3c7678434d5ae0a657ebc12ef6c5ea4294f76828da27dd"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D314-IO-20261120-01/verification/s180-runner-regression.txt",
+      "size_bytes": 25916,
+      "sha256": "fe935cc137fed5a332d5e24921accd41b5b4a45d54c48fb23d2748b222519c34"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D314-IO-20261120-01/verification/s180-unknown-repro.txt",
+      "size_bytes": 936,
+      "sha256": "351b52360a425c9eadaa9bb523622064ab1211c026ea43adbefae16d79ae1fe2"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D314-IO-20261120-01/verification/tsan-clang-s180io-build.txt",
+      "size_bytes": 1961,
+      "sha256": "1225b649bdb8c0a93330c58faa7e9325f8cb68cbeb08d5c36041032833f39437"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D314-IO-20261120-01/verification/tsan-clang-s180io-configure.txt",
+      "size_bytes": 321,
+      "sha256": "5da122cdc23688c6c5fa2b5de505b912bc2d33de9a487d196e6af5dcc797ab61"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D314-IO-20261120-01/verification/tsan-clang-s180io-tests.txt",
+      "size_bytes": 1729,
+      "sha256": "878ae6bf810d81b53797584af32d14a57cc86c32c38299740d17799dc3a931ad"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D314-IO-20261120-01/verification/tsan-gcc-s180io-build.txt",
+      "size_bytes": 437,
+      "sha256": "15ea8cb9992541b8106cd605d762554a58f606685da315788a7e09366473ca13"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D314-IO-20261120-01/verification/tsan-gcc-s180io-configure.txt",
+      "size_bytes": 176,
+      "sha256": "d958ed05cfd2c9fd024b8166b980b303455863426bc42b1b77f4cb277c29fc87"
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D314-IO-20261120-01/verification/tsan-gcc-s180io-tests.txt",
+      "size_bytes": 1659,
+      "sha256": "cf999f04f2b6d46c18d6390e3dc067a3c1bed7d80738244ee997e2a53137b33b"
+    }
+  ],
+  "unchanged_fixed_worker_entry": {
+    "path": "src/runner/stage17_fixed_action.cpp",
+    "size_bytes": 267565,
+    "sha256": "03130e61fcd1b61b4cb7b2d1bfc564f1420e87eebcbff428a2b3f7ff4eec764e"
+  }
+}

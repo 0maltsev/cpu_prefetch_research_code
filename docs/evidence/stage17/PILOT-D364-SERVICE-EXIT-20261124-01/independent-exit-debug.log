@@ -1,0 +1,102 @@
+E....EF.EE...
+======================================================================
+ERROR: test_changed_historical_plan_evidence_blocks_exit (__main__.ExitTests.test_changed_historical_plan_evidence_blocks_exit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_exit_v1.py", line 109, in test_changed_historical_plan_evidence_blocks_exit
+    with self.assertRaisesRegex(execution.ExecutionError,'binding'):self.observe()
+                                                                    ~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_exit_v1.py", line 85, in observe
+    return exit_check._observe(self.f.base,self.f.inputs.operator_revision,self.f.inputs.operator_profile_sha256)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_exit_v1.py", line 202, in _observe
+    execution.environment._plan(plan);same(execution._sha(plan),handoff['plan_sha256'],'original source plan digest')
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_environment_v1.py", line 73, in _plan
+    require(len(observed)==5 and set(observed)==expected,'requested monitoring paths differ from actual managed partition')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_environment_v1.py", line 41, in require
+    if not value:raise EnvironmentError('S180 environment: '+message)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_environment_v1.EnvironmentError: S180 environment: requested monitoring paths differ from actual managed partition
+
+======================================================================
+ERROR: test_missing_archive_blocks_exit (__main__.ExitTests.test_missing_archive_blocks_exit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_exit_v1.py", line 104, in test_missing_archive_blocks_exit
+    with self.assertRaises(FileNotFoundError):self.observe()
+                                              ~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_exit_v1.py", line 85, in observe
+    return exit_check._observe(self.f.base,self.f.inputs.operator_revision,self.f.inputs.operator_profile_sha256)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_exit_v1.py", line 202, in _observe
+    execution.environment._plan(plan);same(execution._sha(plan),handoff['plan_sha256'],'original source plan digest')
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_environment_v1.py", line 73, in _plan
+    require(len(observed)==5 and set(observed)==expected,'requested monitoring paths differ from actual managed partition')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_environment_v1.py", line 41, in require
+    if not value:raise EnvironmentError('S180 environment: '+message)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_environment_v1.EnvironmentError: S180 environment: requested monitoring paths differ from actual managed partition
+
+======================================================================
+ERROR: test_same_bytes_rewritten_after_inverse_block_exit (__main__.ExitTests.test_same_bytes_rewritten_after_inverse_block_exit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_exit_v1.py", line 99, in test_same_bytes_rewritten_after_inverse_block_exit
+    with self.assertRaisesRegex(execution.ExecutionError,'epoch'):self.observe()
+                                                                  ~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_exit_v1.py", line 85, in observe
+    return exit_check._observe(self.f.base,self.f.inputs.operator_revision,self.f.inputs.operator_profile_sha256)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_exit_v1.py", line 202, in _observe
+    execution.environment._plan(plan);same(execution._sha(plan),handoff['plan_sha256'],'original source plan digest')
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_environment_v1.py", line 73, in _plan
+    require(len(observed)==5 and set(observed)==expected,'requested monitoring paths differ from actual managed partition')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_environment_v1.py", line 41, in require
+    if not value:raise EnvironmentError('S180 environment: '+message)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_environment_v1.EnvironmentError: S180 environment: requested monitoring paths differ from actual managed partition
+
+======================================================================
+ERROR: test_signed_historical_exit_verifies_originals_and_creates_no_new_attempt (__main__.ExitTests.test_signed_historical_exit_verifies_originals_and_creates_no_new_attempt)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_exit_v1.py", line 88, in test_signed_historical_exit_verifies_originals_and_creates_no_new_attempt
+    self.run_controller();result=self.observe()
+                                 ~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_exit_v1.py", line 85, in observe
+    return exit_check._observe(self.f.base,self.f.inputs.operator_revision,self.f.inputs.operator_profile_sha256)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_exit_v1.py", line 202, in _observe
+    execution.environment._plan(plan);same(execution._sha(plan),handoff['plan_sha256'],'original source plan digest')
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_environment_v1.py", line 73, in _plan
+    require(len(observed)==5 and set(observed)==expected,'requested monitoring paths differ from actual managed partition')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_environment_v1.py", line 41, in require
+    if not value:raise EnvironmentError('S180 environment: '+message)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_environment_v1.EnvironmentError: S180 environment: requested monitoring paths differ from actual managed partition
+
+======================================================================
+FAIL: test_os_restoration_failure_blocks_publication (__main__.ExitTests.test_os_restoration_failure_blocks_publication)
+----------------------------------------------------------------------
+stage17_s180_environment_v1.EnvironmentError: S180 environment: requested monitoring paths differ from actual managed partition
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_exit_v1.py", line 131, in test_os_restoration_failure_blocks_publication
+    with self.assertRaisesRegex(ValueError,'changed MSR'):self.observe()
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "changed MSR" does not match "S180 environment: requested monitoring paths differ from actual managed partition"
+
+----------------------------------------------------------------------
+Ran 13 tests in 30.815s
+
+FAILED (failures=1, errors=4)

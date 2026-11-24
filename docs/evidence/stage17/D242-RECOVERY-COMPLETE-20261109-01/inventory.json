@@ -1,0 +1,76 @@
+{
+  "files": [
+    {
+      "path": "d242-check-1.json",
+      "sha256": "af6b42e60fc48ca330c7937bb7f88befd2d87ab019c4b284843b8102d0f76e03",
+      "size_bytes": 635
+    },
+    {
+      "path": "d242-check-1.log",
+      "sha256": "97331066eec32f5f21d031de94a4d266fc0fedba96ea374c2c6123d21dc591bb",
+      "size_bytes": 106
+    },
+    {
+      "path": "d242-author-1.json",
+      "sha256": "fa6b738ef6948c61dad1e2a9ef782b5d03551eefa8d0d179d3598c50ea5efee7",
+      "size_bytes": 636
+    },
+    {
+      "path": "d242-author-1.log",
+      "sha256": "2d2366c940db1b35b10646d9757328839681cf0005f64b947407b3b1b657b74d",
+      "size_bytes": 218
+    },
+    {
+      "path": "d242-sign-1.json",
+      "sha256": "c6b29d95d275e6557b382ef81a41be453a72446b32d07b7f548ffe7f66583987",
+      "size_bytes": 422
+    },
+    {
+      "path": "d242-sign-1.log",
+      "sha256": "677ac9cdfcad3e961db146bf52f3f3dc77f3daf1aab978076064a79d75255329",
+      "size_bytes": 252
+    },
+    {
+      "path": "d242-commit-1.json",
+      "sha256": "0755c2ce4eff814d092e0fc71f02806fe4a5f4f6e3c6b917e5089f4dbc52c0e2",
+      "size_bytes": 636
+    },
+    {
+      "path": "d242-commit-1.log",
+      "sha256": "5f84057376f1c74c2e5a70124a215e2812e01ae54400a19c60d3a71dcea33054",
+      "size_bytes": 1157
+    },
+    {
+      "path": "d242-admin-1/manifest.json",
+      "sha256": "ffa0c16115440880ecbd2a46d08bf3364712caa2f23ead0b7106bb5b5c478e26",
+      "size_bytes": 1647
+    },
+    {
+      "path": "d242-transition-1/authorization.json",
+      "sha256": "40d84d42c283aab7f466d1a9d948711b5faa8a9e3c24f4b6c75b6418ea65ee39",
+      "size_bytes": 4170
+    },
+    {
+      "path": "d242-transition-1/authorization.json.sig",
+      "sha256": "1e815e34ef96a1443a1c3a0dbc1497bd41e35c29a26c9e1eb0311f63d2ca7498",
+      "size_bytes": 322
+    },
+    {
+      "path": "d242-transition-1/consumption.json",
+      "sha256": "cbd64895afd6be5a2f97716e2b6fba0b3878a30e7053d776c11ea3da06fd2816",
+      "size_bytes": 1120
+    },
+    {
+      "path": "records/transition-003-d242-1.json",
+      "sha256": "c4b395e13cf0f21da4e7331eccaf5849f1b65e9bb6d66a8e8c35bd83faba5d06",
+      "size_bytes": 3162
+    },
+    {
+      "path": "journal/stage17-state-journal-000009.json",
+      "sha256": "a26bf9e0d1d97446ab565d45ab6912df9cbf1a1601fd7c76ec8885627bd8b865",
+      "size_bytes": 3717
+    }
+  ],
+  "raw_transferred": false,
+  "recorded_at_utc": "2026-11-09T09:24:09.447699+00:00"
+}

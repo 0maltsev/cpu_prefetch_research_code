@@ -1,0 +1,17 @@
+{
+  "compaction_control": "1",
+  "operational_root_exists": false,
+  "unit": {
+    "ActiveState": "active",
+    "ControlPID": "0",
+    "ExecMainStartTimestamp": "Tue 2026-11-24 11:03:53 MSK",
+    "ExecMainStatus": "0",
+    "ExecStopPost": "{ path=/usr/bin/python3.14 ; argv[]=/usr/bin/python3.14 -B /run/cpu-prefetch-s180-operator-1/stop_post.py ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }",
+    "InvocationID": "b9e25b8ac2764d4b9922c9563de2af76",
+    "MainPID": "396684",
+    "NRestarts": "0",
+    "Result": "success",
+    "SubState": "running"
+  },
+  "utc": "2026-11-24T08:05:51.361004+00:00"
+}

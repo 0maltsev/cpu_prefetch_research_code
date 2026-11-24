@@ -13,9 +13,9 @@
 namespace cpu_prefetch::storage {
 
 inline constexpr std::string_view kPhaseIntegritySchema =
-    "cpu-prefetch-phase-integrity-report/1";
+    "cpu-prefetch-phase-integrity-report/2";
 inline constexpr std::string_view kCopyLedgerSchema =
-    "cpu-prefetch-copy-ledger-record/1";
+    "cpu-prefetch-copy-ledger-record/2";
 inline constexpr std::string_view kConsumerMixerRecordId =
     "cpu-prefetch/consumer-mix64-adr0027/v1";
 inline constexpr std::string_view kContentChecksumRecordId =

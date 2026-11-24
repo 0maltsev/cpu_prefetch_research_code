@@ -1,0 +1,59 @@
+[0/1] Re-running CMake...
+-- Configuring done (0.2s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+[1/12] Building CXX object CMakeFiles/cpu_prefetch_foundation.dir/src/repository_info.cpp.o
+[2/12] Linking CXX static library libcpu_prefetch_foundation.a
+[3/12] Linking CXX executable cpu_prefetch_runner
+[4/12] Linking CXX executable cpu_prefetch_s180_io_tests
+[5/12] Checking C++ formatting
+[6/12] Checking positive and negative protocol schema fixtures
+protocol-fixtures: PASS (2 snapshots, 14 schemas, 35 positive, 32 negative)
+[7/12] Checking shared JCS-I64-v1 cross-language fixtures
+canonical-check: PASS (3 shared JCS-I64-v1 cases)
+[8/12] Checking queue provenance, source hashes, mode, and license boundary
+queue-provenance-check: PASS (2 independent no-source-reuse records)
+[9/12] Checking the v1, Q14 v2, and Q15-P0 v3 runner-admission schemas
+runner-schema-check: PASS (Draft 2020-12; 3 positive, 6 negative)
+[10/12] Checking imported protocol integrity and schemas
+protocol-check: PASS (3 snapshots, 54 artifacts, 12 authoritative hashes, 21 imported and 451 implementation Draft 2020-12 schemas)
+[11/12] Checking Q14, Q15-P0, split Q15-R/Q15-W, Q15-R decisions, and probe contracts
+hardware-prefetch-schema-check: PASS (3 synthetic positive, 6 negative, no MSR access)
+qualification-schema-check: PASS (5 synthetic positive, 4 negative)
+stage17-authorization-check: PASS (1 legacy + 4 current execution positive, 1 superseded Q15, 9 negative, 144 semantic-admission schemas, no authority issued)
+stage17-operational-successor-check: PASS (legacy_template=true; state=PREPARED; transitions=0; external_inputs=10; pilot_ready=false; semantic_policy=v18; preflight_policy=v14; controller=v8; all_ten_verifiers=IMPLEMENTED; Stage17/Stage18 complete=false; stand=NOT_ACCESSED)
+stage17-historical-fixture: PASS revision=05035cec1d1c1c88a08e9012996e5a6e4ccfd2a5 preserved_current_inputs=VERIFIED current_policy_qualified=false authority=NONE
+stage17-state-journal-check: PASS state=PREPARED resolved=0 missing=10 pilot_ready=false semantic_positive=1/1 mechanics_positive=10/3 runtime_positive=2 stage17a4_positive=7 stage17a4_negative=5 negative=79 nonexistent_evidence=REJECTED generic_evidence=REJECTED reload=PASS Stage18=false stand=NOT_ACCESSED
+stage17-historical-fixture: PASS revision=05035cec1d1c1c88a08e9012996e5a6e4ccfd2a5 preserved_current_inputs=VERIFIED current_policy_qualified=false authority=NONE
+q15-authorization-check: PASS (3 synthetic authorizations, 10 negative, 2 blocked preparations, no authority issued)
+q15-r-decision-input-check: PASS (D-057..D-060, 5 negative, no authority issued)
+q15-r-operational-prerequisite-check: PASS (D-061..D-064 proposed, 20 setup argv, 24 access probes/18 deny, 10 rollback argv, 6 negative, record-only, authority=NONE)
+q15-r-p2-acceptance-check: PASS (D-061..D-064 accepted, 4 records synchronized, 3 negative, authority=REPOSITORY_LOCAL_ONLY)
+q15-trust-anchor-adapter-profile-check: PASS (FDs=3/4/5, 5 negative, fakeable, authority=NONE)
+q15-r-stand-setup-preparation-check: PASS (20 setup, 24 access, 10 quarantine, 6 unresolved, authority=NONE)
+q15-r-operational-release-decision-check: PASS (D-065 proposed, 5 unresolved, 5 negative, authority=NONE)
+q15-r-p3-acceptance-check: PASS (D-065 accepted, successor hash-bound, 4 negative, authority=NONE)
+q15-r-stand-setup-preparation-v2-check: PASS (1 release group resolved, 5 external unresolved, 20/24/10, 7 negative, authority=NONE)
+q15-r-external-input-acquisition-check: PASS (D-066..D-070 proposed, 5 unresolved, 9 negative, authority=NONE)
+q15-r-p4-d-implementation-check: PASS (D-066..D-070 accepted, 25 commands, 2 synthetic artifacts, 12 negative, P4-R/P4-K unissued, authority=NONE)
+q15-r-p4-r-collector-release-decision-check: PASS (D-071 proposed, 7 P4-R + 8 P4-K unresolved, 6 negative, authority=NONE)
+q15-r-p4-e-acceptance-check: PASS (D-071 accepted, successor hash-bound, P4-K preserved, 5 negative, authority=NONE)
+q15-r-p4-r-preparation-v2-check: PASS (1 collector-release group resolved, 7 P4-R + 8 P4-K unresolved, 25 commands, 8 negative, authority=NONE)
+q15-r-p4-r-staging-authorization-decision-check: PASS (D-072..D-075 proposed, split I/C gates unissued, 7 unresolved, 15 negative, authority=NONE)
+q15-r-p4-f-acceptance-check: PASS (D-072..D-075 accepted, 7 negative, operational authority=NONE)
+q15-r-p4-r-successor-templates-check: PASS (P4-R-I/P4-R-C split, 6+6 null inputs, 12 negative, issued=NO, operational authority=NONE)
+q15-r-p4-k-decision-input-check: PASS (D-076..D-079 proposed, 8 inputs null, 3 owner questions open, 12 negative, key/stand/execution authority=NONE)
+q15-r-p4-k-d-acceptance-check: PASS (D-076..D-079 accepted, logical custody only, 10 negative, key/stand/execution authority=NONE)
+q15-r-p4-k-successor-templates-check: PASS (P4-K-A/P4-K-R split, 13+9 null fields, 14 negative, issued=NO, key/stand/execution authority=NONE)
+q15-r-p4-k-a-operational-input-decision-check: PASS (D-080..D-085 proposed, 7 inputs null, 5 owner questions open, 15 negative, key/signer/stand/execution authority=NONE)
+q15-r-p4-k-a-d-acceptance-check: PASS (D-080..D-085 policy accepted, Q4=BLOCKED, 19 negative, controller/key/trust/stand/execution authority=NONE)
+q15-r-p4-k-a-controller-profile-check: PASS (10 fixed steps, 14 profile + 6 admission negative, 7 inputs null, OS/key/trust/stand authority=NONE)
+q15-r-bootstrap-governance-root-decision-check: PASS (D-087..D-092 proposed, 8 inputs null, 6 questions open, 14 negative, key/trust/stand/execution authority=NONE)
+d093-bootstrap-authorization-check: PASS (1 create-exclusive action, 13 negative, no key generated, P4-K/stand/Q15/pilot authority=NONE)
+d093-bootstrap-evidence-check: PASS (CREATED, not active, 11 negative, later authority=NONE)
+d094-bootstrap-activation-check: PASS (CREATED->ACTIVE, bootstrap input 1/7 resolved, 6 remain, 12 negative, signing/P4-K/stand/pilot authority=NONE)
+q15-authorization-v2-check: PASS (2 synthetic envelope, 12 negative, no authorization issued)
+q15-controller-profile-check: PASS (controller + unapplied setup, 8 negative, authority=NONE)
+q15-probe-collector-contract-check: PASS (1 frozen contract, 18 negative, no collector/probe execution)
+q15-probe-implementation-check: PASS (1 D-053 profile, 10 negative, stand/PMU not accessed)
+q15-dynamic-implementation-check: PASS (D-054..D-056, 7 collectors, 4 negative mutations, no authority)

@@ -1,0 +1,27 @@
+{
+  "observed_at_utc": "2026-11-02T20:26:04.804615+00:00",
+  "hostname": "cpu-prefetch-v5",
+  "kernel": "7.0.0-38-generic",
+  "scope": "READ_ONLY_RUNTIME_VERSIONS_NO_MSR_OR_CAPTURE",
+  "configuration_or_control_changed": false,
+  "qualification_claimed": false,
+  "commands": {
+    "glibc": ["getconf", "GNU_LIBC_VERSION"],
+    "python": ["python3", "--version"],
+    "g++": ["g++", "--version"],
+    "clang++": ["clang++", "--version"],
+    "cmake": ["cmake", "--version"],
+    "openssl": ["openssl", "version"]
+  },
+  "versions": {
+    "glibc": {"exit_code": 0, "first_line": "glibc 2.43"},
+    "python": {"exit_code": 0, "first_line": "Python 3.14.4"},
+    "g++": {"available": false, "error_type": "FileNotFoundError"},
+    "clang++": {"available": false, "error_type": "FileNotFoundError"},
+    "cmake": {"available": false, "error_type": "FileNotFoundError"},
+    "openssl": {
+      "exit_code": 0,
+      "first_line": "OpenSSL 3.5.5 27 Jan 2026 (Library: OpenSSL 3.5.5 27 Jan 2026)"
+    }
+  }
+}

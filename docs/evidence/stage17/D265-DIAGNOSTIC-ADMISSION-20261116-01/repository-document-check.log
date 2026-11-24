@@ -1,0 +1,14 @@
+document-check: docs/evidence/stage17/D242-OWNER-ACCEPTANCE-20261109-01/approved-proposal.md: missing target: ../evidence/stage17/Q16A-PREFIX-COMPLETE-E25-20261109-01/qualification/inventory.json
+document-check: docs/evidence/stage17/D243-OWNER-ACCEPTANCE-20261109-01/approved-proposal.md: missing target: ../evidence/stage17/Q16A-CONTINUATION-E25-20261109-01/prelaunch-inventory.json
+document-check: docs/evidence/stage17/D243-OWNER-ACCEPTANCE-20261109-01/approved-proposal.md: missing target: ../evidence/stage17/D243-LAUNCH-PREPARATION-20261109-01/verification.json
+document-check: docs/evidence/stage17/DISCOVERY-D207-ACCEPTANCE-20261103-01/proposal.md: missing target: ../evidence/stage17/STAND-CUSTODY-D206-20261103-01/README.md
+document-check: docs/evidence/stage17/DISCOVERY-D207-ACCEPTANCE-20261103-01/proposal.md: missing target: ../evidence/stage17/DISCOVERY-D207-PROPOSAL-20261103-01/resource-report.json
+document-check: docs/evidence/stage17/DISCOVERY-D207-ACCEPTANCE-20261103-01/proposal.md: missing target: ../STAGE17_CLOCK_REQUALIFICATION_PLAN_V2.md
+document-check: docs/evidence/stage17/Q16A-D212-ACCEPTANCE-20261103-01/proposal.md: missing target: 0037-stage13-ring-distance-calibration.md
+document-check: docs/evidence/stage17/Q16A-D212-ACCEPTANCE-20261103-01/proposal.md: missing target: ../STAGE13_CALIBRATION_DECISION_BUNDLE.md
+document-check: docs/evidence/stage17/Q16A-D212-ACCEPTANCE-20261103-01/proposal.md: missing target: ../../protocol/2.0.0-pre.3/EXPERIMENT_IMPLEMENTATION_SPEC.md
+document-check: docs/evidence/stage17/Q16B-D211-ACCEPTANCE-20261103-01/proposal.md: missing target: ../../protocol/2.0.0-pre.3/EXPERIMENT_IMPLEMENTATION_SPEC.md
+document-check: docs/evidence/stage17/Q16B-D211-ACCEPTANCE-20261103-01/proposal.md: missing target: ../../protocol/2.0.0-pre.3/handoff/DATA_DICTIONARY.md
+document-check: docs/evidence/stage17/Q16B-D211-ACCEPTANCE-20261103-01/proposal.md: missing target: 0035-stage13-service-rate-lower-limit.md
+document-check: docs/evidence/stage17/STAND-CLOCK-REQUALIFICATION-20261103-01/approved-plan.md: missing target: evidence/stage17/STAND-QUALIFICATION-EXT007-20261103-01/README.md
+document-check: docs/evidence/stage17/STAND-CLOCK-REQUALIFICATION-V2-20261103-01/approved-plan-v2.md: missing target: decisions/0205-stage17-clock-affinity-selected-pair.md

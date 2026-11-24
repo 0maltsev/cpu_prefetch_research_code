@@ -1,0 +1,13 @@
+test_private_complete_capture_uses_native_binding_types (test_stage17_q16c_retained_prefix_v1.PrivateRuntimeTests.test_private_complete_capture_uses_native_binding_types) ... ok
+test_private_failed_diagnostic_remains_excluded_from_complete_captures (test_stage17_q16c_retained_prefix_v1.PrivateRuntimeTests.test_private_failed_diagnostic_remains_excluded_from_complete_captures) ... ok
+test_private_verifier_keeps_exact_metadata_archive_and_ledger_gates (test_stage17_q16c_retained_prefix_v1.PrivateRuntimeTests.test_private_verifier_keeps_exact_metadata_archive_and_ledger_gates) ... ok
+test_suffix_inventory_uses_its_own_public_store_without_namespace_mixing (test_stage17_q16c_retained_prefix_v1.PrivateRuntimeTests.test_suffix_inventory_uses_its_own_public_store_without_namespace_mixing) ... ok
+test_actual_corrupt_failed_archive_cannot_hide_behind_recorded_ledger_hash (test_stage17_q16c_retained_prefix_v1.RetainedPrefixTests.test_actual_corrupt_failed_archive_cannot_hide_behind_recorded_ledger_hash) ... ok
+test_real_failed_custody_remains_failed_and_original_scientific_gate_rejects_it (test_stage17_q16c_retained_prefix_v1.RetainedPrefixTests.test_real_failed_custody_remains_failed_and_original_scientific_gate_rejects_it) ... ok
+test_unknown_authority_is_rejected_before_private_retention_configuration (test_stage17_q16c_retained_prefix_v1.RetainedPrefixTests.test_unknown_authority_is_rejected_before_private_retention_configuration) ... ok
+test_unknown_incident_binding_or_ordinal_does_not_reach_any_decoder (test_stage17_q16c_retained_prefix_v1.RetainedPrefixTests.test_unknown_incident_binding_or_ordinal_does_not_reach_any_decoder) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 3.775s
+
+OK

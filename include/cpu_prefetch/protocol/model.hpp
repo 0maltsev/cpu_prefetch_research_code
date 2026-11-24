@@ -17,12 +17,17 @@
 
 namespace cpu_prefetch::protocol {
 
-inline constexpr std::string_view kProtocolVersion = "2.0.0-pre.2";
-inline constexpr std::string_view kPreviousProtocolVersion = "2.0.0-pre.1";
-inline constexpr std::string_view kLogicalRowSchemaVersion = "2.0.0-pre.2";
+inline constexpr std::string_view kProtocolVersion = "2.0.0-pre.3";
+inline constexpr std::string_view kPreviousProtocolVersion = "2.0.0-pre.2";
+inline constexpr std::string_view kOldestReadableProtocolVersion = "2.0.0-pre.1";
+inline constexpr std::string_view kLogicalRowSchemaVersion = "2.0.0-pre.3";
 inline constexpr std::string_view kCanonicalizationSuite = "JCS-I64-v1";
 
-enum class ProtocolVersion : std::uint8_t { v2_0_0_pre_1, v2_0_0_pre_2 };
+enum class ProtocolVersion : std::uint8_t {
+  v2_0_0_pre_1,
+  v2_0_0_pre_2,
+  v2_0_0_pre_3,
+};
 
 template <typename Tag> class Identifier {
 public:

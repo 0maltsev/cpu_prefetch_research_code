@@ -1,0 +1,22 @@
+test_actual_drift_is_retained_as_one_instead_of_invented_or_unknown_value (__main__.IntegrationTests.test_actual_drift_is_retained_as_one_instead_of_invented_or_unknown_value) ... ok
+test_actual_executor_composition_is_private_and_retains_native_transport_code (__main__.IntegrationTests.test_actual_executor_composition_is_private_and_retains_native_transport_code) ... ok
+test_complete_observations_bind_request_plan_checkpoint_and_actual_state (__main__.IntegrationTests.test_complete_observations_bind_request_plan_checkpoint_and_actual_state) ... ok
+test_failed_after_check_archives_then_blocks_ack_and_later_capture (__main__.IntegrationTests.test_failed_after_check_archives_then_blocks_ack_and_later_capture) ... ok
+test_failed_after_receipt_publication_preserves_capture_before_stopping (__main__.IntegrationTests.test_failed_after_receipt_publication_preserves_capture_before_stopping) ... ok
+test_failed_initial_check_prevents_native_launch (__main__.IntegrationTests.test_failed_initial_check_prevents_native_launch) ... ok
+test_final_platform_failure_retains_original_worker_cleanup_proof (__main__.IntegrationTests.test_final_platform_failure_retains_original_worker_cleanup_proof) ... ok
+test_lost_root_lock_is_detected_even_when_control_stays_zero (__main__.IntegrationTests.test_lost_root_lock_is_detected_even_when_control_stays_zero) ... ok
+test_native_failure_is_not_replaced_or_retried_by_guard_wrapper (__main__.IntegrationTests.test_native_failure_is_not_replaced_or_retried_by_guard_wrapper) ... ok
+test_platform_bindings_are_checked_before_original_contract_and_native_launch (__main__.IntegrationTests.test_platform_bindings_are_checked_before_original_contract_and_native_launch) ... ok
+test_private_runner_preserves_code_and_gates_every_capture (__main__.IntegrationTests.test_private_runner_preserves_code_and_gates_every_capture) ... ok
+test_readonly_witness_is_separate_and_cannot_write_or_release_root_lock (__main__.IntegrationTests.test_readonly_witness_is_separate_and_cannot_write_or_release_root_lock) ... ok
+test_real_transport_stays_blocked_after_post_capture_platform_failure (__main__.IntegrationTests.test_real_transport_stays_blocked_after_post_capture_platform_failure) ... ok
+test_reordered_repeated_missing_and_foreign_metadata_are_rejected (__main__.IntegrationTests.test_reordered_repeated_missing_and_foreign_metadata_are_rejected) ... ok
+test_witness_descriptor_cannot_leak_into_native_pass_fds (__main__.IntegrationTests.test_witness_descriptor_cannot_leak_into_native_pass_fds) ... ok
+test_witness_export_requires_original_guard_owner (__main__.IntegrationTests.test_witness_export_requires_original_guard_owner) ... ok
+test_witness_rejects_changed_lease_boot_process_and_deadline (__main__.IntegrationTests.test_witness_rejects_changed_lease_boot_process_and_deadline) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.063s
+
+OK

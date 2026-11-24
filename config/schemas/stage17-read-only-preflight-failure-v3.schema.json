@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:cpu-prefetch:stage17:read-only-preflight-failure:v3",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "attempt_id", "authorization_id", "authorization_sha256", "resolution_id", "resolution_sha256", "transition_id", "transition_sha256", "action_plan_sha256", "runtime_implementation_hashes", "executor_sha256", "collector_sha256", "pinned_inputs_metadata_sha256", "failed_stage", "failed_ordinal", "failed_observation_id", "completed_observation_ids", "reason_category", "reason", "actual_authority_sample_before_marker_utc", "actual_authority_sample_before_first_transport_utc", "authority_clock_relation", "actual_failed_at_utc", "duration_ns", "ssh_argv_sha256", "rendered_program_sha256", "retry_allowed", "partial_evidence_retained", "stage18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-read-only-preflight-failure/3"},
+    "attempt_id": {"type": "string"}, "authorization_id": {"type": "string"}, "authorization_sha256": {"$ref": "#/$defs/sha256"}, "resolution_id": {"type": "string"}, "resolution_sha256": {"$ref": "#/$defs/sha256"}, "transition_id": {"type": "string"}, "transition_sha256": {"$ref": "#/$defs/sha256"},
+    "action_plan_sha256": {"$ref": "#/$defs/sha256"}, "runtime_implementation_hashes": {"type": "object", "minProperties": 9, "maxProperties": 9, "additionalProperties": {"$ref": "#/$defs/sha256"}}, "executor_sha256": {"$ref": "#/$defs/sha256"}, "collector_sha256": {"$ref": "#/$defs/sha256"}, "pinned_inputs_metadata_sha256": {"$ref": "#/$defs/sha256"},
+    "failed_stage": {"enum": ["AUTHORITY_TIME", "TRANSPORT", "OUTPUT_RETENTION", "RECEIPT_RETENTION", "GLOBAL_DEADLINE", "COMPLETION_RETENTION", "UNEXPECTED_OPERATIONAL_EXCEPTION"]},
+    "failed_ordinal": {"type": ["integer", "null"], "minimum": 1, "maximum": 6}, "failed_observation_id": {"type": ["string", "null"]}, "completed_observation_ids": {"type": "array", "maxItems": 6, "uniqueItems": true, "items": {"type": "string"}},
+    "reason_category": {"type": "string", "minLength": 1}, "reason": {"type": "string", "minLength": 1, "maxLength": 512},
+    "actual_authority_sample_before_marker_utc": {"$ref": "#/$defs/actual_utc"}, "actual_authority_sample_before_first_transport_utc": {"type": ["string", "null"], "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,9})?Z$"},
+    "authority_clock_relation": {"enum": ["LIVE_NONDECREASING", "EXPIRED", "NOT_YET_VALID", "ROLLBACK", "CLOCK_READ_FAILURE"]},
+    "actual_failed_at_utc": {"$ref": "#/$defs/actual_utc"}, "duration_ns": {"type": "integer", "minimum": 0}, "ssh_argv_sha256": {"$ref": "#/$defs/sha256"}, "rendered_program_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "retry_allowed": {"const": false}, "partial_evidence_retained": {"const": true}, "stage18_authority": {"const": false}
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "actual_utc": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,9})?Z$"}}
+}

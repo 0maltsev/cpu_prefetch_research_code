@@ -1,0 +1,11 @@
+{
+  "files": [
+    {
+      "path": "owner-acceptance.json",
+      "sha256": "8608b39972214d7c662aa326cf4937a135476ea3d82b1ca031662c3b2c8ae37b",
+      "size_bytes": 972
+    }
+  ],
+  "raw_data_transferred": false,
+  "schema_version": "stage17-public-evidence-manifest/1"
+}

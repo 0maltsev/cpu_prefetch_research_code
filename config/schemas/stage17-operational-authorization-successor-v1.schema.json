@@ -1,0 +1,183 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:operational-authorization-successor:v1",
+  "title": "Finite Stage 17 pilot operational authorization successor",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "successor_id",
+    "protocol_version",
+    "status",
+    "current_state",
+    "state_order",
+    "transitions",
+    "prospective_adr",
+    "preserved_predecessors",
+    "pilot_governance",
+    "confirmatory_governance",
+    "external_input_checklist",
+    "hermetic_executor_successor",
+    "authority_boundary"
+  ],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-operational-authorization-successor/1"},
+    "successor_id": {"const": "STAGE17-OPERATIONAL-AUTHORIZATION-SUCCESSOR-v1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "status": {"const": "PREPARED_EXTERNAL_INPUTS_REQUIRED"},
+    "current_state": {"const": "PREPARED"},
+    "state_order": {
+      "const": [
+        "PREPARED",
+        "AUTHORIZED_FOR_READ_ONLY_PREFLIGHT",
+        "PREFLIGHT_ACCEPTED",
+        "READY_FOR_STAGE17_PHASE_AUTHORIZATION"
+      ]
+    },
+    "transitions": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {"$ref": "#/$defs/transition"}
+    },
+    "prospective_adr": {"$ref": "#/$defs/artifact"},
+    "preserved_predecessors": {
+      "allOf": [
+        {"$ref": "#/$defs/artifact"},
+        {
+          "type": "object",
+          "required": ["range", "d105_d108_disposition"],
+          "properties": {
+            "range": {"const": "D-099..D-108"},
+            "d105_d108_disposition": {"const": "PRESERVED_PROPOSED_NOT_ACCEPTED_NOT_REQUIRED_BY_THIS_SUCCESSOR"}
+          }
+        }
+      ]
+    },
+    "pilot_governance": {"$ref": "#/$defs/pilot"},
+    "confirmatory_governance": {"$ref": "#/$defs/confirmatory"},
+    "external_input_checklist": {"$ref": "#/$defs/artifact"},
+    "hermetic_executor_successor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "historical_d104_sha256", "external_archive_contract", "self_test_reads_ignored_build_artifacts"],
+      "properties": {
+        "path": {"const": "tools/execute_d104_p4_r_c.py"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "historical_d104_sha256": {"const": "0b7e2f1c65849abe7d29ed8fd91fabb6105b8977d3051b9947ac7346fc14bdf6"},
+        "external_archive_contract": {"$ref": "#/$defs/artifact"},
+        "self_test_reads_ignored_build_artifacts": {"const": false}
+      }
+    },
+    "authority_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository_local_governance_implementation",
+        "stand_access",
+        "privileged_controls",
+        "calibration",
+        "pilot_execution",
+        "confirmatory_execution",
+        "stage17_complete",
+        "stage18_ready"
+      ],
+      "properties": {
+        "repository_local_governance_implementation": {"const": true},
+        "stand_access": {"const": false},
+        "privileged_controls": {"const": false},
+        "calibration": {"const": false},
+        "pilot_execution": {"const": false},
+        "confirmatory_execution": {"const": false},
+        "stage17_complete": {"const": false},
+        "stage18_ready": {"const": false}
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "range": {"type": "string"},
+        "d105_d108_disposition": {"type": "string"}
+      }
+    },
+    "transition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from", "to", "required_external_input_ids", "failure_policy"],
+      "properties": {
+        "from": {"type": "string", "minLength": 1},
+        "to": {"type": "string", "minLength": 1},
+        "required_external_input_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"pattern": "^S17-EXT-[0-9]{3}$"}
+        },
+        "failure_policy": {"const": "RETAIN_PARTIAL_EVIDENCE_STOP_NO_AUTOMATIC_RETRY_OR_ADVANCE"}
+      }
+    },
+    "pilot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role_principal",
+        "roles",
+        "role_collapse_acknowledged",
+        "independent_review_claimed",
+        "read_only_authorization_scope",
+        "pki_ceremony_per_read_only_observation_required",
+        "phase_scoped_authorization_required",
+        "outcome_access_allowed"
+      ],
+      "properties": {
+        "role_principal": {"const": "cpu-prefetch-stage17-pilot-owner"},
+        "roles": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["owner", "operator", "controller", "custodian", "auditor"],
+          "properties": {
+            "owner": {"const": "cpu-prefetch-stage17-pilot-owner"},
+            "operator": {"const": "cpu-prefetch-stage17-pilot-owner"},
+            "controller": {"const": "cpu-prefetch-stage17-pilot-owner"},
+            "custodian": {"const": "cpu-prefetch-stage17-pilot-owner"},
+            "auditor": {"const": "cpu-prefetch-stage17-pilot-owner"}
+          }
+        },
+        "role_collapse_acknowledged": {"const": true},
+        "independent_review_claimed": {"const": false},
+        "read_only_authorization_scope": {"const": "ONE_HASHED_OWNER_AUTHORIZATION_MAY_COVER_ONE_FROZEN_PREFLIGHT_OBSERVATION_SET"},
+        "pki_ceremony_per_read_only_observation_required": {"const": false},
+        "phase_scoped_authorization_required": {"const": true},
+        "outcome_access_allowed": {"const": false}
+      }
+    },
+    "confirmatory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "strict_chronology_preserved",
+        "pilot_role_collapse_applies",
+        "access_state_order",
+        "validation_sealed_until_authorized_unseal",
+        "h1_h2_release_requires_h3_evaluated",
+        "stage17_authority_may_authorize_stage18"
+      ],
+      "properties": {
+        "strict_chronology_preserved": {"const": true},
+        "pilot_role_collapse_applies": {"const": false},
+        "access_state_order": {
+          "const": ["PLANNED", "COLLECTED_SEALED", "TRAINING_OPEN", "SELECTION_FROZEN", "VALIDATION_UNSEALED", "H3_EVALUATED", "H1H2_RELEASED", "ARCHIVED"]
+        },
+        "validation_sealed_until_authorized_unseal": {"const": true},
+        "h1_h2_release_requires_h3_evaluated": {"const": true},
+        "stage17_authority_may_authorize_stage18": {"const": false}
+      }
+    }
+  }
+}

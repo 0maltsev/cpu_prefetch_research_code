@@ -1,0 +1,68 @@
+{
+  "execution_restarted": false,
+  "experimental_actions_during_status_check": 0,
+  "files": [
+    {
+      "name": "REPORT.md",
+      "sha256": "6bfbb3c7370383cc47817fed725e79f98e1ca5c3e81dc5fda3e6c43c146549ea",
+      "size_bytes": 3464
+    },
+    {
+      "name": "comparison-reproduction.json",
+      "sha256": "9b6a094643039e89e58a4b17ed85422abe73ea161780136eb54aff5cecd69890",
+      "size_bytes": 402
+    },
+    {
+      "name": "construct-result.json",
+      "sha256": "4d071a51dbbaf6f2960a5df4bdb11038454a2c1a18180207fe3f5d3d644ebfc5",
+      "size_bytes": 181
+    },
+    {
+      "name": "construct.log",
+      "sha256": "fc50b608789fce12333b73bceecd094a652653acd1aa310230029cd5c7c2178c",
+      "size_bytes": 3192
+    },
+    {
+      "name": "isolation-restoration.json",
+      "sha256": "85721467a378d2dd72cb8d82c6e4c6e03cf21129d804f8aeb104d8d46a87e904",
+      "size_bytes": 849
+    },
+    {
+      "name": "live-stop-check.json",
+      "sha256": "d39c22f82aaee99aac0139329d23a31adf5c8cfbcd3a7674f4868f50a7718bd6",
+      "size_bytes": 1932
+    },
+    {
+      "name": "partition-restoration.json",
+      "sha256": "a782fd551972199820c553e37d6e6806a0eb8b9445841dd88c65012f94b67c1f",
+      "size_bytes": 257
+    },
+    {
+      "name": "q15-owned-session-terminal-1.json",
+      "sha256": "cad25f412058fcbd9631abc966dc28f52c78ff319596a5ab4bae8a9cda80a25b",
+      "size_bytes": 88
+    },
+    {
+      "name": "qualification-family-complete-1.json",
+      "sha256": "b2c70ee2f2119ea22193472828570da6df346b09689ca96f6a45788ef9ee1011",
+      "size_bytes": 98
+    },
+    {
+      "name": "stage17-q15-r-result-v4.json",
+      "sha256": "f3ca8db63118f29f5dd27aca3f1c8cb2877ff20753bf41e3d3681e4a8f26b0c0",
+      "size_bytes": 3189
+    },
+    {
+      "name": "stage17-q15-w-result-v4.json",
+      "sha256": "447ab312c7b6d280fc2c3de31e024999c04b8957a1da32a818f4e886a9ef538c",
+      "size_bytes": 2212
+    },
+    {
+      "name": "study-complete.json",
+      "sha256": "66d841fe13352ea1cbb8a4c6dc5b97ed232a138d45d0a17e53a27ded7aef3518",
+      "size_bytes": 1964
+    }
+  ],
+  "phase18_authority": false,
+  "schema_version": "cpu-prefetch-stage17-constructor-stop-evidence/1"
+}

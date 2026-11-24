@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:completion:v3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "completion_id", "operational_journal_sha256", "ext010_resolution", "pilot_authorization_sha256", "pilot_request_sha256", "pilot_attempt_sha256", "pilot_result_sha256", "pilot_controller_completion_sha256", "sealed_pilot_manifest_sha256", "frozen_plan_sha256", "run_count", "artifact_count", "treatment_blind", "confirmatory_outcomes_accessed", "stage17_complete", "synthetic_test_only", "phase18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-completion/3"},
+    "completion_id": {"type": "string", "minLength": 1},
+    "operational_journal_sha256": {"$ref": "#/$defs/sha"},
+    "ext010_resolution": {"type": "object", "additionalProperties": false, "required": ["resolution_id", "sha256"], "properties": {"resolution_id": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha"}}},
+    "pilot_authorization_sha256": {"$ref": "#/$defs/sha"},
+    "pilot_request_sha256": {"$ref": "#/$defs/sha"},
+    "pilot_attempt_sha256": {"$ref": "#/$defs/sha"},
+    "pilot_result_sha256": {"$ref": "#/$defs/sha"},
+    "pilot_controller_completion_sha256": {"$ref": "#/$defs/sha"},
+    "sealed_pilot_manifest_sha256": {"$ref": "#/$defs/sha"},
+    "frozen_plan_sha256": {"$ref": "#/$defs/sha"},
+    "run_count": {"type": "integer", "minimum": 180},
+    "artifact_count": {"type": "integer", "minimum": 1802},
+    "treatment_blind": {"const": true},
+    "confirmatory_outcomes_accessed": {"const": false},
+    "stage17_complete": {"const": true},
+    "synthetic_test_only": {"type": "boolean"},
+    "phase18_authority": {"const": false}
+  },
+  "$defs": {"sha": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

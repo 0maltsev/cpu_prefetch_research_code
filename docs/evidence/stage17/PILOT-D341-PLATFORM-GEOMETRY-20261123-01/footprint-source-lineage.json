@@ -1,0 +1,83 @@
+{
+  "all_queue_and_workload_sources_identical": true,
+  "current_revision": "34247cedab4abe4b44732daae8fdac1700eccffd",
+  "execution_authority": false,
+  "files": [
+    {
+      "path": "include/cpu_prefetch/queue/adapters.hpp",
+      "sha256": "1a7a28562be0ab2ab7e8f608b52470702e038b8d79d1fa738e6a5dc28ae14e49",
+      "size_bytes": 2495
+    },
+    {
+      "path": "include/cpu_prefetch/queue/common.hpp",
+      "sha256": "ae665e11f10d6053e368367aec06c8a85e7e0455bc981e595b88f11d63b982a7",
+      "size_bytes": 3241
+    },
+    {
+      "path": "include/cpu_prefetch/queue/linked_spsc.hpp",
+      "sha256": "5513659adbe1d6da2c3c039ec9e47453a5d74e394c3fc4b13aea77710d11b291",
+      "size_bytes": 12041
+    },
+    {
+      "path": "include/cpu_prefetch/queue/ring_spsc.hpp",
+      "sha256": "ba91404fe69120f79ed00e303c8666d7b042870a264ad10f9253c2309f560dad",
+      "size_bytes": 12168
+    },
+    {
+      "path": "include/cpu_prefetch/workload/deterministic.hpp",
+      "sha256": "8479143928abb4e50d9e5eafa5b2261ef289c738ce9e963e54f2c4c006c8c922",
+      "size_bytes": 2808
+    },
+    {
+      "path": "include/cpu_prefetch/workload/packages.hpp",
+      "sha256": "aea8df7ddce6ff753d69813b5b5b3f9a9fac313297542d8768d06c2b146e5674",
+      "size_bytes": 9432
+    },
+    {
+      "path": "include/cpu_prefetch/workload/records.hpp",
+      "sha256": "13e3c99df1d24ffee9025010e376a23f743968a6d7f504a5c170fcea94b414c0",
+      "size_bytes": 5608
+    },
+    {
+      "path": "include/cpu_prefetch/workload/working_set.hpp",
+      "sha256": "61d45e5076fa642048a5a8d5354dc58b59816892d52ae6fa5eea694e1c1aac19",
+      "size_bytes": 3290
+    },
+    {
+      "path": "src/queue/common.cpp",
+      "sha256": "c3fd566fe9c4de12f2a2e06075e4fdd9e23e495ffbd3798d1e6648ddf7fbd524",
+      "size_bytes": 2497
+    },
+    {
+      "path": "src/queue/linked_spsc.cpp",
+      "sha256": "3117a03c990f36ad0124f3532301453c2d0a087856a845cdabe056fffea263ae",
+      "size_bytes": 15882
+    },
+    {
+      "path": "src/queue/ring_spsc.cpp",
+      "sha256": "1a218f6a1933435db4538ea9992158a17c608b4d8a27fbc9c9d3b8700c5c43c3",
+      "size_bytes": 5497
+    },
+    {
+      "path": "src/workload/deterministic.cpp",
+      "sha256": "cbdc034b63ea29c471ad755e292363e58967fced7dbd8c593752cbf1bec95e01",
+      "size_bytes": 8004
+    },
+    {
+      "path": "src/workload/packages.cpp",
+      "sha256": "f93943e2df2c65f60139d1409ff34dd3b55db131b866d6c1e71b03c2cff24f6b",
+      "size_bytes": 2214
+    },
+    {
+      "path": "src/workload/records.cpp",
+      "sha256": "37b274a28e4d29eafaa50a0367b7b401b9306f54c2bfddfc92b3fb61dd40a026",
+      "size_bytes": 15818
+    },
+    {
+      "path": "src/workload/working_set.cpp",
+      "sha256": "11004ee08119232bcc01b6d87b8e00f57ab3f762368b515b72ac4b17633cbc37",
+      "size_bytes": 8073
+    }
+  ],
+  "original_revision": "ac64633662c4e61c8dd98e332dc70f77085e2e48"
+}

@@ -1,0 +1,8 @@
+test_changed_second_original_releases_first_source_without_replacement (test_prepare_stage17_q16c_resources_v1.SourcePairTests.test_changed_second_original_releases_first_source_without_replacement) ... ok
+test_exact_bytes_are_readonly_and_all_owned_descriptors_close (test_prepare_stage17_q16c_resources_v1.SourcePairTests.test_exact_bytes_are_readonly_and_all_owned_descriptors_close) ... ok
+test_sizing_context_covers_both_possible_decode_peaks_and_io_block (test_prepare_stage17_q16c_resources_v1.SourcePairTests.test_sizing_context_covers_both_possible_decode_peaks_and_io_block) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.002s
+
+OK

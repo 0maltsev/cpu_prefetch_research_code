@@ -1,0 +1,5 @@
+[1/5] Building CXX object CMakeFiles/cpu_prefetch_calibration.dir/src/calibration/service_session.cpp.o
+[2/5] Linking CXX static library libcpu_prefetch_calibration.a
+[3/5] Building CXX object CMakeFiles/cpu_prefetch_service_session_tests.dir/tests/calibration_service_session_test.cpp.o
+[4/5] Linking CXX executable cpu_prefetch_service_session_tests
+[5/5] Linking CXX executable cpu_prefetch_calibration_tests

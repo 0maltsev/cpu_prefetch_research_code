@@ -1,0 +1,5 @@
+v3_before_sha256 0dbbb54bcc2b431c632496d912a6ebcb80a72b1f011d86997c6e6f31545b4867
+v2_preserved_sha256 e32016e241822c5066519b66dff7553eaa57b2f487dbc605f8c7aff95f1cccc9
+REPRODUCED_BEFORE_FAILURE status cannot read process status: [Errno 3] exited fixture
+REPRODUCED_BEFORE_FAILURE ns/pid cannot read PID namespace identity: [Errno 3] exited fixture
+REPRODUCED_BEFORE_FAILURE stat cannot read process stat: [Errno 3] exited fixture

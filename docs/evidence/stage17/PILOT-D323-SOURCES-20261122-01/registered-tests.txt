@@ -1,0 +1,21 @@
+COMMAND: /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/bin/ctest --test-dir build/stage17-s180-native/dev-gcc16 --output-on-failure -R ^runner\.(s180_(source_provenance|plan_prepare)_v1|q16c_schedule_provenance_v2)$
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+    Start 613: runner.q16c_schedule_provenance_v2
+1/3 Test #613: runner.q16c_schedule_provenance_v2 ...   Passed   78.13 sec
+    Start 663: runner.s180_plan_prepare_v1
+2/3 Test #663: runner.s180_plan_prepare_v1 ..........   Passed    2.65 sec
+    Start 667: runner.s180_source_provenance_v1
+3/3 Test #667: runner.s180_source_provenance_v1 .....   Passed    6.04 sec
+
+100% tests passed, 0 tests failed out of 3
+
+Label Time Summary:
+archive      =  78.13 sec*proc (1 test)
+pilot        =   8.70 sec*proc (2 tests)
+python       =  86.83 sec*proc (3 tests)
+runner       =  86.83 sec*proc (3 tests)
+synthetic    =   8.70 sec*proc (2 tests)
+
+Total Test time (real) =  86.85 sec
+
+EXIT_CODE=0 ELAPSED_SECONDS=86.856

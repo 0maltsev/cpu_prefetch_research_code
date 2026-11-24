@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-p4-k-preparation:v1",
+  "title": "Unissued Q15-R-P4-K offline signer/custody action preparation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "preparation_id", "protocol_version", "status", "acceptance_binding", "fixed_policy", "unresolved_inputs", "future_authorization", "authority_boundary"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-k-preparation/1"},
+    "preparation_id": {"const": "Q15-R-P4-K-PREPARATION-20260825-01"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "status": {"const": "BLOCKED_OWNER_KEY_SOURCE_CUSTODY_AND_EXACT_AUTHORITY_REQUIRED"},
+    "acceptance_binding": {"type": "object"},
+    "fixed_policy": {"type": "object"},
+    "unresolved_inputs": {"type": "array", "minItems": 8, "maxItems": 8},
+    "future_authorization": {"type": "object"},
+    "authority_boundary": {"type": "object"}
+  }
+}

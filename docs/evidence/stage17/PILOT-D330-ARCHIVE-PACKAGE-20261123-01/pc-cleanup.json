@@ -1,0 +1,49 @@
+{
+  "verified_build_duplicates_removed": [
+    {
+      "path": "build/stage17-s180-profile-prep/initial-profile-tests.txt",
+      "size_bytes": 5449,
+      "sha256": "9f165178e68a930f2b94e63a93fef1b6d19c1abb3c0c871cc748603c4c5c3486"
+    },
+    {
+      "path": "build/stage17-s180-profile-prep/profile-debug-final.txt",
+      "size_bytes": 1745,
+      "sha256": "0d98648ca3998fa5fc524b729d722ae80215c3e17004e44896095fb3c859dcdd"
+    },
+    {
+      "path": "build/stage17-s180-profile-prep/configure.txt",
+      "size_bytes": 177,
+      "sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e"
+    },
+    {
+      "path": "build/stage17-s180-profile-prep/repository-checks.txt",
+      "size_bytes": 6307,
+      "sha256": "8cc35fc9724e20bfa7f61fd61358c49b2a0117594e11273f2e7b1e21c8d1ee2a"
+    },
+    {
+      "path": "build/stage17-s180-profile-prep/repository-checks-final.txt",
+      "size_bytes": 6025,
+      "sha256": "ad71f070c21a3c519ad49f967177bc6b1a504fbdf717a0f6c9338b747a70f32f"
+    },
+    {
+      "path": "build/stage17-s180-profile-prep/registered-final.txt",
+      "size_bytes": 1800,
+      "sha256": "a48261fba3f7cdc3bdfd4026f87749453f4194c41aea9dad308e0e3c26719cc6"
+    },
+    {
+      "path": "build/stage17-s180-profile-prep/clean-component-build.txt",
+      "size_bytes": 389,
+      "sha256": "d2ea9b0f0a0c987e80d717215014fc3b685b9062d3a4f0d98b06404315194643"
+    },
+    {
+      "path": "build/stage17-s180-profile-prep/clean-component-verification.json",
+      "size_bytes": 1026,
+      "sha256": "b965edfe09af735e3ef05c4b73e8ac99f41007b1217c6ae31a30ca415230dc97"
+    }
+  ],
+  "total_bytes": 22918,
+  "software_fixture_directories_remaining": 0,
+  "necessary_actual_component_retained": "build/stage17-s180-archive-package-0f1b962",
+  "raw_transferred": false,
+  "stand_raw_deleted": false
+}

@@ -1,0 +1,14 @@
+{
+  "compared_source_files": 124,
+  "byte_identical_files": 119,
+  "changed_only_reviewed_cold_sources": [
+    "include/cpu_prefetch/runner/stage17_fixed_action.hpp",
+    "include/cpu_prefetch/runner/stage17_formal_scheduled_action.hpp",
+    "src/runner/stage17_fixed_action.cpp",
+    "src/runner/stage17_formal_family.cpp",
+    "src/runner/stage17_formal_scheduled_action.cpp"
+  ],
+  "source_07_to_919_software_closure": "PASS",
+  "actual_stand_qualification": "NOT_STARTED",
+  "phase18_authority": false
+}

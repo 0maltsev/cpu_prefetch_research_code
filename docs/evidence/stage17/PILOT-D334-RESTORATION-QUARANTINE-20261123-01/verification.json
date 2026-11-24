@@ -1,0 +1,1 @@
+{"base_revision":"1d02c9bcc9e8198dee986d27abe7a6b712acdbab","control_or_measurement_on_stand":false,"fixed_cases":73,"fixed_exit_code":0,"fixed_suites":4,"operational_window_started":false,"python_debug_cases":22,"reproduction_exit_code":1,"reproduction_failure":"compaction_restoration_verified was True after failed hardware restoration","whole_run_eta_verified":false}

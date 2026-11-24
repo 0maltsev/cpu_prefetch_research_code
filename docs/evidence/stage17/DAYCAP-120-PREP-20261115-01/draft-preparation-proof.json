@@ -1,0 +1,877 @@
+{
+  "schema_version": "software-d254-prospective-plan-proof/1",
+  "execution_authority": false,
+  "status": "DRAFT_REQUIRES_ACTUAL_SOURCE_PROFILE_QUALIFICATION_AND_NAMESPACE_ADMISSION",
+  "source_template_sha256": "6302de1e50b6178004eb3a8e4d24579c0b5ef74e8a1504e254297faed9f1f847",
+  "plan_sha256": "b4bb8ce52b65f846f7331e835b2bad702956c414b32423a6e54ae5be36ebec7b",
+  "size_bytes": 2072840,
+  "source_revision": "f2abff533ec6744616a8b4b59766104cf30fe61f",
+  "profile_sha256": "c15d54de37bfe2cfe99d5c3d2d13e0853d77aac6eb743e87b5c510b9a61fabc0",
+  "method_id": "SERVICE-RATE-DESCRIPTIVE-MIN2-DAYCAP-v1",
+  "collector_method_id": "SERVICE-RATE-NP-LTL95C95-MIN-v1",
+  "captures": 120,
+  "cells": 60,
+  "repetitions": 2,
+  "measurement_ns": 1000000000,
+  "warmup_ns": 5000000000,
+  "collection_watchdog_ns": 65040000000000,
+  "independent_validation": {
+    "workers": 8,
+    "worker_as_bytes": 17179869184,
+    "codec_as_bytes": 2147483648,
+    "per_job_wall_seconds": 900,
+    "waves": 15,
+    "maximum_wall_seconds": 13500,
+    "canonical_workspace_bytes": 249823250656,
+    "scratch_quota_bytes": 274877906944,
+    "aggregate_memory_with_reserves_bytes": 176093659136
+  },
+  "qualification_and_admission_ceiling_seconds": 3600,
+  "report_and_cleanup_ceiling_seconds": 1800,
+  "aggregate_ceiling_seconds": 83940,
+  "absolute_study_seconds": 86400,
+  "work_cutoff_seconds": 84600,
+  "cleanup_reserve_seconds": 1800,
+  "entries": [
+    {
+      "ordinal": 0,
+      "source_ordinal": 0,
+      "cell_ordinal": 0,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 1,
+      "source_ordinal": 1,
+      "cell_ordinal": 0,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 2,
+      "source_ordinal": 59,
+      "cell_ordinal": 1,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 3,
+      "source_ordinal": 60,
+      "cell_ordinal": 1,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 4,
+      "source_ordinal": 118,
+      "cell_ordinal": 2,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 5,
+      "source_ordinal": 119,
+      "cell_ordinal": 2,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 6,
+      "source_ordinal": 177,
+      "cell_ordinal": 3,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 7,
+      "source_ordinal": 178,
+      "cell_ordinal": 3,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 8,
+      "source_ordinal": 236,
+      "cell_ordinal": 4,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 9,
+      "source_ordinal": 237,
+      "cell_ordinal": 4,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 10,
+      "source_ordinal": 295,
+      "cell_ordinal": 5,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 11,
+      "source_ordinal": 296,
+      "cell_ordinal": 5,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 12,
+      "source_ordinal": 354,
+      "cell_ordinal": 12,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 13,
+      "source_ordinal": 355,
+      "cell_ordinal": 12,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 14,
+      "source_ordinal": 413,
+      "cell_ordinal": 13,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 15,
+      "source_ordinal": 414,
+      "cell_ordinal": 13,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 16,
+      "source_ordinal": 472,
+      "cell_ordinal": 14,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 17,
+      "source_ordinal": 473,
+      "cell_ordinal": 14,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 18,
+      "source_ordinal": 531,
+      "cell_ordinal": 15,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 19,
+      "source_ordinal": 532,
+      "cell_ordinal": 15,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 20,
+      "source_ordinal": 590,
+      "cell_ordinal": 16,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 21,
+      "source_ordinal": 591,
+      "cell_ordinal": 16,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 22,
+      "source_ordinal": 649,
+      "cell_ordinal": 17,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 23,
+      "source_ordinal": 650,
+      "cell_ordinal": 17,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 24,
+      "source_ordinal": 708,
+      "cell_ordinal": 24,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 25,
+      "source_ordinal": 709,
+      "cell_ordinal": 24,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 26,
+      "source_ordinal": 767,
+      "cell_ordinal": 25,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 27,
+      "source_ordinal": 768,
+      "cell_ordinal": 25,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 28,
+      "source_ordinal": 826,
+      "cell_ordinal": 26,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 29,
+      "source_ordinal": 827,
+      "cell_ordinal": 26,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 30,
+      "source_ordinal": 885,
+      "cell_ordinal": 27,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 31,
+      "source_ordinal": 886,
+      "cell_ordinal": 27,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 32,
+      "source_ordinal": 944,
+      "cell_ordinal": 28,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 33,
+      "source_ordinal": 945,
+      "cell_ordinal": 28,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 34,
+      "source_ordinal": 1003,
+      "cell_ordinal": 29,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 35,
+      "source_ordinal": 1004,
+      "cell_ordinal": 29,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 36,
+      "source_ordinal": 1062,
+      "cell_ordinal": 36,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 37,
+      "source_ordinal": 1063,
+      "cell_ordinal": 36,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 38,
+      "source_ordinal": 1121,
+      "cell_ordinal": 37,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 39,
+      "source_ordinal": 1122,
+      "cell_ordinal": 37,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 40,
+      "source_ordinal": 1180,
+      "cell_ordinal": 38,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 41,
+      "source_ordinal": 1181,
+      "cell_ordinal": 38,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 42,
+      "source_ordinal": 1239,
+      "cell_ordinal": 39,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 43,
+      "source_ordinal": 1240,
+      "cell_ordinal": 39,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 44,
+      "source_ordinal": 1298,
+      "cell_ordinal": 40,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 45,
+      "source_ordinal": 1299,
+      "cell_ordinal": 40,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 46,
+      "source_ordinal": 1357,
+      "cell_ordinal": 41,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 47,
+      "source_ordinal": 1358,
+      "cell_ordinal": 41,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 48,
+      "source_ordinal": 1416,
+      "cell_ordinal": 48,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 49,
+      "source_ordinal": 1417,
+      "cell_ordinal": 48,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 50,
+      "source_ordinal": 1475,
+      "cell_ordinal": 49,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 51,
+      "source_ordinal": 1476,
+      "cell_ordinal": 49,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 52,
+      "source_ordinal": 1534,
+      "cell_ordinal": 50,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 53,
+      "source_ordinal": 1535,
+      "cell_ordinal": 50,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 54,
+      "source_ordinal": 1593,
+      "cell_ordinal": 51,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 55,
+      "source_ordinal": 1594,
+      "cell_ordinal": 51,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 56,
+      "source_ordinal": 1652,
+      "cell_ordinal": 52,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 57,
+      "source_ordinal": 1653,
+      "cell_ordinal": 52,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 58,
+      "source_ordinal": 1711,
+      "cell_ordinal": 53,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 59,
+      "source_ordinal": 1712,
+      "cell_ordinal": 53,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 60,
+      "source_ordinal": 1770,
+      "cell_ordinal": 6,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 61,
+      "source_ordinal": 1771,
+      "cell_ordinal": 6,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 62,
+      "source_ordinal": 1829,
+      "cell_ordinal": 7,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 63,
+      "source_ordinal": 1830,
+      "cell_ordinal": 7,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 64,
+      "source_ordinal": 1888,
+      "cell_ordinal": 8,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 65,
+      "source_ordinal": 1889,
+      "cell_ordinal": 8,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 66,
+      "source_ordinal": 1947,
+      "cell_ordinal": 9,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 67,
+      "source_ordinal": 1948,
+      "cell_ordinal": 9,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 68,
+      "source_ordinal": 2006,
+      "cell_ordinal": 10,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 69,
+      "source_ordinal": 2007,
+      "cell_ordinal": 10,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 70,
+      "source_ordinal": 2065,
+      "cell_ordinal": 11,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 71,
+      "source_ordinal": 2066,
+      "cell_ordinal": 11,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 72,
+      "source_ordinal": 2124,
+      "cell_ordinal": 18,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 73,
+      "source_ordinal": 2125,
+      "cell_ordinal": 18,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 74,
+      "source_ordinal": 2183,
+      "cell_ordinal": 19,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 75,
+      "source_ordinal": 2184,
+      "cell_ordinal": 19,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 76,
+      "source_ordinal": 2242,
+      "cell_ordinal": 20,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 77,
+      "source_ordinal": 2243,
+      "cell_ordinal": 20,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 78,
+      "source_ordinal": 2301,
+      "cell_ordinal": 21,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 79,
+      "source_ordinal": 2302,
+      "cell_ordinal": 21,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 80,
+      "source_ordinal": 2360,
+      "cell_ordinal": 22,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 81,
+      "source_ordinal": 2361,
+      "cell_ordinal": 22,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 82,
+      "source_ordinal": 2419,
+      "cell_ordinal": 23,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 83,
+      "source_ordinal": 2420,
+      "cell_ordinal": 23,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 84,
+      "source_ordinal": 2478,
+      "cell_ordinal": 30,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 85,
+      "source_ordinal": 2479,
+      "cell_ordinal": 30,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 86,
+      "source_ordinal": 2537,
+      "cell_ordinal": 31,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 87,
+      "source_ordinal": 2538,
+      "cell_ordinal": 31,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 88,
+      "source_ordinal": 2596,
+      "cell_ordinal": 32,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 89,
+      "source_ordinal": 2597,
+      "cell_ordinal": 32,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 90,
+      "source_ordinal": 2655,
+      "cell_ordinal": 33,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 91,
+      "source_ordinal": 2656,
+      "cell_ordinal": 33,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 92,
+      "source_ordinal": 2714,
+      "cell_ordinal": 34,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 93,
+      "source_ordinal": 2715,
+      "cell_ordinal": 34,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 94,
+      "source_ordinal": 2773,
+      "cell_ordinal": 35,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 95,
+      "source_ordinal": 2774,
+      "cell_ordinal": 35,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 96,
+      "source_ordinal": 2832,
+      "cell_ordinal": 42,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 97,
+      "source_ordinal": 2833,
+      "cell_ordinal": 42,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 98,
+      "source_ordinal": 2891,
+      "cell_ordinal": 43,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 99,
+      "source_ordinal": 2892,
+      "cell_ordinal": 43,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 100,
+      "source_ordinal": 2950,
+      "cell_ordinal": 44,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 101,
+      "source_ordinal": 2951,
+      "cell_ordinal": 44,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 102,
+      "source_ordinal": 3009,
+      "cell_ordinal": 45,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 103,
+      "source_ordinal": 3010,
+      "cell_ordinal": 45,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 104,
+      "source_ordinal": 3068,
+      "cell_ordinal": 46,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 105,
+      "source_ordinal": 3069,
+      "cell_ordinal": 46,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 106,
+      "source_ordinal": 3127,
+      "cell_ordinal": 47,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 107,
+      "source_ordinal": 3128,
+      "cell_ordinal": 47,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 108,
+      "source_ordinal": 3186,
+      "cell_ordinal": 54,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 109,
+      "source_ordinal": 3187,
+      "cell_ordinal": 54,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 110,
+      "source_ordinal": 3245,
+      "cell_ordinal": 55,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 111,
+      "source_ordinal": 3246,
+      "cell_ordinal": 55,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 112,
+      "source_ordinal": 3304,
+      "cell_ordinal": 56,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 113,
+      "source_ordinal": 3305,
+      "cell_ordinal": 56,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 114,
+      "source_ordinal": 3363,
+      "cell_ordinal": 57,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 115,
+      "source_ordinal": 3364,
+      "cell_ordinal": 57,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 116,
+      "source_ordinal": 3422,
+      "cell_ordinal": 58,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 117,
+      "source_ordinal": 3423,
+      "cell_ordinal": 58,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 118,
+      "source_ordinal": 3481,
+      "cell_ordinal": 59,
+      "repetition": 0,
+      "actual_layout_and_phase_limits_unchanged": true
+    },
+    {
+      "ordinal": 119,
+      "source_ordinal": 3482,
+      "cell_ordinal": 59,
+      "repetition": 1,
+      "actual_layout_and_phase_limits_unchanged": true
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "record_id": "CPU-PREFETCH-V5-EXT007-D212-OWNER-ACCEPTANCE-1",
+  "recorded_at_utc": "2026-11-03T14:51:40.430215+00:00",
+  "exact_user_reply": "Approve D212 fixed-window rule",
+  "approval_source": "Current conversation structured reply to the D212 proposal",
+  "proposal_sha256": "7aa48d00e76a9c01d2a83a6de8c0d864b0e00d13d1c6afb89811fd3d5f79cebc",
+  "proposal_size_bytes": 6177,
+  "amendment_id": "AMEND-2.0.0-pre.3-Q16A-DEMAND-WINDOW-v1",
+  "method_id": "RING-D2-RUNTAIL-LTL95C95-WINDOW-v2",
+  "demand_membership": "t0 <= immediately_before_acquire < t0+T",
+  "drain_observations_retained": true,
+  "new_experiment_authority": false,
+  "automatic_retry_authority": false,
+  "changes_D207_family": false
+}

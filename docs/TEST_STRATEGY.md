@@ -331,11 +331,46 @@ cover exact origin plus every remap/retouch/allocation/count/checksum fault.
 Concurrency tests exercise delayed start, one published origin, u32
 release/acquire payload visibility, producer completion before backlog drain,
 empty schedules, exactly one call for every `FULL`, partial producer failure,
-deadline watchdog, start-clock cancellation, drain poll failure/watchdog, and
-100 deterministic varied-scheduling histories. The fake backend uses fixed
+long legitimate deadline gaps, start-clock cancellation, drain backend
+failure, backlog drain beyond the former cap, and 100 deterministic varied-
+scheduling histories. The fake backend uses fixed
 storage; input schedules and thread setup finish before the origin. Explicit
 test limits and host `yield` scheduling are fixture behavior, not production
-relax or watchdog selections. The same label must pass ASan/UBSan and TSan.
+relax or start/external-watchdog selections. ADR-0048 prohibits worker-loop
+poll-count expiry. The same label must pass ASan/UBSan and TSan.
+
+Q15-P0 hardware-prefetch tests cover exact family/model/CPU/MSR/mask mapping,
+H0 preservation, H1 unknown-bit preservation, H0/H1 collapse, complete-value
+independent readback, regular/pointer probes, reverse exact restoration,
+partial apply, restoration quarantine, and independent-backend enforcement.
+All use fake state. The schema suite adds two positive and six negative
+synthetic evidence records and performs no MSR access.
+
+Q15-S1 adds fixed Linux-adapter tests behind a fake file-operation boundary.
+They require only `/dev/cpu/{0,1,26}/msr`, offset 0x1A4, exact access flags and
+64-bit transfers; reject every other CPU, stale/broad transitions, H0/H1
+collapse, and open/read/write/close faults; and prove one transition has no
+hidden retry or self-readback. CLI tests execute only self-test, scope, and an
+invalid-authorization negative. Split-schema tests cover 2 prospective
+positive shapes, 10 authority negatives, and two blocked preparation records.
+The pure bundle-profile checker covers one accepted no-authority shape and 24
+negative mutations spanning every authority flag, clean-source identity,
+required/forbidden binaries and libraries, mapping/tool identity, and exact
+probe-contract ID/path/hash binding. The D-052 contract checker validates one
+frozen document and rejects 18 scope, PMU, privilege, multiplexing, traversal,
+classification, collector, artifact, and authority mutations. No test
+opens an MSR device, seals a release bundle, or accesses the stand.
+
+Q15-S2 adds seven D-053 C++ tests that independently pin the HMAC-derived
+Philox key, eight-line order, complete-buffer SHA-256, alignment/zero-fill,
+single-cycle bijection/closure, malformed/corrupt cycles, exact counted loads,
+pre/post integrity, multiplex/fault/H1 failure, and both pointer-H0
+classifications. The machine-readable profile checker rejects ten seed,
+integrity, encoding, source-hash, and authority mutations. The release checker
+requires both GNU and accepted LLVM disassembly to expose one static demand
+load and no call/prefetch/fence/system instruction in each counted body; an
+extra-load mutant and a prefetch mutant must remain detectable. Applicable
+tests run under ASan/UBSan and TSan. No test opens a PMU or accesses the stand.
 
 ### 13a. Calibration framework tests
 
@@ -534,6 +569,397 @@ The release `runner-relax-codegen-check` uses both accepted disassemblers,
 requires exactly one `PAUSE`, forbids calls/fences/syscalls in the relax body,
 and proves rejection with a two-`PAUSE`/scheduler-call mutant. This is not the
 still-required full affined combined-worker audit.
+
+### 26. Q14/Q15-P0 local release, qualification, and authority checks
+
+Owner-preparation tests require each bind/readback/actual-CPU check to run once
+on its worker before the barrier and before private-stream first touch. Any
+producer or consumer mismatch must cancel the barrier, report a pre-run worker-
+preparation failure, make zero attempts, and retain partial evidence. Fakes are
+mandatory for repository verification; no test may change host affinity.
+
+Qualification builders use synthetic inputs with exact clock sample/window/
+exchange counts, atomic widths/alignment/lock-free flags, actual CPU/migration
+counts, and three-region before/during/after residency evidence. Positive
+artifacts must be canonical and byte-stable. Short counts, syscalls,
+migrations, wrong/unavailable pages, binding mismatch, malformed hashes, or
+missing sources must remain invalid or ineligible.
+
+The future authorization schema must accept only exact stand qualification or
+one of four dependency-ready phases. Negatives cover omnibus/wildcard/latest/
+unresolved targets, overlapping authority roles, invalid expiry, identical
+durability domains, scientific inputs in Q15, missing predecessors, run-count
+drift, confirmatory namespaces, and enabled confirmatory/retry/top-up/repair
+permissions. Passing the validator never issues an authority.
+
+Q15-P0 adds runner/admission v3 regression tests proving that legitimate idle
+and drain work cannot expire by poll count. It also adds the model-restricted
+hardware-prefetch plan/transaction and evidence-schema tests described above.
+No test opens `/dev/cpu/*/msr`, changes affinity, accesses the candidate stand,
+or performs dynamic qualification.
+
+Both accepted disassemblers recursively inspect all ten static producer and
+consumer operation shapes. D-047 requires exact empty, `PREFETCHW`, or
+`PREFETCHT0` vectors by package/role and rejects wrong-write, wrong-read,
+duplicate-read, and allocation/scheduler mutants. Source checks bind the ring
+slot target calculations and the linked acquire/prefetch/event-demand order.
+Only a strict `PASS` report carrying
+`X86-64-PREFETCHW-PREFETCHT0-v1` can pass the candidate gate. The candidate
+creator separately rejects dirty source, missing/non-PASS reports, overwrite,
+authority-bearing manifests, or omitted runner/qualification artifacts. No
+pilot candidate is eligible until all checks pass from a clean exact revision.
+
+### 27. Q15-S3 dynamic-component software checks
+
+All Q15-S3 verification is repository-local. Platform and perf fakes must
+prove the exact raw request, one reset/enable/traversal/disable/read/close
+lifecycle, no retry/fallback, mapping → bind → no-THP → affinity/readback →
+first-touch order, exhaustive residency snapshots, conservative thread-fault
+bracketing, raw clock ordering, and every partial failure. A global allocation
+hook must show zero allocation in both counter-enabled region variants.
+
+Session tests cover the only legal H0 → seal → H1 → restore → finalize order,
+literal pointer and content identity, complete source/profile/platform hashes,
+distinct peer credentials, sealed-Q15-R and later-Q15-W binding, exact complete
+values, expiry, disconnect, content mutation, illegal transitions, immutable
+completion, and retention of partial transitions plus the first terminal
+failure. Frame tests cover exact U32BE length, canonical JCS-I64 bytes, bounds,
+truncation, malformed JSON, and length mismatch.
+
+Collector tests derive eligibility from raw evaluator/sample/backend results;
+no API accepts a generic `passed=true`. They cover the seven exact IDs,
+actual queue/termination types, full clock sample counts and ordering, CPU
+migration, all-page three-point residency, all three PRFCHW CPUs and distinct
+GCC/Clang dual-disassembler reports, complete three-CPU prestates, independent
+writer/auditor readback, and incomplete evidence that cannot be eligible.
+
+The existing traversal codegen gate remains mandatory. The additional runtime
+gate uses GNU Binutils and accepted LLVM objdump to require exactly indirect
+enable → one accepted traversal call → indirect disable. Duplicate traversal
+and software-prefetch mutants must be rejected. Sanitizer runs may execute only
+the fake/synthetic label; real PMU, affinity, NUMA, MSR, stand, qualification,
+calibration, pilot, measurement, and confirmatory paths are prohibited.
+
+### 28. Q15-R-P2 trust-adapter and setup-preparation checks
+
+The adapter suite uses only an injected descriptor reader. It requires exactly
+one logical call for each fixed descriptor in order 3, 4, 5 and stops without
+retry or fallback at the first read failure. Positive evidence covers bounded,
+nonempty, read-only regular-file snapshots from offset zero through EOF,
+authorization/signature/receipt SHA-256 binding, exact JCS-I64 receipt bytes,
+the accepted SSHSIG scheme and namespace, auditor verifier, allowed-signers
+artifact/path/hash, signer fingerprint, absence of a stand private key, clean
+release identity, and admission through the existing fixed core.
+
+Negatives cover missing and oversized bytes, wrong descriptor, mutable or
+non-regular input, nonzero offset, missing EOF, raw hash drift, noncanonical
+receipt bytes, wrong verifier/path/namespace/signature, failed verifier exit,
+stand private-key presence, dirty source, and missing/drifting anchor identity.
+ASan/UBSan and TSan run only these fake paths. Source/profile checks bind the
+implementation bytes and prohibit shell, setuid, network, OS-path-open,
+arbitrary-selector, ambient-root, or stand interfaces.
+
+The Q15-R-P2 acceptance and setup-preparation checks preserve the accepted
+proposal SHA-256, synchronize the controller/role/Q15-R/Q15-W no-authority
+records, require exact 20/24/10 command identities and 18 denials, and reject
+authority widening, silent issuance, missing/reordered commands, or fabricated
+resolution of any of the six operational input groups. They execute no command
+from the setup graph.
+
+### 29. Q15-R-P3 operational-release selection preparation
+
+The D-065 proposal and Q15-R-P3 acceptance checkers bind the exact clean
+commit, outer archive and sidecar, source archive, 133-entry internal inventory,
+manifest, SBOM, controller/tool binaries, adapter-bearing library, version
+metadata, and all three strict code-generation reports. The proposal checker's
+portable mode checks schema, authority, predecessor immutability, exact evidence
+constants, and five remaining unresolved inputs without requiring a local build
+directory. Its explicit local-evidence mode additionally hashes the archive,
+sidecar, and clean extraction. Negative mutations cover authority widening,
+proposal drift, release-hash drift, fabricated external-input resolution, and
+a missing input. The successor-v2 checker additionally preserves the
+predecessor hash, resolves only release evidence, retains five unresolved
+groups, preserves 20/24/10 transaction identity, and rejects lineage drift,
+transaction loss, or silent issuance. No stand operation, transfer, install,
+probe, Q15 phase, calibration, pilot, or measurement is executed.
+
+### 30. Q15-R-P4 external-input acquisition and local collector
+
+The Draft 2020-12 and semantic checker binds the accepted P3 record and
+successor-preparation hashes; requires exact ordered D-066 through D-070 and
+their one-to-one five-input mapping; keeps every selected option and value null;
+and preserves separate unopened P4-D, P4-R, P4-K, P5, Q15-R, and Q15-W gates.
+Nine negative mutations cover stand-authority widening, premature selection,
+invented path, missing input, decision reordering, claimed collector
+implementation, mutation permission, silent issuance, and lineage drift.
+
+The accepted implementation checker additionally binds ADR-0066 through
+ADR-0070, the 25 exact absolute-argv commands, contract and acceptance hashes,
+all-false external authority, and the two exact unissued P4-R/P4-K
+preparations. Twelve negative mutations cover command/limit/hash/authority/
+lineage and silent-issuance drift.
+
+The C++ suite uses only fake executors and clocks. It covers complete and
+partial canonical artifacts, deterministic reproduction, zero-self SHA-256,
+byte-for-byte compiled-command agreement with accepted JSON, accepted absence
+exit codes, stop-first unexpected exit, spawn/timeout/signal/
+output-limit categories, pre-execution context rejection, and command/hash
+corruption. Sanitizer tests invoke no system executor. The real `--collect`
+entry is excluded until a clean release and separate exact Q15-R-P4-R exist.
+No repository test performs stand, network, key, filesystem mutation, PMU/MSR,
+affinity/NUMA, calibration, pilot, measurement, or confirmatory work.
+
+The D-071 proposal checker additionally binds the exact clean v3 archive,
+sidecar, 154-file extraction, manifest/SBOM/source/collector/validator/contract/
+library/codegen hashes, immutable P4-R predecessor, unchanged P4-K
+preparation, and seven ordered null successor inputs. Six negative mutations
+cover authority widening, premature acceptance, release drift, fabricated or
+missing P4-R input, and P4-K drift. Its optional local-release mode verifies
+the actual archive and clean extraction without executing the collector.
+
+The P4-E acceptance checker binds the exact owner statement, immutable
+proposal, release selection, P4-R predecessor, P4-K preparation, and successor
+hash. Five negatives reject authority widening, proposal/release drift,
+missing P4-R inputs, and P4-K drift. The P4-R v2 checker permits only one
+resolved collector-release group, preserves the invocation/25-command/limit
+contract, and retains seven ordered null P4-R plus eight null P4-K inputs.
+Eight negatives reject authority, lineage, release, value, command, issuance,
+and P4-K drift. Neither checker executes the collector or touches the stand.
+
+### 31. Q15-R-P4-R staging/authorization decision checks
+
+The D-072 through D-075 proposal checker validates the Draft 2020-12 record,
+exact `f30036e` governance and immutable v3 release lineage, byte-preserved
+P4-E/P4-R/P4-K/reference-inventory artifacts, the four ordered proposed
+decisions, all literal candidate paths, fixed capture identity, accepted
+logical principals, nonrenewable 1,800-second UTC policy, null signer/review
+evidence, and seven ordered unresolved prerequisites.
+
+Semantic checks keep `Q15-R-P4-R-I` and `Q15-R-P4-R-C` separate and unissued.
+The first is read-only, stops for review, and cannot transfer or collect. The
+second retains a null fresh-identity predecessor, create-exclusive paths, one
+archive transfer, one collector attempt, zero retry, fixed no-shell argv and
+environment, exact output paths, the 13-step verification order, eleven stop
+groups, and stop-retain-no-delete rollback. Decision acceptance is allowed to
+authorize repository-local successor templates only; every operational flag
+remains false.
+
+Fifteen negative mutations cover authority widening, premature acceptance,
+release drift, premature operational-root selection, root-as-authority,
+validity drift, gate collapse, retry, collector-path drift, fabricated
+signature, deletion, acceptance-to-execution escalation, missing stop
+condition, P4-R lineage drift, and capture-path drift. Optional local archive
+mode verifies the actual size, SHA-256, sidecar, single top-level member tree,
+and absence of absolute, parent-traversal, link, FIFO, or device members. It
+performs no extraction, stand access, signature/key action, or collector
+execution.
+
+Q15-R-P4-F acceptance adds a strict Draft record bound to the exact user
+statement, proposal, governance commit, v3 archive, P4-R v2, and P4-K bytes.
+Seven negative mutations reject stand/path authority, proposal or option
+drift, false issuance, predecessor drift, and acceptance-text drift.
+
+The two still-unissued successor-template schemas and semantic checker require
+exact ADR-0072 through ADR-0075 hashes, preserve six ordered null input groups
+per gate, and prove the split stop boundary. P4-R-I retains four read-only argv
+vectors and cannot continue automatically. P4-R-C retains a null fresh-
+identity predecessor, exact literals, thirteen ordered actions, one transfer,
+one collector attempt, zero retry, fixed argv/environment, bounded limits,
+eleven stop groups, and stop-retain-no-delete rollback. Twelve mutations reject
+authority, command/graph/path/release/predecessor/order/retry/shell/delete
+drift. Tests are repository-local and produce no external evidence.
+
+### 32. Q15-R-P4-K owner decision/input checks
+
+The D-076 through D-079 proposal checker validates its Draft 2020-12 schema,
+the exact immutable P4-K preparation, P4-D and P4-F acceptances, ADR-0066 and
+ADR-0070 hashes, four ordered proposed decisions, four null selected options,
+and the exact ordered mapping to eight null external inputs. It requires three
+owner questions covering source mode, non-secret custody-domain/custodian IDs,
+and disposition of the split acquisition/review plus authority/validity
+recommendations.
+
+Semantic checks preserve distinct unopened P4-K-D, P4-K-A, P4-K-R, and P5
+gates, prohibit repository or stand private-key custody, and keep every
+external-authority flag false. Twelve negative mutations cover authority
+widening, premature acceptance, fabricated selection or external value,
+decision/input reordering, P4-K and acceptance lineage drift, stand-private-key
+permission, collapsed acquisition/review, silent issuance, and missing owner
+questions. The checker performs no key discovery/generation/import/copy/use,
+filesystem or stand access, signing, issuance, setup, Q15 action, calibration,
+pilot, measurement, or confirmatory work.
+
+Q15-R-P4-K-D acceptance adds a strict Draft 2020-12 record bound to the exact
+proposal and immutable predecessor P4-K/P4-R template hashes. It requires the
+new-offline-ceremony selection, logical domain
+`OWNER-OFFLINE-Q15-KEY-CUSTODY`, accepted custodian role, split gate policy,
+and authority profile. The record preserves the owner's two exact delegated-
+choice messages and the bounded repository-local interpretation. It explicitly
+marks the domain as logical-only, operational custody and key/public evidence
+as absent, and every action authority false. Ten negative mutations reject
+stand/key authority, existing-key substitution, domain drift, fabricated
+verification/evidence, issuance, predecessor drift, message drift, and scope
+widening.
+
+The P4-K-A/P4-K-R checker validates two separate still-unissued Draft records,
+exact acceptance and ADR-0076 through ADR-0079 hashes, the unchanged original
+P4-K preparation, and the P4-K-R dependency on the exact P4-K-A template.
+P4-K-A retains six null prospective outputs and seven null inputs; P4-K-R
+retains seven null required-evidence fields and two null outputs. It requires
+one attempt, zero retry, no repair, no target-key self-authorization, mandatory
+stop between acquisition and independent public review, distinct operator/
+custodian/auditor roles, and no automatic setup/Q15 continuation. Fourteen
+mutations reject authority, fabricated inputs, source/domain drift,
+self-authorization, retry, continuation, installation/private-key access,
+role collapse, lineage drift, fabricated P4-K-A receipt, and issuance. These
+tests perform no key, artifact, path, stand, signature, issuance, setup,
+calibration, pilot, measurement, or confirmatory action.
+
+### 33. Q15-R-P4-K-A operational-input decision checks
+
+The D-080 through D-085 proposal checker validates its Draft 2020-12 schema,
+exact P4-K-D acceptance, P4-K-A/P4-K-R template, and ADR-0076 through ADR-0079
+hashes. It requires six ordered unselected decisions, seven exact null external
+inputs mapped to their owning decisions, and five exact unanswered owner
+questions. The fixed contract preserves Ed25519/new-offline source mode,
+off-stand/out-of-repository private custody, no private path/bytes/passphrase/
+seed recording, distinct roles, JCS-I64/SSHSIG/1,800 seconds, one attempt, zero
+retry/repair/overwrite/cleanup, mandatory stop before P4-K-R, and no automatic
+continuation.
+
+Semantic validation also proves that the accepted P4-K-A template remains
+byte-bound, carries the same seven null inputs, and grants only repository-local
+unissued-template creation. Fifteen mutations reject repository implementation
+authority, offline-environment access, key or bootstrap-trust access, stand
+access, premature option selection, decision reorder, fabricated/mismapped
+external values, target-key self-authorization, secret recording, retry,
+answered/missing owner questions, and lineage drift. The checker performs no
+offline inventory, key/trust/path/artifact/signature/stand/controller or
+experiment action.
+
+Q15-R-P4-K-A-D adds a separate strict Draft 2020-12 acceptance record and
+checker. It binds the immutable proposal and P4-K-A/P4-K-R templates, exact
+D-080 through D-085 selections, five owner responses, ADR-0080 through
+ADR-0085 hashes, and seven still-null external inputs. The negative Q4 response
+must select the separate-bootstrap-root branch, assert no signer/trust evidence,
+and keep P4-K-A blocked. Nineteen mutations reject controller implementation,
+environment/key/trust/path/signature/stand/experiment authority, fabricated
+bootstrap evidence, target-key self-authorization, premature unblock, changed
+selection/response, lineage drift, external-value inference, and scope drift.
+
+### 34. Generic P4-K-A controller and bootstrap-root gate checks
+
+ADR-0086 adds a typed, repository-local controller admission and execution
+state machine with no process, filesystem, environment, descriptor, key, or
+trust backend. Five focused fake-backend tests cover a complete synthetic
+admission, absent or mismatched trust, unsafe process and secret-input
+contracts, exact ten-step order, failure at every step, one attempt and zero
+retry, partial-prefix retention, evidence integrity, resource limits, and UTC
+expiry. These tests cannot create external evidence or execute a ceremony.
+
+The controller-profile checker binds the exact source and test hashes, strict
+Draft 2020-12 profile and admission schemas, immutable P4-K-A-D acceptance,
+the seven still-null external inputs, and the no-authority boundary. Fourteen
+profile mutations and six admission mutations reject graph, implementation,
+shell, secret-environment, descriptor, retry, external-evidence, and authority
+drift. Source inspection rejects an OS/file backend in the generic engine.
+
+The D-087 through D-092 bootstrap governance-root checker validates the next
+proposed decision/input record while all eight external inputs and all six
+owner questions remain null. Fourteen mutations reject premature selections,
+invented external evidence, answered questions, decision reordering, or any
+identity, offline-environment, key, custody, public-trust, signing, stand,
+Q15, or experiment authority. Passing this checker is software evidence only;
+it cannot establish a genesis identity or offline custody.
+
+D-093 preserves that proposal but supersedes its recommendations before
+acceptance. The authorization checker binds the exact owner/host/tool/path/
+algorithm downgrade, one attempt, zero retry, private-content non-observation,
+and later-authority boundary; 13 mutations plus a no-key self-test must pass.
+The default test is portable and validates the recorded action-host hashes;
+`--verify-action-host` additionally rehashes those exact external binaries on
+the development host.
+The repository evidence checker validates both Draft 2020-12 records, exact
+lineage, BGR-Q1 through BGR-Q6 dispositions, six public artifact hash/size
+pairs, private metadata-only evidence, and the `CREATED`/not-active boundary;
+11 mutations reject activation, use, continuation, authority, risk, BGR,
+artifact, or secret-evidence drift. Its optional development-host mode reruns
+the read-only verifier against public files and private `lstat` metadata. Tests
+must never rerun the create-exclusive generation action.
+
+D-094 adds a three-record activation/successor check. It validates the exact
+D-093 hashes and fingerprint, append-only `CREATED` to `ACTIVE` order, public
+trust principal/namespace, absence of private-key use or signature creation,
+and byte-preservation of the P4-K-A target-key contract, outputs, and rollback.
+The v2 successor must resolve exactly bootstrap trust, keep six inputs null,
+and remain unissued. Twelve mutations reject wrong-root activation, illegal
+prior state, signing/use claims, authority widening, fabricated inputs,
+premature issuance, lineage drift, or missing blockers. Optional external mode
+reruns only D-093 public and private-metadata verification.
+
+D-095 binds the exact security downgrade, action tool, active root, canonical
+1,800-second authorization, and one-signature/one-target-attempt boundary. Its
+execution produced one valid bootstrap signature but stopped before target-key
+generation on a deterministic `subprocess.run` argument conflict. The terminal
+failure checker binds four retained public artifacts, verifies zero target-key
+attempts and the no-retry/P4-K-R stop boundary, and rejects six mutations.
+Optional external mode hashes only named public files, verifies the existing
+SSHSIG, and uses metadata-only target-path absence; it never reads or hashes a
+private key. D-095 execution must never be rerun.
+
+D-096 adds a disposable-key regression that exercises the corrected mutually
+exclusive subprocess-input branches through real OpenSSH sign/verify and
+rejects a wrong message before any real action. The authorization checker binds
+the frozen D-095 helper/evidence/commit, corrected tool, exact host tools,
+canonical 1,800-second bytes, new v2 paths, four permitted scopes, and seven
+negative mutations. The complete-evidence checker binds nine public artifacts,
+one independently verified bootstrap signature, exact target public
+fingerprint/allowed-signers bytes, private metadata-only evidence, and D-095
+preservation; six mutations reject extra attempts, private-content access,
+lineage mutation, incomplete state, P4-K-R continuation, and authority widening.
+External mode hashes only named public artifacts and inspects only private-file
+metadata.
+
+The D-097 preparation checker validates the D-096-bound still-unissued P4-K-R
+successor, exact four null review inputs, two null outputs, public-only review
+contract, one attempt/zero retry, and all-false action authority. Six mutations
+reject premature issuance, private access, retry, P4-K-R/stand authority, and
+fabricated review input. It performs no review, private probe, signature,
+installation, stand, Q15, or experiment action.
+
+The accepted D-097 authorization checker binds the reviewed public source,
+single-owner waiver, tool/ADR/template/lineage hashes, exact 1,800-second
+window, one attempt/zero retry, and mandatory P5 stop. Its tool self-test uses
+only a known public key and rejects a wrong principal; the source checker
+rejects private-path and shell tokens. Seven authorization mutations and six
+complete-evidence mutations cover private access, retry, overwrite,
+installation/activation, stand/target signing, automatic continuation, and
+authority widening. External complete-evidence mode reads only the six named
+review artifacts, bootstrap public trust, and target public key.
+
+The D-098 P5-preparation checker proves that only the two D-097 public-trust
+groups are resolved, exactly three external inputs remain null, the accepted
+20/24/18/10 setup/access/denial/rollback counts remain fixed, and every P5,
+P4-R, stand, Q15, and experiment authority is false. Six mutations reject
+fabricated inputs, premature issuance, installation, P4-R, P5, and stand scope.
+
+The D-099 executor self-test proves fixed command vectors, pinned-host and
+transport-key handling, bounded output, one-attempt/zero-retry behavior,
+create-exclusive local evidence, and the mandatory P4-R-C stop without opening
+a network connection. The complete checker validates four Draft 2020-12
+schemas, canonical authorization/capture/review bytes, all hashes and sidecars,
+every authorization-bound repository input, the target SSHSIG, exact four
+observations and their semantic review, and eight negative mutations. External
+verification reads only named public evidence.
+The completed capture must never be rerun; later tests are read-only.
+
+The D-100 decision checker validates the Draft 2020-12 schema, exact D-099 and
+v3-release hashes, safe archive inventory, four unique unresolved decisions,
+recommended option membership, frozen future counts/paths/rollback, seven
+unmet action prerequisites, and the no-action authority boundary. Twelve
+mutations reject premature selection, fabricated readiness, retry/path/custody
+drift, abbreviated blanket acceptance, and key/stand/collector/P4-R-C scope.
+It runs the D-099 checker as a predecessor and never contacts the stand.
 
 ## Evidence order
 

@@ -1,0 +1,71 @@
+{
+  "execution_authority": false,
+  "files": [
+    {
+      "path": "d224-aborted-analysis-intent.json",
+      "sha256": "2c97455c843c014aae977da640c5cd46b01f18c6933a2f534896062ae7eeb97d",
+      "size_bytes": 6076
+    },
+    {
+      "path": "d224-aborted-analysis-process-result.json",
+      "sha256": "7319186e64d3992c5aab75196c2c21246acc1063976e5182ecbe3a7bc1cfc6f5",
+      "size_bytes": 1007
+    },
+    {
+      "path": "d224-aborted-analysis-stdout.log",
+      "sha256": "4887014ee283a0fac1cbf0e1ae4749fe1617fcf42a68bd8edc36e6c5a1f6f5b7",
+      "size_bytes": 2125
+    },
+    {
+      "path": "d224-aborted-analysis-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "d224-aborted-analysis-supervisor-pid.json",
+      "sha256": "f8eb51c307230753c586270d23be41364392f7075fb2bbdf47e69ef4a355efa6",
+      "size_bytes": 637
+    },
+    {
+      "path": "d224-aborted-installed-bindings.json",
+      "sha256": "8420ec6e7d0ee5cb1469408aaee6c53400e3cf2d1e4934be62ab15b8ffad181f",
+      "size_bytes": 4825
+    },
+    {
+      "path": "d224-aborted-supervisor-console.log",
+      "sha256": "03e8d004387a3c6b29589e52943bfd3efefc147b6e6c35c9ae1b720567d0de68",
+      "size_bytes": 777
+    },
+    {
+      "path": "d234-installed-bindings.json",
+      "sha256": "36a4633a0b09b6aecc60785370bbafc650d1838afce32c586910c17707d08764",
+      "size_bytes": 4830
+    },
+    {
+      "path": "d234-preparation-summary.json",
+      "sha256": "2fb871e3579abd89ddd3aae6edc6d43f1dacd90024eba2b0d5dd1f8320474c24",
+      "size_bytes": 1619
+    },
+    {
+      "path": "launcher-tests-final.log",
+      "sha256": "d86292bcd0dd5997a76ab915cd28d282e988fea492c751148551557f62563313",
+      "size_bytes": 3055
+    },
+    {
+      "path": "wrapper-tests.log",
+      "sha256": "29d895513022e0dbaf948611d98a1c7caf70bd27f65315131ce01089a906fc00",
+      "size_bytes": 1755
+    },
+    {
+      "path": "d234-analysis-intent.json",
+      "sha256": "9e70d6eedd8f1ca2e0dd2f6b88871e93ddb28284beb2647a0fedf9e3de59a506",
+      "size_bytes": 6083
+    },
+    {
+      "path": "d234-analysis-supervisor-pid.json",
+      "sha256": "17d8c3486b640f155986ff6583556d4cd4987e90a95a100b2b817ad0e97cec55",
+      "size_bytes": 637
+    }
+  ],
+  "schema_version": "retained-file-inventory/1"
+}

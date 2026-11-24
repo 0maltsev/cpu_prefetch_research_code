@@ -1,0 +1,31 @@
+{
+  "status": "SOFTWARE_SLICE_VERIFIED_NOT_EXECUTION_READY",
+  "native_runner_tests": 135,
+  "sealed_loader_tests": 5,
+  "asan_ubsan_targeted_tests": 21,
+  "python_plan_and_execution_regression_targets": 4,
+  "raw_source_capture_tests": 3,
+  "descriptive_composition_tests": 4,
+  "parent_source_tests": 4,
+  "format_runner_qualification_schema_checks": "PASS",
+  "native_code_changes": "cold Q16c admission/source transport only; five reviewed files",
+  "reviewed_cold_sources": {
+    "include/cpu_prefetch/runner/stage17_fixed_action.hpp": "b438925c897188e909879877ddff77e98e690bd756e0637e4d9fd72a78a9c2e9",
+    "include/cpu_prefetch/runner/stage17_formal_scheduled_action.hpp": "19a12e0f9708d386305584efb8b8093b26da2549ea04b521ca95a5f6c001ed2d",
+    "src/runner/stage17_fixed_action.cpp": "52c8e679c802058154714f6b18bb3deefde6c1e89994cacc85777befd295676a",
+    "src/runner/stage17_formal_family.cpp": "7711e3ca69fdc4a2cf3e30fd3bcafb1e65e0a4e8f1ba197ae4f18a8ae8a97929",
+    "src/runner/stage17_formal_scheduled_action.cpp": "31f627529e493773e5f03c49fb667a2ab2e2ad0ea1c21f8736f6d14769ee933a"
+  },
+  "accepted_proposal_sha256": "fc16567d4435b69cefa48e16e2d4a573fbe7af2324d8e6fd874b5fd38c030ca0",
+  "new_stand_measurements": 0,
+  "raw_revalidation_of_completed_data": false,
+  "q16c_operational_window_started": false,
+  "qualification_repeated": false,
+  "phase18_authority": false,
+  "pending": [
+    "authenticated compatibility and phase-controller admission",
+    "clean qualified native release and actual geometry/platform comparison",
+    "prospective source preparation with finite complete24h envelope and updated owner ETA",
+    "one supervised180-capture screen, validation, scoped handoff and EXT007 exit checks"
+  ]
+}

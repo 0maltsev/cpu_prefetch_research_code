@@ -1,0 +1,69 @@
+{
+  "authority_boundary": {
+    "account_or_key_changes_authorized": false,
+    "access_probe_execution_authorized": false,
+    "bundle_transfer_or_install_authorized": false,
+    "filesystem_or_permission_changes_authorized": false,
+    "q15_r_authorized": false,
+    "q15_w_authorized": false,
+    "stand_access_authorized": false,
+    "stand_setup_authorization_issued": false,
+    "stand_setup_execution_authorized": false
+  },
+  "base_release_binding": {
+    "archive_name": "cpu-prefetch-q15-qualification-tool-2.0.0-a75bcdd-clean-b4438745f3ca.tar.gz",
+    "archive_sha256": "48c460b008790e3b73aefbda94cacddaeb3c842622ca5bac5c763e50515ae035",
+    "release_state": "VERIFIED_LOCAL_PREREQUISITE_NO_AUTHORITY",
+    "source_commit": "a75bcdd0367d79f8ee0496c55edda74311c9ef7d"
+  },
+  "decision_binding": {
+    "acceptance_id": "Q15-R-P2-ACCEPTANCE-20260825-01",
+    "acceptance_sha256": "2c280b46c8cf196f52f9446089c1749b2b0fe754033049b5cac0e472353245eb",
+    "decision_ids": ["D-061", "D-062", "D-063", "D-064"]
+  },
+  "future_authorization_contract": {
+    "authorization_id": null,
+    "authorization_sha256": null,
+    "expires_at_utc": null,
+    "independent_review_artifact_id": null,
+    "independent_review_sha256": null,
+    "issued_at_utc": null,
+    "named_authority_principal": null,
+    "signature_artifact_id": null,
+    "signature_sha256": null,
+    "signer_key_fingerprint": null,
+    "status": "NOT_ISSUED"
+  },
+  "implementation_binding": {
+    "adapter_profile_id": "Q15-R-TRUST-ANCHOR-ADAPTER-v1",
+    "adapter_profile_sha256": "a41ee172b4997bf08d4f564c585811a4a04795dad75ba8598b8d7a85c51fd3d2",
+    "clean_operational_release_sha256": null,
+    "implementation_state": "REPOSITORY_LOCAL_FAKE_BACKEND_VERIFIED_NO_OPERATIONAL_RELEASE",
+    "operational_controller_binary_sha256": null
+  },
+  "preparation_id": "Q15-R-STAND-SETUP-AUTHORIZATION-PREPARATION-20260825-01",
+  "protocol_version": "2.0.0-pre.2",
+  "required_literal_inputs": [
+    {"name": "@ALLOWED_SIGNERS_SOURCE@", "state": "UNRESOLVED", "value": null},
+    {"name": "@OPERATIONAL_RELEASE_ROOT@", "state": "UNRESOLVED", "value": null},
+    {"name": "@SECONDARY_CUSTODY_ROOT@", "state": "UNRESOLVED", "value": null},
+    {"name": "CURRENT_STAND_PRESTATE_ARTIFACT_ID_AND_SHA256", "state": "UNRESOLVED", "value": null},
+    {"name": "ACTUAL_ALLOWED_SIGNERS_ARTIFACT_ID_SHA256_AND_ED25519_FINGERPRINT", "state": "UNRESOLVED", "value": null},
+    {"name": "CLEAN_OPERATIONAL_RELEASE_ARCHIVE_MANIFEST_SBOM_BINARY_AND_REPORT_HASHES", "state": "UNRESOLVED", "value": null}
+  ],
+  "schema_version": "cpu-prefetch-q15-r-stand-setup-authorization-preparation/1",
+  "stand_id": "XEON-CPU-FETCH",
+  "status": "BLOCKED_INPUTS_REQUIRED_NO_AUTHORITY",
+  "transaction_contract": {
+    "access_probe_ids": ["NA-001", "NA-002", "NA-003", "NA-004", "NA-005", "NA-006", "NA-007", "NA-008", "NA-009", "NA-010", "NA-011", "NA-012", "NA-013", "NA-014", "NA-015", "NA-016", "NA-017", "NA-018", "NA-019", "NA-020", "NA-021", "NA-022", "NA-023", "NA-024"],
+    "access_probe_required_deny_count": 18,
+    "command_source_bundle_id": "Q15-R-OPERATIONAL-PREREQUISITE-DECISION-INPUT-20260825-01",
+    "command_source_path": "config/q15/q15-r-operational-prerequisite-decision-input-v1.json",
+    "command_source_sha256": "6e27f16c8c4280b96cb0e6c58a02247e87f595399743218612325e037f8b85e7",
+    "execution_order": "SETUP_ASCENDING_THEN_ACCESS_ASCENDING_STOP_FIRST_MISMATCH",
+    "placeholder_names": ["@ALLOWED_SIGNERS_SOURCE@", "@OPERATIONAL_RELEASE_ROOT@", "@SECONDARY_CUSTODY_ROOT@"],
+    "rollback_behavior": "STOP_FIRST_FAILURE_QUARANTINE_COMPLETED_PREFIX_NO_DELETE",
+    "rollback_ids": ["RB-001", "RB-002", "RB-003", "RB-004", "RB-005", "RB-006", "RB-007", "RB-008", "RB-009", "RB-010"],
+    "setup_command_ids": ["SETUP-001", "SETUP-002", "SETUP-003", "SETUP-004", "SETUP-005", "SETUP-006", "SETUP-007", "SETUP-008", "SETUP-009", "SETUP-010", "SETUP-011", "SETUP-012", "SETUP-013", "SETUP-014", "SETUP-015", "SETUP-016", "SETUP-017", "SETUP-018", "SETUP-019", "SETUP-020"]
+  }
+}

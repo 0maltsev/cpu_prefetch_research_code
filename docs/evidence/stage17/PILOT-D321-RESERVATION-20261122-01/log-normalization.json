@@ -1,0 +1,7 @@
+{
+  "registered-related-test-output.txt": {
+    "operation": "REMOVE_TRAILING_HORIZONTAL_WHITESPACE_AND_SURPLUS_EOF_NEWLINES_ONLY",
+    "original_sha256": "03c1f89be6d6b88aa5ecb063d280904e370cd4dcc7d30a77b0682e9a0c6c5c24",
+    "original_size_bytes": 10106
+  }
+}

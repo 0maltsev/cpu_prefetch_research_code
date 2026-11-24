@@ -1,0 +1,14 @@
+.............F.....
+======================================================================
+FAIL: test_supplemental_source_cannot_override_an_original_or_new_source (__main__.CompatibilityTests.test_supplemental_source_cannot_override_an_original_or_new_source)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_calibration_compatibility_v1.py", line 197, in test_supplemental_source_cannot_override_an_original_or_new_source
+    with self.assertRaisesRegex(compatibility.CompatibilityError,'supplemental source coverage'):self.verify()
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: CompatibilityError not raised
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.094s
+
+FAILED (failures=1)

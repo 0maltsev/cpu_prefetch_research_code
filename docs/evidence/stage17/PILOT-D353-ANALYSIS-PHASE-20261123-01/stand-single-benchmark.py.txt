@@ -1,0 +1,97 @@
+"""Synthetic primary-join software timing only; no research observations."""
+import array
+import datetime
+import hashlib
+import json
+import os
+from pathlib import Path
+import resource
+import shutil
+import signal
+import struct
+import sys
+import time
+
+ROOT=Path(__file__).resolve().parent
+sys.path.insert(0,str(ROOT/'tools'))
+import stage17_s180_raw_join_v1 as join
+
+
+def run(count,phase):
+    root=ROOT/('fixture-'+phase.lower()+'-'+str(count));root.mkdir(mode=0o700)
+    run_id='SOFTWARE-ONLY-S180-JOIN-TIMING-'+'X'*(44-len('SOFTWARE-ONLY-S180-JOIN-TIMING-'))
+    assert len(run_id.encode())==44
+    prefix,pb,cb,jb=join.codec.row_layout(run_id)
+    encoded=run_id.encode();prefix_bytes=struct.pack('<I',len(encoded))+encoded+bytes(prefix-4-len(encoded))
+    origin=1000;start=100000;source_origin=5000
+    duration=10**12 if phase=='MEASUREMENT' else 5*10**12
+    schedule=array.array('Q');order=array.array('Q',[1,0]);payload=array.array('Q',[77,88])
+    checksum=3;hashes=[hashlib.sha256(),hashlib.sha256()]
+    started=time.monotonic_ns()
+    with (root/'producer.bin').open('xb',buffering=1024**2) as producer, (root/'consumer.bin').open('xb',buffering=1024**2) as consumer:
+        for logical in range(count):
+            tick=source_origin+1000+logical*10000;schedule.append(tick)
+            due=start+tick-source_origin;record=order[logical%2]
+            def clock(t):return origin+t//1000,t
+            p=[logical,record,due,*clock(due),*clock(due+1000),*clock(due+2000),
+                *clock(due+3000),*clock(due+4000),logical,15]
+            v=due+4000;q=[logical,record,*clock(v),*clock(v+1000),*clock(v+2000),*clock(v+3000)]
+            left=prefix_bytes+struct.pack('<15Q',*p);right=prefix_bytes+struct.pack('<10Q',*q)
+            producer.write(left);consumer.write(right);hashes[0].update(left);hashes[1].update(right)
+            checksum=join.mix(checksum,record,payload[record])
+        for stream in (producer,consumer):stream.flush();os.fsync(stream.fileno())
+    generation=time.monotonic_ns()-started
+    streams={role:dict(path=role+'.bin',size_bytes=count*width,sha256=digest.hexdigest(),row_count=count)
+        for role,width,digest in zip(('producer','consumer'),(pb,cb),hashes,strict=True)}
+    contract=dict(schema_version=join.CONTRACT,run_id=run_id,phase=phase,
+        clock_origin_absolute_nanoseconds=origin,phase_origin_relative_picoseconds=start,
+        duration_ticks=duration,drain_deadline_ticks=start+duration+100000,
+        source_origin_ticks=source_origin,source_horizon_ticks=source_origin+duration,
+        maximum_offered=count,initial_checksum=3,expected_checksum=checksum,streams=streams)
+    start_usage=resource.getrusage(resource.RUSAGE_SELF);started=time.monotonic_ns()
+    with (root/'unpublished-joined.bin').open('x+b',buffering=1024**2) as output:
+        audit,latencies=join.derive_phase(root,contract,record_order=order,payloads=payload,schedule_ticks=schedule,
+            candidate=output,deadline_ns=DEADLINE)
+    elapsed=time.monotonic_ns()-started;end_usage=resource.getrusage(resource.RUSAGE_SELF)
+    assert audit['join_status']=='PASSED' and audit['offered_count']==audit['accepted_count']==count
+    assert audit['full_count']==0 and audit['joined_size_bytes']==count*jb
+    assert len(latencies)==(count if phase=='MEASUREMENT' else 0)
+    assert all(value==7000 for value in latencies)
+    result=dict(count=count,phase=phase,fixture_generation_ns=generation,join_and_fsync_readback_ns=elapsed,
+        user_cpu_seconds=end_usage.ru_utime-start_usage.ru_utime,system_cpu_seconds=end_usage.ru_stime-start_usage.ru_stime,
+        original_input_bytes=count*(pb+cb),joined_bytes=count*jb,joined_sha256=audit['joined_sha256'],
+        maximum_resident_kib=end_usage.ru_maxrss,row_identity_utf8_bytes=44,
+        offered_accepted_full=[count,count,0],valid_synthetic_latencies=True,
+        source_generator_credit=False,run_validity_assessed=False)
+    # Successful test-only primaries/candidate have no empirical provenance.
+    # Remove only this process's exclusive fixture after checks; keep reports.
+    shutil.rmtree(root);result['synthetic_fixture_removed']=not root.exists()
+    return result
+
+
+os.umask(0o077)
+assert 3 in os.sched_getaffinity(0)
+os.sched_setaffinity(0,{3});assert os.sched_getaffinity(0)=={3}
+resource.setrlimit(resource.RLIMIT_AS,(4*1024**3,4*1024**3))
+resource.setrlimit(resource.RLIMIT_FSIZE,(1024**3,1024**3))
+resource.setrlimit(resource.RLIMIT_CORE,(0,0))
+signal.alarm(300)
+DEADLINE=time.monotonic_ns()+290*10**9
+fs=os.statvfs(ROOT);assert fs.f_bavail*fs.f_frsize>=18*1024**3 and fs.f_favail>=64
+manifest=json.loads((ROOT/'source-closure.json').read_bytes())
+for row in manifest['files']:
+    raw=(ROOT/row['path']).read_bytes()
+    assert len(raw)==row['size_bytes'] and hashlib.sha256(raw).hexdigest()==row['sha256']
+results=[]
+for count,phase in ((100000,'MEASUREMENT'),(1000000,'MEASUREMENT'),(1000000,'WARMUP')):
+    results.append(run(count,phase))
+    (ROOT/'progress.json').write_text(json.dumps(results,indent=2)+'\n')
+signal.alarm(0)
+print(json.dumps(dict(schema_version='cpu-prefetch-stage17-s180-software-join-timing/1',
+    observed_at_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),results=results,
+    source_closure_sha256=hashlib.sha256((ROOT/'source-closure.json').read_bytes()).hexdigest(),
+    benchmark_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+    cpu_affinity=sorted(os.sched_getaffinity(0)),rlimit_as=list(resource.getrlimit(resource.RLIMIT_AS)),
+    python=sys.version,software_only=True,whole_pipeline_timing=False,original_research_raw_read=False,
+    qualification_performed=False,source_preparation_performed=False,operational_window_started=False,
+    execution_authority=False,phase18_authority=False),sort_keys=True))

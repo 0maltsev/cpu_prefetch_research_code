@@ -1,0 +1,50 @@
+{
+  "execution_authority": false,
+  "files": [
+    {
+      "path": "REPORT.txt",
+      "size_bytes": 2349,
+      "sha256": "db17d5ac2c3e3cc3a119dc85392eec25a15cd2db151775a78e4a73963ddf9aac"
+    },
+    {
+      "path": "benchmark_validation.py",
+      "size_bytes": 3229,
+      "sha256": "5036e8299917a0b0f34184aef1a1b2433b1458b0ae728f2c84248cc74da463f1"
+    },
+    {
+      "path": "daycap-python-tests-final.log",
+      "size_bytes": 115,
+      "sha256": "2fb7359f603ed161b276a05d9344c5f685270e7c451f624ffc118bc0ba1cf166"
+    },
+    {
+      "path": "daycap-python-tests.log",
+      "size_bytes": 115,
+      "sha256": "6fa552733c13f10bd4f7ef7da0b7e80aa71bdee4e380316ad1438552f3aeab9a"
+    },
+    {
+      "path": "draft-preparation-proof.json",
+      "size_bytes": 21544,
+      "sha256": "698a5dc0095cb131a5234c7d44449e5314ce2e60d5b1715d0d48bb5ea89d3c66"
+    },
+    {
+      "path": "execution-adapter-tests-final.log",
+      "size_bytes": 116,
+      "sha256": "11bb0152a552c62c82380c93b49cbae0a348f31e488472f3f5c30570e54a03ea"
+    },
+    {
+      "path": "execution-adapter-tests.log",
+      "size_bytes": 116,
+      "sha256": "369bd283a6eae58e5b7eead6a731a3acc9ced84d4fcb57b14e28e90b122191e8"
+    },
+    {
+      "path": "native-main-tests.log",
+      "size_bytes": 16249,
+      "sha256": "8d9008320ceeedf693b2598b379b390e27505eba3a5a46595360919a7956c0fc"
+    },
+    {
+      "path": "prepare_plan.py",
+      "size_bytes": 5769,
+      "sha256": "e234b766d65de7037c2fc34151fff01143362e49bd075fea97dd88f4f9fad34e"
+    }
+  ]
+}

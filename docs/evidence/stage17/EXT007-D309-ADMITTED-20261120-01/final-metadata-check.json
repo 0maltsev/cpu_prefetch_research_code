@@ -1,0 +1,27 @@
+{
+  "all_record_hashes_verified": true,
+  "boot_unchanged": true,
+  "checked_at_utc": "2026-11-20T04:36:48.549642+00:00",
+  "complete_bindings_verified": true,
+  "guard_value": "1",
+  "journal_sequence_number": 10,
+  "native_cgroup_absent": true,
+  "new_measurements": 0,
+  "original_journal_sha256": "2fab0d69e3350dea0106a1fd5a0aa0ddd04dab8bae1956815e66ad47a378f5aa",
+  "phase18_authority": false,
+  "pilot_ready": false,
+  "preserved_predecessor_count": 6,
+  "raw_data_transferred": false,
+  "stage17_complete": false,
+  "status": "SCOPED_EXT007_FINAL_METADATA_VERIFIED",
+  "transition_count": 3,
+  "unit": {
+    "ActiveState": "inactive",
+    "ControlGroup": "",
+    "ExecMainStatus": "0",
+    "InvocationID": "",
+    "MainPID": "0",
+    "Result": "success",
+    "SubState": "dead"
+  }
+}

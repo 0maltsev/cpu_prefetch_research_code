@@ -1,0 +1,20 @@
+{
+  "administrative_source_revision": "cc1ffa33467260a0f86440b15fb3827c4361760c",
+  "checked_at_utc": "2026-11-19T21:41:01.102699+00:00",
+  "configuration_sha256": "7b14ddd9989cfc779cc2959e94b0d2e7a71420ce73a3b565382935de1e1b23a1",
+  "controls_rearmed": false,
+  "execution_authority": false,
+  "hardware_prestate_verified": true,
+  "launch_permitted": false,
+  "new_execution_window": false,
+  "only_authorization_times_changed": true,
+  "operational_authority_signed": false,
+  "qualification_repeated": false,
+  "qualified_native_source_revision": "7b7c263cb850690cf333df0d196b18c875b4a53c",
+  "raw_validation_repeated": false,
+  "registered_family_replay_verified": true,
+  "request_template_qualification_bindings_verified": true,
+  "retained_reports_verified": 86,
+  "status": "D301_INSTALLED_SOFTWARE_ADMISSION_PASS_NATIVE_TIME_GATE_CLOSED",
+  "uid1000_owner_and_inventory_verified": true
+}

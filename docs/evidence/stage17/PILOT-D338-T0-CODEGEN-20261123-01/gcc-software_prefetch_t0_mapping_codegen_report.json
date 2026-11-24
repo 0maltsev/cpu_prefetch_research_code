@@ -1,0 +1,185 @@
+{
+  "schema_version": "cpu-prefetch-software-prefetch-mapping-codegen/1",
+  "scope": "correctness-only; no timing or performance observation",
+  "mapping_id": "X86-64-PREFETCHT0-ONLY-v1",
+  "binary": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-prefetch-t0/gcc/cpu_prefetch_software_prefetch_mapping_codegen_probe",
+    "sha256": "1eb6d40bfe6a82b0f50ab964c0a27e91893db80dcfed1f61449100b7c142656b"
+  },
+  "mutant": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-prefetch-t0/gcc/cpu_prefetch_software_prefetch_mapping_codegen_mutant",
+    "sha256": "c3529b1c6f419d675c9c6ef31ce0918652d1f23b9e8752d40d6b57a5663c5927"
+  },
+  "rule_set": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_software_prefetch_mapping_codegen.py",
+    "sha256": "9aecd8193f9a94e076d3f31272e868e324e4a425cb97d70eb71e84c00034cc94"
+  },
+  "tools": {
+    "GNU_OBJDUMP": {
+      "status": "PASS",
+      "path": "/usr/bin/objdump",
+      "version": "GNU Binutils 2.47",
+      "mapping": {
+        "ring_producer_write": {
+          "status": "PASS",
+          "instruction": "PREFETCHT0",
+          "body_sha256": "0f682e5bf959cff7aa589a317b96b7c386bd9853314442a7e683df77ece0a219"
+        },
+        "ring_consumer_read": {
+          "status": "PASS",
+          "instruction": "PREFETCHT0",
+          "body_sha256": "1fd55e8c3b6644ad3a564596d0720f75a57fd48fec5be043f15f7044dd460e09"
+        },
+        "successor_header": {
+          "status": "PASS",
+          "instruction": "PREFETCHT0",
+          "body_sha256": "bd65b3cf45bf760821925a9c13cc3cd6ef544ce4271489453a48e6715ac91a2e"
+        }
+      },
+      "mutant": {
+        "cpu_prefetch_software_prefetch_t0_producer_wrong": {
+          "status": "REJECTED",
+          "counts": {
+            "prefetchw": 1,
+            "prefetcht0": 0,
+            "prefetcht1": 0,
+            "prefetcht2": 0,
+            "prefetchnta": 0
+          },
+          "body_sha256": "81fd290a31dcca707d554a57023bbdc6186eed07d66f143a88fddc576099b31e"
+        },
+        "cpu_prefetch_software_prefetch_t0_consumer_wrong": {
+          "status": "REJECTED",
+          "counts": {
+            "prefetchw": 1,
+            "prefetcht0": 0,
+            "prefetcht1": 0,
+            "prefetcht2": 0,
+            "prefetchnta": 0
+          },
+          "body_sha256": "8a943af228259202541b40200d6c4a18ca45969a7cee66ec768b906a2f76008c"
+        },
+        "cpu_prefetch_software_prefetch_t0_successor_wrong": {
+          "status": "REJECTED",
+          "counts": {
+            "prefetchw": 1,
+            "prefetcht0": 0,
+            "prefetcht1": 0,
+            "prefetcht2": 0,
+            "prefetchnta": 0
+          },
+          "body_sha256": "6ac7321b2b6af7a0651b2e35b389908db1c1092ddcd3629ee7e00ba6d7775f9d"
+        },
+        "cpu_prefetch_software_prefetch_t0_duplicate": {
+          "status": "REJECTED",
+          "counts": {
+            "prefetchw": 0,
+            "prefetcht0": 2,
+            "prefetcht1": 0,
+            "prefetcht2": 0,
+            "prefetchnta": 0
+          },
+          "body_sha256": "8b555318eb0bf852153e834b03f8a2a3d3cce74af277c01e2b91852ea271e513"
+        },
+        "cpu_prefetch_software_prefetch_t0_missing": {
+          "status": "REJECTED",
+          "counts": {
+            "prefetchw": 0,
+            "prefetcht0": 0,
+            "prefetcht1": 0,
+            "prefetcht2": 0,
+            "prefetchnta": 0
+          },
+          "body_sha256": "9dc6111b1afbf1c916011efd606e5958a6f053105d683da8ee504cc69f4c2632"
+        }
+      }
+    },
+    "LLVM_OBJDUMP": {
+      "status": "PASS",
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-toolchain-20261101/root/usr/bin/llvm-objdump",
+      "version": "LLVM 22.1.6",
+      "mapping": {
+        "ring_producer_write": {
+          "status": "PASS",
+          "instruction": "PREFETCHT0",
+          "body_sha256": "12f777435eb6c0a8f4a712d271d5d73222326ca2e89c7fc0136b81b33d4d805a"
+        },
+        "ring_consumer_read": {
+          "status": "PASS",
+          "instruction": "PREFETCHT0",
+          "body_sha256": "92fc551ab1c287f7fc1448447c0fe699b8d6cbc00689352d77f6944691951faa"
+        },
+        "successor_header": {
+          "status": "PASS",
+          "instruction": "PREFETCHT0",
+          "body_sha256": "6b79c82268166f43850d6bd7c936819dc2bee841a0a2c9cae609072fdf55610a"
+        }
+      },
+      "mutant": {
+        "cpu_prefetch_software_prefetch_t0_producer_wrong": {
+          "status": "REJECTED",
+          "counts": {
+            "prefetchw": 1,
+            "prefetcht0": 0,
+            "prefetcht1": 0,
+            "prefetcht2": 0,
+            "prefetchnta": 0
+          },
+          "body_sha256": "f33491750e0fc26d1de36f47917f776f6e4ab745c61f003f89f95967a21e2d8c"
+        },
+        "cpu_prefetch_software_prefetch_t0_consumer_wrong": {
+          "status": "REJECTED",
+          "counts": {
+            "prefetchw": 1,
+            "prefetcht0": 0,
+            "prefetcht1": 0,
+            "prefetcht2": 0,
+            "prefetchnta": 0
+          },
+          "body_sha256": "4df3a4456e494995f720c019598298ad048dd226922e2cb1a369a0e2b23665b7"
+        },
+        "cpu_prefetch_software_prefetch_t0_successor_wrong": {
+          "status": "REJECTED",
+          "counts": {
+            "prefetchw": 1,
+            "prefetcht0": 0,
+            "prefetcht1": 0,
+            "prefetcht2": 0,
+            "prefetchnta": 0
+          },
+          "body_sha256": "8d0685bf8266295e4991c20420e40dbc93011636b47c4c865efd0b7c5e0cc614"
+        },
+        "cpu_prefetch_software_prefetch_t0_duplicate": {
+          "status": "REJECTED",
+          "counts": {
+            "prefetchw": 0,
+            "prefetcht0": 2,
+            "prefetcht1": 0,
+            "prefetcht2": 0,
+            "prefetchnta": 0
+          },
+          "body_sha256": "c5d299921f4b7f39880f022de90d9f8bb4d1b41f3ac99cca5ca07d8413d53e40"
+        },
+        "cpu_prefetch_software_prefetch_t0_missing": {
+          "status": "REJECTED",
+          "counts": {
+            "prefetchw": 0,
+            "prefetcht0": 0,
+            "prefetcht1": 0,
+            "prefetcht2": 0,
+            "prefetchnta": 0
+          },
+          "body_sha256": "01358cdcfaadbf14319427159e4b53d013017a2fa6efcdc1ac03396cb896a056"
+        }
+      }
+    }
+  },
+  "source_evidence": {
+    "include/cpu_prefetch/runner/software_prefetch.hpp": "37c6bb10b9e618a51c273379f4f7d439de09cad5facc3e2b532815a40d66167d",
+    "tools/software_prefetch_mapping_codegen_probe.cpp": "4aa4808e1dbc7f82f111d7f593e53edb6d1c0cea24a23b3d81b1066a86845da8",
+    "tools/software_prefetch_mapping_codegen_mutant.cpp": "8e757d166a59b84b9da3fef4f8590fa83611e6ff1698dc00ee66b3ac6bee29fb",
+    "tools/check_software_prefetch_mapping_codegen.py": "9aecd8193f9a94e076d3f31272e868e324e4a425cb97d70eb71e84c00034cc94"
+  },
+  "status": "PASS",
+  "missing_tools": []
+}

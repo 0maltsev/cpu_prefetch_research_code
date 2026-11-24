@@ -1,0 +1,35 @@
+E
+======================================================================
+ERROR: test_launcher_checks_actual_frozen_identity_then_releases_programme_before_relocking (__main__.PlanAdmissionTests.test_launcher_checks_actual_frozen_identity_then_releases_programme_before_relocking)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_plan_admission_v1.py", line 254, in test_launcher_checks_actual_frozen_identity_then_releases_programme_before_relocking
+    result=launch._launch_in_environment(journal=journal,authorization_bytes=raw,signature_path=Path('/SOFTWARE-SIGNATURE'),
+        source_owner=self.authored.source_owner,native_image=self.fixture.image,archive_profile=None,
+        program_root=self.program,broker_limits=None,custody_limits=self.limits,decoder_limits=None,
+        limits=limits,restore_environment=restorer)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_launcher_v1.py", line 414, in _launch_in_environment
+    return _execute_verified(verified=verified,source_owner=source_owner,native_image=native_image,
+        archive_profile=archive_profile,program_root=program_root,broker_limits=broker_limits,
+        custody_limits=custody_limits,decoder_limits=decoder_limits,limits=limits,
+        restore_environment=restore_environment,native_partition=partition,
+        platform_guard=restore_environment.compaction_guard())
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_plan_admission_v1.py", line 245, in dispatch
+    store._family_scope_fields();self.assertEqual(store._sequence,1)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_archive_custody_v1.py", line 106, in _family_scope_fields
+    raise base.CustodyError("S180 storage extension is not bound")
+stage17_formal_archive_custody_v1.CustodyError: S180 storage extension is not bound
+
+----------------------------------------------------------------------
+Ran 1 test in 3.158s
+
+FAILED (errors=1)

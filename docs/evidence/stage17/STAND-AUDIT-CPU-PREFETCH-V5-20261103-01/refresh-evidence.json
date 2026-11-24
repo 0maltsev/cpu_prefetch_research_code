@@ -1,0 +1,20 @@
+{
+  "scope": "READ_ONLY_NO_EXPERIMENT_NO_MSR_READ_OR_WRITE",
+  "ssh_exit_code": 0,
+  "inventory": {
+    "path": "docs/evidence/stage17/STAND-AUDIT-CPU-PREFETCH-V5-20261103-01/read-only-inventory.json",
+    "sha256": "fedb4b0deeaad5a5ed435f364fa4ff927bf28002ad543e71f664fe10bb723c1e"
+  },
+  "collector": {
+    "path": "build/ext007-runtime-20261101/collect-stand-read-only.py",
+    "sha256": "beb0d4d37b5d088f33f65779c03710dd6e481ad7346dae0aff57caaa24c68099"
+  },
+  "command": "ssh -o BatchMode=yes -o ConnectTimeout=15 -o ServerAliveInterval=10 -o ServerAliveCountMax=2 -o ProxyCommand=none -o ProxyJump=none root@94.126.205.83 python3 - < build/ext007-runtime-20261101/collect-stand-read-only.py",
+  "semantic_replay": false,
+  "execution_authority": false,
+  "owner_input": {
+    "stand_dedicated_to_these_experiments": true,
+    "additional_deadline_or_storage_cap": null,
+    "primary_delta_star": "UNRESOLVED; owner answer anything supplies no numeric bound/application rationale"
+  }
+}

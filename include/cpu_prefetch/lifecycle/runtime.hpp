@@ -30,7 +30,15 @@ struct TerminationEvidence final {
 
 class TerminationControl final {
 public:
+  // Pure checked size; the caller supplies the verified cache-line geometry.
+  [[nodiscard]] static auto storage_requirements(queue::CacheLineBytes cache_line_bytes)
+      -> std::size_t;
   explicit TerminationControl(queue::CacheLineBytes cache_line_bytes);
+  // Exact-size, aligned, disjoint storage. The caller owns its placement and
+  // lifetime. Construction initializes only the atomic; destruction never frees
+  // borrowed bytes. Construct on the intended owner before releasing workers.
+  TerminationControl(queue::CacheLineBytes cache_line_bytes,
+                     std::span<std::byte> external_storage);
   ~TerminationControl();
 
   TerminationControl(const TerminationControl&) = delete;
@@ -50,6 +58,7 @@ public:
   [[nodiscard]] auto evidence() const noexcept -> TerminationEvidence;
 
 private:
+  void initialize(std::span<std::byte> bytes);
   queue::detail::AlignedBlock storage_;
   std::atomic<std::uint32_t>* value_{nullptr};
   std::size_t cache_line_bytes_{0U};

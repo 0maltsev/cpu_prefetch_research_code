@@ -1,0 +1,24 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+    Start 643: runner.q16a_q16c_descriptive_handoff_v3
+1/6 Test #643: runner.q16a_q16c_descriptive_handoff_v3 ....   Passed    5.17 sec
+    Start 644: runner.q16b_q16c_descriptive_handoff_v3
+2/6 Test #644: runner.q16b_q16c_descriptive_handoff_v3 ....   Passed   35.41 sec
+    Start 667: runner.s180_authority_v1
+3/6 Test #667: runner.s180_authority_v1 ...................   Passed    9.64 sec
+    Start 669: runner.s180_journal_v1
+4/6 Test #669: runner.s180_journal_v1 .....................   Passed   13.07 sec
+    Start 675: runner.s180_q15_authority_v1
+5/6 Test #675: runner.s180_q15_authority_v1 ...............   Passed    0.88 sec
+    Start 678: runner.s180_calibration_compatibility_v1
+6/6 Test #678: runner.s180_calibration_compatibility_v1 ...   Passed    0.32 sec
+
+100% tests passed, 0 tests failed out of 6
+
+Label Time Summary:
+archive      =  40.58 sec*proc (2 tests)
+pilot        =  23.91 sec*proc (4 tests)
+python       =  64.49 sec*proc (6 tests)
+runner       =  64.49 sec*proc (6 tests)
+synthetic    =  23.91 sec*proc (4 tests)
+
+Total Test time (real) =  64.51 sec

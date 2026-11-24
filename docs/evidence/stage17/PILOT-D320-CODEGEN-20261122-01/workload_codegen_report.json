@@ -1,0 +1,110 @@
+{
+  "schema_version": "cpu-prefetch-workload-codegen/1",
+  "scope": "correctness-only; no timing or performance observation",
+  "binary": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-34247ce/cpu_prefetch_workload_codegen_probe",
+    "sha256": "6e95cf08a2b2918c79c86f3b4d7d3b887f8b513a2a84abb2e77249d0a4f9aaf9"
+  },
+  "negative_mutant": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-34247ce/cpu_prefetch_workload_codegen_mutant",
+    "sha256": "f4d00ae6d302c184b7c894df0f278eb042f5d2d2f463b1a887ef85fa757a0cd8"
+  },
+  "rule_set": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-source-34247ce/tools/check_workload_codegen.py",
+    "sha256": "411215ce5f75d43c79b792652fb6f445ba11b53812d09e1b8bf60f9256df69e3"
+  },
+  "tools": {
+    "GNU_OBJDUMP": {
+      "status": "PASS",
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/objdump",
+      "version": "GNU Binutils 2.46.0",
+      "operations": {
+        "cpu_prefetch_consumer_record_action": {
+          "status": "PASS",
+          "body_sha256": "9456114c6475283a4c771b21e4497558364a6732b3692101dc6908d1ea741a7f",
+          "forbidden_instruction_classes": []
+        },
+        "cpu_prefetch_r1_try_enqueue": {
+          "status": "PASS",
+          "body_sha256": "f8208006de4714c3857c4af66ee292495be84d1854c2f426afda2b5064ded125",
+          "forbidden_instruction_classes": []
+        },
+        "cpu_prefetch_r1_try_dequeue": {
+          "status": "PASS",
+          "body_sha256": "9738efb0658537eac2a3c024e3d24e5f0a7984e8112bc0047514065cb76c5321",
+          "forbidden_instruction_classes": []
+        },
+        "cpu_prefetch_r2_try_enqueue": {
+          "status": "PASS",
+          "body_sha256": "570adae2b0f0d900c8c2a8af0089f7c3cd7402b4450175fb4861c9935c96c086",
+          "forbidden_instruction_classes": []
+        },
+        "cpu_prefetch_r2_try_dequeue": {
+          "status": "PASS",
+          "body_sha256": "2b11caf67452d08a8ccb602afb1400bc28ce3f3b0a8c9c413a9db117d8d9477b",
+          "forbidden_instruction_classes": []
+        },
+        "cpu_prefetch_l1_try_dequeue": {
+          "status": "PASS",
+          "body_sha256": "8b2dff88791fafa9347a80a672fd07788fdf5e758a2bf7ff274a7cad4d19d0b2",
+          "forbidden_instruction_classes": []
+        }
+      },
+      "negative_mutant": {
+        "status": "EXPECTED_REJECTION",
+        "detected_instruction_classes": [
+          "call"
+        ],
+        "body_sha256": "21e0dc6522faa524a753d53c24f7a62f73306e1a585f5809c1b15f83394f7568"
+      },
+      "full_disassembly_sha256": "1292809e7cd6c200f67c81d0d97cd8d974f757efd4d50079fb0ac673bfb26ad9"
+    },
+    "LLVM_OBJDUMP": {
+      "status": "PASS",
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/llvm-objdump",
+      "version": "LLVM 22.1.6",
+      "operations": {
+        "cpu_prefetch_consumer_record_action": {
+          "status": "PASS",
+          "body_sha256": "1f34a8d341e44e71b2e68729af393b2381868172e03e7a1bb1e3c01e3cb1d57d",
+          "forbidden_instruction_classes": []
+        },
+        "cpu_prefetch_r1_try_enqueue": {
+          "status": "PASS",
+          "body_sha256": "ad70d5d3d9c6d9e0f79638961713404dcc6717b138cc8ce13c4dba3541707da3",
+          "forbidden_instruction_classes": []
+        },
+        "cpu_prefetch_r1_try_dequeue": {
+          "status": "PASS",
+          "body_sha256": "755a8512583346dbac21d0d514e4a649bdd307cfaa986217d838cfcc6af3febe",
+          "forbidden_instruction_classes": []
+        },
+        "cpu_prefetch_r2_try_enqueue": {
+          "status": "PASS",
+          "body_sha256": "af34bf0fc98ee9df044a2de99828fbfec6d35c4a0de9526a2569e9653bd0691f",
+          "forbidden_instruction_classes": []
+        },
+        "cpu_prefetch_r2_try_dequeue": {
+          "status": "PASS",
+          "body_sha256": "ec653c45be84ca0b1197e938c2479050407971b13d33b4bfdbce351f1abc1597",
+          "forbidden_instruction_classes": []
+        },
+        "cpu_prefetch_l1_try_dequeue": {
+          "status": "PASS",
+          "body_sha256": "83dc311826e6570bd5ea72702ef8d6ab8b3963f9b91e6af27b5230ee0f990819",
+          "forbidden_instruction_classes": []
+        }
+      },
+      "negative_mutant": {
+        "status": "EXPECTED_REJECTION",
+        "detected_instruction_classes": [
+          "callq"
+        ],
+        "body_sha256": "0366a83c95e1c673c07e708a0798256bba0a364b248ee3c1ce3c45451e582c2b"
+      },
+      "full_disassembly_sha256": "b860147d26f04e3dfe265dc6f91701ccad81944cb15a0d173ca762d74a7cae7c"
+    }
+  },
+  "status": "PASS",
+  "missing_tools": []
+}

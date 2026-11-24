@@ -1,0 +1,12 @@
+test_actual_profile_and_runtime_bytes_bound_to_both_releases (__main__.QualifiedArchiveContext.test_actual_profile_and_runtime_bytes_bound_to_both_releases) ... ok
+test_changed_actual_runtime_or_profile_bytes_reject (__main__.QualifiedArchiveContext.test_changed_actual_runtime_or_profile_bytes_reject) ... ok
+test_changed_qualified_worker_identity_rejects (__main__.QualifiedArchiveContext.test_changed_qualified_worker_identity_rejects) ... ok
+test_direct_author_import_in_fresh_interpreter (__main__.QualifiedArchiveContext.test_direct_author_import_in_fresh_interpreter) ... ok
+test_each_ext006_identity_missing_or_changed_rejects (__main__.QualifiedArchiveContext.test_each_ext006_identity_missing_or_changed_rejects) ... ok
+test_missing_original_ext003_provenance_rejects (__main__.QualifiedArchiveContext.test_missing_original_ext003_provenance_rejects) ... ok
+test_original_receipt_missing_or_changed_bindings_reject (__main__.QualifiedArchiveContext.test_original_receipt_missing_or_changed_bindings_reject) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.333s
+
+OK

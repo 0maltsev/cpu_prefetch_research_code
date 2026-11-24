@@ -1,0 +1,16 @@
+{
+  "affected_registered_cases": 76,
+  "affected_registered_suites": 7,
+  "cpp_protocol_diff_empty": true,
+  "execution_authority": false,
+  "final_parent_cases": 12,
+  "frozen_native_worktree_clean": true,
+  "native_sha256": "7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc",
+  "operational_window_started": false,
+  "phase18_authority": false,
+  "python_ast_passed": true,
+  "python_development_debug_cases": 12,
+  "repository_checks_passed": true,
+  "retained_calibration_changed": false,
+  "stand_access_performed": false
+}

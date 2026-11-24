@@ -1,0 +1,25 @@
+test_actual_nonzero_child_is_retained (__main__.LauncherTests.test_actual_nonzero_child_is_retained) ... ok
+test_actual_normal_exit_and_exclusive_logs (__main__.LauncherTests.test_actual_normal_exit_and_exclusive_logs) ... ok
+test_corrected_control_ceiling_accepts_above_old_and_exact_new_bound (__main__.LauncherTests.test_corrected_control_ceiling_accepts_above_old_and_exact_new_bound) ... ok
+test_exact_six_pins_including_launcher_and_exclusive_ownership (__main__.LauncherTests.test_exact_six_pins_including_launcher_and_exclusive_ownership) ... ok
+test_exclusive_retention_never_overwrites (__main__.LauncherTests.test_exclusive_retention_never_overwrites) ... ok
+test_fresh_resource_gate_exact_thresholds_and_failures (__main__.LauncherTests.test_fresh_resource_gate_exact_thresholds_and_failures) ... ok
+test_hard_as_and_file_limits_apply_only_inside_supervisor_subprocess (__main__.LauncherTests.test_hard_as_and_file_limits_apply_only_inside_supervisor_subprocess) ... ok
+test_installer_payload_and_manifest_self_binding_without_execution (__main__.LauncherTests.test_installer_payload_and_manifest_self_binding_without_execution) ... ok
+test_last_worker_join_between_snapshot_and_waitid_does_not_false_abort (__main__.LauncherTests.test_last_worker_join_between_snapshot_and_waitid_does_not_false_abort) ... ok
+test_leader_exit_with_orphan_descendant_is_failure_and_reaped (__main__.LauncherTests.test_leader_exit_with_orphan_descendant_is_failure_and_reaped) ... ok
+test_original_argv_ast_only_and_three_path_changes (__main__.LauncherTests.test_original_argv_ast_only_and_three_path_changes) ... ok
+test_pinned_process_identity_and_invalid_pidfd_fail_closed (__main__.LauncherTests.test_pinned_process_identity_and_invalid_pidfd_fail_closed) ... ok
+test_procfd_EACCES_after_owned_process_exit_is_not_analysis_failure (__main__.LauncherTests.test_procfd_EACCES_after_owned_process_exit_is_not_analysis_failure) ... ok
+test_procfd_EACCES_for_live_owned_process_aborts_and_reaps (__main__.LauncherTests.test_procfd_EACCES_for_live_owned_process_aborts_and_reaps) ... ok
+test_procfd_entry_EACCES_exit_proof_and_live_denial (__main__.LauncherTests.test_procfd_entry_EACCES_exit_proof_and_live_denial) ... ok
+test_retention_control_admission_bound_hash_size_full36 (__main__.LauncherTests.test_retention_control_admission_bound_hash_size_full36) ... ok
+test_reused_descriptor_target_is_not_misattributed (__main__.LauncherTests.test_reused_descriptor_target_is_not_misattributed) ... ok
+test_symlink_duplicate_manifest_and_nonempty_scratch_rejected (__main__.LauncherTests.test_symlink_duplicate_manifest_and_nonempty_scratch_rejected) ... ok
+test_timeout_kills_escaped_descendant_and_preserves_unrelated_process (__main__.LauncherTests.test_timeout_kills_escaped_descendant_and_preserves_unrelated_process) ... ok
+test_unlinked_spool_counts_toward_monitored_budget (__main__.LauncherTests.test_unlinked_spool_counts_toward_monitored_budget) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 1.895s
+
+OK

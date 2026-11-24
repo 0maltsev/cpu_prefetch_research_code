@@ -1,0 +1,27 @@
+{
+  "controls": [],
+  "environment_attempted_count": 0,
+  "environment_nonzero_samples": [],
+  "environment_stops": {},
+  "residency": [
+    {
+      "controls": 1,
+      "expected_node": 0,
+      "page_status_counts": {
+        "-2": 1,
+        "0": 15834
+      },
+      "query": {
+        "error_number": 0,
+        "syscall_return": 0
+      },
+      "request": {
+        "moment": 0,
+        "offset_ticks": 0,
+        "phase": 0,
+        "region_index": 0
+      },
+      "stop": 4
+    }
+  ]
+}

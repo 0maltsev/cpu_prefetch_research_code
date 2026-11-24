@@ -1,10 +1,26 @@
 # Decisions Required
 
-Protocol version: **`2.0.0-pre.2`**; predecessor `2.0.0-pre.1` retained
+Protocol version: **`2.0.0-pre.3`**; predecessors `2.0.0-pre.1` and
+`2.0.0-pre.2` retained immutable
 
-Stage 2/16 disposition: **`SOFTWARE_AND_CANDIDATE_INVENTORY_COMPLETE; Q1_THROUGH_Q13_ACCEPTED; Q14_AWAITING`**
+Stage 17 disposition: **`OPERATIONAL_SUCCESSOR_PREPARED; TEN_EXTERNAL_INPUTS_REQUIRED`**
 
 Stage 15 disposition: **`COMPLETE_LOCAL_SYNTHETIC; EXTERNAL_INPUTS_OPEN`**
+
+## Resolved Stage 17B.2 scientific decision
+
+`D-116` is **`ACCEPTED`**. Protocol `2.0.0-pre.2` required
+warm-up `max(5 s, 10*h_max/rho_min)` while defining both nonconstant inputs
+from valid pilot observations and providing no first-pilot bootstrap rule.
+The owner accepted the prospective five-second pre-freeze bootstrap as both
+protocol and statistical owner. ADR-0116 and immutable protocol
+`2.0.0-pre.3` now define that exception and preserve the later
+`max(5 s, 10*h_max/rho_min)` freeze. The exact options and compatibility
+impact are retained in the
+[`D-116 decision bundle`](STAGE17_PILOT_WARMUP_PROTOCOL_AMENDMENT_DECISION_BUNDLE.md).
+All three snapshots and their manifests pass the protocol hash check. This
+decision grants no stand, calibration, pilot, measurement, or Phase 18
+authority.
 
 The repository still contains no authorized production benchmark execution.
 Q13 adds a fail-closed runner admission/static-dispatch core whose CLI cannot
@@ -13,37 +29,342 @@ boundary and synthetic post-run reconciliation, not an authorized scientific run
 Stage 16 now also retains a verified nonprivileged candidate-stand snapshot
 with two packages and two NUMA nodes. Q13 selects explicit static worker pairs
 from later hashed topology evidence but supplies no dynamic qualification.
-Stage 5 contains queue correctness-only production cores, Stage 6 contains
+ADR-0047 now fixes the physical software-prefetch mapping and its strict
+dual-compiler/disassembler software gate. Stage 5 contains queue
+correctness-only production cores, Stage 6 contains
 deterministic workload-construction components, and Stage 7 contains offline
 schedule generation/validation. Q1 through Q6 were accepted by the repository
 owner on 2026-08-17; Q7 was accepted on 2026-08-20; Q8 through Q12 were
-accepted on 2026-08-21; Q13 was accepted for implementation only on
-2026-08-22. They are recorded through ADR-0043, with ADR-0039
+accepted on 2026-08-21; Q13 and Q14 were accepted for implementation/policy
+only on 2026-08-22. Q15-P0 and Q15-S1 through Q15-S3 were accepted on
+2026-08-24 and are recorded through ADR-0056. Earlier decisions are recorded
+through ADR-0046, with ADR-0039
 closing the delegated Stage 13 profile, ADR-0040 closing the Stage 14
 implementation-owned planning/access profile, and ADR-0041 closing the
 synthetic-only Stage 15 analysis profile. Exact scientific,
 platform, and pilot facts remain open until their listed phases; they were not
 replaced by engineering defaults.
 
-## Pending Q14 pre-Stage-17 governance bundle
+ADR-0104 is the prospective pilot-governance graph. ADR-0105 leaves D-099
+through D-108 and their evidence unchanged, keeps D-105 through D-108
+proposed/unaccepted, and replaces their open-ended continuation as a pilot gate
+with one immutable requirement catalog and append-only state journal. The
+current computed state is `PREPARED`; all `S17-EXT-001..010` inputs are
+unresolved. ADR-0117/policy v12 requires per-input semantic proof for every
+`S17-EXT-001..010`; all ten production verifier registrations are implemented
+and default-deny. There are no
+additional decision-only D-109/D-110 questions. The
+old clean commit/archive metadata does not resolve `S17-EXT-006` without
+caller-supplied exact archive/sidecar bytes and a verifiable custody receipt.
+The immediate owner input is the exact real data listed in the
+[`S17-EXT-001` draft](STAGE17_S17_EXT_001_AUTHORIZATION_DRAFT.md), not another
+recommendation bundle.
+ADR-0108 through ADR-0112 preserve their earlier definitions. ADR-0121
+preserves the terminal D-120 pre-marker transaction, and ADR-0122 preserves
+the terminal D-121 marker-only transaction. Policy v17, preflight policy v13,
+fixed plans v6/v8, verifier v13, executor v11, journal runtime v15, controller
+v7, Q15 controller v5, and CLI v9 are the current prospective release closure.
+The current supervisor separately proves leader reap and process-group
+quiescence before evidence publication or credential-snapshot closure.
+The owner must still supply a new exact target, finite UTC window, host-key/
+known-hosts and transport identities, archive/sidecar/bundle locators, exact-
+second capture identity/time, safe evidence root, and both immutable D-120 and
+D-121 blocker receipts. The CLI derives executor/collector paths and bytes
+from the policy; the owner cannot select them. Production authority is
+evaluated from actual system UTC, not an owner or CLI time. Executor v11
+retains sealed snapshots and gives OpenSSH parent-procfd locators; snapshot
+broker v2 runs the hermetic actual-OpenSSH capability under a subreaper and
+must reap every adopted fixture child before marker. Every started SSH process
+group must be terminated/reaped before snapshot close or failure publication.
+Attempt v9 and every terminal schema require the same exact twenty-two runtime
+identities. These are unresolved external inputs, not implementation defaults,
+and neither stopped transaction can be retried.
+
+Q15-R-P4-F was accepted on 2026-08-25 and is recorded in ADR-0072 through
+ADR-0075. It freezes repository-local literals and still-unissued templates
+only; it supplies no operational evidence or execution authority.
+
+## Accepted Q15-P0 prerequisite closure; exact Q15 inputs still required
+
+Q15-P0 accepts D-048 through D-050 for repository-local implementation only.
+ADR-0048 removes in-measurement poll-count expiry and introduces admission/
+runner v3. ADR-0049 fixes the narrow Intel 06_55H MSR-0x1A4 H0/H1 mapping and
+fake-tested transaction/evidence contracts. ADR-0050 fixes four distinct roles
+and candidate-to-development two-domain custody policy. See
+[`Q15_PREREQUISITE_CLOSURE.md`](Q15_PREREQUISITE_CLOSURE.md).
+
+Clean revision `693f00b3878ed027dc09aea7916f149874fb12a1` and the sealed
+no-authority archive SHA-256
+`f94bb6922899caba24c26910bd1ba63018425d056fa5fd8282d1098415b8ace1`
+close the release prerequisite. Still unresolved before exact Q15 approval:
+two start-barrier values and an external process-watchdog bound;
+actual accounts/person/key/capability mappings plus negative OS tests; exact
+command argv/hashes/limits/paths/signature; fresh complete MSR prestate and
+dynamic H0/H1 readback/probes/restoration; pair clock, atomics/layout,
+actual-CPU/migration, residency, storage/custody, and recovery evidence. Q15-P0
+does not authorize stand access or any dynamic/privileged action.
+
+D-052/ADR-0052 now freezes `Q15-PROBE-COLLECTOR-CONTRACT-v1`: exact raw PMU
+programming, regular and pointer-dependent traversals/classification, and seven
+collector acceptance boundaries. Q15-S2/ADR-0053 resolves the frozen seed as
+the ADR-0025 master seed and locally implements the exact pointer cycle,
+complete-buffer integrity, pure classification, and counted traversal bodies.
+Q15-S3/ADR-0054 through ADR-0056 implement and cleanly release the same-buffer
+session, fixed fakeable Linux acquisition mechanisms, and seven distinct
+collectors. Commit `7a92629` and archive SHA-256
+`20acaded8002c130db725369c67013582dbcfccbd826a033a14658281387f848`
+bind those components and code-generation reports. The release intentionally
+lacks a production controller.
+
+Q15-R-P1 accepted D-057 through D-060 in the
+[`Q15-R controller-closure decision/input bundle`](Q15_R_DECISION_INPUT_BUNDLE.md).
+The repository-local fixed controller, authorization-v2/profile validators,
+fake tests, generated-code audit, and unapplied role/custody plan now pass.
+Clean commit `a75bcdd0367d79f8ee0496c55edda74311c9ef7d` and v2 archive
+SHA-256 `48c460b008790e3b73aefbda94cacddaeb3c842622ca5bac5c763e50515ae035`
+close the no-authority base-release gate. This closes neither the operational
+adapter, stand setup, nor execution gates.
+Stand access, account/key changes, Q15-R issuance/execution, Q15-W, dynamic
+qualification, calibration, pilot, measurement, and confirmation remain
+prohibited.
+
+Q15-R-P2 accepted D-061 through D-064 in the
+[`Q15-R operational-prerequisite decision bundle`](Q15_R_OPERATIONAL_PREREQUISITE_DECISION_BUNDLE.md)
+and ADR-0061 through ADR-0064. The fixed inherited-descriptor adapter is
+implemented and fake-tested locally; the v2 base release remains prerequisite
+authority `NONE`. The synchronized role/custody and Q15-R/Q15-W preparation
+records bind the acceptance and adapter identities without inventing any stand
+fact. The exact command graph is preserved in the
+[`blocked stand-setup authorization preparation`](Q15_R_STAND_SETUP_AUTHORIZATION_BUNDLE.md).
+
+Q15-R-P3 accepts D-065/ADR-0065 and creates versioned successor preparation
+v2. Only the clean-release evidence group is resolved. The predecessor remains
+byte-preserved; all five external setup groups and every authority field remain
+unresolved or false.
+
+The [Q15-R-P4 external-input acquisition bundle](Q15_R_EXTERNAL_INPUT_ACQUISITION_DECISION_BUNDLE.md)
+records the accepted D-066 through D-070 acquisition methods: an offline signer boundary, a
+fresh-prestate-selected content-addressed operational root, an independently
+controlled non-stand custody root, a fixed read-only prestate collector, and a
+canonical independently verified allowed-signers binding. ADR-0066 through
+ADR-0070 record the decisions. They fill no literal value and grant
+repository-local collector implementation only.
+
+Clean commit `c8b69abf0c6aec7b740efe78d998a93545302a94` produced and
+verified an adapter-bearing no-authority release with archive SHA-256
+`8e8ad6d781b2bffadcfc10cf3b12d5666c7a1d4c7d7e291d7318a19503e6ab01`.
+D-065 is [accepted by Q15-R-P3](Q15_R_OPERATIONAL_RELEASE_DECISION_BUNDLE.md)
+as the exact future setup release input. The predecessor six-input preparation
+remains immutable; versioned successor v2 resolves only release evidence and
+retains five external groups: literal allowed-signers source, operational
+release root, secondary custody root, fresh stand prestate, and the actual
+allowed-signers artifact/hash/fingerprint. Named authority, UTC validity,
+evidence IDs/hashes, signature, and independent review also remain mandatory
+for the later exact authorization. A generic approval, SSH
+permission, or root access cannot substitute; setup would still not authorize
+Q15-R.
+
+The fixed collector and validator are implemented with fake evidence. Clean
+commit `34da95d002e912069c959bfef8e88a23b4880cea` produced the verified
+collector-bearing v3 archive SHA-256
+`f45d25f4aa6bff56c39face088c46c4cccd21bfaf903c9c320100b561402ff3a`
+with authority `NONE`. Q15-R-P4-E accepts the
+[D-071 collector-release decision](Q15_R_P4_R_COLLECTOR_RELEASE_DECISION_BUNDLE.md)
+and hash-binds that release. Versioned successor P4-R preparation v2 resolves
+only the clean collector-release evidence group and retains seven null external
+inputs. The original P4-R preparation remains immutable with eight null inputs;
+P4-K remains unissued and retains all eight null inputs. The smallest next
+gates require owner/platform evidence for those external values and separate
+exact authorization; no value may be inferred. Separate
+future Q15-R-P4-R, Q15-R-P4-K, Q15-R-P5, Q15-R, and Q15-W gates remain
+mandatory and unopened.
+
+The [exact Q15-R-P4-R staging/authorization bundle](Q15_R_P4_R_STAGING_AUTHORIZATION_DECISION_BUNDLE.md)
+records the immutable D-072 through D-075 proposal at machine-record SHA-256
+`18c29f6f3710b061bcf593ad6615589a6b50c4bf28ebceb4bee3714702389604`.
+Q15-R-P4-F accepts one create-exclusive staging tree, fixed capture and
+development-custody paths, named operator/auditor/custodian roles, a
+nonrenewable 1,800-second UTC policy, the accepted SSHSIG profile, and a split
+read-only identity then one-shot collection graph. Acceptance SHA-256 is
+`ae879bd113939ee06fd3673c0f14d054d92d6c30c0162ffa6727d2a42973cb8c`;
+ADR-0072 through ADR-0075 record the choices. The P4-R-I and P4-R-C successor
+templates remain unissued with six null external-input groups each. The
+smallest next gates are exact P4-K-A ceremony/custody/bootstrap-signing inputs
+or a later exact signed P4-R-I authorization; P4-R-C may be prepared for
+issuance only after accepted fresh identity and review hashes exist. No gate
+auto-continues.
+
+The repository-local
+[`Q15-R-P4-K decision/input bundle`](Q15_R_P4_K_DECISION_INPUT_BUNDLE.md)
+is accepted by Q15-R-P4-K-D/ADR-0076 through ADR-0079. Acceptance SHA-256 is
+`11b9c357468515145bc5e7b2b477515c814d31ec97603245eff378d0259e6be7`.
+It selects the new-offline-ceremony source mode, logical custody domain
+`OWNER-OFFLINE-Q15-KEY-CUSTODY`, custodian
+`cpu-prefetch-q15-custodian`, split one-shot P4-K-A then independent P4-K-R,
+and the accepted operator/1,800-second/JCS-I64/SSHSIG/distinct-auditor profile.
+
+The logical identifiers are not operational evidence. The immutable original
+P4-K preparation retains all eight null external inputs. The separate P4-K-A
+and P4-K-R templates remain unissued with 13 and 9 null input/output fields.
+Before P4-K-A can be prepared for exact issuance, the owners must supply:
+
+1. exact offline ceremony/public-extraction tools, versions, SHA-256 values,
+   and fixed argv;
+2. create-exclusive public artifact IDs and absolute public source paths;
+3. operational offline custody-control and ceremony-environment evidence ID
+   and SHA-256, without private-key paths or bytes;
+4. bootstrap authorization signer fingerprint and trust-evidence SHA-256—the
+   nonexistent target key cannot authorize its own creation;
+5. literal issue/expiry UTC instants and canonical authorization/signature
+   hashes; and
+6. distinct auditor pre-execution review evidence.
+
+P4-K-R remains blocked until a complete accepted P4-K-A action receipt and all
+exact public/custody evidence exist. Private key bytes, passphrases, seeds, or
+secret paths must never be submitted. P4-K-A, P4-K-R, P5, P4-R-I/P4-R-C, and
+every Q15 or experiment phase still require separate exact approval.
+
+The repository-local
+[`Q15-R-P4-K-A operational-input decision bundle`](Q15_R_P4_K_A_OPERATIONAL_INPUT_DECISION_BUNDLE.md),
+machine-record SHA-256
+`8acfebfb22ba7449233b5c4c5b2a7ecf9c9a48323b1d79b45b42d26867199777`,
+is accepted as policy by Q15-R-P4-K-A-D/ADR-0080 through ADR-0085. Acceptance
+SHA-256 is
+`c68e1b9427df9306a53cac590dfe268862fa528ef5bf665bf0002972cf77ffaf`.
+It originally mapped seven null P4-K-A inputs to exact environment/toolchain,
+encrypted-key custody, public export, bootstrap-root, fixed-controller, and
+issuance/review contracts. D-094 resolves only bootstrap trust in a versioned
+successor; the immutable predecessor remains unchanged.
+
+The owner originally selected
+`P4KA-Q4=NO_QUALIFYING_BOOTSTRAP_SIGNER_REMAIN_BLOCKED`. D-093 subsequently
+superseded the unaccepted D-087 through D-092 bootstrap-genesis recommendations
+and explicitly accepted one-owner role collapse, development-host creation, an
+unencrypted Ed25519 private key, no independent recovery, and the resulting
+critical impersonation and key-loss risks. The single authorized create-
+exclusive action completed. Its public evidence verifies. D-094 subsequently
+activated that fingerprint. D-095 later superseded the target-action security
+controls for one exact development-host unencrypted single-owner transaction.
+It created and independently verified one bootstrap signature, then stopped
+terminally before target-key generation because the wrapper passed both
+`stdin` and `input` to `subprocess.run`. Four public partial artifacts are
+retained, the target private path is absent, and D-095 permits no retry,
+repair, overwrite, cleanup, deletion, or continuation.
+
+D-096/ADR-0096 was accepted and superseded only the terminal D-095 action. Its
+new create-exclusive `p4-k-v2` transaction completed with authorization
+SHA-256 `8feb2ccf...`, independently verified bootstrap signature SHA-256
+`2514a671...`, target fingerprint
+`SHA256:bOmXmBSxD0rBKid1AKOXQ25jIUjCOrijbM5sN18qLGM`, and complete-evidence
+SHA-256 `8c30c1fb...`. The failed `p4-k-v1` tree remains preserved and was not
+retried or repaired. Private key contents remain outside the repository and
+were not read or hashed.
+
+D-097/ADR-0097 was accepted and completed exactly once. Authorization SHA-256
+`a34a2441...`, bootstrap signature `ab874dcc...`, review receipt `5a3233fb...`,
+and complete-evidence SHA-256 `b7c6125d...` verify. The public-only review
+verified all D-096 public hashes, target fingerprint, principal, and public-key
+byte equality. It performed no private-key access or presence probe, no
+installation/activation, and no retry; it stopped before P5.
+
+The next decision path is documented in the
+[`D-098 P5 bundle`](Q15_R_P5_D098_DECISION_BUNDLE.md). Preparation v3 resolves
+only the two reviewed public-trust groups. Three inputs remain null and block
+P5: the literal operational release root, independent secondary custody root,
+and fresh current stand-prestate artifact ID/SHA-256.
+
+D-099/ADR-0099 completed P4-R-I exactly once. Its canonical authorization,
+target-key SSHSIG, four pinned-host read-only observations, create-exclusive
+identity capture, and single-owner public review verify. Complete-evidence
+SHA-256 is `afc31fca0451e883dc72c86827a814da209da7031c0b2ec66316b92301c4c241`.
+It made no stand filesystem mutation and stopped before P4-R-C.
+
+The next unresolved gate is a new exact P4-R-C preparation, signature, and
+explicit execution approval bound to the accepted D-099 identity/review.
+P4-R-C may then stage and run the fixed prestate collector only within its own
+authority. P5, stand setup, Q15, calibration, pilot, measurement, and
+confirmation remain unauthorized.
+
+The exact
+[`D-100 through D-103 P4-R-C bundle`](Q15_R_P4_R_C_D100_DECISION_BUNDLE.md)
+has machine-record SHA-256 `faa4c377...`; the directly responsive bounded owner
+acceptance has SHA-256 `bdfe690a...`. ADR-0100 through ADR-0103 now select the
+single-owner P4-R-C review downgrade, compatibility with only the exact
+pre-existing D-099 custody root, the fixed OpenSSH login-shell boundary, and
+the create-exclusive namespace-parent rule. The repository-local executor,
+schemas, fake failures, and still-unissued preparation are implemented.
+
+The next unresolved compatibility input is narrower: D-099 did not capture the
+stand's absolute `/usr/bin/python3`, `/usr/bin/dd`, or Python tar-runtime
+identity used by the fixed executor. D-102 says tool bytes are compatibility
+identity, so the executor's runtime-acceptance constant remains null and its
+action path fails closed. Prepare and separately authorize a read-only runtime
+identity acquisition or explicitly accept exact runtime compatibility risk,
+then freeze a clean successor before any D-104 signature or stand mutation.
+P4-R-C action, key use, P5, Q15, calibration, pilot, measurement, and
+confirmation remain unauthorized.
+
+The exact D-105 through D-108 machine decision record is now prepared with
+SHA-256 `6d753cee...`, bound to clean D-104 implementation commit `dc643df` and
+executor SHA-256 `0b7e2f1c...`. Its recommendations are: one signed read-only
+runtime capture and separate review, an explicit single-owner waiver, a fixed
+pinned OpenSSH command/stdin collector graph, and complete reviewed evidence
+before a clean successor. All four selections and nine action inputs remain
+null. Exact acceptance authorizes repository-local implementation only; every
+key use and stand observation remains a later separately signed gate.
+
+ADR-0086 now implements the generic repository-local controller, admission
+schema, fake tests, and profile under the later owner delegation. It has no OS
+backend and cannot mint a ticket while bootstrap, environment, toolchain,
+custody, path, issuance, and review evidence are absent.
+
+The preserved predecessor is the
+[`Q15-R bootstrap governance-root decision/input bundle`](Q15_R_BOOTSTRAP_GOVERNANCE_ROOT_DECISION_BUNDLE.md),
+SHA-256
+`065d8a6d5f882bff84ee9bdbe27eb0e0c9e2bfea56c58cbe2b9bfc61cab3a4b7`.
+D-087 through D-092 remain byte-preserved but are superseded by D-093 rather
+than accepted. The D-093 authorization, public evidence, and lifecycle policy
+are machine checked. The private key remains outside the repository; repository
+tools record only its exact authorized path and metadata, never its contents or
+content hash. D-094 made the root eligible for separately authorized signing
+and produced an unissued P4-K-A successor. D-095 consumed its exact one-
+signature authority and failed terminally before producing a target key. D-096
+used a new authorization, signature, transaction, and path and completed the
+target-key action. Active trust, the D-095/D-096 signatures, and the target key
+did not themselves grant P4-K-R. D-097 separately completed the public review,
+but its receipt and reviewed target identity are not P5 or downstream authority.
+
+The prepared
+[`Q15 stand-qualification decision/input bundle`](Q15_STAND_QUALIFICATION_DECISION_BUNDLE.md)
+records D-051 as accepted by Q15-S1/ADR-0051. The fixed adapter, separate tool
+and bundle profile, split authority schema, and blocked preparation records are
+implemented locally. The clean no-authority bundle build is separately
+completed for the v2 base and adapter-bearing candidate releases, but no Q15
+authorization may be emitted while the role, command, custody, trust,
+signature, and predecessor fields are missing.
+
+## Accepted Q14 governance and D-047 mapping; next qualification inputs required
 
 The
 [`pre-Stage-17 blocker-closure and pilot-authorization decision bundle`](STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md)
-proposes D-044 through D-046. Q14 would authorize repository-local completion
-of the fail-closed static production runner, qualification-only tools, combined
-codegen audit, and a new pilot-candidate bundle. It would also accept the rule
-that later stand qualification and Stage 17 work require separate exact,
-hash-bound Q15 and phase-scoped Q16 records.
+is accepted as Q14/ADR-0044 through ADR-0046. The permitted repository-local
+runner, qualification-record, authorization-schema, combined-audit, and
+candidate-builder work is implemented.
 
-Q14 does **not** authorize SSH/stand access, dynamic qualification, privilege,
-calibration, pilot, or confirmatory execution. No ADR exists for D-044 through
-D-046 while Q14 is pending. Q15 and Q16a through Q16d remain blocked because
-their exact release, authority, commands, limits, predecessor artifacts,
-plans, namespaces, seeds, budgets, storage domains, and hashes do not yet
-exist.
+Q14 and D-047 do **not** authorize SSH/stand access, dynamic qualification,
+privilege, calibration, pilot, or confirmatory execution. The exact release now
+exists, but Q15 and Q16a through Q16d remain blocked because their authority,
+commands, limits, predecessor artifacts, plans, namespaces, seeds, budgets,
+storage domains, and required hashes do not yet exist.
 
-The only approval-ready text is the Q14 text printed in the bundle. A generic
-approval for Stage 17 is invalid.
+D-047/ADR-0047 selects `X86-64-PREFETCHW-PREFETCHT0-v1`: producer ring sites
+use `PREFETCHW`, consumer ring and linked-successor sites use `PREFETCHT0`, and
+each owner must pass the PRFCHW capability gate before first touch. GCC and
+Clang pass the strict dual-disassembler ten-operation audit and four negative
+mutants. The clean exact no-authority candidate is sealed and verified, but
+Q15 still requires every exact command, limit, authority, control, storage,
+and custody input listed in the accepted bundle. A generic Stage 17 approval
+remains invalid.
 
 ## Accepted Stage 13 bundle
 
@@ -178,9 +499,28 @@ versioned protocol amendment. Stages 11 through 15 are complete locally under
 ADR-0032 through ADR-0041, and ADR-0042 plus snapshot
 `STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-01` close the Stage 16
 software/bundle/count-level inventory slice. Q13/ADR-0043 then closes only the
-runner-entry implementation choices. The exact next safe actions are to finish
-the Q14 review and, only if accepted, implement the repository-local D-044
-closure. Stand-side qualification remains a later exact Q15 request, and every
+runner-entry implementation choices. Q14/ADR-0044 through ADR-0046 accept the
+local closure and future authority policies. D-047/ADR-0047 accepts and
+implements the physical software-prefetch mapping and closes the strict
+combined audit. The clean no-authority candidate is sealed and verified.
+D-053's deterministic pointer/counting slice is implemented, committed, and
+carried by a separate clean no-authority qualification-tool bundle. Q15-S3
+accepted D-054 through D-056. The clean exact commit and separate no-authority
+qualification-tool bundle bind the repository-local same-buffer session,
+fixed Linux acquisition seams, seven collectors, dynamic profile, and both
+strict codegen reports. That release grants no stand access or dynamic
+authority.
+
+With the clean controller-bearing v2 base release verified, Q15-R-P2 now closes
+owner disposition and repository-local trust-adapter implementation. The new
+clean operational release is selected by Q15-R-P3 as evidence only; Q15-R still
+needs separately authorized and verified stand setup. It then needs its own
+exact signed authorization:
+fixed controller argv/endpoint, stand/binding, distinct effective identities,
+actual expiry/signature, quotas/custody evidence, and read-only targets. Q15-W remains
+blocked until sealed Q15-R evidence and all three complete prestates exist.
+Stand-side qualification remains a later exact
+Q15-R/Q15-W authorization, and every
 Stage 17 phase remains a later dependency-ready Q16 request. Every external
 scientific or stand-dependent value remains blocked until its listed evidence
 gate. Measurement, calibration execution, pilot, and confirmatory execution

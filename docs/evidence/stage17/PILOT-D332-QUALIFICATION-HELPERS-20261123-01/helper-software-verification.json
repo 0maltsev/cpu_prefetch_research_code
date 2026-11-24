@@ -1,0 +1,69 @@
+{
+  "helper_images": [
+    {
+      "name": "cpu_prefetch_q15_tool",
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-34247ce/cpu_prefetch_q15_tool",
+      "size_bytes": 1141192,
+      "sha256": "6ba2bc5135e232bff62951b0415118ec5c31e3b8e6a4d9e2a19cef599d172035",
+      "exit_code": 0,
+      "software_only": true
+    },
+    {
+      "name": "cpu_prefetch_q15_clock_qualification_tool",
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-34247ce/cpu_prefetch_q15_clock_qualification_tool",
+      "size_bytes": 478632,
+      "sha256": "cb6422db0be2c3ff3b20897bc58ff4b892ba04e34e9f16f93a8b6d5a04caad69",
+      "exit_code": 0,
+      "software_only": true
+    },
+    {
+      "name": "cpu_prefetch_q15_qualification_evidence_tool",
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_q15_qualification_evidence_tool",
+      "size_bytes": 7127304,
+      "sha256": "64a744ac258818274991e262e28d3c7ecaf856014e969b23b6edd159e2990b2d",
+      "exit_code": 0,
+      "software_only": true
+    },
+    {
+      "name": "cpu_prefetch_clock_vdso_probe_tool",
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-34247ce/cpu_prefetch_clock_vdso_probe_tool",
+      "size_bytes": 71280,
+      "sha256": "0e5fbe19a5153270d90a55fc4d1846c07637adbbd62584de96e191c6aa88ce0f",
+      "exit_code": 0,
+      "software_only": true
+    },
+    {
+      "name": "cpu_prefetch_q15_controller",
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-34247ce/cpu_prefetch_q15_controller",
+      "size_bytes": 17304,
+      "sha256": "cc26f609c5d6676aad320a9b5dc8890fa08387d2798a13f64b32c38846fc16a4",
+      "exit_code": 0,
+      "software_only": true
+    },
+    {
+      "name": "cpu_prefetch_q15_prestate_collector",
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-34247ce/cpu_prefetch_q15_prestate_collector",
+      "size_bytes": 350248,
+      "sha256": "a285702c5b5a4032763f9481f9849a260f71ec54d462c79124cdda7a553818c3",
+      "exit_code": 0,
+      "software_only": true
+    }
+  ],
+  "legacy_fixed_tool_hardware_route_eligible": false,
+  "requested_stand_identity": {
+    "family": 6,
+    "model": 62,
+    "cpus": [
+      0,
+      1,
+      8
+    ]
+  },
+  "native_measurement_image_unchanged": true,
+  "repaired_evidence_helper_build": "DEVELOPMENT_NOT_QUALIFIED",
+  "clean_repaired_helper_release_pending": true,
+  "actual_stand_qualification_performed": false,
+  "operational_window_started": false,
+  "execution_authority": false,
+  "phase18_authority": false
+}

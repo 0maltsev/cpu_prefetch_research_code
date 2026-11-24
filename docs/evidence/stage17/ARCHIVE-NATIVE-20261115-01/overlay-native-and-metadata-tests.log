@@ -1,0 +1,11 @@
+test_descriptor_reentry_mutation_and_invalid_fields (__main__.OverlayTests.test_descriptor_reentry_mutation_and_invalid_fields) ... ok
+test_native_image_grammar_and_hash_reject_extra_code (__main__.OverlayTests.test_native_image_grammar_and_hash_reject_extra_code) ... ok
+test_only_exact_overlay_admitted_and_original_sources_untouched (__main__.OverlayTests.test_only_exact_overlay_admitted_and_original_sources_untouched) ... ok
+test_real_sealed_native_inverse_both_custody_readbacks (__main__.OverlayTests.test_real_sealed_native_inverse_both_custody_readbacks) ... ok
+test_rehashed_source_changes_and_extra_dependencies_rejected (__main__.OverlayTests.test_rehashed_source_changes_and_extra_dependencies_rejected) ... ok
+test_unconfigured_wrong_signed_profile_and_changed_context_rejected (__main__.OverlayTests.test_unconfigured_wrong_signed_profile_and_changed_context_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 5.602s
+
+OK

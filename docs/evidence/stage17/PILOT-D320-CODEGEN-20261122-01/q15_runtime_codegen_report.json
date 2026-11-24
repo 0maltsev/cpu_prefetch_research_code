@@ -1,0 +1,79 @@
+{
+  "schema_version": "cpu-prefetch-q15-runtime-codegen/1",
+  "profile_id": "Q15-DYNAMIC-IMPLEMENTATION-PROFILE-v1",
+  "scope": "counter-boundary correctness only; no PMU execution or performance claim",
+  "binary": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-34247ce/cpu_prefetch_q15_runtime_codegen_probe",
+    "sha256": "5ef3cdfbb26596d1585818ad71c2a192b19e853bb10e0f2044cc86c6b4c151d8"
+  },
+  "mutant": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-34247ce/cpu_prefetch_q15_runtime_codegen_mutant",
+    "sha256": "4f89181f99349be177c736f27506732ff581ff4313cb7228262f0d032d34b873"
+  },
+  "rule_set": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-source-34247ce/tools/check_q15_runtime_codegen.py",
+    "sha256": "5fc6119d01cbf5d557753210ad10345bcc291d60ccfd2898c8ca4f657b0b1729"
+  },
+  "tools": {
+    "GNU_OBJDUMP": {
+      "status": "PASS",
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/objdump",
+      "version": "GNU Binutils 2.46.0",
+      "regular": {
+        "status": "PASS",
+        "call_count": 3,
+        "traversal_call_count": 1,
+        "forbidden_operation_count": 0,
+        "body_sha256": "029713c6f826519df2fa16107ba61ba2fec1901d7f693307e7e3248c0d99a476"
+      },
+      "pointer": {
+        "status": "PASS",
+        "call_count": 3,
+        "traversal_call_count": 1,
+        "forbidden_operation_count": 0,
+        "body_sha256": "006532b58cedb688123c31b8b052874a2a163dbaec22d07d8b427181948be2d7"
+      },
+      "mutant_regular": {
+        "status": "EXPECTED_REJECTION",
+        "reason": "cpu_prefetch_q15_regular_counted_region_mutant must contain exactly enable/traversal/disable calls; observed calls=[(12, '*0x20(%rax)'), (28, '23f0 <cpu_prefetch_q15_regular_counted_traversal>'), (32, '23f0 <cpu_prefetch_q15_regular_counted_traversal>'), (47, '*0x28(%rax)')] traversal_calls=[(28, '23f0 <cpu_prefetch_q15_regular_counted_traversal>'), (32, '23f0 <cpu_prefetch_q15_regular_counted_traversal>')]",
+        "body_sha256": "a0ea982da7052eeb7b31ab76e0000ff613ef132a84ca9e2cd0ec60d7c2c61d86"
+      },
+      "mutant_pointer": {
+        "status": "EXPECTED_REJECTION",
+        "reason": "cpu_prefetch_q15_pointer_counted_region_mutant contains forbidden operations: ['prefetcht0']",
+        "body_sha256": "80db0763a63b3d3ca2904b0b1c034db95e39d61b5d1920dbdc7007269d35abcf"
+      }
+    },
+    "LLVM_OBJDUMP": {
+      "status": "PASS",
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/llvm-objdump",
+      "version": "LLVM 22.1.6",
+      "regular": {
+        "status": "PASS",
+        "call_count": 3,
+        "traversal_call_count": 1,
+        "forbidden_operation_count": 0,
+        "body_sha256": "6b61686051bced022d6175ea00a4806010502df269f27f865558ebe765fc0614"
+      },
+      "pointer": {
+        "status": "PASS",
+        "call_count": 3,
+        "traversal_call_count": 1,
+        "forbidden_operation_count": 0,
+        "body_sha256": "3c23e1b9e28f05dcab4a7505708d72f82bb612e27f4dbd8b72a4271f7bd7ac69"
+      },
+      "mutant_regular": {
+        "status": "EXPECTED_REJECTION",
+        "reason": "cpu_prefetch_q15_regular_counted_region_mutant must contain exactly enable/traversal/disable calls; observed calls=[(12, '*0x20(%rax)'), (28, '0x23f0 <cpu_prefetch_q15_regular_counted_traversal>'), (32, '0x23f0 <cpu_prefetch_q15_regular_counted_traversal>'), (47, '*0x28(%rax)')] traversal_calls=[(28, '0x23f0 <cpu_prefetch_q15_regular_counted_traversal>'), (32, '0x23f0 <cpu_prefetch_q15_regular_counted_traversal>')]",
+        "body_sha256": "b84edf59510f718a88a9ff6eb6a401e8da328b0746a4557ed1ed96f64f0ad44c"
+      },
+      "mutant_pointer": {
+        "status": "EXPECTED_REJECTION",
+        "reason": "cpu_prefetch_q15_pointer_counted_region_mutant contains forbidden operations: ['prefetcht0']",
+        "body_sha256": "b85e8e977fcf390b3839d48db75265964ca30957d3def5a87a91ee003e830147"
+      }
+    }
+  },
+  "status": "PASS",
+  "missing_tools": []
+}

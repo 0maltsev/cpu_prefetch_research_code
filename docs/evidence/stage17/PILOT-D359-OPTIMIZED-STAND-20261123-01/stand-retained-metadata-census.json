@@ -1,0 +1,166 @@
+{
+  "available_bytes": 6276413919232,
+  "available_inodes": 233491440,
+  "candidates": [
+    {
+      "candidate_retained_analysis_tree": true,
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-2"
+    },
+    {
+      "candidate_retained_analysis_tree": true,
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-1"
+    },
+    {
+      "candidate_retained_analysis_tree": true,
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3"
+    },
+    {
+      "candidate_retained_analysis_tree": true,
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-d224-1"
+    },
+    {
+      "candidate_retained_analysis_tree": true,
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-d234-1"
+    },
+    {
+      "candidate_retained_analysis_tree": true,
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-d213-1"
+    },
+    {
+      "candidate_retained_analysis_tree": true,
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-1"
+    },
+    {
+      "candidate_retained_analysis_tree": true,
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-d224-2"
+    },
+    {
+      "candidate_retained_analysis_tree": true,
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-31/q16c-prefix-analysis-1"
+    },
+    {
+      "candidate_retained_analysis_tree": true,
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-archive-inverse-overlay-1"
+    },
+    {
+      "candidate_retained_analysis_tree": true,
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-analysis-1"
+    },
+    {
+      "candidate_retained_analysis_tree": true,
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/q16c-prefix-analysis-1"
+    },
+    {
+      "candidate_retained_analysis_tree": true,
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/q16c-analysis-1"
+    },
+    {
+      "children": [
+        "archives",
+        "ledger",
+        "metadata",
+        "release-hold",
+        "spool",
+        "working"
+      ],
+      "files": [
+        "broker.lock",
+        "scope.json"
+      ],
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/formal-archive-program-1"
+    }
+  ],
+  "elapsed_seconds": 0.18550987192429602,
+  "execution_authority": false,
+  "full_workspace_scratch_classification_established": false,
+  "metadata_extent_usage": {
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-1": {
+      "allocated_bytes": 73728,
+      "logical_bytes": 36256,
+      "quota_classification": "PENDING_ORIGINAL_POLICY_REVIEW",
+      "regular_files": 14
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-d213-1": {
+      "allocated_bytes": 122880,
+      "logical_bytes": 102701,
+      "quota_classification": "PENDING_ORIGINAL_POLICY_REVIEW",
+      "regular_files": 10
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-d224-1": {
+      "allocated_bytes": 151552,
+      "logical_bytes": 133424,
+      "quota_classification": "PENDING_ORIGINAL_POLICY_REVIEW",
+      "regular_files": 9
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-d224-2": {
+      "allocated_bytes": 172032,
+      "logical_bytes": 145499,
+      "quota_classification": "PENDING_ORIGINAL_POLICY_REVIEW",
+      "regular_files": 14
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-d234-1": {
+      "allocated_bytes": 241664,
+      "logical_bytes": 203206,
+      "quota_classification": "PENDING_ORIGINAL_POLICY_REVIEW",
+      "regular_files": 16
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/formal-archive-program-1/working": {
+      "allocated_bytes": 38572032,
+      "logical_bytes": 35271326,
+      "quota_classification": "PENDING_ORIGINAL_POLICY_REVIEW",
+      "regular_files": 2084
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-1": {
+      "allocated_bytes": 8192,
+      "logical_bytes": 1823,
+      "quota_classification": "PENDING_ORIGINAL_POLICY_REVIEW",
+      "regular_files": 2
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-2": {
+      "allocated_bytes": 37486305280,
+      "logical_bytes": 37486005748,
+      "quota_classification": "PENDING_ORIGINAL_POLICY_REVIEW",
+      "regular_files": 85
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/q16b-prefix-analysis-3": {
+      "allocated_bytes": 573440,
+      "logical_bytes": 449770,
+      "quota_classification": "PENDING_ORIGINAL_POLICY_REVIEW",
+      "regular_files": 71
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-analysis-1": {
+      "allocated_bytes": 3366912,
+      "logical_bytes": 2786382,
+      "quota_classification": "PENDING_ORIGINAL_POLICY_REVIEW",
+      "regular_files": 313
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-archive-inverse-overlay-1": {
+      "allocated_bytes": 1691648,
+      "logical_bytes": 1627512,
+      "quota_classification": "PENDING_ORIGINAL_POLICY_REVIEW",
+      "regular_files": 32
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-31/q16c-prefix-analysis-1": {
+      "allocated_bytes": 3149824,
+      "logical_bytes": 2653096,
+      "quota_classification": "PENDING_ORIGINAL_POLICY_REVIEW",
+      "regular_files": 262
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/q16c-analysis-1": {
+      "allocated_bytes": 3579904,
+      "logical_bytes": 3036171,
+      "quota_classification": "PENDING_ORIGINAL_POLICY_REVIEW",
+      "regular_files": 287
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/q16c-prefix-analysis-1": {
+      "allocated_bytes": 36864,
+      "logical_bytes": 32335,
+      "quota_classification": "PENDING_ORIGINAL_POLICY_REVIEW",
+      "regular_files": 2
+    }
+  },
+  "metadata_files_scanned": 25577,
+  "original_raw_payload_bytes_read": 0,
+  "programme_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/formal-archive-program-1",
+  "utc": "2026-11-23T19:39:54.899036+00:00"
+}

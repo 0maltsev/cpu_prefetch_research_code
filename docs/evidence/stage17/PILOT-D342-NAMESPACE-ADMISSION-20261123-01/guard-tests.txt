@@ -1,0 +1,23 @@
+......E...
+======================================================================
+ERROR: test_replaced_directory_is_not_modified_on_failure (__main__.NamespaceAdmissionTests.test_replaced_directory_is_not_modified_on_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_namespace_admission_v1.py", line 107, in test_replaced_directory_is_not_modified_on_failure
+    with self.assertRaisesRegex(admission.NamespaceError,'directory/lease identity'):owner.proof()
+                                                                                     ~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_namespace_admission_v1.py", line 224, in proof
+    intent=self._check();return dict(schema_version=SCHEMA,window_binding=intent['window_binding'],
+           ~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_namespace_admission_v1.py", line 192, in _check
+    s=ROOT.stat(follow_symlinks=False);lock=ROOT/'owner.lock';ls=lock.stat(follow_symlinks=False)
+                                                                 ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/s180-namespace-software-xk5puy97/stage17-owner-evidence/local-authoring-software-1/s180-d310-1/namespace/owner.lock'
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.198s
+
+FAILED (errors=1)

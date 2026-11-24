@@ -1,0 +1,23 @@
+{
+  "amendment_id": "AMEND-2.0.0-pre.3-Q16C-LOCKED-COMPACTION-v1",
+  "automatic_retry": false,
+  "decision_id": "D286",
+  "exact_decision_text_approved": true,
+  "exact_prestate_restoration_required": true,
+  "incomplete_positions": 94,
+  "interpretation": "Explicit approval of the pending D286 scientific platform amendment question; no execution or additional window approved.",
+  "measurement_authority": false,
+  "new_execution_windows": 0,
+  "owner_message": "approve",
+  "phase18_authority": false,
+  "prefix_validation_authority": false,
+  "qualification_authority": false,
+  "recorded_at_utc": "2026-11-18T22:35:09.967912+00:00",
+  "recorded_decision_sha256": "a81997651d5697355f138908ccb0a101ee5b02644607f719d9bfb212645b3142",
+  "repeat_completed_measurements": false,
+  "requested_locked_page_compaction_value": 0,
+  "retained_native_complete_captures": 86,
+  "schema_version": "cpu-prefetch-stage17-owner-decision/1",
+  "source_revision": "7fb894425c82fa7d7f1891f52b3bcdacc2c83585",
+  "worker_sha256": "7455fa2802ca5f655c41faddd070da51b0cf98ac9c8b2360152dc1a480f85f2a"
+}

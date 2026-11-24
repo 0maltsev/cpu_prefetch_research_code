@@ -1,0 +1,69 @@
+{
+  "experimental_retry": false,
+  "hardware_readback": [
+    {
+      "cpu": 0,
+      "expected_hex": "0000000000000000",
+      "matches": true,
+      "observed_hex": "0000000000000000"
+    },
+    {
+      "cpu": 1,
+      "expected_hex": "0000000000000000",
+      "matches": true,
+      "observed_hex": "0000000000000000"
+    },
+    {
+      "cpu": 8,
+      "expected_hex": "0000000000000000",
+      "matches": true,
+      "observed_hex": "0000000000000000"
+    }
+  ],
+  "maintenance": [
+    {
+      "observed": {
+        "ActiveState": "inactive",
+        "SubState": "dead",
+        "UnitFileState": "static"
+      },
+      "unit": "apt-daily-upgrade.service"
+    },
+    {
+      "observed": {
+        "ActiveState": "active",
+        "SubState": "waiting",
+        "UnitFileState": "enabled"
+      },
+      "unit": "apt-daily-upgrade.timer"
+    },
+    {
+      "observed": {
+        "ActiveState": "inactive",
+        "SubState": "dead",
+        "UnitFileState": "static"
+      },
+      "unit": "apt-daily.service"
+    },
+    {
+      "observed": {
+        "ActiveState": "active",
+        "SubState": "waiting",
+        "UnitFileState": "enabled"
+      },
+      "unit": "apt-daily.timer"
+    }
+  ],
+  "observed_monotonic_ns": 1371283674274578,
+  "partition_absent": true,
+  "read_only": true,
+  "root_state": {
+    "cgroup.controllers": "cpuset cpu io memory hugetlb pids rdma misc dmem",
+    "cgroup.subtree_control": "cpu memory pids",
+    "cpuset.cpus.effective": "0-31",
+    "cpuset.cpus.isolated": "",
+    "cpuset.mems.effective": "0-1"
+  },
+  "schema_version": "cpu-prefetch-stage17-q16c-post-stop-restoration-verification/1",
+  "verified": true
+}

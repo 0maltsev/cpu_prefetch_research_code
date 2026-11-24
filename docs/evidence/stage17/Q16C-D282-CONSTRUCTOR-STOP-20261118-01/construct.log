@@ -1,0 +1,33 @@
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/q16c-configuration-1/stage17_q16c_prepare_v3.py", line 246, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/q16c-configuration-1/stage17_q16c_prepare_v3.py", line 243, in main
+    print(json.dumps((construct if args.mode=='construct' else sign)(c)),flush=True)
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/q16c-configuration-1/stage17_q16c_prepare_v3.py", line 184, in construct
+    cli.controller._validate_inputs(dict(action_id='Q16c',stand_id=plan['stand_id'],action_inputs=inputs),validation)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/q16c-configuration-1/stage17_q16c_descriptive_administration_v3.py", line 122, in validate_inputs
+    window=execution_window.authenticate(admission._json(windows[0]),validation=validation,
+        plan=request['action_inputs']['plan'],now=time.monotonic_ns())
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/q16c-configuration-1/stage17_q16c_execution_window_v2.py", line 115, in authenticate
+    verify_lineage(record,validation=validation,plan=plan)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/q16c-configuration-1/stage17_q16c_execution_window_v2.py", line 150, in verify_lineage
+    reuse.inspect(parse(values['source_reuse']),plan,validation=validation)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/q16c-configuration-1/stage17_q16c_empty_reuse_v1.py", line 153, in inspect
+    same(closure, original.semantic.discover_python_closure(roots['current'], ('generate_schedule', 'stage17_q16c_schedule_provenance_v2')),
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        'complete identical generator closure')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/admission-root/tools/stage17_q16a_continuation_admission_v1.py", line 59, in same
+    require(canonical(actual) == canonical(expected), label + ' differs')
+            ~~~~~~~~~^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/admission-root/tools/stage17_formal_archive_v1.py", line 50, in canonical
+    return canonicalize(value).encode("utf-8", errors="strict")
+           ~~~~~~~~~~~~^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-29/admission-root/tools/check_canonical.py", line 79, in canonicalize
+    raise TypeError(f"unsupported JSON value: {type(value)!r}")
+TypeError: unsupported JSON value: <class 'set'>

@@ -1,0 +1,1 @@
+{"boot_id":"4c08cd05-b362-49dd-b37f-629e9c7ad79a","control_path":"/proc/sys/vm/compact_unevictable_allowed","deadline_monotonic_ns":1576081478598796,"experiment_authority":false,"observed_prestate":1,"requested_value":0,"schema_version":"cpu-prefetch-locked-compaction-intent/1","supervisor_pid":336506}

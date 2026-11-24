@@ -1,0 +1,22 @@
+{
+  "administrative_source_revision": "4d86d6a6009c031bc1ef233675bec846863ad31c",
+  "execution_authority": false,
+  "files": [
+    {
+      "path": "prepare_stage17_descriptive_freeze_v1.py",
+      "sha256": "5eaaeae71134936f8bc84cc392d5e8e2566f7db374ff4ff76b61573c8f639859",
+      "size_bytes": 13683
+    },
+    {
+      "path": "stage17-ext007-descriptive-freeze-v1.schema.json",
+      "sha256": "e26c1a2292b4aff77c776190e2db2b35873dabef8c579b52504cd40911fb812d",
+      "size_bytes": 12313
+    },
+    {
+      "path": "stage17_descriptive_freeze_v1.py",
+      "sha256": "b18470ec154b2777ac7bd388f9b7193de89ca61318a99812e55bb1534f6a89d9",
+      "size_bytes": 12276
+    }
+  ],
+  "schema_version": "software-d307-descriptive-freeze-packet/1"
+}

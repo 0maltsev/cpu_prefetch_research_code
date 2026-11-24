@@ -1,0 +1,205 @@
+EEEEEEEE.
+======================================================================
+ERROR: test_added_transitive_dependency_is_rejected (test_stage17_q16c_empty_reuse_v1.QualifiedSourceReuse.test_added_transitive_dependency_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_q16c_empty_reuse_v1.py", line 208, in test_added_transitive_dependency_is_rejected
+    self.inspect()
+    ~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_q16c_empty_reuse_v1.py", line 195, in inspect
+    return reuse.inspect(self.proof, self.plan, validation=self.validation)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_q16c_empty_reuse_v1.py", line 153, in inspect
+    same(closure, original.semantic.discover_python_closure(roots['current'], ('generate_schedule', 'stage17_q16c_schedule_provenance_v2')),
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        'complete identical generator closure')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_q16a_continuation_admission_v1.py", line 59, in same
+    require(canonical(actual) == canonical(expected), label + ' differs')
+            ~~~~~~~~~^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 50, in canonical
+    return canonicalize(value).encode("utf-8", errors="strict")
+           ~~~~~~~~~~~~^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 79, in canonicalize
+    raise TypeError(f"unsupported JSON value: {type(value)!r}")
+TypeError: unsupported JSON value: <class 'set'>
+
+======================================================================
+ERROR: test_changed_python_bytes_with_identical_membership_are_rejected (test_stage17_q16c_empty_reuse_v1.QualifiedSourceReuse.test_changed_python_bytes_with_identical_membership_are_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_q16c_empty_reuse_v1.py", line 220, in test_changed_python_bytes_with_identical_membership_are_rejected
+    self.inspect()
+    ~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_q16c_empty_reuse_v1.py", line 195, in inspect
+    return reuse.inspect(self.proof, self.plan, validation=self.validation)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_q16c_empty_reuse_v1.py", line 153, in inspect
+    same(closure, original.semantic.discover_python_closure(roots['current'], ('generate_schedule', 'stage17_q16c_schedule_provenance_v2')),
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        'complete identical generator closure')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_q16a_continuation_admission_v1.py", line 59, in same
+    require(canonical(actual) == canonical(expected), label + ' differs')
+            ~~~~~~~~~^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 50, in canonical
+    return canonicalize(value).encode("utf-8", errors="strict")
+           ~~~~~~~~~~~~^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 79, in canonicalize
+    raise TypeError(f"unsupported JSON value: {type(value)!r}")
+TypeError: unsupported JSON value: <class 'set'>
+
+======================================================================
+ERROR: test_each_schema_requires_identical_bytes (test_stage17_q16c_empty_reuse_v1.QualifiedSourceReuse.test_each_schema_requires_identical_bytes) (schema='protocol/2.0.0-pre.3/handoff/schemas/schedule.schema.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_q16c_empty_reuse_v1.py", line 229, in test_each_schema_requires_identical_bytes
+    self.inspect()
+    ~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_q16c_empty_reuse_v1.py", line 195, in inspect
+    return reuse.inspect(self.proof, self.plan, validation=self.validation)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_q16c_empty_reuse_v1.py", line 153, in inspect
+    same(closure, original.semantic.discover_python_closure(roots['current'], ('generate_schedule', 'stage17_q16c_schedule_provenance_v2')),
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        'complete identical generator closure')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_q16a_continuation_admission_v1.py", line 59, in same
+    require(canonical(actual) == canonical(expected), label + ' differs')
+            ~~~~~~~~~^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 50, in canonical
+    return canonicalize(value).encode("utf-8", errors="strict")
+           ~~~~~~~~~~~~^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 79, in canonicalize
+    raise TypeError(f"unsupported JSON value: {type(value)!r}")
+TypeError: unsupported JSON value: <class 'set'>
+
+======================================================================
+ERROR: test_each_schema_requires_identical_bytes (test_stage17_q16c_empty_reuse_v1.QualifiedSourceReuse.test_each_schema_requires_identical_bytes) (schema='config/schemas/schedule-derivation-v2.schema.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_q16c_empty_reuse_v1.py", line 229, in test_each_schema_requires_identical_bytes
+    self.inspect()
+    ~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_q16c_empty_reuse_v1.py", line 195, in inspect
+    return reuse.inspect(self.proof, self.plan, validation=self.validation)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_q16c_empty_reuse_v1.py", line 153, in inspect
+    same(closure, original.semantic.discover_python_closure(roots['current'], ('generate_schedule', 'stage17_q16c_schedule_provenance_v2')),
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        'complete identical generator closure')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_q16a_continuation_admission_v1.py", line 59, in same
+    require(canonical(actual) == canonical(expected), label + ' differs')
+            ~~~~~~~~~^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 50, in canonical
+    return canonicalize(value).encode("utf-8", errors="strict")
+           ~~~~~~~~~~~~^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 79, in canonicalize
+    raise TypeError(f"unsupported JSON value: {type(value)!r}")
+TypeError: unsupported JSON value: <class 'set'>
+
+======================================================================
+ERROR: test_each_schema_requires_identical_bytes (test_stage17_q16c_empty_reuse_v1.QualifiedSourceReuse.test_each_schema_requires_identical_bytes) (schema='config/schemas/stage17-formal-scheduled-native-input-v2.schema.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_q16c_empty_reuse_v1.py", line 229, in test_each_schema_requires_identical_bytes
+    self.inspect()
+    ~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_q16c_empty_reuse_v1.py", line 195, in inspect
+    return reuse.inspect(self.proof, self.plan, validation=self.validation)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_q16c_empty_reuse_v1.py", line 153, in inspect
+    same(closure, original.semantic.discover_python_closure(roots['current'], ('generate_schedule', 'stage17_q16c_schedule_provenance_v2')),
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        'complete identical generator closure')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_q16a_continuation_admission_v1.py", line 59, in same
+    require(canonical(actual) == canonical(expected), label + ' differs')
+            ~~~~~~~~~^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 50, in canonical
+    return canonicalize(value).encode("utf-8", errors="strict")
+           ~~~~~~~~~~~~^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 79, in canonicalize
+    raise TypeError(f"unsupported JSON value: {type(value)!r}")
+TypeError: unsupported JSON value: <class 'set'>
+
+======================================================================
+ERROR: test_matching_qualified_closures_and_bytes_pass_full_inspect (test_stage17_q16c_empty_reuse_v1.QualifiedSourceReuse.test_matching_qualified_closures_and_bytes_pass_full_inspect)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_q16c_empty_reuse_v1.py", line 198, in test_matching_qualified_closures_and_bytes_pass_full_inspect
+    old, original_plan = self.inspect()
+                         ~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_q16c_empty_reuse_v1.py", line 195, in inspect
+    return reuse.inspect(self.proof, self.plan, validation=self.validation)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_q16c_empty_reuse_v1.py", line 153, in inspect
+    same(closure, original.semantic.discover_python_closure(roots['current'], ('generate_schedule', 'stage17_q16c_schedule_provenance_v2')),
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        'complete identical generator closure')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_q16a_continuation_admission_v1.py", line 59, in same
+    require(canonical(actual) == canonical(expected), label + ' differs')
+            ~~~~~~~~~^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 50, in canonical
+    return canonicalize(value).encode("utf-8", errors="strict")
+           ~~~~~~~~~~~~^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 79, in canonicalize
+    raise TypeError(f"unsupported JSON value: {type(value)!r}")
+TypeError: unsupported JSON value: <class 'set'>
+
+======================================================================
+ERROR: test_missing_schema_is_rejected (test_stage17_q16c_empty_reuse_v1.QualifiedSourceReuse.test_missing_schema_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_q16c_empty_reuse_v1.py", line 234, in test_missing_schema_is_rejected
+    with self.assertRaises(FileNotFoundError): self.inspect()
+                                               ~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_q16c_empty_reuse_v1.py", line 195, in inspect
+    return reuse.inspect(self.proof, self.plan, validation=self.validation)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_q16c_empty_reuse_v1.py", line 153, in inspect
+    same(closure, original.semantic.discover_python_closure(roots['current'], ('generate_schedule', 'stage17_q16c_schedule_provenance_v2')),
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        'complete identical generator closure')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_q16a_continuation_admission_v1.py", line 59, in same
+    require(canonical(actual) == canonical(expected), label + ' differs')
+            ~~~~~~~~~^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 50, in canonical
+    return canonicalize(value).encode("utf-8", errors="strict")
+           ~~~~~~~~~~~~^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 79, in canonicalize
+    raise TypeError(f"unsupported JSON value: {type(value)!r}")
+TypeError: unsupported JSON value: <class 'set'>
+
+======================================================================
+ERROR: test_missing_transitive_dependency_is_rejected (test_stage17_q16c_empty_reuse_v1.QualifiedSourceReuse.test_missing_transitive_dependency_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_q16c_empty_reuse_v1.py", line 214, in test_missing_transitive_dependency_is_rejected
+    self.inspect()
+    ~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_q16c_empty_reuse_v1.py", line 195, in inspect
+    return reuse.inspect(self.proof, self.plan, validation=self.validation)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_q16c_empty_reuse_v1.py", line 153, in inspect
+    same(closure, original.semantic.discover_python_closure(roots['current'], ('generate_schedule', 'stage17_q16c_schedule_provenance_v2')),
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        'complete identical generator closure')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_q16a_continuation_admission_v1.py", line 59, in same
+    require(canonical(actual) == canonical(expected), label + ' differs')
+            ~~~~~~~~~^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 50, in canonical
+    return canonicalize(value).encode("utf-8", errors="strict")
+           ~~~~~~~~~~~~^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 79, in canonicalize
+    raise TypeError(f"unsupported JSON value: {type(value)!r}")
+TypeError: unsupported JSON value: <class 'set'>
+
+----------------------------------------------------------------------
+Ran 7 tests in 4.076s
+
+FAILED (errors=8)

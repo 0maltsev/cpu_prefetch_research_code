@@ -1,0 +1,65 @@
+[
+  {
+    "path": "resource-initial.txt",
+    "source": "build/stage17-s180-admission-prep/resource-initial.txt",
+    "original_sha256": "c7f60dba85163a53f23358e71b85938778c2a0502074274dd9587bdf47b782fb",
+    "original_size_bytes": 2930,
+    "normalized_sha256": "c7f60dba85163a53f23358e71b85938778c2a0502074274dd9587bdf47b782fb"
+  },
+  {
+    "path": "resource-intermediate.txt",
+    "source": "build/stage17-s180-admission-prep/resource-intermediate.txt",
+    "original_sha256": "39733c902f16ece2d65b6e856cfa148416a19ed64367d7e209fa6c8d62e3da6b",
+    "original_size_bytes": 1510,
+    "normalized_sha256": "39733c902f16ece2d65b6e856cfa148416a19ed64367d7e209fa6c8d62e3da6b"
+  },
+  {
+    "path": "resource-debug-final2.txt",
+    "source": "build/stage17-s180-admission-prep/resource-debug-final2.txt",
+    "original_sha256": "b24fa55df627ca393d4c3908ccc2a011259429d8595f4e071379c4bfdc64e2e8",
+    "original_size_bytes": 2224,
+    "normalized_sha256": "b24fa55df627ca393d4c3908ccc2a011259429d8595f4e071379c4bfdc64e2e8"
+  },
+  {
+    "path": "environment-debug-final.txt",
+    "source": "build/stage17-s180-admission-prep/environment-debug-final.txt",
+    "original_sha256": "29c45a85ab3d095616a9e5c4f5d6f01dd905b8096621db161a8458366eb8cf06",
+    "original_size_bytes": 2983,
+    "normalized_sha256": "29c45a85ab3d095616a9e5c4f5d6f01dd905b8096621db161a8458366eb8cf06"
+  },
+  {
+    "path": "configure.txt",
+    "source": "build/stage17-s180-admission-prep/configure.txt",
+    "original_sha256": "530ea220436cf023d5b3670f87131b4daab6e62afe743ed6183ea91eb7dc98f4",
+    "original_size_bytes": 177,
+    "normalized_sha256": "530ea220436cf023d5b3670f87131b4daab6e62afe743ed6183ea91eb7dc98f4"
+  },
+  {
+    "path": "repository-checks.txt",
+    "source": "build/stage17-s180-admission-prep/repository-checks.txt",
+    "original_sha256": "ad71f070c21a3c519ad49f967177bc6b1a504fbdf717a0f6c9338b747a70f32f",
+    "original_size_bytes": 6025,
+    "normalized_sha256": "ad71f070c21a3c519ad49f967177bc6b1a504fbdf717a0f6c9338b747a70f32f"
+  },
+  {
+    "path": "registered-final.txt",
+    "source": "build/stage17-s180-admission-prep/registered-final.txt",
+    "original_sha256": "926657dd40b93ea5175e85a655c351b8f9f0a8536454c4014693846fbf70c203",
+    "original_size_bytes": 1755,
+    "normalized_sha256": "926657dd40b93ea5175e85a655c351b8f9f0a8536454c4014693846fbf70c203"
+  },
+  {
+    "path": "stand-readonly-status.json",
+    "source": "build/stage17-s180-admission-prep/stand-readonly-status.json",
+    "original_sha256": "d229020c2c8a8192988ec675c7b05ecea8d19faf1ff4190c274f33c8692bfb5e",
+    "original_size_bytes": 424,
+    "normalized_sha256": "d229020c2c8a8192988ec675c7b05ecea8d19faf1ff4190c274f33c8692bfb5e"
+  },
+  {
+    "path": "registered-final-details.txt",
+    "source": "build/stage17-s180-native/dev-gcc16/Testing/Temporary/LastTest.log",
+    "original_sha256": "8732b4e578bf08fb7b49c9d372398c94302acc84c032052a810994fe9ae2a2d6",
+    "original_size_bytes": 11018,
+    "normalized_sha256": "c4ac29752895895c72bcfc15b4afda51009a926ff5fd1b0382f53fab220cb070"
+  }
+]

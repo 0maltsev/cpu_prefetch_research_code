@@ -1,0 +1,20 @@
+ISOLATION_VERIFIED 2026-11-03T08:04:55Z
+CAPTURE_START near 2026-11-03T08:04:55Z
+CAPTURE_EXIT near 0
+CAPTURE_VERIFIED_PASS near
+CAPTURE_START far 2026-11-03T08:06:56Z
+CAPTURE_EXIT far 1
+RESTORATION_VERIFIED 2026-11-03T08:06:57Z
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/operator-preparation-v18/run_approved_clock_requalification.py", line 269, in <module>
+    main()
+    ~~~~^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/operator-preparation-v18/run_approved_clock_requalification.py", line 255, in main
+    capture('far')
+    ~~~~~~~^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/operator-preparation-v18/run_approved_clock_requalification.py", line 200, in capture
+    require(record['exit_code'] == 0 and not record['timed_out'], 'clock qualification failed: ' + pair)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-18/operator-preparation-v18/run_approved_clock_requalification.py", line 30, in require
+    raise RuntimeError(message)
+RuntimeError: clock qualification failed: far

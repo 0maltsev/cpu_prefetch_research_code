@@ -1,0 +1,471 @@
+{
+  "$defs": {
+    "dependence": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "else": {
+            "properties": {
+              "effective_count": {
+                "type": "null"
+              },
+              "tau": {
+                "type": "null"
+              }
+            }
+          },
+          "if": {
+            "properties": {
+              "ips_status": {
+                "const": "DEFINED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "effective_count": {
+                "$ref": "#/$defs/fraction"
+              },
+              "tau": {
+                "$ref": "#/$defs/fraction"
+              },
+              "tau_raw": {
+                "$ref": "#/$defs/fraction"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "correlation_horizon_events": {
+                "type": "null"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "horizon_confirmation_endpoint": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ],
+      "properties": {
+        "correlation_horizon_events": {
+          "anyOf": [
+            {
+              "maximum": 18446744073709551615,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effective_count": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/fraction"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "evaluated_max_lag": {
+          "anyOf": [
+            {
+              "maximum": 18446744073709551615,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "exceedance_count": {
+          "maximum": 2505857,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "horizon_confirmation_endpoint": {
+          "anyOf": [
+            {
+              "maximum": 18446744073709551615,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ips_first_nonpositive_pair": {
+          "anyOf": [
+            {
+              "maximum": 18446744073709551615,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ips_positive_pairs": {
+          "maximum": 18446744073709551615,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "ips_reason": {
+          "enum": [
+            null,
+            "NO_ACCEPTED_EVENTS",
+            "ZERO_TAIL_INDICATOR_VARIANCE",
+            "NO_OBSERVED_NONPOSITIVE_COMPLETE_PAIR",
+            "NONPOSITIVE_RAW_AUTOCORRELATION_TIME"
+          ]
+        },
+        "ips_status": {
+          "enum": [
+            "DEFINED",
+            "UNRESOLVED",
+            "UNDEFINED"
+          ]
+        },
+        "ips_stop_pair": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/fraction"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "primary_200000_gate": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "UNRESOLVED"
+          ]
+        },
+        "raw_count": {
+          "maximum": 2505857,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "reason": {
+          "enum": [
+            null,
+            "NO_ACCEPTED_EVENTS",
+            "ZERO_TAIL_INDICATOR_VARIANCE",
+            "NO_OBSERVED_TEN_LAG_INTERVAL"
+          ]
+        },
+        "secondary_2000000_gate": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "UNRESOLVED"
+          ]
+        },
+        "sparse_pair_contributions": {
+          "maximum": 18446744073709551615,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "DEFINED",
+            "HORIZON_UNRESOLVED",
+            "UNDEFINED"
+          ]
+        },
+        "tau": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/fraction"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tau_raw": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/fraction"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "variance_denominator_decimal": {
+          "pattern": "^(0|[1-9][0-9]*)$",
+          "type": "string"
+        },
+        "variance_numerator_decimal": {
+          "pattern": "^(0|[1-9][0-9]*)$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "reason",
+        "raw_count",
+        "exceedance_count",
+        "variance_numerator_decimal",
+        "variance_denominator_decimal",
+        "correlation_horizon_events",
+        "horizon_confirmation_endpoint",
+        "ips_status",
+        "ips_reason",
+        "ips_positive_pairs",
+        "ips_first_nonpositive_pair",
+        "ips_stop_pair",
+        "tau_raw",
+        "tau",
+        "effective_count",
+        "primary_200000_gate",
+        "secondary_2000000_gate",
+        "evaluated_max_lag",
+        "sparse_pair_contributions"
+      ],
+      "type": "object"
+    },
+    "fraction": {
+      "additionalProperties": false,
+      "properties": {
+        "denominator_decimal": {
+          "pattern": "^[1-9][0-9]*$",
+          "type": "string"
+        },
+        "numerator_decimal": {
+          "pattern": "^(0|-?[1-9][0-9]*)$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "numerator_decimal",
+        "denominator_decimal"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "urn:cpu-prefetch:stage17:s180-tail-numerics:1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "else": {
+        "properties": {
+          "secondary_p9999_ticks": {
+            "maximum": 18446744073709551615,
+            "minimum": 0,
+            "type": "integer"
+          }
+        }
+      },
+      "if": {
+        "properties": {
+          "secondary_p9999_reported": {
+            "const": false
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "secondary_p9999_ticks": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ],
+  "properties": {
+    "aggregate_block_length_selected": {
+      "const": false
+    },
+    "confirmatory_horizon_frozen": {
+      "const": false
+    },
+    "exact_quantiles_ticks": {
+      "additionalProperties": false,
+      "properties": {
+        "p50": {
+          "anyOf": [
+            {
+              "maximum": 18446744073709551615,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "p90": {
+          "anyOf": [
+            {
+              "maximum": 18446744073709551615,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "p99": {
+          "anyOf": [
+            {
+              "maximum": 18446744073709551615,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "p999": {
+          "anyOf": [
+            {
+              "maximum": 18446744073709551615,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "p50",
+        "p90",
+        "p99",
+        "p999"
+      ],
+      "type": "object"
+    },
+    "execution_authority": {
+      "const": false
+    },
+    "maximum_ticks": {
+      "anyOf": [
+        {
+          "maximum": 18446744073709551615,
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "method_id": {
+      "const": "D346-S180-TAIL-NUMERICS-v1"
+    },
+    "ordered_integer_latency_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "owner_acceptance_sha256": {
+      "const": "b0ef439778d94cb9dd905d5117ed0565771c5e75eaeb7857dd29dee8a1540bf1"
+    },
+    "phase18_authority": {
+      "const": false
+    },
+    "primary_log_status": {
+      "enum": [
+        "UNDEFINED_NO_ACCEPTED_EVENTS",
+        "UNDEFINED_ZERO_QUANTILE",
+        "NOT_COMPUTED_BY_EXACT_TAIL_METHOD"
+      ]
+    },
+    "primary_tail": {
+      "$ref": "#/$defs/dependence"
+    },
+    "proposal_sha256": {
+      "const": "3563546e9267a92c3e52de9b95ef06ffbb54883a4a091525cd9515e932fb0a10"
+    },
+    "raw_accepted_count": {
+      "maximum": 2505857,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "raw_reconciliation_performed": {
+      "const": false
+    },
+    "repeated_block_covariance_estimated": {
+      "const": false
+    },
+    "run_validity_assessed": {
+      "const": false
+    },
+    "schema_version": {
+      "const": "cpu-prefetch-stage17-s180-tail-numerics/1"
+    },
+    "secondary_p9999_reported": {
+      "type": "boolean"
+    },
+    "secondary_p9999_ticks": {
+      "anyOf": [
+        {
+          "maximum": 18446744073709551615,
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "secondary_tail": {
+      "$ref": "#/$defs/dependence"
+    },
+    "source_provenance_verified": {
+      "const": false
+    },
+    "stability_resampling_status": {
+      "const": "NOT_EVALUATED"
+    },
+    "warmup_frozen": {
+      "const": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "method_id",
+    "proposal_sha256",
+    "owner_acceptance_sha256",
+    "ordered_integer_latency_sha256",
+    "raw_accepted_count",
+    "exact_quantiles_ticks",
+    "secondary_p9999_ticks",
+    "secondary_p9999_reported",
+    "maximum_ticks",
+    "primary_tail",
+    "secondary_tail",
+    "primary_log_status",
+    "stability_resampling_status",
+    "aggregate_block_length_selected",
+    "confirmatory_horizon_frozen",
+    "warmup_frozen",
+    "repeated_block_covariance_estimated",
+    "raw_reconciliation_performed",
+    "source_provenance_verified",
+    "run_validity_assessed",
+    "execution_authority",
+    "phase18_authority"
+  ],
+  "title": "D346 exact descriptive S180 tail numerics, not raw validity or operational authority",
+  "type": "object"
+}

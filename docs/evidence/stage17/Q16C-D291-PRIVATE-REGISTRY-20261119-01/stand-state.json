@@ -1,0 +1,17 @@
+{
+  "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+  "checked_at_utc": "2026-11-19T15:01:14.869424+00:00",
+  "free_bytes": 6300581347328,
+  "independent_recovery_errors": [],
+  "independent_recovery_verified": true,
+  "new_family_preparation_exists": false,
+  "prefix_analysis_root_exists": false,
+  "retained_checkpoints": 87,
+  "retained_custody_receipts": 87,
+  "unit": {
+    "ActiveState": "failed",
+    "ExecMainStatus": "1",
+    "MainPID": "0",
+    "SubState": "failed"
+  }
+}

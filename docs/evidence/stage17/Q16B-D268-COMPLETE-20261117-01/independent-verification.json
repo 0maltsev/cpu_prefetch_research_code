@@ -1,0 +1,30 @@
+{
+  "arithmetic_independently_recomputed": true,
+  "cells": 60,
+  "completed_before_global_deadline": true,
+  "completed_moscow": "2026-11-17T00:50:13.332278+03:00",
+  "completed_utc": "2026-11-16T21:50:13.332278+00:00",
+  "descriptive_min_mu_ref": {
+    "denominator": 1,
+    "numerator": 1670571
+  },
+  "ext007_admitted": false,
+  "invalid_captures": 0,
+  "measurement_full_runs": 20,
+  "measurement_zero_loss_gate": "FAIL",
+  "measurements_repeated": false,
+  "missing_captures": 0,
+  "native_code_changed": false,
+  "new_analysis_hours": 2.2383324579930557,
+  "new_collection_hours": 6.503247214938333,
+  "phase18_authority": false,
+  "raw_analysis_repeated": false,
+  "repetitions_per_cell": 2,
+  "report_hashes_and_composition_bindings_verified": 120,
+  "supervised_continuation_hours": 8.77574378843861,
+  "tolerance_guarantee": false,
+  "total_approved_window_hours": 12.147152587900278,
+  "valid_captures": 120,
+  "warmup_full_runs": 34,
+  "warmup_zero_loss_gate": "FAIL"
+}

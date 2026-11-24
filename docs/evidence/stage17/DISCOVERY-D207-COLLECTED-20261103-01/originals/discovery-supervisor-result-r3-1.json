@@ -1,0 +1,22 @@
+{
+  "child_reaped": true,
+  "completion_present": true,
+  "custody_policy_id": "EXT007-RAW-NONE-STAND-PRIMARY-v1",
+  "exit_code": 0,
+  "partition_procs": "",
+  "partition_restoration": {
+    "partition_absent": true,
+    "root": {
+      "cgroup.controllers": "cpuset cpu io memory hugetlb pids rdma misc dmem",
+      "cgroup.subtree_control": "cpu memory pids",
+      "cpuset.cpus.effective": "0-31",
+      "cpuset.cpus.isolated": "",
+      "cpuset.mems.effective": "0-1"
+    },
+    "utc": "2026-11-03T13:55:31Z",
+    "verified": true
+  },
+  "success": true,
+  "supervisor_errors": [],
+  "utc": "2026-11-03T13:55:31.032984+00:00"
+}

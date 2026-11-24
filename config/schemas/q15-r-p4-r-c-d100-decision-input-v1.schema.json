@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-p4-r-c-d100-decision-input:v1",
+  "title": "D-100 through D-103 P4-R-C prerequisite decisions",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "bundle_id",
+    "protocol_version",
+    "status",
+    "source_commit",
+    "stand_id",
+    "endpoint",
+    "immutable_inputs",
+    "conflicts_requiring_decision",
+    "frozen_action_if_accepted",
+    "required_before_action",
+    "authority_boundary",
+    "request_context",
+    "request_interpretation",
+    "exact_owner_acceptance_template"
+  ],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-r-c-d100-decision-input/1"},
+    "bundle_id": {"const": "Q15-R-P4-R-C-D100-DECISION-INPUT-20260826-01"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "status": {"const": "PROPOSED_EXACT_OWNER_ACCEPTANCE_REQUIRED_NO_ACTION_AUTHORITY"},
+    "source_commit": {"const": "909b698a071203adb97746511b97a9316dd55f07"},
+    "stand_id": {"const": "XEON-CPU-FETCH"},
+    "endpoint": {"const": "root@185.184.131.153"},
+    "immutable_inputs": {
+      "type": "object",
+      "minProperties": 19,
+      "required": ["p4_r_c_template_path", "p4_r_c_template_sha256", "d099_complete_evidence_path", "d099_complete_evidence_sha256", "d099_identity_path", "d099_identity_sha256", "d099_review_path", "d099_review_sha256", "archive_path", "archive_size", "archive_sha256", "archive_sidecar_path", "archive_sidecar_sha256", "collector_binary_sha256", "collector_contract_sha256", "pinned_hosts_path", "pinned_hosts_sha256", "pinned_host_fingerprint", "transport_public_evidence_path", "transport_public_evidence_sha256", "target_allowed_signers_sha256", "target_signer_fingerprint"],
+      "additionalProperties": false,
+      "properties": {
+        "p4_r_c_template_path": {"type": "string"}, "p4_r_c_template_sha256": {"$ref": "#/$defs/sha256"},
+        "d099_complete_evidence_path": {"type": "string"}, "d099_complete_evidence_sha256": {"$ref": "#/$defs/sha256"},
+        "d099_identity_path": {"type": "string"}, "d099_identity_sha256": {"$ref": "#/$defs/sha256"},
+        "d099_review_path": {"type": "string"}, "d099_review_sha256": {"$ref": "#/$defs/sha256"},
+        "archive_path": {"type": "string"}, "archive_size": {"const": 4642298}, "archive_sha256": {"$ref": "#/$defs/sha256"},
+        "archive_sidecar_path": {"type": "string"}, "archive_sidecar_sha256": {"$ref": "#/$defs/sha256"},
+        "collector_binary_sha256": {"$ref": "#/$defs/sha256"}, "collector_contract_sha256": {"$ref": "#/$defs/sha256"},
+        "pinned_hosts_path": {"type": "string"}, "pinned_hosts_sha256": {"$ref": "#/$defs/sha256"}, "pinned_host_fingerprint": {"type": "string"},
+        "transport_public_evidence_path": {"type": "string"}, "transport_public_evidence_sha256": {"$ref": "#/$defs/sha256"},
+        "target_allowed_signers_sha256": {"$ref": "#/$defs/sha256"}, "target_signer_fingerprint": {"type": "string"}
+      }
+    },
+    "conflicts_requiring_decision": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["decision_id", "classification", "conflict", "options", "recommended_option", "accepted_risks", "selected_option"],
+        "properties": {
+          "decision_id": {"enum": ["D-100", "D-101", "D-102", "D-103"]},
+          "classification": {"type": "string", "minLength": 1},
+          "conflict": {"type": "string", "minLength": 1},
+          "options": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+          "recommended_option": {"type": "string", "minLength": 1},
+          "accepted_risks": {"type": "array", "minItems": 2, "items": {"type": "string", "minLength": 1}},
+          "selected_option": {"type": "null"}
+        }
+      }
+    },
+    "frozen_action_if_accepted": {"type": "object", "minProperties": 15},
+    "required_before_action": {"type": "object", "minProperties": 7, "additionalProperties": {"const": false}},
+    "authority_boundary": {
+      "type": "object",
+      "minProperties": 14,
+      "properties": {
+        "repository_local_decision_preparation_authorized": {"const": true}
+      },
+      "additionalProperties": {"const": false}
+    },
+    "request_context": {"type": "string", "minLength": 1},
+    "request_interpretation": {"type": "string", "minLength": 1},
+    "exact_owner_acceptance_template": {"type": "string", "pattern": "@DECISION_INPUT_SHA256@"}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

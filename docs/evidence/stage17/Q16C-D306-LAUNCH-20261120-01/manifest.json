@@ -1,0 +1,171 @@
+{
+  "files": [
+    {
+      "path": "REPORT.md",
+      "sha256": "e467dad0bbfc1460fddc002be4fd0993bb5a96c55186b55c54acf22d7b0a7463",
+      "size_bytes": 6217
+    },
+    {
+      "path": "analysis-progress-20261120T044535-Moscow.json",
+      "sha256": "d0dec379f7435c9a5dd494682c1c733a199e38eca379953d8c7244d0274f59aa",
+      "size_bytes": 894
+    },
+    {
+      "path": "analysis-progress-20261120T044808-Moscow.json",
+      "sha256": "0cf8ca45784f0127176e6edf94fe06edaa60d1f1ecdfdd3b767eafe558c231e8",
+      "size_bytes": 3957
+    },
+    {
+      "path": "clock-rearm-d306-1/restoration.json",
+      "sha256": "5a8457ac1f9775e78698ed461dd822ec878f97d66c32b62e5bf97221eab15fae",
+      "size_bytes": 842
+    },
+    {
+      "path": "d306-continuation-1/acceptance-signing-result.json",
+      "sha256": "410447f7ff8b1c4c5e1632fda8305fd4eb190e1b7eac2b8114fbf30581ef397e",
+      "size_bytes": 323
+    },
+    {
+      "path": "d306-continuation-1/administrative-packet.json",
+      "sha256": "cb2cece3526b727e3b744e0a0bef8703153921cf219f4c1b6b77e81d1b9ae3e9",
+      "size_bytes": 2419
+    },
+    {
+      "path": "d306-continuation-1/authority/owner-acceptance.json",
+      "sha256": "610751cf74bf9603d6449450e1309721c272a62f56029a0a9899c24c6c9a2cb2",
+      "size_bytes": 786
+    },
+    {
+      "path": "d306-continuation-1/authority/owner-acceptance.json.sig",
+      "sha256": "6884cf0f817178bca2e8028219d319ca603ed576f005fc10d202b12a27211084",
+      "size_bytes": 322
+    },
+    {
+      "path": "d306-continuation-1/authorization.json",
+      "sha256": "57e8d1426eada27272a373a36a67081828f63392bcb649e6d4408b4a2c308956",
+      "size_bytes": 2718
+    },
+    {
+      "path": "d306-continuation-1/authorization.json.sig",
+      "sha256": "807126f630242d309db14db7faac3fcc100e601257a4dbf9af82162543562e0d",
+      "size_bytes": 322
+    },
+    {
+      "path": "d306-continuation-1/operator-sources.json",
+      "sha256": "04205676a9865b836459895e5860b3ecd896fbe7e57d79c95fff7047cb3df03f",
+      "size_bytes": 5821
+    },
+    {
+      "path": "d306-continuation-1/prelaunch-check.json",
+      "sha256": "417c8d6224a6368fb8142945b903be9bab54dd887e4b6ea19780581fd1144d15",
+      "size_bytes": 1042
+    },
+    {
+      "path": "d306-continuation-1/runtime-output/constructed.json",
+      "sha256": "5867405f24bb920ef684c9fbff296375d48f338f814137f0cb6ba2aa41719838",
+      "size_bytes": 572
+    },
+    {
+      "path": "d306-continuation-1/runtime-output/prepared.json",
+      "sha256": "963da8195b0fe5d248f48516ee6a50417811bfc06fc0d10d8aa51c853444630c",
+      "size_bytes": 1295
+    },
+    {
+      "path": "d306-root-launch-intent-1.json",
+      "sha256": "ef2313c9b60e42c6103c9f08cced55944e301e09a90508eeab0b329d300b97ad",
+      "size_bytes": 2147
+    },
+    {
+      "path": "d306-root-launch-result-1.json",
+      "sha256": "c0d2a54e85e041a774da3920164c2de1fed35d61bd4acb51bde65d118c155348",
+      "size_bytes": 191
+    },
+    {
+      "path": "d306-study-1/authorize-result.json",
+      "sha256": "078ec01a0a4ac8ac20155f01861ee3f2c12170ebff8e679c1e4655286b6e4ee6",
+      "size_bytes": 181
+    },
+    {
+      "path": "d306-study-1/intent.json",
+      "sha256": "8f6a01fd95e093a145a4b9ff24da6d587f7b3c837b2670e0d12e6ad0fbae3c27",
+      "size_bytes": 842
+    },
+    {
+      "path": "d306-study-1/sign-collect-result.json",
+      "sha256": "5995a30b4e36148d3fc8373762c443e9000d691a9c6ac6233d9dcd7eed9740c6",
+      "size_bytes": 184
+    },
+    {
+      "path": "finalization-source-inspection.json",
+      "sha256": "1503f137b31bd0b5ca5032a458d653c80493068e1b565d5fffde67707f5d609c",
+      "size_bytes": 1308
+    },
+    {
+      "path": "progress-20261120T020004-Moscow.json",
+      "sha256": "52b6472493e21488391e23434bcfdaf2fd68a70edaff7872c121abbfbd5e60a7",
+      "size_bytes": 973
+    },
+    {
+      "path": "progress-20261120T025906-Moscow.json",
+      "sha256": "9787b14ac0d045624dffd1b199653f868267c437c3951a7de891d98bec9c6911",
+      "size_bytes": 974
+    },
+    {
+      "path": "progress-20261120T044441-Moscow.json",
+      "sha256": "fd576660046b592d444555ca44682e61743155d086bd5b376670eb3efe39b52c",
+      "size_bytes": 659
+    },
+    {
+      "path": "progress-20261120T044756-Moscow.json",
+      "sha256": "8e39ecac03f64aa75825f9ac06697bb033c3df7c9c442e46a9c35e73852806d5",
+      "size_bytes": 659
+    },
+    {
+      "path": "q16c-study-d306-1/partition-restoration.json",
+      "sha256": "02d43629ff1275e32f0745d30d6c81e79cc7b3ab5e00491473cb765556470c25",
+      "size_bytes": 573
+    },
+    {
+      "path": "startup-status-1.json",
+      "sha256": "d5c6cd23111f29de8c147b19a906625d7d0da01685b2e96e9f9522d8220d341f",
+      "size_bytes": 973
+    },
+    {
+      "path": "verification/installed-configuration.json",
+      "sha256": "09ffe234a9915daacc3ee5060f55f784b30ae4bae84f55f56706ad35386463a7",
+      "size_bytes": 609
+    },
+    {
+      "path": "verification/installed-preflight.txt",
+      "sha256": "d6769a14e336b678c5cdb1344de9c27655edd49949987f9b9f4f8ca051eff4da",
+      "size_bytes": 1926
+    },
+    {
+      "path": "verification/launch.py",
+      "sha256": "d28a7ba15ebc9732bdab588cd9e6d07260a51f9bd04069f7ca4ff1756c2a6b56",
+      "size_bytes": 3863
+    },
+    {
+      "path": "verification/local-administrative-packet.json",
+      "sha256": "cb2cece3526b727e3b744e0a0bef8703153921cf219f4c1b6b77e81d1b9ae3e9",
+      "size_bytes": 2419
+    },
+    {
+      "path": "verification/read_only_analysis_status.py",
+      "sha256": "2ba6576c84ffadc67e80045089b267b8a667b4b917b32489d8fafabc4bbdf205",
+      "size_bytes": 1571
+    },
+    {
+      "path": "verification/read_only_public_status.py",
+      "sha256": "113cf8a4fd0ea297b18a09230e2e5bd01f554b76c432ae56e1d1ec9d2c659b56",
+      "size_bytes": 3790
+    },
+    {
+      "path": "verification-summary.json",
+      "sha256": "b71534e28a185c8cd6ff6e9b627c99826d3b7a658b22e7e5de247cec76e978db",
+      "size_bytes": 807
+    }
+  ],
+  "raw_data_transferred": false,
+  "schema_version": "cpu-prefetch-public-evidence-manifest/1"
+}

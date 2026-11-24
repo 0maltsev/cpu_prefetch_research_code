@@ -1,0 +1,85 @@
+{
+  "scope": "Small provenance and analysis artifacts only; no raw custody claim",
+  "files": [
+    {
+      "path": "README.md",
+      "size_bytes": 2986,
+      "sha256": "8b84fb584f222fc732f671de3368b162ecbe842818ee783910f0c29601371fcc"
+    },
+    {
+      "path": "d206-c09-control-diagnosis.json",
+      "size_bytes": 54901,
+      "sha256": "d9a788e1c0d54ee17eeeed99ad709c475ad865531a4ed38bf8a661f34b5e2e20"
+    },
+    {
+      "path": "d206-c09-phase-validation.json",
+      "size_bytes": 1868,
+      "sha256": "5920d5b4c24531f74f07f60ccadfa7665544a544d0fc291689bfcc61cf659032"
+    },
+    {
+      "path": "d206-c09-phase-validation.log",
+      "size_bytes": 1921,
+      "sha256": "22eb7dde6759aa76a5837435193de28b0c995599dc0880dd2f4ca8a236214e20"
+    },
+    {
+      "path": "d206-cleanup-source-verification.json",
+      "size_bytes": 5633,
+      "sha256": "779b73a7ece3385fbe05f28b8bf860f5d27940bbec224de84e9cec121507dcdd"
+    },
+    {
+      "path": "d206-pc-cleanup-events.jsonl",
+      "size_bytes": 8864,
+      "sha256": "80f0d879108132a00a1a2eeeda172e592a6349adf1780ec5d2d35c03b2513d07"
+    },
+    {
+      "path": "d206-pc-cleanup-intent.json",
+      "size_bytes": 9077,
+      "sha256": "286420ecd3d4770ce9476fee83ea57f961b16507614d310cbddf4db41e16e5c8"
+    },
+    {
+      "path": "d206-pc-cleanup-result.json",
+      "size_bytes": 823,
+      "sha256": "7c046f9649513bc86817fc56a95a2f7be12f60fc5dcc9aa4117d4f32dfc8b499"
+    },
+    {
+      "path": "d206-pc-partial-cleanup-candidates.json",
+      "size_bytes": 1743,
+      "sha256": "caaf5d1b140af070fdec3e39daaff34dcaf4adbb6a42a360f587524eb251bfae"
+    },
+    {
+      "path": "diagnose_r2_c09_on_stand.py",
+      "size_bytes": 3217,
+      "sha256": "39c59680981c1fa2379ee574e56ae8e30bd645ff849cea79c1a7afc103d91c8c"
+    },
+    {
+      "path": "owner-acceptance.json",
+      "size_bytes": 1014,
+      "sha256": "caa447f368053076b23cf296185cebe93c4318e93dcf99fd7480c89314b143c7"
+    },
+    {
+      "path": "proposal.md",
+      "size_bytes": 3696,
+      "sha256": "c1d4d9cd0ec53b3aea9a4d8dd7b13c7b3f73552f1b475a4476b3b8a6ca10b92f"
+    },
+    {
+      "path": "r2-copy-cancelled-d206.json",
+      "size_bytes": 365,
+      "sha256": "03620be94579088bd40e3c728743f30f5297ab334a73693bfec201a9b80198c8"
+    },
+    {
+      "path": "r2-copy-paused-owner-storage-review.json",
+      "size_bytes": 357,
+      "sha256": "c5a191d89f2eed263705572981a32adda154e8dcb59ec94146edf297541a5ff9"
+    },
+    {
+      "path": "r2-copy.log",
+      "size_bytes": 3015,
+      "sha256": "02e967ee841780e1b1e916446aac8f4c2ebbb06307f1b1e562fd260232bb9dec"
+    },
+    {
+      "path": "validate_r2_c09_phases_on_stand.py",
+      "size_bytes": 4613,
+      "sha256": "deff89184a188420c577dffbd35379fae7cd075e20292019c269a0408ea46b56"
+    }
+  ]
+}

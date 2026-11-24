@@ -1,0 +1,47 @@
+[
+  {
+    "name": "v2-0",
+    "exit_code": 0,
+    "expected_success": true
+  },
+  {
+    "name": "v2-1",
+    "exit_code": 0,
+    "expected_success": true
+  },
+  {
+    "name": "v2-2",
+    "exit_code": 0,
+    "expected_success": true
+  },
+  {
+    "name": "v1-0",
+    "exit_code": 0,
+    "expected_success": true
+  },
+  {
+    "name": "v1-1",
+    "exit_code": 0,
+    "expected_success": true
+  },
+  {
+    "name": "v1-2",
+    "exit_code": 0,
+    "expected_success": true
+  },
+  {
+    "name": "v1-reject-2s",
+    "exit_code": 1,
+    "expected_success": false
+  },
+  {
+    "name": "v2-reject-100ms",
+    "exit_code": 1,
+    "expected_success": false
+  },
+  {
+    "name": "v2-reject-capacity",
+    "exit_code": 1,
+    "expected_success": false
+  }
+]

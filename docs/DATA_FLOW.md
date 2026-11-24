@@ -5,16 +5,21 @@ retained. This document preserves the imported logical model. Q9/ADR-0032/0033
 select the physical raw encoding/copy policy, and Q10/Q11/ADR-0034 select only
 the versioned blocker representation. Stage 12 implements reconciliation and
 joined-row construction offline.
-Q13/ADR-0043 adds a pre-preparation runner-admission edge without authorizing
-execution.
+Q13/ADR-0043 adds the pair/relax identity. Q14/ADR-0044 through ADR-0046 add a
+pre-preparation admission/qualification/authority edge, D-047 adds the
+exact software-prefetch mapping and per-owner PRFCHW gate, without authorizing
+stand access or execution. Q15-P0 advances admission to v3, corrects worker
+watchdog semantics, and adds only pure/fake Intel H0/H1 mapping evidence paths.
 
 ## End-to-end flow
 
 | Phase | Inputs | Work | Append-only outputs | Timed? |
 |---|---|---|---|---|
 | Import/readiness | Immutable protocol snapshot and manifest | Hash, inventory, JSON parse, Draft 2020-12 meta-schema, positive/negative fixture, and canonical-byte checks | Readiness evidence in repository status | No |
-| Runner admission | Current source/binary/stand/binding trust anchor and explicit eligibility artifacts | Strict typed validation, exact required-kind proof, non-symlink file reads, and SHA-256 verification | In-memory admission ticket only after all checks; no scientific artifact or authority inferred | No |
-| Experiment preparation | Admission ticket, protocol, accepted ADRs, platform inventory, block/run plan, algorithm suite, seeds | Imported-schema validation, immutable typed loading, deterministic stream derivation, complete offline schedule generation/validation, arena first touch, record/node permutation, footprint proof, and static package binding | Validated logical records, schedule artifact/envelope/derivation record, and prepared workload inputs | No |
+| Runner admission | Current source/binary/stand/binding trust anchor and 21 explicit eligibility artifacts | Strict typed validation, exact required-kind proof, non-symlink file reads, and SHA-256 verification | In-memory admission ticket only after all checks; no scientific artifact or authority inferred | No |
+| Qualification/authority validation | Supplied observation records or a future exact Q15/Q16 envelope | Derive qualification eligibility; validate schema, scope, identities, limits, custody, predecessors, expiry, and prohibitions | Canonical qualification evidence or validation result only; no collection, control, or authority issuance | No |
+| Experiment preparation | Admission ticket, protocol, accepted ADRs, platform inventory, block/run plan, algorithm suite, seeds | Imported-schema validation, immutable typed loading, deterministic stream derivation, complete offline schedule generation/validation, arena allocation, record/node permutation, footprint proof, and static package binding | Validated logical records, schedule artifact/envelope/derivation record, and prepared workload inputs | No |
+| Owner-thread preparation | Prepared private streams, selected pair, and accepted D-047 mapping | Bind current thread, independently read singleton affinity and actual CPU, verify PRFCHW on that CPU, then first-touch only that owner's private stream | In-memory affinity/capability evidence; pre-run failure on any mismatch | No; before start barrier |
 | Platform preparation | Requested state and authorized adapter/operator | Affinity/NUMA/page/frequency/HW-PF actuation, independent readback/probes, rollback readiness | Requested-state and verified-state records, capability/failure evidence | No |
 | Run launch | Closed `PreparedRun` | Preparation evidence, warm-up, drain/barrier, logical reset, two-worker start, one clock-derived origin | Append-only lifecycle transition candidates and reset evidence | No; the fixed origin read is the boundary |
 | Measurement horizon | Pre-generated deadlines, fixed arenas, specialized queue, qualified clock | Producer and consumer execute fixed data-plane work | Thread-private producer and consumer observations in preallocated buffers | Yes |
@@ -31,13 +36,15 @@ execution.
 
 The controller resolves every dynamic choice before release. The prepared image contains exact addresses and extents, pre-generated deadlines, package specialization, run and algorithm-suite IDs, clock identity, platform evidence references, and fixed buffer capacity. Allocation, schema/config parsing, seed derivation, RNG, permutation, compression, and analysis are absent from the worker call graph.
 
-Q13 makes admission explicitly fail closed before that boundary. A field-only
+Q15-P0 makes v3 admission explicitly fail closed before that boundary. A field-only
 diagnostic cannot construct an `AdmissionTicket`; admission also verifies every
 referenced artifact byte hash against the current source/binary/stand/binding
 trust anchor. The controller-side package switch selects one compile-time
-specialization and never flows into the measured executor. The admission CLI
-has no execution command. Missing external facts therefore produce no worker,
-raw row, or fabricated failure stream.
+specialization and never flows into the measured executor. Each worker then
+verifies affinity/readback/actual CPU and first-touches its own private stream
+before it enters the barrier. The admission and qualification CLIs expose no
+execution, collection, or control command. Missing external facts therefore
+produce no measurement attempt, raw row, or fabricated failure stream.
 
 Stage 4 supplies the pre-worker typed boundary but does not build a prepared
 image. Each input first passes its unmodified imported Draft 2020-12 schema,
@@ -233,3 +240,50 @@ worker memory or control a running experiment. H3 validation data remain
 technically inaccessible until the imported state sequence authorizes access.
 Analysis output records every source artifact ID/hash and algorithm/version so
 results can be regenerated without modifying inputs.
+
+## Q15 split qualification flow
+
+The sealed measurement candidate and separate qualification-tool bundle never
+merge. A prospective signed Q15-R record binds both hashes, the exact stand,
+read-only commands, four role identities, limits, and custody. Its actual raw
+inventory/MSR/clock/layout/CPU/residency/storage/probe evidence is sealed and
+transferred before any Q15-W record can be constructed. Q15-W then binds the
+Q15-R authorization/evidence hashes, the three complete prestates, exact apply
+order, inverse/readback/probe commands, reverse restore order, and quarantine
+policy. Partial evidence flows to append-only failure/restoration records, not
+to missing or fabricated successful evidence. Neither flow can reach a
+scientific schedule, measurement admission, calibration, pilot, analysis, or
+confirmatory artifact.
+
+`Q15-PROBE-COLLECTOR-CONTRACT-v1` is an immutable input to both sides of this
+flow. The separate D-053 profile turns the frozen master seed into one exact
+node-order cycle before any possible counted traversal; complete-buffer SHA-256
+is computed before/after and never flows through the counted loop. This local
+path terminates at synthetic tests/codegen reports and cannot reach PMU or
+authority edges. D-054 extends the software graph with one private mapping:
+authorized Q15-R H0 regular/pointer observations flow to a sealed evidence-set
+hash, the session waits without remapping/mutating, and only a later exact Q15-W
+peer plus H1 readback may continue on that same address and content. H1 and
+restoration evidence are new artifacts referencing the sealed Q15-R hash.
+
+Q15-R binds the clean collector executable/profile/report hashes and exact
+commands to its clock/layout/CPU/residency/software-prefetch/MSR-prestate
+contracts. Q15-W binds the same identities plus regular/pointer probe and
+independent-readback commands. The seven D-056 components derive distinct
+canonical evidence kinds from raw samples/backends; incomplete inputs produce
+incomplete, ineligible evidence. One bounded U32BE-length-prefixed JCS-I64
+frame flows to an external authorization-bound custodian. Raw counter,
+timestamp, CPU/page, integrity, layout, codegen, and MSR observations flow only
+into append-only qualification evidence. Contract bytes or a no-authority
+bundle cannot flow into an authorization decision as if execution had passed.
+
+Before Q15-R controller admission, ADR-0062 permits only three inherited
+read-only regular-file snapshots: canonical authorization-core bytes, detached
+SSHSIG bytes, and a canonical auditor verification receipt. The adapter hashes
+all three, binds the receipt to the auditor-owned allowed-signers artifact and
+signer fingerprint, and emits only a typed trust anchor for the existing fixed
+admission validator. The allowed-signers file and private key never flow into
+the controller. In the current repository this edge terminates at fake tests;
+there is no OS descriptor producer or execution-ticket source. The clean
+adapter-bearing bundle is selected evidence only; successor preparation v2
+adds no OS producer or authority.

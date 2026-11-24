@@ -1,0 +1,29 @@
+{
+  "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+  "compaction_control": 1,
+  "free_bytes": 6276133212160,
+  "native_runner_pids": [],
+  "operational_window_started": false,
+  "original_journal_sha256": "9a7766e806b872133dbd0f6a746d75ae315dae69bc8c5e7b9bad9f95c9c003e0",
+  "qualification_performed": false,
+  "read_only": true,
+  "s180_root_exists": false,
+  "source_preparation_performed": false,
+  "units": {
+    "cpu-prefetch-recovery-s180-1.service": {
+      "ActiveState": "inactive",
+      "ControlPID": "0",
+      "LoadState": "not-found",
+      "MainPID": "0",
+      "SubState": "dead"
+    },
+    "cpu-prefetch-s180-operator-1.service": {
+      "ActiveState": "inactive",
+      "ControlPID": "0",
+      "LoadState": "not-found",
+      "MainPID": "0",
+      "SubState": "dead"
+    }
+  },
+  "utc": "2026-11-23T21:19:02.034396+00:00"
+}

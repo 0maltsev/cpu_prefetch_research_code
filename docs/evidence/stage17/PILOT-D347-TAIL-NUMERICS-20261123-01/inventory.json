@@ -1,0 +1,66 @@
+{
+  "execution_authority": false,
+  "files": [
+    {
+      "path": "docs/evidence/stage17/PILOT-D347-TAIL-NUMERICS-20261123-01/LastTest.log",
+      "sha256": "13840d31f9373f972924ca6da0679cd162ab84de6c7443420693a5ec2807fed7",
+      "size_bytes": 1073
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D347-TAIL-NUMERICS-20261123-01/REPORT.md",
+      "sha256": "9a02831afe10814aac6dba05ec96c929c34a8982a0885eade6fbb1a53f501676",
+      "size_bytes": 2509
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D347-TAIL-NUMERICS-20261123-01/configure.txt",
+      "sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e",
+      "size_bytes": 177
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D347-TAIL-NUMERICS-20261123-01/first-tests.txt",
+      "sha256": "5c548b4a88f8911838e2e39f473eb26b94aa5cf56842c360996ca8840c82bd6c",
+      "size_bytes": 114
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D347-TAIL-NUMERICS-20261123-01/full-debug.txt",
+      "sha256": "8bcb9c28bee1792b3b1b36e127e139c05f28fe3ecbd2b079412a29691bd2153f",
+      "size_bytes": 115
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D347-TAIL-NUMERICS-20261123-01/pc-cleanup.json",
+      "sha256": "1f1f5c4df1fb9016ffc4d05b383cd361d31c89030a5e628fbaec3ac2b7b84d69",
+      "size_bytes": 1858
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D347-TAIL-NUMERICS-20261123-01/registered.txt",
+      "sha256": "7377fc145971503f949d060c069f7729e46c5af7a12dcd4df8e02b760414d7cf",
+      "size_bytes": 477
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D347-TAIL-NUMERICS-20261123-01/repository-checks.txt",
+      "sha256": "bf99f1b09e2c9baebdedf9264fb246f2b5359986ac3528d0fa5e9cf4b4ee77be",
+      "size_bytes": 37362
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D347-TAIL-NUMERICS-20261123-01/source-bindings.json",
+      "sha256": "a0920713ae43ecea6be3c3c957ea048b83180e71f88b3bc7d04629449d635b3b",
+      "size_bytes": 2194
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D347-TAIL-NUMERICS-20261123-01/stand-software-timing.json",
+      "sha256": "8a641b5becb2ff641b1c062b2e8b7aea4294e9b3fd28cc3c37ae99522e6694e1",
+      "size_bytes": 1605
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D347-TAIL-NUMERICS-20261123-01/stand-software-timing.py.txt",
+      "sha256": "6cea35048fa4be019048b656bbc776b94e5f7ae25835e729a6129bc85fb9a30e",
+      "size_bytes": 22158
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D347-TAIL-NUMERICS-20261123-01/verification-summary.json",
+      "sha256": "e459a1028aff6391fda6de44faa69a27f3009267b7b1dde33eb1f81894522dc1",
+      "size_bytes": 845
+    }
+  ],
+  "recorded_at_utc": "2026-11-23T15:33:42.733879+00:00"
+}

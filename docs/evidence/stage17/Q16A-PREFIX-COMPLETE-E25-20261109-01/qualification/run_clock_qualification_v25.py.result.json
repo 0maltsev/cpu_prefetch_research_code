@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/operator-preparation-v25/run_clock_qualification_v25.py"
+  ],
+  "completed_monotonic_ns": 644539976354855,
+  "exit_code": 0,
+  "leader_reaped": true,
+  "operator": "run_clock_qualification_v25.py",
+  "retry_allowed": false,
+  "started_monotonic_ns": 644262260440947
+}

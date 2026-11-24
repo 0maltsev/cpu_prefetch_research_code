@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:cpu-prefetch:stage17:fixed-action-request:v1",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "request_id", "action_id", "stand_id", "expected_prestate_sha256", "parameters", "output_artifact_names", "command_override", "argv_override", "stdin_override", "synthetic_test_only", "phase18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-fixed-action-request/1"}, "request_id": {"type": "string", "minLength": 1},
+    "action_id": {"enum": ["Q15-R", "Q15-W", "Q16a", "Q16b", "Q16c", "STAGE17-BLINDED-PILOT"]}, "stand_id": {"type": "string", "minLength": 1},
+    "expected_prestate_sha256": {"pattern": "^[0-9a-f]{64}$"}, "parameters": {"type": "object"},
+    "output_artifact_names": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"}},
+    "command_override": {"const": null}, "argv_override": {"const": null}, "stdin_override": {"const": null},
+    "synthetic_test_only": {"type": "boolean"}, "phase18_authority": {"const": false}
+  }
+}

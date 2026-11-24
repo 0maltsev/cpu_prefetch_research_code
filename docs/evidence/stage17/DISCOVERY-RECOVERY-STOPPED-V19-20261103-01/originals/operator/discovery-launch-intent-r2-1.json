@@ -1,0 +1,131 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/discovery-preparation-r2-1/preparation/discovery-launch-224gib-v1.py",
+    "--python",
+    "/usr/bin/python3",
+    "--setpriv",
+    "/usr/bin/setpriv",
+    "--gid",
+    "1000",
+    "--controller",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/admission-root/tools/stage17_phase_controller_v23.py",
+    "--record",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/discovery-launch-readback-r2-1.json",
+    "--",
+    "--repository-root",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/admission-root",
+    "--journal",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/journal/stage17-state-journal-000009.json",
+    "--journal-directory",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/journal",
+    "--operational-evidence-root",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19",
+    "--authorization",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/admission-root/evidence/discovery-r2-fresh/authorization.json",
+    "--signature",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/admission-root/evidence/discovery-r2-fresh/authorization.json.sig",
+    "--pilot-archive",
+    "/home/omaltsev/stage17-owner-evidence/cpu-prefetch-pilot-candidate-2.0.0-ac64633-clean-91a93014b4eb.tar.gz",
+    "--pilot-sidecar",
+    "/home/omaltsev/stage17-owner-evidence/cpu-prefetch-pilot-candidate-2.0.0-ac64633-clean-91a93014b4eb.tar.gz.sha256"
+  ],
+  "authorization": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/admission-root/evidence/discovery-r2-fresh/authorization.json",
+    "sha256": "e8346026753d9b2cb7b04dba78689af1cf3cdf8d41f7d7ace89ddd4f02a29c9c",
+    "size_bytes": 2661
+  },
+  "isolation": {
+    "captured_at_utc": "2026-11-03T10:33:27Z",
+    "partition": {
+      "cgroup.events": "populated 0\nfrozen 0",
+      "cgroup.procs": "",
+      "cgroup.subtree_control": "",
+      "cgroup.type": "domain",
+      "cpuset.cpus": "0-2,8,16-18,24",
+      "cpuset.cpus.effective": "0-2,8,16-18,24",
+      "cpuset.cpus.exclusive": "0-2,8,16-18,24",
+      "cpuset.cpus.exclusive.effective": "0-2,8,16-18,24",
+      "cpuset.cpus.partition": "isolated",
+      "cpuset.mems": "0-1",
+      "cpuset.mems.effective": "0-1"
+    },
+    "root": {
+      "cgroup.controllers": "cpuset cpu io memory hugetlb pids rdma misc dmem",
+      "cgroup.subtree_control": "cpuset cpu memory pids",
+      "cpuset.cpus.effective": "3-7,9-15,19-23,25-31",
+      "cpuset.cpus.isolated": "0-2,8,16-18,24",
+      "cpuset.mems.effective": "0-1"
+    },
+    "supervisor_affinity": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      19,
+      20,
+      21,
+      22,
+      23,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ]
+  },
+  "launcher": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/discovery-preparation-r2-1/preparation/discovery-launch-224gib-v1.py",
+    "sha256": "7ac619571e7374bd287c36ca91030d5c5f5b52a7017120b012ec597a498747d2",
+    "size_bytes": 6447
+  },
+  "pc_check": {
+    "available_bytes": 392758439936,
+    "boot_id": "5d6c48d2-d320-4965-8696-69c3d636e590",
+    "device": 66306,
+    "host": "archlinux",
+    "observed_at_utc": "2026-11-03T10:33:22.631778+00:00",
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-discovery-v19-copy1",
+    "probe": {
+      "fsync_and_readback": true,
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-discovery-v19-copy1/r2-custody-probe.bin",
+      "sha256": "7daca2095d0438260fa849183dfc67faa459fdf4936e1bc91eec6b281b27e4c2",
+      "size_bytes": 65536
+    },
+    "required_bytes": 388544851990
+  },
+  "plan": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/discovery-preparation-r2-1/plan.json",
+    "sha256": "f43cb76f89a095ea27f2b8c9c6b08188fee72768844fc0b3848051a8f6a549e7",
+    "size_bytes": 57502
+  },
+  "request": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/admission-root/evidence/discovery-r2-fresh/request.json",
+    "sha256": "5c2da9d3712bd7051706f8ce4767d280438d1765354d7133aeaecd71cb75a871",
+    "size_bytes": 1900528
+  },
+  "signature": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/admission-root/evidence/discovery-r2-fresh/authorization.json.sig",
+    "sha256": "71000d85a7ee828f975b0a139d7e4063141e04bbde93cb9179a4deb8db7c5a6a",
+    "size_bytes": 322
+  },
+  "stand_disk_available_bytes": 7204249354240,
+  "stand_memavailable_bytes": 262732898304,
+  "supervisor_script": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/discovery-preparation-r2-1/preparation/start-discovery-r2.py",
+    "sha256": "d56dab1af824dc6516981eb8b6af1234237daffcc0c5d38f608c90ac16467603",
+    "size_bytes": 8207
+  },
+  "utc": "2026-11-03T10:33:27.740920+00:00"
+}

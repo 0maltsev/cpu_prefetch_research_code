@@ -1,0 +1,113 @@
+{
+  "attempted_file_reads": 9841,
+  "base": "/home/omaltsev/research/cpu_prefetch_research_code",
+  "checked_bytes": 746343012,
+  "checked_files": 9841,
+  "checked_inventory_sha256": "55c1ff41be894582d5b538b1773802d2822ad5f7db51c0f7e6803ee7169b26b2",
+  "errors": [],
+  "excluded": [
+    {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/docs/evidence/stage17/DISCOVERY-D207-COLLECTED-20261103-01/originals/discovery-analysis-r3-1/scratch",
+      "reason": "RAW_PAYLOAD_TREE_NOT_ENTERED"
+    },
+    {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/docs/evidence/stage17/FORMAL-Q16A-V23-FIRST-CAPTURE-20261103-01/first-capture/formal-archive-program-1/working",
+      "reason": "RAW_PAYLOAD_TREE_NOT_ENTERED"
+    },
+    {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step5-prep/d235-package-verification/clean-d45258f187ae33dbfcb7cda9459134509eb7cc78/extracted-stand-python-1/cpu-prefetch-pilot-candidate-2.0.0-d45258f-clean-2682a9436731/docs/evidence/stage17/DISCOVERY-D207-COLLECTED-20261103-01/originals/discovery-analysis-r3-1/scratch",
+      "reason": "RAW_PAYLOAD_TREE_NOT_ENTERED"
+    },
+    {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step5-prep/d235-package-verification/clean-dd981b4fdcf953386d4a7514fec381ff9be6e359/verified-package-1/extracted/cpu-prefetch-pilot-candidate-2.0.0-dd981b4-clean-d9e61e67bfa8/docs/evidence/stage17/DISCOVERY-D207-COLLECTED-20261103-01/originals/discovery-analysis-r3-1/scratch",
+      "reason": "RAW_PAYLOAD_TREE_NOT_ENTERED"
+    },
+    {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step5-prep/formal-v23-execution/first-capture-report-1/formal-archive-program-1/working",
+      "reason": "RAW_PAYLOAD_TREE_NOT_ENTERED"
+    },
+    {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step5-prep/recovery-v23-continuation/verified-42f2ebb-1/extracted/cpu-prefetch-pilot-candidate-2.0.0-42f2ebb-clean-e808f93edb5a/docs/evidence/stage17/DISCOVERY-D207-COLLECTED-20261103-01/originals/discovery-analysis-r3-1/scratch",
+      "reason": "RAW_PAYLOAD_TREE_NOT_ENTERED"
+    },
+    {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step5-prep/recovery-v23-continuation/verified-42f2ebb-1/extracted/cpu-prefetch-pilot-candidate-2.0.0-42f2ebb-clean-e808f93edb5a/docs/evidence/stage17/FORMAL-Q16A-V23-FIRST-CAPTURE-20261103-01/first-capture/formal-archive-program-1/working",
+      "reason": "RAW_PAYLOAD_TREE_NOT_ENTERED"
+    },
+    {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step5-prep/recovery-v23-continuation/verified-e58b180-1/extracted/cpu-prefetch-pilot-candidate-2.0.0-e58b180-clean-710b86b43eb5/docs/evidence/stage17/DISCOVERY-D207-COLLECTED-20261103-01/originals/discovery-analysis-r3-1/scratch",
+      "reason": "RAW_PAYLOAD_TREE_NOT_ENTERED"
+    },
+    {
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step5-prep/recovery-v23-continuation/verified-e58b180-1/extracted/cpu-prefetch-pilot-candidate-2.0.0-e58b180-clean-710b86b43eb5/docs/evidence/stage17/FORMAL-Q16A-V23-FIRST-CAPTURE-20261103-01/first-capture/formal-archive-program-1/working",
+      "reason": "RAW_PAYLOAD_TREE_NOT_ENTERED"
+    }
+  ],
+  "execution_authority": false,
+  "helper_sha256": "36ead49e065ef401589942f177e5205b4ae3a2f16c8490dfc32ff14a2ebf83a2",
+  "historical_plan_sha256": [
+    "59898ca78f6b79c14e845859052027241c54298c9f65dcb1042b05b18be6af2e",
+    "6302de1e50b6178004eb3a8e4d24579c0b5ef74e8a1504e254297faed9f1f847",
+    "91c83558b5c5d891cabdd4d875da1292120df5940397298063d55c901a8866c2",
+    "a9bef1239ea03d3871e40a0c52a0a3375d1eac7512d299443dd18405e89572f7",
+    "ba4f0eb1371d3a4dfb0945f9177c98993a08bd6c7ebcf188b4ab40cf5ac2f702",
+    "d6a0b68be8553b77c71b86bdb0ecaaa8cfc30481583b9de6969b733f36e122c9"
+  ],
+  "identities_binding": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-daycap-120/planned-identities.json",
+    "sha256": "b5ead0656a400c6e4efdfce164d92d3e37e9b9c43505b8d3acca12edcd6a4487",
+    "size_bytes": 63064
+  },
+  "limits": {
+    "max_contexts": 64,
+    "max_depth": 64,
+    "max_entries": 400000,
+    "max_file_bytes": 100663296,
+    "max_files": 200000,
+    "max_json_nodes": 10000000,
+    "max_roots": 1024,
+    "max_total_bytes": 4294967296,
+    "wall_seconds": 300
+  },
+  "matches": [],
+  "mode": "local",
+  "numeric_seeds_collision_scanned": true,
+  "observed_at_utc": "2026-11-15T17:37:05.277498+00:00",
+  "own_prospective_exclusions": [
+    "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-daycap-120"
+  ],
+  "plan_binding": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-daycap-120/final-plan-aa3285f/plan.json",
+    "sha256": "53ef4baad885eeece98697d6c57b0dd0a375107504b277ffef7482185081e486",
+    "size_bytes": 2072840
+  },
+  "plan_sha256": "53ef4baad885eeece98697d6c57b0dd0a375107504b277ffef7482185081e486",
+  "planned_linked_order_identities": 48,
+  "planned_numeric_seeds": 288,
+  "planned_phase_identities": 240,
+  "prior_registered_plan_sha256": [
+    "6302de1e50b6178004eb3a8e4d24579c0b5ef74e8a1504e254297faed9f1f847",
+    "91c83558b5c5d891cabdd4d875da1292120df5940397298063d55c901a8866c2",
+    "a9bef1239ea03d3871e40a0c52a0a3375d1eac7512d299443dd18405e89572f7",
+    "ba4f0eb1371d3a4dfb0945f9177c98993a08bd6c7ebcf188b4ab40cf5ac2f702"
+  ],
+  "registration_performed": false,
+  "roots": [
+    "/home/omaltsev/research/cpu_prefetch_research_code/docs/evidence",
+    "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step2-prep",
+    "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step3-prep",
+    "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step4-prep",
+    "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step5-prep",
+    "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-archive-optimization",
+    "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/candidate-3"
+  ],
+  "schema_version": "cpu-prefetch-stage17-q16b-namespace-audit/1",
+  "scope": "Finite selected public metadata only; all-E stand contexts; no raw reads or whole-disk proof",
+  "status": "PASS_SCOPED_HISTORY_AUDIT",
+  "visited_entries": 18646,
+  "original_full_report": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-daycap-120/local-namespace-audit-3.json",
+    "size_bytes": 3854472,
+    "sha256": "24bb4f367d8af08e6cf756798f6665c194f73c253f39333af2ebb04e69bf56af"
+  }
+}

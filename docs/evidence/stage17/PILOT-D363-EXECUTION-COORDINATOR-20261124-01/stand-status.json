@@ -1,0 +1,23 @@
+{
+  "compaction_control": 1,
+  "journal_sha256": "9a7766e806b872133dbd0f6a746d75ae315dae69bc8c5e7b9bad9f95c9c003e0",
+  "native_runner_pids": [],
+  "operational_window_started": false,
+  "read_only": true,
+  "s180_root_exists": false,
+  "units": {
+    "cpu-prefetch-recovery-s180-1.service": {
+      "ActiveState": "inactive",
+      "LoadState": "not-found",
+      "MainPID": "0",
+      "SubState": "dead"
+    },
+    "cpu-prefetch-s180-operator-1.service": {
+      "ActiveState": "inactive",
+      "LoadState": "not-found",
+      "MainPID": "0",
+      "SubState": "dead"
+    }
+  },
+  "utc": "2026-11-23T22:02:30.204531+00:00"
+}

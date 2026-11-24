@@ -1,0 +1,69 @@
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_semantic_verifier_v39.py", line 150, in _verify_ext001
+    return preflight.verify_s17_ext_001_semantics_v27(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        **{key: value for key, value in arguments.items() if key != "policy"},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        policy=policy, policy_path=policy_path,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        policy_sha256=sha_file(policy_path), policy_entry=entry,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_read_only_preflight_semantic_verifier_v20.py", line 309, in verify_s17_ext_001_semantics_v20
+    verified = predecessor._verify_contract_action_inputs(root, contract, policy, catalog)
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_semantic_verifier_v8.py", line 280, in _verify_contract_action_inputs
+    transport_identity_path, transport_identity_binding = _external_private_binding(
+                                                          ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        target.get("transport_identity"), "transport identity"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_semantic_verifier_v5.py", line 110, in _external_private_binding
+    raise SemanticAdmissionError(f"{label} ownership or permissions are unsafe")
+stage17_semantic_verifier_v3.SemanticAdmissionError: transport identity ownership or permissions are unsafe
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_state_journal_v12.py", line 376, in _resolutions
+    verified = semantic.verify_input(
+        input_id=input_id, root=repository_root, resolution=document,
+    ...<7 lines>...
+        pilot_archive=pilot_archive, pilot_sidecar=pilot_sidecar,
+    )
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_semantic_verifier_v63.py", line 84, in verify_input
+    return metadata._clone(body,{**body.__globals__,'preflight':preflight})(input_id=input_id,**arguments)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_semantic_verifier_v39.py", line 156, in _verify_ext001
+    raise SemanticAdmissionError(str(exception)) from exception
+stage17_semantic_verifier_v14.SemanticAdmissionError: transport identity ownership or permissions are unsafe
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<stdin>", line 10, in <module>
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/d298-continuation-2/stage17_q16c_qualified_continuation_v1.py", line 154, in admit
+    validation = cli._validation(Path(c['repository_root']), E,
+        pilot_archive=Path(c['archive']['path']), pilot_sidecar=Path(c['sidecar']['path']))
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_operational_cli_daycap_v2.py", line 407, in _validation
+    return journal.validate_operational_journal(repository_root=repository_root, evidence_root=evidence_root,
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        latest_journal=base.latest_journal(evidence_root), journal_directory=evidence_root / "journal",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        pilot_archive=pilot_archive, pilot_sidecar=pilot_sidecar,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        as_of_utc=controller.support._now(), allow_synthetic_test_evidence=synthetic)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_state_journal_v60.py", line 42, in validate_operational_journal
+    return activate().validate_operational_journal(**arguments)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_state_journal_v12.py", line 506, in validate_operational_journal
+    resolutions = _resolutions(
+        repository_root=repository, evidence_root=evidence,
+    ...<3 lines>...
+        pilot_sidecar=pilot_sidecar, allow_synthetic=allow_synthetic_test_evidence,
+    )
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_state_journal_v12.py", line 388, in _resolutions
+    raise JournalError(str(exception)) from exception
+stage17_state_journal.JournalError: transport identity ownership or permissions are unsafe

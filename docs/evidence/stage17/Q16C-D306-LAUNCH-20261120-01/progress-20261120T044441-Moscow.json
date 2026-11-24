@@ -1,0 +1,21 @@
+{
+  "checked_at_utc": "2026-11-20T01:44:41.242105+00:00",
+  "checked_monotonic_ns": 1575615538959403,
+  "family_entry_count": 194,
+  "guard_value": "1",
+  "native_attempt_present": true,
+  "native_complete_checkpoints": 94,
+  "native_failed_checkpoints": 0,
+  "native_workers": [],
+  "raw_data_transferred": false,
+  "unit": {
+    "ActiveState": "active",
+    "ControlGroup": "/system.slice/cpu-prefetch-d306-v32-1.service",
+    "ExecMainExitTimestamp": "",
+    "ExecMainStartTimestamp": "Fri 2026-11-20 01:42:00 MSK",
+    "ExecMainStatus": "0",
+    "InvocationID": "e4f77499ffd849a3ac8daec1b7094adb",
+    "MainPID": "353041",
+    "SubState": "running"
+  }
+}

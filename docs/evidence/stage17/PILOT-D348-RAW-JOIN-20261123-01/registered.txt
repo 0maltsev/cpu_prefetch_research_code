@@ -1,0 +1,18 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+    Start 616: runner.formal_scheduled_capture_validation_v2
+1/3 Test #616: runner.formal_scheduled_capture_validation_v2 ...   Passed    0.59 sec
+    Start 684: runner.s180_tail_numerics_v1
+2/3 Test #684: runner.s180_tail_numerics_v1 ....................   Passed    2.24 sec
+    Start 685: runner.s180_raw_join_v1
+3/3 Test #685: runner.s180_raw_join_v1 .........................   Passed    0.21 sec
+
+100% tests passed, 0 tests failed out of 3
+
+Label Time Summary:
+archive      =   0.59 sec*proc (1 test)
+pilot        =   2.45 sec*proc (2 tests)
+python       =   3.04 sec*proc (3 tests)
+runner       =   3.04 sec*proc (3 tests)
+synthetic    =   2.45 sec*proc (2 tests)
+
+Total Test time (real) =   3.05 sec

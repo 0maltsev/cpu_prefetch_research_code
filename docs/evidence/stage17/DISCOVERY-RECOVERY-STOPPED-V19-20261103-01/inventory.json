@@ -1,0 +1,117 @@
+[
+  {
+    "path": "README.md",
+    "size_bytes": 2473,
+    "sha256": "ee3bc0c2a18398b0897773fab0814a066ba07c561529efc18b0f5a9279f257b9"
+  },
+  {
+    "path": "check_copy_r2_outputs.py",
+    "size_bytes": 10057,
+    "sha256": "902dea68f05201cbd6d85e4e30fcd86200b5a2a3149d139174c4444c0d5dbe89"
+  },
+  {
+    "path": "copy_r2_outputs.py",
+    "size_bytes": 15362,
+    "sha256": "9d1785d772356d4a88044587b5f9b9e983ba2af88edd21896b382acc37aa908a"
+  },
+  {
+    "path": "inventory-r2-after-quiescence.py",
+    "size_bytes": 3743,
+    "sha256": "f12f11064fe9ab038e06fd14343e06ff90bd6a0fa18b602d1c7f8f0dbc0a3239"
+  },
+  {
+    "path": "originals/operator/discovery-child-pid-r2-1.json",
+    "size_bytes": 91,
+    "sha256": "c634b70b5e66bad3eb9a01c02ccdedebe71bf8768ac58b2613fb975c826e31a4"
+  },
+  {
+    "path": "originals/operator/discovery-isolation-r2-1/isolation-verified.json",
+    "size_bytes": 816,
+    "sha256": "008259adae52cb2123476ed4b9f4e8de342afc856f912fc23abfc7d84f9a1d64"
+  },
+  {
+    "path": "originals/operator/discovery-isolation-r2-1/prestate.json",
+    "size_bytes": 4572,
+    "sha256": "bd279532df0436e52168b4584db62e02a579faf040c70cee37b82850f73547b5"
+  },
+  {
+    "path": "originals/operator/discovery-isolation-r2-1/restoration.json",
+    "size_bytes": 332,
+    "sha256": "74da90d7d68672cc25892ee7b9f00b602ab1e012ad35c1136c1177240d9dcafb"
+  },
+  {
+    "path": "originals/operator/discovery-launch-intent-r2-1.json",
+    "size_bytes": 5206,
+    "sha256": "dc5bf30d2fea1f51858032366f576bf62b5e0edb5e66ec23a306ed7396910658"
+  },
+  {
+    "path": "originals/operator/discovery-launch-readback-r2-1.json",
+    "size_bytes": 4559,
+    "sha256": "9650887b69c414240102ce197eb0c7229335b99bca6222bfa1c90fe07d829d0f"
+  },
+  {
+    "path": "originals/operator/discovery-session-r2-1.log",
+    "size_bytes": 3090,
+    "sha256": "ea979200456a981b7ad04169b445afc6f96bb2059df3feeb849f195fa4fa781a"
+  },
+  {
+    "path": "originals/operator/discovery-supervisor-pid-r2-1.json",
+    "size_bytes": 64,
+    "sha256": "000eba4300c533049690e7d99c4efd63ea56fb104abeae181855962ca5875543"
+  },
+  {
+    "path": "originals/operator/discovery-supervisor-prelaunch-r2-1.json",
+    "size_bytes": 3017,
+    "sha256": "fe696041e4b97c63851021c104da032c93302e622505b24abda24f5e15e237c1"
+  },
+  {
+    "path": "originals/operator/discovery-supervisor-result-r2-1.json",
+    "size_bytes": 551,
+    "sha256": "e115a9dd37755998c569a703413dd2b6363b31f44eabab581c451df7e42b08a5"
+  },
+  {
+    "path": "originals/operator/signed-authority/authorization.json",
+    "size_bytes": 2661,
+    "sha256": "e8346026753d9b2cb7b04dba78689af1cf3cdf8d41f7d7ace89ddd4f02a29c9c"
+  },
+  {
+    "path": "originals/operator/signed-authority/authorization.json.sig",
+    "size_bytes": 322,
+    "sha256": "71000d85a7ee828f975b0a139d7e4063141e04bbde93cb9179a4deb8db7c5a6a"
+  },
+  {
+    "path": "originals/operator/signed-authority/request.json",
+    "size_bytes": 1900528,
+    "sha256": "5c2da9d3712bd7051706f8ce4767d280438d1765354d7133aeaecd71cb75a871"
+  },
+  {
+    "path": "originals/stage17-q16a_duration_discovery-attempt-v5.json",
+    "size_bytes": 944,
+    "sha256": "81ddae882ce09d2cc71d8d3f2b4938c3e5e73adca20caa8b8f93cbb1b58cfd17"
+  },
+  {
+    "path": "originals/stage17-q16a_duration_discovery-failure-v5.json",
+    "size_bytes": 1099,
+    "sha256": "c428582fe416e35103d5bd4b9ec94fcf374e77ff5e6661d3af2baba02f14c247"
+  },
+  {
+    "path": "originals/stage17-q16a_duration_discovery-stderr-v5.bin",
+    "size_bytes": 165,
+    "sha256": "509d167313fe043e3a3aa3b1f4f0a3ca850e758a5703fd1014858dbf46be0f69"
+  },
+  {
+    "path": "r2-connectivity-recovery.json",
+    "size_bytes": 962,
+    "sha256": "d774e66b4508adadca6a8c43b91bf26cb1a0471295f48979d1bfa044bc47d3de"
+  },
+  {
+    "path": "r2-output-inventory-audit.json",
+    "size_bytes": 609,
+    "sha256": "1295663cce18f649fcac63ab77b3d44e4cf2edd159e7d342685bd3eba6552800"
+  },
+  {
+    "path": "r2-output-inventory.json",
+    "size_bytes": 2587089,
+    "sha256": "c6666c71165e3f1afbf51316d35d833e005f84396048ab7df112dab182a31b17"
+  }
+]

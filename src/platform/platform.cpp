@@ -154,7 +154,208 @@ void require_text(std::vector<Error>& errors, std::string_view value, std::strin
          });
 }
 
+[[nodiscard]] auto prefetch_error(ErrorCategory category, std::string rule,
+                                  std::string message) -> Error {
+  return make_error(category, "$hardware_prefetch", std::move(rule),
+                    std::move(message));
+}
+
+[[nodiscard]] auto find_msr_value(std::span<const HardwarePrefetchMsrValue> values,
+                                  std::uint32_t cpu)
+    -> const HardwarePrefetchMsrValue* {
+  const auto position =
+      std::find_if(values.begin(), values.end(),
+                   [cpu](const auto& value) { return value.cpu == cpu; });
+  return position == values.end() ? nullptr : &*position;
+}
+
 } // namespace
+
+auto find_hardware_prefetch_mapping(CpuFamilyModel identity)
+    -> std::optional<HardwarePrefetchMapping> {
+  for (const auto& mapping : kHardwarePrefetchMappings) {
+    if (mapping.family == identity.family && mapping.model == identity.model) {
+      return mapping;
+    }
+  }
+  return std::nullopt;
+}
+
+auto is_accepted_hardware_prefetch_mapping_id(std::string_view mapping_id) -> bool {
+  return std::any_of(
+      kHardwarePrefetchMappings.begin(), kHardwarePrefetchMappings.end(),
+      [mapping_id](const auto& mapping) { return mapping.mapping_id == mapping_id; });
+}
+
+auto make_hardware_prefetch_plan(CpuFamilyModel identity,
+                                 protocol::RequestedHardwareState requested_state,
+                                 std::span<const HardwarePrefetchMsrValue> prestate)
+    -> Result<HardwarePrefetchPlan> {
+  std::vector<Error> errors;
+  const auto mapping = find_hardware_prefetch_mapping(identity);
+  if (!mapping) {
+    errors.push_back(prefetch_error(ErrorCategory::unsupported_control,
+                                    "HWP-CPUID-UNREGISTERED",
+                                    "hardware-prefetch mapping has no registered entry "
+                                    "for this CPUID family/model"));
+    return Result<HardwarePrefetchPlan>::failure(std::move(errors));
+  }
+  if (!mapping->control_cpus.has_value()) {
+    errors.push_back(prefetch_error(
+        ErrorCategory::unsupported_control, "HWP-CPU-SET-UNASSIGNED",
+        "mapping " + std::string(mapping->mapping_id) +
+            " has no accepted CPU set yet; a separate pair-identity ADR (the "
+            "same kind ADR-0043 provided for 06_55H) is required for this CPU "
+            "model before any prestate or control request can be accepted"));
+    return Result<HardwarePrefetchPlan>::failure(std::move(errors));
+  }
+  const auto& control_cpus = *mapping->control_cpus;
+  if (requested_state != protocol::RequestedHardwareState::h0 &&
+      requested_state != protocol::RequestedHardwareState::h1) {
+    errors.push_back(prefetch_error(ErrorCategory::invalid_request, "HWP-STATE",
+                                    "only registered H0 and H1 are accepted"));
+  }
+  if (prestate.size() != control_cpus.size()) {
+    errors.push_back(
+        prefetch_error(ErrorCategory::missing_evidence, "HWP-PRESTATE-COUNT",
+                       "a complete 64-bit prestate is required for every CPU "
+                       "in the accepted set"));
+  }
+  for (const auto cpu : control_cpus) {
+    const auto matches = static_cast<std::size_t>(
+        std::count_if(prestate.begin(), prestate.end(),
+                      [cpu](const auto& value) { return value.cpu == cpu; }));
+    if (matches != 1U) {
+      errors.push_back(
+          prefetch_error(ErrorCategory::missing_evidence, "HWP-PRESTATE-CPU-UNIQUE",
+                         "each selected CPU must have exactly one complete prestate"));
+    }
+  }
+  for (const auto& value : prestate) {
+    if (std::find(control_cpus.begin(), control_cpus.end(), value.cpu) ==
+        control_cpus.end()) {
+      errors.push_back(
+          prefetch_error(ErrorCategory::invalid_request, "HWP-CPU-WHITELIST",
+                         "prestate contains a CPU outside the accepted set"));
+    }
+  }
+  if (!errors.empty()) {
+    return Result<HardwarePrefetchPlan>::failure(std::move(errors));
+  }
+
+  HardwarePrefetchPlan plan{
+      identity,
+      requested_state,
+      std::vector<HardwarePrefetchMsrValue>(prestate.begin(), prestate.end()),
+      {},
+      requested_state == protocol::RequestedHardwareState::h1};
+  plan.requested.reserve(control_cpus.size());
+  for (const auto cpu : control_cpus) {
+    const auto* prior = find_msr_value(prestate, cpu);
+    const auto requested = requested_state == protocol::RequestedHardwareState::h1
+                               ? prior->value | kHardwarePrefetchDisableMask
+                               : prior->value;
+    if (requested_state == protocol::RequestedHardwareState::h1 &&
+        requested == prior->value) {
+      errors.push_back(prefetch_error(
+          ErrorCategory::unsupported_control, "HWP-H0-H1-COLLAPSE",
+          "H1 cannot differ from the observed H0 prestate on one selected CPU"));
+    }
+    plan.requested.push_back({cpu, requested});
+  }
+  if (!errors.empty()) {
+    return Result<HardwarePrefetchPlan>::failure(std::move(errors));
+  }
+  return Result<HardwarePrefetchPlan>::success(std::move(plan));
+}
+
+auto qualify_hardware_prefetch_plan(const HardwarePrefetchPlan& plan,
+                                    HardwarePrefetchMsrBackend& writer,
+                                    HardwarePrefetchMsrBackend& independent_verifier,
+                                    HardwarePrefetchProbeInput probes)
+    -> HardwarePrefetchTransactionReport {
+  HardwarePrefetchTransactionReport report{};
+  const auto add_error = [&](ErrorCategory category, std::string rule,
+                             std::string message) {
+    report.errors.push_back(
+        prefetch_error(category, std::move(rule), std::move(message)));
+  };
+  if (writer.backend_id().empty() || independent_verifier.backend_id().empty() ||
+      writer.backend_id() == independent_verifier.backend_id()) {
+    add_error(ErrorCategory::invalid_request, "HWP-INDEPENDENT-VERIFY",
+              "writer and verifier must be distinct named backends");
+    return report;
+  }
+  const auto validated =
+      make_hardware_prefetch_plan(plan.identity, plan.requested_state, plan.prestate);
+  if (!validated || plan.requested != validated.value().requested ||
+      plan.mutating != validated.value().mutating) {
+    add_error(ErrorCategory::invalid_request, "HWP-PLAN-EXACT",
+              "transaction plan must equal the narrow accepted mapping");
+    return report;
+  }
+
+  std::vector<std::uint32_t> written;
+  bool apply_ok = true;
+  for (const auto& requested : plan.requested) {
+    if (plan.mutating) {
+      const auto write = writer.write(requested.cpu, requested.value);
+      if (!write.succeeded) {
+        add_error(write.failure_category.value_or(ErrorCategory::apply_failure),
+                  "HWP-APPLY", "authorized exact H1 write failed");
+        apply_ok = false;
+        break;
+      }
+      written.push_back(requested.cpu);
+    }
+    const auto observed = independent_verifier.read(requested.cpu);
+    if (!observed || observed.value() != requested.value) {
+      add_error(ErrorCategory::verification_mismatch, "HWP-READBACK",
+                "independent complete-value readback did not match request");
+      apply_ok = false;
+      break;
+    }
+    report.apply_readback.push_back({requested.cpu, observed.value()});
+  }
+  report.applied = apply_ok && (!plan.mutating ||
+                                written.size() == kHardwarePrefetchControlCpus.size());
+  report.verified =
+      apply_ok && report.apply_readback.size() == kHardwarePrefetchControlCpus.size();
+  report.probes_passed =
+      report.verified && probes.regular_stream_passed && probes.pointer_stream_passed;
+  if (report.verified && !report.probes_passed) {
+    add_error(ErrorCategory::verification_mismatch, "HWP-PROBES",
+              "regular and pointer-stream probes must both pass");
+  }
+
+  if (!plan.mutating) {
+    report.restored = true;
+    return report;
+  }
+
+  bool restoration_ok = true;
+  for (auto position = written.rbegin(); position != written.rend(); ++position) {
+    const auto* prior = find_msr_value(plan.prestate, *position);
+    const auto restored = writer.write(*position, prior->value);
+    if (!restored.succeeded) {
+      restoration_ok = false;
+      add_error(ErrorCategory::restoration_failure, "HWP-RESTORE-WRITE",
+                "exact complete-value restoration write failed");
+      continue;
+    }
+    const auto observed = independent_verifier.read(*position);
+    if (!observed || observed.value() != prior->value) {
+      restoration_ok = false;
+      add_error(ErrorCategory::restoration_failure, "HWP-RESTORE-READBACK",
+                "independent restoration readback did not match prestate");
+      continue;
+    }
+    report.restore_readback.push_back({*position, observed.value()});
+  }
+  report.restored = restoration_ok && report.restore_readback.size() == written.size();
+  report.quarantined = !report.restored;
+  return report;
+}
 
 auto to_string(ErrorCategory category) -> std::string_view {
   switch (category) {

@@ -1,0 +1,37 @@
+{
+  "analysis_deadline_utc": "2026-11-20T02:40:18.433160+00:00",
+  "analysis_intent": {
+    "deadline_monotonic_ns": 1578952729990390,
+    "execution_authority": false,
+    "kind": "SUFFIX94",
+    "per_capture_seconds": 300,
+    "phase18_authority": false,
+    "physical_cpus": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "retained_failed_scratch_bytes": 37485663884,
+    "scratch_bytes": 77880833288,
+    "started_monotonic_ns": 1575352729990390,
+    "worker_count": 12
+  },
+  "checked_at_utc": "2026-11-20T01:45:35.656536+00:00",
+  "composition_finalization_present": false,
+  "failed_process_receipts": [],
+  "process_receipts": [],
+  "raw_data_transferred": false,
+  "remaining_analysis_seconds": 3282.776623879,
+  "report_count": 0,
+  "scientific_completion_present": false,
+  "valid_reaped_process_count": 0
+}

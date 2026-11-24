@@ -1,0 +1,1835 @@
+{
+  "admission_sha256": "ae5ab7f2ee13740cd539ccaa5aea9acd034dd0a3e8bbfa46ea2b22dc8dd765d3",
+  "analysis_location": "stand",
+  "analysis_workers": 16,
+  "authorization_sha256": "fa9443d7af1b6b35f36d0b0c21e22f9bfcc7a10e6d7b6f1614bb2d4d305421c6",
+  "correction_decision_sha256": "55b4e21c3f10d7321dfa1162c748f5bd35bfc22cacfa506d5378d7088e56060a",
+  "custody_policy_id": "EXT007-RAW-NONE-STAND-PRIMARY-v1",
+  "d206_acceptance_sha256": "caa447f368053076b23cf296185cebe93c4318e93dcf99fd7480c89314b143c7",
+  "d206_proposal_sha256": "c1d4d9cd0ec53b3aea9a4d8dd7b13c7b3f73552f1b475a4476b3b8a6ca10b92f",
+  "execution_authority": false,
+  "finished_at_utc": "2026-11-03T19:32:19.164008+00:00",
+  "formal_runs_contributed": 0,
+  "implementation_sha256": {
+    "analysis/stage17_discovery_validation_parallel_v2.py": "07a4bba1379c686a8f31e42aadeb93200a8574d55c7a1ffaea7b92606a6303f7",
+    "analysis/stage17_discovery_validation_v3.py": "661613aedbc77fd538970b8c5e79a4bbaa3d2acb7f503cb802725239b25e94bf",
+    "tools/stage17_discovery_contract_v2.py": "edbb8eef431219815e8f4a9c4d84f1ad80658995a18af34a0f44ffbdb57cb7ca",
+    "tools/stage17_discovery_environment_v1.py": "75f12429addf06c0159c996374f2666fa38e6ac4ed512c6c0bc906a699551820",
+    "tools/stage17_operational_cli_v17.py": "164a23d36af1709e5f8683e9bc071eed67d0e1b7f36ef64e1d0e77e5cc34b99d",
+    "tools/stage17_output_registry_v10.py": "c492c512439770b407b2fc97dbfdfd34c88809f0252369f83e1204ca86e7875b",
+    "tools/stage17_q16a_discovery_v2.py": "7aa418ca1b871d62283a83dd97ec423ea3c39e2b695ff14d490c4848fb6fac9b",
+    "tools/stage17_raw_stream_decoder_v1.py": "6a393bbd7c6721f715cd7b23c5a5c59368365ad3e77d950f2337d52089bfcab3"
+  },
+  "independent_raw_backup": false,
+  "m_dur": 1,
+  "maximum_analysis_seconds": 86400,
+  "output_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-output-r3-1",
+  "parallel_adapter_sha256": "07a4bba1379c686a8f31e42aadeb93200a8574d55c7a1ffaea7b92606a6303f7",
+  "parallel_decision_sha256": "0e3fa34f972f6b36f3bbe9c83a5c7649350b63eead56075d4ba1a83d82d659d5",
+  "phase18_authority": false,
+  "plan_sha256": "b513b6a7592fe010bc9a4fa256a7b214252504920636b286ad1f0edb8bdb6fcf",
+  "previous_validation_sha256": "9566b0f1d384949fbb5bff453ae6228f91ecc7ff8ece4bcf155425cc8f249667",
+  "repository_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/admission-root",
+  "request_sha256": "94e15475dd2a6d418fa1fc988f56a118028478b77f209f518489f01f16eb3012",
+  "result_sha256": "1c06f680ec090b23c462af697d93aadf298dba4d68ec5cf04df01517274ad898",
+  "retention_binding": {
+    "file_name": "retention-report.json",
+    "sha256": "89c5ce6c123195aba3831cc62972bb7c671e07110aa2c051bcb59366c7ceddc0",
+    "size_bytes": 44282
+  },
+  "scope": "D207_D213_INDEPENDENT_VALIDATOR_V3",
+  "scratch_directory": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-d234-1/scratch",
+  "started_at_utc": "2026-11-03T17:55:17.416803+00:00",
+  "status": "FULL_STUDY_VALIDATED",
+  "successor_validator_sha256": "661613aedbc77fd538970b8c5e79a4bbaa3d2acb7f503cb802725239b25e94bf",
+  "supervisor_sha256": "e9bf48ce2020a4d0fb8c93f90d7330383882002bbb35715df3050b74d8c81bd0",
+  "validated_study": {
+    "captures": [
+      {
+        "counts": {
+          "consumer_demand": 3458683,
+          "consumer_issue": 2783225,
+          "producer_demand": 2783476,
+          "producer_issue": 2783225
+        },
+        "elapsed_ns": 1000000099,
+        "key": {
+          "context_ordinal": 0,
+          "duration_ns": 1000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 6534148,
+          "consumer_issue": 5629048,
+          "producer_demand": 5629199,
+          "producer_issue": 5629049
+        },
+        "elapsed_ns": 2000000128,
+        "key": {
+          "context_ordinal": 0,
+          "duration_ns": 2000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 17003761,
+          "consumer_issue": 14088476,
+          "producer_demand": 14088962,
+          "producer_issue": 14088477
+        },
+        "elapsed_ns": 5000000028,
+        "key": {
+          "context_ordinal": 0,
+          "duration_ns": 5000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 2797353,
+          "consumer_issue": 2797347,
+          "producer_demand": 3035689,
+          "producer_issue": 2862882
+        },
+        "elapsed_ns": 1000000121,
+        "key": {
+          "context_ordinal": 1,
+          "duration_ns": 1000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 5481538,
+          "consumer_issue": 5481533,
+          "producer_demand": 6029304,
+          "producer_issue": 5547068
+        },
+        "elapsed_ns": 2000000098,
+        "key": {
+          "context_ordinal": 1,
+          "duration_ns": 2000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 13504826,
+          "consumer_issue": 13504822,
+          "producer_demand": 14977760,
+          "producer_issue": 13570358
+        },
+        "elapsed_ns": 5000000028,
+        "key": {
+          "context_ordinal": 1,
+          "duration_ns": 5000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 2510836,
+          "consumer_issue": 2510828,
+          "producer_demand": 3163095,
+          "producer_issue": 3163094
+        },
+        "elapsed_ns": 1000000010,
+        "key": {
+          "context_ordinal": 2,
+          "duration_ns": 1000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 4951341,
+          "consumer_issue": 4951337,
+          "producer_demand": 6271035,
+          "producer_issue": 5999912
+        },
+        "elapsed_ns": 2000000214,
+        "key": {
+          "context_ordinal": 2,
+          "duration_ns": 2000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 11874237,
+          "consumer_issue": 11874230,
+          "producer_demand": 15403900,
+          "producer_issue": 12922806
+        },
+        "elapsed_ns": 5000000098,
+        "key": {
+          "context_ordinal": 2,
+          "duration_ns": 5000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 2469684,
+          "consumer_issue": 1858218,
+          "producer_demand": 1858220,
+          "producer_issue": 1858219
+        },
+        "elapsed_ns": 1000000287,
+        "key": {
+          "context_ordinal": 3,
+          "duration_ns": 1000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 5175119,
+          "consumer_issue": 3707112,
+          "producer_demand": 3707114,
+          "producer_issue": 3707113
+        },
+        "elapsed_ns": 2000000080,
+        "key": {
+          "context_ordinal": 3,
+          "duration_ns": 2000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 13013597,
+          "consumer_issue": 9420885,
+          "producer_demand": 9436764,
+          "producer_issue": 9420886
+        },
+        "elapsed_ns": 5000000205,
+        "key": {
+          "context_ordinal": 3,
+          "duration_ns": 5000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 3058684,
+          "consumer_issue": 2465291,
+          "producer_demand": 2465293,
+          "producer_issue": 2465292
+        },
+        "elapsed_ns": 1000000083,
+        "key": {
+          "context_ordinal": 4,
+          "duration_ns": 1000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 6064064,
+          "consumer_issue": 4654012,
+          "producer_demand": 4654014,
+          "producer_issue": 4654013
+        },
+        "elapsed_ns": 2000000074,
+        "key": {
+          "context_ordinal": 4,
+          "duration_ns": 2000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 15187902,
+          "consumer_issue": 11654527,
+          "producer_demand": 11654528,
+          "producer_issue": 11654527
+        },
+        "elapsed_ns": 5000000237,
+        "key": {
+          "context_ordinal": 4,
+          "duration_ns": 5000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 2308245,
+          "consumer_issue": 2308243,
+          "producer_demand": 3238530,
+          "producer_issue": 3238529
+        },
+        "elapsed_ns": 1000000138,
+        "key": {
+          "context_ordinal": 5,
+          "duration_ns": 1000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 4298628,
+          "consumer_issue": 4298626,
+          "producer_demand": 5729597,
+          "producer_issue": 5347202
+        },
+        "elapsed_ns": 2000000259,
+        "key": {
+          "context_ordinal": 5,
+          "duration_ns": 2000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 10144882,
+          "consumer_issue": 10144880,
+          "producer_demand": 12906032,
+          "producer_issue": 11193456
+        },
+        "elapsed_ns": 5000000119,
+        "key": {
+          "context_ordinal": 5,
+          "duration_ns": 5000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 2782902,
+          "consumer_issue": 2343664,
+          "producer_demand": 2343665,
+          "producer_issue": 2343664
+        },
+        "elapsed_ns": 1000000233,
+        "key": {
+          "context_ordinal": 6,
+          "duration_ns": 1000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 5521956,
+          "consumer_issue": 4704417,
+          "producer_demand": 4717976,
+          "producer_issue": 4704417
+        },
+        "elapsed_ns": 2000000042,
+        "key": {
+          "context_ordinal": 6,
+          "duration_ns": 2000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 13820648,
+          "consumer_issue": 11782690,
+          "producer_demand": 11796302,
+          "producer_issue": 11782690
+        },
+        "elapsed_ns": 5000000122,
+        "key": {
+          "context_ordinal": 6,
+          "duration_ns": 5000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 2444957,
+          "consumer_issue": 2390037,
+          "producer_demand": 2390039,
+          "producer_issue": 2390038
+        },
+        "elapsed_ns": 1000000123,
+        "key": {
+          "context_ordinal": 7,
+          "duration_ns": 1000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 4885152,
+          "consumer_issue": 4765495,
+          "producer_demand": 4765499,
+          "producer_issue": 4765498
+        },
+        "elapsed_ns": 2000000134,
+        "key": {
+          "context_ordinal": 7,
+          "duration_ns": 2000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 12055700,
+          "consumer_issue": 11946066,
+          "producer_demand": 11946068,
+          "producer_issue": 11946067
+        },
+        "elapsed_ns": 5000000235,
+        "key": {
+          "context_ordinal": 7,
+          "duration_ns": 5000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 2211453,
+          "consumer_issue": 2211445,
+          "producer_demand": 2388846,
+          "producer_issue": 2388845
+        },
+        "elapsed_ns": 1000000195,
+        "key": {
+          "context_ordinal": 8,
+          "duration_ns": 1000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 4393403,
+          "consumer_issue": 4393397,
+          "producer_demand": 4766026,
+          "producer_issue": 4766025
+        },
+        "elapsed_ns": 2000000172,
+        "key": {
+          "context_ordinal": 8,
+          "duration_ns": 2000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 11019186,
+          "consumer_issue": 11019180,
+          "producer_demand": 11914772,
+          "producer_issue": 11914771
+        },
+        "elapsed_ns": 5000000015,
+        "key": {
+          "context_ordinal": 8,
+          "duration_ns": 5000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 2840601,
+          "consumer_issue": 1876923,
+          "producer_demand": 1884070,
+          "producer_issue": 1876923
+        },
+        "elapsed_ns": 1000000188,
+        "key": {
+          "context_ordinal": 9,
+          "duration_ns": 1000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 5730808,
+          "consumer_issue": 3734944,
+          "producer_demand": 3752244,
+          "producer_issue": 3734944
+        },
+        "elapsed_ns": 2000000136,
+        "key": {
+          "context_ordinal": 9,
+          "duration_ns": 2000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 14093482,
+          "consumer_issue": 9411866,
+          "producer_demand": 9465240,
+          "producer_issue": 9411867
+        },
+        "elapsed_ns": 5000000291,
+        "key": {
+          "context_ordinal": 9,
+          "duration_ns": 5000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 2766361,
+          "consumer_issue": 1918698,
+          "producer_demand": 1918699,
+          "producer_issue": 1918698
+        },
+        "elapsed_ns": 1000000101,
+        "key": {
+          "context_ordinal": 10,
+          "duration_ns": 1000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 5501306,
+          "consumer_issue": 3784552,
+          "producer_demand": 3784554,
+          "producer_issue": 3784553
+        },
+        "elapsed_ns": 2000000086,
+        "key": {
+          "context_ordinal": 10,
+          "duration_ns": 2000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 13795691,
+          "consumer_issue": 9503212,
+          "producer_demand": 9503214,
+          "producer_issue": 9503213
+        },
+        "elapsed_ns": 5000000128,
+        "key": {
+          "context_ordinal": 10,
+          "duration_ns": 5000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 2036848,
+          "consumer_issue": 2036846,
+          "producer_demand": 2409737,
+          "producer_issue": 2409736
+        },
+        "elapsed_ns": 1000000206,
+        "key": {
+          "context_ordinal": 11,
+          "duration_ns": 1000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 4076754,
+          "consumer_issue": 4076752,
+          "producer_demand": 4846134,
+          "producer_issue": 4846133
+        },
+        "elapsed_ns": 2000000180,
+        "key": {
+          "context_ordinal": 11,
+          "duration_ns": 2000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      },
+      {
+        "counts": {
+          "consumer_demand": 9646954,
+          "consumer_issue": 9646951,
+          "producer_demand": 11001462,
+          "producer_issue": 10695526
+        },
+        "elapsed_ns": 5000000288,
+        "key": {
+          "context_ordinal": 11,
+          "duration_ns": 5000000000
+        },
+        "stop_reason": "FIXED_DEADLINE",
+        "validity_failures": []
+      }
+    ],
+    "diagnostic_only": true,
+    "execution_authority": false,
+    "formal_runs_contributed": 0,
+    "phase_counts": [
+      [
+        {
+          "accepted": 13999957,
+          "attempted": 14000417,
+          "capacity_limited": false,
+          "consumed": 13999957,
+          "counts": {
+            "consumer_demand": 18019989,
+            "consumer_issue": 13999955,
+            "producer_demand": 14000417,
+            "producer_issue": 13999956
+          },
+          "drain_begin_tick": 15555444666000,
+          "drain_end_tick": 15555446889000,
+          "elapsed_ns": 5000000117,
+          "full": 460
+        },
+        {
+          "accepted": 2783226,
+          "attempted": 2783476,
+          "capacity_limited": false,
+          "consumed": 2783226,
+          "counts": {
+            "consumer_demand": 3458683,
+            "consumer_issue": 2783225,
+            "producer_demand": 2783476,
+            "producer_issue": 2783225
+          },
+          "drain_begin_tick": 19954287654000,
+          "drain_end_tick": 19954288627000,
+          "elapsed_ns": 1000000099,
+          "full": 250
+        }
+      ],
+      [
+        {
+          "accepted": 14015051,
+          "attempted": 14015673,
+          "capacity_limited": false,
+          "consumed": 14015051,
+          "counts": {
+            "consumer_demand": 17331024,
+            "consumer_issue": 14015050,
+            "producer_demand": 14015673,
+            "producer_issue": 14015050
+          },
+          "drain_begin_tick": 15537844782000,
+          "drain_end_tick": 15537845353000,
+          "elapsed_ns": 5000000036,
+          "full": 622
+        },
+        {
+          "accepted": 5629050,
+          "attempted": 5629199,
+          "capacity_limited": false,
+          "consumed": 5629050,
+          "counts": {
+            "consumer_demand": 6534148,
+            "consumer_issue": 5629048,
+            "producer_demand": 5629199,
+            "producer_issue": 5629049
+          },
+          "drain_begin_tick": 21358481380000,
+          "drain_end_tick": 21358483156000,
+          "elapsed_ns": 2000000128,
+          "full": 149
+        }
+      ],
+      [
+        {
+          "accepted": 14154894,
+          "attempted": 14155573,
+          "capacity_limited": false,
+          "consumed": 14154894,
+          "counts": {
+            "consumer_demand": 17813896,
+            "consumer_issue": 14154892,
+            "producer_demand": 14155573,
+            "producer_issue": 14154893
+          },
+          "drain_begin_tick": 15529515676000,
+          "drain_end_tick": 15529517371000,
+          "elapsed_ns": 5000000014,
+          "full": 679
+        },
+        {
+          "accepted": 14088478,
+          "attempted": 14088962,
+          "capacity_limited": false,
+          "consumed": 14088478,
+          "counts": {
+            "consumer_demand": 17003761,
+            "consumer_issue": 14088476,
+            "producer_demand": 14088962,
+            "producer_issue": 14088477
+          },
+          "drain_begin_tick": 25624094772000,
+          "drain_end_tick": 25624096702000,
+          "elapsed_ns": 5000000028,
+          "full": 484
+        }
+      ],
+      [
+        {
+          "accepted": 14778513,
+          "attempted": 15249766,
+          "capacity_limited": false,
+          "consumed": 14778513,
+          "counts": {
+            "consumer_demand": 14712988,
+            "consumer_issue": 14712985,
+            "producer_demand": 15249766,
+            "producer_issue": 14778512
+          },
+          "drain_begin_tick": 15933448450000,
+          "drain_end_tick": 15956652262000,
+          "elapsed_ns": 5000000067,
+          "full": 471253
+        },
+        {
+          "accepted": 2862883,
+          "attempted": 3035689,
+          "capacity_limited": false,
+          "consumed": 2862883,
+          "counts": {
+            "consumer_demand": 2797353,
+            "consumer_issue": 2797347,
+            "producer_demand": 3035689,
+            "producer_issue": 2862882
+          },
+          "drain_begin_tick": 20781029714000,
+          "drain_end_tick": 20803408088000,
+          "elapsed_ns": 1000000121,
+          "full": 172806
+        }
+      ],
+      [
+        {
+          "accepted": 14065188,
+          "attempted": 14987687,
+          "capacity_limited": false,
+          "consumed": 14065188,
+          "counts": {
+            "consumer_demand": 13999654,
+            "consumer_issue": 13999652,
+            "producer_demand": 14987687,
+            "producer_issue": 14065187
+          },
+          "drain_begin_tick": 16062718036000,
+          "drain_end_tick": 16086038726000,
+          "elapsed_ns": 5000000006,
+          "full": 922499
+        },
+        {
+          "accepted": 5547069,
+          "attempted": 6029304,
+          "capacity_limited": false,
+          "consumed": 5547069,
+          "counts": {
+            "consumer_demand": 5481538,
+            "consumer_issue": 5481533,
+            "producer_demand": 6029304,
+            "producer_issue": 5547068
+          },
+          "drain_begin_tick": 22556455688000,
+          "drain_end_tick": 22578854137000,
+          "elapsed_ns": 2000000098,
+          "full": 482235
+        }
+      ],
+      [
+        {
+          "accepted": 13813267,
+          "attempted": 14971696,
+          "capacity_limited": false,
+          "consumed": 13813267,
+          "counts": {
+            "consumer_demand": 13747734,
+            "consumer_issue": 13747731,
+            "producer_demand": 14971696,
+            "producer_issue": 13813266
+          },
+          "drain_begin_tick": 16113551306000,
+          "drain_end_tick": 16137060828000,
+          "elapsed_ns": 5000000154,
+          "full": 1158429
+        },
+        {
+          "accepted": 13570359,
+          "attempted": 14977760,
+          "capacity_limited": false,
+          "consumed": 13570359,
+          "counts": {
+            "consumer_demand": 13504826,
+            "consumer_issue": 13504822,
+            "producer_demand": 14977760,
+            "producer_issue": 13570358
+          },
+          "drain_begin_tick": 27121788444000,
+          "drain_end_tick": 27144292141000,
+          "elapsed_ns": 5000000028,
+          "full": 1407401
+        }
+      ],
+      [
+        {
+          "accepted": 13039696,
+          "attempted": 15387550,
+          "capacity_limited": false,
+          "consumed": 13039696,
+          "counts": {
+            "consumer_demand": 11991123,
+            "consumer_issue": 11991119,
+            "producer_demand": 15387550,
+            "producer_issue": 13039695
+          },
+          "drain_begin_tick": 16956540212000,
+          "drain_end_tick": 17359899762000,
+          "elapsed_ns": 5000000141,
+          "full": 2347854
+        },
+        {
+          "accepted": 3163095,
+          "attempted": 3163095,
+          "capacity_limited": false,
+          "consumed": 3163095,
+          "counts": {
+            "consumer_demand": 2510836,
+            "consumer_issue": 2510828,
+            "producer_demand": 3163095,
+            "producer_issue": 3163094
+          },
+          "drain_begin_tick": 23384065056000,
+          "drain_end_tick": 23626270635000,
+          "elapsed_ns": 1000000010,
+          "full": 0
+        }
+      ],
+      [
+        {
+          "accepted": 13037249,
+          "attempted": 15378869,
+          "capacity_limited": false,
+          "consumed": 13037249,
+          "counts": {
+            "consumer_demand": 11988675,
+            "consumer_issue": 11988672,
+            "producer_demand": 15378869,
+            "producer_issue": 13037248
+          },
+          "drain_begin_tick": 17253562567000,
+          "drain_end_tick": 17657158187000,
+          "elapsed_ns": 5000000202,
+          "full": 2341620
+        },
+        {
+          "accepted": 5999913,
+          "attempted": 6271035,
+          "capacity_limited": false,
+          "consumed": 5999913,
+          "counts": {
+            "consumer_demand": 4951341,
+            "consumer_issue": 4951337,
+            "producer_demand": 6271035,
+            "producer_issue": 5999912
+          },
+          "drain_begin_tick": 25622450851000,
+          "drain_end_tick": 26011175969000,
+          "elapsed_ns": 2000000214,
+          "full": 271122
+        }
+      ],
+      [
+        {
+          "accepted": 13040744,
+          "attempted": 15373980,
+          "capacity_limited": false,
+          "consumed": 13040744,
+          "counts": {
+            "consumer_demand": 11992169,
+            "consumer_issue": 11992167,
+            "producer_demand": 15373980,
+            "producer_issue": 13040743
+          },
+          "drain_begin_tick": 17303657086000,
+          "drain_end_tick": 17706510411000,
+          "elapsed_ns": 5000000295,
+          "full": 2333236
+        },
+        {
+          "accepted": 12922807,
+          "attempted": 15403900,
+          "capacity_limited": false,
+          "consumed": 12922807,
+          "counts": {
+            "consumer_demand": 11874237,
+            "consumer_issue": 11874230,
+            "producer_demand": 15403900,
+            "producer_issue": 12922806
+          },
+          "drain_begin_tick": 30614372490000,
+          "drain_end_tick": 31002862284000,
+          "elapsed_ns": 5000000098,
+          "full": 2481093
+        }
+      ],
+      [
+        {
+          "accepted": 9447582,
+          "attempted": 9451945,
+          "capacity_limited": false,
+          "consumed": 9447582,
+          "counts": {
+            "consumer_demand": 14274457,
+            "consumer_issue": 9447580,
+            "producer_demand": 9451945,
+            "producer_issue": 9447581
+          },
+          "drain_begin_tick": 13939701066000,
+          "drain_end_tick": 13939703578000,
+          "elapsed_ns": 5000000184,
+          "full": 4363
+        },
+        {
+          "accepted": 1858220,
+          "attempted": 1858220,
+          "capacity_limited": false,
+          "consumed": 1858220,
+          "counts": {
+            "consumer_demand": 2469684,
+            "consumer_issue": 1858218,
+            "producer_demand": 1858220,
+            "producer_issue": 1858219
+          },
+          "drain_begin_tick": 17703691001000,
+          "drain_end_tick": 17703694136000,
+          "elapsed_ns": 1000000287,
+          "full": 0
+        }
+      ],
+      [
+        {
+          "accepted": 9519540,
+          "attempted": 9519540,
+          "capacity_limited": false,
+          "consumed": 9519540,
+          "counts": {
+            "consumer_demand": 14239494,
+            "consumer_issue": 9519539,
+            "producer_demand": 9519540,
+            "producer_issue": 9519539
+          },
+          "drain_begin_tick": 13942578453000,
+          "drain_end_tick": 13942579112000,
+          "elapsed_ns": 5000000256,
+          "full": 0
+        },
+        {
+          "accepted": 3707114,
+          "attempted": 3707114,
+          "capacity_limited": false,
+          "consumed": 3707114,
+          "counts": {
+            "consumer_demand": 5175119,
+            "consumer_issue": 3707112,
+            "producer_demand": 3707114,
+            "producer_issue": 3707113
+          },
+          "drain_begin_tick": 18989093508000,
+          "drain_end_tick": 18989096650000,
+          "elapsed_ns": 2000000080,
+          "full": 0
+        }
+      ],
+      [
+        {
+          "accepted": 9589551,
+          "attempted": 9597949,
+          "capacity_limited": false,
+          "consumed": 9589551,
+          "counts": {
+            "consumer_demand": 14420999,
+            "consumer_issue": 9589549,
+            "producer_demand": 9597949,
+            "producer_issue": 9589550
+          },
+          "drain_begin_tick": 13946714734000,
+          "drain_end_tick": 13946716914000,
+          "elapsed_ns": 5000000074,
+          "full": 8398
+        },
+        {
+          "accepted": 9420887,
+          "attempted": 9436764,
+          "capacity_limited": false,
+          "consumed": 9420887,
+          "counts": {
+            "consumer_demand": 13013597,
+            "consumer_issue": 9420885,
+            "producer_demand": 9436764,
+            "producer_issue": 9420886
+          },
+          "drain_begin_tick": 22868337713000,
+          "drain_end_tick": 22868340941000,
+          "elapsed_ns": 5000000205,
+          "full": 15877
+        }
+      ],
+      [
+        {
+          "accepted": 12085617,
+          "attempted": 12085617,
+          "capacity_limited": false,
+          "consumed": 12085617,
+          "counts": {
+            "consumer_demand": 15703221,
+            "consumer_issue": 12085616,
+            "producer_demand": 12085617,
+            "producer_issue": 12085616
+          },
+          "drain_begin_tick": 14556865318000,
+          "drain_end_tick": 14556866625000,
+          "elapsed_ns": 5000000093,
+          "full": 0
+        },
+        {
+          "accepted": 2465293,
+          "attempted": 2465293,
+          "capacity_limited": false,
+          "consumed": 2465293,
+          "counts": {
+            "consumer_demand": 3058684,
+            "consumer_issue": 2465291,
+            "producer_demand": 2465293,
+            "producer_issue": 2465292
+          },
+          "drain_begin_tick": 19037558596000,
+          "drain_end_tick": 19037562294000,
+          "elapsed_ns": 1000000083,
+          "full": 0
+        }
+      ],
+      [
+        {
+          "accepted": 11767812,
+          "attempted": 11767812,
+          "capacity_limited": false,
+          "consumed": 11767812,
+          "counts": {
+            "consumer_demand": 15649819,
+            "consumer_issue": 11767811,
+            "producer_demand": 11767812,
+            "producer_issue": 11767811
+          },
+          "drain_begin_tick": 14531771487000,
+          "drain_end_tick": 14531772763000,
+          "elapsed_ns": 5000000071,
+          "full": 0
+        },
+        {
+          "accepted": 4654014,
+          "attempted": 4654014,
+          "capacity_limited": false,
+          "consumed": 4654014,
+          "counts": {
+            "consumer_demand": 6064064,
+            "consumer_issue": 4654012,
+            "producer_demand": 4654014,
+            "producer_issue": 4654013
+          },
+          "drain_begin_tick": 20361343417000,
+          "drain_end_tick": 20361347206000,
+          "elapsed_ns": 2000000074,
+          "full": 0
+        }
+      ],
+      [
+        {
+          "accepted": 11797499,
+          "attempted": 11797499,
+          "capacity_limited": false,
+          "consumed": 11797499,
+          "counts": {
+            "consumer_demand": 15670359,
+            "consumer_issue": 11797497,
+            "producer_demand": 11797499,
+            "producer_issue": 11797498
+          },
+          "drain_begin_tick": 14567821976000,
+          "drain_end_tick": 14567824598000,
+          "elapsed_ns": 5000000018,
+          "full": 0
+        },
+        {
+          "accepted": 11654528,
+          "attempted": 11654528,
+          "capacity_limited": false,
+          "consumed": 11654528,
+          "counts": {
+            "consumer_demand": 15187902,
+            "consumer_issue": 11654527,
+            "producer_demand": 11654528,
+            "producer_issue": 11654527
+          },
+          "drain_begin_tick": 24583189157000,
+          "drain_end_tick": 24583190999000,
+          "elapsed_ns": 5000000237,
+          "full": 0
+        }
+      ],
+      [
+        {
+          "accepted": 11319726,
+          "attempted": 12829227,
+          "capacity_limited": false,
+          "consumed": 11319726,
+          "counts": {
+            "consumer_demand": 10271150,
+            "consumer_issue": 10271149,
+            "producer_demand": 12829227,
+            "producer_issue": 11319725
+          },
+          "drain_begin_tick": 16480808680000,
+          "drain_end_tick": 16930067774000,
+          "elapsed_ns": 5000000326,
+          "full": 1509501
+        },
+        {
+          "accepted": 3238530,
+          "attempted": 3238530,
+          "capacity_limited": false,
+          "consumed": 3238530,
+          "counts": {
+            "consumer_demand": 2308245,
+            "consumer_issue": 2308243,
+            "producer_demand": 3238530,
+            "producer_issue": 3238529
+          },
+          "drain_begin_tick": 23540128368000,
+          "drain_end_tick": 23974473386000,
+          "elapsed_ns": 1000000138,
+          "full": 0
+        }
+      ],
+      [
+        {
+          "accepted": 11316634,
+          "attempted": 12825531,
+          "capacity_limited": false,
+          "consumed": 11316634,
+          "counts": {
+            "consumer_demand": 10268058,
+            "consumer_issue": 10268057,
+            "producer_demand": 12825531,
+            "producer_issue": 11316633
+          },
+          "drain_begin_tick": 16405300378000,
+          "drain_end_tick": 16855640961000,
+          "elapsed_ns": 5000000453,
+          "full": 1508897
+        },
+        {
+          "accepted": 5347203,
+          "attempted": 5729597,
+          "capacity_limited": false,
+          "consumed": 5347203,
+          "counts": {
+            "consumer_demand": 4298628,
+            "consumer_issue": 4298626,
+            "producer_demand": 5729597,
+            "producer_issue": 5347202
+          },
+          "drain_begin_tick": 25104813569000,
+          "drain_end_tick": 25599552931000,
+          "elapsed_ns": 2000000259,
+          "full": 382394
+        }
+      ],
+      [
+        {
+          "accepted": 11323426,
+          "attempted": 12833318,
+          "capacity_limited": false,
+          "consumed": 11323426,
+          "counts": {
+            "consumer_demand": 10274850,
+            "consumer_issue": 10274849,
+            "producer_demand": 12833318,
+            "producer_issue": 11323425
+          },
+          "drain_begin_tick": 16387443123000,
+          "drain_end_tick": 16837567099000,
+          "elapsed_ns": 5000000283,
+          "full": 1509892
+        },
+        {
+          "accepted": 11193457,
+          "attempted": 12906032,
+          "capacity_limited": false,
+          "consumed": 11193457,
+          "counts": {
+            "consumer_demand": 10144882,
+            "consumer_issue": 10144880,
+            "producer_demand": 12906032,
+            "producer_issue": 11193456
+          },
+          "drain_begin_tick": 30313655430000,
+          "drain_end_tick": 30831260835000,
+          "elapsed_ns": 5000000119,
+          "full": 1712575
+        }
+      ],
+      [
+        {
+          "accepted": 11786535,
+          "attempted": 11822679,
+          "capacity_limited": false,
+          "consumed": 11786535,
+          "counts": {
+            "consumer_demand": 14434664,
+            "consumer_issue": 11786533,
+            "producer_demand": 11822679,
+            "producer_issue": 11786534
+          },
+          "drain_begin_tick": 18522958584000,
+          "drain_end_tick": 18522979717000,
+          "elapsed_ns": 5000000030,
+          "full": 36144
+        },
+        {
+          "accepted": 2343665,
+          "attempted": 2343665,
+          "capacity_limited": false,
+          "consumed": 2343665,
+          "counts": {
+            "consumer_demand": 2782902,
+            "consumer_issue": 2343664,
+            "producer_demand": 2343665,
+            "producer_issue": 2343664
+          },
+          "drain_begin_tick": 26162844202000,
+          "drain_end_tick": 26162847654000,
+          "elapsed_ns": 1000000233,
+          "full": 0
+        }
+      ],
+      [
+        {
+          "accepted": 11783424,
+          "attempted": 11840013,
+          "capacity_limited": false,
+          "consumed": 11783424,
+          "counts": {
+            "consumer_demand": 14363606,
+            "consumer_issue": 11783423,
+            "producer_demand": 11840013,
+            "producer_issue": 11783423
+          },
+          "drain_begin_tick": 18401203917000,
+          "drain_end_tick": 18401206706000,
+          "elapsed_ns": 5000000171,
+          "full": 56589
+        },
+        {
+          "accepted": 4704418,
+          "attempted": 4717976,
+          "capacity_limited": false,
+          "consumed": 4704418,
+          "counts": {
+            "consumer_demand": 5521956,
+            "consumer_issue": 4704417,
+            "producer_demand": 4717976,
+            "producer_issue": 4704417
+          },
+          "drain_begin_tick": 27982754240000,
+          "drain_end_tick": 27982757336000,
+          "elapsed_ns": 2000000042,
+          "full": 13558
+        }
+      ],
+      [
+        {
+          "accepted": 11808909,
+          "attempted": 11817845,
+          "capacity_limited": false,
+          "consumed": 11808909,
+          "counts": {
+            "consumer_demand": 14421642,
+            "consumer_issue": 11808907,
+            "producer_demand": 11817845,
+            "producer_issue": 11808908
+          },
+          "drain_begin_tick": 18397093452000,
+          "drain_end_tick": 18397120948000,
+          "elapsed_ns": 5000000096,
+          "full": 8936
+        },
+        {
+          "accepted": 11782691,
+          "attempted": 11796302,
+          "capacity_limited": false,
+          "consumed": 11782691,
+          "counts": {
+            "consumer_demand": 13820648,
+            "consumer_issue": 11782690,
+            "producer_demand": 11796302,
+            "producer_issue": 11782690
+          },
+          "drain_begin_tick": 33739019035000,
+          "drain_end_tick": 33739036236000,
+          "elapsed_ns": 5000000122,
+          "full": 13611
+        }
+      ],
+      [
+        {
+          "accepted": 11803117,
+          "attempted": 11803117,
+          "capacity_limited": false,
+          "consumed": 11803117,
+          "counts": {
+            "consumer_demand": 12660117,
+            "consumer_issue": 11803116,
+            "producer_demand": 11803117,
+            "producer_issue": 11803116
+          },
+          "drain_begin_tick": 18501121173000,
+          "drain_end_tick": 18501142488000,
+          "elapsed_ns": 5000000001,
+          "full": 0
+        },
+        {
+          "accepted": 2390039,
+          "attempted": 2390039,
+          "capacity_limited": false,
+          "consumed": 2390039,
+          "counts": {
+            "consumer_demand": 2444957,
+            "consumer_issue": 2390037,
+            "producer_demand": 2390039,
+            "producer_issue": 2390038
+          },
+          "drain_begin_tick": 26241513946000,
+          "drain_end_tick": 26241519297000,
+          "elapsed_ns": 1000000123,
+          "full": 0
+        }
+      ],
+      [
+        {
+          "accepted": 11794546,
+          "attempted": 11794546,
+          "capacity_limited": false,
+          "consumed": 11794546,
+          "counts": {
+            "consumer_demand": 12300229,
+            "consumer_issue": 11794331,
+            "producer_demand": 11794546,
+            "producer_issue": 11794545
+          },
+          "drain_begin_tick": 18546932253000,
+          "drain_end_tick": 18547048250000,
+          "elapsed_ns": 5000000118,
+          "full": 0
+        },
+        {
+          "accepted": 4765499,
+          "attempted": 4765499,
+          "capacity_limited": false,
+          "consumed": 4765499,
+          "counts": {
+            "consumer_demand": 4885152,
+            "consumer_issue": 4765495,
+            "producer_demand": 4765499,
+            "producer_issue": 4765498
+          },
+          "drain_begin_tick": 28303345954000,
+          "drain_end_tick": 28303351835000,
+          "elapsed_ns": 2000000134,
+          "full": 0
+        }
+      ],
+      [
+        {
+          "accepted": 11838315,
+          "attempted": 11838315,
+          "capacity_limited": false,
+          "consumed": 11838315,
+          "counts": {
+            "consumer_demand": 12245192,
+            "consumer_issue": 11838313,
+            "producer_demand": 11838315,
+            "producer_issue": 11838314
+          },
+          "drain_begin_tick": 18546476456000,
+          "drain_end_tick": 18546481347000,
+          "elapsed_ns": 5000000286,
+          "full": 0
+        },
+        {
+          "accepted": 11946068,
+          "attempted": 11946068,
+          "capacity_limited": false,
+          "consumed": 11946068,
+          "counts": {
+            "consumer_demand": 12055700,
+            "consumer_issue": 11946066,
+            "producer_demand": 11946068,
+            "producer_issue": 11946067
+          },
+          "drain_begin_tick": 34165434599000,
+          "drain_end_tick": 34165440008000,
+          "elapsed_ns": 5000000235,
+          "full": 0
+        }
+      ],
+      [
+        {
+          "accepted": 11932658,
+          "attempted": 11932658,
+          "capacity_limited": false,
+          "consumed": 11932658,
+          "counts": {
+            "consumer_demand": 11223120,
+            "consumer_issue": 11223114,
+            "producer_demand": 11932658,
+            "producer_issue": 11932657
+          },
+          "drain_begin_tick": 19852122658000,
+          "drain_end_tick": 20201833744000,
+          "elapsed_ns": 5000000040,
+          "full": 0
+        },
+        {
+          "accepted": 2388846,
+          "attempted": 2388846,
+          "capacity_limited": false,
+          "consumed": 2388846,
+          "counts": {
+            "consumer_demand": 2211453,
+            "consumer_issue": 2211445,
+            "producer_demand": 2388846,
+            "producer_issue": 2388845
+          },
+          "drain_begin_tick": 28949921888000,
+          "drain_end_tick": 29035115845000,
+          "elapsed_ns": 1000000195,
+          "full": 0
+        }
+      ],
+      [
+        {
+          "accepted": 11966757,
+          "attempted": 11966757,
+          "capacity_limited": false,
+          "consumed": 11966757,
+          "counts": {
+            "consumer_demand": 11266506,
+            "consumer_issue": 11266501,
+            "producer_demand": 11966757,
+            "producer_issue": 11966756
+          },
+          "drain_begin_tick": 19871121938000,
+          "drain_end_tick": 20215914628000,
+          "elapsed_ns": 5000000065,
+          "full": 0
+        },
+        {
+          "accepted": 4766026,
+          "attempted": 4766026,
+          "capacity_limited": false,
+          "consumed": 4766026,
+          "counts": {
+            "consumer_demand": 4393403,
+            "consumer_issue": 4393397,
+            "producer_demand": 4766026,
+            "producer_issue": 4766025
+          },
+          "drain_begin_tick": 31015444109000,
+          "drain_end_tick": 31194202861000,
+          "elapsed_ns": 2000000172,
+          "full": 0
+        }
+      ],
+      [
+        {
+          "accepted": 11964537,
+          "attempted": 11964537,
+          "capacity_limited": false,
+          "consumed": 11964537,
+          "counts": {
+            "consumer_demand": 11245525,
+            "consumer_issue": 11245519,
+            "producer_demand": 11964537,
+            "producer_issue": 11964536
+          },
+          "drain_begin_tick": 19895581753000,
+          "drain_end_tick": 20249898533000,
+          "elapsed_ns": 5000000219,
+          "full": 0
+        },
+        {
+          "accepted": 11914772,
+          "attempted": 11914772,
+          "capacity_limited": false,
+          "consumed": 11914772,
+          "counts": {
+            "consumer_demand": 11019186,
+            "consumer_issue": 11019180,
+            "producer_demand": 11914772,
+            "producer_issue": 11914771
+          },
+          "drain_begin_tick": 37205427303000,
+          "drain_end_tick": 37635542616000,
+          "elapsed_ns": 5000000015,
+          "full": 0
+        }
+      ],
+      [
+        {
+          "accepted": 9308588,
+          "attempted": 9318981,
+          "capacity_limited": false,
+          "consumed": 9308588,
+          "counts": {
+            "consumer_demand": 14806461,
+            "consumer_issue": 9308586,
+            "producer_demand": 9318981,
+            "producer_issue": 9308587
+          },
+          "drain_begin_tick": 17630820230000,
+          "drain_end_tick": 17630823958000,
+          "elapsed_ns": 5000000162,
+          "full": 10393
+        },
+        {
+          "accepted": 1876924,
+          "attempted": 1884070,
+          "capacity_limited": false,
+          "consumed": 1876924,
+          "counts": {
+            "consumer_demand": 2840601,
+            "consumer_issue": 1876923,
+            "producer_demand": 1884070,
+            "producer_issue": 1876923
+          },
+          "drain_begin_tick": 25451758104000,
+          "drain_end_tick": 25451759728000,
+          "elapsed_ns": 1000000188,
+          "full": 7146
+        }
+      ],
+      [
+        {
+          "accepted": 9303146,
+          "attempted": 9341824,
+          "capacity_limited": false,
+          "consumed": 9303146,
+          "counts": {
+            "consumer_demand": 14823876,
+            "consumer_issue": 9303145,
+            "producer_demand": 9341824,
+            "producer_issue": 9303145
+          },
+          "drain_begin_tick": 17648505091000,
+          "drain_end_tick": 17648554358000,
+          "elapsed_ns": 5000000316,
+          "full": 38678
+        },
+        {
+          "accepted": 3734945,
+          "attempted": 3752244,
+          "capacity_limited": false,
+          "consumed": 3734945,
+          "counts": {
+            "consumer_demand": 5730808,
+            "consumer_issue": 3734944,
+            "producer_demand": 3752244,
+            "producer_issue": 3734944
+          },
+          "drain_begin_tick": 27598916278000,
+          "drain_end_tick": 27598918201000,
+          "elapsed_ns": 2000000136,
+          "full": 17299
+        }
+      ],
+      [
+        {
+          "accepted": 9352553,
+          "attempted": 9392768,
+          "capacity_limited": false,
+          "consumed": 9352553,
+          "counts": {
+            "consumer_demand": 14662749,
+            "consumer_issue": 9352552,
+            "producer_demand": 9392768,
+            "producer_issue": 9352552
+          },
+          "drain_begin_tick": 17679346267000,
+          "drain_end_tick": 17679368698000,
+          "elapsed_ns": 5000000077,
+          "full": 40215
+        },
+        {
+          "accepted": 9411868,
+          "attempted": 9465240,
+          "capacity_limited": false,
+          "consumed": 9411868,
+          "counts": {
+            "consumer_demand": 14093482,
+            "consumer_issue": 9411866,
+            "producer_demand": 9465240,
+            "producer_issue": 9411867
+          },
+          "drain_begin_tick": 34301690225000,
+          "drain_end_tick": 34301696436000,
+          "elapsed_ns": 5000000291,
+          "full": 53372
+        }
+      ],
+      [
+        {
+          "accepted": 9385657,
+          "attempted": 9385657,
+          "capacity_limited": false,
+          "consumed": 9385657,
+          "counts": {
+            "consumer_demand": 14259058,
+            "consumer_issue": 9385656,
+            "producer_demand": 9385657,
+            "producer_issue": 9385656
+          },
+          "drain_begin_tick": 17870401245000,
+          "drain_end_tick": 17870452029000,
+          "elapsed_ns": 5000000287,
+          "full": 0
+        },
+        {
+          "accepted": 1918699,
+          "attempted": 1918699,
+          "capacity_limited": false,
+          "consumed": 1918699,
+          "counts": {
+            "consumer_demand": 2766361,
+            "consumer_issue": 1918698,
+            "producer_demand": 1918699,
+            "producer_issue": 1918698
+          },
+          "drain_begin_tick": 26021247792000,
+          "drain_end_tick": 26021249582000,
+          "elapsed_ns": 1000000101,
+          "full": 0
+        }
+      ],
+      [
+        {
+          "accepted": 9462717,
+          "attempted": 9462717,
+          "capacity_limited": false,
+          "consumed": 9462717,
+          "counts": {
+            "consumer_demand": 14242322,
+            "consumer_issue": 9462715,
+            "producer_demand": 9462717,
+            "producer_issue": 9462716
+          },
+          "drain_begin_tick": 17950057585000,
+          "drain_end_tick": 17950082039000,
+          "elapsed_ns": 5000000148,
+          "full": 0
+        },
+        {
+          "accepted": 3784554,
+          "attempted": 3784554,
+          "capacity_limited": false,
+          "consumed": 3784554,
+          "counts": {
+            "consumer_demand": 5501306,
+            "consumer_issue": 3784552,
+            "producer_demand": 3784554,
+            "producer_issue": 3784553
+          },
+          "drain_begin_tick": 28280287040000,
+          "drain_end_tick": 28280293274000,
+          "elapsed_ns": 2000000086,
+          "full": 0
+        }
+      ],
+      [
+        {
+          "accepted": 9424645,
+          "attempted": 9424645,
+          "capacity_limited": false,
+          "consumed": 9424645,
+          "counts": {
+            "consumer_demand": 14261041,
+            "consumer_issue": 9424644,
+            "producer_demand": 9424645,
+            "producer_issue": 9424644
+          },
+          "drain_begin_tick": 17915736892000,
+          "drain_end_tick": 17915738235000,
+          "elapsed_ns": 5000000144,
+          "full": 0
+        },
+        {
+          "accepted": 9503214,
+          "attempted": 9503214,
+          "capacity_limited": false,
+          "consumed": 9503214,
+          "counts": {
+            "consumer_demand": 13795691,
+            "consumer_issue": 9503212,
+            "producer_demand": 9503214,
+            "producer_issue": 9503213
+          },
+          "drain_begin_tick": 34933792180000,
+          "drain_end_tick": 34933798233000,
+          "elapsed_ns": 5000000128,
+          "full": 0
+        }
+      ],
+      [
+        {
+          "accepted": 10772197,
+          "attempted": 11109420,
+          "capacity_limited": false,
+          "consumed": 10772197,
+          "counts": {
+            "consumer_demand": 9723621,
+            "consumer_issue": 9723620,
+            "producer_demand": 11109420,
+            "producer_issue": 10772196
+          },
+          "drain_begin_tick": 20122956226000,
+          "drain_end_tick": 20676440394000,
+          "elapsed_ns": 5000000235,
+          "full": 337223
+        },
+        {
+          "accepted": 2409737,
+          "attempted": 2409737,
+          "capacity_limited": false,
+          "consumed": 2409737,
+          "counts": {
+            "consumer_demand": 2036848,
+            "consumer_issue": 2036846,
+            "producer_demand": 2409737,
+            "producer_issue": 2409736
+          },
+          "drain_begin_tick": 31253938941000,
+          "drain_end_tick": 31464988479000,
+          "elapsed_ns": 1000000206,
+          "full": 0
+        }
+      ],
+      [
+        {
+          "accepted": 10776961,
+          "attempted": 11121411,
+          "capacity_limited": false,
+          "consumed": 10776961,
+          "counts": {
+            "consumer_demand": 9728386,
+            "consumer_issue": 9728385,
+            "producer_demand": 11121411,
+            "producer_issue": 10776960
+          },
+          "drain_begin_tick": 20123209987000,
+          "drain_end_tick": 20676817458000,
+          "elapsed_ns": 5000000064,
+          "full": 344450
+        },
+        {
+          "accepted": 4846134,
+          "attempted": 4846134,
+          "capacity_limited": false,
+          "consumed": 4846134,
+          "counts": {
+            "consumer_demand": 4076754,
+            "consumer_issue": 4076752,
+            "producer_demand": 4846134,
+            "producer_issue": 4846133
+          },
+          "drain_begin_tick": 34042436376000,
+          "drain_end_tick": 34499865656000,
+          "elapsed_ns": 2000000180,
+          "full": 0
+        }
+      ],
+      [
+        {
+          "accepted": 10772384,
+          "attempted": 11122177,
+          "capacity_limited": false,
+          "consumed": 10772384,
+          "counts": {
+            "consumer_demand": 9723809,
+            "consumer_issue": 9723808,
+            "producer_demand": 11122177,
+            "producer_issue": 10772383
+          },
+          "drain_begin_tick": 20136734237000,
+          "drain_end_tick": 20696697793000,
+          "elapsed_ns": 5000000348,
+          "full": 349793
+        },
+        {
+          "accepted": 10695527,
+          "attempted": 11001462,
+          "capacity_limited": false,
+          "consumed": 10695527,
+          "counts": {
+            "consumer_demand": 9646954,
+            "consumer_issue": 9646951,
+            "producer_demand": 11001462,
+            "producer_issue": 10695526
+          },
+          "drain_begin_tick": 41726931443000,
+          "drain_end_tick": 42350380850000,
+          "elapsed_ns": 5000000288,
+          "full": 305935
+        }
+      ]
+    ],
+    "plan_sha256": "b513b6a7592fe010bc9a4fa256a7b214252504920636b286ad1f0edb8bdb6fcf",
+    "retained_manifest_sha256": "ce7607c30390a5566a852ca002dbce45391ef49ed24c24dd6e360c5793303eba",
+    "selection": {
+      "diagnostic_only": true,
+      "eligible_durations_ns": [
+        1000000000,
+        2000000000,
+        5000000000
+      ],
+      "execution_authority": false,
+      "formal_runs_contributed": 0,
+      "present_captures": 36,
+      "selected_duration_ns": 1000000000,
+      "state": "SELECTED_FOR_PROSPECTIVE_FORMAL_PLAN"
+    }
+  },
+  "worker_address_space_limit_bytes": 8589934592
+}

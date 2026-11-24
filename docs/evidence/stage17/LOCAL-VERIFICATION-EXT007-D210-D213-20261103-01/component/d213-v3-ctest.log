@@ -1,0 +1,33 @@
+UpdateCTestConfiguration  from :/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/DartConfiguration.tcl
+Parse Config file:/home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc/DartConfiguration.tcl
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 581
+    Start 581: calibration.discovery_v3_retained_validation
+
+581: Test command: /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/python3 "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_stage17_discovery_validation_v3.py"
+581: Working Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+581: Test timeout computed to be: 120
+581: ......................
+581: ----------------------------------------------------------------------
+581: Ran 22 tests in 20.111s
+581: 
+581: OK
+1/1 Test #581: calibration.discovery_v3_retained_validation ...   Passed   20.39 sec
+
+The following tests passed:
+	calibration.discovery_v3_retained_validation
+
+100% tests passed, 0 tests failed out of 1
+
+Label Time Summary:
+calibration    =  20.39 sec*proc (1 test)
+diagnostic     =  20.39 sec*proc (1 test)
+synthetic      =  20.39 sec*proc (1 test)
+
+Total Test time (real) =  20.41 sec

@@ -1,0 +1,146 @@
+{
+  "analysis_deadline_utc": "2026-11-20T02:40:18.433161+00:00",
+  "analysis_intent": {
+    "deadline_monotonic_ns": 1578952729990390,
+    "execution_authority": false,
+    "kind": "SUFFIX94",
+    "per_capture_seconds": 300,
+    "phase18_authority": false,
+    "physical_cpus": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "retained_failed_scratch_bytes": 37485663884,
+    "scratch_bytes": 77880833288,
+    "started_monotonic_ns": 1575352729990390,
+    "worker_count": 12
+  },
+  "checked_at_utc": "2026-11-20T01:48:08.639287+00:00",
+  "composition_finalization_present": false,
+  "failed_process_receipts": [],
+  "process_receipts": [
+    {
+      "elapsed_ns": 240017231742,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 12,
+      "report_sha256": "e7ffe0f5856f182f8c7dd5cbcd9f753bfd91d0d40171cbf6491345cb2206b2b1",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 240317693312,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 21,
+      "report_sha256": "d010a81ff4a16cfae09e2c40842e400a224f801b5e4cc3511d5224de876db008",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 238880395242,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 3,
+      "report_sha256": "4ef31528d7981a14b66fa783d1f41b668f73c3c3b61c41edfcfc3bed1e2ad0e8",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 240225424597,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 39,
+      "report_sha256": "769bcb4f36528b05bc4c2efe613df95db2e616cd2ea0f0eed36449620b4660e4",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 240060684944,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 48,
+      "report_sha256": "c8c5b4015beebd95211583b9ee11ae915f2940a3f32721a962a2d30d0d2af4fa",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 240733867588,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 57,
+      "report_sha256": "a633bd744b899ffee0c8ed9c53118584e83eb6f2858c8de2d746eb297a285183",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 224881442675,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 63,
+      "report_sha256": "318e06b287fdf3f9c6e2055f535fa51beaba9b1ffcc275abe58aaec46251e61b",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 248765576464,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 66,
+      "report_sha256": "002ad1a8f052292ea396b03ad352a6f4d0af0ab2dc4ceac40452611d3134bcd5",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 247533068522,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 75,
+      "report_sha256": "234d850b122704b7fdbe60c3d1f3f88a87c9d714f760e9c7f78718da2d6925e4",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 247431446860,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 84,
+      "report_sha256": "b3d02b6004ea8d302f8e6db3699b3488d1423409a68e23467c4698e33f600e16",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 216748693154,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 87,
+      "report_sha256": "4fe11a5aa70d9bf77d822955a872190a68abef744722d9b92f9c503664683097",
+      "status": "VALID"
+    },
+    {
+      "elapsed_ns": 247968426358,
+      "error": null,
+      "exit_code": 0,
+      "leader_reaped": true,
+      "ordinal": 93,
+      "report_sha256": "5eaf5520ee1f566882470e3efccd9823118c8a22eb648c690bbceb6970a40c46",
+      "status": "VALID"
+    }
+  ],
+  "raw_data_transferred": false,
+  "remaining_analysis_seconds": 3129.793873937,
+  "report_count": 12,
+  "scientific_completion_present": false,
+  "valid_reaped_process_count": 12
+}

@@ -1,0 +1,11 @@
+test_actual_failure_binding_is_replaced_by_exact_incident_receipt_only (test_stage17_q16c_incident_metadata_v1.ReceiptTests.test_actual_failure_binding_is_replaced_by_exact_incident_receipt_only) ... ok
+test_bound_input_checks_the_same_bytes_it_returns (test_stage17_q16c_incident_metadata_v1.ReceiptTests.test_bound_input_checks_the_same_bytes_it_returns) ... ok
+test_missing_or_changed_incident_receipt_never_falls_back_to_clock_receipt (test_stage17_q16c_incident_metadata_v1.ReceiptTests.test_missing_or_changed_incident_receipt_never_falls_back_to_clock_receipt) ... ok
+test_rehearsal_changes_only_incident_binding_and_separate_output_paths (test_stage17_q16c_incident_metadata_v1.ReceiptTests.test_rehearsal_changes_only_incident_binding_and_separate_output_paths) ... ok
+test_repaired_binding_agrees_with_unchanged_runtime_contract (test_stage17_q16c_incident_metadata_v1.ReceiptTests.test_repaired_binding_agrees_with_unchanged_runtime_contract) ... ok
+test_symlink_receipt_is_rejected_even_when_bytes_match (test_stage17_q16c_incident_metadata_v1.ReceiptTests.test_symlink_receipt_is_rejected_even_when_bytes_match) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.171s
+
+OK

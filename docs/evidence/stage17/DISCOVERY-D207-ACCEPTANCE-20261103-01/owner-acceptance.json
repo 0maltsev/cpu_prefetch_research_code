@@ -1,0 +1,32 @@
+{
+  "record_id": "CPU-PREFETCH-V5-EXT007-D207-OWNER-ACCEPTANCE-1",
+  "recorded_at_utc": "2026-11-03T11:40:21.926383+00:00",
+  "exact_user_reply": "i approve",
+  "approval_source": "Current conversation reply to D207 proposal and finite execution scope",
+  "amendment_id": "AMEND-2.0.0-pre.3-EXT007-DISCOVERY-DURATION-v2",
+  "proposal_sha256": "a1accac3f8683a74a5744c676da907666b95a7b908fe725b0fca2725c8a2e559",
+  "proposal_size_bytes": 9264,
+  "capture_count": 36,
+  "measurement_durations_ns": [
+    1000000000,
+    2000000000,
+    5000000000
+  ],
+  "warmup_ns": 5000000000,
+  "phase_attempt_capacity": 30000000,
+  "custody_policy": "EXT007-RAW-NONE-STAND-PRIMARY-v1",
+  "finite_scope": {
+    "discovery_families": 1,
+    "near_clock_max": 1,
+    "far_clock_max": 1,
+    "far_requires_near_pass": true,
+    "q15_read_max": 1,
+    "q15_write_max": 1,
+    "qualification_only_if_required": true,
+    "automatic_retries": 0
+  },
+  "exact_operational_admission_required": true,
+  "formal_calibration_authority": false,
+  "pilot_authority": false,
+  "stage18_authority": false
+}

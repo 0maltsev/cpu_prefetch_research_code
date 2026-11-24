@@ -19,7 +19,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-PROTOCOL_VERSION = "2.0.0-pre.2"
+PROTOCOL_VERSION = "2.0.0-pre.3"
 # ADR-0025/0029 froze this label into deterministic hash/key preimages.
 DERIVATION_DOMAIN_PROTOCOL_VERSION = "2.0.0-pre.1"
 BASE_RNG_SUITE = "PHILOX4X32-10-HMAC-SHA256-v1"
@@ -32,7 +32,7 @@ ARTIFACT_FORMAT = "SCHEDULE-ABS-U64BE-v1"
 OVERFLOW_RULE = "SCHEDULE-U64-ABS-FAIL-CLOSED-v1"
 DECODED_HASH_ALGORITHM = "DECODED-DEADLINES-U64BE-SHA256-v1"
 ENVELOPE_HASH_PROFILE = "SCHEDULE-JCS-I64-ZEROSELF-SHA256-v1"
-DERIVATION_SCHEMA = "cpu-prefetch-schedule-derivation-v1"
+DERIVATION_SCHEMA = "cpu-prefetch-schedule-derivation-v2"
 DERIVATION_HASH_PROFILE = "SCHEDULE-DERIVATION-JCS-I64-ZEROSELF-SHA256-v1"
 PURPOSE = "arrival-schedule"
 UINT64_MAX = (1 << 64) - 1

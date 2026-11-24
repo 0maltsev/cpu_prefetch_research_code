@@ -1,0 +1,19 @@
+{
+  "checked_at_utc": "2026-11-19T22:11:26.989033+00:00",
+  "family_entries": [],
+  "guard_value": "1",
+  "native_attempt_started": false,
+  "native_checkpoint_count": 0,
+  "raw_data_transferred": false,
+  "unit": {
+    "ActiveState": "failed",
+    "ControlGroup": "",
+    "ExecMainExitTimestamp": "Fri 2026-11-20 01:09:12 MSK",
+    "ExecMainStartTimestamp": "Fri 2026-11-20 01:08:05 MSK",
+    "ExecMainStatus": "1",
+    "InvocationID": "24c6f42bdd3e44a280d97f700953754d",
+    "MainPID": "0",
+    "Result": "exit-code",
+    "SubState": "failed"
+  }
+}

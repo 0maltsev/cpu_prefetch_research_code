@@ -1,0 +1,34 @@
+DISCOVERY_LAUNCH 2026-11-03T10:33:27.809720+00:00
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/admission-root/tools/stage17_phase_controller_v23.py", line 45, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/admission-root/tools/stage17_phase_controller_v23.py", line 41, in main
+    return predecessor.main()
+           ~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/admission-root/tools/stage17_phase_controller_v22.py", line 389, in main
+    execute_once(repository_root=args.repository_root, journal=args.journal,
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        journal_directory=args.journal_directory, operational_evidence_root=args.operational_evidence_root,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        authorization_path=args.authorization, signature_path=args.signature,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        pilot_archive=args.pilot_archive, pilot_sidecar=args.pilot_sidecar)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/admission-root/tools/stage17_phase_controller_v22.py", line 372, in execute_once
+    return executor.execute_fixed_action(repository_root=prepared.root,
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        authorization=prepared.authorization, authorization_bytes=prepared.authorization_bytes,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        output_root=pathlib.Path(prepared.request["evidence_root_binding"]["absolute_path"]),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        synthetic_test_only=arguments.get("synthetic_test_only", False))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/admission-root/tools/stage17_fixed_action_executor_v8.py", line 252, in execute_fixed_action
+    raise FixedActionExecutionError(
+        "WORKER_NONZERO", f"fixed worker returned {transport.returncode}"
+    )
+stage17_fixed_action_executor_v5.FixedActionExecutionError: fixed worker returned 1
+DISCOVERY_EXIT 2026-11-03T10:49:00.394404+00:00 1
+{"utc": "2026-11-03T10:49:00.395000+00:00", "exit_code": 1, "completion_present": false, "success": false, "supervisor_errors": [], "partition_procs": "", "partition_restoration": {"partition_absent": true, "root": {"cgroup.controllers": "cpuset cpu io memory hugetlb pids rdma misc dmem", "cgroup.subtree_control": "cpu memory pids", "cpuset.cpus.effective": "0-31", "cpuset.cpus.isolated": "", "cpuset.mems.effective": "0-1"}, "utc": "2026-11-03T10:49:00Z", "verified": true}}

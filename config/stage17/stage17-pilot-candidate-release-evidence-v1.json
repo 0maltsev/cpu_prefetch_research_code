@@ -1,0 +1,57 @@
+{
+  "schema_version": "cpu-prefetch-stage17-pilot-candidate-release-evidence/1",
+  "evidence_id": "STAGE17-PILOT-CANDIDATE-RELEASE-EVIDENCE-v1",
+  "protocol_version": "2.0.0-pre.2",
+  "source": {
+    "revision": "2b4f16c61c306ade5f4383ac2abb1ad709f772a8",
+    "dirty": false
+  },
+  "build": {
+    "configure_preset": "release-gcc",
+    "target": "pilot-candidate-bundle"
+  },
+  "bundle": {
+    "filename": "cpu-prefetch-pilot-candidate-2.0.0-2b4f16c-clean-f753c3b294b4.tar.gz",
+    "size_bytes": 5582257,
+    "sha256": "d1c44bc0c78b002ca3ca9bf33f1a33258cceafbeb838c87815e48a7e675227dc",
+    "sidecar_filename": "cpu-prefetch-pilot-candidate-2.0.0-2b4f16c-clean-f753c3b294b4.tar.gz.sha256",
+    "sidecar_size_bytes": 135,
+    "sidecar_sha256": "32833508557e3306a167695fd1059bf2de62552868283fe0efcb4fa6885b5eb6",
+    "top_level_directory": "cpu-prefetch-pilot-candidate-2.0.0-2b4f16c-clean-f753c3b294b4"
+  },
+  "manifest": {
+    "sha256": "b810828c3f6111eb087f5067ae1bd0c48e13de6fe90a7f5aac03132b874250fc",
+    "profile": "STAGE17-PILOT-CANDIDATE-BUNDLE-v1",
+    "file_count": 171,
+    "pilot_authorized": false,
+    "confirmatory_authorized": false,
+    "dynamic_qualification_authorized": false
+  },
+  "release_binaries": [
+    {"path": "release/bin/cpu_prefetch_preflight", "sha256": "2912c5a0cb449efb567d9b88ae0e398396d1e9c9ecde239a1b297d23882e223d"},
+    {"path": "release/bin/cpu_prefetch_qualification", "sha256": "36cc9e1bfec1861c5e58360e0d719f0b3e9b2a7113126e7ee12c054d20883d66"},
+    {"path": "release/bin/cpu_prefetch_runner", "sha256": "efc396688e9ff3525c2093791e08a2c1b18adb981449c14a0991183c27ddbfe7"},
+    {"path": "release/bin/cpu_prefetch_smoke", "sha256": "6ee07e64bcadb5cf7ce539f6cf88a0595809e9ea3348a684d1d8ccfc5011dafb"}
+  ],
+  "codegen_reports": [
+    {"path": "build-provenance/queue_codegen_report.json", "sha256": "ffaa7511909c65ac6acc71cba7d188ac450bc3e3a873c9c834c0a77a1e838496", "status": "PASS"},
+    {"path": "build-provenance/workload_codegen_report.json", "sha256": "4caaafd7af71c77ec63ac7db4e7f184fd276f37ee5853f81538ae6712147df2e", "status": "PASS"},
+    {"path": "build-provenance/timing_codegen_report.json", "sha256": "46dac5416f78e31293c33610d0ffe9c5151084206078a0606d4e366991b3ece0", "status": "PASS"},
+    {"path": "build-provenance/storage_codegen_report.json", "sha256": "d0de2951b58a18f49435f5f56a0a5e40748d1950ad97c42246ac04c5fcbbe40c", "status": "PASS"},
+    {"path": "build-provenance/runner_relax_codegen_report.json", "sha256": "863f04eb1cfcaf0859bb3af0fd7edb037e9b75c15fdc5f12dbe958163fe3592a", "status": "PASS"},
+    {"path": "build-provenance/runner_combined_codegen_report.json", "sha256": "2396a5f134bb16393a91c79ba1d3368b5214a43fac3c55498f473974a921157a", "status": "PASS"}
+  ],
+  "verification": [
+    {"check_id": "OUTER_SIDECAR_SHA256", "result": "PASS"},
+    {"check_id": "CLEAN_EXTRACTION_INTERNAL_VERIFIER_171_FILES", "result": "PASS"},
+    {"check_id": "SMOKE_IDENTITY", "result": "PASS"},
+    {"check_id": "NONPRIVILEGED_PREFLIGHT_AND_QUALIFICATION_SELF_TESTS", "result": "PASS"},
+    {"check_id": "FAIL_CLOSED_RUNNER_SELF_TEST", "result": "PASS"}
+  ],
+  "authority_boundary": {
+    "stand_accessed": false,
+    "dynamic_qualification_authorized": false,
+    "pilot_authorized": false,
+    "confirmatory_authorized": false
+  }
+}

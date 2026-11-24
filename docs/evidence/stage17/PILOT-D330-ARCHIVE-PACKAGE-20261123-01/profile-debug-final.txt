@@ -1,0 +1,16 @@
+test_actual_package_loader_and_sealed_broker_reconstruct_all_originals (__main__.ProfileTests.test_actual_package_loader_and_sealed_broker_reconstruct_all_originals) ... ok
+test_actual_runtime_is_explicit_and_relocatable (__main__.ProfileTests.test_actual_runtime_is_explicit_and_relocatable) ... ok
+test_actual_source_change_and_foreign_expected_hash_reject (__main__.ProfileTests.test_actual_source_change_and_foreign_expected_hash_reject) ... ok
+test_clean_source_package_exact_inventory_and_no_authority (__main__.ProfileTests.test_clean_source_package_exact_inventory_and_no_authority) ... ok
+test_dirty_revision_rejects_before_output_creation (__main__.ProfileTests.test_dirty_revision_rejects_before_output_creation) ... ok
+test_exact_closure_options_and_profile_transport (__main__.ProfileTests.test_exact_closure_options_and_profile_transport) ... ok
+test_legacy_profile_reproduces_missing_s180_entry_without_relabeling_it (__main__.ProfileTests.test_legacy_profile_reproduces_missing_s180_entry_without_relabeling_it) ... ok
+test_missing_local_dependency_relative_import_and_symlink_reject (__main__.ProfileTests.test_missing_local_dependency_relative_import_and_symlink_reject) ... ok
+test_no_profile_or_partial_package_adoption (__main__.ProfileTests.test_no_profile_or_partial_package_adoption) ... ok
+test_package_manifest_and_extra_same_named_nested_file_reject (__main__.ProfileTests.test_package_manifest_and_extra_same_named_nested_file_reject) ... ok
+test_profile_symlink_destination_and_expired_load_reject_before_actions (__main__.ProfileTests.test_profile_symlink_destination_and_expired_load_reject_before_actions) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 19.881s
+
+OK

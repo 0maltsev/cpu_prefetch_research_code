@@ -1,0 +1,15 @@
+test_failed_capture_uses_real_broker_stop_ack_then_allows_native_finalization (__main__.LauncherTests.test_failed_capture_uses_real_broker_stop_ack_then_allows_native_finalization) ... FAIL
+
+======================================================================
+FAIL: test_failed_capture_uses_real_broker_stop_ack_then_allows_native_finalization (__main__.LauncherTests.test_failed_capture_uses_real_broker_stop_ack_then_allows_native_finalization)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_launcher_v1.py", line 136, in test_failed_capture_uses_real_broker_stop_ack_then_allows_native_finalization
+    self.assertEqual(result['document']['acknowledged_captures'],1,result['document']['failure'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1 : native cold deadline expired or exceeds the admitted interval
+
+----------------------------------------------------------------------
+Ran 1 test in 1.826s
+
+FAILED (failures=1)

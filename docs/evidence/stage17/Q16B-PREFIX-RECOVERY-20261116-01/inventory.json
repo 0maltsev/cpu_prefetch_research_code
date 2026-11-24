@@ -1,0 +1,133 @@
+{
+  "changed_native_source_paths": [
+    "src/runner/stage17_formal_family.cpp"
+  ],
+  "evidence": [
+    {
+      "path": "docs/evidence/stage17/Q16B-PREFIX-RECOVERY-20261116-01/REPORT.md",
+      "sha256": "628c0780310f2ad065e3c942e383dc42167223ebd8c3cfb84d099db56c3a0b10",
+      "size_bytes": 7417
+    },
+    {
+      "path": "docs/evidence/stage17/Q16B-PREFIX-RECOVERY-20261116-01/asan-tests.log",
+      "sha256": "75f162b38cb372e809638b936ad9e2425cbee1ef1b74857c420b068a215226e3",
+      "size_bytes": 14964
+    },
+    {
+      "path": "docs/evidence/stage17/Q16B-PREFIX-RECOVERY-20261116-01/continuation-python-tests.log",
+      "sha256": "62bd37f47046ecdede6dba99be1e8a77b3dc7bd89ae7bcdcb0ec7ec7749a23eb",
+      "size_bytes": 147
+    },
+    {
+      "path": "docs/evidence/stage17/Q16B-PREFIX-RECOVERY-20261116-01/final-ledger-check.json",
+      "sha256": "38a32e7053e0afc2271b6bfed2725744f30a69dc736e7259ebe645121e4c7189",
+      "size_bytes": 1298
+    },
+    {
+      "path": "docs/evidence/stage17/Q16B-PREFIX-RECOVERY-20261116-01/inspect_prefix.py",
+      "sha256": "004d3467f507a66d1fea69133f1df4fbd272e94df84ea9b37a26139de87edb77",
+      "size_bytes": 4081
+    },
+    {
+      "path": "docs/evidence/stage17/Q16B-PREFIX-RECOVERY-20261116-01/local-tests.log",
+      "sha256": "6369e85224ddf312b121936514c063236001fadd7dd8b24709dab925ec9772cc",
+      "size_bytes": 150
+    },
+    {
+      "path": "docs/evidence/stage17/Q16B-PREFIX-RECOVERY-20261116-01/native-tests.log",
+      "sha256": "c4504d40f7e4fdb2a54b460f0e5ef37e939088160d57b0bed0134c264cb3ad2e",
+      "size_bytes": 5438
+    },
+    {
+      "path": "docs/evidence/stage17/Q16B-PREFIX-RECOVERY-20261116-01/owner-acceptance-d260.json",
+      "sha256": "34ef5576b189d79d9cd44a187ae6bdf13eb99245cf6b89ae3d0dce164ad203f2",
+      "size_bytes": 558
+    },
+    {
+      "path": "docs/evidence/stage17/Q16B-PREFIX-RECOVERY-20261116-01/pc-transfer-cleanup.json",
+      "sha256": "4017e6d988aa82db659615f64a318b95a7947613d19006a3ba230db5cb891a7c",
+      "size_bytes": 270
+    },
+    {
+      "path": "docs/evidence/stage17/Q16B-PREFIX-RECOVERY-20261116-01/reader-capacity-diagnosis.json",
+      "sha256": "48d149323f3db3a61548ca522af1834905a817ca2cb08efdb456146d9601f6f3",
+      "size_bytes": 6823
+    },
+    {
+      "path": "docs/evidence/stage17/Q16B-PREFIX-RECOVERY-20261116-01/stand-analysis-checkpoint.json",
+      "sha256": "46cfdd6a79842fa496bab804cb7a499a1e140cbbf05d930c161709b541513de2",
+      "size_bytes": 23135
+    },
+    {
+      "path": "docs/evidence/stage17/Q16B-PREFIX-RECOVERY-20261116-01/stand-transfer-cleanup.json",
+      "sha256": "e055dcc0ce74c83f3499186ebf8ad718ec43e18e15d5162e858637a40df5a4a9",
+      "size_bytes": 327
+    },
+    {
+      "path": "docs/evidence/stage17/Q16B-PREFIX-RECOVERY-20261116-01/tsan-tests.log",
+      "sha256": "12523e2a14062124148dc4654483f5b3db8b50bdb83fe3b25743b7bf65f48755",
+      "size_bytes": 14952
+    },
+    {
+      "path": "docs/evidence/stage17/Q16B-PREFIX-RECOVERY-20261116-01/validate_prefix.py",
+      "sha256": "51f2cc5bbccd9fa70ef09280b77eb72a7514874569bad6c15b7e8ea7d425dbc8",
+      "size_bytes": 11256
+    },
+    {
+      "path": "docs/evidence/stage17/Q16B-PREFIX-RECOVERY-20261116-01/validate_prefix_2.py",
+      "sha256": "c936130a8bdfc5b940072018db6dc596d055355b73a6748d08a051059c20f9c5",
+      "size_bytes": 11256
+    }
+  ],
+  "execution_authority": false,
+  "native_baseline_source": "aa3285f15acbd3314cae64a628c113488a8438b8",
+  "new_24h_window_started": false,
+  "new_measurements": 0,
+  "phase18_authority": false,
+  "prefix_reuse_accepted": false,
+  "qualified_release_prepared": false,
+  "raw_validation_status": "STOPPED_UNSUPPORTED_PACKED_PAGE_CAPACITY",
+  "schema_version": "software-d259-d260-recovery-inventory/1",
+  "sources": [
+    {
+      "path": "CMakeLists.txt",
+      "sha256": "65009f940a9284f5fc536be034c0f010f010fd0dedd05d3fe21295f67be3b4a2",
+      "size_bytes": 183095
+    },
+    {
+      "path": "src/runner/stage17_formal_family.cpp",
+      "sha256": "5423c5347763f42192fa1c84c97956f090875fff3065c8886690e3aec132104f",
+      "size_bytes": 30318
+    },
+    {
+      "path": "tests/stage17_formal_family_test.cpp",
+      "sha256": "2846d6b267c20c4ebb6489157533c6e5d9156ff89bb4f1fe05ecb05b1f9b65f4",
+      "size_bytes": 36975
+    },
+    {
+      "path": "config/schemas/stage17-formal-service-plan-v4.schema.json",
+      "sha256": "6f40d5bdfef2d83b0d405a99e806e200b09b11f16d1ec5e69627c7cdc45d5865",
+      "size_bytes": 25919
+    },
+    {
+      "path": "tools/stage17_formal_service_continuation_v1.py",
+      "sha256": "8e63c9af60debf38b3cc140fd43a901f386d186a0e839900474812fdb8807d78",
+      "size_bytes": 15383
+    },
+    {
+      "path": "tools/stage17_retained_capture_inspection_v1.py",
+      "sha256": "d9f6ca2be2903e51064ac8d365477dfb8301abafee57e191165f4bb74f47c465",
+      "size_bytes": 5939
+    },
+    {
+      "path": "tests/test_stage17_formal_service_continuation_v1.py",
+      "sha256": "661011418f55ded13a5d0b56fa978f14f272c0aecd9d1a6927e99374fbe23420",
+      "size_bytes": 8917
+    },
+    {
+      "path": "tests/test_stage17_retained_capture_inspection_v1.py",
+      "sha256": "73e130986a59c2f63bda5e3838e9f688a3db48888fe48b8a9f6909e89ec0652c",
+      "size_bytes": 8357
+    }
+  ]
+}

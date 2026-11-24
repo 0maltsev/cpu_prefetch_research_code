@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-p4-k-a-d-acceptance:v1",
+  "title": "Q15-R-P4-K-A-D policy acceptance with absent bootstrap signer",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "acceptance_id",
+    "protocol_version",
+    "decision_input_binding",
+    "accepted_decisions",
+    "bootstrap_trust_disposition",
+    "selection_effect",
+    "predecessor_preservation",
+    "authority_boundary",
+    "user_responses",
+    "bounded_interpretation"
+  ],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-k-a-d-acceptance/1"},
+    "acceptance_id": {"const": "Q15-R-P4-K-A-D-ACCEPTANCE-20260825-01"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "decision_input_binding": {
+      "const": {
+        "bundle_id": "Q15-R-P4-K-A-OPERATIONAL-INPUT-DECISION-20260825-01",
+        "path": "config/q15/q15-r-p4-k-a-operational-input-decision-v1.json",
+        "sha256": "8acfebfb22ba7449233b5c4c5b2a7ecf9c9a48323b1d79b45b42d26867199777"
+      }
+    },
+    "accepted_decisions": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["decision_id", "selected_option", "state"],
+        "properties": {
+          "decision_id": {"pattern": "^D-08[0-5]$"},
+          "selected_option": {"type": "string", "minLength": 1},
+          "state": {"pattern": "^ACCEPTED_[A-Z_]+$"}
+        }
+      }
+    },
+    "bootstrap_trust_disposition": {
+      "const": {
+        "owner_response": "NO_QUALIFYING_BOOTSTRAP_SIGNER_REMAIN_BLOCKED",
+        "qualifying_bootstrap_signer_evidence_exists": false,
+        "bootstrap_signer_or_trust_evidence_supplied": false,
+        "target_key_may_self_authorize": false,
+        "required_next_governance_gate": "SEPARATELY_ESTABLISH_BOOTSTRAP_GOVERNANCE_ROOT",
+        "p4_k_a_issuance_state": "BLOCKED"
+      }
+    },
+    "selection_effect": {
+      "const": {
+        "offline_environment_and_toolchain_contract_frozen": true,
+        "private_key_protection_and_custody_contract_frozen": true,
+        "public_export_identity_and_path_contract_frozen": true,
+        "bootstrap_governance_root_requirement_frozen": true,
+        "fixed_controller_contract_frozen_as_policy": true,
+        "issuance_review_partial_evidence_and_stop_contract_frozen": true,
+        "repository_local_acceptance_and_adr_creation_authorized": true,
+        "repository_local_controller_schema_or_template_implementation_authorized": false,
+        "external_input_value_selected_or_inferred": false,
+        "bootstrap_signer_or_trust_evidence_claimed": false,
+        "key_public_artifact_path_signature_or_issuance_created": false
+      }
+    },
+    "predecessor_preservation": {
+      "const": {
+        "proposal_remains_unmodified": true,
+        "proposal_owner_answers_remain_null_in_immutable_proposal": true,
+        "proposal_external_input_count": 7,
+        "proposal_external_inputs_remain_null": true,
+        "p4_k_a_template_path": "config/q15/q15-r-p4-k-a.authorization-template-v1.json",
+        "p4_k_a_template_sha256": "7669a2f693a7ffca3fa583ec3ed7a45e1ea130a51ee009ac33a77b936409ccb5",
+        "p4_k_a_template_state": "UNCHANGED_STILL_UNISSUED",
+        "p4_k_r_template_path": "config/q15/q15-r-p4-k-r.authorization-template-v1.json",
+        "p4_k_r_template_sha256": "ae71ce73cf0636294995c0ca3311d4ccf6f857916c07fe9df67bb9682d20efcf",
+        "p4_k_r_template_state": "UNCHANGED_STILL_UNISSUED"
+      }
+    },
+    "authority_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository_local_acceptance_and_adr_creation_authorized",
+        "repository_local_controller_schema_or_template_implementation_authorized",
+        "offline_environment_access_or_inventory_authorized",
+        "key_read_generation_import_copy_fingerprint_or_use_authorized",
+        "public_key_or_allowed_signers_artifact_creation_authorized",
+        "private_key_path_bytes_passphrase_or_seed_collection_authorized",
+        "custody_or_public_artifact_path_creation_authorized",
+        "bootstrap_governance_root_establishment_authorized",
+        "bootstrap_signer_or_trust_artifact_access_authorized",
+        "signing_or_issuance_authorized",
+        "p4_k_a_authorized",
+        "p4_k_r_authorized",
+        "stand_access_authorized",
+        "p4_r_i_or_p4_r_c_authorized",
+        "transfer_install_or_setup_authorized",
+        "q15_r_or_q15_w_authorized",
+        "platform_controls_authorized",
+        "calibration_pilot_measurement_or_confirmatory_authorized"
+      ],
+      "properties": {
+        "repository_local_acceptance_and_adr_creation_authorized": {"const": true},
+        "repository_local_controller_schema_or_template_implementation_authorized": {"const": false},
+        "offline_environment_access_or_inventory_authorized": {"const": false},
+        "key_read_generation_import_copy_fingerprint_or_use_authorized": {"const": false},
+        "public_key_or_allowed_signers_artifact_creation_authorized": {"const": false},
+        "private_key_path_bytes_passphrase_or_seed_collection_authorized": {"const": false},
+        "custody_or_public_artifact_path_creation_authorized": {"const": false},
+        "bootstrap_governance_root_establishment_authorized": {"const": false},
+        "bootstrap_signer_or_trust_artifact_access_authorized": {"const": false},
+        "signing_or_issuance_authorized": {"const": false},
+        "p4_k_a_authorized": {"const": false},
+        "p4_k_r_authorized": {"const": false},
+        "stand_access_authorized": {"const": false},
+        "p4_r_i_or_p4_r_c_authorized": {"const": false},
+        "transfer_install_or_setup_authorized": {"const": false},
+        "q15_r_or_q15_w_authorized": {"const": false},
+        "platform_controls_authorized": {"const": false},
+        "calibration_pilot_measurement_or_confirmatory_authorized": {"const": false}
+      }
+    },
+    "user_responses": {
+      "const": [
+        "P4KA-Q1=ACCEPT_D080_RECOMMENDATION",
+        "P4KA-Q2=ACCEPT_D081_RECOMMENDATION",
+        "P4KA-Q3=ACCEPT_D082_RECOMMENDATION",
+        "P4KA-Q4=NO_QUALIFYING_BOOTSTRAP_SIGNER_REMAIN_BLOCKED",
+        "P4KA-Q5=ACCEPT_D084_D085_RECOMMENDATIONS"
+      ]
+    },
+    "bounded_interpretation": {"type": "string", "minLength": 1}
+  }
+}

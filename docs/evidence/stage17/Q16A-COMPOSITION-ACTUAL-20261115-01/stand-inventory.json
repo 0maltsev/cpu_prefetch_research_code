@@ -1,0 +1,421 @@
+{
+  "files": [
+    {
+      "path": "composition/intent.json",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-q16a-composition-1/intent.json",
+      "size_bytes": 264,
+      "sha256": "05b686cbe3673b8b424521f0417abca13566477e5199e984717deef493b8b94f"
+    },
+    {
+      "path": "composition/signed-collection-preparation.json",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-q16a-composition-1/signed-collection-preparation.json",
+      "size_bytes": 456,
+      "sha256": "c0e06ee5a0dee145da8b90472adaed2200431322d8908ef06c9d896c48a712d9"
+    },
+    {
+      "path": "composition/native-geometry-verification.json",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-q16a-composition-1/native-geometry-verification.json",
+      "size_bytes": 4329,
+      "sha256": "9076992ec8d993a314fd7d8b8134b7642e1127b1bfe730001bf1c663e7d76e87"
+    },
+    {
+      "path": "composition/authenticated-composition.json",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-q16a-composition-1/authenticated-composition.json",
+      "size_bytes": 629535,
+      "sha256": "3c84e5436cedf2e513b28be3f7dc44fa6f44afc3632a728eb3b82d66be89192f"
+    },
+    {
+      "path": "composition/complete.json",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-q16a-composition-1/complete.json",
+      "size_bytes": 1030,
+      "sha256": "954c13f435573b33ddb9ec144e0111c4a29a7e0da62e2df622f5ad2fe419f906"
+    },
+    {
+      "path": "launch/supervisor-pid.json",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-q16a-composition-launch-1/supervisor-pid.json",
+      "size_bytes": 280,
+      "sha256": "daf54a71c23d7ae64391d6463c983bfa53652b49cdda60be8066e9d479241d67"
+    },
+    {
+      "path": "launch/process-result.json",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-q16a-composition-launch-1/process-result.json",
+      "size_bytes": 226,
+      "sha256": "7e95e2db690be27626b37c30cd60453b009ea2f070f240980b2db60b8afdc74d"
+    },
+    {
+      "path": "launch/composition.log",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-q16a-composition-launch-1/composition.log",
+      "size_bytes": 92,
+      "sha256": "bafe30074e94c1df9a25aec4e67053c23a8dc925faca493ccea55ad64a3aaf91"
+    },
+    {
+      "path": "launch/supervisor.log",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-q16a-composition-launch-1/supervisor.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "operator-manifest.json",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-q16a-composition-operators-1/manifest.json",
+      "size_bytes": 588,
+      "sha256": "10394473ab6d7241b66ac1b26b9c6bd5bf350e4aa53c9836a84f17f14772d3e5"
+    }
+  ],
+  "observation": {
+    "utc": "2026-11-15T07:04:25.019533+00:00",
+    "source_count": 708,
+    "measurement_full_runs": 125,
+    "warmup_full_runs": 352,
+    "contexts": [
+      {
+        "blockers": [],
+        "context_ordinal": 0,
+        "distance": {
+          "cap_lines": 16,
+          "consumer_distance_slots": 16,
+          "d1_slots": 8,
+          "d2_cache_lines": 2,
+          "producer_distance_slots": 16,
+          "raw_lines": 1,
+          "raw_slots": 1
+        },
+        "limits": {
+          "c_star_ticks": 289000,
+          "consumer_demand_upper_ticks": 76000,
+          "consumer_issue_lower_ticks": 289000,
+          "ell_star_ticks": 76000,
+          "producer_demand_upper_ticks": 73000,
+          "producer_issue_lower_ticks": 322000
+        },
+        "placement": "NEAR",
+        "states": [
+          {
+            "blockers": [],
+            "hardware_state": "H0",
+            "invalid_runs": 0,
+            "limits": {
+              "consumer_demand_upper_ticks": 76000,
+              "consumer_issue_lower_ticks": 289000,
+              "producer_demand_upper_ticks": 73000,
+              "producer_issue_lower_ticks": 322000
+            },
+            "missing_runs": 0,
+            "planned_runs": 59,
+            "present_runs": 59,
+            "status": "VALIDATED",
+            "valid_runs": 59
+          },
+          {
+            "blockers": [],
+            "hardware_state": "H1",
+            "invalid_runs": 0,
+            "limits": {
+              "consumer_demand_upper_ticks": 75000,
+              "consumer_issue_lower_ticks": 412000,
+              "producer_demand_upper_ticks": 69000,
+              "producer_issue_lower_ticks": 446000
+            },
+            "missing_runs": 0,
+            "planned_runs": 59,
+            "present_runs": 59,
+            "status": "VALIDATED",
+            "valid_runs": 59
+          }
+        ],
+        "status": "VALIDATED",
+        "working_set_class": "L2_RESIDENT"
+      },
+      {
+        "blockers": [],
+        "context_ordinal": 1,
+        "distance": {
+          "cap_lines": 2048,
+          "consumer_distance_slots": 16,
+          "d1_slots": 8,
+          "d2_cache_lines": 2,
+          "producer_distance_slots": 16,
+          "raw_lines": 1,
+          "raw_slots": 1
+        },
+        "limits": {
+          "c_star_ticks": 299000,
+          "consumer_demand_upper_ticks": 288000,
+          "consumer_issue_lower_ticks": 299000,
+          "ell_star_ticks": 288000,
+          "producer_demand_upper_ticks": 177000,
+          "producer_issue_lower_ticks": 321000
+        },
+        "placement": "NEAR",
+        "states": [
+          {
+            "blockers": [],
+            "hardware_state": "H0",
+            "invalid_runs": 0,
+            "limits": {
+              "consumer_demand_upper_ticks": 92000,
+              "consumer_issue_lower_ticks": 299000,
+              "producer_demand_upper_ticks": 70000,
+              "producer_issue_lower_ticks": 321000
+            },
+            "missing_runs": 0,
+            "planned_runs": 59,
+            "present_runs": 59,
+            "status": "VALIDATED",
+            "valid_runs": 59
+          },
+          {
+            "blockers": [],
+            "hardware_state": "H1",
+            "invalid_runs": 0,
+            "limits": {
+              "consumer_demand_upper_ticks": 288000,
+              "consumer_issue_lower_ticks": 412000,
+              "producer_demand_upper_ticks": 177000,
+              "producer_issue_lower_ticks": 434000
+            },
+            "missing_runs": 0,
+            "planned_runs": 59,
+            "present_runs": 59,
+            "status": "VALIDATED",
+            "valid_runs": 59
+          }
+        ],
+        "status": "VALIDATED",
+        "working_set_class": "LLC_RESIDENT"
+      },
+      {
+        "blockers": [],
+        "context_ordinal": 2,
+        "distance": {
+          "cap_lines": 32768,
+          "consumer_distance_slots": 16,
+          "d1_slots": 8,
+          "d2_cache_lines": 2,
+          "producer_distance_slots": 16,
+          "raw_lines": 1,
+          "raw_slots": 2
+        },
+        "limits": {
+          "c_star_ticks": 320000,
+          "consumer_demand_upper_ticks": 324000,
+          "consumer_issue_lower_ticks": 357000,
+          "ell_star_ticks": 324000,
+          "producer_demand_upper_ticks": 228000,
+          "producer_issue_lower_ticks": 320000
+        },
+        "placement": "NEAR",
+        "states": [
+          {
+            "blockers": [],
+            "hardware_state": "H0",
+            "invalid_runs": 0,
+            "limits": {
+              "consumer_demand_upper_ticks": 324000,
+              "consumer_issue_lower_ticks": 357000,
+              "producer_demand_upper_ticks": 101000,
+              "producer_issue_lower_ticks": 320000
+            },
+            "missing_runs": 0,
+            "planned_runs": 59,
+            "present_runs": 59,
+            "status": "VALIDATED",
+            "valid_runs": 59
+          },
+          {
+            "blockers": [],
+            "hardware_state": "H1",
+            "invalid_runs": 0,
+            "limits": {
+              "consumer_demand_upper_ticks": 301000,
+              "consumer_issue_lower_ticks": 468000,
+              "producer_demand_upper_ticks": 228000,
+              "producer_issue_lower_ticks": 433000
+            },
+            "missing_runs": 0,
+            "planned_runs": 59,
+            "present_runs": 59,
+            "status": "VALIDATED",
+            "valid_runs": 59
+          }
+        ],
+        "status": "VALIDATED",
+        "working_set_class": "BEYOND_LLC"
+      },
+      {
+        "blockers": [],
+        "context_ordinal": 3,
+        "distance": {
+          "cap_lines": 16,
+          "consumer_distance_slots": 16,
+          "d1_slots": 8,
+          "d2_cache_lines": 2,
+          "producer_distance_slots": 16,
+          "raw_lines": 1,
+          "raw_slots": 2
+        },
+        "limits": {
+          "c_star_ticks": 269000,
+          "consumer_demand_upper_ticks": 356000,
+          "consumer_issue_lower_ticks": 269000,
+          "ell_star_ticks": 416000,
+          "producer_demand_upper_ticks": 416000,
+          "producer_issue_lower_ticks": 311000
+        },
+        "placement": "FAR",
+        "states": [
+          {
+            "blockers": [],
+            "hardware_state": "H0",
+            "invalid_runs": 0,
+            "limits": {
+              "consumer_demand_upper_ticks": 353000,
+              "consumer_issue_lower_ticks": 269000,
+              "producer_demand_upper_ticks": 416000,
+              "producer_issue_lower_ticks": 311000
+            },
+            "missing_runs": 0,
+            "planned_runs": 59,
+            "present_runs": 59,
+            "status": "VALIDATED",
+            "valid_runs": 59
+          },
+          {
+            "blockers": [],
+            "hardware_state": "H1",
+            "invalid_runs": 0,
+            "limits": {
+              "consumer_demand_upper_ticks": 356000,
+              "consumer_issue_lower_ticks": 396000,
+              "producer_demand_upper_ticks": 296000,
+              "producer_issue_lower_ticks": 446000
+            },
+            "missing_runs": 0,
+            "planned_runs": 59,
+            "present_runs": 59,
+            "status": "VALIDATED",
+            "valid_runs": 59
+          }
+        ],
+        "status": "VALIDATED",
+        "working_set_class": "L2_RESIDENT"
+      },
+      {
+        "blockers": [],
+        "context_ordinal": 4,
+        "distance": {
+          "cap_lines": 2048,
+          "consumer_distance_slots": 16,
+          "d1_slots": 8,
+          "d2_cache_lines": 2,
+          "producer_distance_slots": 16,
+          "raw_lines": 1,
+          "raw_slots": 2
+        },
+        "limits": {
+          "c_star_ticks": 270000,
+          "consumer_demand_upper_ticks": 361000,
+          "consumer_issue_lower_ticks": 270000,
+          "ell_star_ticks": 439000,
+          "producer_demand_upper_ticks": 439000,
+          "producer_issue_lower_ticks": 309000
+        },
+        "placement": "FAR",
+        "states": [
+          {
+            "blockers": [],
+            "hardware_state": "H0",
+            "invalid_runs": 0,
+            "limits": {
+              "consumer_demand_upper_ticks": 361000,
+              "consumer_issue_lower_ticks": 270000,
+              "producer_demand_upper_ticks": 439000,
+              "producer_issue_lower_ticks": 309000
+            },
+            "missing_runs": 0,
+            "planned_runs": 59,
+            "present_runs": 59,
+            "status": "VALIDATED",
+            "valid_runs": 59
+          },
+          {
+            "blockers": [],
+            "hardware_state": "H1",
+            "invalid_runs": 0,
+            "limits": {
+              "consumer_demand_upper_ticks": 347000,
+              "consumer_issue_lower_ticks": 383000,
+              "producer_demand_upper_ticks": 344000,
+              "producer_issue_lower_ticks": 430000
+            },
+            "missing_runs": 0,
+            "planned_runs": 59,
+            "present_runs": 59,
+            "status": "VALIDATED",
+            "valid_runs": 59
+          }
+        ],
+        "status": "VALIDATED",
+        "working_set_class": "LLC_RESIDENT"
+      },
+      {
+        "blockers": [],
+        "context_ordinal": 5,
+        "distance": {
+          "cap_lines": 32768,
+          "consumer_distance_slots": 16,
+          "d1_slots": 8,
+          "d2_cache_lines": 2,
+          "producer_distance_slots": 16,
+          "raw_lines": 1,
+          "raw_slots": 2
+        },
+        "limits": {
+          "c_star_ticks": 309000,
+          "consumer_demand_upper_ticks": 347000,
+          "consumer_issue_lower_ticks": 383000,
+          "ell_star_ticks": 347000,
+          "producer_demand_upper_ticks": 335000,
+          "producer_issue_lower_ticks": 309000
+        },
+        "placement": "FAR",
+        "states": [
+          {
+            "blockers": [],
+            "hardware_state": "H0",
+            "invalid_runs": 0,
+            "limits": {
+              "consumer_demand_upper_ticks": 347000,
+              "consumer_issue_lower_ticks": 383000,
+              "producer_demand_upper_ticks": 102000,
+              "producer_issue_lower_ticks": 309000
+            },
+            "missing_runs": 0,
+            "planned_runs": 59,
+            "present_runs": 59,
+            "status": "VALIDATED",
+            "valid_runs": 59
+          },
+          {
+            "blockers": [],
+            "hardware_state": "H1",
+            "invalid_runs": 0,
+            "limits": {
+              "consumer_demand_upper_ticks": 299000,
+              "consumer_issue_lower_ticks": 502000,
+              "producer_demand_upper_ticks": 335000,
+              "producer_issue_lower_ticks": 426000
+            },
+            "missing_runs": 0,
+            "planned_runs": 59,
+            "present_runs": 59,
+            "status": "VALIDATED",
+            "valid_runs": 59
+          }
+        ],
+        "status": "VALIDATED",
+        "working_set_class": "BEYOND_LLC"
+      }
+    ],
+    "raw_transferred": false
+  }
+}

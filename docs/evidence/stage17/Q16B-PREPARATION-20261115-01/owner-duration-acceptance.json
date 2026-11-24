@@ -1,0 +1,15 @@
+{
+  "answer": "Approve 1 second and 59 repetitions per cell",
+  "cells": 60,
+  "counting_rule": "D211",
+  "execution_authority": false,
+  "measurement_ns": 1000000000,
+  "phase18_authority": false,
+  "planned_captures": 3540,
+  "protocol_version": "2.0.0-pre.3",
+  "recorded_at_utc": "2026-11-15T08:13:03.329552+00:00",
+  "repetitions_per_cell": 59,
+  "schema_version": "owner-prospective-input-acceptance/1",
+  "source": "current user conversation, explicit structured answer",
+  "warmup_ns": 5000000000
+}

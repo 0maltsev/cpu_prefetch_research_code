@@ -1,0 +1,53 @@
+Start testing: Nov 22 22:04 MSK
+----------------------------------------------------------
+604/690 Testing: runner.service_continuation_namespace_v1
+604/690 Test: runner.service_continuation_namespace_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_service_continuation_namespace_v1.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.service_continuation_namespace_v1" start time: Nov 22 22:04 MSK
+Output:
+----------------------------------------------------------
+.......
+----------------------------------------------------------------------
+Ran 7 tests in 15.902s
+
+OK
+<end of output>
+Test time =  16.23 sec
+----------------------------------------------------------
+Test Passed.
+"runner.service_continuation_namespace_v1" end time: Nov 22 22:04 MSK
+"runner.service_continuation_namespace_v1" time elapsed: 00:00:16
+----------------------------------------------------------
+
+669/690 Testing: runner.s180_namespace_audit_v1
+669/690 Test: runner.s180_namespace_audit_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_namespace_audit_v1.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180_namespace_audit_v1" start time: Nov 22 22:04 MSK
+Output:
+----------------------------------------------------------
+..............
+----------------------------------------------------------------------
+Ran 14 tests in 0.221s
+
+OK
+<end of output>
+Test time =   0.35 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180_namespace_audit_v1" end time: Nov 22 22:04 MSK
+"runner.s180_namespace_audit_v1" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Nov 22 22:04 MSK
+
+archive =  16.23 sec*proc
+
+pilot =   0.35 sec*proc
+
+python =  16.58 sec*proc
+
+runner =  16.58 sec*proc
+
+synthetic =   0.35 sec*proc

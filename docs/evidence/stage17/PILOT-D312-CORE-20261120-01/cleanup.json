@@ -1,0 +1,7 @@
+{
+  "path": "build/stage17-s180-native/dev-gcc",
+  "qualified_release_removed": false,
+  "raw_data_removed": false,
+  "reason": "rejected host GCC16.2 scratch configuration; accepted GCC16.1 build retained",
+  "removed_bytes": 418758
+}

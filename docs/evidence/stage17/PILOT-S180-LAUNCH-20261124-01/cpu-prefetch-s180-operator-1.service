@@ -1,0 +1,25 @@
+[Unit]
+Description=Approved once-only descriptive S180 pilot
+OnSuccess=cpu-prefetch-s180-exit-1.service
+[Service]
+Type=exec
+User=root
+Group=root
+Slice=-.slice
+KillMode=control-group
+SendSIGKILL=yes
+Restart=no
+LimitAS=4294967296:68719476736
+LimitMEMLOCK=68719476736
+LimitNOFILE=1024
+LimitCORE=0
+UMask=0077
+Environment=PYTHONDONTWRITEBYTECODE=1
+TimeoutStopSec=120
+RuntimeDirectory=cpu-prefetch-s180-operator-1
+RuntimeDirectoryMode=0700
+RuntimeDirectoryPreserve=yes
+RuntimeMaxSec=86400
+ExecStartPre=/usr/bin/python3.14 -B /opt/cpu-prefetch-s180-service-1/stage17_s180_service_v1.py prepare-runtime --profile-sha256 548884312b7508d76d697863caf57ba0656ba0c2c114021e692c7c83c54df718
+ExecStart=/usr/bin/python3.14 -B /opt/cpu-prefetch-s180-service-1/stage17_s180_service_v1.py run --profile-sha256 548884312b7508d76d697863caf57ba0656ba0c2c114021e692c7c83c54df718
+ExecStopPost=/usr/bin/python3.14 -B /run/cpu-prefetch-s180-operator-1/stop_post.py

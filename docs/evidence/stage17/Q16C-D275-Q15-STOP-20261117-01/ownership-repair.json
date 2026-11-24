@@ -1,0 +1,21 @@
+{
+  "all_file_sizes_hashes_and_modes_unchanged": true,
+  "bundle_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-919c486-clean-2dda11ec716e",
+  "checked_entries": 4441,
+  "checked_files": 4121,
+  "completed_monotonic_ns": 1371204371573708,
+  "experimental_actions": 0,
+  "global_deadline_ns": 1434917259623071,
+  "inventory_sha256": "96c0fde264e2c965421318ac80225332d53c102ec12bc1087bfa284819a4ae82",
+  "ownership_entries_corrected": 4440,
+  "qualification_retried": false,
+  "schema_version": "cpu-prefetch-stage17-q16c-complete-bundle-owner-repair/1",
+  "verified_gid": 1000,
+  "verified_inventory_entries": 4119,
+  "verified_uid": 1000,
+  "worker": {
+    "mode": 493,
+    "sha256": "1baa213a137679460348ff6b861839044022957a4de0e5fc79929f7b49bed883",
+    "size_bytes": 5048256
+  }
+}

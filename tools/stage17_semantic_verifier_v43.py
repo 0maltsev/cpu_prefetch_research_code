@@ -1,0 +1,131 @@
+#!/usr/bin/env python3
+"""Stage 17 registry successor for the preflight-plan-policy follow-up
+fix (ADR-0157).
+
+No `S17-EXT-00N` manifest/schema semantics change at all -- `verify_
+input` is `v42`'s own, unchanged. This file exists for the same reason
+`v42.py` existed relative to `v41.py`: `verify_policy_v42` (defined in
+`v42.py`) closes over `v42`'s own `VERIFIER_VERSION`/`POLICY_SCHEMA` and
+a `required`/`required_dynamic_action_bindings` set naming `stage17_
+read_only_preflight_executor_v25.py` as the expected preflight-executor
+root -- but ADR-0157 moves that root to `_v26.py` (the file `v42`'s own
+`ROOTS` never actually reached, since `cli_v11.py` never imports the
+preflight executor directly). A fresh journal admitting `S17-EXT-001`
+against a `v43`-numbered policy document needs those checks to expect
+"43" and `_v26.py`/the new preflight-plan-policy chain, not `v42`'s
+frozen expectations.
+"""
+
+from __future__ import annotations
+
+import json
+import pathlib
+from typing import Any
+
+import stage17_semantic_verifier_v42 as predecessor
+
+
+POLICY_PATH = pathlib.PurePosixPath(
+    "config/stage17/stage17-operational-evidence-admission-policy-v43.json"
+)
+POLICY_SCHEMA = pathlib.PurePosixPath(
+    "config/schemas/stage17-operational-evidence-admission-policy-v43.schema.json"
+)
+VERIFIER_ID = predecessor.VERIFIER_ID
+VERIFIER_VERSION = "43"
+INPUT_IDS = predecessor.INPUT_IDS
+SemanticAdmissionError = predecessor.SemanticAdmissionError
+sha_file = predecessor.sha_file
+discover_python_closure = predecessor.discover_python_closure
+pinned_binding_bytes = predecessor.pinned_binding_bytes
+verify_input = predecessor.verify_input
+
+
+def verify_policy_v43(*, root: pathlib.Path, policy: dict[str, Any],
+                      graph_sha256: str, catalog_sha256: str,
+                      genesis_record_sha256: str,
+                      resolution_schema_sha256: str) -> None:
+    from jsonschema import Draft202012Validator
+    schema = json.loads((root / POLICY_SCHEMA).read_text())
+    errors = list(Draft202012Validator(schema).iter_errors(policy))
+    if errors:
+        raise SemanticAdmissionError(
+            f"policy v43 schema rejection: {errors[0].message}"
+        )
+    if (policy["graph_sha256"] != graph_sha256
+            or policy["catalog_sha256"] != catalog_sha256
+            or policy["genesis_record_sha256"] != genesis_record_sha256
+            or policy["resolution_schema_sha256"] != resolution_schema_sha256):
+        raise SemanticAdmissionError("policy graph/catalog/genesis binding drifted")
+    expected = [
+        {"input_id": item, "status": "IMPLEMENTED",
+         "verifier_id": VERIFIER_ID, "verifier_version": VERIFIER_VERSION}
+        for item in INPUT_IDS
+    ]
+    if policy["entries"] != expected:
+        raise SemanticAdmissionError("policy does not implement exactly ten inputs")
+    for group in ("bindings", "runtime_closure"):
+        for key, binding in policy[group].items():
+            pinned_binding_bytes(root, binding, f"{group} {key}")
+    discovered = discover_python_closure(
+        root, tuple(policy["runtime_import_roots"])
+    )
+    if discovered != {item["path"] for item in policy["runtime_closure"].values()}:
+        raise SemanticAdmissionError(
+            "policy Python runtime closure is incomplete/expanded"
+        )
+    required = {
+        "tools/stage17_state_journal_v35.py",
+        "tools/stage17_phase_controller_v9.py",
+        "tools/stage17_operational_cli_v11.py",
+        "tools/stage17_read_only_preflight_executor_v26.py",
+        "tools/stage17_process_group_supervisor_v3.py",
+        "tools/stage17_openssh_parent_snapshot_v5.py",
+        "tools/stage17_read_only_preflight_collector_v3.py",
+        "tools/stage17_read_only_preflight_semantic_verifier_v27.py",
+        "tools/stage17_read_only_preflight_semantic_verifier_v20.py",
+        "tools/stage17_pilot_candidate_artifact_v6.py",
+        "tools/stage17_pilot_candidate_artifact_v7.py",
+        "tools/stage17_operational_semantics_v6.py",
+        "tools/stage17_operational_semantics_v7.py",
+        "tools/stage17_operational_semantics_v8.py",
+        "tools/stage17_phase_controller_v15.py",
+        "tools/stage17_fixed_action_executor_v5.py",
+    }
+    if not required.issubset(discovered):
+        raise SemanticAdmissionError("policy v43 runtime closure is incomplete")
+    if "tools/stage17_read_only_preflight_executor_v24.py" in discovered:
+        raise SemanticAdmissionError(
+            "policy v43 must bind executor v25 (via v26), not the superseded v24 entry point"
+        )
+    if "tools/stage17_read_only_preflight_executor_v25.py" not in discovered:
+        raise SemanticAdmissionError(
+            "policy v43 must keep v25 reachable through v26's own re-export"
+        )
+    bound_paths = {binding["path"] for binding in policy["bindings"].values()}
+    required_dynamic_action_bindings = {
+        "tools/stage17_phase_controller_v14.py",
+        "tools/stage17_q15_session_controller_v12.py",
+        "tools/stage17_phase_controller_v15.py",
+        "tools/stage17_fixed_action_executor_v5.py",
+        "tools/stage17_read_only_preflight_executor_v26.py",
+        "config/stage17/stage17-read-only-preflight-evidence-admission-policy-v28.json",
+    }
+    if not required_dynamic_action_bindings.issubset(bound_paths):
+        raise SemanticAdmissionError(
+            "policy v43 must pin the ADR-0157 preflight-plan-policy follow-up "
+            "entrypoints"
+        )
+    # Every module generation older than what this policy's own
+    # IMPLEMENTATION_PATHS binds legitimately remains reachable too: each
+    # new successor imports its own immediate predecessor to re-export
+    # everything but the one thing it changed. Their presence in the
+    # discovered closure is expected, not a drift signal -- the same
+    # coexistence already documented for phase_controller v8/v9/v14/v15,
+    # fixed_action_executor v2/v3/v4/v5, read_only_preflight_executor
+    # v25/v26, pilot_candidate_artifact v4/v5/v6/v7, and process_group_
+    # supervisor v2/v3.
+
+
+def verify_policy_v14(**arguments: Any) -> None:
+    verify_policy_v43(**arguments)

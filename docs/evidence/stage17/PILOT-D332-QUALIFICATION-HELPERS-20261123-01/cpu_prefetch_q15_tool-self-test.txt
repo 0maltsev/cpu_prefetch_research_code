@@ -1,0 +1,1 @@
+q15-tool-self-test: PASS device=NOT_OPENED msr=NOT_ACCESSED perf=NOT_OPENED socket=NOT_OPENED collectors=7 stand=NOT_ACCESSED authority=NONE

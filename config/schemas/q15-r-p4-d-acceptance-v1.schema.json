@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-p4-d-acceptance:v1",
+  "title": "Q15-R-P4-D method acceptance without stand or execution authority",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "acceptance_id", "protocol_version", "decision_input_binding", "accepted_offer_binding", "accepted_decisions", "collector_contract_binding", "remaining_literal_values", "authority_boundary", "user_acceptance", "interpretation"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-d-acceptance/1"},
+    "acceptance_id": {"const": "Q15-R-P4-D-ACCEPTANCE-20260825-01"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "decision_input_binding": {"type": "object"},
+    "accepted_offer_binding": {"type": "object"},
+    "accepted_decisions": {"type": "array", "minItems": 5, "maxItems": 5},
+    "collector_contract_binding": {"type": "object"},
+    "remaining_literal_values": {"type": "array", "minItems": 5, "maxItems": 5},
+    "authority_boundary": {"type": "object"},
+    "user_acceptance": {"const": "Q15-R-P4-D — accept the recommended acquisition contracts in D-066 through D-070..."},
+    "interpretation": {"type": "string", "minLength": 1}
+  }
+}

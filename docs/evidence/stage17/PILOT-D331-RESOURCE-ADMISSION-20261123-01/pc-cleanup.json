@@ -1,0 +1,40 @@
+{
+  "verified_duplicate_build_files_removed": [
+    {
+      "path": "build/stage17-s180-admission-prep/resource-initial.txt",
+      "size_bytes": 2930
+    },
+    {
+      "path": "build/stage17-s180-admission-prep/resource-intermediate.txt",
+      "size_bytes": 1510
+    },
+    {
+      "path": "build/stage17-s180-admission-prep/resource-debug-final2.txt",
+      "size_bytes": 2224
+    },
+    {
+      "path": "build/stage17-s180-admission-prep/environment-debug-final.txt",
+      "size_bytes": 2983
+    },
+    {
+      "path": "build/stage17-s180-admission-prep/configure.txt",
+      "size_bytes": 177
+    },
+    {
+      "path": "build/stage17-s180-admission-prep/repository-checks.txt",
+      "size_bytes": 6025
+    },
+    {
+      "path": "build/stage17-s180-admission-prep/registered-final.txt",
+      "size_bytes": 1755
+    },
+    {
+      "path": "build/stage17-s180-admission-prep/stand-readonly-status.json",
+      "size_bytes": 424
+    }
+  ],
+  "total_bytes": 18028,
+  "temporary_resource_stores_remaining": 0,
+  "stand_raw_deleted": false,
+  "raw_transferred": false
+}

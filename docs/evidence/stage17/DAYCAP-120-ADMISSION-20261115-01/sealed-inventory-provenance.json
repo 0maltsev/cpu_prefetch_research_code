@@ -1,0 +1,32 @@
+{
+  "schema_version": "software-d253-sealed-inventory-image-provenance/1",
+  "image_source": "tools/stage17_archive_inventory_image_v1.py",
+  "native_library": "build/accepted-release-gcc/libcpu_prefetch_stage17_archive_inventory.so",
+  "native_sha256": "3187d8a5d86deecb440af4468f80e31149e7a4fa0c8c23f4a3decc3cf46d2071",
+  "native_cpp_sha256": "3f1302ab7e1ab7ae463e28471b37d781e9ccd8eef7c58320e10615180d8d4825",
+  "build_type": "Release",
+  "purpose": "EXACT_TESTED_COLD_INVENTORY_HELPER_NOT_MEASURED_QUEUE_CODE",
+  "execution_authority": false,
+  "reviewed_source_revision": "a245baad58bfb43af33412e4c5a7712b15a3287f",
+  "existing_build_metadata": {
+    "path": "build/accepted-release-gcc/generated/version_metadata.json",
+    "size_bytes": 400,
+    "sha256": "19a01ecd8146ec9f6e2e87ba61e5d3b2aa6a6bc4659d38f8a623423e27587a0f",
+    "document": {
+      "schema_version": "cpu-prefetch-build-metadata/1",
+      "protocol_version": "2.0.0-pre.3",
+      "source_revision": "f2abff533ec6744616a8b4b59766104cf30fe61f",
+      "source_revision_short": "f2abff5",
+      "source_dirty": true,
+      "compiler": {
+        "id": "GNU",
+        "version": "16.1.1"
+      },
+      "standard_library": "libstdc++",
+      "language_standard": "C++20",
+      "generator": "Ninja",
+      "build_type": "Release"
+    }
+  },
+  "identity_note": "The helper contains no generated repository identity. Its exact C++ bytes are reviewed in the cited commit; the existing build metadata is retained separately and is not relabelled as that commit."
+}

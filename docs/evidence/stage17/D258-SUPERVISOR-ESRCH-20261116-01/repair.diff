@@ -1,0 +1,57 @@
+--- retained-deployed-supervisor
++++ D258-fixed-supervisor
+@@ -22,6 +22,7 @@
+ import subprocess
+ import sys
+ import threading
++import traceback
+ import time
+ import types
+ 
+@@ -248,13 +249,13 @@
+         parent = pending.pop()
+         try:
+             children = Path(f'/proc/{parent}/task/{parent}/children').read_text().split()
+-        except FileNotFoundError:
++        except (FileNotFoundError, ProcessLookupError):
+             continue
+         for child in children:
+             child = int(child)
+             try:
+                 result[child] = start_ticks(child)
+-            except FileNotFoundError:
++            except (FileNotFoundError, ProcessLookupError):
+                 continue
+             pending.append(child)
+             require(len(result) <= 4096, 'owned process-tree bound exceeded')
+@@ -320,7 +321,7 @@
+         try:
+             if start_ticks(self.process.pid) == self.leader_ticks:
+                 self.observed.update(descendants(self.process.pid))
+-        except FileNotFoundError:
++        except (FileNotFoundError, ProcessLookupError):
+             pass
+         # Subreaper adoption after owner loss stays inside this dedicated driver.
+         self.observed.update(descendants(os.getpid()))
+@@ -334,7 +335,7 @@
+             try:
+                 if start_ticks(pid) == ticks:
+                     result[pid] = ticks
+-            except FileNotFoundError:
++            except (FileNotFoundError, ProcessLookupError):
+                 pass
+         return result
+ 
+@@ -710,6 +711,12 @@
+                 require(code == 0, label + ' failed: ' + str(code))
+                 record['exit_code'] = code
+                 self.active = None
++        except BaseException as error:
++            # Cold control-plane diagnostics contain no captured locals or rows.
++            record['failure_type'] = type(error).__name__
++            record['failure_errno'] = getattr(error, 'errno', None)
++            record['failure_traceback'] = traceback.format_exc(limit=20)[-32768:]
++            raise
+         finally:
+             record['exit_code'] = owned.process.returncode if owned is not None else None
+             record['leader_reaped'] = owned is not None and owned.process.returncode is not None

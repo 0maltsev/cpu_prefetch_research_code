@@ -1,0 +1,22 @@
+test_actual_empty_checkpoint_and_failure_are_eligible (test_stage17_q16c_empty_reuse_v1.EmptyAttempt.test_actual_empty_checkpoint_and_failure_are_eligible) ... ok
+test_any_observation_or_mapping_stops_reuse (test_stage17_q16c_empty_reuse_v1.EmptyAttempt.test_any_observation_or_mapping_stops_reuse) ... ok
+test_unknown_cleanup_quarantine_or_wrong_lineage_stops (test_stage17_q16c_empty_reuse_v1.EmptyAttempt.test_unknown_cleanup_quarantine_or_wrong_lineage_stops) ... ok
+test_duplicate_or_historical_seed_and_run_identity_rejected (test_stage17_q16c_empty_reuse_v1.ProspectivePlan.test_duplicate_or_historical_seed_and_run_identity_rejected) ... ok
+test_no_rate_geometry_sample_storage_or_budget_changes (test_stage17_q16c_empty_reuse_v1.ProspectivePlan.test_no_rate_geometry_sample_storage_or_budget_changes) ... ok
+test_same_full_matrix_bank_limits_and_new_identities (test_stage17_q16c_empty_reuse_v1.ProspectivePlan.test_same_full_matrix_bank_limits_and_new_identities) ... ok
+test_added_transitive_dependency_is_rejected (test_stage17_q16c_empty_reuse_v1.QualifiedSourceReuse.test_added_transitive_dependency_is_rejected) ... ok
+test_changed_python_bytes_with_identical_membership_are_rejected (test_stage17_q16c_empty_reuse_v1.QualifiedSourceReuse.test_changed_python_bytes_with_identical_membership_are_rejected) ... ok
+test_each_schema_requires_identical_bytes (test_stage17_q16c_empty_reuse_v1.QualifiedSourceReuse.test_each_schema_requires_identical_bytes) ... ok
+test_matching_qualified_closures_and_bytes_pass_full_inspect (test_stage17_q16c_empty_reuse_v1.QualifiedSourceReuse.test_matching_qualified_closures_and_bytes_pass_full_inspect) ... ok
+test_missing_schema_is_rejected (test_stage17_q16c_empty_reuse_v1.QualifiedSourceReuse.test_missing_schema_is_rejected) ... ok
+test_missing_transitive_dependency_is_rejected (test_stage17_q16c_empty_reuse_v1.QualifiedSourceReuse.test_missing_transitive_dependency_is_rejected) ... ok
+test_wrong_or_relabelled_consumer_is_rejected (test_stage17_q16c_empty_reuse_v1.QualifiedSourceReuse.test_wrong_or_relabelled_consumer_is_rejected) ... ok
+test_no_extension_wrong_release_partial_budget_or_late_launch (test_stage17_q16c_empty_reuse_v1.Window.test_no_extension_wrong_release_partial_budget_or_late_launch) ... ok
+test_unchanged_complete_ceiling_and_old_deadline_independent (test_stage17_q16c_empty_reuse_v1.Window.test_unchanged_complete_ceiling_and_old_deadline_independent) ... ok
+test_actual_prepared_but_unreleased_both_phases_qualify_for_source_reuse (test_stage17_q16c_prefix_reuse_v1.IncidentTests.test_actual_prepared_but_unreleased_both_phases_qualify_for_source_reuse) ... ok
+test_one_event_one_phase_release_or_missing_failed_raw_evidence_blocks_reuse (test_stage17_q16c_prefix_reuse_v1.IncidentTests.test_one_event_one_phase_release_or_missing_failed_raw_evidence_blocks_reuse) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 5.142s
+
+OK

@@ -1,0 +1,30 @@
+E
+======================================================================
+ERROR: test_producer_context_public_author_signature_and_executor_preparation (__main__.ArchiveProducerIntegration.test_producer_context_public_author_signature_and_executor_preparation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_phase_controller_v26.py", line 250, in test_producer_context_public_author_signature_and_executor_preparation
+    request_path = self.author_request()
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_phase_controller_v26.py", line 244, in author_request
+    cli.author_formal_request(repository_root=self.repository, evidence_root=self.root, synthetic=True,
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        action_id='Q16a', action_inputs_path=self.inputs, request_id='request', authorization_id='auth',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        attempt_id='attempt', session_id='session', output_root=self.output, destination=destination)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_operational_cli_v18.py", line 431, in author_formal_request
+    controller.validate_action_inputs(document, validation)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_phase_controller_v26.py", line 91, in validate_action_inputs
+    qualified_archive_profile(request, validation,
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+        deadline_ns=time.monotonic_ns() + extent.declared.cleanup_ns)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_phase_controller_v26.py", line 64, in qualified_archive_profile
+    raise ControllerError("qualified implementation profile is outside its bundle member")
+stage17_phase_controller_v4.ControllerError: qualified implementation profile is outside its bundle member
+
+----------------------------------------------------------------------
+Ran 1 test in 4.096s
+
+FAILED (errors=1)

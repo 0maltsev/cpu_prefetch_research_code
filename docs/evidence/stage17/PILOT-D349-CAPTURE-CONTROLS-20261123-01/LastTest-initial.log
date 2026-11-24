@@ -1,0 +1,158 @@
+Start testing: Nov 23 19:02 MSK
+----------------------------------------------------------
+482/712 Testing: calibration.discovery_environment_validation
+482/712 Test: calibration.discovery_environment_validation
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_discovery_environment.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"calibration.discovery_environment_validation" start time: Nov 23 19:02 MSK
+Output:
+----------------------------------------------------------
+....................
+----------------------------------------------------------------------
+Ran 20 tests in 0.045s
+
+OK
+<end of output>
+Test time =   0.12 sec
+----------------------------------------------------------
+Test Passed.
+"calibration.discovery_environment_validation" end time: Nov 23 19:02 MSK
+"calibration.discovery_environment_validation" time elapsed: 00:00:00
+----------------------------------------------------------
+
+487/712 Testing: runner.formal_service_capture_validation
+487/712 Test: runner.formal_service_capture_validation
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_formal_service_capture_validation_v1.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.formal_service_capture_validation" start time: Nov 23 19:02 MSK
+Output:
+----------------------------------------------------------
+............
+----------------------------------------------------------------------
+Ran 12 tests in 3.268s
+
+OK
+<end of output>
+Test time =   3.58 sec
+----------------------------------------------------------
+Test Passed.
+"runner.formal_service_capture_validation" end time: Nov 23 19:02 MSK
+"runner.formal_service_capture_validation" time elapsed: 00:00:03
+----------------------------------------------------------
+
+507/712 Testing: runner.stage17_q16a_capture_validation_v1
+507/712 Test: runner.stage17_q16a_capture_validation_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_q16a_capture_validation_v1.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.stage17_q16a_capture_validation_v1" start time: Nov 23 19:02 MSK
+Output:
+----------------------------------------------------------
+...............
+----------------------------------------------------------------------
+Ran 15 tests in 2.322s
+
+OK
+<end of output>
+Test time =   2.62 sec
+----------------------------------------------------------
+Test Passed.
+"runner.stage17_q16a_capture_validation_v1" end time: Nov 23 19:02 MSK
+"runner.stage17_q16a_capture_validation_v1" time elapsed: 00:00:02
+----------------------------------------------------------
+
+616/712 Testing: runner.formal_scheduled_capture_validation_v2
+616/712 Test: runner.formal_scheduled_capture_validation_v2
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_formal_scheduled_capture_validation_v2.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.formal_scheduled_capture_validation_v2" start time: Nov 23 19:02 MSK
+Output:
+----------------------------------------------------------
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.267s
+
+OK
+<end of output>
+Test time =   0.57 sec
+----------------------------------------------------------
+Test Passed.
+"runner.formal_scheduled_capture_validation_v2" end time: Nov 23 19:02 MSK
+"runner.formal_scheduled_capture_validation_v2" time elapsed: 00:00:00
+----------------------------------------------------------
+
+684/712 Testing: runner.s180_tail_numerics_v1
+684/712 Test: runner.s180_tail_numerics_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_tail_numerics_v1.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180_tail_numerics_v1" start time: Nov 23 19:02 MSK
+Output:
+----------------------------------------------------------
+................
+----------------------------------------------------------------------
+Ran 16 tests in 2.154s
+
+OK
+<end of output>
+Test time =   2.28 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180_tail_numerics_v1" end time: Nov 23 19:02 MSK
+"runner.s180_tail_numerics_v1" time elapsed: 00:00:02
+----------------------------------------------------------
+
+685/712 Testing: runner.s180_raw_join_v1
+685/712 Test: runner.s180_raw_join_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_raw_join_v1.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180_raw_join_v1" start time: Nov 23 19:02 MSK
+Output:
+----------------------------------------------------------
+................
+----------------------------------------------------------------------
+Ran 16 tests in 0.015s
+
+OK
+<end of output>
+Test time =   0.22 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180_raw_join_v1" end time: Nov 23 19:02 MSK
+"runner.s180_raw_join_v1" time elapsed: 00:00:00
+----------------------------------------------------------
+
+686/712 Testing: runner.s180_capture_controls_v1
+686/712 Test: runner.s180_capture_controls_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_capture_controls_v1.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180_capture_controls_v1" start time: Nov 23 19:02 MSK
+Output:
+----------------------------------------------------------
+.................
+----------------------------------------------------------------------
+Ran 17 tests in 2.390s
+
+OK
+<end of output>
+Test time =   2.69 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180_capture_controls_v1" end time: Nov 23 19:02 MSK
+"runner.s180_capture_controls_v1" time elapsed: 00:00:02
+----------------------------------------------------------
+
+End testing: Nov 23 19:02 MSK
+
+archive =   0.57 sec*proc
+
+calibration =   6.32 sec*proc
+
+diagnostic =   0.12 sec*proc
+
+pilot =   5.19 sec*proc
+
+python =  11.96 sec*proc
+
+runner =  11.96 sec*proc
+
+synthetic =  11.51 sec*proc
+

@@ -1,0 +1,59 @@
+{
+  "utc": "2026-11-09T10:41:21.448956+00:00",
+  "processes": [
+    {
+      "pid": 123370,
+      "command": [
+        "/usr/bin/python3.14",
+        "-B",
+        "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d243-operators-1/formal_launch_v2.py",
+        "--supervise",
+        "--config",
+        "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/formal-q16a-continuation-authoring-1/launch-config-2.json",
+        "--config-sha256",
+        "ea618df0fb8b4b1e397c1539c64eee4c798ce4acfefe15b0d3a2aabcbd8cd50e",
+        "--address-space-bytes",
+        "240518168576",
+        "--memlock-bytes",
+        "25769803776"
+      ],
+      "status": {
+        "Name": "python3.14",
+        "State": "S (sleeping)",
+        "PPid": "1",
+        "Uid": "0\t0\t0\t0",
+        "Cpus_allowed_list": "3"
+      }
+    },
+    {
+      "pid": 123640,
+      "command": [
+        "/usr/bin/python3.14",
+        "-B",
+        "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d242-admin-1/stage17_operational_cli_v19.py",
+        "execute-formal",
+        "--repository-root",
+        "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/admission-root",
+        "--evidence-root",
+        "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25",
+        "--authorization",
+        "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/admission-root/evidence/formal-q16a-1/authorization.json",
+        "--signature",
+        "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/admission-root/evidence/formal-q16a-1/authorization.json.sig",
+        "--pilot-archive",
+        "/home/omaltsev/stage17-owner-evidence/cpu-prefetch-pilot-candidate-2.0.0-42f2ebb-clean-e808f93edb5a.tar.gz",
+        "--pilot-sidecar",
+        "/home/omaltsev/stage17-owner-evidence/cpu-prefetch-pilot-candidate-2.0.0-42f2ebb-clean-e808f93edb5a.tar.gz.sha256"
+      ],
+      "status": {
+        "Name": "python3.14",
+        "State": "R (running)",
+        "PPid": "123370",
+        "Uid": "1000\t1000\t1000\t1000",
+        "Cpus_allowed_list": "2"
+      }
+    }
+  ],
+  "family_control_names": [],
+  "session_log_tail": ""
+}

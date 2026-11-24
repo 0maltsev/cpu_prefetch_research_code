@@ -1,0 +1,39 @@
+{
+  "observed_at_utc": "2026-11-17T10:42:14.013224+00:00",
+  "parent_pid": 264653,
+  "parent": {
+    "Name": "python3",
+    "Uid": "1000\t1000\t1000\t1000",
+    "VmSize": "57844 kB",
+    "VmRSS": "47792 kB",
+    "Cpus_allowed_list": "0-31"
+  },
+  "owned_children": 32,
+  "child_sample": [
+    {
+      "pid": 264654,
+      "status": {
+        "Name": "python3",
+        "Uid": "1000\t1000\t1000\t1000",
+        "VmSize": "94360 kB",
+        "VmRSS": "74648 kB",
+        "Cpus_allowed_list": "0-31"
+      }
+    },
+    {
+      "pid": 264655,
+      "status": {
+        "Name": "python3",
+        "Uid": "1000\t1000\t1000\t1000",
+        "VmSize": "94360 kB",
+        "VmRSS": "74544 kB",
+        "Cpus_allowed_list": "0-31"
+      }
+    }
+  ],
+  "completed_original_sources": 0,
+  "failure_present": false,
+  "completion_present": false,
+  "console_tail": "",
+  "native_experiments": 0
+}

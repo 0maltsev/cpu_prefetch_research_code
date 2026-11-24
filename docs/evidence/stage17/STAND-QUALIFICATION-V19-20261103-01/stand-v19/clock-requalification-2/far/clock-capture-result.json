@@ -1,0 +1,33 @@
+{
+  "binary_sha256": "1e6bde398d7188e97c05b2293a596c64612b39f54a0c81aec430faa152f784ba",
+  "capture_id": "CPU-PREFETCH-V5-V19-ISOLATED-CLOCK-FAR-1",
+  "clock-raw.json": {
+    "sha256": "b2b7a9febe4a9a46dece2ae63def2e8e9f8dfaa7a95a1e4c524775458560daa3",
+    "size_bytes": 484
+  },
+  "clock-stderr.txt": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "size_bytes": 0
+  },
+  "clock-stdout.txt": {
+    "sha256": "fa333dcc7c47ff198e56fa54307327311146acf44e6467ae23251e6b0d254080",
+    "size_bytes": 1105
+  },
+  "clock_api": "CLOCK_MONOTONIC_RAW",
+  "command": [
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-ac64633-clean-91a93014b4eb/release/bin/cpu_prefetch_q15_clock_qualification_tool",
+    "--qualify-pair",
+    "far",
+    "--output",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/clock-requalification-2/far/clock-raw.json"
+  ],
+  "completed_at_utc": "2026-11-03T08:59:12Z",
+  "control_before_sha256": "a23416acd4fa7b6ea8c838e895d1146e9c592c3312815a814185f1fc29b5e333",
+  "exit_code": 0,
+  "scope": "OWNER_APPROVED_FINITE_ISOLATED_REQUALIFICATION",
+  "source_revision": "ac64633662c4e61c8dd98e332dc70f77085e2e48",
+  "started_at_utc": "2026-11-03T08:57:11Z",
+  "timed_out": false,
+  "timeout_seconds": 600,
+  "timestamp_units": "relative picoseconds"
+}

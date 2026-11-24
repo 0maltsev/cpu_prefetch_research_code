@@ -1,0 +1,134 @@
+{
+  "files": [
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/REPORT.md",
+      "sha256": "9abb632d48e9910c5d2a06a177317b20a9505d59a2cc2c5ffe38f0d8d3617254",
+      "size_bytes": 5760
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/actual-artifacts-debug.json",
+      "sha256": "cc5ab50a55c1d978dfd8159fdfb6234e2d0b43fb0c55948c51f9139066be30a0",
+      "size_bytes": 1784
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/actual-artifacts.json",
+      "sha256": "81338fa3fc2e27a72ba7ae62765421a0c93803f7633e70bd8ad1b64465d98044",
+      "size_bytes": 1783
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/check_actual.py.txt",
+      "sha256": "583226cf529634fed195dfab0834f65591cde91184d3a4cf4663a7f76cf8f3e7",
+      "size_bytes": 2466
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/check_unbundled.py.txt",
+      "sha256": "99bbab53f1d2c900f8ec71c6a6d76d57408e73338de89529ea74053b9f5304af",
+      "size_bytes": 1005
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/codegen-bindings.txt",
+      "sha256": "2695e2587964a73fbec1a060066b3e54a0348b3189af5737fb6b57ba83522607",
+      "size_bytes": 104
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/configure.txt",
+      "sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e",
+      "size_bytes": 177
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/focused-debug.txt",
+      "sha256": "277c598dfe30b748e4807480df22b96d8560ada71821dfa10a595e8936689f56",
+      "size_bytes": 118
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/focused-final.txt",
+      "sha256": "df634eb472c49ff2e13b053d4a55801bcb30fc06e0eb6430803784f39bb63edb",
+      "size_bytes": 118
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/implementation-bindings.json",
+      "sha256": "d93012a7063f2a920e03d0db2b416934c44dc00f463b5d825445aa9242247f0b",
+      "size_bytes": 1597
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/initial-12-tests.txt",
+      "sha256": "6f2469297ab2ae6572365a8e25e86cc457d7baa89a7a09b3fe0f01790c9ad55b",
+      "size_bytes": 111
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/initial-19-tests-fixture-failure.txt",
+      "sha256": "7edffc5b00d0e0b1509fcf5f392c288889f422044bd1a00dde9760b152dd8ec1",
+      "size_bytes": 934
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/initial-json-rejection.txt",
+      "sha256": "5caa06740eaac43a8ee7180ce345da82ff14e5985f0b1c59e44f6d551a5a6ee8",
+      "size_bytes": 524
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/initial-source-closure-rejection.txt",
+      "sha256": "7aa441c098eb58b0e5d66c09f47725975df16b313c42622988d04407dcc894f4",
+      "size_bytes": 1825
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/missing-verifier.txt",
+      "sha256": "e4064a398e30ed65ed2a6de350eb67c42268b3c4ebe26c44c4e905d67bc22fd8",
+      "size_bytes": 324
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/original-journal.json",
+      "sha256": "fb15e0ee0d3141a9572d7de9acf1bdfea1531cdd47d907c8a3953048f8d9c71d",
+      "size_bytes": 4067
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/original-release-contract.json",
+      "sha256": "3a53bca05797e1e33b33a226b43346647412de6573fb7dd01f3cc046a4967e6a",
+      "size_bytes": 2540
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/original-release-records.json",
+      "sha256": "e7ee9b86056d54715e61c3193feee6aceabfbd3126598379688190994cdc9d11",
+      "size_bytes": 3434
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/pc-cleanup.json",
+      "sha256": "d22daef51116fb89b7b02b82a94ea0ce006e9b27c44cfd14396262e7a9238b39",
+      "size_bytes": 11444
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/registered.txt",
+      "sha256": "027bd8af4cedf7d134093b3cfa3893c93fbdea044cfd1e6c5dab5124e3541890",
+      "size_bytes": 1181
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/release-custody-receipts.json",
+      "sha256": "1e191630ee8294e5734917b458cc2d9682d49fe53ebe1eb8221a44c296619623",
+      "size_bytes": 3007
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/repository-checks.txt",
+      "sha256": "849e9a41431ff8fe4812ab06e2b37e73bfb54b053627481b3dffc87e7e41cf89",
+      "size_bytes": 6025
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/stand-read-only-status.json",
+      "sha256": "cca1cd671e3a8bab03833ff7cacf9c1453f9c11826f39a11fa220d295f02f49a",
+      "size_bytes": 693
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/unbundled-source-audit.json",
+      "sha256": "83083ab027b4839e2d86dd1ac17e75fbc73cbec9ade1efed10f3059618cc667d",
+      "size_bytes": 9832
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/unchanged-bindings.json",
+      "sha256": "440340c5b9307371912fb33811ab1d2d7ad2a7a94e9d224c97834bc71b8c784c",
+      "size_bytes": 401
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D340-CALIBRATION-COMPATIBILITY-20261123-01/verification.json",
+      "sha256": "7bda51c6f8ca223cf46e2cdcf4f623adaf064661c53cf77b0be821e85606cc90",
+      "size_bytes": 1156
+    }
+  ]
+}

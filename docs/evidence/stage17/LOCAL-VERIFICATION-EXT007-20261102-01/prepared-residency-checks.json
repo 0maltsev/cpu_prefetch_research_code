@@ -1,0 +1,94 @@
+{
+  "authority": "NONE",
+  "empirical_results": false,
+  "source_base_commit": "9224d4c",
+  "source_state": "ADR0192 pending commit",
+  "source_sha256": {
+    "CMakeLists.txt": "44b6dd83107f71f6bf426c68269fee33cd9bf77c9a3f98a64d500f6feb5b2611",
+    "include/cpu_prefetch/platform/prepared_residency.hpp": "b80c1293fd6bfebd3c100cb05c8febc1776e166fbd5ce2fa4073940753d6a9cb",
+    "src/platform/prepared_residency.cpp": "fe1a505e31a08f7cba9dc1e033dad4bbb8e2b15d0039291c01a9646188b18532",
+    "tests/platform_prepared_residency_test.cpp": "23fd0ac49ed552cca00a6f7e458513db1d8f11efc86042b33480473ec4dddec3",
+    "tests/workload_noalloc_test.cpp": "9c751c4e0bc9fa536a8914fabb1054b0d7466417cd1d9437fce7229d9c4c0802"
+  },
+  "full_ctest": {
+    "gcc": {
+      "cases": 442,
+      "exit_code": 0,
+      "log_sha256": "07512b14c2aaa9664b17ad3acd18c1b865dec358182f29141c385114f7a1c6f3"
+    },
+    "clang-libcxx": {
+      "cases": 442,
+      "exit_code": 0,
+      "log_sha256": "9543bd08e1ab379f98d0112b25886c87018e4131074eb7ccb8f6de1ceac925d2"
+    }
+  },
+  "platform_cases": 26,
+  "sanitizers": {
+    "asan-ubsan-gcc": {
+      "platform_cases": 26,
+      "allocation_counter_cases": 7,
+      "exit_code": 0,
+      "log_sha256": "589d64dee9a79142bb3e8866dacb85b741be2c50a322448d0e5b0f6b2e03b965"
+    },
+    "tsan-gcc": {
+      "platform_cases": 26,
+      "allocation_counter_cases": 7,
+      "exit_code": 0,
+      "log_sha256": "371013d05aba353ce9820acc6af79ae684c44b0a61de87483a47d593d93e4224"
+    },
+    "asan-ubsan-clang-libcxx": {
+      "platform_cases": 26,
+      "allocation_counter_cases": 7,
+      "exit_code": 0,
+      "log_sha256": "f6b555613600b5417f6208c608d4990dcdea1e6e4eb374e87290ddcfe7848e09"
+    },
+    "tsan-clang-libcxx": {
+      "platform_cases": 26,
+      "allocation_counter_cases": null,
+      "exit_code": 0,
+      "log_sha256": "cafb7a663fbb7cb349c42e7f858f0b9317cedea22a5149b6ae8c131a51d80f25"
+    }
+  },
+  "allocation_counter_cases": 7,
+  "clang_tsan_allocation_counter": "EXCLUDED_BY_EXISTING_CMAKE_POLICY_INTERCEPTOR_CONFLICT",
+  "format_exit_code": 0,
+  "focused_static_translation_units": 3,
+  "focused_static_exit_code": 0,
+  "provenance_exit_code": 0,
+  "strict_codegen_exit_code": 0,
+  "strict_codegen_reports": [
+    {
+      "path": "build/accepted-release-gcc/queue_codegen_report.json",
+      "sha256": "a1517b5a13c7f112c12cbf5f6a778065deac5cf702300009ddfa1536e2fa509a",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/runner_combined_codegen_report.json",
+      "sha256": "e8e9a999984f9ae388340eaa7827b1a0a41c72f37e4f698cd5f5240886865a75",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/runner_relax_codegen_report.json",
+      "sha256": "5dd838a4b6e4c6719136d2d496b1f01bcc32d4fef95a3733413f1332cf402c32",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/storage_codegen_report.json",
+      "sha256": "264f5237c492be339e7a3fb48702e7f24e8f473e0e9643bd63e373e6e5a5af95",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/timing_codegen_report.json",
+      "sha256": "1553ef6cbf0fef34c61a6751cb4977b1674f30e9feb47b8755d7cc777311b51d",
+      "status": "PASS"
+    },
+    {
+      "path": "build/accepted-release-gcc/workload_codegen_report.json",
+      "sha256": "a6831ef0f1b974db892e04d6deca1b853fc1483190f2cc38efbfc27af4d4979f",
+      "status": "PASS"
+    }
+  ],
+  "new_query_test_scope": "Injected syscall/page results and Linux adapter argument rejection; no live NUMA observation",
+  "stand_capture_performed": false,
+  "release_qualified": false
+}

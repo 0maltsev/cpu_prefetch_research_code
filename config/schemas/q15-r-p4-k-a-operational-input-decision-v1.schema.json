@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-p4-k-a-operational-input-decision:v1",
+  "title": "Q15-R-P4-K-A operational-input and ceremony decision bundle without key authority",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "bundle_id",
+    "protocol_version",
+    "status",
+    "lineage",
+    "fixed_nonnegotiable_contract",
+    "decisions",
+    "external_input_mapping",
+    "minimum_owner_inputs_before_policy_acceptance",
+    "authority_boundary"
+  ],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-k-a-operational-input-decision/1"},
+    "bundle_id": {"const": "Q15-R-P4-K-A-OPERATIONAL-INPUT-DECISION-20260825-01"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "status": {"const": "PROPOSED_D080_D085_OWNER_SECURITY_CUSTODY_AUDIT_INPUTS_REQUIRED_NO_KEY_OR_EXECUTION_AUTHORITY"},
+    "lineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["p4_k_d_acceptance_path", "p4_k_d_acceptance_sha256", "p4_k_a_template_path", "p4_k_a_template_sha256", "p4_k_r_template_path", "p4_k_r_template_sha256", "adr_bindings"],
+      "properties": {
+        "p4_k_d_acceptance_path": {"const": "config/q15/q15-r-p4-k-d-acceptance-v1.json"},
+        "p4_k_d_acceptance_sha256": {"const": "11b9c357468515145bc5e7b2b477515c814d31ec97603245eff378d0259e6be7"},
+        "p4_k_a_template_path": {"const": "config/q15/q15-r-p4-k-a.authorization-template-v1.json"},
+        "p4_k_a_template_sha256": {"const": "7669a2f693a7ffca3fa583ec3ed7a45e1ea130a51ee009ac33a77b936409ccb5"},
+        "p4_k_r_template_path": {"const": "config/q15/q15-r-p4-k-r.authorization-template-v1.json"},
+        "p4_k_r_template_sha256": {"const": "ae71ce73cf0636294995c0ca3311d4ccf6f857916c07fe9df67bb9682d20efcf"},
+        "adr_bindings": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"$ref": "#/$defs/adrBinding"}}
+      }
+    },
+    "fixed_nonnegotiable_contract": {
+      "const": {
+        "target_key_type": "ED25519",
+        "target_key_source_mode": "NEW_OFFLINE_ED25519_KEY_CEREMONY_UNDER_LATER_SEPARATE_EXACT_AUTHORIZATION",
+        "target_private_key_location": "OFF_STAND_OUTSIDE_REPOSITORY",
+        "target_private_key_path_bytes_passphrase_or_seed_may_be_recorded": false,
+        "target_key_may_authorize_its_own_creation": false,
+        "logical_custody_domain_id": "OWNER-OFFLINE-Q15-KEY-CUSTODY",
+        "custodian_principal_id": "cpu-prefetch-q15-custodian",
+        "named_authority_principal": "cpu-prefetch-q15-operator",
+        "independent_review_principal": "cpu-prefetch-q15-auditor",
+        "canonicalization": "JCS-I64-v1",
+        "signature_scheme": "OPENSSH-SSHSIG-ED25519-SHA512-v1",
+        "signature_principal_and_namespace": "cpu-prefetch-q15-authorization",
+        "exact_validity_seconds": 1800,
+        "action_attempt_count": 1,
+        "retry_repair_overwrite_or_cleanup_count": 0,
+        "mandatory_stop_before_p4_k_r": true,
+        "automatic_continuation_to_installation_p4_r_q15_or_experiment": false
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {"$ref": "#/$defs/decision"}
+    },
+    "external_input_mapping": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "items": {"$ref": "#/$defs/unresolvedInput"}
+    },
+    "minimum_owner_inputs_before_policy_acceptance": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {"$ref": "#/$defs/question"}
+    },
+    "authority_boundary": {
+      "const": {
+        "repository_local_decision_bundle_preparation_authorized": true,
+        "repository_local_acceptance_adr_controller_schema_or_template_implementation_authorized": false,
+        "offline_environment_access_or_inventory_authorized": false,
+        "key_read_generation_import_copy_fingerprint_or_use_authorized": false,
+        "public_key_or_allowed_signers_artifact_creation_authorized": false,
+        "private_key_path_bytes_passphrase_or_seed_collection_authorized": false,
+        "custody_or_public_artifact_path_creation_authorized": false,
+        "bootstrap_signer_or_trust_artifact_access_authorized": false,
+        "signing_or_issuance_authorized": false,
+        "p4_k_a_authorized": false,
+        "p4_k_r_authorized": false,
+        "stand_access_authorized": false,
+        "p4_r_i_or_p4_r_c_authorized": false,
+        "transfer_install_or_setup_authorized": false,
+        "q15_r_or_q15_w_authorized": false,
+        "platform_controls_authorized": false,
+        "calibration_pilot_measurement_or_confirmatory_authorized": false
+      }
+    }
+  },
+  "$defs": {
+    "adrBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision_id", "path", "sha256"],
+      "properties": {
+        "decision_id": {"pattern": "^D-0(76|77|78|79)$"},
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "nonemptyStrings": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision_id", "classification", "subject", "options_considered", "recommended_option", "selected_option", "state", "evidence", "scientific_effect", "compatibility_effect", "owner", "deadline_gate", "supersession_rule"],
+      "properties": {
+        "decision_id": {"pattern": "^D-0(80|81|82|83|84|85)$"},
+        "classification": {"type": "string", "minLength": 1},
+        "subject": {"type": "string", "minLength": 1},
+        "options_considered": {"$ref": "#/$defs/nonemptyStrings"},
+        "recommended_option": {"type": "string", "minLength": 1},
+        "selected_option": {"type": "null"},
+        "state": {"pattern": "^PROPOSED_[A-Z_]+$"},
+        "evidence": {"$ref": "#/$defs/nonemptyStrings"},
+        "scientific_effect": {"type": "string", "minLength": 1},
+        "compatibility_effect": {"type": "string", "minLength": 1},
+        "owner": {"$ref": "#/$defs/nonemptyStrings"},
+        "deadline_gate": {"type": "string", "minLength": 1},
+        "supersession_rule": {"type": "string", "minLength": 1}
+      }
+    },
+    "unresolvedInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "decision_ids", "state", "value"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "decision_ids": {"type": "array", "minItems": 1, "maxItems": 2, "uniqueItems": true, "items": {"pattern": "^D-0(80|81|82|83|84|85)$"}},
+        "state": {"pattern": "^UNRESOLVED_[A-Z_]+$"},
+        "value": {"type": "null"}
+      }
+    },
+    "question": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["question_id", "question", "allowed_answers", "answer"],
+      "properties": {
+        "question_id": {"pattern": "^P4KA-Q[1-5]$"},
+        "question": {"type": "string", "minLength": 1},
+        "allowed_answers": {"$ref": "#/$defs/nonemptyStrings"},
+        "answer": {"type": "null"}
+      }
+    }
+  }
+}

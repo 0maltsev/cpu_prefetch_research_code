@@ -1,0 +1,61 @@
+{
+  "files": [
+    {
+      "path": "d243-owner-acceptance-1.json",
+      "sha256": "b2d734539bb2f135eeb6f2cdf41b5fdbb683a27b653b9f6ec368c3ea74d4b468",
+      "size_bytes": 646
+    },
+    {
+      "path": "d243-operators-1/manifest.json",
+      "sha256": "71b981bbce467447a269830472a95323fbe66d63773b4ec98ebd08143352b04b",
+      "size_bytes": 1117
+    },
+    {
+      "path": "formal-q16a-continuation-authoring-1/isolation-reapplication-2.json",
+      "sha256": "1a8222c3356c58eb7df375aa4cb60ea911801de7400cb059427d551478e12a72",
+      "size_bytes": 193
+    },
+    {
+      "path": "formal-q16a-continuation-authoring-1/isolation-reapplication-2.log",
+      "sha256": "c105db7f9760c164aeb3c57218be1da4f3932baa976b5c27d8abbb2882a230a8",
+      "size_bytes": 202
+    },
+    {
+      "path": "formal-q16a-continuation-authoring-1/render-launch-config-2.log",
+      "sha256": "0e896c189c141ef986e4ff8c4f7eb5a21ef694de9d25b154f16f50ab679921bc",
+      "size_bytes": 355
+    },
+    {
+      "path": "formal-q16a-continuation-authoring-1/launch-config-2.json",
+      "sha256": "ea618df0fb8b4b1e397c1539c64eee4c798ce4acfefe15b0d3a2aabcbd8cd50e",
+      "size_bytes": 4932
+    },
+    {
+      "path": "isolation-preparation-v25-resume-2/prospective-prestate.json",
+      "sha256": "b26a0f7a17d0ecb7f9f4ef6491acd53d8c12bf70662d168ed8ca1dc4c0f85f86",
+      "size_bytes": 2426
+    },
+    {
+      "path": "isolation-preparation-v25-resume-2/d243-reapplication-handoff.json",
+      "sha256": "354fb6441d9aebdaa475450194709ae055983b32e1f57ed928bab4c5d8651c3d",
+      "size_bytes": 3464
+    },
+    {
+      "path": "isolation-preparation-v25-resume-2/before-reload.json",
+      "sha256": "135804bdbd1f9a75cce399df76164f26c2d04bb14cb86912134d25ad90d38811",
+      "size_bytes": 1525
+    },
+    {
+      "path": "isolation-preparation-v25-resume-2/after-reload.json",
+      "sha256": "a5f0cbabd9228378cbedef23bdd36fcca879a615238ff175bbcd63ae8fa35012",
+      "size_bytes": 1525
+    },
+    {
+      "path": "isolation-preparation-v25-resume-2/isolation-ready.json",
+      "sha256": "71b69733bd713afc4138fdec68c647079c85bc16a7b32e0c4d6de2d70ff19128",
+      "size_bytes": 1717
+    }
+  ],
+  "raw_transferred": false,
+  "recorded_at_utc": "2026-11-09T10:25:59.015774+00:00"
+}

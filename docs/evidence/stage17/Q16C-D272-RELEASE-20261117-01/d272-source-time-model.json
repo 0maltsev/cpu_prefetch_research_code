@@ -1,0 +1,23 @@
+{
+  "schema_version": "software-q16c-source-preparation-time-model/1",
+  "expected_deadlines": 902108340,
+  "actual_generated_deadlines": null,
+  "arithmetic_passes": 2,
+  "models": [
+    {
+      "workers": 16,
+      "two_pass_planning_ns": 22285685243500,
+      "two_pass_planning_hours": 6.190468123194444
+    },
+    {
+      "workers": 32,
+      "two_pass_planning_ns": 13713524951858,
+      "two_pass_planning_hours": 3.8093124866272223
+    }
+  ],
+  "chosen_worker_count": 32,
+  "chosen_generation_verification_cap_ns": 22500000000000,
+  "evidence": "measured synthetic arithmetic throughput; linear planning inference, not actual prospective source count or guaranteed duration",
+  "q16c_operational_window_started": false,
+  "experimental_actions": 0
+}

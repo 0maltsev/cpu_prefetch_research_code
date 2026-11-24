@@ -1,0 +1,15 @@
+{
+  "automatic_retry": false,
+  "decision_id": "D277",
+  "exact_decision_text_approved": false,
+  "interpretation": "Go-ahead following the pending D277 approval request and explicit final status awaiting that decision; announced to owner before independent software work. One new execution window starts only after readiness.",
+  "new_execution_windows": 1,
+  "owner_message": "continue",
+  "phase18_authority": false,
+  "recorded_at_utc": "2026-11-17T19:03:01Z",
+  "recorded_decision_sha256": "cde22d6426984a29054c01781f2bdf309c8eda1aa2d735909fddc0631e9df056",
+  "repeat_completed_measurements": false,
+  "reuse_original_setup": true,
+  "schema_version": "cpu-prefetch-stage17-owner-decision/1",
+  "window_started": false
+}

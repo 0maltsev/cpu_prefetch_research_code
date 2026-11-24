@@ -1,0 +1,25 @@
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Channel.*:S180Worker.ActualSealedFdEntryReachesOnlyTheSeparatelyLinkedSoftwareBackend:S180Worker.RealWorkerSinkChecksDurableCustodyBytesBeforeReturningFromAck
+[==========] Running 6 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 4 tests from S180Channel
+[ RUN      ] S180Channel.NewWireReturnsOnlyScopedS180CustodyAndLegacyRejectsIt
+[       OK ] S180Channel.NewWireReturnsOnlyScopedS180CustodyAndLegacyRejectsIt (0 ms)
+[ RUN      ] S180Channel.WrongScopeLegacyAckOrFailedEvidenceCannotContinue
+[       OK ] S180Channel.WrongScopeLegacyAckOrFailedEvidenceCannotContinue (0 ms)
+[ RUN      ] S180Channel.BridgeLatchesFailureButRetainsFinalFailurePublication
+[       OK ] S180Channel.BridgeLatchesFailureButRetainsFinalFailurePublication (0 ms)
+[ RUN      ] S180Channel.InvalidBoundsOrForeignCheckpointFailBeforeExchange
+[       OK ] S180Channel.InvalidBoundsOrForeignCheckpointFailBeforeExchange (0 ms)
+[----------] 4 tests from S180Channel (0 ms total)
+
+[----------] 2 tests from S180Worker
+[ RUN      ] S180Worker.ActualSealedFdEntryReachesOnlyTheSeparatelyLinkedSoftwareBackend
+[       OK ] S180Worker.ActualSealedFdEntryReachesOnlyTheSeparatelyLinkedSoftwareBackend (175 ms)
+[ RUN      ] S180Worker.RealWorkerSinkChecksDurableCustodyBytesBeforeReturningFromAck
+[       OK ] S180Worker.RealWorkerSinkChecksDurableCustodyBytesBeforeReturningFromAck (371 ms)
+[----------] 2 tests from S180Worker (547 ms total)
+
+[----------] Global test environment tear-down
+[==========] 6 tests from 2 test suites ran. (548 ms total)
+[  PASSED  ] 6 tests.

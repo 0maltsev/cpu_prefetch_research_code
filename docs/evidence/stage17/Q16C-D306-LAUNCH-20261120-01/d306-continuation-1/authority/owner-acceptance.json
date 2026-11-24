@@ -1,0 +1,21 @@
+{
+  "admitted_day_deadline_monotonic_ns": 1636624784571258,
+  "automatic_retry": false,
+  "decision_id": "D306",
+  "exact_decision_text_approved": true,
+  "latest_start_monotonic_ns": 1605164784571258,
+  "manual_continuations": 1,
+  "maximum_remaining_seconds": 31460,
+  "new_execution_windows": 0,
+  "owner_message": "approve",
+  "phase18_authority": false,
+  "recorded_at_utc": "2026-11-19T22:32:54.620691+00:00",
+  "recorded_decision_sha256": "97928f7779b8d2de60a3a8c9eb6f1b67634891d7b8454683ef90d2609a16fc75",
+  "remaining_capture_count": 94,
+  "repeat_completed_measurements": false,
+  "repeat_completed_raw_validations": false,
+  "repeat_qualification": false,
+  "reused_capture_count": 86,
+  "schema_version": "cpu-prefetch-stage17-owner-decision/1",
+  "window_started": false
+}

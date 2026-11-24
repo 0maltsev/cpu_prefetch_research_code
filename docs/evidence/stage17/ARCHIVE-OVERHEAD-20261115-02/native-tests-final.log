@@ -1,0 +1,35 @@
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+[==========] Running 13 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 13 tests from InventoryTest
+[ RUN      ] InventoryTest.AccountsRootSixDirectoriesScopeAndLock
+[       OK ] InventoryTest.AccountsRootSixDirectoriesScopeAndLock (1 ms)
+[ RUN      ] InventoryTest.SparseHardlinksRetainedReceiptsAndPerObjectQuota
+[       OK ] InventoryTest.SparseHardlinksRetainedReceiptsAndPerObjectQuota (0 ms)
+[ RUN      ] InventoryTest.ExactReceiptGrammarPreservesRawWorkspaceExemption
+[       OK ] InventoryTest.ExactReceiptGrammarPreservesRawWorkspaceExemption (0 ms)
+[ RUN      ] InventoryTest.SharedFileLimitAndUncountedEmptyFamilies
+[       OK ] InventoryTest.SharedFileLimitAndUncountedEmptyFamilies (0 ms)
+[ RUN      ] InventoryTest.SpoolHoldAndUnlistedRootChildrenAreOutsideTheInventory
+[       OK ] InventoryTest.SpoolHoldAndUnlistedRootChildrenAreOutsideTheInventory (0 ms)
+[ RUN      ] InventoryTest.EveryInvocationObservesFreshStatsAndDirectoryEntries
+[       OK ] InventoryTest.EveryInvocationObservesFreshStatsAndDirectoryEntries (0 ms)
+[ RUN      ] InventoryTest.RetainedPathsAreNotRawExemptAndCannotTraverse
+[       OK ] InventoryTest.RetainedPathsAreNotRawExemptAndCannotTraverse (0 ms)
+[ RUN      ] InventoryTest.InvalidFamilyNamespacesAndNondirectoriesFailClosed
+[       OK ] InventoryTest.InvalidFamilyNamespacesAndNondirectoriesFailClosed (0 ms)
+[ RUN      ] InventoryTest.ChargedSymlinksDirectoriesAndSpecialFilesFailClosed
+[       OK ] InventoryTest.ChargedSymlinksDirectoriesAndSpecialFilesFailClosed (0 ms)
+[ RUN      ] InventoryTest.FixedDirectoriesRootAndEveryAncestorMustNotBeSymlinks
+[       OK ] InventoryTest.FixedDirectoriesRootAndEveryAncestorMustNotBeSymlinks (0 ms)
+[ RUN      ] InventoryTest.ScopeAndLockMustBePresentRegularFiles
+[       OK ] InventoryTest.ScopeAndLockMustBePresentRegularFiles (0 ms)
+[ RUN      ] InventoryTest.ZeroNullWrappedCountsAndExpiredDeadlinesFailClosed
+[       OK ] InventoryTest.ZeroNullWrappedCountsAndExpiredDeadlinesFailClosed (0 ms)
+[ RUN      ] InventoryTest.NoDescriptorLeaksOnRepeatedSuccessAndLateFailure
+[       OK ] InventoryTest.NoDescriptorLeaksOnRepeatedSuccessAndLateFailure (7 ms)
+[----------] 13 tests from InventoryTest (13 ms total)
+
+[----------] Global test environment tear-down
+[==========] 13 tests from 1 test suite ran. (13 ms total)
+[  PASSED  ] 13 tests.

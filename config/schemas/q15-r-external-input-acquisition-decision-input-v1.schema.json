@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/cpu-prefetch/q15-r-external-input-acquisition-decision-input-v1.schema.json",
+  "title": "Proposed Q15-R-P4 external-input acquisition decisions without authority",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "bundle_id", "protocol_version", "stand_id", "status", "lineage", "decisions", "external_input_contracts", "proposed_prestate_collector_contract", "authority_boundary", "future_gates"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-external-input-acquisition-decision-input/1"},
+    "bundle_id": {"const": "Q15-R-EXTERNAL-INPUT-ACQUISITION-DECISION-INPUT-20260825-01"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "stand_id": {"const": "XEON-CPU-FETCH"},
+    "status": {"const": "PROPOSED_OPEN_BEFORE_Q15_R_P4_NO_AUTHORITY"},
+    "lineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["accepted_decision", "acceptance_id", "acceptance_path", "acceptance_sha256", "successor_preparation_id", "successor_preparation_path", "successor_preparation_sha256", "selected_release_commit", "selected_release_archive_sha256"],
+      "properties": {
+        "accepted_decision": {"const": "D-065"},
+        "acceptance_id": {"const": "Q15-R-P3-ACCEPTANCE-20260825-01"},
+        "acceptance_path": {"const": "config/q15/q15-r-p3-acceptance-v1.json"},
+        "acceptance_sha256": {"$ref": "#/$defs/sha256"},
+        "successor_preparation_id": {"const": "Q15-R-STAND-SETUP-AUTHORIZATION-PREPARATION-20260825-02"},
+        "successor_preparation_path": {"const": "config/q15/q15-r-stand-setup-authorization.preparation-v2.json"},
+        "successor_preparation_sha256": {"$ref": "#/$defs/sha256"},
+        "selected_release_commit": {"pattern": "^[0-9a-f]{40}$"},
+        "selected_release_archive_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {"$ref": "#/$defs/decision"}
+    },
+    "external_input_contracts": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {"$ref": "#/$defs/external_input"}
+    },
+    "proposed_prestate_collector_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contract_id", "implementation_state", "execution_authorized", "transport_authorized", "mutation_allowed", "network_access_allowed", "privileged_control_allowed", "shell_interpretation_allowed", "required_observations", "forbidden_operations", "artifact_requirements"],
+      "properties": {
+        "contract_id": {"const": "Q15-R-STAND-PRESTATE-COLLECTOR-CONTRACT-v1-PROPOSED"},
+        "implementation_state": {"const": "NOT_IMPLEMENTED"},
+        "execution_authorized": {"const": false},
+        "transport_authorized": {"const": false},
+        "mutation_allowed": {"const": false},
+        "network_access_allowed": {"const": false},
+        "privileged_control_allowed": {"const": false},
+        "shell_interpretation_allowed": {"const": false},
+        "required_observations": {"$ref": "#/$defs/nonempty_unique_strings"},
+        "forbidden_operations": {"$ref": "#/$defs/nonempty_unique_strings"},
+        "artifact_requirements": {"$ref": "#/$defs/nonempty_unique_strings"}
+      }
+    },
+    "authority_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository_local_decision_bundle_preparation_authorized", "collector_implementation_authorized", "stand_access_authorized", "read_only_prestate_collection_authorized", "account_or_group_changes_authorized", "key_generation_import_or_copy_authorized", "literal_path_selection_authorized", "bundle_transfer_or_install_authorized", "filesystem_or_permission_changes_authorized", "access_probe_execution_authorized", "q15_r_issue_sign_or_execute_authorized", "q15_w_prepare_or_execute_authorized", "real_pmu_msr_affinity_or_numa_authorized", "calibration_authorized", "pilot_authorized", "measurement_authorized", "confirmatory_authorized"],
+      "properties": {
+        "repository_local_decision_bundle_preparation_authorized": {"const": true},
+        "collector_implementation_authorized": {"const": false},
+        "stand_access_authorized": {"const": false},
+        "read_only_prestate_collection_authorized": {"const": false},
+        "account_or_group_changes_authorized": {"const": false},
+        "key_generation_import_or_copy_authorized": {"const": false},
+        "literal_path_selection_authorized": {"const": false},
+        "bundle_transfer_or_install_authorized": {"const": false},
+        "filesystem_or_permission_changes_authorized": {"const": false},
+        "access_probe_execution_authorized": {"const": false},
+        "q15_r_issue_sign_or_execute_authorized": {"const": false},
+        "q15_w_prepare_or_execute_authorized": {"const": false},
+        "real_pmu_msr_affinity_or_numa_authorized": {"const": false},
+        "calibration_authorized": {"const": false},
+        "pilot_authorized": {"const": false},
+        "measurement_authorized": {"const": false},
+        "confirmatory_authorized": {"const": false}
+      }
+    },
+    "future_gates": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["gate", "state", "scope"],
+        "properties": {
+          "gate": {"type": "string", "minLength": 1},
+          "state": {"enum": ["NOT_ACCEPTED", "NOT_ISSUED"]},
+          "scope": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "nonempty_unique_strings": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision_id", "classification", "subject", "options_considered", "recommended_option", "selected_option", "state", "evidence", "scientific_effect", "compatibility_effect", "owner", "deadline_gate", "supersession_rule"],
+      "properties": {
+        "decision_id": {"pattern": "^D-0(66|67|68|69|70)$"},
+        "classification": {"type": "string", "minLength": 1},
+        "subject": {"type": "string", "minLength": 1},
+        "options_considered": {"$ref": "#/$defs/nonempty_unique_strings"},
+        "recommended_option": {"type": "string", "minLength": 1},
+        "selected_option": {"type": "null"},
+        "state": {"pattern": "^PROPOSED_AWAITING_EXPLICIT_[A-Z_]+_OWNER_ACCEPTANCE$"},
+        "evidence": {"$ref": "#/$defs/nonempty_unique_strings"},
+        "scientific_effect": {"type": "string", "minLength": 1},
+        "compatibility_effect": {"type": "string", "minLength": 1},
+        "owner": {"type": "string", "minLength": 1},
+        "deadline_gate": {"type": "string", "minLength": 1},
+        "supersession_rule": {"type": "string", "minLength": 1}
+      }
+    },
+    "external_input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "decision_id", "state", "value", "required_evidence"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "decision_id": {"pattern": "^D-0(66|67|68|69|70)$"},
+        "state": {"const": "UNRESOLVED"},
+        "value": {"type": "null"},
+        "required_evidence": {"$ref": "#/$defs/nonempty_unique_strings"}
+      }
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-p4-k-a-controller-profile:v1",
+  "title": "Repository-local no-authority P4-K-A controller implementation profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "profile_id", "protocol_version", "status", "decision", "lineage", "fixed_controller_contract", "command_graph", "implementation", "external_evidence_state", "authority_boundary"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-k-a-controller-profile/1"},
+    "profile_id": {"const": "Q15-R-P4-K-A-FIXED-CEREMONY-CONTROLLER-v1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "status": {"const": "ACCEPTED_IMPLEMENTED_REPOSITORY_LOCAL_NO_EXTERNAL_OR_EXECUTION_AUTHORITY"},
+    "decision": {"const": {
+      "decision_id": "D-086",
+      "classification": "SECURITY_GENERIC_NO_AUTHORITY_CONTROLLER_IMPLEMENTATION",
+      "selected_option": "GENERIC_HASH_BOUND_FAIL_CLOSED_POLICY_ENGINE_REQUIRING_COMPLETE_EXTERNAL_ADMISSION",
+      "accepted_by": "do everything you need to move to the next stage i give you all permissions to anything do it yourself"
+    }},
+    "lineage": {"const": {
+      "p4_k_a_policy_acceptance_path": "config/q15/q15-r-p4-k-a-d-acceptance-v1.json",
+      "p4_k_a_policy_acceptance_sha256": "c68e1b9427df9306a53cac590dfe268862fa528ef5bf665bf0002972cf77ffaf",
+      "decision_ids": ["D-080", "D-081", "D-082", "D-083", "D-084", "D-085"]
+    }},
+    "fixed_controller_contract": {"const": {
+      "admission_schema_version": "cpu-prefetch-q15-r-p4-k-a-controller-admission/1",
+      "gate_id": "Q15-R-P4-K-A",
+      "signature_scheme": "OPENSSH-SSHSIG-ED25519-SHA512-v1",
+      "signature_namespace": "cpu-prefetch-q15-authorization",
+      "authorization_principal": "cpu-prefetch-q15-authorization",
+      "authorization_validity_seconds": 1800,
+      "process_mode": "DIRECT_ABSOLUTE_EXECVE_STYLE_NO_SHELL",
+      "fixed_environment_allowlist": ["LANG", "LC_ALL", "PATH", "TZ"],
+      "secret_input_modes": ["UNCAPTURED_CONTROLLING_TTY", "DEDICATED_DESCRIPTOR_AT_LEAST_3"],
+      "resource_limits_are_mandatory_explicit_authorization_inputs": true,
+      "action_attempt_count": 1,
+      "retry_count": 0,
+      "overwrite_repair_cleanup_allowed": false,
+      "create_exclusive_public_outputs_required": true,
+      "private_key_path_bytes_seed_or_passphrase_in_admission_or_evidence_allowed": false,
+      "mandatory_stop_before_p4_k_r": true,
+      "automatic_continuation_allowed": false
+    }},
+    "command_graph": {"const": [
+      "VERIFY_SIGNED_AUTHORIZATION_AND_BOOTSTRAP_TRUST",
+      "VERIFY_OFFLINE_ENVIRONMENT_TOOLCHAIN_AND_NETWORK_STATE",
+      "VERIFY_CUSTODY_AND_CREATE_EXCLUSIVE_PUBLIC_OUTPUTS",
+      "GENERATE_ENCRYPTED_ED25519_PRIVATE_KEY_ONCE",
+      "EXTRACT_ED25519_PUBLIC_KEY_ONCE",
+      "DERIVE_ED25519_FINGERPRINT_ONCE",
+      "CONSTRUCT_CANONICAL_ALLOWED_SIGNERS_ONCE",
+      "CAPTURE_NONSECRET_CUSTODY_RECEIPT",
+      "SEAL_COMPLETE_OR_PARTIAL_PUBLIC_EVIDENCE",
+      "STOP_FOR_SEPARATE_P4_K_R"
+    ]},
+    "implementation": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "object", "additionalProperties": false, "required": ["path", "sha256", "purpose"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"pattern": "^[0-9a-f]{64}$"}, "purpose": {"type": "string", "minLength": 1}}}},
+    "external_evidence_state": {"const": {
+      "qualifying_bootstrap_signer_exists": false,
+      "bootstrap_root_established": false,
+      "offline_environment_selected_or_accessed": false,
+      "literal_tool_paths_argv_or_hashes_selected": false,
+      "literal_kdf_work_value_selected": false,
+      "literal_public_export_path_or_artifact_id_selected": false,
+      "key_or_public_artifact_created": false,
+      "authorization_signed_or_issued": false,
+      "p4_k_a_admission_record_exists": false
+    }},
+    "authority_boundary": {"type": "object", "additionalProperties": false, "required": ["repository_local_generic_controller_schema_test_and_documentation_implementation_authorized", "offline_environment_access_or_inventory_authorized", "bootstrap_governance_root_establishment_authorized_by_this_record", "key_read_generation_import_copy_fingerprint_or_use_authorized", "private_key_path_bytes_passphrase_or_seed_collection_authorized", "public_export_path_or_artifact_creation_authorized", "signing_or_issuance_authorized", "p4_k_a_authorized", "p4_k_r_authorized", "stand_access_authorized", "q15_r_or_q15_w_authorized", "calibration_pilot_measurement_or_confirmatory_authorized"], "properties": {
+      "repository_local_generic_controller_schema_test_and_documentation_implementation_authorized": {"const": true},
+      "offline_environment_access_or_inventory_authorized": {"const": false},
+      "bootstrap_governance_root_establishment_authorized_by_this_record": {"const": false},
+      "key_read_generation_import_copy_fingerprint_or_use_authorized": {"const": false},
+      "private_key_path_bytes_passphrase_or_seed_collection_authorized": {"const": false},
+      "public_export_path_or_artifact_creation_authorized": {"const": false},
+      "signing_or_issuance_authorized": {"const": false},
+      "p4_k_a_authorized": {"const": false},
+      "p4_k_r_authorized": {"const": false},
+      "stand_access_authorized": {"const": false},
+      "q15_r_or_q15_w_authorized": {"const": false},
+      "calibration_pilot_measurement_or_confirmatory_authorized": {"const": false}
+    }}
+  }
+}

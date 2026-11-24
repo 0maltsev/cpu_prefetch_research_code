@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:phase18:readiness-report:v2",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "issued", "report_id", "stage17_completion_sha256", "sealed_pilot_manifest_sha256", "treatment_blind_freeze_sha256", "independent_trust_context", "state", "blockers", "phase18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-phase18-readiness-report/2"},
+    "issued": {"const": true}, "report_id": {"type": "string", "minLength": 1},
+    "stage17_completion_sha256": {"$ref": "#/$defs/sha256"},
+    "sealed_pilot_manifest_sha256": {"$ref": "#/$defs/sha256"},
+    "treatment_blind_freeze_sha256": {"$ref": "#/$defs/sha256"},
+    "independent_trust_context": {"$ref": "#/$defs/file"},
+    "state": {"const": "READY_FOR_SEPARATE_PHASE18_AUTHORIZATION"},
+    "blockers": {"const": ["SEPARATE_PHASE18_AUTHORIZATION_REQUIRED"]},
+    "phase18_authority": {"const": false}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "file": {"type": "object", "additionalProperties": false, "required": ["path", "size_bytes", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "size_bytes": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/$defs/sha256"}}}
+  }
+}

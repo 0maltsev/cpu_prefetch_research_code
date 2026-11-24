@@ -1,0 +1,1563 @@
+{
+  "binary": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+    "sha256": "6129d14cb91fa695e042d39146fd15ebcd38bf820c4aa170cad348a931e8ce2a",
+    "size_bytes": 5675056
+  },
+  "caller_sanitizers": true,
+  "cases": [
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-3.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-3.input.json",
+        "sha256": "dae2c09d1c347a661a846046e90a3fe71c2c9def17e21a029ec2b5044752af08",
+        "size_bytes": 18437
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-3.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-3.stdout.json",
+        "sha256": "cf6175166631ee5d3ea3ddc260c273b351f797b62d9ea87307139cf3dbac6fb9",
+        "size_bytes": 1294
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-3-recheck.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-3-recheck.input.json",
+        "sha256": "863f17148de1864e5d80e2bae2c1038db24501a26239659bda05ccaf62d9fb38",
+        "size_bytes": 18435
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-3-recheck.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-3-recheck.stdout.json",
+        "sha256": "cf6175166631ee5d3ea3ddc260c273b351f797b62d9ea87307139cf3dbac6fb9",
+        "size_bytes": 1294
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-3.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-3.input.json",
+        "sha256": "154fc5d4e252b4949c5c0580adc95857783c817ebe4eb051cf5ec80add315efa",
+        "size_bytes": 18483
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-3.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-3.stdout.json",
+        "sha256": "cf6175166631ee5d3ea3ddc260c273b351f797b62d9ea87307139cf3dbac6fb9",
+        "size_bytes": 1294
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-3-recheck.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-3-recheck.input.json",
+        "sha256": "471e7249bfd683d6ecb0ce5c84406b066e83a14bfa7b2432492fa0b5502c26f2",
+        "size_bytes": 18481
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-3-recheck.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-3-recheck.stdout.json",
+        "sha256": "cf6175166631ee5d3ea3ddc260c273b351f797b62d9ea87307139cf3dbac6fb9",
+        "size_bytes": 1294
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-3.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-3.input.json",
+        "sha256": "6e3e31201e6d2ac9cbbbc475fde61b1ed80488ad58b9a466aeb33a1716436c72",
+        "size_bytes": 18502
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-3.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-3.stdout.json",
+        "sha256": "cf6175166631ee5d3ea3ddc260c273b351f797b62d9ea87307139cf3dbac6fb9",
+        "size_bytes": 1294
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-3-recheck.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-3-recheck.input.json",
+        "sha256": "3dbab72085e2a6744dced870cdc3967b48f07de4005a70b415373452b8f0d2c8",
+        "size_bytes": 18500
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-3-recheck.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-3-recheck.stdout.json",
+        "sha256": "cf6175166631ee5d3ea3ddc260c273b351f797b62d9ea87307139cf3dbac6fb9",
+        "size_bytes": 1294
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-3.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-3.input.json",
+        "sha256": "a90e8d4cae586efc22c8c1ee32804c95c02b08c17a9114bcd9facf576ced21e9",
+        "size_bytes": 18632
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-3.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-3.stdout.json",
+        "sha256": "328f96907e485d5f38c07bd31e1a4e64e01c50136c2a79a9714dcc72208be594",
+        "size_bytes": 1404
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-3-recheck.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-3-recheck.input.json",
+        "sha256": "5fe025b6a4d39aef456a4e6c28379469fd7669eb244844e4be6d7d133eb617c7",
+        "size_bytes": 18630
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-3-recheck.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-3-recheck.stdout.json",
+        "sha256": "328f96907e485d5f38c07bd31e1a4e64e01c50136c2a79a9714dcc72208be594",
+        "size_bytes": 1404
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-3.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-3.input.json",
+        "sha256": "ff0f6cae638619bc27e707ea76c5f2d24c6dcb3e1a903a80209e8f1cd9b4160a",
+        "size_bytes": 18632
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-3.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-3.stdout.json",
+        "sha256": "328f96907e485d5f38c07bd31e1a4e64e01c50136c2a79a9714dcc72208be594",
+        "size_bytes": 1404
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-3-recheck.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-3-recheck.input.json",
+        "sha256": "4b4ea8df7c24075a2228665aeebee4c62180bf40c46a34a879a08d5fcd4abb26",
+        "size_bytes": 18630
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-3-recheck.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-3-recheck.stdout.json",
+        "sha256": "328f96907e485d5f38c07bd31e1a4e64e01c50136c2a79a9714dcc72208be594",
+        "size_bytes": 1404
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-4.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-4.input.json",
+        "sha256": "5b7c6fc23dad324bdd5fd7184c1cedf38a99559ed47e661f62ee0dfabb020bbb",
+        "size_bytes": 18445
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-4.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-4.stdout.json",
+        "sha256": "5dca79f0c6d18893a0e2c67a3a24c607b3b32f3d00bcdd4c2b90c38d0faf9640",
+        "size_bytes": 1312
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-4-recheck.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-4-recheck.input.json",
+        "sha256": "0ce1daca2167666f96911f53461ed6beae36faf29b5788fba1d956f3ad16c986",
+        "size_bytes": 18443
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-4-recheck.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-4-recheck.stdout.json",
+        "sha256": "5dca79f0c6d18893a0e2c67a3a24c607b3b32f3d00bcdd4c2b90c38d0faf9640",
+        "size_bytes": 1312
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-4.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-4.input.json",
+        "sha256": "d1b137693c01ec18a6de12973fab6831cd790bf3358f522f2dc0183bd4e84767",
+        "size_bytes": 18491
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-4.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-4.stdout.json",
+        "sha256": "5dca79f0c6d18893a0e2c67a3a24c607b3b32f3d00bcdd4c2b90c38d0faf9640",
+        "size_bytes": 1312
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-4-recheck.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-4-recheck.input.json",
+        "sha256": "874a71643d0dffa05d998094926031f7558cbff92264c8d5a8e889f5e5e7252f",
+        "size_bytes": 18489
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-4-recheck.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-4-recheck.stdout.json",
+        "sha256": "5dca79f0c6d18893a0e2c67a3a24c607b3b32f3d00bcdd4c2b90c38d0faf9640",
+        "size_bytes": 1312
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-4.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-4.input.json",
+        "sha256": "99df6bad323edfc4c448a0d9ae9e727f6c1e259e938d256369efb228352f2117",
+        "size_bytes": 18510
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-4.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-4.stdout.json",
+        "sha256": "5dca79f0c6d18893a0e2c67a3a24c607b3b32f3d00bcdd4c2b90c38d0faf9640",
+        "size_bytes": 1312
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-4-recheck.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-4-recheck.input.json",
+        "sha256": "dc053c7933cebc20ed14587f2cf4e7a9d10484f4962f286a0b88c02ee3af35e5",
+        "size_bytes": 18508
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-4-recheck.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-4-recheck.stdout.json",
+        "sha256": "5dca79f0c6d18893a0e2c67a3a24c607b3b32f3d00bcdd4c2b90c38d0faf9640",
+        "size_bytes": 1312
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-4.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-4.input.json",
+        "sha256": "f766658cd24de6cf33d7598237a4dd18435d32a686583ab4ebcce8a3a8462f50",
+        "size_bytes": 18640
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-4.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-4.stdout.json",
+        "sha256": "3e5e2dcc2d9bbb7d0f08bd25c38e9fa9ea4d527c7fcd145767f93a3a4f7c052b",
+        "size_bytes": 1436
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-4-recheck.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-4-recheck.input.json",
+        "sha256": "3c759979dd9dda4465a3342559b58e67d3b43db794d46bacfa6ab5a88de0457b",
+        "size_bytes": 18638
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-4-recheck.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-4-recheck.stdout.json",
+        "sha256": "3e5e2dcc2d9bbb7d0f08bd25c38e9fa9ea4d527c7fcd145767f93a3a4f7c052b",
+        "size_bytes": 1436
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-4.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-4.input.json",
+        "sha256": "9257a301d9fd6901bbe7d335269dc69b3660763f76d1c353c352ef72aca9b0b7",
+        "size_bytes": 18640
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-4.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-4.stdout.json",
+        "sha256": "3e5e2dcc2d9bbb7d0f08bd25c38e9fa9ea4d527c7fcd145767f93a3a4f7c052b",
+        "size_bytes": 1436
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-4-recheck.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-4-recheck.input.json",
+        "sha256": "6f3caa1fb66cac9c6aa54b7a3a153037d29032ed29e71db26e5e129b2bf5dadb",
+        "size_bytes": 18638
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-4-recheck.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-4-recheck.stdout.json",
+        "sha256": "3e5e2dcc2d9bbb7d0f08bd25c38e9fa9ea4d527c7fcd145767f93a3a4f7c052b",
+        "size_bytes": 1436
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-5.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-5.input.json",
+        "sha256": "dabc49e984681052b221edeb8ca0a00cfd5006ce716ff46070cacec35f307c26",
+        "size_bytes": 18449
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-5.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-5.stdout.json",
+        "sha256": "d4ddbc02cb8a2ea877a00bda621a59d6bd117e450ac0b07a8771024ddc0e45e2",
+        "size_bytes": 1321
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-5-recheck.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-5-recheck.input.json",
+        "sha256": "1a3567df102d12ea452687b572290002d2d87b355e1989691d9cb9c46bbccdf0",
+        "size_bytes": 18447
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-5-recheck.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-5-recheck.stdout.json",
+        "sha256": "d4ddbc02cb8a2ea877a00bda621a59d6bd117e450ac0b07a8771024ddc0e45e2",
+        "size_bytes": 1321
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-5.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-5.input.json",
+        "sha256": "fad3e5d31bb95480816fa9ec907d176f48084aefe4ee2edb019dc5cc6bf61e67",
+        "size_bytes": 18495
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-5.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-5.stdout.json",
+        "sha256": "d4ddbc02cb8a2ea877a00bda621a59d6bd117e450ac0b07a8771024ddc0e45e2",
+        "size_bytes": 1321
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-5-recheck.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-5-recheck.input.json",
+        "sha256": "2805d7344866816573730767315cc25b37531e0f9a7510eafe6df58606e3b4d8",
+        "size_bytes": 18493
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-5-recheck.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-5-recheck.stdout.json",
+        "sha256": "d4ddbc02cb8a2ea877a00bda621a59d6bd117e450ac0b07a8771024ddc0e45e2",
+        "size_bytes": 1321
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-5.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-5.input.json",
+        "sha256": "1c1613d4698879e227ecbba71a5afa8875baee282359a243516e7af5645551e6",
+        "size_bytes": 18514
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-5.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-5.stdout.json",
+        "sha256": "d4ddbc02cb8a2ea877a00bda621a59d6bd117e450ac0b07a8771024ddc0e45e2",
+        "size_bytes": 1321
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-5-recheck.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-5-recheck.input.json",
+        "sha256": "b94081cff30e5eef1cf074ec8b6657ced8ebe53d2423363dc6560c824a9149e7",
+        "size_bytes": 18512
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-5-recheck.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-5-recheck.stdout.json",
+        "sha256": "d4ddbc02cb8a2ea877a00bda621a59d6bd117e450ac0b07a8771024ddc0e45e2",
+        "size_bytes": 1321
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-5.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-5.input.json",
+        "sha256": "575cb96d37200ff8a7ac7f3efeeca891561294469c2b6e7d329d67fc8c57325f",
+        "size_bytes": 18644
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-5.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-5.stdout.json",
+        "sha256": "af294804dce8388a3c0c36d006484ec8e2bbd80762f3acc94508869ba8d778c5",
+        "size_bytes": 1454
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-5-recheck.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-5-recheck.input.json",
+        "sha256": "4c5bf6513842105da669fc56aef6119eddb5e6c1d3e711ea0d31eafe0cd5759b",
+        "size_bytes": 18642
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-5-recheck.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-5-recheck.stdout.json",
+        "sha256": "af294804dce8388a3c0c36d006484ec8e2bbd80762f3acc94508869ba8d778c5",
+        "size_bytes": 1454
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-5.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-5.input.json",
+        "sha256": "c825ce9861d17795d0653b176770bd22b905602eb1fde37e193dc753d117610d",
+        "size_bytes": 18644
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-5.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-5.stdout.json",
+        "sha256": "af294804dce8388a3c0c36d006484ec8e2bbd80762f3acc94508869ba8d778c5",
+        "size_bytes": 1454
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-5-recheck.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-5-recheck.input.json",
+        "sha256": "7f6eff647e4eb5dad6f7f4eb0a277b07172d576520c75af435a7752df789bdce",
+        "size_bytes": 18642
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-5-recheck.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-5-recheck.stdout.json",
+        "sha256": "af294804dce8388a3c0c36d006484ec8e2bbd80762f3acc94508869ba8d778c5",
+        "size_bytes": 1454
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-6.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-6.input.json",
+        "sha256": "970d68fc13802c8724249749adf49c66e30c80ea530a183189fa5b18deef7ce0",
+        "size_bytes": 18444
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-6.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-6.stdout.json",
+        "sha256": "cf6175166631ee5d3ea3ddc260c273b351f797b62d9ea87307139cf3dbac6fb9",
+        "size_bytes": 1294
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-6-recheck.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-6-recheck.input.json",
+        "sha256": "c82bce2ddf3414565bbb8e97ac5a047ceaac73e278d0f284f28139dc6b55366b",
+        "size_bytes": 18442
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-6-recheck.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-6-recheck.stdout.json",
+        "sha256": "cf6175166631ee5d3ea3ddc260c273b351f797b62d9ea87307139cf3dbac6fb9",
+        "size_bytes": 1294
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-6.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-6.input.json",
+        "sha256": "1b2994b0d12e7a7593443909c45b7535185e087a2ab11b0fa404757ea1f96073",
+        "size_bytes": 18490
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-6.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-6.stdout.json",
+        "sha256": "cf6175166631ee5d3ea3ddc260c273b351f797b62d9ea87307139cf3dbac6fb9",
+        "size_bytes": 1294
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-6-recheck.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-6-recheck.input.json",
+        "sha256": "52016b56a55fef356d2a5263d430d0efe96070be369cc4f1dfe31b186045cffa",
+        "size_bytes": 18488
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-6-recheck.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-6-recheck.stdout.json",
+        "sha256": "cf6175166631ee5d3ea3ddc260c273b351f797b62d9ea87307139cf3dbac6fb9",
+        "size_bytes": 1294
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-6.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-6.input.json",
+        "sha256": "dfa9edfa13739550fec287f9dd0603088664c0a0bc69b95439624f5178cda79e",
+        "size_bytes": 18509
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-6.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-6.stdout.json",
+        "sha256": "cf6175166631ee5d3ea3ddc260c273b351f797b62d9ea87307139cf3dbac6fb9",
+        "size_bytes": 1294
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-6-recheck.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-6-recheck.input.json",
+        "sha256": "0cff6a2dfac7dbb73e5d2586559e9d96c1d00bc6398a992aa09f053556ebb614",
+        "size_bytes": 18507
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-6-recheck.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-6-recheck.stdout.json",
+        "sha256": "cf6175166631ee5d3ea3ddc260c273b351f797b62d9ea87307139cf3dbac6fb9",
+        "size_bytes": 1294
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-6.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-6.input.json",
+        "sha256": "f333c028ce5d5908a20d88aaf702485e158f3353bfe0dc0aa7a89fc94af03ad0",
+        "size_bytes": 18639
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-6.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-6.stdout.json",
+        "sha256": "328f96907e485d5f38c07bd31e1a4e64e01c50136c2a79a9714dcc72208be594",
+        "size_bytes": 1404
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-6-recheck.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-6-recheck.input.json",
+        "sha256": "f392206decf1d8cf3547c3b7d6fc6bb969bf53045ada63ee67d985666407f9cc",
+        "size_bytes": 18637
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-6-recheck.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-6-recheck.stdout.json",
+        "sha256": "328f96907e485d5f38c07bd31e1a4e64e01c50136c2a79a9714dcc72208be594",
+        "size_bytes": 1404
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-6.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-6.input.json",
+        "sha256": "13e6b58b001d9f70cf97e8d2c3f11863e35ed381ab6f172b0853f8b7de273dea",
+        "size_bytes": 18639
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-6.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-6.stdout.json",
+        "sha256": "328f96907e485d5f38c07bd31e1a4e64e01c50136c2a79a9714dcc72208be594",
+        "size_bytes": 1404
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-6-recheck.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-6-recheck.input.json",
+        "sha256": "bc384eca3a7861ee070179f12032f378eaa3fb1549ac3726eeccd8cf552f45cc",
+        "size_bytes": 18637
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-6-recheck.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-6-recheck.stdout.json",
+        "sha256": "328f96907e485d5f38c07bd31e1a4e64e01c50136c2a79a9714dcc72208be594",
+        "size_bytes": 1404
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-9.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-9.input.json",
+        "sha256": "c222bdf5b13c61c0be74c45c3d43fb38d21b8640468120d260a3a4c6aea7a767",
+        "size_bytes": 18443
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-9.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-9.stdout.json",
+        "sha256": "cf6175166631ee5d3ea3ddc260c273b351f797b62d9ea87307139cf3dbac6fb9",
+        "size_bytes": 1294
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-9-recheck.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-9-recheck.input.json",
+        "sha256": "71199a377c14ad6d6a8915bf8e66b65ae7e3a956a08fb8bdd33a37790a3780bf",
+        "size_bytes": 18441
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-9-recheck.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R0-context-9-recheck.stdout.json",
+        "sha256": "cf6175166631ee5d3ea3ddc260c273b351f797b62d9ea87307139cf3dbac6fb9",
+        "size_bytes": 1294
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-9.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-9.input.json",
+        "sha256": "85c78ae5075bd8ace8e7df2b77a2f9555704919c54ce5fcbd4c9d60011df6350",
+        "size_bytes": 18489
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-9.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-9.stdout.json",
+        "sha256": "cf6175166631ee5d3ea3ddc260c273b351f797b62d9ea87307139cf3dbac6fb9",
+        "size_bytes": 1294
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-9-recheck.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-9-recheck.input.json",
+        "sha256": "75752b6276666306f55fc0e175588a89b7461975ac7c12956b90aec7343eec43",
+        "size_bytes": 18487
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-9-recheck.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R1-context-9-recheck.stdout.json",
+        "sha256": "cf6175166631ee5d3ea3ddc260c273b351f797b62d9ea87307139cf3dbac6fb9",
+        "size_bytes": 1294
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-9.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-9.input.json",
+        "sha256": "7a827215549c21e481866f812db97571b2ada017707a1334cd4bbbd49da9a198",
+        "size_bytes": 18508
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-9.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-9.stdout.json",
+        "sha256": "cf6175166631ee5d3ea3ddc260c273b351f797b62d9ea87307139cf3dbac6fb9",
+        "size_bytes": 1294
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-9-recheck.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-9-recheck.input.json",
+        "sha256": "15adc4ba171dfad9ce5e580e073d9fa8d01bd4f3ef8f58cfbd9da1873a514295",
+        "size_bytes": 18506
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-9-recheck.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/R2-context-9-recheck.stdout.json",
+        "sha256": "cf6175166631ee5d3ea3ddc260c273b351f797b62d9ea87307139cf3dbac6fb9",
+        "size_bytes": 1294
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-9.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-9.input.json",
+        "sha256": "cb9fe65a4d7156f8a090568e4fcd19a7615a03742da569023a8d9c0aa9d73d0d",
+        "size_bytes": 18638
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-9.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-9.stdout.json",
+        "sha256": "328f96907e485d5f38c07bd31e1a4e64e01c50136c2a79a9714dcc72208be594",
+        "size_bytes": 1404
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-9-recheck.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-9-recheck.input.json",
+        "sha256": "733c3f7c6048f44682070867b276a8712072334a485f898afc9ff3635ccd0af6",
+        "size_bytes": 18636
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-9-recheck.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L0-context-9-recheck.stdout.json",
+        "sha256": "328f96907e485d5f38c07bd31e1a4e64e01c50136c2a79a9714dcc72208be594",
+        "size_bytes": 1404
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-9.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-9.input.json",
+        "sha256": "74052d0f95e2eaca1b3937479818edb7f799603ab8f01dcef153fb33dbfdc2ae",
+        "size_bytes": 18638
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-9.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-9.stdout.json",
+        "sha256": "328f96907e485d5f38c07bd31e1a4e64e01c50136c2a79a9714dcc72208be594",
+        "size_bytes": 1404
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-9-recheck.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-9-recheck.input.json",
+        "sha256": "333b372e448f02e8a9f1f94c0f7bf36d177482b4f47da8b1db397f43d2650d7e",
+        "size_bytes": 18636
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-9-recheck.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/L1-context-9-recheck.stdout.json",
+        "sha256": "328f96907e485d5f38c07bd31e1a4e64e01c50136c2a79a9714dcc72208be594",
+        "size_bytes": 1404
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--verify-declared",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/stale-declared.input.json"
+      ],
+      "exit_code": 1,
+      "expected_success": false,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/stale-declared.input.json",
+        "sha256": "068ca98a57e26391993db2428f344e9bedd5382c5f16f15f1f2fbee45d174c4c",
+        "size_bytes": 18435
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/stale-declared.stderr.txt",
+        "sha256": "36fd7650250a0c49b7fb0cf629d43ba1d3873b5ec70d82472e4cc2f62e036893",
+        "size_bytes": 90
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/stale-declared.stdout.json",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/stale-describe.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/stale-describe.input.json",
+        "sha256": "068ca98a57e26391993db2428f344e9bedd5382c5f16f15f1f2fbee45d174c4c",
+        "size_bytes": 18435
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/stale-describe.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/stale-describe.stdout.json",
+        "sha256": "cf6175166631ee5d3ea3ddc260c273b351f797b62d9ea87307139cf3dbac6fb9",
+        "size_bytes": 1294
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/missing-prestate.input.json"
+      ],
+      "exit_code": 1,
+      "expected_success": false,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/missing-prestate.input.json",
+        "sha256": "28896d38a32d8b8273a529db6e056ce38804c11cbd1148ad2da2986c69a55f39",
+        "size_bytes": 18340
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/missing-prestate.stderr.txt",
+        "sha256": "5a29dae9a841732bde916346805751419b2aafb37186d2ddc27508df1356b75e",
+        "size_bytes": 16
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/missing-prestate.stdout.json",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/unknown-top-field.input.json"
+      ],
+      "exit_code": 1,
+      "expected_success": false,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/unknown-top-field.input.json",
+        "sha256": "c24d562c84a2939d35b157ec0c1ad11af3f908048b6f27f487e0b8cd4ce8b75d",
+        "size_bytes": 18455
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/unknown-top-field.stderr.txt",
+        "sha256": "5a29dae9a841732bde916346805751419b2aafb37186d2ddc27508df1356b75e",
+        "size_bytes": 16
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/unknown-top-field.stdout.json",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/prestate-cpu-overflow.input.json"
+      ],
+      "exit_code": 1,
+      "expected_success": false,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/prestate-cpu-overflow.input.json",
+        "sha256": "721b4d51a9c5d97e6a1eb43a4f5afaaba8401b9ced6c6de0d15d9861e26ed109",
+        "size_bytes": 18444
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/prestate-cpu-overflow.stderr.txt",
+        "sha256": "8cf83ad6ad12f5733f0a2b1c6e65905172128a30c2849491e6612620fab44434",
+        "size_bytes": 13
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/prestate-cpu-overflow.stdout.json",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/prestate-duplicate-cpu.input.json"
+      ],
+      "exit_code": 1,
+      "expected_success": false,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/prestate-duplicate-cpu.input.json",
+        "sha256": "c4b6244f68855d38a183081bd2d2c4c23e9c084b76faf28d3905aafddee6f772",
+        "size_bytes": 18435
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/prestate-duplicate-cpu.stderr.txt",
+        "sha256": "855832c33e40a41a935187b4ecdb224ff71bbc174143fb8901bffd5a477405c5",
+        "size_bytes": 99
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/prestate-duplicate-cpu.stdout.json",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/prestate-float.input.json"
+      ],
+      "exit_code": 1,
+      "expected_success": false,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/prestate-float.input.json",
+        "sha256": "4f2151f4e0dfe65e907a714b1512fa99e702538332bb42bcdb713b5ac2d54fb6",
+        "size_bytes": 18437
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/prestate-float.stderr.txt",
+        "sha256": "e4dcc1b09e98cae83f347135a550cdcdddc7446062d59178e57549aa3cbf7d9c",
+        "size_bytes": 26
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/prestate-float.stdout.json",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/budget-too-small.input.json"
+      ],
+      "exit_code": 1,
+      "expected_success": false,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/budget-too-small.input.json",
+        "sha256": "6edd7a140b7d4c85b97d643750209b93426c47e8c656461fb47c11a88ec5252d",
+        "size_bytes": 18424
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/budget-too-small.stderr.txt",
+        "sha256": "3c0d14eeab5fd268219a76e498a76a94cb07e67e6e4fbf12441410c8f8642c7f",
+        "size_bytes": 97
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/budget-too-small.stdout.json",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/invalid-capacity.input.json"
+      ],
+      "exit_code": 1,
+      "expected_success": false,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/invalid-capacity.input.json",
+        "sha256": "b6642c61a841fd970179e4d621d91bad9461c2490b9d0d5bc838c1d950889b39",
+        "size_bytes": 18433
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/invalid-capacity.stderr.txt",
+        "sha256": "5085143744aaf552cb0663a8d91064fcda7ef4f2c29704ec38817e245a32a980",
+        "size_bytes": 78
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/invalid-capacity.stdout.json",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/wrong-software-mapping.input.json"
+      ],
+      "exit_code": 1,
+      "expected_success": false,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/wrong-software-mapping.input.json",
+        "sha256": "33d78dd308e620d79b8a27fb28a6b6ff1bdef4d0cb94f262e120532b46ad7409",
+        "size_bytes": 18415
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/wrong-software-mapping.stderr.txt",
+        "sha256": "958b4298ce796b7f75d97518ceb71b7b5f204654cc7465a4fc959f362307f05c",
+        "size_bytes": 104
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/wrong-software-mapping.stdout.json",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/wrong-cell.input.json"
+      ],
+      "exit_code": 1,
+      "expected_success": false,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/wrong-cell.input.json",
+        "sha256": "c163f65096f9588c6d3a12209b2068bc44792cbca58c32880ba7b6aedc27c00d",
+        "size_bytes": 18436
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/wrong-cell.stderr.txt",
+        "sha256": "f9eb83c6cf51651f3be1a49dfb98856e4057f5981b529c0b3ceb98207257ea8c",
+        "size_bytes": 88
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/wrong-cell.stdout.json",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/duplicate-key.input.json"
+      ],
+      "exit_code": 1,
+      "expected_success": false,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/duplicate-key.input.json",
+        "sha256": "dd1b1dc1423f9bc2a905b7d3845d70f63548d62c8f3006181752edaaa64beb7f",
+        "size_bytes": 27
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/duplicate-key.stderr.txt",
+        "sha256": "f90448c1e06fd425306851923a142084bc3cbf7f5ff0e8020100459b491161cd",
+        "size_bytes": 13
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/duplicate-key.stdout.json",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/non-json.input.json"
+      ],
+      "exit_code": 1,
+      "expected_success": false,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/non-json.input.json",
+        "sha256": "62b8125a6f6d924ec53345b5fcd58ca3ed3f5e7d51e2e146e5f1346508acce69",
+        "size_bytes": 8
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/non-json.stderr.txt",
+        "sha256": "f90448c1e06fd425306851923a142084bc3cbf7f5ff0e8020100459b491161cd",
+        "size_bytes": 13
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/non-json.stdout.json",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      }
+    },
+    {
+      "command": [
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/service-layout",
+        "--describe",
+        "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/explicit-software-test-cap-10.input.json"
+      ],
+      "exit_code": 0,
+      "expected_success": true,
+      "input": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/explicit-software-test-cap-10.input.json",
+        "sha256": "da2dfee6147fc45a012591b770fbf6e16193975cd8ed7130caa3008902f583de",
+        "size_bytes": 18387
+      },
+      "stderr": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/explicit-software-test-cap-10.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_bytes": 0
+      },
+      "stdout": {
+        "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/asan-ubsan/cold-checks/explicit-software-test-cap-10.stdout.json",
+        "sha256": "bcb5f65f8d279dbc26c63eb75f8891d1afd0cc4adc933afc6fde41aa219f11f1",
+        "size_bytes": 1218
+      }
+    }
+  ],
+  "checker": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/native-sizing/check_cold.py",
+    "sha256": "8c6136e748b4c9900738b5462b151266f4bc937dc8512fe493842f687cb1f909",
+    "size_bytes": 8240
+  },
+  "checks": 64,
+  "execution_authority": false,
+  "hardware_observation": false,
+  "native_libraries_instrumented": false,
+  "performance_measurement": false,
+  "prospective_q16b_caps_frozen": false,
+  "request": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-step6-q16b-prep/inputs/q16a-request.json",
+    "sha256": "aa780db91ceaaedca11fe3b4036c3506e9de80b5a25c6189c69c7a065ed8026a",
+    "size_bytes": 9144948
+  },
+  "status": "PASS"
+}

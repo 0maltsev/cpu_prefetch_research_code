@@ -1,0 +1,10 @@
+test_activation_selects_actual_fresh_admission_and_authoring (test_stage17_operational_cli_daycap_v1.WiringTests.test_activation_selects_actual_fresh_admission_and_authoring) ... ok
+test_daycap_registry_rejects_insufficient_formal_family (test_stage17_operational_cli_daycap_v1.WiringTests.test_daycap_registry_rejects_insufficient_formal_family) ... ok
+test_formal_command_bodies_keep_original_signature_retention_and_expiry_gates (test_stage17_operational_cli_daycap_v1.WiringTests.test_formal_command_bodies_keep_original_signature_retention_and_expiry_gates) ... ok
+test_q15_session_selects_same_actual_fresh_controller (test_stage17_operational_cli_daycap_v1.WiringTests.test_q15_session_selects_same_actual_fresh_controller) ... ok
+test_retention_helpers_remain_actual_v10 (test_stage17_operational_cli_daycap_v1.WiringTests.test_retention_helpers_remain_actual_v10) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.040s
+
+OK

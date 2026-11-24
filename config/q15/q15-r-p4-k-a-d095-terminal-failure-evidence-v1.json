@@ -1,0 +1,65 @@
+{
+  "schema_version": "cpu-prefetch-q15-r-p4-k-a-d095-terminal-failure-evidence/1",
+  "evidence_id": "Q15-R-P4-K-A-D095-TERMINAL-FAILURE-EVIDENCE-20260825-01",
+  "protocol_version": "2.0.0-pre.2",
+  "decision_id": "D-095",
+  "transaction_id": "Q15-R-P4-K-A-D095-20260825-01",
+  "status": "TERMINAL_FAILED_PARTIAL_RETAINED_NO_TARGET_KEY_NO_RETRY",
+  "lineage": {
+    "decision_adr_path": "docs/decisions/0095-development-host-unencrypted-p4-k-a-action.md",
+    "decision_adr_sha256": "3418d0db14d9d6c79d75f0ea367f798a26d61777a6f0ceb190d8ea1ed1e030f0",
+    "action_authorization_path": "config/q15/q15-r-p4-k-a-d095-action-authorization-v1.json",
+    "action_authorization_sha256": "e1a8934198dd2a581ff97564dfc33e4830750c18184893a18f37d80067a94728",
+    "executed_action_tool_path": "tools/execute_d095_p4_k_a.py",
+    "executed_action_tool_sha256": "dee54311e8698c50d63709b7294af9895c482647ca8a51b8a6341e08364a16c9"
+  },
+  "external_public_root": "/home/omaltsev/.local/share/cpu-prefetch-q15/p4-k-v1/public",
+  "public_artifacts": [
+    {"filename": "action_authorization.json", "sha256": "e1a8934198dd2a581ff97564dfc33e4830750c18184893a18f37d80067a94728", "size_bytes": 4045},
+    {"filename": "action_authorization.json.sig", "sha256": "9c447e077f388ebf257e16384eafbd81b54c267296db7c0633809b5c874f23f1", "size_bytes": 330},
+    {"filename": "owner_pre_action_review.json", "sha256": "2bb30b1fe2f987e0efba9bbd4623e0682bac2302c15f3665c378014390f4fc5e", "size_bytes": 521},
+    {"filename": "failure_receipt.json", "sha256": "efe4b3c8b526f20600c0d2217f5110afbbc97fb63676b12416030586b3ecea99", "size_bytes": 332}
+  ],
+  "signature_evidence": {
+    "signature_created_attempts": 1,
+    "signature_sha256": "9c447e077f388ebf257e16384eafbd81b54c267296db7c0633809b5c874f23f1",
+    "independent_read_only_verification": "PASS",
+    "principal": "cpu-prefetch-q15-authorization",
+    "namespace": "cpu-prefetch-q15-authorization",
+    "signer_fingerprint": "SHA256:JuRM4SuWL9C1xvOes9z+CAKZV1rvel27VZ/+qiuVNs0"
+  },
+  "failure": {
+    "phase": "BOOTSTRAP_SSHSIG_VERIFY",
+    "category": "IMPLEMENTATION_ERROR_SUBPROCESS_STDIN_AND_INPUT_CONFLICT",
+    "mechanism": "run_direct supplied both stdin and input to subprocess.run",
+    "failure_receipt_sha256": "efe4b3c8b526f20600c0d2217f5110afbbc97fb63676b12416030586b3ecea99",
+    "partial_evidence_retained": true,
+    "automatic_retry_or_repair_performed": false
+  },
+  "target_key_state": {
+    "generation_attempts": 0,
+    "private_path": "/home/omaltsev/.local/share/cpu-prefetch-q15/p4-k-v1/id_ed25519",
+    "private_path_present_by_metadata_check": false,
+    "private_content_read_or_hashed": false,
+    "public_key_present": false,
+    "target_fingerprint": null
+  },
+  "disposition": {
+    "d095_terminal": true,
+    "retry_repair_overwrite_cleanup_or_deletion_authorized": false,
+    "p4_k_r_eligible": false,
+    "next_gate": "SEPARATE_D096_SUPERSESSION_AND_NEW_EXACT_ACTION_AUTHORIZATION_REQUIRED",
+    "automatic_continuation": false
+  },
+  "authority_boundary": {
+    "repository_local_failure_evidence_and_checker_authorized": true,
+    "read_only_public_and_private_metadata_verification_authorized": true,
+    "second_signature_or_target_key_action_authorized": false,
+    "p4_k_r_or_later_phase_authorized": false,
+    "stand_access_or_modification_authorized": false,
+    "transfer_install_or_setup_authorized": false,
+    "q15_r_or_q15_w_authorized": false,
+    "platform_controls_authorized": false,
+    "qualification_calibration_pilot_measurement_or_confirmatory_authorized": false
+  }
+}

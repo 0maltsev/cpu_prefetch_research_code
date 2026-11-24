@@ -1,0 +1,17 @@
+{
+  "actual_bytes_match_retained_receipt": true,
+  "binding_fields_equal": true,
+  "binding_objects_equal": false,
+  "caller_class": "stage17_formal_archive_v1.PhysicalBinding",
+  "capture_ordinal": 0,
+  "checkpoint_file": "formal-capture-0-final-checkpoint.json",
+  "experiment_restarted": false,
+  "foreign_binding_rejection": "CustodyError: metadata binding differs",
+  "raw_streams_opened": 0,
+  "raw_validation_retried": false,
+  "reader_class": "_d273_archive_333567_stage17_formal_archive_v1.PhysicalBinding",
+  "same_namespace_metadata_read_passed": true,
+  "sha256": "28258ceebf63913da41da3d7f35118bd9c2dbc090a0d8e0a4505472e3a8125d6",
+  "size_bytes": 14343,
+  "status": "METADATA_BINDING_TYPE_IDENTITY_DEFECT_REPRODUCED"
+}

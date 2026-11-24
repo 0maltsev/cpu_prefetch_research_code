@@ -1,0 +1,65 @@
+{
+  "files": [
+    {
+      "file_name": "LastTest.log",
+      "sha256": "1861beb4af3a14f9ce6a7486212347f50e856e3a11936f8304b334b532a7c86f",
+      "size_bytes": 4627
+    },
+    {
+      "file_name": "REPORT.md",
+      "sha256": "3f30bbf363bcd0db56ceb3abf1d1a83d81a13457a0e555be466704e4efdb882a",
+      "size_bytes": 1809
+    },
+    {
+      "file_name": "configure.log",
+      "sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e",
+      "size_bytes": 177
+    },
+    {
+      "file_name": "contract-pinned.log",
+      "sha256": "ad0bf80897c8f303cef1ec9fefd9ef18682c3af4eee76ad82a11ec89f7ac3ca0",
+      "size_bytes": 462
+    },
+    {
+      "file_name": "contract.log",
+      "sha256": "7391d11f631da1894a3b6ad0fac533c771cf5c461f374e3ff0d736b6974fb59d",
+      "size_bytes": 744
+    },
+    {
+      "file_name": "final-debug.log",
+      "sha256": "6d68c1a67867b0737ee00ae5f18086c8429e8506eef20add7df87f4168ebee7a",
+      "size_bytes": 115
+    },
+    {
+      "file_name": "initial-debug.log",
+      "sha256": "cc9b9f6bef29fd1b7848ce99890620305113833e559be8b8becbe28afa15fd1c",
+      "size_bytes": 113
+    },
+    {
+      "file_name": "registered.log",
+      "sha256": "3ab432bfb7420bf3941a0032a5869233cda330c39072c917f48f82d7deab05dd",
+      "size_bytes": 993
+    },
+    {
+      "file_name": "source-bindings.json",
+      "sha256": "009dc5b645ce42d67e6df0fd97d7c251c996cab0182e4dcbc41e468fcbe733c6",
+      "size_bytes": 1031
+    },
+    {
+      "file_name": "stand-readonly.json",
+      "sha256": "83456868319de36f0e851e1bdd4a9729170bcc1af483471580d275f26443137d",
+      "size_bytes": 1091
+    },
+    {
+      "file_name": "verification-summary.json",
+      "sha256": "964c732cc56b161b16b696da336111ed960920ded323eae560391e32c198b6d2",
+      "size_bytes": 974
+    },
+    {
+      "file_name": "verified-pc-cleanup.json",
+      "sha256": "0ce4056fc8dc11d69f43a9f67c9e59aaed8bbcb86fa567df443ba86b859a1510",
+      "size_bytes": 1496
+    }
+  ],
+  "includes_inventory_itself": false
+}

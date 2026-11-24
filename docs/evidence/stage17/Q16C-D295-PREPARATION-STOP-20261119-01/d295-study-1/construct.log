@@ -1,0 +1,37 @@
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/q16c-continuation-final-1/stage17_q16c_continuation_operator_v1.py", line 322, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/q16c-continuation-final-1/stage17_q16c_continuation_operator_v1.py", line 316, in main
+    if args.mode=='construct':result=construct(c,args.deadline_ns)
+                                     ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/q16c-continuation-final-1/stage17_q16c_continuation_operator_v1.py", line 191, in construct
+    configured.controller._validate_inputs(dict(action_id='Q16c', stand_id=plan['stand_id'], action_inputs=inputs), validation)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_q16c_descriptive_administration_v4.py", line 158, in validate_inputs
+    extent = v25._with_globals(v25.validate_action_inputs,dict(contract=plans,
+        validate_prior_calibration=prior,validate_ring_reuse=ring,validate_schedule_sources=sources,
+        registry=types.SimpleNamespace(**{**vars(registry),'canonical':registry.archive.canonical})),
+        dict(request=request,validation=validation))
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_phase_controller_v25.py", line 41, in _with_globals
+    return rebound(**arguments)
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_phase_controller_v25.py", line 302, in validate_action_inputs
+    validate_schedule_sources(plan, sources, namespace["schedule_namespaces"], prior_results["Q16b"])
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_q16c_descriptive_administration_v4.py", line 151, in sources
+    record, originals = receipts.validate(plan,bindings,registrations,bindings[0]['source_preparation'],
+                        ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        validation=validation,boot_id=config['boot_id'],deadline_ns=time.monotonic_ns()+120*10**9,reuse=admission._json(reuse_proofs[0]))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_q16c_prefix_reuse_v1.py", line 144, in validate
+    original,source_plan=inspect(reuse,plan,validation=validation)
+                         ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_q16c_prefix_reuse_v1.py", line 74, in inspect
+    for key,(size,digest) in FIXED.items():same([proof[key]['size_bytes'],proof[key]['sha256']],[size,digest],'immutable original '+key)
+                                           ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_q16a_continuation_admission_v1.py", line 59, in same
+    require(canonical(actual) == canonical(expected), label + ' differs')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_q16a_continuation_admission_v1.py", line 55, in require
+    raise AdmissionError('Q16a continuation admission: ' + message)
+stage17_q16a_continuation_admission_v1.AdmissionError: Q16a continuation admission: immutable original restoration differs

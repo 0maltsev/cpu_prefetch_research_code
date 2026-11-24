@@ -1,0 +1,7 @@
+{
+  "residual_s180_custody_test_directories": [],
+  "scope": "Owned synthetic local test fixtures only",
+  "stand_files_deleted": 0,
+  "stand_raw_transferred": false,
+  "temporary_fixture_cleanup_complete": true
+}

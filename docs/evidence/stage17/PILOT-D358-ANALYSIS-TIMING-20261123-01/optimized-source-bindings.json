@@ -1,0 +1,15 @@
+{
+  "files": [
+    {
+      "path": "tools/stage17_s180_raw_join_v1.py",
+      "sha256": "d963e54898197635c531bf5ba1355eb0bb267c19181b0d0a72e361d218c4d728",
+      "size_bytes": 12909
+    },
+    {
+      "path": "tests/test_stage17_s180_raw_join_v1.py",
+      "sha256": "30c67f15beed2a077adfde5e9bfc36c4a8e0f6b95adabdabb2422f0e483f8afc",
+      "size_bytes": 14690
+    }
+  ],
+  "native_unchanged_sha256": "7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc"
+}

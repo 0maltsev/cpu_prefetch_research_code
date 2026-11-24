@@ -1,0 +1,17 @@
+[
+  {
+    "path": "prepare-q15r-v21.log",
+    "size_bytes": 5804,
+    "sha256": "39a5ba5828c02c413c4f617d76f6c1687e6c977105557f0ac4468aae63db0f02"
+  },
+  {
+    "path": "clock-qualification-v21-1/complete.json",
+    "size_bytes": 984,
+    "sha256": "24281a5256034878424851561cc6cd1db33ff221db216db367c81ce7aa005295"
+  },
+  {
+    "path": "clock-qualification-v21-1/restoration.json",
+    "size_bytes": 332,
+    "sha256": "763f9f158dc043fc7f6ea7595a48094345c8a522b32058d4dd71345b35ea568c"
+  }
+]

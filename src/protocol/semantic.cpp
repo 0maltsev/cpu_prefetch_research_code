@@ -262,7 +262,7 @@ auto validate_raw(const RawObservationEnvelope& envelope)
 
 auto validate_manifest(const RunManifest& manifest) -> std::vector<ValidationError> {
   std::vector<ValidationError> errors;
-  if (manifest.protocol_version == ProtocolVersion::v2_0_0_pre_2) {
+  if (manifest.protocol_version != ProtocolVersion::v2_0_0_pre_1) {
     const auto& blockers = manifest.confirmatory_blockers;
     if (!std::ranges::is_sorted(blockers) ||
         std::ranges::adjacent_find(blockers) != blockers.end()) {

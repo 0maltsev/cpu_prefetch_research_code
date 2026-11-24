@@ -1,0 +1,894 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:formal-service-plan:v3",
+  "title": "D254 Q16b descriptive two-run family within a 24-hour declaration",
+  "description": "Exactly 60 cells times two repetitions. Replaces the historical 59-run tolerance guarantee. Capture method IDs retain the legacy collector format without family inference. Native, archival and final validation time must fit the family deadline; provenance, hardware qualification and execution admission remain separate gates.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "plan_id",
+    "protocol_version",
+    "action_id",
+    "method_id",
+    "source_revision",
+    "clean_source",
+    "stand_id",
+    "measurement_ns",
+    "warmup_namespace",
+    "measurement_namespace",
+    "custody_policy_id",
+    "captures",
+    "budget",
+    "repetitions_per_cell",
+    "storage"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "cpu-prefetch-stage17-formal-service-plan/3"
+    },
+    "plan_id": {
+      "$ref": "#/$defs/id"
+    },
+    "protocol_version": {
+      "const": "2.0.0-pre.3"
+    },
+    "action_id": {
+      "const": "Q16b"
+    },
+    "method_id": {
+      "const": "SERVICE-RATE-DESCRIPTIVE-MIN2-DAYCAP-v1"
+    },
+    "source_revision": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "clean_source": {
+      "const": true
+    },
+    "stand_id": {
+      "$ref": "#/$defs/id"
+    },
+    "measurement_ns": {
+      "type": "integer",
+      "const": 1000000000
+    },
+    "warmup_namespace": {
+      "$ref": "#/$defs/id"
+    },
+    "measurement_namespace": {
+      "$ref": "#/$defs/id"
+    },
+    "custody_policy_id": {
+      "const": "EXT007-FORMAL-LOSSLESS-STAND-PRIMARY-v1"
+    },
+    "captures": {
+      "type": "array",
+      "minItems": 120,
+      "items": {
+        "$ref": "#/$defs/family_capture"
+      },
+      "maxItems": 120
+    },
+    "budget": {
+      "$ref": "#/$defs/family_budget"
+    },
+    "repetitions_per_cell": {
+      "type": "integer",
+      "const": 2
+    },
+    "storage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "program_id",
+        "policy_id",
+        "implementation_profile_sha256",
+        "archive_quota_bytes",
+        "workspace_bytes",
+        "analysis_scratch_bytes",
+        "disk_reserve_bytes",
+        "codec_address_space_bytes",
+        "codec_processes",
+        "per_capture_archive_ns",
+        "archive_staging_bytes",
+        "capture_workspace_overhead_bytes",
+        "checkpoint_bytes",
+        "analysis_capture_workspace_bytes",
+        "program_scope_sha256",
+        "broker_address_space_bytes"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "cpu-prefetch-stage17-formal-storage-plan/1"
+        },
+        "program_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,255}$"
+        },
+        "policy_id": {
+          "const": "EXT007-FORMAL-LOSSLESS-STAND-PRIMARY-v1"
+        },
+        "implementation_profile_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "archive_quota_bytes": {
+          "const": 6000000000000
+        },
+        "workspace_bytes": {
+          "const": 549755813888
+        },
+        "analysis_scratch_bytes": {
+          "const": 274877906944
+        },
+        "disk_reserve_bytes": {
+          "const": 17179869184
+        },
+        "codec_address_space_bytes": {
+          "const": 2147483648
+        },
+        "codec_processes": {
+          "const": 1
+        },
+        "per_capture_archive_ns": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 18446744073709551615
+        },
+        "archive_staging_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 18446744073709551615
+        },
+        "capture_workspace_overhead_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 18446744073709551615
+        },
+        "checkpoint_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 18446744073709551615
+        },
+        "analysis_capture_workspace_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 18446744073709551615
+        },
+        "program_scope_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "broker_address_space_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2147483648
+        }
+      }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,255}$"
+    },
+    "uint": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615
+    },
+    "positive": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 18446744073709551615
+    },
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "run_id",
+        "seed_id",
+        "seed_hex",
+        "namespace_id"
+      ],
+      "properties": {
+        "run_id": {
+          "$ref": "#/$defs/id"
+        },
+        "seed_id": {
+          "$ref": "#/$defs/id"
+        },
+        "seed_hex": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "namespace_id": {
+          "$ref": "#/$defs/id"
+        }
+      }
+    },
+    "geometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "producer_cpu",
+        "consumer_cpu",
+        "producer_node",
+        "consumer_node",
+        "shared_node",
+        "capacity",
+        "cache_line_bytes",
+        "base_page_bytes"
+      ],
+      "properties": {
+        "producer_cpu": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "consumer_cpu": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "producer_node": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "consumer_node": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "shared_node": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "capacity": {
+          "$ref": "#/$defs/positive"
+        },
+        "cache_line_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "base_page_bytes": {
+          "$ref": "#/$defs/positive"
+        }
+      }
+    },
+    "capture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ordinal",
+        "hardware_state",
+        "placement",
+        "working_set_class",
+        "warmup_ns",
+        "measurement_ns",
+        "warmup",
+        "measurement",
+        "geometry",
+        "budget",
+        "arena_seed",
+        "seed_use",
+        "schema_version",
+        "method_id",
+        "package",
+        "repetition_ordinal",
+        "cell_ordinal",
+        "software_prefetch_mapping_id",
+        "linked_order",
+        "ring_distance"
+      ],
+      "properties": {
+        "ordinal": {
+          "$ref": "#/$defs/uint"
+        },
+        "hardware_state": {
+          "enum": [
+            "H0",
+            "H1"
+          ]
+        },
+        "placement": {
+          "enum": [
+            "NEAR",
+            "FAR"
+          ]
+        },
+        "working_set_class": {
+          "enum": [
+            "L2_RESIDENT",
+            "LLC_RESIDENT",
+            "BEYOND_LLC"
+          ]
+        },
+        "warmup_ns": {
+          "const": 5000000000
+        },
+        "measurement_ns": {
+          "$ref": "#/$defs/positive"
+        },
+        "warmup": {
+          "$ref": "#/$defs/identity"
+        },
+        "measurement": {
+          "$ref": "#/$defs/identity"
+        },
+        "geometry": {
+          "$ref": "#/$defs/geometry"
+        },
+        "budget": {
+          "$ref": "#/$defs/capture_budget"
+        },
+        "arena_seed": {
+          "$ref": "#/$defs/identity"
+        },
+        "seed_use": {
+          "const": "ONE_PERSISTENT_ARENA_MEASUREMENT_SEED_WARMUP_RESERVED_NO_DRAWS"
+        },
+        "schema_version": {
+          "const": "cpu-prefetch-stage17-formal-service-capture/1"
+        },
+        "method_id": {
+          "const": "SERVICE-RATE-NP-LTL95C95-MIN-v1"
+        },
+        "package": {
+          "enum": [
+            "R0",
+            "R1",
+            "R2",
+            "L0",
+            "L1"
+          ]
+        },
+        "repetition_ordinal": {
+          "$ref": "#/$defs/uint"
+        },
+        "cell_ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 59
+        },
+        "software_prefetch_mapping_id": {
+          "$ref": "#/$defs/id"
+        },
+        "linked_order": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "seed_id",
+                "seed_hex",
+                "namespace_id",
+                "arena_alignment_bytes"
+              ],
+              "properties": {
+                "seed_id": {
+                  "$ref": "#/$defs/id"
+                },
+                "seed_hex": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                "namespace_id": {
+                  "$ref": "#/$defs/id"
+                },
+                "arena_alignment_bytes": {
+                  "$ref": "#/$defs/positive"
+                }
+              }
+            }
+          ]
+        },
+        "ring_distance": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "cache_lines",
+                "calibration_evidence_id"
+              ],
+              "properties": {
+                "cache_lines": {
+                  "$ref": "#/$defs/positive"
+                },
+                "calibration_evidence_id": {
+                  "oneOf": [
+                    {
+                      "const": ""
+                    },
+                    {
+                      "$ref": "#/$defs/id"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "phase_bound": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "producer_attempt_limit",
+        "consumer_poll_limit",
+        "drain_ns"
+      ],
+      "properties": {
+        "producer_attempt_limit": {
+          "$ref": "#/$defs/positive"
+        },
+        "consumer_poll_limit": {
+          "$ref": "#/$defs/positive"
+        },
+        "drain_ns": {
+          "$ref": "#/$defs/positive"
+        }
+      }
+    },
+    "capture_budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "phases",
+        "barrier_poll_limit",
+        "memory_bytes"
+      ],
+      "properties": {
+        "phases": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/phase_bound"
+          }
+        },
+        "barrier_poll_limit": {
+          "$ref": "#/$defs/positive"
+        },
+        "memory_bytes": {
+          "$ref": "#/$defs/positive"
+        }
+      }
+    },
+    "phase_capacity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "producer_primary_rows",
+        "consumer_primary_rows"
+      ],
+      "properties": {
+        "producer_primary_rows": {
+          "$ref": "#/$defs/positive"
+        },
+        "consumer_primary_rows": {
+          "$ref": "#/$defs/positive"
+        }
+      }
+    },
+    "stack": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bytes",
+        "verified_base_page_bytes",
+        "owner_cpu",
+        "requested_node"
+      ],
+      "properties": {
+        "bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "verified_base_page_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "owner_cpu": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "requested_node": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        }
+      }
+    },
+    "resources": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ordinal",
+        "workers",
+        "controller_stack",
+        "core_bytes",
+        "monitor_bytes",
+        "total_mapping_bytes",
+        "region_bytes",
+        "tls_module_capacity",
+        "thread_stat_bytes",
+        "thread_status_bytes",
+        "thread_affinity_words",
+        "initial_consumer_state",
+        "phase_capacity"
+      ],
+      "properties": {
+        "ordinal": {
+          "$ref": "#/$defs/uint"
+        },
+        "workers": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "producer_stack",
+            "consumer_stack"
+          ],
+          "properties": {
+            "producer_stack": {
+              "$ref": "#/$defs/stack"
+            },
+            "consumer_stack": {
+              "$ref": "#/$defs/stack"
+            }
+          }
+        },
+        "controller_stack": {
+          "$ref": "#/$defs/stack"
+        },
+        "core_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "monitor_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "total_mapping_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "region_bytes": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7,
+          "items": {
+            "$ref": "#/$defs/positive"
+          }
+        },
+        "tls_module_capacity": {
+          "$ref": "#/$defs/positive"
+        },
+        "thread_stat_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "thread_status_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "thread_affinity_words": {
+          "$ref": "#/$defs/positive"
+        },
+        "initial_consumer_state": {
+          "$ref": "#/$defs/uint"
+        },
+        "phase_capacity": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/phase_capacity"
+          }
+        }
+      }
+    },
+    "counter_limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "minor_faults",
+        "major_faults",
+        "voluntary_switches",
+        "involuntary_switches"
+      ],
+      "properties": {
+        "minor_faults": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/uint"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "major_faults": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/uint"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "voluntary_switches": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/uint"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "involuntary_switches": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/uint"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "environment_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "byte_capacity",
+        "chunk_bytes",
+        "max_data_reads",
+        "requested"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "byte_capacity": {
+          "$ref": "#/$defs/positive"
+        },
+        "chunk_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "max_data_reads": {
+          "$ref": "#/$defs/positive"
+        },
+        "requested": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "items": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "monitoring": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ordinal",
+        "during_first_page",
+        "during_page_count",
+        "during_offset_ticks",
+        "observer_wait_poll_limit",
+        "control_region_index",
+        "counter_limits",
+        "hardware_identity",
+        "environment_sources"
+      ],
+      "properties": {
+        "ordinal": {
+          "$ref": "#/$defs/uint"
+        },
+        "during_first_page": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7,
+          "items": {
+            "$ref": "#/$defs/uint"
+          }
+        },
+        "during_page_count": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7,
+          "items": {
+            "$ref": "#/$defs/positive"
+          }
+        },
+        "during_offset_ticks": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/uint"
+          }
+        },
+        "observer_wait_poll_limit": {
+          "$ref": "#/$defs/positive"
+        },
+        "control_region_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 6
+        },
+        "counter_limits": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": {
+              "$ref": "#/$defs/counter_limits"
+            }
+          }
+        },
+        "hardware_identity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "family",
+            "model"
+          ],
+          "properties": {
+            "family": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4294967295
+            },
+            "model": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4294967295
+            }
+          }
+        },
+        "environment_sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/environment_source"
+          }
+        }
+      }
+    },
+    "family_capture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capture",
+        "resources",
+        "monitoring",
+        "execution_budget"
+      ],
+      "properties": {
+        "capture": {
+          "$ref": "#/$defs/capture"
+        },
+        "resources": {
+          "$ref": "#/$defs/resources"
+        },
+        "monitoring": {
+          "$ref": "#/$defs/monitoring"
+        },
+        "execution_budget": {
+          "$ref": "#/$defs/execution_budget"
+        }
+      }
+    },
+    "execution_budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "setup_ns",
+        "publication_ns",
+        "cleanup_ns",
+        "watchdog_ns",
+        "publication_memory_bytes",
+        "other_memory_bytes",
+        "memory_bytes",
+        "metadata_output_bytes",
+        "max_output_bytes"
+      ],
+      "properties": {
+        "setup_ns": {
+          "$ref": "#/$defs/positive"
+        },
+        "publication_ns": {
+          "$ref": "#/$defs/positive"
+        },
+        "cleanup_ns": {
+          "$ref": "#/$defs/positive"
+        },
+        "watchdog_ns": {
+          "$ref": "#/$defs/positive"
+        },
+        "publication_memory_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "other_memory_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "memory_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "metadata_output_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "max_output_bytes": {
+          "$ref": "#/$defs/positive"
+        }
+      }
+    },
+    "family_budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "setup_ns",
+        "cleanup_ns",
+        "watchdog_ns",
+        "controller_memory_bytes",
+        "memory_bytes",
+        "metadata_output_bytes",
+        "max_output_bytes",
+        "analysis_scratch_bytes",
+        "disk_reserve_bytes",
+        "required_free_disk_bytes"
+      ],
+      "properties": {
+        "setup_ns": {
+          "$ref": "#/$defs/positive"
+        },
+        "cleanup_ns": {
+          "$ref": "#/$defs/positive",
+          "description": "Reserved family cleanup and final validation time, included in the family watchdog sum."
+        },
+        "watchdog_ns": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 86400000000000,
+          "description": "Whole family ceiling, including native work, archive and final validation."
+        },
+        "controller_memory_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "memory_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "metadata_output_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "max_output_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "analysis_scratch_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "disk_reserve_bytes": {
+          "$ref": "#/$defs/positive"
+        },
+        "required_free_disk_bytes": {
+          "$ref": "#/$defs/positive"
+        }
+      }
+    }
+  }
+}

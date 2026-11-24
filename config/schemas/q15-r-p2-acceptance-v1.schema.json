@@ -1,0 +1,59 @@
+{
+  "$id": "urn:cpu-prefetch:q15-r-p2-acceptance:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "acceptance_id": {"const": "Q15-R-P2-ACCEPTANCE-20260825-01"},
+    "accepted_date": {"const": "2026-08-25"},
+    "accepted_decisions": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "decision_id": {"enum": ["D-061", "D-062", "D-063", "D-064"]},
+          "selected_option": {"type": "string", "minLength": 1},
+          "state": {"pattern": "^ACCEPTED_", "type": "string"}
+        },
+        "required": ["decision_id", "selected_option", "state"],
+        "type": "object"
+      },
+      "maxItems": 4,
+      "minItems": 4,
+      "type": "array"
+    },
+    "authority_boundary": {
+      "const": {
+        "account_or_key_changes_authorized": false,
+        "bundle_transfer_or_install_authorized": false,
+        "calibration_authorized": false,
+        "confirmatory_authorized": false,
+        "dynamic_qualification_authorized": false,
+        "measurement_authorized": false,
+        "msr_read_authorized": false,
+        "msr_write_authorized": false,
+        "operational_adapter_implementation_authorized": true,
+        "pilot_authorized": false,
+        "q15_r_authorized": false,
+        "q15_w_authorized": false,
+        "real_affinity_numa_authorized": false,
+        "real_pmu_authorized": false,
+        "release_and_setup_record_synchronization_authorized": true,
+        "stand_access_authorized": false,
+        "stand_setup_authorization_preparation_authorized": true,
+        "stand_setup_execution_authorized": false
+      }
+    },
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "proposal_binding": {
+      "const": {
+        "bundle_id": "Q15-R-OPERATIONAL-PREREQUISITE-DECISION-INPUT-20260825-01",
+        "path": "config/q15/q15-r-operational-prerequisite-decision-input-v1.json",
+        "sha256": "6e27f16c8c4280b96cb0e6c58a02247e87f595399743218612325e037f8b85e7"
+      }
+    },
+    "schema_version": {"const": "cpu-prefetch-q15-r-p2-acceptance/1"},
+    "user_acceptance": {"type": "string", "minLength": 1}
+  },
+  "required": ["acceptance_id", "accepted_date", "accepted_decisions", "authority_boundary", "protocol_version", "proposal_binding", "schema_version", "user_acceptance"],
+  "title": "Q15-R-P2 repository-local acceptance record",
+  "type": "object"
+}

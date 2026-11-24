@@ -1,0 +1,72 @@
+{
+  "artifacts": [
+    {
+      "file_name": "family-and-source-static-checks.txt",
+      "sha256": "c0770bab68e0fb5f43e377a07d200906274c16c5fe339f3eca1e21d88b091d48",
+      "size_bytes": 1603
+    },
+    {
+      "file_name": "fixed-action-static-check.txt",
+      "sha256": "d5938ae629e299bfbbf2898a4481121ea2964d6a3bf733b50260be0f60625d59",
+      "size_bytes": 231
+    },
+    {
+      "file_name": "native-runner-tests.txt",
+      "sha256": "3d6fef4e8a41ac7a2fa367868d48261d5c54e0d3bbc15757d2439c22bb9f030e",
+      "size_bytes": 25925
+    },
+    {
+      "file_name": "asan-ubsan-runner-tests.txt",
+      "sha256": "448f3da13a01a2a9ed0905a153b632f68273e3c62cf55f110067ac038ea39216",
+      "size_bytes": 26020
+    },
+    {
+      "file_name": "policy-handoff-tests.txt",
+      "sha256": "634c066aa39f0d7e46c1fc89fb5c9c22ef34582cd4493a89007d975008778ef3",
+      "size_bytes": 3007
+    }
+  ],
+  "asan_ubsan": {
+    "options": "detect_leaks=0",
+    "status": "PASS",
+    "tests": 139
+  },
+  "broad_original_static_analysis": "RUNNING_HISTORICAL_UNCREDITED",
+  "changed_native_static_analysis": {
+    "files": [
+      "src/runner/stage17_formal_family.cpp",
+      "src/runner/stage17_formal_scheduled_action.cpp",
+      "src/runner/stage17_fixed_action.cpp"
+    ],
+    "status": "PASS"
+  },
+  "changes": "Use the already range-validated archive descriptor instead of a second unchecked optional lookup.",
+  "execution_authority": false,
+  "fresh_release": "PENDING",
+  "native_tests": {
+    "status": "PASS",
+    "tests": 139
+  },
+  "new_execution_window_started": false,
+  "phase18_authority": false,
+  "policy_handoff_tests": {
+    "status": "PASS",
+    "tests": 16
+  },
+  "qualification_started": false,
+  "schema_version": "cpu-prefetch-stage17-d288-parser-correction/1",
+  "source_bindings": [
+    {
+      "path": "src/runner/stage17_formal_family.cpp",
+      "sha256": "773b3e80fdf1eda96f22778884b2057fe34a06ae52593c85ea4c78e8d91e93bc"
+    },
+    {
+      "path": "src/runner/stage17_formal_scheduled_action.cpp",
+      "sha256": "80cb085cbfe0900956d97e7d2104afd4e9766d4b479b56492cedd021033dd8de"
+    },
+    {
+      "path": "src/runner/stage17_fixed_action.cpp",
+      "sha256": "03130e61fcd1b61b4cb7b2d1bfc564f1420e87eebcbff428a2b3f7ff4eec764e"
+    }
+  ]
+}

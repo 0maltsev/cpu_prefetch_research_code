@@ -1,0 +1,133 @@
+{
+  "$id": "urn:cpu-prefetch:q15-probe-implementation-profile:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "authority_boundary": {
+      "additionalProperties": false,
+      "properties": {
+        "authorized_operations": {
+          "const": [
+            "REPOSITORY_LOCAL_IMPLEMENTATION",
+            "SYNTHETIC_TESTS",
+            "SANITIZERS",
+            "DUAL_DISASSEMBLER_AUDIT"
+          ]
+        },
+        "calibration_authorized": {"const": false},
+        "confirmatory_authorized": {"const": false},
+        "dynamic_pmu_execution_authorized": {"const": false},
+        "pilot_authorized": {"const": false},
+        "privileged_controls_authorized": {"const": false},
+        "q15_r_authorized": {"const": false},
+        "q15_w_authorized": {"const": false},
+        "stand_access_authorized": {"const": false}
+      },
+      "required": [
+        "authorized_operations",
+        "calibration_authorized",
+        "confirmatory_authorized",
+        "dynamic_pmu_execution_authorized",
+        "pilot_authorized",
+        "privileged_controls_authorized",
+        "q15_r_authorized",
+        "q15_w_authorized",
+        "stand_access_authorized"
+      ],
+      "type": "object"
+    },
+    "decision_id": {"const": "D-053"},
+    "integrity_profile": {
+      "additionalProperties": false,
+      "properties": {
+        "counted_traversal_checksum_operations": {"const": 0},
+        "dependent_load_count": {"const": "EXACT_LINE_COUNT"},
+        "post_traversal": {"const": "SHA256_COMPLETE_BUFFER"},
+        "pre_traversal": {"const": "SHA256_COMPLETE_BUFFER"},
+        "required_closure": {
+          "const": "FINAL_INDEX_EQUALS_START_INDEX_AFTER_EXACT_LINE_COUNT_LOADS"
+        }
+      },
+      "required": [
+        "counted_traversal_checksum_operations",
+        "dependent_load_count",
+        "post_traversal",
+        "pre_traversal",
+        "required_closure"
+      ],
+      "type": "object"
+    },
+    "pointer_buffer_profile": {
+      "additionalProperties": false,
+      "properties": {
+        "cache_line_bytes": {"const": 64},
+        "line_encoding": {
+          "const": "NATIVE_X86_64_LITTLE_ENDIAN_U32_NEXT_INDEX_AT_OFFSET_0_ZERO_REMAINDER"
+        },
+        "page_alignment_bytes": {"const": 4096},
+        "start_index": {"const": "PERMUTATION_ELEMENT_0"}
+      },
+      "required": [
+        "cache_line_bytes",
+        "line_encoding",
+        "page_alignment_bytes",
+        "start_index"
+      ],
+      "type": "object"
+    },
+    "profile_id": {"const": "Q15-PROBE-IMPLEMENTATION-PROFILE-v1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "schema_version": {
+      "const": "cpu-prefetch-q15-probe-implementation-profile/1"
+    },
+    "seed_profile": {
+      "additionalProperties": false,
+      "properties": {
+        "derived_key_hex": {"const": "2a805cfaa4038e43"},
+        "derivation_domain_protocol_version": {"const": "2.0.0-pre.1"},
+        "master_seed_hex": {
+          "const": "b7ad8c3db8469f8b60ec679eb68b10b040a4b509438882732854257d582aff9b"
+        },
+        "namespace": {"const": "Q15-POINTER-PROBE-PERMUTATION-v1"},
+        "permutation_algorithm": {
+          "const": "DESCENDING_UNBIASED_FISHER_YATES-v1"
+        },
+        "purpose": {"const": "node-order"},
+        "suite_id": {"const": "PHILOX4X32-10-HMAC-SHA256-v1"}
+      },
+      "required": [
+        "derived_key_hex",
+        "derivation_domain_protocol_version",
+        "master_seed_hex",
+        "namespace",
+        "permutation_algorithm",
+        "purpose",
+        "suite_id"
+      ],
+      "type": "object"
+    },
+    "source_contract": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_id": {"const": "Q15-PROBE-COLLECTOR-CONTRACT-v1"},
+        "path": {"const": "config/q15/q15-probe-collector-contract-v1.json"},
+        "sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"}
+      },
+      "required": ["contract_id", "path", "sha256"],
+      "type": "object"
+    }
+  },
+  "required": [
+    "authority_boundary",
+    "decision_id",
+    "integrity_profile",
+    "pointer_buffer_profile",
+    "profile_id",
+    "protocol_version",
+    "schema_version",
+    "seed_profile",
+    "source_contract"
+  ],
+  "title": "D-053 Q15 pointer-probe implementation profile",
+  "type": "object"
+}

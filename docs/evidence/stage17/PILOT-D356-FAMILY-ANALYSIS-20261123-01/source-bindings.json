@@ -1,0 +1,56 @@
+{
+  "execution_authority": false,
+  "files": [
+    {
+      "path": "CMakeLists.txt",
+      "sha256": "7bd1d01ba9cde89aa019787d0e8a432796e58e2bafbd7a643082bb96f898db4f",
+      "size_bytes": 204086
+    },
+    {
+      "path": "tools/stage17_s180_family_analysis_v1.py",
+      "sha256": "92ddefe4bd027f55890b41f2676e767ee30dad50f0a5f8c5b8d11a48d42a561d",
+      "size_bytes": 13847
+    },
+    {
+      "path": "tests/test_stage17_s180_family_analysis_v1.py",
+      "sha256": "330802cd9f31c8e8f1eb2600977e3521ac04782a30f8f9344ef4a88786f04281",
+      "size_bytes": 6216
+    },
+    {
+      "path": "tools/stage17_s180_analysis_pool_v1.py",
+      "sha256": "86b4eab2ab8edf441a377fcbb0c72e0404a9fb71d1d60d4efc5636802e5c013d",
+      "size_bytes": 29132
+    },
+    {
+      "path": "tools/stage17_s180_family_validation_v1.py",
+      "sha256": "2d25e356dfb0dd372ae63b692e59fbab80950ab1e8834d89822085179df52e55",
+      "size_bytes": 29761
+    },
+    {
+      "path": "tools/stage17_s180_archive_registry_v1.py",
+      "sha256": "3f0451edf422f46a34aa790afa80d2146a6dbfe4181635e3288194e152de309f",
+      "size_bytes": 7900
+    },
+    {
+      "path": "tools/stage17_s180_archive_custody_v1.py",
+      "sha256": "94c4935b966f690a0656afd09e21a3edc827e269cb0a9b92215d0b28ebf1e671",
+      "size_bytes": 8994
+    },
+    {
+      "path": "tools/stage17_s180_parent_v1.py",
+      "sha256": "d1e42fe3cc7ce7e458f759fd2281546b9ecf3106b40e6f54612b8d0d8edc321e",
+      "size_bytes": 16749
+    },
+    {
+      "path": "docs/decisions/0356-s180-original-custody-to-family-analysis.md",
+      "sha256": "1d86f65bbdfc3b128b1627bf93ef7476a1525e04fa6955cb9c5ea5e5c9467140",
+      "size_bytes": 3628
+    }
+  ],
+  "frozen_native": {
+    "path": "build/stage17-s180-release-34247ce/cpu_prefetch_runner",
+    "sha256": "7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc",
+    "size_bytes": 6151832
+  },
+  "recorded_at_utc": "2026-11-23T19:03:30.767789+00:00"
+}

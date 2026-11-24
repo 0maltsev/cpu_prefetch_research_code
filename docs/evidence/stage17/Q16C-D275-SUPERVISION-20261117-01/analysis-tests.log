@@ -1,0 +1,9 @@
+test_actual_eight_archive_spool_science_and_valid_full_report (test_stage17_q16c_analysis_v1.AnalysisTests.test_actual_eight_archive_spool_science_and_valid_full_report) ... ok
+test_actual_physical_core_and_aggregate_scratch_bounds (test_stage17_q16c_analysis_v1.AnalysisTests.test_actual_physical_core_and_aggregate_scratch_bounds) ... ok
+test_complete_pool_and_first_failure_cleanup_have_no_missing_reports_or_children (test_stage17_q16c_analysis_v1.AnalysisTests.test_complete_pool_and_first_failure_cleanup_have_no_missing_reports_or_children) ... ok
+test_packet_admission_time_is_charged_to_the_original_analysis_phase (test_stage17_q16c_analysis_v1.AnalysisTests.test_packet_admission_time_is_charged_to_the_original_analysis_phase) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.769s
+
+OK

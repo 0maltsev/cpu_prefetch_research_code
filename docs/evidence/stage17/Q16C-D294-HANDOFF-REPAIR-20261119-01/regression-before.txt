@@ -1,0 +1,26 @@
+test_actual_packet_constructor_accepts_the_supervisors_published_handoff (test_stage17_q16c_operator_d288.SupervisorSequence.test_actual_packet_constructor_accepts_the_supervisors_published_handoff) ... FAIL
+test_actual_packet_constructor_rejects_foreign_boot_and_restores_before_any_action (test_stage17_q16c_operator_d288.SupervisorSequence.test_actual_packet_constructor_rejects_foreign_boot_and_restores_before_any_action) ... FAIL
+test_preserved_failed_handoff_reproduces_the_actual_consumer_key_error (test_stage17_q16c_operator_d288.SupervisorSequence.test_preserved_failed_handoff_reproduces_the_actual_consumer_key_error) ... ok
+
+======================================================================
+FAIL: test_actual_packet_constructor_accepts_the_supervisors_published_handoff (test_stage17_q16c_operator_d288.SupervisorSequence.test_actual_packet_constructor_accepts_the_supervisors_published_handoff)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_q16c_operator_d288.py", line 387, in test_actual_packet_constructor_accepts_the_supervisors_published_handoff
+    self.assertTrue(result['success'],result)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : {'completed_monotonic_ns': 20477846799386, 'errors': ["KeyError('boot_id')"], 'execution_authority': False, 'phase18_authority': False, 'phases': [{'completed_monotonic_ns': 20477844076511, 'deadline_ns': 24077843293136, 'exit_code': 0, 'leader_reaped': True, 'pid': 11, 'role': 'prefix', 'started_monotonic_ns': 20477843764211}], 'success': False, 'traceback': 'Traceback (most recent call last):\n  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_q16c_continuation_study_v1.py", line 248, in run\n    q=qualification.Packet(inventory,finite)\n  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_q16c_operator_d288.py", line 319, in __init__\n    super().__init__(*args)\n    ~~~~~~~~~~~~~~~~^^^^^^^\n  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/fixtures/stage17/d292-qualification-handoff/run_qualification_v31.py.txt", line 61, in __init__\n    require(anchor[\'boot_id\']==finite[\'release\'][\'boot_id\'],\'global window boot changed\')\n            ~~~~~~^^^^^^^^^^^\nKeyError: \'boot_id\'\n'}
+
+======================================================================
+FAIL: test_actual_packet_constructor_rejects_foreign_boot_and_restores_before_any_action (test_stage17_q16c_operator_d288.SupervisorSequence.test_actual_packet_constructor_rejects_foreign_boot_and_restores_before_any_action)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_q16c_operator_d288.py", line 394, in test_actual_packet_constructor_rejects_foreign_boot_and_restores_before_any_action
+    self.assertIn('global window boot changed',' '.join(result['errors']))
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'global window boot changed' not found in "KeyError('boot_id')"
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.065s
+
+FAILED (failures=2)

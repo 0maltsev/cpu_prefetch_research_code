@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:external-custody-receipt:v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "receipt_id", "artifact_locator", "artifact_size_bytes", "artifact_sha256", "sidecars", "custody_domain_id", "verifier_id", "verifier_version", "verification_result", "verified_at_utc", "contract", "phase18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-external-custody-receipt/2"},
+    "receipt_id": {"type": "string", "minLength": 1},
+    "artifact_locator": {"type": "string", "pattern": "^/"},
+    "artifact_size_bytes": {"type": "integer", "minimum": 0},
+    "artifact_sha256": {"$ref": "#/$defs/sha"},
+    "sidecars": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/file"}},
+    "custody_domain_id": {"type": "string", "minLength": 1},
+    "verifier_id": {"type": "string", "minLength": 1},
+    "verifier_version": {"type": "string", "minLength": 1},
+    "verification_result": {"const": "PASS"},
+    "verified_at_utc": {"type": "string", "format": "date-time", "pattern": "Z$"},
+    "contract": {"type": "object", "additionalProperties": false, "required": ["locator", "size_bytes", "sha256", "scope"], "properties": {"locator": {"type": "string", "minLength": 1}, "size_bytes": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/$defs/sha"}, "scope": {"const": "OPERATIONAL_EVIDENCE_ROOT"}}},
+    "phase18_authority": {"const": false}
+  },
+  "$defs": {
+    "sha": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "file": {"type": "object", "additionalProperties": false, "required": ["locator", "size_bytes", "sha256"], "properties": {"locator": {"type": "string", "pattern": "^/"}, "size_bytes": {"type": "integer", "minimum": 0}, "sha256": {"$ref": "#/$defs/sha"}}}
+  }
+}

@@ -1,0 +1,26 @@
+...........E.....
+======================================================================
+ERROR: test_actual_unchanged_receipts_lease_and_values_are_only_read (__main__.RestorationTests.test_actual_unchanged_receipts_lease_and_values_are_only_read)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_exit_v1.py", line 225, in test_actual_unchanged_receipts_lease_and_values_are_only_read
+    before={p:p.read_bytes() for p in self.root.rglob('*') if p.is_file()}
+           ^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_exit_v1.py", line 221, in observe
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_exit_v1.py", line 168, in _environment
+    same(archive.file_stamp(os.fstat(fd)),archive.file_stamp(s),'lease epoch through readback')
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_exit_v1.py", line 30, in same
+    require(archive.canonical(actual)==archive.canonical(expected),label+' differs')
+            ~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_v1.py", line 50, in canonical
+    return canonicalize(value).encode("utf-8", errors="strict")
+           ~~~~~~~~~~~~^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/check_canonical.py", line 79, in canonicalize
+    raise TypeError(f"unsupported JSON value: {type(value)!r}")
+TypeError: unsupported JSON value: <class 'tuple'>
+
+----------------------------------------------------------------------
+Ran 17 tests in 36.784s
+
+FAILED (errors=1)

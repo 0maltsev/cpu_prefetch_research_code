@@ -1,0 +1,78 @@
+{
+  "error": "owned original replay failed: S180 owner replay: original-reader failure or abnormal cleanup",
+  "report": {
+    "actual_owner_reader_completed": false,
+    "cleanup": {
+      "cleanup_deadline_overrun": false,
+      "cleanup_diagnostics": [],
+      "descendants_detected_after_leader_exit": false,
+      "leader_reaped": true,
+      "leader_wait_timed_out": false,
+      "maximum_descendant_count": 0,
+      "namespace_snapshot": {
+        "local_pgid": 389262,
+        "local_pid": 389262,
+        "namespace_inode": "4026531836",
+        "nspgid": [
+          389262
+        ],
+        "nspid": [
+          389262
+        ],
+        "procfs_namespace_inode": "4026531836",
+        "visible_pgid": 389262,
+        "visible_pid": 389262
+      },
+      "process_group_gone": true,
+      "returncode": 1,
+      "terminal_cleanup_outcome": "NORMAL_LEADER_REAPED_GROUP_QUIESCENT"
+    },
+    "completed_monotonic_ns": 1903151452160767,
+    "console_prefix": "TypeError: unsupported JSON value: <class 'stage17_pilot_candidate_artifact_v12.ArchiveExtractedReleaseContext'>\n",
+    "deadline_monotonic_ns": 1903710223278296,
+    "execution_authority": false,
+    "failure": "S180 owner replay: original-reader failure or abnormal cleanup",
+    "observed_reader": {
+      "actual_gid_fields": [
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "actual_uid_fields": [
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "address_space_bytes": [
+        8589934592,
+        8589934592
+      ],
+      "file_size_bytes": [
+        268435456,
+        268435456
+      ],
+      "gid": 1000,
+      "session_id": 389263,
+      "start_ticks": 190311022,
+      "uid": 1000
+    },
+    "phase18_authority": false,
+    "pid": 389263,
+    "root_parent_credentials_preserved": true,
+    "root_uids_after": [
+      0,
+      0,
+      0
+    ],
+    "root_uids_before": [
+      0,
+      0,
+      0
+    ],
+    "schema_version": "cpu-prefetch-stage17-s180-owned-original-replay/1",
+    "started_monotonic_ns": 1903110225789626
+  },
+  "status": "OWNED_REPLAY_DIAGNOSTIC_FAILURE"
+}

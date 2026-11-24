@@ -1,0 +1,26 @@
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+[==========] Running 7 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 4 tests from S180Sources
+[ RUN      ] S180Sources.ExactOriginalVectorsSurviveCopiesMovesAndBorrowedOffset
+[       OK ] S180Sources.ExactOriginalVectorsSurviveCopiesMovesAndBorrowedOffset (46 ms)
+[ RUN      ] S180Sources.AggregateRetainedAndTransientMemoryIsMandatory
+[       OK ] S180Sources.AggregateRetainedAndTransientMemoryIsMandatory (42 ms)
+[ RUN      ] S180Sources.ReservedAndDuplicatedPhysicalDescriptorsReject
+[       OK ] S180Sources.ReservedAndDuplicatedPhysicalDescriptorsReject (42 ms)
+[ RUN      ] S180Sources.HashSealsMembershipInlineWindowAndDeadlineDriftReject
+[       OK ] S180Sources.HashSealsMembershipInlineWindowAndDeadlineDriftReject (42 ms)
+[----------] 4 tests from S180Sources (173 ms total)
+
+[----------] 3 tests from S180Publication
+[ RUN      ] S180Publication.OriginalSealedSourcesFlowThroughMappedCaptureAndPublication
+[       OK ] S180Publication.OriginalSealedSourcesFlowThroughMappedCaptureAndPublication (150 ms)
+[ RUN      ] S180Publication.CompletedWarmupSurvivesMeasurementFailureAndSinkFailureStops
+[       OK ] S180Publication.CompletedWarmupSurvivesMeasurementFailureAndSinkFailureStops (148 ms)
+[ RUN      ] S180Publication.UnobservedPreparationIsNeverInvented
+[       OK ] S180Publication.UnobservedPreparationIsNeverInvented (66 ms)
+[----------] 3 tests from S180Publication (365 ms total)
+
+[----------] Global test environment tear-down
+[==========] 7 tests from 2 test suites ran. (539 ms total)
+[  PASSED  ] 7 tests.

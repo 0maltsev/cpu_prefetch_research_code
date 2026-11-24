@@ -1,0 +1,20 @@
+{
+  "schema_version": "software-d255-administration-verification/1",
+  "native_source_revision": "aa3285f15acbd3314cae64a628c113488a8438b8",
+  "native_worker_sha256": "305cedfc5438c68ececfa6a0f954d757112a50c87f687b93ad7b013b7ed757dd",
+  "native_unchanged": true,
+  "actual_retained_context_fixture": "docs/evidence/stage17/DAYCAP-120-ADMISSION-20261115-01/original-contexts-admission.json",
+  "files": [
+    {
+      "path": "tests.log",
+      "size_bytes": 106,
+      "sha256": "c6352adff70a6982c739a1cd77bbb43d2425eefd2dc2112b92b0ceebf2a6ca31"
+    },
+    {
+      "path": "historical-loading-regression.log",
+      "size_bytes": 107,
+      "sha256": "ca18ffc8e8fdc6b71e49e9b4fd64e04661daa3243fb767d57a64ce80ea2d7b63"
+    }
+  ],
+  "execution_authority": false
+}

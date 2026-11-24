@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-configuration-2/stage17_q16c_prepare_v2.py", line 244, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-configuration-2/stage17_q16c_prepare_v2.py", line 241, in main
+    print(json.dumps((construct if args.mode=='construct' else sign)(c)),flush=True)
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-configuration-2/stage17_q16c_prepare_v2.py", line 162, in construct
+    cli.controller.configure_verified_descriptor(read(ob),packet);cli.controller.configure_historical_inputs(history_config,packet);cli.activate()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-configuration-2/stage17_archive_q16c_descriptive_overlay_v1.py", line 164, in configure_verified_descriptor
+    require(expected['path'] == str(root / (name + '.py')), 'packet source namespace differs')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-28/q16c-configuration-2/stage17_archive_q16c_descriptive_overlay_v1.py", line 50, in require
+    raise ValueError('cold archive daycap overlay: ' + message)
+ValueError: cold archive daycap overlay: packet source namespace differs

@@ -1,0 +1,28 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+    Start 482: calibration.discovery_environment_validation
+1/7 Test #482: calibration.discovery_environment_validation ....   Passed    0.12 sec
+    Start 487: runner.formal_service_capture_validation
+2/7 Test #487: runner.formal_service_capture_validation ........   Passed    3.58 sec
+    Start 507: runner.stage17_q16a_capture_validation_v1
+3/7 Test #507: runner.stage17_q16a_capture_validation_v1 .......   Passed    2.62 sec
+    Start 616: runner.formal_scheduled_capture_validation_v2
+4/7 Test #616: runner.formal_scheduled_capture_validation_v2 ...   Passed    0.57 sec
+    Start 684: runner.s180_tail_numerics_v1
+5/7 Test #684: runner.s180_tail_numerics_v1 ....................   Passed    2.28 sec
+    Start 685: runner.s180_raw_join_v1
+6/7 Test #685: runner.s180_raw_join_v1 .........................   Passed    0.22 sec
+    Start 686: runner.s180_capture_controls_v1
+7/7 Test #686: runner.s180_capture_controls_v1 .................   Passed    2.69 sec
+
+100% tests passed, 0 tests failed out of 7
+
+Label Time Summary:
+archive        =   0.57 sec*proc (1 test)
+calibration    =   6.32 sec*proc (3 tests)
+diagnostic     =   0.12 sec*proc (1 test)
+pilot          =   5.19 sec*proc (3 tests)
+python         =  11.96 sec*proc (6 tests)
+runner         =  11.96 sec*proc (6 tests)
+synthetic      =  11.51 sec*proc (6 tests)
+
+Total Test time (real) =  12.11 sec

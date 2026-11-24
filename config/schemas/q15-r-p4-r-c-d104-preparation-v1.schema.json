@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-p4-r-c-d104-preparation:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "preparation_id", "protocol_version", "status", "acceptance_path", "acceptance_sha256", "executor_path", "executor_sha256", "executor_contract", "transaction_id", "capture_id", "stand_id", "endpoint", "immutable_inputs", "unresolved_action_inputs", "artifacts", "authority_boundary", "next_gate"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-r-c-d104-preparation/1"},
+    "preparation_id": {"const": "Q15-R-P4-R-C-D104-PREPARATION-20260826-01"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "status": {"const": "IMPLEMENTED_NO_AUTHORITY_BLOCKED_ON_REMOTE_RUNTIME_COMPATIBILITY_AND_ACTION_INPUTS"},
+    "acceptance_path": {"const": "config/q15/q15-r-p4-r-c-d100-acceptance-v1.json"},
+    "acceptance_sha256": {"$ref": "#/$defs/sha256"},
+    "executor_path": {"const": "tools/execute_d104_p4_r_c.py"},
+    "executor_sha256": {"$ref": "#/$defs/sha256"},
+    "executor_contract": {"const": "Q15-R-P4-R-C-EXECUTOR-CONTRACT-v1"},
+    "transaction_id": {"const": "Q15-R-P4-R-C-D104-XEON-CPU-FETCH-20260826-01"},
+    "capture_id": {"const": "Q15-R-P4-R-XEON-CPU-FETCH-20260825-01"},
+    "stand_id": {"const": "XEON-CPU-FETCH"},
+    "endpoint": {"const": "root@185.184.131.153"},
+    "immutable_inputs": {"type": "object", "additionalProperties": {"$ref": "#/$defs/sha256"}, "minProperties": 11, "maxProperties": 11},
+    "unresolved_action_inputs": {"type": "object", "additionalProperties": {"type": "null"}, "minProperties": 8, "maxProperties": 8},
+    "artifacts": {"type": "object", "additionalProperties": {"type": "string", "minLength": 1}, "minProperties": 6, "maxProperties": 6},
+    "authority_boundary": {
+      "const": {
+        "repository_local_preparation_authorized": true,
+        "target_private_key_use_authorized": false,
+        "signing_or_authorization_issuance_authorized": false,
+        "stand_access_authorized": false,
+        "stand_filesystem_mutation_authorized": false,
+        "transfer_extraction_or_collector_execution_authorized": false,
+        "p4_r_c_or_later_authorized": false,
+        "calibration_pilot_measurement_or_confirmatory_authorized": false
+      }
+    },
+    "next_gate": {"const": "ONE_CLEAN_IMPLEMENTATION_COMMIT_THEN_SEPARATE_READ_ONLY_REMOTE_RUNTIME_EVIDENCE_DECISION_BEFORE_D104_ACTION"}
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

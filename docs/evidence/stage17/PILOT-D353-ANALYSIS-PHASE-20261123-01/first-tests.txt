@@ -1,0 +1,189 @@
+EEEEE...EE.E
+======================================================================
+ERROR: test_actual_closed_sources_restoration_and_child_lease_transition_once (__main__.PhaseTests.test_actual_closed_sources_restoration_and_child_lease_transition_once)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_analysis_phase_v1.py", line 85, in test_actual_closed_sources_restoration_and_child_lease_transition_once
+    h,source,env,_=self.owned()
+                   ~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_analysis_phase_v1.py", line 29, in owned
+    s180_compaction_fixture.attach(self,env,h.root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 246, in prepare
+    environment_owner._guard(environment.planning.sha(plan));require_monitored(plan)
+                                                             ~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 72, in require_monitored
+    require(monitored_plan(plan)==plan,'phase control readbacks are absent')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 46, in require
+    if not value:raise CompactionError('S180 compaction: '+message)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_compaction_v1.CompactionError: S180 compaction: phase control readbacks are absent
+
+======================================================================
+ERROR: test_actual_memory_failure_does_not_allow_an_automatic_second_claim (__main__.PhaseTests.test_actual_memory_failure_does_not_allow_an_automatic_second_claim)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_analysis_phase_v1.py", line 140, in test_actual_memory_failure_does_not_allow_an_automatic_second_claim
+    h,source,env,observed=self.owned();observed['memory_available_bytes']=1
+                          ~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_analysis_phase_v1.py", line 29, in owned
+    s180_compaction_fixture.attach(self,env,h.root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 246, in prepare
+    environment_owner._guard(environment.planning.sha(plan));require_monitored(plan)
+                                                             ~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 72, in require_monitored
+    require(monitored_plan(plan)==plan,'phase control readbacks are absent')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 46, in require
+    if not value:raise CompactionError('S180 compaction: '+message)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_compaction_v1.CompactionError: S180 compaction: phase control readbacks are absent
+
+======================================================================
+ERROR: test_environment_must_have_actually_completed_owned_restoration (__main__.PhaseTests.test_environment_must_have_actually_completed_owned_restoration)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_analysis_phase_v1.py", line 110, in test_environment_must_have_actually_completed_owned_restoration
+    h,source,env,_=self.owned(restore=False)
+                   ~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_analysis_phase_v1.py", line 29, in owned
+    s180_compaction_fixture.attach(self,env,h.root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 246, in prepare
+    environment_owner._guard(environment.planning.sha(plan));require_monitored(plan)
+                                                             ~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 72, in require_monitored
+    require(monitored_plan(plan)==plan,'phase control readbacks are absent')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 46, in require
+    if not value:raise CompactionError('S180 compaction: '+message)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_compaction_v1.CompactionError: S180 compaction: phase control readbacks are absent
+
+======================================================================
+ERROR: test_expiry_never_resets_or_revives_the_original_analysis_window (__main__.PhaseTests.test_expiry_never_resets_or_revives_the_original_analysis_window)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_analysis_phase_v1.py", line 133, in test_expiry_never_resets_or_revives_the_original_analysis_window
+    h,source,env,_=self.owned()
+                   ~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_analysis_phase_v1.py", line 29, in owned
+    s180_compaction_fixture.attach(self,env,h.root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 246, in prepare
+    environment_owner._guard(environment.planning.sha(plan));require_monitored(plan)
+                                                             ~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 72, in require_monitored
+    require(monitored_plan(plan)==plan,'phase control readbacks are absent')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 46, in require
+    if not value:raise CompactionError('S180 compaction: '+message)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_compaction_v1.CompactionError: S180 compaction: phase control readbacks are absent
+
+======================================================================
+ERROR: test_live_source_bank_rejects_and_consumes_the_original_transition (__main__.PhaseTests.test_live_source_bank_rejects_and_consumes_the_original_transition)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_analysis_phase_v1.py", line 96, in test_live_source_bank_rejects_and_consumes_the_original_transition
+    h,source,env,_=self.owned(release=False)
+                   ~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_analysis_phase_v1.py", line 29, in owned
+    s180_compaction_fixture.attach(self,env,h.root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 246, in prepare
+    environment_owner._guard(environment.planning.sha(plan));require_monitored(plan)
+                                                             ~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 72, in require_monitored
+    require(monitored_plan(plan)==plan,'phase control readbacks are absent')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 46, in require
+    if not value:raise CompactionError('S180 compaction: '+message)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_compaction_v1.CompactionError: S180 compaction: phase control readbacks are absent
+
+======================================================================
+ERROR: test_reappearing_partition_latches_failure (__main__.PhaseTests.test_reappearing_partition_latches_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_analysis_phase_v1.py", line 115, in test_reappearing_partition_latches_failure
+    h,source,env,_=self.owned()
+                   ~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_analysis_phase_v1.py", line 29, in owned
+    s180_compaction_fixture.attach(self,env,h.root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 246, in prepare
+    environment_owner._guard(environment.planning.sha(plan));require_monitored(plan)
+                                                             ~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 72, in require_monitored
+    require(monitored_plan(plan)==plan,'phase control readbacks are absent')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 46, in require
+    if not value:raise CompactionError('S180 compaction: '+message)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_compaction_v1.CompactionError: S180 compaction: phase control readbacks are absent
+
+======================================================================
+ERROR: test_remaining_descendant_is_never_adopted_or_killed (__main__.PhaseTests.test_remaining_descendant_is_never_adopted_or_killed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_analysis_phase_v1.py", line 123, in test_remaining_descendant_is_never_adopted_or_killed
+    h,source,env,_=self.owned()
+                   ~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_analysis_phase_v1.py", line 29, in owned
+    s180_compaction_fixture.attach(self,env,h.root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 246, in prepare
+    environment_owner._guard(environment.planning.sha(plan));require_monitored(plan)
+                                                             ~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 72, in require_monitored
+    require(monitored_plan(plan)==plan,'phase control readbacks are absent')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 46, in require
+    if not value:raise CompactionError('S180 compaction: '+message)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_compaction_v1.CompactionError: S180 compaction: phase control readbacks are absent
+
+======================================================================
+ERROR: test_source_alias_prevents_release_proof_even_after_original_fds_close (__main__.PhaseTests.test_source_alias_prevents_release_proof_even_after_original_fds_close)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_analysis_phase_v1.py", line 104, in test_source_alias_prevents_release_proof_even_after_original_fds_close
+    h,source,env,_=self.owned(release=False)
+                   ~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_analysis_phase_v1.py", line 29, in owned
+    s180_compaction_fixture.attach(self,env,h.root)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/s180_compaction_fixture.py", line 19, in attach
+    owned=compaction.prepare(environment_owner=environment_owner,supervision=supervision)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 246, in prepare
+    environment_owner._guard(environment.planning.sha(plan));require_monitored(plan)
+                                                             ~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 72, in require_monitored
+    require(monitored_plan(plan)==plan,'phase control readbacks are absent')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_compaction_v1.py", line 46, in require
+    if not value:raise CompactionError('S180 compaction: '+message)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_s180_compaction_v1.CompactionError: S180 compaction: phase control readbacks are absent
+
+----------------------------------------------------------------------
+Ran 12 tests in 4.509s
+
+FAILED (errors=8)

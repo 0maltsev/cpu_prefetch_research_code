@@ -1,0 +1,379 @@
+{
+  "files": {
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-configuration-3/native-geometry-provenance.json": {
+      "document": {
+        "binary": {
+          "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-d260-release/native-geometry-07a93fb/native_geometry",
+          "sha256": "5505cd01f3365a39e478420ae07812c6babf9ee3f59657c721adf7b0f6f4a829",
+          "size_bytes": 30376
+        },
+        "commands": [
+          [
+            "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/g++",
+            "-std=c++20",
+            "-O2",
+            "-I/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-d260-release/verified-07a93fb/cpu-prefetch-pilot-candidate-2.0.0-07a93fb-clean-23a69e19c955/include",
+            "-MMD",
+            "-MF",
+            "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-d260-release/native-geometry-07a93fb/native_geometry.d",
+            "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-d260-release/native-geometry-07a93fb/native_geometry.cpp",
+            "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-d260-release/verified-07a93fb/cpu-prefetch-pilot-candidate-2.0.0-07a93fb-clean-23a69e19c955/release/lib/libcpu_prefetch_queue.a",
+            "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-d260-release/verified-07a93fb/cpu-prefetch-pilot-candidate-2.0.0-07a93fb-clean-23a69e19c955/release/lib/libcpu_prefetch_foundation.a",
+            "-o",
+            "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-d260-release/native-geometry-07a93fb/native_geometry"
+          ],
+          [
+            "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-d260-release/native-geometry-07a93fb/native_geometry",
+            "64",
+            "512",
+            "65536",
+            "1048576",
+            "512",
+            "65536",
+            "1048576"
+          ]
+        ],
+        "declared_geometry_input": {
+          "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-daycap-120/final-plan-aa3285f/plan.json",
+          "sha256": "53ef4baad885eeece98697d6c57b0dd0a375107504b277ffef7482185081e486",
+          "size_bytes": 2072840
+        },
+        "dependency_file": {
+          "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-d260-release/native-geometry-07a93fb/native_geometry.d",
+          "sha256": "bf1a9eb6b8f1c8b3ed3652c05c24a3f649d6dc6cd02eda304c7b3a9370bb735a",
+          "size_bytes": 855
+        },
+        "execution_authority": false,
+        "hardware_observation": false,
+        "libraries": [
+          {
+            "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-d260-release/verified-07a93fb/cpu-prefetch-pilot-candidate-2.0.0-07a93fb-clean-23a69e19c955/release/lib/libcpu_prefetch_queue.a",
+            "sha256": "dddd26e8788f362f3b68494aaf66b6c37d18f2cbcb288a3cc0ef93771164ddf6",
+            "size_bytes": 51162
+          },
+          {
+            "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-d260-release/verified-07a93fb/cpu-prefetch-pilot-candidate-2.0.0-07a93fb-clean-23a69e19c955/release/lib/libcpu_prefetch_foundation.a",
+            "sha256": "5c0175f958db6203ee8b658aa0354156ed49076f24197b5132dc1ec4fb9030fb",
+            "size_bytes": 2206
+          }
+        ],
+        "native_build_metadata": {
+          "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-d260-release/build-c31c4a7/generated/version_metadata.json",
+          "sha256": "1ebbb401ebbeef1b8ec06a9b2e3adf30e268f568242810581481a82fe2931b9b",
+          "size_bytes": 401
+        },
+        "output": {
+          "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-d260-release/native-geometry-07a93fb/native-geometry.json",
+          "sha256": "dd20f72656eb55f5e10a0621f6c8c5056fea3d969b293e92679b1727bf380d4b",
+          "size_bytes": 785
+        },
+        "recorded_at_utc": "2026-11-16T10:03:49.534918+00:00",
+        "schema_version": "software-native-ring-slot-geometry-provenance/1",
+        "source": {
+          "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-d260-release/native-geometry-07a93fb/native_geometry.cpp",
+          "sha256": "bda298ddda1c0d30582e818105021984633ae69c5428905e6ddc27eec005dee4",
+          "size_bytes": 1985
+        },
+        "source_revision": "07a93fb4cfbf423ab4ed29912d3aa3ce4aaebbe8",
+        "verified_headers": [
+          {
+            "relative_path": "include/cpu_prefetch/foundation/repository_info.hpp",
+            "sha256": "31ce22ef81a89d3099f292d0506e748b815c201374d5043e25ea67418210bd92",
+            "size_bytes": 503
+          },
+          {
+            "relative_path": "include/cpu_prefetch/queue/common.hpp",
+            "sha256": "ae665e11f10d6053e368367aec06c8a85e7e0455bc981e595b88f11d63b982a7",
+            "size_bytes": 3241
+          },
+          {
+            "relative_path": "include/cpu_prefetch/queue/ring_spsc.hpp",
+            "sha256": "ba91404fe69120f79ed00e303c8666d7b042870a264ad10f9253c2309f560dad",
+            "size_bytes": 12168
+          }
+        ],
+        "worker": {
+          "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-d260-release/verified-07a93fb/cpu-prefetch-pilot-candidate-2.0.0-07a93fb-clean-23a69e19c955/release/bin/cpu_prefetch_runner",
+          "sha256": "5497678d637578843abaf5e9d708cecaebe3b26acd4f5b1da48c8fbf91835cb8",
+          "size_bytes": 4985872
+        }
+      },
+      "sha256": "ad34c946c5674551bffe28facf3ba1250517027c93bd6de148883aa0e830f0d3",
+      "size_bytes": 4898
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d260-configuration-3/native-geometry.json": {
+      "document": {
+        "api": "RingSpscQueue::storage_requirements",
+        "execution_authority": false,
+        "hardware_observation": false,
+        "records": [
+          {
+            "cache_line_bytes": 64,
+            "capacity": 512,
+            "context_ordinal": 0,
+            "slot_storage_bytes": 4096
+          },
+          {
+            "cache_line_bytes": 64,
+            "capacity": 65536,
+            "context_ordinal": 1,
+            "slot_storage_bytes": 524288
+          },
+          {
+            "cache_line_bytes": 64,
+            "capacity": 1048576,
+            "context_ordinal": 2,
+            "slot_storage_bytes": 8388608
+          },
+          {
+            "cache_line_bytes": 64,
+            "capacity": 512,
+            "context_ordinal": 3,
+            "slot_storage_bytes": 4096
+          },
+          {
+            "cache_line_bytes": 64,
+            "capacity": 65536,
+            "context_ordinal": 4,
+            "slot_storage_bytes": 524288
+          },
+          {
+            "cache_line_bytes": 64,
+            "capacity": 1048576,
+            "context_ordinal": 5,
+            "slot_storage_bytes": 8388608
+          }
+        ],
+        "schema_version": "software-native-ring-slot-geometry/1",
+        "source_dirty": false,
+        "source_revision": "07a93fb4cfbf423ab4ed29912d3aa3ce4aaebbe8"
+      },
+      "sha256": "dd20f72656eb55f5e10a0621f6c8c5056fea3d969b293e92679b1727bf380d4b",
+      "size_bytes": 785
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/ext004-authoring-records-1/platform-manifest.json": {
+      "document": {
+        "clock": {
+          "acceptance_record_id": "CPU-PREFETCH-V5-V27-EXT004-QUAL-CLOCK",
+          "conversion_record_id": "NO_SEPARATE_RECORD_MONOTONIC_RAW_ORIGIN_SUBTRACT_THEN_NS_TIMES_1000",
+          "serialization_record_id": "NO_SEPARATE_RECORD_ATOMIC_SIGNAL_FENCE_AROUND_CLOCK_GETTIME",
+          "source": "CLOCK_MONOTONIC_RAW",
+          "time_unit": "PICOSECONDS"
+        },
+        "cpu": {
+          "atomic_alignment_bytes": 8,
+          "atomic_width_bits": 64,
+          "cache_line_bytes": 64,
+          "microcode": "0x42e",
+          "model": "06_3EH",
+          "stepping": "4",
+          "vendor": "GenuineIntel"
+        },
+        "hardware_prefetch_states": [
+          {
+            "behavioral_probe_artifact_id": "CPU-PREFETCH-V5-V27-EXT004-Q15-R-READ-ONLY-PRESTATE",
+            "privileged_authority_id": "CPU-PREFETCH-V5-V27-Q15R-AUTH-1",
+            "readback_artifact_id": "CPU-PREFETCH-V5-V27-EXT004-Q15-R-READ-ONLY-PRESTATE",
+            "requested": "H0",
+            "verified": "VERIFIED_DEFAULT"
+          },
+          {
+            "behavioral_probe_artifact_id": "CPU-PREFETCH-V5-V27-EXT004-Q15-R-READ-ONLY-PRESTATE",
+            "privileged_authority_id": "NONE",
+            "readback_artifact_id": "CPU-PREFETCH-V5-V27-EXT004-Q15-R-READ-ONLY-PRESTATE",
+            "requested": "H1",
+            "verified": "UNKNOWN"
+          }
+        ],
+        "memory": {
+          "base_page_bytes": 4096,
+          "population": "MMAP_PRIVATE_ANONYMOUS_MPOL_BIND_MADV_NOHUGEPAGE_THEN_SINGLETON_VERIFIED_FIRST_TOUCH",
+          "residency_verification_method": "LINUX_MOVE_PAGES_PER_PAGE_NUMA_NODE_QUERY"
+        },
+        "platform_id": "CPU-PREFETCH-V5",
+        "protocol_version": "2.0.0-pre.3",
+        "record_sha256": "efc6751d30b0ac107f3787c0c4c117e8790d3ae7816e0384919574f7c287811c",
+        "schema_version": "2.0.0-pre.3",
+        "software": {
+          "compiler": "GNU 16.1.1",
+          "flags": [
+            "-O3",
+            "-DNDEBUG",
+            "-std=c++20",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-Wconversion",
+            "-Wsign-conversion",
+            "-Wshadow",
+            "-Wformat=2",
+            "-Wundef",
+            "-Werror"
+          ],
+          "kernel": "7.0.0-38-generic",
+          "language_standard": "C++20",
+          "link_mode": "dynamic",
+          "operating_system": "Linux",
+          "standard_library": "libstdc++"
+        },
+        "topology": {
+          "cache_domains": [
+            "0-7,16-23",
+            "8-15,24-31"
+          ],
+          "far_core_pair": [
+            0,
+            8
+          ],
+          "near_core_pair": [
+            0,
+            1
+          ],
+          "numa_nodes": 2,
+          "physical_cores": 16,
+          "smt_enabled": true,
+          "sockets": 2
+        }
+      },
+      "sha256": "d99d043aa0dd2b77f2d64b96249a19dad03cc2706c2e00778f587c50d034d48c",
+      "size_bytes": 1883
+    },
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-07a93fb-clean-23a69e19c955/BUNDLE_INVENTORY.json": {
+      "sha256": "70cfe2ea2f771b9c7bc93440a8ca57713c2da65a6651516bcaf71e05374e0782",
+      "size_bytes": 724743
+    },
+    "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/d268-operators-2/configuration.json": {
+      "document": {
+        "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+        "execution_authority": false,
+        "files": {
+          "analysis": {
+            "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/d268-operators-2/analyze_d260.py",
+            "sha256": "bed9ee3024388cf6c8b145a57ae641a0bbe5e14cbff7670887af7f7499741cbc",
+            "size_bytes": 10510
+          },
+          "cli_wrapper": {
+            "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/d268-operators-2/d260_cli.py",
+            "sha256": "ea19897bd11595fcd73d44ac131a532b962b18d30739cb5298eb5efa3ffc6469",
+            "size_bytes": 1127
+          },
+          "composition": {
+            "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/d268-operators-2/stage17_service_continuation_calibration_v1.py",
+            "sha256": "ee517b6e483b5c5fc8389e2e0f0a7e754f3b2fcf3684d0ee7291d17c7a9870c8",
+            "size_bytes": 5361
+          },
+          "constructed": {
+            "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d267-admission-preparation-3/constructed-phase.json",
+            "sha256": "48cf3639661f4e178e227bdd1ee3cb5f4a01a17388de0ea09305ffa445cd5d46",
+            "size_bytes": 2432
+          },
+          "driver": {
+            "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/d268-operators-2/run_d260_study.py",
+            "sha256": "d4b6a39b2042f068e45e60b25e94118efcab188bd32e81826e36611796c8e081",
+            "size_bytes": 18199
+          },
+          "input_admission": {
+            "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d265-admission-preparation-2/input-admission.json",
+            "sha256": "b14d87c1dca7b5aced40522d45231c53bdb537d917d6dbd52fca2e6a651bf02a",
+            "size_bytes": 1149
+          },
+          "isolation_config": {
+            "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/operator-preparation-v27/isolation-config-v27.json",
+            "sha256": "7a9724b7be74344bf284ca46bff4cb1a5293603aff3296316dbe43ef879546db",
+            "size_bytes": 398
+          },
+          "isolation_core": {
+            "path": "/run/cpu-prefetch-recovery-v27-qualified-1/isolation_core.py",
+            "sha256": "49e20041be148142898e46bb6bc72d15cbb4b23859aee12403c5586594358a8a",
+            "size_bytes": 23863
+          },
+          "local_audit": {
+            "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/d266-operators-1/local-namespace-audit.json",
+            "sha256": "f0722b420bec3177f46449785bb7d70f9dc1c40ab3a4959be78aed72ab235d22",
+            "size_bytes": 3878740
+          },
+          "old_constructed": {
+            "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d265-admission-preparation-2/constructed-phase.json",
+            "sha256": "f1c55cdd7fe58eae9e3960f56f894c278e25a3af40178e6ba75fac60c47bf362",
+            "size_bytes": 2435
+          },
+          "old_prepared": {
+            "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d265-admission-preparation-2/prepared-phase.json",
+            "sha256": "35b914d9d92c68de299215ea6a42f314a74959a0ec7b356a9c3ae048b842de2a",
+            "size_bytes": 3468
+          },
+          "old_registration": {
+            "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d265-admission-preparation-2/family-registration.json",
+            "sha256": "e284577b6e60dcc99d6b8a292e7c3760d76248eacf19f883aac37e8c008c27bb",
+            "size_bytes": 412
+          },
+          "old_signing": {
+            "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d265-admission-preparation-2/signing-result.json",
+            "sha256": "8e159bb3fb2e4e493a3be16b969854daa73a5f9bd2a376bf0fd3cbe5c74a2a18",
+            "size_bytes": 343
+          },
+          "original_analysis": {
+            "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/d268-operators-2/original_analysis.py",
+            "sha256": "3a771d5fa64ffcbaee08afc4d98b1ffdc47f6f5cd487c48fcbe812b87a54ca2b",
+            "size_bytes": 13162
+          },
+          "original_preparation": {
+            "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/isolation-preparation-v27-1/prospective-prestate.json",
+            "sha256": "88b00c8623610bd0f8ecdac006672c003acb875b2434023b39afcfbf8fe00098",
+            "size_bytes": 2405
+          },
+          "original_preparation_operator": {
+            "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/d268-operators-2/prepare_signed_d260.py",
+            "sha256": "e2b285c15f026409e10344458a1d21430f009b35e39498ab5eea172928199d60",
+            "size_bytes": 8431
+          },
+          "original_restoration": {
+            "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/clock-qualification-v27-1/restoration.json",
+            "sha256": "9f8d29313919758ecc2b6485680398c73859514f926e06677412e3d050c57cbf",
+            "size_bytes": 842
+          },
+          "original_supervisor": {
+            "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/d268-operators-2/original_supervisor.py",
+            "sha256": "47e819dbcd6110d5b356d091e706141131efa5938b0ae0740059efc4d3cb1416",
+            "size_bytes": 57701
+          },
+          "owner_check": {
+            "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/d268-operators-2/owner_check.py",
+            "sha256": "0cdeeb006e07874c85bb8f579274dd8c17e35e9a0473d1d62f8e73e749e4feeb",
+            "size_bytes": 3479
+          },
+          "preparation": {
+            "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/d268-operators-2/prepare_superseding_d260.py",
+            "sha256": "5875303b7bdf86aa208cb300aa0949e2acbd369cd7c7fd0e58b5dcf058599217",
+            "size_bytes": 9252
+          },
+          "qualification_complete": {
+            "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/qualification-complete-1.json",
+            "sha256": "79a5808f354211bbea6ec9cd1a6e32af7f4aba67964485c33f8e3cdd0b1c6fc6",
+            "size_bytes": 186
+          },
+          "reader": {
+            "path": "/home/omaltsev/stage17-owner-evidence/v27-bootstrap-1/d268-operators-2/stage17_formal_control_reader_v1.py",
+            "sha256": "236c794b385803b8d8edc4720d3cede81d86806111b0fe4f82e54410f47e625c",
+            "size_bytes": 5922
+          },
+          "stand_audit": {
+            "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/d265-admission-preparation-2/stand-namespace-audit.json",
+            "sha256": "794b423684841e24715021a4b721abf261abccf69620ec21b526780ced3f80de",
+            "size_bytes": 16571005
+          },
+          "window": {
+            "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/continuation-window-1.json",
+            "sha256": "82477b72768450655cf66c3ad1533374d9bab7f8a63a8aa7ecd0bcf94d68a231",
+            "size_bytes": 1116
+          }
+        },
+        "phase18_authority": false,
+        "schema_version": "software-d268-collection-only-configuration/1"
+      },
+      "sha256": "0e6ad4e71cd6740a79cc9f914bdfc52fea7edc5c9364c176bc8fbc436d27e021",
+      "size_bytes": 6482
+    }
+  },
+  "resolution_paths": {}
+}

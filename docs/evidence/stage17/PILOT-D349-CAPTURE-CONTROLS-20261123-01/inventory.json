@@ -1,0 +1,96 @@
+{
+  "execution_authority": false,
+  "files": [
+    {
+      "path": "docs/evidence/stage17/PILOT-D349-CAPTURE-CONTROLS-20261123-01/LastTest-final.log",
+      "sha256": "d6e0e163133219136e459f96dcd916e75122e8b33defdd44489db5c75e5b476b",
+      "size_bytes": 2089
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D349-CAPTURE-CONTROLS-20261123-01/LastTest-initial.log",
+      "sha256": "0ae9b8bd7e697332edca02ff24550c2eed8dbe29d4175260bad8c8f52e440dab",
+      "size_bytes": 6533
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D349-CAPTURE-CONTROLS-20261123-01/REPORT.md",
+      "sha256": "e7848f0902d69ec02cfb63b3101393a670855bc035e7ec9ec794a445ba2ee734",
+      "size_bytes": 3066
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D349-CAPTURE-CONTROLS-20261123-01/check_predecessor_gap.py.txt",
+      "sha256": "55ba8459d9ecf49c42799a45b427c6dadc2bec0258f180c9af71129872b0070d",
+      "size_bytes": 1990
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D349-CAPTURE-CONTROLS-20261123-01/configure.txt",
+      "sha256": "530ea220436cf023d5b3670f87131b4daab6e62afe743ed6183ea91eb7dc98f4",
+      "size_bytes": 177
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D349-CAPTURE-CONTROLS-20261123-01/contract-checks.txt",
+      "sha256": "ca441af802a614e7de576f0677ed9be966b9ae9fa58f949ce9e98dc9ce812113",
+      "size_bytes": 432
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D349-CAPTURE-CONTROLS-20261123-01/corrected-tests.txt",
+      "sha256": "f5cb62f358357c8fc446f9d2255e08a867798b43103cfd00a5beca1bbbe268eb",
+      "size_bytes": 111
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D349-CAPTURE-CONTROLS-20261123-01/final-18-debug.txt",
+      "sha256": "c64d5f85a64977594caabb354a73585f965db674a096119a56dfa408c87a341e",
+      "size_bytes": 117
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D349-CAPTURE-CONTROLS-20261123-01/final-debug.txt",
+      "sha256": "e0295641eec6b896f708e504a0daab069a9fd4195f1963d362830cefa154aaba",
+      "size_bytes": 116
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D349-CAPTURE-CONTROLS-20261123-01/final-registered.txt",
+      "sha256": "5f300b98892e913b5aad98627838818d6419486157f33183a61557bf1a645442",
+      "size_bytes": 732
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D349-CAPTURE-CONTROLS-20261123-01/initial-tests.txt",
+      "sha256": "93d9307206d5f0ca882487930d290a721286e25646823089a6c0b3fda67addef",
+      "size_bytes": 3528
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D349-CAPTURE-CONTROLS-20261123-01/pc-cleanup.json",
+      "sha256": "fb924097086a5772aa28e4de7cd42c1e31214743f4750afa5b39676d6c303515",
+      "size_bytes": 3077
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D349-CAPTURE-CONTROLS-20261123-01/predecessor-gap.json",
+      "sha256": "8ae0812d4568c406ddbb07ce32fa57dff65b5c2401a0526a89f04cd88901dc0d",
+      "size_bytes": 557
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D349-CAPTURE-CONTROLS-20261123-01/registered.txt",
+      "sha256": "b6b9d4336482a1370bab463564b5229ea6e22922f39ee2d8521db4b3d9f5119e",
+      "size_bytes": 1467
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D349-CAPTURE-CONTROLS-20261123-01/related-debug.txt",
+      "sha256": "e84838f9e10ff1b45393b8d840d76483eb6a517cda41d7b7c4f6af990dc891c8",
+      "size_bytes": 181
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D349-CAPTURE-CONTROLS-20261123-01/source-bindings.json",
+      "sha256": "790ba1d198bdf4b55189b406015192a46a2e09098a772702b38376eb392b4f4b",
+      "size_bytes": 2192
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D349-CAPTURE-CONTROLS-20261123-01/stand-idle-check.json",
+      "sha256": "01f6dad3620fd5f28009c3d015359c546f2d3db9a15282e68855b4c441e946e7",
+      "size_bytes": 826
+    },
+    {
+      "path": "docs/evidence/stage17/PILOT-D349-CAPTURE-CONTROLS-20261123-01/verification-summary.json",
+      "sha256": "20ca4d1d7012644a1866794ea16bab612f1b7c1a97bb6736fff881e78cf90585",
+      "size_bytes": 1425
+    }
+  ],
+  "recorded_at_utc": "2026-11-23T16:09:00.300260+00:00"
+}

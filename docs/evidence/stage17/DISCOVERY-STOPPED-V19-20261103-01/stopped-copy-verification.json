@@ -1,0 +1,74 @@
+{
+  "status": "PASS_ORIGINAL_BYTE_SECOND_COPY",
+  "observed_at_utc": "2026-11-03T10:06:16.917793+00:00",
+  "stand_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/discovery-output-1",
+  "pc_root": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-discovery-v19-copy1/discovery-output-1",
+  "compression": false,
+  "stand_manifest_observed_at_utc": "2026-11-03T09:37:20.630739+00:00",
+  "stand_manifest_sha256": "ee2a79e0c4fe3edcd1377696b20836eb412cbae4085f778a9dfab2b02e6af1a1",
+  "files": [
+    {
+      "path": "discovery-c00-control.json",
+      "size_bytes": 27519778,
+      "sha256": "1214f2a9f7887bad16474301a86dccb20984be1da2226032fbdcf29f445cb108"
+    },
+    {
+      "path": "discovery-c00-measurement-consumer.bin",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "discovery-c00-measurement-demand.bin",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "discovery-c00-measurement-producer.bin",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "discovery-c00-warmup-consumer.bin",
+      "size_bytes": 403170432,
+      "sha256": "848639003c3f764e04c850a24d5339e07a3c7f250d57466c9a91b10ba28baccb"
+    },
+    {
+      "path": "discovery-c00-warmup-demand.bin",
+      "size_bytes": 140792584,
+      "sha256": "a01fdc4f643b06219931cf5f33b843eff02499fbf3e97d023254b318cce52e13"
+    },
+    {
+      "path": "discovery-c00-warmup-producer.bin",
+      "size_bytes": 571158112,
+      "sha256": "b86ba2faa76a9d088c3b820e14f44aab05bb781febb512c3df73d80fa8d975fb"
+    },
+    {
+      "path": "stage17-q16a_duration_discovery-attempt-v5.json",
+      "size_bytes": 935,
+      "sha256": "51f602d699c823722bfbcd3b0da5e9bed39cea40074c0c314e4852cc933b2d3e"
+    },
+    {
+      "path": "stage17-q16a_duration_discovery-failure-v5.json",
+      "size_bytes": 1093,
+      "sha256": "5abb428b420d444f35963ff62a337004a6e11a201a2dd2235b59e571ab27bc3f"
+    },
+    {
+      "path": "stage17-q16a_duration_discovery-stderr-v5.bin",
+      "size_bytes": 165,
+      "sha256": "509d167313fe043e3a3aa3b1f4f0a3ca850e758a5703fd1014858dbf46be0f69"
+    },
+    {
+      "path": "stage17-q16a_duration_discovery-stdout-v5.bin",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "studyhardware.json",
+      "size_bytes": 12389,
+      "sha256": "8c840d29141a3070153fc47b07dbcecfaee65b7a0420e8afef09be3a9024bc1f"
+    }
+  ],
+  "total_bytes": 1142655488,
+  "execution_authority": false,
+  "scientific_validity_not_implied": true
+}

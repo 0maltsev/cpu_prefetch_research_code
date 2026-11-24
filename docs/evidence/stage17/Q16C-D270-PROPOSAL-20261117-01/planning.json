@@ -1,0 +1,121 @@
+{
+  "arithmetic_profile": "HOEFFDING-DECIMAL80-GUARD160-UP-v1",
+  "execution_authority": false,
+  "prospective_example": {
+    "actual_native_request_limit_bytes": 134217728,
+    "actual_schedules_generated": false,
+    "cells": 180,
+    "expected_big_endian_binary_bytes": 7216866720,
+    "expected_inline_json_bytes_even_at_one_digit_per_value": 1804216680,
+    "expected_schedule_values": 902108340,
+    "ideal_16_core_single_pass_hours": 2.4905843951327955,
+    "measurement_ns": 1000000000,
+    "repetitions": 1,
+    "scale": {
+      "denominator": 1,
+      "numerator": 1
+    },
+    "serial_generation_seconds": {
+      "denominator": 102400000000,
+      "numerator": 14690064502748061
+    },
+    "source_generation_and_independent_provenance_require_separate_work": true,
+    "warmup_ns": 5000000000
+  },
+  "scientific_design_approved": false,
+  "scope": "PROSPECTIVE_SOFTWARE_PLANNING_NOT_Q16C_OBSERVATIONS",
+  "software_timing": {
+    "affinity_cpu": 3,
+    "elapsed_ns": 651365866,
+    "execution_authority": false,
+    "generated_values": 4096,
+    "generator_source": {
+      "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-27/admission-root/tools/generate_schedule.py",
+      "sha256": "2997834dbe2018dd75843b9446e09b0ab9f0c17f423e5522c433a6cb41cc919f",
+      "size_bytes": 24093
+    },
+    "new_measurements": 0,
+    "observed_physical_cpu_count": 16,
+    "observed_utc": "2026-11-16T22:54:22.711673+00:00",
+    "physical_cpu_representatives": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "python": "3.14.4 (main, Aug 20 2026, 10:41:58) [GCC 15.2.0]",
+    "schedule_artifacts_published": 0,
+    "scope": "SOFTWARE_ONLY_DURATION_ESTIMATE_NOT_EXPERIMENTAL_DATA"
+  },
+  "statistical_method": "MATRIX-FULL-RUNCLUSTER-WHOEFFDING-BONFERRONI-v1",
+  "synthetic_power_check": [
+    {
+      "matrix_lower_at_minimum_one_future_offer_per_cell": "0",
+      "p_hat": {
+        "denominator": 1,
+        "numerator": 0
+      },
+      "per_cell_upper": "1",
+      "repetitions": 1,
+      "scope": "SYNTHETIC_BEST_CASE_ALL_ZERO_EQUAL_EXPOSURES",
+      "weight_sum": {
+        "denominator": 1,
+        "numerator": 1
+      }
+    },
+    {
+      "matrix_lower_at_minimum_one_future_offer_per_cell": "0",
+      "p_hat": {
+        "denominator": 1,
+        "numerator": 0
+      },
+      "per_cell_upper": "1",
+      "repetitions": 2,
+      "scope": "SYNTHETIC_BEST_CASE_ALL_ZERO_EQUAL_EXPOSURES",
+      "weight_sum": {
+        "denominator": 2,
+        "numerator": 1
+      }
+    },
+    {
+      "matrix_lower_at_minimum_one_future_offer_per_cell": "0",
+      "p_hat": {
+        "denominator": 1,
+        "numerator": 0
+      },
+      "per_cell_upper": "1",
+      "repetitions": 4,
+      "scope": "SYNTHETIC_BEST_CASE_ALL_ZERO_EQUAL_EXPOSURES",
+      "weight_sum": {
+        "denominator": 4,
+        "numerator": 1
+      }
+    },
+    {
+      "matrix_lower_at_minimum_one_future_offer_per_cell": "0",
+      "p_hat": {
+        "denominator": 1,
+        "numerator": 0
+      },
+      "per_cell_upper": "0.2881578992302643216301872247674826961593783292453007755355785521627682286625386222260500098587095604632369333192992456831088264810725582843166475398675430950859",
+      "repetitions": 59,
+      "scope": "SYNTHETIC_BEST_CASE_ALL_ZERO_EQUAL_EXPOSURES",
+      "weight_sum": {
+        "denominator": 59,
+        "numerator": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "administrative_source_revision": "54f933a66cb8f653f73c89f4f8d75e66a0dd3386",
+  "execution_authority": false,
+  "files": [
+    {
+      "path": "authority/owner-acceptance.json",
+      "sha256": "d1291e33879a4d635f8536c96c5d1e8085fc29306c1425f16ff7b4193c155750",
+      "size_bytes": 914
+    },
+    {
+      "path": "authority/proposal.md",
+      "sha256": "016c459cce17ce7be881fb62a9079e01913ef13f9cc61dad531d609dcb002888",
+      "size_bytes": 6764
+    },
+    {
+      "path": "d298_rearm_isolation.py",
+      "sha256": "684f7c175a41dc55a22a538516b0e221d83e54b7e2c3b18644cc6128b373114a",
+      "size_bytes": 1157
+    },
+    {
+      "path": "prepare_stage17_q16c_qualified_continuation_v1.py",
+      "sha256": "615639603592ea01c57b4063717383c8a6875d72fc4cbad69de9d85806dcaa01",
+      "size_bytes": 5187
+    },
+    {
+      "path": "stage17_q16c_continuation_operator_v1.py",
+      "sha256": "df78bf340e6c220c36ff675f2c68107e8d43d4c4535195e70d20131952aaeb0c",
+      "size_bytes": 20772
+    },
+    {
+      "path": "stage17_q16c_continuation_recovery_v1.py",
+      "sha256": "28187aad826573a6f6c541bd1baca3cbfeb54ac0c146239f653e452f90b06bb6",
+      "size_bytes": 10430
+    },
+    {
+      "path": "stage17_q16c_continuation_study_v1.py",
+      "sha256": "94bf0fcee8f642ce72d46a0008a1a5008a8a47e0daf83ca14138791122c64bdd",
+      "size_bytes": 19841
+    },
+    {
+      "path": "stage17_q16c_qualified_continuation_v1.py",
+      "sha256": "9f3ed46ae201119e69f4baa6a072b693b477f56a97cb78226816524151d0d0d0",
+      "size_bytes": 16539
+    }
+  ],
+  "qualified_native_source_revision": "7b7c263cb850690cf333df0d196b18c875b4a53c",
+  "schema_version": "cpu-prefetch-d298-cold-packet/1"
+}

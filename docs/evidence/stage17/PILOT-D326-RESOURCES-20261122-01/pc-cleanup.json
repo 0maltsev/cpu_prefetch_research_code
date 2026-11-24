@@ -1,0 +1,49 @@
+{
+  "reclaimed_bytes": 3420101,
+  "removed": [
+    {
+      "path": "build/stage17-s180-native/d326-prospective/bounded-sizing.json",
+      "retained_copy": "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/bounded-sizing.json",
+      "sha256": "f7d1f971f49fd1efbda1a4a83eab88fa85c5377d00c194a3242c4bedcdf3088f",
+      "size_bytes": 3061798
+    },
+    {
+      "path": "build/stage17-s180-native/d326-prospective/initial-native-description.json",
+      "retained_copy": "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/initial-native-description.json",
+      "sha256": "bb3f07450c3bccf223cc824cbdbd556938635cca63e15e60d8a97b26b244891b",
+      "size_bytes": 131888
+    },
+    {
+      "path": "build/stage17-s180-native/d326-prospective/bounded-native-description.json",
+      "retained_copy": "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/bounded-native-description.json",
+      "sha256": "c79b5597d502a51e4bad783ba6d6592dec4eee4ef5a7a867aa7bbd18bc6d2b08",
+      "size_bytes": 131888
+    },
+    {
+      "path": "build/stage17-s180-native/d326-prospective/resource-envelope.json",
+      "retained_copy": "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/resource-envelope.json",
+      "sha256": "2ee0063ddd386aaf68f22e2c2f9e0d0af75027e53271062cbcf12f5bfef5e569",
+      "size_bytes": 92256
+    },
+    {
+      "path": "build/stage17-s180-native/d326-prospective/process-envelope.json",
+      "retained_copy": "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/process-envelope.json",
+      "sha256": "df522fbccaa10bf8b3ee01f31ec649b6f0b4ce21604824f08ecc1408cca3ab90",
+      "size_bytes": 1317
+    },
+    {
+      "path": "build/stage17-s180-native/d326-prospective/time-envelope.json",
+      "retained_copy": "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/time-envelope.json",
+      "sha256": "5d7bb367536f51aaae88fb9d4a32afe52071b9303920b12632f8ee77b061a346",
+      "size_bytes": 575
+    },
+    {
+      "path": "build/stage17-s180-native/d326-prospective/space-preview.json",
+      "retained_copy": "docs/evidence/stage17/PILOT-D326-RESOURCES-20261122-01/space-preview.json",
+      "sha256": "1b10fc3626a79ce83ea012d53637f6b8bca4cb186c8217231a464ec2e8d95b9c",
+      "size_bytes": 379
+    }
+  ],
+  "scope": "Verified PC metadata duplicates only; stand evidence unchanged",
+  "stand_files_deleted": 0
+}

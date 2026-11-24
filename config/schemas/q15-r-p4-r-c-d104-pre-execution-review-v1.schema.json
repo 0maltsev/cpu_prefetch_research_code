@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:q15-r-p4-r-c-d104-pre-execution-review:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "authorization_sha256", "signature_sha256", "review_principal", "distinct_reviewer", "single_owner_waiver", "all_bound_inputs_verified", "p4_r_c_action_authorized", "review_attempt", "reviewed_at_utc", "automatic_continuation"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-r-c-d104-pre-execution-review/1"},
+    "status": {"const": "ACCEPTED_SINGLE_OWNER_PRE_EXECUTION_REVIEW"},
+    "authorization_sha256": {"$ref": "#/$defs/sha256"},
+    "signature_sha256": {"$ref": "#/$defs/sha256"},
+    "review_principal": {"const": "cpu-prefetch-q15-auditor"},
+    "distinct_reviewer": {"const": false},
+    "single_owner_waiver": {"const": true},
+    "all_bound_inputs_verified": {"const": true},
+    "p4_r_c_action_authorized": {"const": true},
+    "review_attempt": {"const": 1},
+    "reviewed_at_utc": {"$ref": "#/$defs/utc"},
+    "automatic_continuation": {"const": false}
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "utc": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"}}
+}

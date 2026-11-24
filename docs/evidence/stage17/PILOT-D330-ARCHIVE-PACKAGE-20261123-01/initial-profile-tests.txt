@@ -1,0 +1,60 @@
+test_actual_package_loader_and_sealed_broker_reconstruct_all_originals (__main__.ProfileTests.test_actual_package_loader_and_sealed_broker_reconstruct_all_originals) ... ok
+test_actual_runtime_is_explicit_and_relocatable (__main__.ProfileTests.test_actual_runtime_is_explicit_and_relocatable) ... ok
+test_actual_source_change_and_foreign_expected_hash_reject (__main__.ProfileTests.test_actual_source_change_and_foreign_expected_hash_reject) ... ERROR
+test_clean_source_package_exact_inventory_and_no_authority (__main__.ProfileTests.test_clean_source_package_exact_inventory_and_no_authority) ... ok
+test_dirty_revision_rejects_before_output_creation (__main__.ProfileTests.test_dirty_revision_rejects_before_output_creation) ... ok
+test_exact_closure_options_and_profile_transport (__main__.ProfileTests.test_exact_closure_options_and_profile_transport) ... ok
+test_legacy_profile_reproduces_missing_s180_entry_without_relabeling_it (__main__.ProfileTests.test_legacy_profile_reproduces_missing_s180_entry_without_relabeling_it) ... ERROR
+test_missing_local_dependency_relative_import_and_symlink_reject (__main__.ProfileTests.test_missing_local_dependency_relative_import_and_symlink_reject) ... ok
+test_no_profile_or_partial_package_adoption (__main__.ProfileTests.test_no_profile_or_partial_package_adoption) ... ok
+test_package_manifest_and_extra_same_named_nested_file_reject (__main__.ProfileTests.test_package_manifest_and_extra_same_named_nested_file_reject) ... FAIL
+
+======================================================================
+ERROR: test_actual_source_change_and_foreign_expected_hash_reject (__main__.ProfileTests.test_actual_source_change_and_foreign_expected_hash_reject)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_archive_bundle_profile_v1.py", line 82, in verify_profile
+    require(raw==base.canonical(document)==base.canonical(expected),'profile fields, membership or actual bytes differ')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_archive_bundle_profile_v1.py", line 35, in require
+    if not value:raise ProfileError('S180 archive package: '+message)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_archive_bundle_profile_v1.ProfileError: S180 archive package: profile fields, membership or actual bytes differ
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_bundle_profile_v1.py", line 103, in test_actual_source_change_and_foreign_expected_hash_reject
+    profile.load_profile(bundle_root=self.bundle,runtime_root=self.runtime,
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        expected=archive.PhysicalBinding(1,'f'*64),deadline_ns=time.monotonic_ns()+10**9)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_archive_bundle_profile_v1.py", line 90, in load_profile
+    verify_profile(bundle_root=bundle_root,runtime_root=runtime_root)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_archive_bundle_profile_v1.py", line 84, in verify_profile
+    raise ProfileError('S180 profile rejected: '+str(error)) from error
+stage17_archive_bundle_profile_v1.ProfileError: S180 profile rejected: S180 archive package: profile fields, membership or actual bytes differ
+
+======================================================================
+ERROR: test_legacy_profile_reproduces_missing_s180_entry_without_relabeling_it (__main__.ProfileTests.test_legacy_profile_reproduces_missing_s180_entry_without_relabeling_it)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_bundle_profile_v1.py", line 74, in test_legacy_profile_reproduces_missing_s180_entry_without_relabeling_it
+    broker.ArchiveBrokerClient(profile=old,limits=fixture.limits)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ArchiveBrokerClient.__init__() missing 2 required keyword-only arguments: 'identity_model' and 'native_worker'
+
+======================================================================
+FAIL: test_package_manifest_and_extra_same_named_nested_file_reject (__main__.ProfileTests.test_package_manifest_and_extra_same_named_nested_file_reject)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_bundle_profile_v1.py", line 161, in test_package_manifest_and_extra_same_named_nested_file_reject
+    with self.assertRaisesRegex(profile.ProfileError,'membership'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ProfileError not raised
+
+----------------------------------------------------------------------
+Ran 10 tests in 16.933s
+
+FAILED (failures=1, errors=2)

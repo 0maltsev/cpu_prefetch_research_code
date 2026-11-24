@@ -1,0 +1,3 @@
+stand-bundle-check: PASS (1826 files, STAGE17-PILOT-CANDIDATE-BUNDLE-v24, protocol 2.0.0-pre.3, dynamic/pilot/confirmatory prohibited)
+stage17-operational: PASS initialized=/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/journal/stage17-state-journal-000000.json admission_root=/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/admission-root
+DEPLOY_AND_INITIALIZE_PASS /home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-ac64633-clean-91a93014b4eb /home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-19

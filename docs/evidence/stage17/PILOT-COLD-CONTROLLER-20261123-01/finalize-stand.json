@@ -1,0 +1,16 @@
+{
+  "actual_experiment_namespace_created": false,
+  "elapsed_ns": 1945989280,
+  "execution_authority": false,
+  "initial_filter_owner_write_bit_removed": true,
+  "manifest_sha256": "bccde38abc2d97181f20100e18a2f5e1e8e62e4d41683c8ec497fb4d63fbcd7d",
+  "operational_window_started": false,
+  "original_transport_verified_then_removed": true,
+  "payload_files": 6286,
+  "phase18_authority": false,
+  "qualification_performed": false,
+  "root": "/opt/cpu-prefetch-s180-common-0919b87-1",
+  "source_preparation_performed": false,
+  "source_revision": "0919b87fe18185a27440b49df2f9a2fbee1e12dd",
+  "status": "COLD_COMMON_SOFTWARE_INSTALLED_VERIFIED"
+}

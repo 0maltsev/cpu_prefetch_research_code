@@ -1,0 +1,21 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+    Start 682: runner.s180_plan_admission_v1
+1/5 Test #682: runner.s180_plan_admission_v1 .......   Passed   44.57 sec
+    Start 683: runner.s180_admission_custody_v1
+2/5 Test #683: runner.s180_admission_custody_v1 ....   Passed    2.67 sec
+    Start 687: runner.s180_capture_validation_v1
+3/5 Test #687: runner.s180_capture_validation_v1 ...   Passed    5.06 sec
+    Start 691: runner.s180_resource_admission_v1
+4/5 Test #691: runner.s180_resource_admission_v1 ...   Passed   64.05 sec
+    Start 693: runner.s180_resource_plan_v1
+5/5 Test #693: runner.s180_resource_plan_v1 ........   Passed   24.01 sec
+
+100% tests passed out of 5
+
+Label Time Summary:
+pilot        = 140.36 sec*proc (5 tests)
+python       = 140.36 sec*proc (5 tests)
+runner       = 140.36 sec*proc (5 tests)
+synthetic    = 140.36 sec*proc (5 tests)
+
+Total Test time (real) = 140.39 sec

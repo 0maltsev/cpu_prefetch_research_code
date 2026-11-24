@@ -1,0 +1,56 @@
+Start testing: Nov 23 18:31 MSK
+----------------------------------------------------------
+487/711 Testing: runner.formal_service_capture_validation
+487/711 Test: runner.formal_service_capture_validation
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_formal_service_capture_validation_v1.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.formal_service_capture_validation" start time: Nov 23 18:31 MSK
+Output:
+----------------------------------------------------------
+............
+----------------------------------------------------------------------
+Ran 12 tests in 3.302s
+
+OK
+<end of output>
+Test time =   3.59 sec
+----------------------------------------------------------
+Test Passed.
+"runner.formal_service_capture_validation" end time: Nov 23 18:31 MSK
+"runner.formal_service_capture_validation" time elapsed: 00:00:03
+----------------------------------------------------------
+
+515/711 Testing: runner.stage17_raw_stream_decoder_v2
+515/711 Test: runner.stage17_raw_stream_decoder_v2
+Command: "/usr/bin/python3.14" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_raw_stream_decoder_v2.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.stage17_raw_stream_decoder_v2" start time: Nov 23 18:31 MSK
+Output:
+----------------------------------------------------------
+.................
+----------------------------------------------------------------------
+Ran 17 tests in 0.150s
+
+OK
+<end of output>
+Test time =   0.23 sec
+----------------------------------------------------------
+Test Passed.
+"runner.stage17_raw_stream_decoder_v2" end time: Nov 23 18:31 MSK
+"runner.stage17_raw_stream_decoder_v2" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Nov 23 18:31 MSK
+
+calibration =   3.81 sec*proc
+
+python =   3.81 sec*proc
+
+raw =   0.23 sec*proc
+
+runner =   3.81 sec*proc
+
+service =   0.23 sec*proc
+
+synthetic =   3.81 sec*proc
+

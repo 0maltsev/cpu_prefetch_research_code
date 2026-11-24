@@ -1,0 +1,10 @@
+test_accepted_journal_adapter_activated_after_preserved_runtime (test_stage17_operational_cli_v21.FormalDispatchTests.test_accepted_journal_adapter_activated_after_preserved_runtime) ... ok
+test_formal_cli_routes_into_the_new_preserved_namespace (test_stage17_operational_cli_v21.FormalDispatchTests.test_formal_cli_routes_into_the_new_preserved_namespace) ... ok
+test_nonformal_commands_delegate_to_existing_administrative_cli (test_stage17_operational_cli_v21.FormalDispatchTests.test_nonformal_commands_delegate_to_existing_administrative_cli) ... ok
+test_v28_selected_in_every_private_formal_body_without_legacy_mutation (test_stage17_operational_cli_v21.FormalDispatchTests.test_v28_selected_in_every_private_formal_body_without_legacy_mutation) ... ok
+test_verification_execution_and_retention_keep_v6_authority_gate (test_stage17_operational_cli_v21.FormalDispatchTests.test_verification_execution_and_retention_keep_v6_authority_gate) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.013s
+
+OK

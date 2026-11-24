@@ -6,7 +6,9 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <limits>
 #include <map>
+#include <optional>
 #include <set>
 #include <stdexcept>
 #include <string>
@@ -36,6 +38,14 @@ using cpu_prefetch::platform::StateObservation;
 using cpu_prefetch::platform::StateVerifier;
 using cpu_prefetch::protocol::Placement;
 using cpu_prefetch::protocol::RequestedHardwareState;
+
+template <typename Value>
+[[nodiscard]] auto require_optional(const std::optional<Value>& value) -> const Value& {
+  if (!value.has_value()) {
+    throw std::logic_error("required test value is absent");
+  }
+  return value.value();
+}
 
 LinuxSnapshot synthetic_snapshot() {
   LinuxSnapshot snapshot{"snapshot-1", "2026-08-21T00:00:00Z", "fixture-kernel", {}};
@@ -264,6 +274,60 @@ public:
          "verify-" + request.control_id, mechanism});
   }
 };
+
+class FakeHardwarePrefetchMsrBackend final
+    : public cpu_prefetch::platform::HardwarePrefetchMsrBackend {
+public:
+  FakeHardwarePrefetchMsrBackend(
+      std::string id, std::map<std::uint32_t, std::uint64_t>& values) noexcept
+      : id_(std::move(id)), values_(values) {}
+
+  [[nodiscard]] auto backend_id() const -> std::string_view override { return id_; }
+
+  [[nodiscard]] auto read(std::uint32_t cpu) -> Result<std::uint64_t> override {
+    const auto position = values_.find(cpu);
+    if (position == values_.end()) {
+      return Result<std::uint64_t>::failure(Error{ErrorCategory::missing_evidence,
+                                                  "$fake_msr", "HWP-FAKE-READ",
+                                                  "scripted CPU is absent"});
+    }
+    auto value = position->second;
+    if (mismatch_requested_readback &&
+        (value & cpu_prefetch::platform::kHardwarePrefetchDisableMask) ==
+            cpu_prefetch::platform::kHardwarePrefetchDisableMask) {
+      value ^= 1U;
+    }
+    return Result<std::uint64_t>::success(value);
+  }
+
+  [[nodiscard]] auto write(std::uint32_t cpu, std::uint64_t value)
+      -> BackendResult override {
+    ++write_count;
+    writes.emplace_back(cpu, value);
+    if (write_count == fail_write_ordinal) {
+      return {false, "fake-msr-write-failure", "scripted write failure",
+              ErrorCategory::apply_failure};
+    }
+    values_[cpu] = value;
+    return {true, "fake-msr-write", "scripted write", std::nullopt};
+  }
+
+  bool mismatch_requested_readback{false};
+  std::size_t fail_write_ordinal{std::numeric_limits<std::size_t>::max()};
+  std::size_t write_count{0U};
+  std::vector<std::pair<std::uint32_t, std::uint64_t>> writes;
+
+private:
+  std::string id_;
+  std::map<std::uint32_t, std::uint64_t>& values_;
+};
+
+[[nodiscard]] auto hardware_prefetch_prestate()
+    -> std::vector<cpu_prefetch::platform::HardwarePrefetchMsrValue> {
+  return {{0U, 0x1234'5678'9abc'def0ULL},
+          {1U, 0xfedc'ba98'7654'3210ULL},
+          {26U, 0x0f0f'0f0f'0f0f'0f00ULL}};
+}
 
 TEST(LinuxTopology, ParsesCpuListsTopologyCachesNumaAndPci) {
   const auto cpus = cpu_prefetch::platform::parse_cpu_list("0-2,5,7-8", "$cpus");
@@ -535,6 +599,201 @@ TEST(Manifest, EmitsExactImportedPlatformSchemaWithoutInventingStandValues) {
   invalid_context.far_core_pair = {0U, 1U};
   EXPECT_FALSE(
       cpu_prefetch::platform::emit_protocol_platform_record(invalid_context, value));
+}
+
+TEST(HardwarePrefetchMapping, H0PreservesAndH1SetsOnlyDocumentedBits) {
+  using namespace cpu_prefetch::platform;
+  const auto prestate = hardware_prefetch_prestate();
+  const auto h0 = make_hardware_prefetch_plan({kIntelFamily6, kIntelModel55},
+                                              RequestedHardwareState::h0, prestate);
+  ASSERT_TRUE(h0);
+  EXPECT_FALSE(h0.value().mutating);
+  EXPECT_EQ(h0.value().requested, prestate);
+
+  const auto h1 = make_hardware_prefetch_plan({kIntelFamily6, kIntelModel55},
+                                              RequestedHardwareState::h1, prestate);
+  ASSERT_TRUE(h1);
+  EXPECT_TRUE(h1.value().mutating);
+  ASSERT_EQ(h1.value().requested.size(), prestate.size());
+  for (std::size_t index = 0U; index < prestate.size(); ++index) {
+    EXPECT_EQ(h1.value().requested[index].cpu, prestate[index].cpu);
+    EXPECT_EQ(h1.value().requested[index].value,
+              prestate[index].value | kHardwarePrefetchDisableMask);
+    EXPECT_EQ(h1.value().requested[index].value & ~kHardwarePrefetchDisableMask,
+              prestate[index].value & ~kHardwarePrefetchDisableMask);
+  }
+}
+
+TEST(HardwarePrefetchMapping, RejectsWrongModelMissingCpuAndTreatmentCollapse) {
+  using namespace cpu_prefetch::platform;
+  auto prestate = hardware_prefetch_prestate();
+  const auto unregistered = make_hardware_prefetch_plan(
+      {kIntelFamily6, 0x6aU}, RequestedHardwareState::h1, prestate);
+  EXPECT_FALSE(unregistered);
+  ASSERT_FALSE(unregistered.errors().empty());
+  EXPECT_EQ(unregistered.errors().front().rule_id, "HWP-CPUID-UNREGISTERED");
+  prestate.pop_back();
+  EXPECT_FALSE(make_hardware_prefetch_plan({kIntelFamily6, kIntelModel55},
+                                           RequestedHardwareState::h1, prestate));
+  prestate = hardware_prefetch_prestate();
+  prestate[1].value |= kHardwarePrefetchDisableMask;
+  EXPECT_FALSE(make_hardware_prefetch_plan({kIntelFamily6, kIntelModel55},
+                                           RequestedHardwareState::h1, prestate));
+}
+
+TEST(HardwarePrefetchMapping,
+     RegistersIvyBridgeEpAsDistinctSiblingMappingWithOwnCpuSet) {
+  using namespace cpu_prefetch::platform;
+  const auto mapping_value =
+      find_hardware_prefetch_mapping({kIntelFamily6, kIntelModel3E});
+  const auto& mapping = require_optional(mapping_value);
+  EXPECT_EQ(mapping.mapping_id, kHardwarePrefetchMappingId3E);
+  EXPECT_NE(mapping.mapping_id, kHardwarePrefetchMappingId);
+  // ADR-0173: this stand's own real, topology-evidence-backed pair identity
+  // -- {0, 1, 8}, not ADR-0043's {0, 1, 26} reused unchanged.
+  const auto& control_cpus = require_optional(mapping.control_cpus);
+  EXPECT_EQ(std::vector<std::uint32_t>(control_cpus.begin(), control_cpus.end()),
+            (std::vector<std::uint32_t>{0U, 1U, 8U}));
+
+  const auto mapping_55_value =
+      find_hardware_prefetch_mapping({kIntelFamily6, kIntelModel55});
+  const auto& mapping_55 = require_optional(mapping_55_value);
+  EXPECT_EQ(mapping_55.mapping_id, kHardwarePrefetchMappingId);
+  const auto& control_cpus_55 = require_optional(mapping_55.control_cpus);
+  EXPECT_EQ(std::vector<std::uint32_t>(control_cpus_55.begin(), control_cpus_55.end()),
+            (std::vector<std::uint32_t>{0U, 1U, 26U}));
+
+  EXPECT_FALSE(find_hardware_prefetch_mapping({kIntelFamily6, 0x6aU}).has_value());
+}
+
+TEST(HardwarePrefetchMapping, IvyBridgeEpH0PreservesAndH1SetsOnlyDocumentedBits) {
+  using namespace cpu_prefetch::platform;
+  const std::vector<HardwarePrefetchMsrValue> prestate{{0U, 0x1234'5678'9abc'def0ULL},
+                                                       {1U, 0xfedc'ba98'7654'3210ULL},
+                                                       {8U, 0x0f0f'0f0f'0f0f'0f00ULL}};
+
+  const auto h0 = make_hardware_prefetch_plan({kIntelFamily6, kIntelModel3E},
+                                              RequestedHardwareState::h0, prestate);
+  ASSERT_TRUE(h0);
+  EXPECT_FALSE(h0.value().mutating);
+  EXPECT_EQ(h0.value().requested, prestate);
+
+  const auto h1 = make_hardware_prefetch_plan({kIntelFamily6, kIntelModel3E},
+                                              RequestedHardwareState::h1, prestate);
+  ASSERT_TRUE(h1);
+  EXPECT_TRUE(h1.value().mutating);
+  ASSERT_EQ(h1.value().requested.size(), prestate.size());
+  for (std::size_t index = 0U; index < prestate.size(); ++index) {
+    EXPECT_EQ(h1.value().requested[index].cpu, prestate[index].cpu);
+    EXPECT_EQ(h1.value().requested[index].value,
+              prestate[index].value | kHardwarePrefetchDisableMask);
+  }
+
+  // A prestate shaped for 06_55H's CPU set (26 instead of 8) must still be
+  // rejected for 06_3EH -- each mapping's own accepted set, not just a count.
+  auto wrong_cpu = prestate;
+  wrong_cpu[2].cpu = 26U;
+  EXPECT_FALSE(make_hardware_prefetch_plan({kIntelFamily6, kIntelModel3E},
+                                           RequestedHardwareState::h1, wrong_cpu));
+}
+
+TEST(HardwarePrefetchMapping, MappingIdMembershipHelperAcceptsBothRegisteredIds) {
+  using namespace cpu_prefetch::platform;
+  EXPECT_TRUE(is_accepted_hardware_prefetch_mapping_id(kHardwarePrefetchMappingId));
+  EXPECT_TRUE(is_accepted_hardware_prefetch_mapping_id(kHardwarePrefetchMappingId3E));
+  EXPECT_FALSE(
+      is_accepted_hardware_prefetch_mapping_id("INTEL-06_6AH-MSR-1A4-DISABLE-0_3-v1"));
+}
+
+TEST(HardwarePrefetchMapping, H1VerifiesProbesAndRestoresCompletePrestate) {
+  using namespace cpu_prefetch::platform;
+  const auto prestate = hardware_prefetch_prestate();
+  const auto plan = make_hardware_prefetch_plan({kIntelFamily6, kIntelModel55},
+                                                RequestedHardwareState::h1, prestate);
+  ASSERT_TRUE(plan);
+  std::map<std::uint32_t, std::uint64_t> state;
+  for (const auto& value : prestate) {
+    state[value.cpu] = value.value;
+  }
+  FakeHardwarePrefetchMsrBackend writer("fake-writer", state);
+  FakeHardwarePrefetchMsrBackend verifier("fake-independent-verifier", state);
+  const auto report =
+      qualify_hardware_prefetch_plan(plan.value(), writer, verifier, {true, true});
+  EXPECT_TRUE(report.applied);
+  EXPECT_TRUE(report.verified);
+  EXPECT_TRUE(report.probes_passed);
+  EXPECT_TRUE(report.restored);
+  EXPECT_FALSE(report.quarantined);
+  EXPECT_TRUE(report.errors.empty());
+  EXPECT_EQ(report.apply_readback.size(), 3U);
+  EXPECT_EQ(report.restore_readback.size(), 3U);
+  for (const auto& value : prestate) {
+    EXPECT_EQ(state[value.cpu], value.value);
+  }
+}
+
+TEST(HardwarePrefetchMapping, ReadbackOrRestoreFailureFailsClosed) {
+  using namespace cpu_prefetch::platform;
+  const auto prestate = hardware_prefetch_prestate();
+  const auto plan = make_hardware_prefetch_plan({kIntelFamily6, kIntelModel55},
+                                                RequestedHardwareState::h1, prestate);
+  ASSERT_TRUE(plan);
+  std::map<std::uint32_t, std::uint64_t> state;
+  for (const auto& value : prestate) {
+    state[value.cpu] = value.value;
+  }
+  FakeHardwarePrefetchMsrBackend writer("fake-writer", state);
+  FakeHardwarePrefetchMsrBackend verifier("fake-independent-verifier", state);
+  verifier.mismatch_requested_readback = true;
+  const auto mismatch =
+      qualify_hardware_prefetch_plan(plan.value(), writer, verifier, {true, true});
+  EXPECT_FALSE(mismatch.verified);
+  EXPECT_TRUE(mismatch.restored);
+  EXPECT_FALSE(mismatch.quarantined);
+
+  for (const auto& value : prestate) {
+    state[value.cpu] = value.value;
+  }
+  FakeHardwarePrefetchMsrBackend restore_writer("fake-writer-2", state);
+  FakeHardwarePrefetchMsrBackend restore_verifier("fake-verifier-2", state);
+  restore_writer.fail_write_ordinal = 4U;
+  const auto restore_failure = qualify_hardware_prefetch_plan(
+      plan.value(), restore_writer, restore_verifier, {true, true});
+  EXPECT_TRUE(restore_failure.applied);
+  EXPECT_FALSE(restore_failure.restored);
+  EXPECT_TRUE(restore_failure.quarantined);
+}
+
+TEST(HardwarePrefetchMapping, RequiresIndependentVerifierAndBothProbeFamilies) {
+  using namespace cpu_prefetch::platform;
+  const auto prestate = hardware_prefetch_prestate();
+  const auto plan = make_hardware_prefetch_plan({kIntelFamily6, kIntelModel55},
+                                                RequestedHardwareState::h1, prestate);
+  ASSERT_TRUE(plan);
+  std::map<std::uint32_t, std::uint64_t> state;
+  for (const auto& value : prestate) {
+    state[value.cpu] = value.value;
+  }
+  FakeHardwarePrefetchMsrBackend same("same-backend", state);
+  const auto non_independent =
+      qualify_hardware_prefetch_plan(plan.value(), same, same, {true, true});
+  EXPECT_FALSE(non_independent.applied);
+  EXPECT_FALSE(non_independent.errors.empty());
+
+  FakeHardwarePrefetchMsrBackend writer("writer", state);
+  FakeHardwarePrefetchMsrBackend verifier("verifier", state);
+  const auto probe_failure =
+      qualify_hardware_prefetch_plan(plan.value(), writer, verifier, {true, false});
+  EXPECT_TRUE(probe_failure.verified);
+  EXPECT_FALSE(probe_failure.probes_passed);
+  EXPECT_TRUE(probe_failure.restored);
+
+  auto broad_plan = plan.value();
+  broad_plan.requested[0].value ^= 0x100U;
+  const auto broad_rejected =
+      qualify_hardware_prefetch_plan(broad_plan, writer, verifier, {true, true});
+  EXPECT_FALSE(broad_rejected.applied);
+  EXPECT_FALSE(broad_rejected.errors.empty());
 }
 
 TEST(LinuxInventory, DevelopmentHostReadOnlySmoke) {

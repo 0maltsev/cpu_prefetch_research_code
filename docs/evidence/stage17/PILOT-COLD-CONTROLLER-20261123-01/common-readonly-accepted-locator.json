@@ -1,0 +1,111 @@
+{
+  "completed_proof": {
+    "actual_closed_original_ancestry_consumer_passed": true,
+    "actual_frozen_native_identity": {
+      "execution_authority": false,
+      "phase18_authority": false,
+      "profile": "STAGE17-S180-NATIVE-WORKER-v1",
+      "role": "STAGE17_S180_NATIVE_WORKER",
+      "schema_version": "cpu-prefetch-stage17-s180-runtime-identity/1",
+      "sha256": "7460102040fb9685af75131e6810494960b149fcf82d95d776347e4379d8f0fc",
+      "size_bytes": 6151832,
+      "source_dirty": false,
+      "source_revision": "34247cedab4abe4b44732daae8fdac1700eccffd",
+      "synthetic_test_only": false
+    },
+    "actual_original_bundle_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/local-bundle-extract/cpu-prefetch-pilot-candidate-2.0.0-7b7c263-clean-5e100e05e49b",
+    "owned_original_replay": {
+      "actual_owner_reader_completed": true,
+      "cleanup": {
+        "cleanup_deadline_overrun": false,
+        "cleanup_diagnostics": [],
+        "descendants_detected_after_leader_exit": false,
+        "leader_reaped": true,
+        "leader_wait_timed_out": false,
+        "maximum_descendant_count": 0,
+        "namespace_snapshot": {
+          "local_pgid": 391620,
+          "local_pid": 391620,
+          "namespace_inode": "4026531836",
+          "nspgid": [
+            391620
+          ],
+          "nspid": [
+            391620
+          ],
+          "procfs_namespace_inode": "4026531836",
+          "visible_pgid": 391620,
+          "visible_pid": 391620
+        },
+        "process_group_gone": true,
+        "returncode": 0,
+        "terminal_cleanup_outcome": "NORMAL_LEADER_REAPED_GROUP_QUIESCENT"
+      },
+      "completed_monotonic_ns": 1904858865508152,
+      "console_prefix": "",
+      "deadline_monotonic_ns": 1905417715278235,
+      "execution_authority": false,
+      "failure": null,
+      "observed_reader": {
+        "actual_gid_fields": [
+          1000,
+          1000,
+          1000,
+          1000
+        ],
+        "actual_uid_fields": [
+          1000,
+          1000,
+          1000,
+          1000
+        ],
+        "address_space_bytes": [
+          8589934592,
+          8589934592
+        ],
+        "file_size_bytes": [
+          268435456,
+          268435456
+        ],
+        "gid": 1000,
+        "session_id": 391622,
+        "start_ticks": 190481771,
+        "uid": 1000
+      },
+      "phase18_authority": false,
+      "pid": 391622,
+      "root_parent_credentials_preserved": true,
+      "root_uids_after": [
+        0,
+        0,
+        0
+      ],
+      "root_uids_before": [
+        0,
+        0,
+        0
+      ],
+      "schema_version": "cpu-prefetch-stage17-s180-owned-original-replay/1",
+      "started_monotonic_ns": 1904817717812505
+    },
+    "source_requirements": {
+      "execution_authority": false,
+      "full_resource_admission": false,
+      "maximum_source_bytes": 1443373440,
+      "maximum_vector_bytes": 1496831712,
+      "phase18_authority": false,
+      "source_bank_upper_bytes": 1518870912,
+      "source_bank_upper_inodes": 109,
+      "source_metadata_upper_bytes": 20971520,
+      "source_metadata_upper_inodes": 64,
+      "source_process_and_page_upper_bytes": 14328373248
+    }
+  },
+  "error": "[Errno 2] No such file or directory: '/opt/cpu-prefetch-s180-common-0919b87-1/frozen-native-source/tools'",
+  "error_type": "FileNotFoundError",
+  "operational_window_started": false,
+  "process_report": null,
+  "qualification_performed": false,
+  "status": "COLD_COMMON_READONLY_VERIFICATION_FAILED",
+  "subprocess_stderr": ""
+}

@@ -1,0 +1,435 @@
+{
+  "control_sha256": "9c480a44a9fa03fa73a6bc725ecc3f2342432abd108be3a685e8bdd37f3b3a4d",
+  "control_size_bytes": 28701396,
+  "experimental_actions": 0,
+  "shape": {
+    "arena": {
+      "address_delta_error": null,
+      "address_delta_sha256": "c29c852ca6125b259205873dd6fae0f4d7740747f273e9abf17f7c0ebd454b53",
+      "allocated_bytes": 4194304,
+      "base_page_aligned": true,
+      "base_page_bytes": 4096,
+      "cache_line_bytes": 64,
+      "capacity": 65536,
+      "content_unchanged": true,
+      "distinct_cache_lines": 65536,
+      "distinct_pages": 1024,
+      "every_record_line_aligned": true,
+      "ordered_index_error": null,
+      "ordered_index_sha256": "b46c5da2cb1943f06fac0d62c6cd1c85598210f30b8aadb8acb82b6de138063e",
+      "padding_initialized": true,
+      "prepared_content_sha256": "1e8c5fea54b4eaa74cd4769ba25c2c3905a7b77568d532dc98c2886daadf9f17",
+      "publication_content_sha256": "1e8c5fea54b4eaa74cd4769ba25c2c3905a7b77568d532dc98c2886daadf9f17",
+      "storage_address": 125183803412480
+    },
+    "capture_ordinal": 86,
+    "cleanup_observation_scope": "BEFORE_PUBLICATION_RETURNS_FINAL_CLEANUP_REQUIRES_RETURNED_NATIVE_RESULT",
+    "completion_rule": "SCHEDULE-ONCE-IMMEDIATE-FINISHED-NORMAL-DRAIN-D036-v1",
+    "controls": {
+      "first": {
+        "keys": [
+          "attempted",
+          "hardware",
+          "request",
+          "stop",
+          "workers"
+        ]
+      },
+      "length": 6
+    },
+    "core": {
+      "address": 125187301031936,
+      "bytes": 16384
+    },
+    "environment_group_order": {
+      "first": "WARMUP_BEFORE",
+      "length": 6
+    },
+    "environment_preparations": {
+      "first": {
+        "keys": [
+          "attempted",
+          "close",
+          "open",
+          "plan",
+          "released",
+          "stop"
+        ]
+      },
+      "length": 86
+    },
+    "environment_samples": {
+      "first": {
+        "keys": [
+          "attempted",
+          "byte_capacity",
+          "captured_bytes",
+          "data_reads",
+          "eof_probe",
+          "group_index",
+          "probe_byte",
+          "raw_bytes",
+          "read_capacity",
+          "reads",
+          "source_index",
+          "stop"
+        ]
+      },
+      "length": 516
+    },
+    "execution_authority": false,
+    "hardware_preparation": {
+      "attempted": true,
+      "cpu_count": 3,
+      "cpus": {
+        "first": {
+          "keys": [
+            "close",
+            "cpu",
+            "expected_h0",
+            "expected_h1",
+            "open"
+          ]
+        },
+        "length": 3
+      },
+      "mapping_id": "INTEL-06_3EH-MSR-1A4-DISABLE-0_3-v1",
+      "observed_identity": {
+        "keys": [
+          "errors",
+          "value"
+        ]
+      },
+      "released": true,
+      "requested_identity": {
+        "keys": [
+          "family",
+          "model"
+        ]
+      },
+      "resolver_errors": {
+        "first": null,
+        "length": 0
+      },
+      "stop": 6
+    },
+    "inferential_validity_established": false,
+    "layout": {
+      "core_bytes": 16384,
+      "monitor_bytes": 40550400,
+      "region_bytes": {
+        "first": 64860160,
+        "length": 7
+      },
+      "total_mapping_bytes": 1861611520,
+      "workers": {
+        "keys": [
+          "arena_object",
+          "consumer_bytes",
+          "cursors",
+          "emitter_object",
+          "linked",
+          "node_initial_order",
+          "node_input_order",
+          "node_validation",
+          "nodes",
+          "ownership",
+          "package_object",
+          "phases",
+          "producer_bytes",
+          "queue_object",
+          "record_order",
+          "records_bytes",
+          "recycler",
+          "ring",
+          "slots"
+        ]
+      }
+    },
+    "method_id": "MATRIX-FULL-RUNCLUSTER-WHOEFFDING-BONFERRONI-v1",
+    "monitor_arena": {
+      "address": 125187152916480,
+      "bytes": 40550400
+    },
+    "native_result_before_publication_returns": {
+      "clock_origin": {
+        "keys": [
+          "absolute_nanoseconds",
+          "status"
+        ]
+      },
+      "controller_stack": {
+        "keys": [
+          "after_populate",
+          "base_page_bytes",
+          "before_populate",
+          "binding",
+          "cleanup_attempted",
+          "guard",
+          "lock",
+          "mapping",
+          "minimum_stack_bytes",
+          "no_huge_pages",
+          "populate",
+          "requested",
+          "stop",
+          "thread",
+          "unlock",
+          "unmap"
+        ]
+      },
+      "core_mapping": {
+        "keys": [
+          "affinity_request",
+          "after_touch",
+          "base_page_bytes",
+          "before_touch",
+          "binding",
+          "cleanup_attempted",
+          "lock",
+          "mapping",
+          "no_huge_pages",
+          "prefaulted_pages",
+          "read_only",
+          "requested",
+          "stop",
+          "unlock",
+          "unmap"
+        ]
+      },
+      "monitor_mapping": {
+        "keys": [
+          "affinity_request",
+          "after_touch",
+          "base_page_bytes",
+          "before_touch",
+          "binding",
+          "cleanup_attempted",
+          "lock",
+          "mapping",
+          "no_huge_pages",
+          "prefaulted_pages",
+          "read_only",
+          "requested",
+          "stop",
+          "unlock",
+          "unmap"
+        ]
+      },
+      "publication_attempted": true,
+      "publication_succeeded": false,
+      "session": {
+        "keys": [
+          "lifecycle",
+          "schedules"
+        ]
+      },
+      "stop": 10,
+      "worker_mappings": null,
+      "worker_stacks": null
+    },
+    "node_order": {
+      "file_name": "q16c-c86-node-order.bin",
+      "role": "Q16C_NODE_ORDER",
+      "schema_identity": "NODEORDER-U64LE-v1",
+      "sha256": "ce1e7afb82b8597841fb6a588bad6307cb1c3b5b88d17417a5c8942ede66dbb2",
+      "size_bytes": 524296
+    },
+    "node_order_count": 65537,
+    "phase18_authority": false,
+    "phases": {
+      "first": {
+        "keys": [
+          "accepted",
+          "checksum",
+          "consumer",
+          "consumer_available",
+          "consumer_current",
+          "consumer_last_append",
+          "consumer_last_join",
+          "consumer_layout",
+          "consumer_snapshot",
+          "consumer_stopped",
+          "empty",
+          "full",
+          "initial_checksum",
+          "polls",
+          "producer",
+          "producer_available",
+          "producer_current",
+          "producer_last_append",
+          "producer_layout",
+          "producer_snapshot",
+          "producer_stopped",
+          "requests",
+          "retained_attempts",
+          "retained_consumed_including_drain"
+        ]
+      },
+      "length": 2
+    },
+    "regions": {
+      "first": {
+        "keys": [
+          "address",
+          "bytes",
+          "expected_node"
+        ]
+      },
+      "length": 7
+    },
+    "residency": {
+      "first": {
+        "keys": [
+          "begin",
+          "controls",
+          "end",
+          "finished_after",
+          "finished_before",
+          "page_addresses",
+          "page_status",
+          "prior_controller_tick",
+          "query",
+          "request",
+          "stop",
+          "wait_first",
+          "wait_last",
+          "wait_polls"
+        ]
+      },
+      "length": 42
+    },
+    "schedule_mapping": {
+      "counts": {
+        "first": 6262990,
+        "length": 2
+      },
+      "offsets": {
+        "first": 4718592,
+        "length": 2
+      }
+    },
+    "schedules": {
+      "first": {
+        "keys": [
+          "all_arrivals_attempted",
+          "attempted",
+          "coordinates",
+          "phase_released",
+          "prepared_available",
+          "prepared_count",
+          "prospective",
+          "source_horizon_ticks",
+          "source_origin_ticks",
+          "stream",
+          "time_unit"
+        ]
+      },
+      "length": 2
+    },
+    "schema_version": "cpu-prefetch-stage17-formal-scheduled-control/1",
+    "thread_preparations": {
+      "first": {
+        "keys": [
+          "attempted",
+          "closes",
+          "directory_open",
+          "initial",
+          "ready",
+          "requested_task_id",
+          "stat_open",
+          "status_open"
+        ]
+      },
+      "length": 2
+    },
+    "tls_snapshots": {
+      "first": {
+        "keys": [
+          "fs_base",
+          "fs_read",
+          "iteration_return",
+          "loader_adds",
+          "loader_subs",
+          "modules",
+          "stop",
+          "thread_after",
+          "thread_before",
+          "used",
+          "visited_objects"
+        ]
+      },
+      "length": 6
+    },
+    "worker_mappings": {
+      "first": {
+        "keys": [
+          "affinity_request",
+          "after_touch",
+          "base_page_bytes",
+          "before_touch",
+          "binding",
+          "cleanup_attempted",
+          "lock",
+          "mapping",
+          "no_huge_pages",
+          "prefaulted_pages",
+          "read_only",
+          "requested",
+          "stop",
+          "unlock",
+          "unmap"
+        ]
+      },
+      "length": 3
+    },
+    "worker_preparation": {
+      "first": 7,
+      "length": 2
+    },
+    "worker_stacks": {
+      "first": {
+        "keys": [
+          "after_populate",
+          "base_page_bytes",
+          "before_populate",
+          "binding",
+          "cleanup_attempted",
+          "guard",
+          "lock",
+          "mapping",
+          "minimum_stack_bytes",
+          "no_huge_pages",
+          "populate",
+          "requested",
+          "stop",
+          "thread",
+          "unlock",
+          "unmap"
+        ]
+      },
+      "length": 2
+    }
+  },
+  "verified_archive": {
+    "block_count": 7,
+    "canonical": {
+      "sha256": "9c480a44a9fa03fa73a6bc725ecc3f2342432abd108be3a685e8bdd37f3b3a4d",
+      "size_bytes": 28701396
+    },
+    "file_identity": [
+      2307,
+      209106112,
+      1384464,
+      1795010923256030226,
+      1795010924523000996,
+      1
+    ],
+    "header_sha256": "6a8e145933b9254df90f3f4fd943ed0e18014f0a457f2f98ac9d41125a1d1a7e",
+    "physical": {
+      "sha256": "c041d5539f755d47ef2f3889e51bfea7e4cac1468d1dd92f958235302b9114ba",
+      "size_bytes": 1384464
+    },
+    "verified_at_unix_ns": 1795038970193307655
+  }
+}

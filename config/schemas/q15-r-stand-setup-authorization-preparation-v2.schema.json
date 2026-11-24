@@ -1,0 +1,97 @@
+{
+  "$id": "urn:cpu-prefetch:q15-r-stand-setup-authorization-preparation:v2",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "$defs": {
+    "nonempty": {"minLength": 1, "type": "string"},
+    "sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+    "unresolved": {
+      "additionalProperties": false,
+      "properties": {"name": {"$ref": "#/$defs/nonempty"}, "state": {"const": "UNRESOLVED"}, "value": {"type": "null"}},
+      "required": ["name", "state", "value"],
+      "type": "object"
+    },
+    "release_evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "archive_bytes": {"const": 4356358},
+        "archive_name": {"const": "cpu-prefetch-q15-qualification-tool-2.0.0-c8b69ab-clean-8d27197443f2.tar.gz"},
+        "archive_sha256": {"$ref": "#/$defs/sha256"},
+        "bundle_manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "controller_binary_sha256": {"$ref": "#/$defs/sha256"},
+        "controller_codegen_report_sha256": {"$ref": "#/$defs/sha256"},
+        "internal_file_count": {"const": 133},
+        "internal_sha256s_sha256": {"$ref": "#/$defs/sha256"},
+        "probe_codegen_report_sha256": {"$ref": "#/$defs/sha256"},
+        "q15_qualification_library_sha256": {"$ref": "#/$defs/sha256"},
+        "q15_tool_binary_sha256": {"$ref": "#/$defs/sha256"},
+        "runtime_codegen_report_sha256": {"$ref": "#/$defs/sha256"},
+        "sbom_sha256": {"$ref": "#/$defs/sha256"},
+        "sidecar_sha256": {"$ref": "#/$defs/sha256"},
+        "source_archive_name": {"const": "cpu-prefetch-source-c8b69ab-clean.tar.gz"},
+        "source_archive_sha256": {"$ref": "#/$defs/sha256"},
+        "source_commit": {"const": "c8b69abf0c6aec7b740efe78d998a93545302a94"},
+        "version_metadata_sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "required": ["archive_bytes", "archive_name", "archive_sha256", "bundle_manifest_sha256", "controller_binary_sha256", "controller_codegen_report_sha256", "internal_file_count", "internal_sha256s_sha256", "probe_codegen_report_sha256", "q15_qualification_library_sha256", "q15_tool_binary_sha256", "runtime_codegen_report_sha256", "sbom_sha256", "sidecar_sha256", "source_archive_name", "source_archive_sha256", "source_commit", "version_metadata_sha256"],
+      "type": "object"
+    }
+  },
+  "properties": {
+    "acceptance_binding": {
+      "const": {"acceptance_id": "Q15-R-P3-ACCEPTANCE-20260825-01", "path": "config/q15/q15-r-p3-acceptance-v1.json", "sha256": "8b90ed2e6bf865b7df2b05aef7e18a8c7aeacac953b79baa7fb2ed7ea03dd167"}
+    },
+    "authority_boundary": {
+      "const": {"account_or_key_changes_authorized": false, "access_probe_execution_authorized": false, "bundle_transfer_or_install_authorized": false, "filesystem_or_permission_changes_authorized": false, "q15_r_authorized": false, "q15_w_authorized": false, "stand_access_authorized": false, "stand_setup_authorization_issued": false, "stand_setup_execution_authorized": false}
+    },
+    "decision_binding": {
+      "const": {"decision_id": "D-065", "decision_input_id": "Q15-R-OPERATIONAL-RELEASE-DECISION-INPUT-20260825-01", "decision_input_path": "config/q15/q15-r-operational-release-decision-input-v1.json", "decision_input_sha256": "c7f7401f99ac25f2e56ceac889a6e64174efa047d2e06f71e74c2065aa2faa58"}
+    },
+    "future_authorization_contract": {
+      "const": {"authorization_id": null, "authorization_sha256": null, "expires_at_utc": null, "independent_review_artifact_id": null, "independent_review_sha256": null, "issued_at_utc": null, "named_authority_principal": null, "signature_artifact_id": null, "signature_sha256": null, "signer_key_fingerprint": null, "status": "NOT_ISSUED"}
+    },
+    "implementation_binding": {
+      "const": {"adapter_profile_id": "Q15-R-TRUST-ANCHOR-ADAPTER-v1", "adapter_profile_sha256": "a41ee172b4997bf08d4f564c585811a4a04795dad75ba8598b8d7a85c51fd3d2", "implementation_state": "CLEAN_ADAPTER_BEARING_RELEASE_SELECTED_NO_AUTHORITY"}
+    },
+    "lineage": {
+      "const": {"predecessor_path": "config/q15/q15-r-stand-setup-authorization.preparation.json", "predecessor_preparation_id": "Q15-R-STAND-SETUP-AUTHORIZATION-PREPARATION-20260825-01", "predecessor_sha256": "a671fad5b45823a617140d9ee1f684235812daede0048fb67e1255ce74ecb057", "relationship": "VERSIONED_SUCCESSOR_PRESERVE_PREDECESSOR"}
+    },
+    "preparation_id": {"const": "Q15-R-STAND-SETUP-AUTHORIZATION-PREPARATION-20260825-02"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "remaining_required_inputs": {"items": {"$ref": "#/$defs/unresolved"}, "maxItems": 5, "minItems": 5, "type": "array", "uniqueItems": true},
+    "resolved_input_groups": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {"name": {"const": "CLEAN_OPERATIONAL_RELEASE_ARCHIVE_MANIFEST_SBOM_BINARY_AND_REPORT_HASHES"}, "state": {"const": "RESOLVED_BY_Q15_R_P3_ACCEPTED_VERIFIED_LOCAL_EVIDENCE"}, "value": {"$ref": "#/$defs/release_evidence"}},
+        "required": ["name", "state", "value"],
+        "type": "object"
+      },
+      "maxItems": 1,
+      "minItems": 1,
+      "type": "array"
+    },
+    "schema_version": {"const": "cpu-prefetch-q15-r-stand-setup-authorization-preparation/2"},
+    "stand_id": {"const": "XEON-CPU-FETCH"},
+    "status": {"const": "BLOCKED_EXTERNAL_INPUTS_REQUIRED_NO_AUTHORITY"},
+    "transaction_contract": {
+      "additionalProperties": false,
+      "properties": {
+        "access_probe_ids": {"items": {"pattern": "^NA-[0-9]{3}$", "type": "string"}, "maxItems": 24, "minItems": 24, "type": "array", "uniqueItems": true},
+        "access_probe_required_deny_count": {"const": 18},
+        "command_source_bundle_id": {"const": "Q15-R-OPERATIONAL-PREREQUISITE-DECISION-INPUT-20260825-01"},
+        "command_source_path": {"const": "config/q15/q15-r-operational-prerequisite-decision-input-v1.json"},
+        "command_source_sha256": {"const": "6e27f16c8c4280b96cb0e6c58a02247e87f595399743218612325e037f8b85e7"},
+        "execution_order": {"const": "SETUP_ASCENDING_THEN_ACCESS_ASCENDING_STOP_FIRST_MISMATCH"},
+        "placeholder_names": {"const": ["@ALLOWED_SIGNERS_SOURCE@", "@OPERATIONAL_RELEASE_ROOT@", "@SECONDARY_CUSTODY_ROOT@"]},
+        "rollback_behavior": {"const": "STOP_FIRST_FAILURE_QUARANTINE_COMPLETED_PREFIX_NO_DELETE"},
+        "rollback_ids": {"items": {"pattern": "^RB-[0-9]{3}$", "type": "string"}, "maxItems": 10, "minItems": 10, "type": "array", "uniqueItems": true},
+        "setup_command_ids": {"items": {"pattern": "^SETUP-[0-9]{3}$", "type": "string"}, "maxItems": 20, "minItems": 20, "type": "array", "uniqueItems": true}
+      },
+      "required": ["access_probe_ids", "access_probe_required_deny_count", "command_source_bundle_id", "command_source_path", "command_source_sha256", "execution_order", "placeholder_names", "rollback_behavior", "rollback_ids", "setup_command_ids"],
+      "type": "object"
+    }
+  },
+  "required": ["acceptance_binding", "authority_boundary", "decision_binding", "future_authorization_contract", "implementation_binding", "lineage", "preparation_id", "protocol_version", "remaining_required_inputs", "resolved_input_groups", "schema_version", "stand_id", "status", "transaction_contract"],
+  "title": "Q15-R-P3 versioned successor stand-setup preparation with release evidence resolved",
+  "type": "object"
+}

@@ -1,0 +1,19 @@
+[1/17] Building CXX object CMakeFiles/cpu_prefetch_foundation.dir/src/repository_info.cpp.o
+[2/17] Linking CXX static library libcpu_prefetch_foundation.a
+[3/17] Building CXX object CMakeFiles/cpu_prefetch_q15_qualification.dir/src/qualification/p4_k_a_controller.cpp.o
+[4/17] Building CXX object CMakeFiles/cpu_prefetch_q15_qualification.dir/src/qualification/q15_clock_pair_qualification.cpp.o
+[5/17] Building CXX object CMakeFiles/cpu_prefetch_q15_qualification.dir/src/qualification/q15_controller.cpp.o
+[6/17] Building CXX object CMakeFiles/cpu_prefetch_q15_qualification.dir/src/qualification/q15_collectors.cpp.o
+[7/17] Building CXX object CMakeFiles/cpu_prefetch_q15_qualification.dir/src/qualification/q15_prestate.cpp.o
+[8/17] Building CXX object CMakeFiles/cpu_prefetch_q15_qualification.dir/src/qualification/q15_trust_anchor_adapter.cpp.o
+[9/17] Linking CXX static library libcpu_prefetch_q15_qualification.a
+[10/17] Building CXX object CMakeFiles/cpu_prefetch_runner.dir/tools/runner_main.cpp.o
+[11/17] Linking CXX executable cpu_prefetch_software_prefetch_mapping_codegen_probe
+[12/17] Linking CXX executable cpu_prefetch_runner_combined_codegen_probe
+[13/17] Linking CXX executable cpu_prefetch_runner
+[14/17] Requiring dual-disassembler D-047 PREFETCHW/PREFETCHT0 mapping evidence
+software-prefetch-mapping-codegen-check: PASS (two disassemblers, three mapped sites, two mutants)
+[15/17] Requiring resolved Q14 combined-operation generated code
+runner-combined-codegen-check: PASS (two disassemblers, 16 operations, exact D-047/ADR-0175 mappings, five mutants)
+[16/17] Building CXX object CMakeFiles/cpu_prefetch_q15_clock_qualification_tool.dir/tools/q15_clock_qualification_tool_main.cpp.o
+[17/17] Linking CXX executable cpu_prefetch_q15_clock_qualification_tool

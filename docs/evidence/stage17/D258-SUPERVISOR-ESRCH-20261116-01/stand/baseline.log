@@ -1,0 +1,129 @@
+test_disappeared_children_file_is_only_a_missing_subtree (__main__.ProcExitTests.test_disappeared_children_file_is_only_a_missing_subtree) ... ERROR
+test_enumeration_tolerates_real_stat_exit_after_open (__main__.ProcExitTests.test_enumeration_tolerates_real_stat_exit_after_open) ... ERROR
+test_error_report_preserves_errno_and_traceback_without_hiding_failure (__main__.ProcExitTests.test_error_report_preserves_errno_and_traceback_without_hiding_failure) ... ERROR
+test_expired_original_preparation_deadline_is_not_reset_by_the_fix (__main__.ProcExitTests.test_expired_original_preparation_deadline_is_not_reset_by_the_fix) ... ok
+test_healthy_child_remains_observed_when_sibling_exits (__main__.ProcExitTests.test_healthy_child_remains_observed_when_sibling_exits) ... ERROR
+test_kernel_returns_esrch_after_opened_stat_task_disappears (__main__.ProcExitTests.test_kernel_returns_esrch_after_opened_stat_task_disappears) ... ok
+test_native_identity_signal_guard_remains_fail_closed (__main__.ProcExitTests.test_native_identity_signal_guard_remains_fail_closed) ... ok
+test_nonzero_owner_exit_is_preserved (__main__.ProcExitTests.test_nonzero_owner_exit_is_preserved) ... ok
+test_only_observation_and_diagnostic_functions_changed (__main__.ProcExitTests.test_only_observation_and_diagnostic_functions_changed) ... FAIL
+test_owner_observation_tolerates_real_stat_exit_after_open (__main__.ProcExitTests.test_owner_observation_tolerates_real_stat_exit_after_open) ... ERROR
+test_owner_permission_error_still_fails (__main__.ProcExitTests.test_owner_permission_error_still_fails) ... ok
+test_proc_permission_and_io_errors_are_not_hidden (__main__.ProcExitTests.test_proc_permission_and_io_errors_are_not_hidden) ... ok
+test_real_native_loss_is_still_rejected_by_unchanged_archive_broker (__main__.ProcExitTests.test_real_native_loss_is_still_rejected_by_unchanged_archive_broker) ... ok
+test_tracked_child_liveness_tolerates_real_stat_exit_after_open (__main__.ProcExitTests.test_tracked_child_liveness_tolerates_real_stat_exit_after_open) ... ERROR
+
+======================================================================
+ERROR: test_disappeared_children_file_is_only_a_missing_subtree (__main__.ProcExitTests.test_disappeared_children_file_is_only_a_missing_subtree)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d258-supervision-fix-1/test_stage17_supervisor_proc_exit.py", line 56, in test_disappeared_children_file_is_only_a_missing_subtree
+    self.assertEqual(m.descendants(os.getpid()),{})
+                     ~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d258-supervision-fix-1/baseline-driver.py", line 250, in descendants
+    children = Path(f'/proc/{parent}/task/{parent}/children').read_text().split()
+               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1241, in _execute_mock_call
+    raise effect
+ProcessLookupError: [Errno 3] task exited
+
+======================================================================
+ERROR: test_enumeration_tolerates_real_stat_exit_after_open (__main__.ProcExitTests.test_enumeration_tolerates_real_stat_exit_after_open)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d258-supervision-fix-1/test_stage17_supervisor_proc_exit.py", line 34, in test_enumeration_tolerates_real_stat_exit_after_open
+    with hook:found=m.descendants(os.getpid())
+                    ~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d258-supervision-fix-1/baseline-driver.py", line 256, in descendants
+    result[child] = start_ticks(child)
+                    ~~~~~~~~~~~^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d258-supervision-fix-1/baseline-driver.py", line 241, in start_ticks
+    text = Path(f'/proc/{pid}/stat').read_text()
+  File "/usr/lib/python3.14/pathlib/__init__.py", line 789, in read_text
+    return f.read()
+           ~~~~~~^^
+ProcessLookupError: [Errno 3] No such process
+
+======================================================================
+ERROR: test_error_report_preserves_errno_and_traceback_without_hiding_failure (__main__.ProcExitTests.test_error_report_preserves_errno_and_traceback_without_hiding_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d258-supervision-fix-1/test_stage17_supervisor_proc_exit.py", line 114, in test_error_report_preserves_errno_and_traceback_without_hiding_failure
+    self.assertEqual(report['failure_type'],'PermissionError');self.assertEqual(report['failure_errno'],errno.EACCES)
+                     ~~~~~~^^^^^^^^^^^^^^^^
+KeyError: 'failure_type'
+
+======================================================================
+ERROR: test_healthy_child_remains_observed_when_sibling_exits (__main__.ProcExitTests.test_healthy_child_remains_observed_when_sibling_exits)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d258-supervision-fix-1/test_stage17_supervisor_proc_exit.py", line 39, in test_healthy_child_remains_observed_when_sibling_exits
+    with hook:found=m.descendants(os.getpid())
+                    ~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d258-supervision-fix-1/baseline-driver.py", line 256, in descendants
+    result[child] = start_ticks(child)
+                    ~~~~~~~~~~~^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d258-supervision-fix-1/baseline-driver.py", line 241, in start_ticks
+    text = Path(f'/proc/{pid}/stat').read_text()
+  File "/usr/lib/python3.14/pathlib/__init__.py", line 789, in read_text
+    return f.read()
+           ~~~~~~^^
+ProcessLookupError: [Errno 3] No such process
+
+======================================================================
+ERROR: test_owner_observation_tolerates_real_stat_exit_after_open (__main__.ProcExitTests.test_owner_observation_tolerates_real_stat_exit_after_open)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d258-supervision-fix-1/test_stage17_supervisor_proc_exit.py", line 46, in test_owner_observation_tolerates_real_stat_exit_after_open
+    with hook:found=owned.observe()
+                    ~~~~~~~~~~~~~^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d258-supervision-fix-1/baseline-driver.py", line 321, in observe
+    if start_ticks(self.process.pid) == self.leader_ticks:
+       ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d258-supervision-fix-1/baseline-driver.py", line 241, in start_ticks
+    text = Path(f'/proc/{pid}/stat').read_text()
+  File "/usr/lib/python3.14/pathlib/__init__.py", line 789, in read_text
+    return f.read()
+           ~~~~~~^^
+ProcessLookupError: [Errno 3] No such process
+
+======================================================================
+ERROR: test_tracked_child_liveness_tolerates_real_stat_exit_after_open (__main__.ProcExitTests.test_tracked_child_liveness_tolerates_real_stat_exit_after_open)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d258-supervision-fix-1/test_stage17_supervisor_proc_exit.py", line 52, in test_tracked_child_liveness_tolerates_real_stat_exit_after_open
+    with hook:found=owned.live()
+                    ~~~~~~~~~~^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d258-supervision-fix-1/baseline-driver.py", line 335, in live
+    if start_ticks(pid) == ticks:
+       ~~~~~~~~~~~^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d258-supervision-fix-1/baseline-driver.py", line 241, in start_ticks
+    text = Path(f'/proc/{pid}/stat').read_text()
+  File "/usr/lib/python3.14/pathlib/__init__.py", line 789, in read_text
+    return f.read()
+           ~~~~~~^^
+ProcessLookupError: [Errno 3] No such process
+
+======================================================================
+FAIL: test_only_observation_and_diagnostic_functions_changed (__main__.ProcExitTests.test_only_observation_and_diagnostic_functions_changed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d258-supervision-fix-1/test_stage17_supervisor_proc_exit.py", line 97, in test_only_observation_and_diagnostic_functions_changed
+    self.assertEqual(changed,{'descendants','OwnedProcess.observe','OwnedProcess.live','Study.command'})
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Items in the second set but not the first:
+'OwnedProcess.observe'
+'OwnedProcess.live'
+'descendants'
+'Study.command'
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.410s
+
+FAILED (failures=1, errors=6)

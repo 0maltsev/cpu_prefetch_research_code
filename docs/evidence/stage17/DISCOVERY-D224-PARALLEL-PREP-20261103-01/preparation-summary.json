@@ -1,0 +1,42 @@
+{
+  "executed": false,
+  "execution_authority": false,
+  "expected_uid": 1000,
+  "files": [
+    {
+      "name": "stage17_discovery_validation_v3.py",
+      "sha256": "661613aedbc77fd538970b8c5e79a4bbaa3d2acb7f503cb802725239b25e94bf",
+      "size_bytes": 69410
+    },
+    {
+      "name": "stage17_discovery_validation_parallel_v1.py",
+      "sha256": "1a1e2cb6ab467b3e192ab3e64814bed7facef4577a1141ea8f92555ee42a19bf",
+      "size_bytes": 12461
+    },
+    {
+      "name": "validate_d207_retained_study_parallel_v1.py",
+      "sha256": "2e7960081e2f43009f3836bbee22708b3a1511651020b20661f8c899b004bf87",
+      "size_bytes": 20371
+    },
+    {
+      "name": "0213-discovery-whole-plot-readback-validation.md",
+      "sha256": "55b4e21c3f10d7321dfa1162c748f5bd35bfc22cacfa506d5378d7088e56060a",
+      "size_bytes": 2963
+    },
+    {
+      "name": "0224-parallel-retained-discovery-validation.md",
+      "sha256": "eaed6cc4e114daf49027a0c715eb2dafa7b7fc385dabbac0d4eaa7756fbc7661",
+      "size_bytes": 3473
+    },
+    {
+      "name": "run_parallel_analysis.py",
+      "sha256": "9c22a76d68482c2a8d54f25964e4b52a2996f9237218ff3505295454d8493ad8",
+      "size_bytes": 19211
+    }
+  ],
+  "installation_sha256": "9e247c63010b5e6169f76875018bbb1967efc6f4d6ff884dc117d02d70c8c416",
+  "installer_path": "build/stage17-step4-prep/d224-parallel-analysis/installation-1/install-and-start.py",
+  "installer_sha256": "9e5e5608647a2b32aa5a405a4607cbc5eff47098d765be85683500ebbc381f29",
+  "raw_mutation": false,
+  "remote_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-d224-1"
+}

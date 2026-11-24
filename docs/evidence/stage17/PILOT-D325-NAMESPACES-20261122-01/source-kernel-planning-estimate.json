@@ -1,0 +1,53 @@
+{
+  "actual_source_counts_verified": false,
+  "blueprint_sha256": "e95183365023a06b9da0d6cdff042bce556b9eb60c701dfb0f9e6df6ca22685c",
+  "complete_preparation_estimate": false,
+  "estimated_two_pass_kernel_hours": 6.793714502017695,
+  "estimated_two_pass_kernel_ns": {
+    "denominator": 500,
+    "numerator": 12228686103631851
+  },
+  "execution_authority": false,
+  "expected_shared_arrivals": 90210834,
+  "phase18_authority": false,
+  "rows": [
+    {
+      "estimated_two_pass_kernel_ns": {
+        "denominator": 1250,
+        "numerator": 5801933559264759
+      },
+      "expected_arrivals_denominator": 1,
+      "expected_arrivals_numerator": 15035139,
+      "load_level": "L025",
+      "sample_transforms": 5000
+    },
+    {
+      "estimated_two_pass_kernel_ns": {
+        "denominator": 1250,
+        "numerator": 9907659494199243
+      },
+      "expected_arrivals_denominator": 1,
+      "expected_arrivals_numerator": 30070278,
+      "load_level": "L050",
+      "sample_transforms": 5000
+    },
+    {
+      "estimated_two_pass_kernel_ns": {
+        "denominator": 2500,
+        "numerator": 29724244411231251
+      },
+      "expected_arrivals_denominator": 1,
+      "expected_arrivals_numerator": 45105417,
+      "load_level": "L075",
+      "sample_transforms": 5000
+    }
+  ],
+  "schema_version": "cpu-prefetch-stage17-s180-source-kernel-planning-estimate/1",
+  "source_count": 36,
+  "timing_source": {
+    "path": "build/stage17-s180-native/stand-software-generator-timing.json",
+    "sha256": "883406119ed8e11b265ed2ecafc9d6c2e62dbd5b70564b378742671736308cab",
+    "size_bytes": 885
+  },
+  "whole_pilot_eta_verified": false
+}

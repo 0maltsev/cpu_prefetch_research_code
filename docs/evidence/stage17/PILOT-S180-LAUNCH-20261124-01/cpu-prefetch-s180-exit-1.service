@@ -1,0 +1,19 @@
+[Unit]
+Description=Independent S180 operational exit verification
+[Service]
+Type=exec
+User=root
+Group=root
+Slice=-.slice
+KillMode=control-group
+SendSIGKILL=yes
+Restart=no
+LimitAS=4294967296:68719476736
+LimitMEMLOCK=68719476736
+LimitNOFILE=1024
+LimitCORE=0
+UMask=0077
+Environment=PYTHONDONTWRITEBYTECODE=1
+TimeoutStopSec=120
+RuntimeMaxSec=1800
+ExecStart=/usr/bin/python3.14 -B /opt/cpu-prefetch-s180-service-1/stage17_s180_service_v1.py exit --profile-sha256 548884312b7508d76d697863caf57ba0656ba0c2c114021e692c7c83c54df718

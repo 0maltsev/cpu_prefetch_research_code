@@ -6,8 +6,9 @@ This is the accepted architecture for Stage A of protocol `2.0.0-pre.2`, with
 immutable predecessor `2.0.0-pre.1`. ADR-0007 through ADR-0040 freeze the
 owner-approved software foundation through Stage 14 synthetic orchestration
 software and ADR-0041 closes the Stage 15 synthetic analysis profile.
-ADR-0043 accepts the Q13 pair, relax, and fail-closed static runner entry
-profile without execution authority. Exact eligible-stand mappings/evidence,
+ADR-0043 accepts the Q13 pair and relax choices; ADR-0044 through ADR-0046
+accept the Q14 runner/candidate and future authority policies without
+execution authority. Exact eligible-stand mappings/evidence,
 concrete Stage A freeze
 inputs, and later pilot outputs remain open. Imported
 snapshots remain authoritative under their versions; contradictions require a
@@ -25,10 +26,10 @@ ADR-0001 through ADR-0006 accept the core boundaries. ADR-0007 through ADR-0021 
 
 | Plane | Component | Responsibility | Timed-horizon status | Replaceable boundary / state |
 |---|---|---|---|---|
-| Data | Specialized producer | Pre-generated arrivals, one enqueue attempt, producer timestamps/outcome, private append, release termination | Required | Stage 10 implements the generic executor; Stage 11 statically binds exact capture; Q13 adds ticket-gated five-package static execution and one `PAUSE`, while the final affined combined worker remains blocked |
-| Data | Specialized consumer | Poll/dequeue, consumer timestamps, immutable record read, fixed checksum update, private append, acquire termination/drain | Required | Stage 10 implements polling/drain; Stage 11 statically binds exact capture; Q13 adds ticket-gated static execution without exposing an execution CLI; final prefetch/platform specialization remains blocked |
+| Data | Specialized producer | Pre-generated arrivals, one enqueue attempt, producer timestamps/outcome, private append, release termination | Required | Stage 10 implements the generic executor; Stage 11 binds exact capture; Q14 adds ticket-gated static execution and owner-affined preparation; D-047 binds exact software-prefetch instructions with a pre-barrier capability gate |
+| Data | Specialized consumer | Poll/dequeue, consumer timestamps, immutable record read, fixed checksum update, private append, acquire termination/drain | Required | Stage 10 implements polling/drain; Stage 11 binds exact capture; Q14 adds owner-affined preparation without an execution CLI; physical prefetch/platform specialization remains blocked |
 | Data | Queue/package binding | Five concrete static policies preserve ring/linked semantics and exact treatment-specific hint targets | Required | Stage 5 queue cores plus Stage 6 target seams/codegen pass; platform hint instruction and `d2` evidence remain open |
-| Controller | Runner admission / run-image builder | Parse and semantically validate config, hash every current eligibility input, allocate/touch/initialize arenas and buffers, bind identities and capacity proof | Forbidden | Q13 implements strict admission/ticket and static dispatch; final preparation adapter and every real stand/freeze record remain blocked |
+| Controller | Runner admission / run-image builder | Parse and semantically validate config, hash every current eligibility input, allocate/touch/initialize arenas and buffers, bind identities and capacity proof | Forbidden | Q15-P0 implements 21-kind v3 admission/ticket and corrected watchdog boundary; static dispatch, affined first touch, qualification-only records, and future authority envelopes remain fail closed on every missing stand/freeze record |
 | Controller | Schedule preparation | Derive the purpose-separated stream, generate the complete open-loop schedule, publish artifact/envelopes, decode and validate immutable deadlines | Forbidden | Stage 7 implemented; all lifecycle values remain explicit and no outcome/clock input exists |
 | Controller | Workload construction | Derive domain-separated streams, build event/node order, initialize records, retain integrity inputs, bind one package type | Forbidden | Stage 6 implemented; all values explicit and no worker mutation surface |
 | Controller | Lifecycle orchestrator | Barrier/start/drain/reset, state transitions, failure capture, evidence/artifact consequences | Outside horizon | Stage 10 lifecycle is implemented; Stage 11 adds partial-stream finalization and immutable publication without reconciliation |
@@ -141,7 +142,7 @@ and dynamic qualification evidence.
 
 `cpu_prefetch_platform` separates inventory, capability detection, requested-state validation, apply, independent verification, restoration, and manifest emission. The real Linux provider is read-only and records CPU/core/package/NUMA/cache/PCI topology, page and environment observations, and software/hardware provenance without choosing a stand or pair. Stage A validation requires explicit non-SMT near/far CPUs, producer-home shared memory, worker-local private buffers, and the inventoried base-page policy; Stage C alternatives reject.
 
-Every control names an exact target/value, authority, actuation mechanism, verification mechanism, snapshot, and state epoch. Dry-run never calls an actuator. Successful apply is only an apply fact; fresh exact readback through the verifier is required separately. Partial apply restores recorded pre-state in reverse order and retains any restoration failure. Rich canonical evidence preserves partial failure, while a separate emitter produces only the immutable imported platform-schema shape. Unsupported/unauthorized/missing/stale capability fails closed. The repository does not ship a mutating stand backend: exact stand mappings, vendor HW-prefetch fields, behavioral probes, privileges, and rollback remain required evidence under [the Stage 9 contract](PLATFORM_CONTROL.md).
+Every control names an exact target/value, authority, actuation mechanism, verification mechanism, snapshot, and state epoch. Dry-run never calls an actuator. Successful apply is only an apply fact; fresh exact readback through the verifier is required separately. Partial apply restores recorded pre-state in reverse order and retains any restoration failure. Rich canonical evidence preserves partial failure, while a separate emitter produces only the immutable imported platform-schema shape. Unsupported/unauthorized/missing/stale capability fails closed. Q15-P0 adds a narrow candidate-only Intel 06_55H H0/H1 transaction model with no arbitrary MSR input. Q15-S1 adds a separate fixed-path production backend and no-authority CLI outside the sealed measurement candidate; its tests use fake file operations and no dynamic invocation has occurred. D-052 freezes a separate raw-PMU probe and seven-collector contract. D-053 supplies only the deterministic pointer buffer, full-buffer integrity, pure classification, and audited counted bodies; it exposes no PMU command. Exact dynamic probe/collector executables and hashes, prestate, command authority, independent readback, behavioral evidence, privileges, and rollback remain required under [the Stage 9 contract](PLATFORM_CONTROL.md).
 
 ### `RunLifecycle`
 
@@ -158,12 +159,14 @@ The start barrier release-publishes one explicit measurement origin. A generic
 compile-time executor consumes only an immutable deadline span, issues exactly
 one producer backend call per due arrival, polls the consumer, and uses a
 dedicated lock-free u32 release/acquire termination word before drain-to-empty.
-It supplies no clock, watchdog value, queue family, or platform default. Stage
+It supplies no clock, start/external-watchdog value, queue family, or platform default. Stage
 11 supplies a statically bound physical capture backend. Q13 selects one x86
-`PAUSE` and the exact candidate pairs, then adds a controller-side five-way
-static dispatch whose measured executor never reads the package enum. Exact
-watchdogs, real prefetch mapping, affinity/qualification, and the combined
-worker remain external gates. Full semantics and later gates are recorded in
+`PAUSE` and the exact candidate pairs. Q14 adds a controller-side five-way
+static dispatch, owner-thread affinity/readback/actual-CPU preparation, and
+private-stream first touch before the barrier. The measured executor never
+reads the package enum. Exact start/external watchdogs, dynamic hardware-prefetch evidence,
+qualification, and the strict emitter-bound combined release remain external
+gates. Full semantics and later gates are recorded in
 [`LIFECYCLE.md`](LIFECYCLE.md).
 
 ### `LogicalModel` and `PhysicalCodec`
@@ -222,6 +225,44 @@ ADR-0012 requires one unprivileged measurement process with a quiescent controll
 - crash/lifecycle states yield the exact append-only artifact set;
 - privileges are absent from the measurement process;
 - validation custody is technically separated from implementation/platform operation.
+
+ADR-0051 keeps the qualification tool in a fourth operational boundary outside
+the measurement process and sealed measurement bundle. Q15-R is a read-only
+controller/auditor acquisition graph. Q15-W is a later operator mutation graph
+whose immutable inputs include the sealed Q15-R evidence and complete prestates;
+every write has a separately executed auditor readback and inverse. The local
+fixed adapter has no arbitrary path/address/mask/CPU-list interface, but code
+presence never substitutes for signed phase authority or OS role enforcement.
+
+ADR-0054 adds a qualification-only session object for one private anonymous
+probe mapping across those two graphs. The mapping is prepared once, remains
+byte- and address-identical through H0, the sealed wait, H1, and restoration
+readback, and is released only after completion/failure. The state machine
+binds exact profile hashes, verified LLC/page inputs, CPU/node, distinct peer
+credentials, authorization/evidence hashes, complete H0/H1 values, and an
+explicit expiry. It retains partial transitions and a terminal failure; it
+never edits sealed Q15-R evidence.
+
+ADR-0055 keeps real Linux acquisition behind narrow fixed interfaces: raw PMU,
+singleton CPU, private target-node memory, exhaustive page residency,
+per-thread faults, and raw diagnostic time. The only PMU-enabled functions are
+allocation-free enable → one accepted traversal → disable regions. ADR-0056
+places seven separate observation-derived collectors in a qualification-only
+library linked into `cpu_prefetch_q15_tool`. Canonical evidence crosses the
+controller boundary as one bounded U32BE-length-prefixed JCS-I64 frame; durable
+append-only custody remains external. None of these components is linked into
+or authorizes the scientific measurement runner.
+
+ADR-0062 places `Q15-R-TRUST-ANCHOR-ADAPTER-v1` immediately before the fixed
+Q15-R controller admission seam. It has three fixed inherited inputs only:
+authorization core FD 3, detached-signature FD 4, and canonical independent-
+verification-receipt FD 5. It validates bounds, snapshot properties, hashes,
+the auditor/allowed-signers/signer/SSHSIG identities, and clean release binding.
+It has no trust-anchor path read, private key, shell, setuid, network, ambient
+root, selector, or real stand backend. The current CLI remains no-authority;
+Q15-R-P3 selects the clean release as evidence only. OS descriptor
+construction, authorization decoding, role enforcement, and signed phase
+authority remain later external gates.
 
 ## Failure and compatibility model
 

@@ -5,6 +5,7 @@
 
 #include <atomic>
 #include <cstddef>
+#include <span>
 
 namespace cpu_prefetch::queue {
 
@@ -15,9 +16,28 @@ struct RingQuiescentAudit final {
   bool positions_in_range;
 };
 
+struct RingStorageView final {
+  std::span<std::byte> slots;
+  std::span<std::byte> cursors;
+};
+
+struct RingStorageRequirements final {
+  std::size_t slot_bytes;
+  std::size_t cursor_bytes;
+};
+
 class RingSpscQueue final {
 public:
+  [[nodiscard]] static auto storage_requirements(QueueCapacity capacity,
+                                                 CacheLineBytes cache_line_bytes)
+      -> RingStorageRequirements;
   RingSpscQueue(QueueCapacity capacity, CacheLineBytes cache_line_bytes);
+  // Caller-owned raw storage, prepared before construction. Its lifetime must
+  // enclose this queue's lifetime. The queue destroys objects but never frees
+  // these regions. Sizes are exact logical storage sizes, excluding any
+  // caller-owned mapping/page padding.
+  RingSpscQueue(QueueCapacity capacity, CacheLineBytes cache_line_bytes,
+                RingStorageView storage);
   ~RingSpscQueue();
 
   RingSpscQueue(const RingSpscQueue&) = delete;
@@ -94,9 +114,32 @@ public:
   }
 
   [[nodiscard]] std::size_t capacity() const noexcept { return capacity_; }
+  // Diagnostic-only composition of the existing acquire and event boundaries.
+  template <typename DemandObserver, typename BoundaryObserver>
+  [[nodiscard]] auto try_enqueue_with_demand_and_boundary_observers(
+      EventPointer event, DemandObserver& demand, BoundaryObserver& boundary) noexcept
+      -> BoundaryEnqueueResult {
+    struct NoopPhase final {
+      void before_slot_publication() const noexcept {}
+    } phase;
+    return try_enqueue_observed(event, phase, boundary, demand);
+  }
+  template <typename DemandObserver, typename BoundaryObserver>
+  [[nodiscard]] auto
+  try_dequeue_with_demand_and_boundary_observers(DemandObserver& demand,
+                                                 BoundaryObserver& boundary) noexcept
+      -> BoundaryDequeueResult {
+    struct NoopPhase final {
+      void before_slot_reuse_release() const noexcept {}
+    } phase;
+    return try_dequeue_observed(phase, boundary, demand);
+  }
   [[nodiscard]] AtomicLockFreeEvidence atomic_lock_free_evidence() const noexcept;
   [[nodiscard]] LayoutEvidence layout_evidence() const noexcept;
   [[nodiscard]] RingQuiescentAudit audit_quiescent() const noexcept;
+  // Controller-only warm-up reset.  It is valid only after a complete drain;
+  // no allocation, remapping, or queue operation may overlap this call.
+  [[nodiscard]] bool reset_quiescent() noexcept;
   [[nodiscard]] const void*
   producer_slot_target(std::size_t distance_slots) const noexcept {
     return &slots_[position_at_distance(producer_->position,
@@ -112,6 +155,8 @@ public:
 
 private:
   friend struct testing::QueuePhaseTestAccess;
+
+  void initialize_storage(RingStorageView storage);
 
   template <typename Observer>
   [[nodiscard]] EnqueueResult try_enqueue_observed(EventPointer event,

@@ -1,0 +1,6 @@
+test_scoped_data_cannot_authorize_pilot_inputs (test_stage17_descriptive_admission_v1.AdmissionTests.test_scoped_data_cannot_authorize_pilot_inputs) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.079s
+
+OK

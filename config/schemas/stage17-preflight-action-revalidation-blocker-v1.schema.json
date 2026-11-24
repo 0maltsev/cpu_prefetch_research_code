@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:preflight-action-revalidation-blocker:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "blocker_id", "recorded_at_utc", "actor", "source_transaction_id", "source_revision", "source_journal", "source_authorization", "source_resolution", "source_transition", "source_preflight_output_root", "failure_stage", "failure_category", "inherited_schema_lookup_path", "current_policy_schema_path", "attempt_marker_absent", "transport_started", "stand_observations_started", "retry_performed", "replacement_transaction_required", "successor_authority", "stage18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-preflight-action-revalidation-blocker/1"},
+    "blocker_id": {"type": "string", "minLength": 1},
+    "recorded_at_utc": {"$ref": "#/$defs/exact_second_utc"},
+    "actor": {"type": "string", "minLength": 1},
+    "source_transaction_id": {"type": "string", "minLength": 1},
+    "source_revision": {"const": "327fc387a0fa792dea4a26043d2fbaa1ad10a54f"},
+    "source_journal": {"$ref": "#/$defs/external_binding"},
+    "source_authorization": {"$ref": "#/$defs/external_binding"},
+    "source_resolution": {"$ref": "#/$defs/external_binding"},
+    "source_transition": {"$ref": "#/$defs/external_binding"},
+    "source_preflight_output_root": {"type": "string", "pattern": "^/"},
+    "failure_stage": {"const": "PRE_MARKER_ACTION_REVALIDATION"},
+    "failure_category": {"const": "CURRENT_RECEIPT_SCHEMA_BINDING_KEY_MISMATCH"},
+    "inherited_schema_lookup_path": {"const": "config/schemas/stage17-read-only-preflight-observation-receipt-v5.schema.json"},
+    "current_policy_schema_path": {"const": "config/schemas/stage17-read-only-preflight-observation-receipt-v6.schema.json"},
+    "attempt_marker_absent": {"const": true},
+    "transport_started": {"const": false},
+    "stand_observations_started": {"const": false},
+    "retry_performed": {"const": false},
+    "replacement_transaction_required": {"const": true},
+    "successor_authority": {"const": false},
+    "stage18_authority": {"const": false}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "exact_second_utc": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "external_binding": {"type": "object", "additionalProperties": false, "required": ["locator", "size_bytes", "sha256"], "properties": {"locator": {"type": "string", "pattern": "^/"}, "size_bytes": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/$defs/sha256"}}}
+  }
+}

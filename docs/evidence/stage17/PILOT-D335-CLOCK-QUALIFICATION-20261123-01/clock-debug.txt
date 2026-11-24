@@ -1,0 +1,30 @@
+......F.....E......
+======================================================================
+ERROR: test_image_change_after_binding_is_rejected_by_sealed_snapshot (__main__.ClockTests.test_image_change_after_binding_is_rejected_by_sealed_snapshot)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_clock_qualification_v1.py", line 187, in test_image_change_after_binding_is_rejected_by_sealed_snapshot
+    clock.qualify_clocks(environment_owner=self.owner,clock_image=image,deadline_ns=time.monotonic_ns()+300*10**9)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_clock_qualification_v1.py", line 244, in qualify_clocks
+    result,raw=_capture(owner=environment_owner,image=clock_image,pair=pair,deadline=deadline_ns,window=window)
+               ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_clock_qualification_v1.py", line 118, in _capture
+    executable=runtime._pin_image(image,end,stack)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_runtime_v1.py", line 333, in _pin_image
+    raise RuntimeError("pinned executable hash/identity differs")
+stage17_formal_archive_runtime_v1.RuntimeError: pinned executable hash/identity differs
+
+======================================================================
+FAIL: test_deadline_cannot_extend_accepted_budget_or_window (__main__.ClockTests.test_deadline_cannot_extend_accepted_budget_or_window)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_clock_qualification_v1.py", line 148, in test_deadline_cannot_extend_accepted_budget_or_window
+    with self.assertRaisesRegex(clock.ClockError,'qualification budget'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ClockError not raised
+
+----------------------------------------------------------------------
+Ran 19 tests in 95.027s
+
+FAILED (failures=1, errors=1)

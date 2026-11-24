@@ -1,0 +1,34 @@
+{
+  "artifacts": [
+    {
+      "file_name": "original-diagnostics.txt",
+      "sha256": "2663954ef2d7bf67eea016e03a61acdac4fae728fbcc0f71995cc9fea7ff1fd4",
+      "size_bytes": 4256
+    },
+    {
+      "file_name": "native-regression-tests.txt",
+      "sha256": "f0ca9a2eca1aa454d893faf114de73c64e1ab3a3f924ebc42ac4e46c6699141a",
+      "size_bytes": 9173
+    },
+    {
+      "file_name": "policy-handoff-tests.txt",
+      "sha256": "8502fe6f5277da6e7c56ff304d3deb246fa0458701bd5d00099a107aa486ce6f",
+      "size_bytes": 3007
+    }
+  ],
+  "corrected_source": "src/runner/stage17_formal_family.cpp",
+  "corrected_source_sha256": "773b3e80fdf1eda96f22778884b2057fe34a06ae52593c85ea4c78e8d91e93bc",
+  "diagnostics": 3,
+  "execution_authority": false,
+  "fresh_candidate": "PENDING",
+  "full_static_analysis": "RUNNING_NOT_CREDITED",
+  "native_regression_tests_passed": 48,
+  "new_execution_window_started": false,
+  "phase18_authority": false,
+  "policy_handoff_tests_passed": 16,
+  "qualification_started": false,
+  "schema_version": "cpu-prefetch-stage17-d288-static-width-correction/1",
+  "scientific_values_changed": false,
+  "superseded_preview_source": "486f7b70a801bbce66222d839f68df1e4c0ff273",
+  "targeted_static_analysis": "TWO_FILES_PASS_THIRD_RUNNING_NOT_CREDITED"
+}

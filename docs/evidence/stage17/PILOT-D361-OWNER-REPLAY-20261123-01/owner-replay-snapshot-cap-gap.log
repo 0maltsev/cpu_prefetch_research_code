@@ -1,0 +1,34 @@
+E
+======================================================================
+ERROR: test_legacy_snapshot_file_limit_is_separate_from_small_report_limit (__main__.ReplayTests.test_legacy_snapshot_file_limit_is_separate_from_small_report_limit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_owner_replay_v1.py", line 178, in _run
+    require(cleanup.returncode==0 and cleanup.leader_reaped and cleanup.process_group_gone
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        and not cleanup.descendants_detected_after_leader_exit and not cleanup.cleanup_deadline_overrun
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        and not cleanup.leader_wait_timed_out,'original-reader failure or abnormal cleanup')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_owner_replay_v1.py", line 43, in require
+    if not ok:raise archive.ArchiveError('S180 owner replay: '+message)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_formal_archive_v1.ArchiveError: S180 owner replay: original-reader failure or abnormal cleanup
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_owner_replay_v1.py", line 56, in test_legacy_snapshot_file_limit_is_separate_from_small_report_limit
+    value,proof=self.run_reader(snapshot)
+                ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_owner_replay_v1.py", line 33, in run_reader
+    result=replay._run({},time.monotonic_ns()+int(seconds*10**9),uid=0,gid=0)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_owner_replay_v1.py", line 201, in _run
+    error=archive.ArchiveError('owned original replay failed: '+str(failure));error.report=report;raise error from failure
+                                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_formal_archive_v1.ArchiveError: owned original replay failed: S180 owner replay: original-reader failure or abnormal cleanup
+
+----------------------------------------------------------------------
+Ran 1 test in 0.063s
+
+FAILED (errors=1)

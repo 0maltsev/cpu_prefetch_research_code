@@ -1,0 +1,345 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/cpu-prefetch/2.0.0-pre.3/run-manifest.schema.json",
+  "title": "Lifecycle-aware stage run manifest",
+  "description": "Planned and failed runs retain planned provenance, schedules, and seeds without fabricating raw artifacts. Artifact existence is conditional on lifecycle and join status. Cross-field count arithmetic, timestamp equations, referenced-hash resolution, and replacement eligibility require semantic validation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "protocol_version", "run_id", "platform_id", "build_id",
+    "within_cell_ordinal", "queue_provenance_id", "provenance", "stage", "run_mode",
+    "lifecycle_state", "block_id", "block_role", "package", "requested_hardware_state",
+    "verified_hardware_state", "placement", "working_set_class", "load_level",
+    "capacity_events", "time_unit", "warmup_regime", "warmup_duration_ticks",
+    "warmup_freeze_ref", "schedule_refs", "seed_refs", "validity",
+    "count_reconciliation", "zero_loss_status", "effective_tail_status",
+    "confirmatory_estimability", "confirmatory_blockers", "block_completeness", "join_status",
+    "failure_record_ids", "artifact_refs", "manifest_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "2.0.0-pre.3"},
+    "protocol_version": {"const": "2.0.0-pre.3"},
+    "run_id": {"type": "string", "minLength": 1},
+    "platform_id": {"type": "string", "minLength": 1},
+    "build_id": {"type": "string", "minLength": 1},
+    "within_cell_ordinal": {"type": "integer", "minimum": 0},
+    "queue_provenance_id": {"type": "string", "minLength": 1},
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["paper_repository_revision", "implementation_repository_revision", "build_artifact_sha256", "compiler_identity", "compiler_flags", "standard_library", "dependency_record_id"],
+      "properties": {
+        "paper_repository_revision": {"type": "string", "minLength": 1},
+        "implementation_repository_revision": {"type": "string", "minLength": 1},
+        "build_artifact_sha256": {"$ref": "#/$defs/sha256"},
+        "compiler_identity": {"type": "string", "minLength": 1},
+        "compiler_flags": {"type": "array", "items": {"type": "string"}},
+        "standard_library": {"type": "string", "minLength": 1},
+        "dependency_record_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "stage": {"enum": ["CALIBRATION", "PILOT", "STAGE_A", "STAGE_B", "STAGE_C", "DIAGNOSTIC"]},
+    "run_mode": {"enum": ["LATENCY", "SERVICE_RATE_CALIBRATION", "D2_CALIBRATION", "COUNTER_DIAGNOSTIC", "EXPLORATORY"]},
+    "lifecycle_state": {"enum": ["PLANNED", "PRE_RUN_FAILURE", "WARMUP_FAILURE", "RESET_FAILURE", "MEASUREMENT_STARTED", "MEASUREMENT_FAILURE", "DRAIN_FAILURE", "COMPLETED"]},
+    "block_id": {"type": "string", "minLength": 1},
+    "block_role": {"enum": ["H3_TRAIN", "H3_VALIDATION", "H1H2_SUPPLEMENTAL", "NOT_APPLICABLE"]},
+    "package": {"enum": ["R0", "R1", "R2", "L0", "L1", "NBLFQ_MPSC", "NOT_APPLICABLE"]},
+    "requested_hardware_state": {"enum": ["H0", "H1", "NOT_APPLICABLE"]},
+    "verified_hardware_state": {"enum": ["VERIFIED_DEFAULT", "VERIFIED_CHANGED", "VERIFICATION_FAILED", "UNKNOWN", "NOT_APPLICABLE"]},
+    "placement": {"enum": ["NEAR", "FAR", "STAGE_C_OTHER", "NOT_APPLICABLE"]},
+    "working_set_class": {"enum": ["L2_RESIDENT", "LLC_RESIDENT", "BEYOND_LLC", "NOT_APPLICABLE"]},
+    "load_level": {"enum": ["L025", "L050", "L075", "CALIBRATION_READY", "STAGE_C_OTHER", "NOT_APPLICABLE"]},
+    "capacity_events": {"type": "integer", "minimum": 1},
+    "time_unit": {"type": "string", "minLength": 1},
+    "warmup_regime": {"enum": ["PRE_FREEZE_BOOTSTRAP", "FROZEN_LATER_WARMUP"]},
+    "warmup_duration_ticks": {"type": "integer", "minimum": 1},
+    "warmup_freeze_ref": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/$defs/artifact_ref"}
+      ]
+    },
+    "schedule_refs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["measurement", "warmup"],
+      "properties": {
+        "measurement": {"$ref": "#/$defs/artifact_ref"},
+        "warmup": {"$ref": "#/$defs/artifact_ref"}
+      }
+    },
+    "seed_refs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["arrival", "node_order", "event_order", "warmup", "derivation_record_id"],
+      "properties": {
+        "arrival": {"type": "string", "minLength": 1},
+        "node_order": {"type": ["string", "null"]},
+        "event_order": {"type": "string", "minLength": 1},
+        "warmup": {"type": "string", "minLength": 1},
+        "derivation_record_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "validity": {"enum": ["NOT_EVALUATED", "VALID", "INVALID"]},
+    "count_reconciliation": {"enum": ["NOT_EVALUATED", "PASS", "FAIL"]},
+    "zero_loss_status": {"enum": ["NOT_EVALUATED", "PASS", "FAIL", "NOT_APPLICABLE"]},
+    "effective_tail_status": {"enum": ["NOT_EVALUATED", "PASS", "FAIL", "NOT_APPLICABLE"]},
+    "confirmatory_estimability": {"enum": ["NOT_EVALUATED", "ESTIMABLE", "BLOCKED_ZERO_LOSS", "BLOCKED_EFFECTIVE_TAIL", "BLOCKED_INVALID_RUN", "BLOCKED_INCOMPLETE_BLOCK", "BLOCKED_ACCESS_LEAKAGE", "BLOCKED_MULTIPLE", "NOT_APPLICABLE"]},
+    "confirmatory_blockers": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"enum": ["BLOCKED_ACCESS_LEAKAGE", "BLOCKED_EFFECTIVE_TAIL", "BLOCKED_INCOMPLETE_BLOCK", "BLOCKED_INVALID_RUN", "BLOCKED_ZERO_LOSS"]}
+    },
+    "block_completeness": {"enum": ["NOT_EVALUATED", "COMPLETE", "INCOMPLETE", "NOT_APPLICABLE"]},
+    "join_status": {"enum": ["NOT_ATTEMPTED", "FAILED", "PASSED"]},
+    "counts": {"$ref": "#/$defs/counts"},
+    "integrity_evidence": {"$ref": "#/$defs/integrity_evidence"},
+    "failure_record_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "artifact_refs": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/typed_artifact_ref"}
+    },
+    "manifest_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"warmup_regime": {"const": "PRE_FREEZE_BOOTSTRAP"}}, "required": ["warmup_regime"]},
+      "then": {
+        "properties": {
+          "stage": {"enum": ["CALIBRATION", "PILOT"]},
+          "warmup_freeze_ref": {"type": "null"}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"warmup_regime": {"const": "FROZEN_LATER_WARMUP"}}, "required": ["warmup_regime"]},
+      "then": {"properties": {"warmup_freeze_ref": {"$ref": "#/$defs/artifact_ref"}}}
+    },
+    {
+      "if": {"properties": {"confirmatory_estimability": {"enum": ["NOT_EVALUATED", "ESTIMABLE", "NOT_APPLICABLE"]}}, "required": ["confirmatory_estimability"]},
+      "then": {"properties": {"confirmatory_blockers": {"maxItems": 0}}}
+    },
+    {
+      "if": {"properties": {"confirmatory_estimability": {"const": "BLOCKED_ZERO_LOSS"}}, "required": ["confirmatory_estimability"]},
+      "then": {"properties": {"confirmatory_blockers": {"const": ["BLOCKED_ZERO_LOSS"]}}}
+    },
+    {
+      "if": {"properties": {"confirmatory_estimability": {"const": "BLOCKED_EFFECTIVE_TAIL"}}, "required": ["confirmatory_estimability"]},
+      "then": {"properties": {"confirmatory_blockers": {"const": ["BLOCKED_EFFECTIVE_TAIL"]}}}
+    },
+    {
+      "if": {"properties": {"confirmatory_estimability": {"const": "BLOCKED_INVALID_RUN"}}, "required": ["confirmatory_estimability"]},
+      "then": {"properties": {"confirmatory_blockers": {"const": ["BLOCKED_INVALID_RUN"]}}}
+    },
+    {
+      "if": {"properties": {"confirmatory_estimability": {"const": "BLOCKED_INCOMPLETE_BLOCK"}}, "required": ["confirmatory_estimability"]},
+      "then": {"properties": {"confirmatory_blockers": {"const": ["BLOCKED_INCOMPLETE_BLOCK"]}}}
+    },
+    {
+      "if": {"properties": {"confirmatory_estimability": {"const": "BLOCKED_ACCESS_LEAKAGE"}}, "required": ["confirmatory_estimability"]},
+      "then": {"properties": {"confirmatory_blockers": {"const": ["BLOCKED_ACCESS_LEAKAGE"]}}}
+    },
+    {
+      "if": {"properties": {"confirmatory_estimability": {"const": "BLOCKED_MULTIPLE"}}, "required": ["confirmatory_estimability"]},
+      "then": {"properties": {"confirmatory_blockers": {"minItems": 2}}}
+    },
+    {
+      "if": {"properties": {"stage": {"const": "STAGE_A"}}, "required": ["stage"]},
+      "then": {
+        "properties": {
+          "run_mode": {"const": "LATENCY"},
+          "block_role": {"enum": ["H3_TRAIN", "H3_VALIDATION", "H1H2_SUPPLEMENTAL"]},
+          "package": {"enum": ["R0", "R1", "R2", "L0", "L1"]},
+          "requested_hardware_state": {"enum": ["H0", "H1"]},
+          "placement": {"enum": ["NEAR", "FAR"]},
+          "working_set_class": {"enum": ["L2_RESIDENT", "LLC_RESIDENT", "BEYOND_LLC"]},
+          "load_level": {"enum": ["L025", "L050", "L075"]}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"validity": {"const": "INVALID"}}, "required": ["validity"]},
+      "then": {"properties": {"failure_record_ids": {"minItems": 1}}}
+    },
+    {
+      "if": {"properties": {"lifecycle_state": {"enum": ["PRE_RUN_FAILURE", "WARMUP_FAILURE", "RESET_FAILURE", "MEASUREMENT_FAILURE", "DRAIN_FAILURE"]}}, "required": ["lifecycle_state"]},
+      "then": {
+        "properties": {
+          "validity": {"const": "INVALID"},
+          "failure_record_ids": {"minItems": 1}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"join_status": {"const": "FAILED"}}, "required": ["join_status"]},
+      "then": {
+        "properties": {
+          "validity": {"const": "INVALID"},
+          "failure_record_ids": {"minItems": 1},
+          "artifact_refs": {
+            "allOf": [
+              {"contains": {"properties": {"relationship": {"const": "JOIN_AUDIT"}}, "required": ["relationship"]}},
+              {"not": {"contains": {"properties": {"relationship": {"const": "JOINED_DERIVED"}}, "required": ["relationship"]}}}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "stage": {"const": "STAGE_A"},
+          "lifecycle_state": {"const": "COMPLETED"},
+          "validity": {"const": "VALID"}
+        },
+        "required": ["stage", "lifecycle_state", "validity"]
+      },
+      "then": {
+        "required": ["counts", "integrity_evidence"],
+        "properties": {
+          "join_status": {"const": "PASSED"},
+          "count_reconciliation": {"const": "PASS"},
+          "counts": {"required": ["offered", "attempted", "accepted", "full", "consumed", "final_occupancy", "raw_sample_count", "n_eff_p999"]},
+          "artifact_refs": {
+            "allOf": [
+              {"contains": {"properties": {"relationship": {"const": "PRODUCER_RAW"}}, "required": ["relationship"]}},
+              {"contains": {"properties": {"relationship": {"const": "CONSUMER_RAW"}}, "required": ["relationship"]}},
+              {"contains": {"properties": {"relationship": {"const": "JOIN_AUDIT"}}, "required": ["relationship"]}},
+              {"contains": {"properties": {"relationship": {"const": "JOINED_DERIVED"}}, "required": ["relationship"]}},
+              {"contains": {"properties": {"relationship": {"const": "PHASE_INTEGRITY_REPORT"}}, "required": ["relationship"]}},
+              {"contains": {"properties": {"relationship": {"const": "PROVENANCE"}}, "required": ["relationship"]}}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "stage": {"enum": ["CALIBRATION", "PILOT"]},
+          "lifecycle_state": {"const": "COMPLETED"},
+          "validity": {"const": "VALID"}
+        },
+        "required": ["stage", "lifecycle_state", "validity"]
+      },
+      "then": {
+        "required": ["integrity_evidence"],
+        "properties": {
+          "artifact_refs": {
+            "allOf": [
+              {"contains": {"properties": {"relationship": {"const": "PHASE_INTEGRITY_REPORT"}}, "required": ["relationship"]}},
+              {"contains": {"properties": {"relationship": {"const": "PROVENANCE"}}, "required": ["relationship"]}}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "stage": {"const": "STAGE_A"},
+          "lifecycle_state": {"const": "COMPLETED"},
+          "validity": {"const": "VALID"},
+          "counts": {"properties": {"full": {"minimum": 1}}, "required": ["full"]}
+        },
+        "required": ["stage", "lifecycle_state", "validity", "counts"]
+      },
+      "then": {"properties": {"zero_loss_status": {"const": "FAIL"}}}
+    },
+    {
+      "if": {
+        "properties": {
+          "stage": {"const": "STAGE_A"},
+          "lifecycle_state": {"const": "COMPLETED"},
+          "validity": {"const": "VALID"},
+          "counts": {"properties": {"full": {"const": 0}}, "required": ["full"]}
+        },
+        "required": ["stage", "lifecycle_state", "validity", "counts"]
+      },
+      "then": {"properties": {"zero_loss_status": {"const": "PASS"}}}
+    },
+    {
+      "if": {
+        "properties": {
+          "stage": {"const": "STAGE_A"},
+          "lifecycle_state": {"const": "COMPLETED"},
+          "validity": {"const": "VALID"},
+          "counts": {"properties": {"n_eff_p999": {"type": "number", "exclusiveMaximum": 200000}}, "required": ["n_eff_p999"]}
+        },
+        "required": ["stage", "lifecycle_state", "validity", "counts"]
+      },
+      "then": {"properties": {"effective_tail_status": {"const": "FAIL"}}}
+    },
+    {
+      "if": {
+        "properties": {
+          "stage": {"const": "STAGE_A"},
+          "lifecycle_state": {"const": "COMPLETED"},
+          "validity": {"const": "VALID"},
+          "counts": {"properties": {"n_eff_p999": {"type": "number", "minimum": 200000}}, "required": ["n_eff_p999"]}
+        },
+        "required": ["stage", "lifecycle_state", "validity", "counts"]
+      },
+      "then": {"properties": {"effective_tail_status": {"const": "PASS"}}}
+    }
+  ],
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "artifact_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifact_id", "sha256"],
+      "properties": {
+        "artifact_id": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "typed_artifact_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifact_id", "relationship", "sha256"],
+      "properties": {
+        "artifact_id": {"type": "string", "minLength": 1},
+        "relationship": {"enum": ["PRODUCER_RAW", "CONSUMER_RAW", "JOIN_AUDIT", "JOINED_DERIVED", "PHASE_INTEGRITY_REPORT", "SCHEDULE", "COUNTER", "DERIVED", "PROVENANCE", "FAILURE_EVIDENCE"]},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "offered": {"type": "integer", "minimum": 0},
+        "attempted": {"type": "integer", "minimum": 0},
+        "accepted": {"type": "integer", "minimum": 0},
+        "full": {"type": "integer", "minimum": 0},
+        "consumed": {"type": "integer", "minimum": 0},
+        "final_occupancy": {"type": "integer", "minimum": 0},
+        "raw_sample_count": {"type": "integer", "minimum": 0},
+        "n_eff_p999": {"type": ["number", "null"], "minimum": 0}
+      }
+    },
+    "checksum_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm_record_id", "algorithm_version", "value_hex"],
+      "properties": {
+        "algorithm_record_id": {"type": "string", "minLength": 1},
+        "algorithm_version": {"type": "string", "minLength": 1},
+        "value_hex": {"type": "string", "pattern": "^[0-9a-f]+$"}
+      }
+    },
+    "integrity_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["report_artifact", "final_consumer_rolling_checksum", "event_records_pre_checksum", "event_records_post_checksum", "ordered_index_checksum", "address_delta_checksum"],
+      "properties": {
+        "report_artifact": {"$ref": "#/$defs/artifact_ref"},
+        "final_consumer_rolling_checksum": {"$ref": "#/$defs/checksum_evidence"},
+        "event_records_pre_checksum": {"$ref": "#/$defs/checksum_evidence"},
+        "event_records_post_checksum": {"$ref": "#/$defs/checksum_evidence"},
+        "ordered_index_checksum": {"$ref": "#/$defs/checksum_evidence"},
+        "address_delta_checksum": {"$ref": "#/$defs/checksum_evidence"}
+      }
+    }
+  }
+}

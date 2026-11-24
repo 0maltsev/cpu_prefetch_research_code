@@ -73,15 +73,19 @@ auto Sha256::hex() const -> std::string {
 
 auto parse_protocol_version(std::string_view text, std::string path)
     -> Result<ProtocolVersion> {
-  if (text == kPreviousProtocolVersion) {
+  if (text == kOldestReadableProtocolVersion) {
     return Result<ProtocolVersion>::success(ProtocolVersion::v2_0_0_pre_1);
   }
-  if (text == kProtocolVersion) {
+  if (text == kPreviousProtocolVersion) {
     return Result<ProtocolVersion>::success(ProtocolVersion::v2_0_0_pre_2);
+  }
+  if (text == kProtocolVersion) {
+    return Result<ProtocolVersion>::success(ProtocolVersion::v2_0_0_pre_3);
   }
   return Result<ProtocolVersion>::failure(
       {ErrorCategory::unsupported_version, std::move(path), "GOV-004",
-       "only protocol/schema versions 2.0.0-pre.1 and 2.0.0-pre.2 are readable; "
+       "only protocol/schema versions 2.0.0-pre.1, 2.0.0-pre.2, and "
+       "2.0.0-pre.3 are readable; "
        "no implicit migration exists"});
 }
 

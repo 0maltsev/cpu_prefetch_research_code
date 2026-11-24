@@ -1,0 +1,7 @@
+test_q15_failure_stops_before_handoff_and_administrative_renewal (__main__.Tests.test_q15_failure_stops_before_handoff_and_administrative_renewal) ... ok
+test_success_retains_native_recovery_before_administrative_renewal (__main__.Tests.test_success_retains_native_recovery_before_administrative_renewal) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.003s
+
+OK

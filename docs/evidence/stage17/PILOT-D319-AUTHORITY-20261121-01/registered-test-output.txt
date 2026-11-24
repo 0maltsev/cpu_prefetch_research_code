@@ -1,0 +1,1468 @@
+Start testing: Nov 21 23:53 MSK
+----------------------------------------------------------
+651/685 Testing: runner.formal_archive_broker_v1
+651/685 Test: runner.formal_archive_broker_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_formal_archive_broker_v1.py" "--encoder" "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_stage17_archive_encoder"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.formal_archive_broker_v1" start time: Nov 21 23:53 MSK
+Output:
+----------------------------------------------------------
+....
+----------------------------------------------------------------------
+Ran 4 tests in 8.397s
+
+OK
+<end of output>
+Test time =   8.62 sec
+----------------------------------------------------------
+Test Passed.
+"runner.formal_archive_broker_v1" end time: Nov 21 23:54 MSK
+"runner.formal_archive_broker_v1" time elapsed: 00:00:08
+----------------------------------------------------------
+
+653/685 Testing: runner.formal_archive_jobs_v1
+653/685 Test: runner.formal_archive_jobs_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_formal_archive_jobs_v1.py" "--encoder" "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_stage17_archive_encoder"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.formal_archive_jobs_v1" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 9.002s
+
+OK
+<end of output>
+Test time =   9.22 sec
+----------------------------------------------------------
+Test Passed.
+"runner.formal_archive_jobs_v1" end time: Nov 21 23:54 MSK
+"runner.formal_archive_jobs_v1" time elapsed: 00:00:09
+----------------------------------------------------------
+
+652/685 Testing: runner.s180_archive_broker_v1
+652/685 Test: runner.s180_archive_broker_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_broker_v1.py" "--encoder" "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_stage17_archive_encoder" "--channel-fixture" "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_channel_fixture"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180_archive_broker_v1" start time: Nov 21 23:53 MSK
+Output:
+----------------------------------------------------------
+.........
+----------------------------------------------------------------------
+Ran 9 tests in 24.463s
+
+OK
+<end of output>
+Test time =  24.69 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180_archive_broker_v1" end time: Nov 21 23:54 MSK
+"runner.s180_archive_broker_v1" time elapsed: 00:00:24
+----------------------------------------------------------
+
+191/685 Testing: runner.s180.S180Worker.WindowExpiryBootOutputRootAndActualParentCannotBeSubstituted
+191/685 Test: runner.s180.S180Worker.WindowExpiryBootOutputRootAndActualParentCannotBeSubstituted
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Worker.WindowExpiryBootOutputRootAndActualParentCannotBeSubstituted" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Worker.WindowExpiryBootOutputRootAndActualParentCannotBeSubstituted" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Worker.WindowExpiryBootOutputRootAndActualParentCannotBeSubstituted
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Worker
+[ RUN      ] S180Worker.WindowExpiryBootOutputRootAndActualParentCannotBeSubstituted
+[       OK ] S180Worker.WindowExpiryBootOutputRootAndActualParentCannotBeSubstituted (8209 ms)
+[----------] 1 test from S180Worker (8210 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (8210 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   8.22 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Worker.WindowExpiryBootOutputRootAndActualParentCannotBeSubstituted" end time: Nov 21 23:54 MSK
+"runner.s180.S180Worker.WindowExpiryBootOutputRootAndActualParentCannotBeSubstituted" time elapsed: 00:00:08
+----------------------------------------------------------
+
+650/685 Testing: runner.formal_archive_runtime_v1
+650/685 Test: runner.formal_archive_runtime_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_formal_archive_runtime_v1.py" "--encoder" "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_stage17_archive_encoder"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.formal_archive_runtime_v1" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+.............
+----------------------------------------------------------------------
+Ran 13 tests in 3.183s
+
+OK
+<end of output>
+Test time =   3.32 sec
+----------------------------------------------------------
+Test Passed.
+"runner.formal_archive_runtime_v1" end time: Nov 21 23:54 MSK
+"runner.formal_archive_runtime_v1" time elapsed: 00:00:03
+----------------------------------------------------------
+
+190/685 Testing: runner.s180.S180Worker.ImmutableRequestAndExactRuntimeScopeAreRequiredBeforeAnyOutput
+190/685 Test: runner.s180.S180Worker.ImmutableRequestAndExactRuntimeScopeAreRequiredBeforeAnyOutput
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Worker.ImmutableRequestAndExactRuntimeScopeAreRequiredBeforeAnyOutput" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Worker.ImmutableRequestAndExactRuntimeScopeAreRequiredBeforeAnyOutput" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Worker.ImmutableRequestAndExactRuntimeScopeAreRequiredBeforeAnyOutput
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Worker
+[ RUN      ] S180Worker.ImmutableRequestAndExactRuntimeScopeAreRequiredBeforeAnyOutput
+[       OK ] S180Worker.ImmutableRequestAndExactRuntimeScopeAreRequiredBeforeAnyOutput (7386 ms)
+[----------] 1 test from S180Worker (7386 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (7386 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   7.39 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Worker.ImmutableRequestAndExactRuntimeScopeAreRequiredBeforeAnyOutput" end time: Nov 21 23:54 MSK
+"runner.s180.S180Worker.ImmutableRequestAndExactRuntimeScopeAreRequiredBeforeAnyOutput" time elapsed: 00:00:07
+----------------------------------------------------------
+
+193/685 Testing: runner.s180.S180Worker.RealWorkerSinkChecksDurableCustodyBytesBeforeReturningFromAck
+193/685 Test: runner.s180.S180Worker.RealWorkerSinkChecksDurableCustodyBytesBeforeReturningFromAck
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Worker.RealWorkerSinkChecksDurableCustodyBytesBeforeReturningFromAck" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Worker.RealWorkerSinkChecksDurableCustodyBytesBeforeReturningFromAck" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Worker.RealWorkerSinkChecksDurableCustodyBytesBeforeReturningFromAck
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Worker
+[ RUN      ] S180Worker.RealWorkerSinkChecksDurableCustodyBytesBeforeReturningFromAck
+[       OK ] S180Worker.RealWorkerSinkChecksDurableCustodyBytesBeforeReturningFromAck (2766 ms)
+[----------] 1 test from S180Worker (2767 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (2767 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   2.77 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Worker.RealWorkerSinkChecksDurableCustodyBytesBeforeReturningFromAck" end time: Nov 21 23:54 MSK
+"runner.s180.S180Worker.RealWorkerSinkChecksDurableCustodyBytesBeforeReturningFromAck" time elapsed: 00:00:02
+----------------------------------------------------------
+
+192/685 Testing: runner.s180.S180Worker.EntryMarkerCannotBeReplayedOrBorrowNativeOutputReservation
+192/685 Test: runner.s180.S180Worker.EntryMarkerCannotBeReplayedOrBorrowNativeOutputReservation
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Worker.EntryMarkerCannotBeReplayedOrBorrowNativeOutputReservation" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Worker.EntryMarkerCannotBeReplayedOrBorrowNativeOutputReservation" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Worker.EntryMarkerCannotBeReplayedOrBorrowNativeOutputReservation
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Worker
+[ RUN      ] S180Worker.EntryMarkerCannotBeReplayedOrBorrowNativeOutputReservation
+[       OK ] S180Worker.EntryMarkerCannotBeReplayedOrBorrowNativeOutputReservation (2473 ms)
+[----------] 1 test from S180Worker (2473 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (2473 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   2.48 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Worker.EntryMarkerCannotBeReplayedOrBorrowNativeOutputReservation" end time: Nov 21 23:54 MSK
+"runner.s180.S180Worker.EntryMarkerCannotBeReplayedOrBorrowNativeOutputReservation" time elapsed: 00:00:02
+----------------------------------------------------------
+
+663/685 Testing: runner.s180_plan_prepare_v1
+663/685 Test: runner.s180_plan_prepare_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_plan_prepare_v1.py" "--worker" "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_runner"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180_plan_prepare_v1" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+...
+----------------------------------------------------------------------
+Ran 3 tests in 2.507s
+
+OK
+<end of output>
+Test time =   2.61 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180_plan_prepare_v1" end time: Nov 21 23:54 MSK
+"runner.s180_plan_prepare_v1" time elapsed: 00:00:02
+----------------------------------------------------------
+
+188/685 Testing: runner.s180.S180Worker.ActualSealedFdEntryReachesOnlyTheSeparatelyLinkedSoftwareBackend
+188/685 Test: runner.s180.S180Worker.ActualSealedFdEntryReachesOnlyTheSeparatelyLinkedSoftwareBackend
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Worker.ActualSealedFdEntryReachesOnlyTheSeparatelyLinkedSoftwareBackend" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Worker.ActualSealedFdEntryReachesOnlyTheSeparatelyLinkedSoftwareBackend" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Worker.ActualSealedFdEntryReachesOnlyTheSeparatelyLinkedSoftwareBackend
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Worker
+[ RUN      ] S180Worker.ActualSealedFdEntryReachesOnlyTheSeparatelyLinkedSoftwareBackend
+[       OK ] S180Worker.ActualSealedFdEntryReachesOnlyTheSeparatelyLinkedSoftwareBackend (1247 ms)
+[----------] 1 test from S180Worker (1247 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (1247 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   1.25 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Worker.ActualSealedFdEntryReachesOnlyTheSeparatelyLinkedSoftwareBackend" end time: Nov 21 23:54 MSK
+"runner.s180.S180Worker.ActualSealedFdEntryReachesOnlyTheSeparatelyLinkedSoftwareBackend" time elapsed: 00:00:01
+----------------------------------------------------------
+
+183/685 Testing: runner.s180.S180Input.FrozenOrderGeometryCountsAndInlineOrUnknownFieldsReject
+183/685 Test: runner.s180.S180Input.FrozenOrderGeometryCountsAndInlineOrUnknownFieldsReject
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Input.FrozenOrderGeometryCountsAndInlineOrUnknownFieldsReject" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Input.FrozenOrderGeometryCountsAndInlineOrUnknownFieldsReject" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Input.FrozenOrderGeometryCountsAndInlineOrUnknownFieldsReject
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Input
+[ RUN      ] S180Input.FrozenOrderGeometryCountsAndInlineOrUnknownFieldsReject
+[       OK ] S180Input.FrozenOrderGeometryCountsAndInlineOrUnknownFieldsReject (1111 ms)
+[----------] 1 test from S180Input (1111 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (1111 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   1.12 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Input.FrozenOrderGeometryCountsAndInlineOrUnknownFieldsReject" end time: Nov 21 23:54 MSK
+"runner.s180.S180Input.FrozenOrderGeometryCountsAndInlineOrUnknownFieldsReject" time elapsed: 00:00:01
+----------------------------------------------------------
+
+185/685 Testing: runner.s180.S180Input.HardwareStorageOverflowAndObservationContractRejectBeforeExecution
+185/685 Test: runner.s180.S180Input.HardwareStorageOverflowAndObservationContractRejectBeforeExecution
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Input.HardwareStorageOverflowAndObservationContractRejectBeforeExecution" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Input.HardwareStorageOverflowAndObservationContractRejectBeforeExecution" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Input.HardwareStorageOverflowAndObservationContractRejectBeforeExecution
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Input
+[ RUN      ] S180Input.HardwareStorageOverflowAndObservationContractRejectBeforeExecution
+[       OK ] S180Input.HardwareStorageOverflowAndObservationContractRejectBeforeExecution (744 ms)
+[----------] 1 test from S180Input (744 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (744 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.75 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Input.HardwareStorageOverflowAndObservationContractRejectBeforeExecution" end time: Nov 21 23:54 MSK
+"runner.s180.S180Input.HardwareStorageOverflowAndObservationContractRejectBeforeExecution" time elapsed: 00:00:00
+----------------------------------------------------------
+
+184/685 Testing: runner.s180.S180Input.SourceMembershipPairedHashAndReservedPhysicalAliasesReject
+184/685 Test: runner.s180.S180Input.SourceMembershipPairedHashAndReservedPhysicalAliasesReject
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Input.SourceMembershipPairedHashAndReservedPhysicalAliasesReject" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Input.SourceMembershipPairedHashAndReservedPhysicalAliasesReject" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Input.SourceMembershipPairedHashAndReservedPhysicalAliasesReject
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Input
+[ RUN      ] S180Input.SourceMembershipPairedHashAndReservedPhysicalAliasesReject
+[       OK ] S180Input.SourceMembershipPairedHashAndReservedPhysicalAliasesReject (728 ms)
+[----------] 1 test from S180Input (728 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (728 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.73 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Input.SourceMembershipPairedHashAndReservedPhysicalAliasesReject" end time: Nov 21 23:54 MSK
+"runner.s180.S180Input.SourceMembershipPairedHashAndReservedPhysicalAliasesReject" time elapsed: 00:00:00
+----------------------------------------------------------
+
+661/685 Testing: runner.s180_archive_channel_v1
+661/685 Test: runner.s180_archive_channel_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_channel_v1.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180_archive_channel_v1" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.250s
+
+OK
+<end of output>
+Test time =   0.45 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180_archive_channel_v1" end time: Nov 21 23:54 MSK
+"runner.s180_archive_channel_v1" time elapsed: 00:00:00
+----------------------------------------------------------
+
+168/685 Testing: runner.s180.S180Session.ScientificOrderIdentitySharingAndFiniteResourceDriftRejectCold
+168/685 Test: runner.s180.S180Session.ScientificOrderIdentitySharingAndFiniteResourceDriftRejectCold
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Session.ScientificOrderIdentitySharingAndFiniteResourceDriftRejectCold" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Session.ScientificOrderIdentitySharingAndFiniteResourceDriftRejectCold" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Session.ScientificOrderIdentitySharingAndFiniteResourceDriftRejectCold
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Session
+[ RUN      ] S180Session.ScientificOrderIdentitySharingAndFiniteResourceDriftRejectCold
+[       OK ] S180Session.ScientificOrderIdentitySharingAndFiniteResourceDriftRejectCold (635 ms)
+[----------] 1 test from S180Session (635 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (635 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.64 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Session.ScientificOrderIdentitySharingAndFiniteResourceDriftRejectCold" end time: Nov 21 23:54 MSK
+"runner.s180.S180Session.ScientificOrderIdentitySharingAndFiniteResourceDriftRejectCold" time elapsed: 00:00:00
+----------------------------------------------------------
+
+570/685 Testing: runner.formal_archive_custody_v1
+570/685 Test: runner.formal_archive_custody_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_formal_archive_custody_v1.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.formal_archive_custody_v1" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+.................
+----------------------------------------------------------------------
+Ran 17 tests in 0.225s
+
+OK
+<end of output>
+Test time =   0.35 sec
+----------------------------------------------------------
+Test Passed.
+"runner.formal_archive_custody_v1" end time: Nov 21 23:54 MSK
+"runner.formal_archive_custody_v1" time elapsed: 00:00:00
+----------------------------------------------------------
+
+659/685 Testing: runner.archive_channel_v1
+659/685 Test: runner.archive_channel_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_archive_channel_v1.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.archive_channel_v1" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+......
+----------------------------------------------------------------------
+Ran 6 tests in 0.484s
+
+OK
+<end of output>
+Test time =   0.65 sec
+----------------------------------------------------------
+Test Passed.
+"runner.archive_channel_v1" end time: Nov 21 23:54 MSK
+"runner.archive_channel_v1" time elapsed: 00:00:00
+----------------------------------------------------------
+
+182/685 Testing: runner.s180.S180Input.ClosedDocumentBuildsAllNativeInputsAndOwnsBorrowedPathsAfterCopyMove
+182/685 Test: runner.s180.S180Input.ClosedDocumentBuildsAllNativeInputsAndOwnsBorrowedPathsAfterCopyMove
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Input.ClosedDocumentBuildsAllNativeInputsAndOwnsBorrowedPathsAfterCopyMove" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Input.ClosedDocumentBuildsAllNativeInputsAndOwnsBorrowedPathsAfterCopyMove" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Input.ClosedDocumentBuildsAllNativeInputsAndOwnsBorrowedPathsAfterCopyMove
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Input
+[ RUN      ] S180Input.ClosedDocumentBuildsAllNativeInputsAndOwnsBorrowedPathsAfterCopyMove
+[       OK ] S180Input.ClosedDocumentBuildsAllNativeInputsAndOwnsBorrowedPathsAfterCopyMove (302 ms)
+[----------] 1 test from S180Input (302 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (302 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.31 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Input.ClosedDocumentBuildsAllNativeInputsAndOwnsBorrowedPathsAfterCopyMove" end time: Nov 21 23:54 MSK
+"runner.s180.S180Input.ClosedDocumentBuildsAllNativeInputsAndOwnsBorrowedPathsAfterCopyMove" time elapsed: 00:00:00
+----------------------------------------------------------
+
+201/685 Testing: runner.archive_channel.Stage17ArchiveDeadline.DeletionSurvivesFormerDeadlineAndExpiredInputRejects
+201/685 Test: runner.archive_channel.Stage17ArchiveDeadline.DeletionSurvivesFormerDeadlineAndExpiredInputRejects
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_archive_channel_tests" "--gtest_filter=Stage17ArchiveDeadline.DeletionSurvivesFormerDeadlineAndExpiredInputRejects" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.archive_channel.Stage17ArchiveDeadline.DeletionSurvivesFormerDeadlineAndExpiredInputRejects" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = Stage17ArchiveDeadline.DeletionSurvivesFormerDeadlineAndExpiredInputRejects
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from Stage17ArchiveDeadline
+[ RUN      ] Stage17ArchiveDeadline.DeletionSurvivesFormerDeadlineAndExpiredInputRejects
+[       OK ] Stage17ArchiveDeadline.DeletionSurvivesFormerDeadlineAndExpiredInputRejects (701 ms)
+[----------] 1 test from Stage17ArchiveDeadline (701 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (701 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.72 sec
+----------------------------------------------------------
+Test Passed.
+"runner.archive_channel.Stage17ArchiveDeadline.DeletionSurvivesFormerDeadlineAndExpiredInputRejects" end time: Nov 21 23:54 MSK
+"runner.archive_channel.Stage17ArchiveDeadline.DeletionSurvivesFormerDeadlineAndExpiredInputRejects" time elapsed: 00:00:00
+----------------------------------------------------------
+
+200/685 Testing: runner.archive_channel.Stage17ArchiveDeadline.BlockingReadExpiresByKernelSigkill
+200/685 Test: runner.archive_channel.Stage17ArchiveDeadline.BlockingReadExpiresByKernelSigkill
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_archive_channel_tests" "--gtest_filter=Stage17ArchiveDeadline.BlockingReadExpiresByKernelSigkill" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.archive_channel.Stage17ArchiveDeadline.BlockingReadExpiresByKernelSigkill" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = Stage17ArchiveDeadline.BlockingReadExpiresByKernelSigkill
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from Stage17ArchiveDeadline
+[ RUN      ] Stage17ArchiveDeadline.BlockingReadExpiresByKernelSigkill
+[       OK ] Stage17ArchiveDeadline.BlockingReadExpiresByKernelSigkill (502 ms)
+[----------] 1 test from Stage17ArchiveDeadline (502 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (502 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.51 sec
+----------------------------------------------------------
+Test Passed.
+"runner.archive_channel.Stage17ArchiveDeadline.BlockingReadExpiresByKernelSigkill" end time: Nov 21 23:54 MSK
+"runner.archive_channel.Stage17ArchiveDeadline.BlockingReadExpiresByKernelSigkill" time elapsed: 00:00:00
+----------------------------------------------------------
+
+177/685 Testing: runner.s180.S180Session.CompleteBudgetIncludesTransitionAndFinalReportReservation
+177/685 Test: runner.s180.S180Session.CompleteBudgetIncludesTransitionAndFinalReportReservation
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Session.CompleteBudgetIncludesTransitionAndFinalReportReservation" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Session.CompleteBudgetIncludesTransitionAndFinalReportReservation" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Session.CompleteBudgetIncludesTransitionAndFinalReportReservation
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Session
+[ RUN      ] S180Session.CompleteBudgetIncludesTransitionAndFinalReportReservation
+[       OK ] S180Session.CompleteBudgetIncludesTransitionAndFinalReportReservation (290 ms)
+[----------] 1 test from S180Session (290 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (290 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.30 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Session.CompleteBudgetIncludesTransitionAndFinalReportReservation" end time: Nov 21 23:54 MSK
+"runner.s180.S180Session.CompleteBudgetIncludesTransitionAndFinalReportReservation" time elapsed: 00:00:00
+----------------------------------------------------------
+
+656/685 Testing: runner.formal_checkpoint_v1
+656/685 Test: runner.formal_checkpoint_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_formal_checkpoint_v1.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.formal_checkpoint_v1" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+........
+----------------------------------------------------------------------
+Ran 8 tests in 0.064s
+
+OK
+<end of output>
+Test time =   0.26 sec
+----------------------------------------------------------
+Test Passed.
+"runner.formal_checkpoint_v1" end time: Nov 21 23:54 MSK
+"runner.formal_checkpoint_v1" time elapsed: 00:00:00
+----------------------------------------------------------
+
+171/685 Testing: runner.s180.S180Session.PreparationMarkerEnterAndRecoveryFailuresCannotAdvance
+171/685 Test: runner.s180.S180Session.PreparationMarkerEnterAndRecoveryFailuresCannotAdvance
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Session.PreparationMarkerEnterAndRecoveryFailuresCannotAdvance" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Session.PreparationMarkerEnterAndRecoveryFailuresCannotAdvance" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Session.PreparationMarkerEnterAndRecoveryFailuresCannotAdvance
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Session
+[ RUN      ] S180Session.PreparationMarkerEnterAndRecoveryFailuresCannotAdvance
+[       OK ] S180Session.PreparationMarkerEnterAndRecoveryFailuresCannotAdvance (281 ms)
+[----------] 1 test from S180Session (281 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (281 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.29 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Session.PreparationMarkerEnterAndRecoveryFailuresCannotAdvance" end time: Nov 21 23:54 MSK
+"runner.s180.S180Session.PreparationMarkerEnterAndRecoveryFailuresCannotAdvance" time elapsed: 00:00:00
+----------------------------------------------------------
+
+186/685 Testing: runner.s180.S180Input.PureFamilySizingRequiresNoSourcesAndCannotBecomeAnExecutionTicket
+186/685 Test: runner.s180.S180Input.PureFamilySizingRequiresNoSourcesAndCannotBecomeAnExecutionTicket
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Input.PureFamilySizingRequiresNoSourcesAndCannotBecomeAnExecutionTicket" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Input.PureFamilySizingRequiresNoSourcesAndCannotBecomeAnExecutionTicket" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Input.PureFamilySizingRequiresNoSourcesAndCannotBecomeAnExecutionTicket
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Input
+[ RUN      ] S180Input.PureFamilySizingRequiresNoSourcesAndCannotBecomeAnExecutionTicket
+[       OK ] S180Input.PureFamilySizingRequiresNoSourcesAndCannotBecomeAnExecutionTicket (363 ms)
+[----------] 1 test from S180Input (363 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (363 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.37 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Input.PureFamilySizingRequiresNoSourcesAndCannotBecomeAnExecutionTicket" end time: Nov 21 23:54 MSK
+"runner.s180.S180Input.PureFamilySizingRequiresNoSourcesAndCannotBecomeAnExecutionTicket" time elapsed: 00:00:00
+----------------------------------------------------------
+
+187/685 Testing: runner.s180.S180Input.RegisteredR1DistanceIsUncalibratedAndR2BindsTheAcceptedFreeze
+187/685 Test: runner.s180.S180Input.RegisteredR1DistanceIsUncalibratedAndR2BindsTheAcceptedFreeze
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Input.RegisteredR1DistanceIsUncalibratedAndR2BindsTheAcceptedFreeze" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Input.RegisteredR1DistanceIsUncalibratedAndR2BindsTheAcceptedFreeze" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Input.RegisteredR1DistanceIsUncalibratedAndR2BindsTheAcceptedFreeze
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Input
+[ RUN      ] S180Input.RegisteredR1DistanceIsUncalibratedAndR2BindsTheAcceptedFreeze
+[       OK ] S180Input.RegisteredR1DistanceIsUncalibratedAndR2BindsTheAcceptedFreeze (355 ms)
+[----------] 1 test from S180Input (355 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (355 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.36 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Input.RegisteredR1DistanceIsUncalibratedAndR2BindsTheAcceptedFreeze" end time: Nov 21 23:54 MSK
+"runner.s180.S180Input.RegisteredR1DistanceIsUncalibratedAndR2BindsTheAcceptedFreeze" time elapsed: 00:00:00
+----------------------------------------------------------
+
+172/685 Testing: runner.s180.S180Session.ExpiredOrResetWindowAndExpiryDuringMarkerBlockCapture
+172/685 Test: runner.s180.S180Session.ExpiredOrResetWindowAndExpiryDuringMarkerBlockCapture
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Session.ExpiredOrResetWindowAndExpiryDuringMarkerBlockCapture" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Session.ExpiredOrResetWindowAndExpiryDuringMarkerBlockCapture" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Session.ExpiredOrResetWindowAndExpiryDuringMarkerBlockCapture
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Session
+[ RUN      ] S180Session.ExpiredOrResetWindowAndExpiryDuringMarkerBlockCapture
+[       OK ] S180Session.ExpiredOrResetWindowAndExpiryDuringMarkerBlockCapture (236 ms)
+[----------] 1 test from S180Session (236 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (236 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.24 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Session.ExpiredOrResetWindowAndExpiryDuringMarkerBlockCapture" end time: Nov 21 23:54 MSK
+"runner.s180.S180Session.ExpiredOrResetWindowAndExpiryDuringMarkerBlockCapture" time elapsed: 00:00:00
+----------------------------------------------------------
+
+174/685 Testing: runner.s180.S180Session.RegressedClockAndSourceDeadlineCannotReachHardware
+174/685 Test: runner.s180.S180Session.RegressedClockAndSourceDeadlineCannotReachHardware
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Session.RegressedClockAndSourceDeadlineCannotReachHardware" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Session.RegressedClockAndSourceDeadlineCannotReachHardware" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Session.RegressedClockAndSourceDeadlineCannotReachHardware
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Session
+[ RUN      ] S180Session.RegressedClockAndSourceDeadlineCannotReachHardware
+[       OK ] S180Session.RegressedClockAndSourceDeadlineCannotReachHardware (202 ms)
+[----------] 1 test from S180Session (202 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (202 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.21 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Session.RegressedClockAndSourceDeadlineCannotReachHardware" end time: Nov 21 23:54 MSK
+"runner.s180.S180Session.RegressedClockAndSourceDeadlineCannotReachHardware" time elapsed: 00:00:00
+----------------------------------------------------------
+
+660/685 Testing: runner.s180_checkpoint_v1
+660/685 Test: runner.s180_checkpoint_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_checkpoint_v1.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180_checkpoint_v1" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.003s
+
+OK
+<end of output>
+Test time =   0.20 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180_checkpoint_v1" end time: Nov 21 23:54 MSK
+"runner.s180_checkpoint_v1" time elapsed: 00:00:00
+----------------------------------------------------------
+
+170/685 Testing: runner.s180.S180Session.FirstCaptureOrArchiveFailureStopsAndPreservesFailedEvidence
+170/685 Test: runner.s180.S180Session.FirstCaptureOrArchiveFailureStopsAndPreservesFailedEvidence
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Session.FirstCaptureOrArchiveFailureStopsAndPreservesFailedEvidence" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Session.FirstCaptureOrArchiveFailureStopsAndPreservesFailedEvidence" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Session.FirstCaptureOrArchiveFailureStopsAndPreservesFailedEvidence
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Session
+[ RUN      ] S180Session.FirstCaptureOrArchiveFailureStopsAndPreservesFailedEvidence
+[       OK ] S180Session.FirstCaptureOrArchiveFailureStopsAndPreservesFailedEvidence (195 ms)
+[----------] 1 test from S180Session (195 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (195 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.20 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Session.FirstCaptureOrArchiveFailureStopsAndPreservesFailedEvidence" end time: Nov 21 23:54 MSK
+"runner.s180.S180Session.FirstCaptureOrArchiveFailureStopsAndPreservesFailedEvidence" time elapsed: 00:00:00
+----------------------------------------------------------
+
+662/685 Testing: runner.s180_worker_cli
+662/685 Test: runner.s180_worker_cli
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_worker_cli.py" "--worker" "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_runner"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180_worker_cli" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.085s
+
+OK
+<end of output>
+Test time =   0.16 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180_worker_cli" end time: Nov 21 23:54 MSK
+"runner.s180_worker_cli" time elapsed: 00:00:00
+----------------------------------------------------------
+
+175/685 Testing: runner.s180.S180Session.PhysicalSourceAliasesAndReservedIdentityRejectWholeFamilyCold
+175/685 Test: runner.s180.S180Session.PhysicalSourceAliasesAndReservedIdentityRejectWholeFamilyCold
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Session.PhysicalSourceAliasesAndReservedIdentityRejectWholeFamilyCold" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Session.PhysicalSourceAliasesAndReservedIdentityRejectWholeFamilyCold" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Session.PhysicalSourceAliasesAndReservedIdentityRejectWholeFamilyCold
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Session
+[ RUN      ] S180Session.PhysicalSourceAliasesAndReservedIdentityRejectWholeFamilyCold
+[       OK ] S180Session.PhysicalSourceAliasesAndReservedIdentityRejectWholeFamilyCold (154 ms)
+[----------] 1 test from S180Session (154 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (154 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.16 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Session.PhysicalSourceAliasesAndReservedIdentityRejectWholeFamilyCold" end time: Nov 21 23:54 MSK
+"runner.s180.S180Session.PhysicalSourceAliasesAndReservedIdentityRejectWholeFamilyCold" time elapsed: 00:00:00
+----------------------------------------------------------
+
+176/685 Testing: runner.s180.S180Session.NativeEntryRejectsUnqualifiedSourceAndBrokerBeforePreparingData
+176/685 Test: runner.s180.S180Session.NativeEntryRejectsUnqualifiedSourceAndBrokerBeforePreparingData
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Session.NativeEntryRejectsUnqualifiedSourceAndBrokerBeforePreparingData" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Session.NativeEntryRejectsUnqualifiedSourceAndBrokerBeforePreparingData" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Session.NativeEntryRejectsUnqualifiedSourceAndBrokerBeforePreparingData
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Session
+[ RUN      ] S180Session.NativeEntryRejectsUnqualifiedSourceAndBrokerBeforePreparingData
+[       OK ] S180Session.NativeEntryRejectsUnqualifiedSourceAndBrokerBeforePreparingData (111 ms)
+[----------] 1 test from S180Session (111 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (111 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.12 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Session.NativeEntryRejectsUnqualifiedSourceAndBrokerBeforePreparingData" end time: Nov 21 23:54 MSK
+"runner.s180.S180Session.NativeEntryRejectsUnqualifiedSourceAndBrokerBeforePreparingData" time elapsed: 00:00:00
+----------------------------------------------------------
+
+173/685 Testing: runner.s180.S180Session.CleanupAndFinalPublicationFailureNeverBecomeComplete
+173/685 Test: runner.s180.S180Session.CleanupAndFinalPublicationFailureNeverBecomeComplete
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Session.CleanupAndFinalPublicationFailureNeverBecomeComplete" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Session.CleanupAndFinalPublicationFailureNeverBecomeComplete" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Session.CleanupAndFinalPublicationFailureNeverBecomeComplete
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Session
+[ RUN      ] S180Session.CleanupAndFinalPublicationFailureNeverBecomeComplete
+[       OK ] S180Session.CleanupAndFinalPublicationFailureNeverBecomeComplete (153 ms)
+[----------] 1 test from S180Session (153 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (153 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.16 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Session.CleanupAndFinalPublicationFailureNeverBecomeComplete" end time: Nov 21 23:54 MSK
+"runner.s180.S180Session.CleanupAndFinalPublicationFailureNeverBecomeComplete" time elapsed: 00:00:00
+----------------------------------------------------------
+
+169/685 Testing: runner.s180.S180Session.RunsExactlyOnceInFrozenWholePlotsAndReleasesOnlyAtFamilyEnd
+169/685 Test: runner.s180.S180Session.RunsExactlyOnceInFrozenWholePlotsAndReleasesOnlyAtFamilyEnd
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Session.RunsExactlyOnceInFrozenWholePlotsAndReleasesOnlyAtFamilyEnd" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Session.RunsExactlyOnceInFrozenWholePlotsAndReleasesOnlyAtFamilyEnd" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Session.RunsExactlyOnceInFrozenWholePlotsAndReleasesOnlyAtFamilyEnd
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Session
+[ RUN      ] S180Session.RunsExactlyOnceInFrozenWholePlotsAndReleasesOnlyAtFamilyEnd
+[       OK ] S180Session.RunsExactlyOnceInFrozenWholePlotsAndReleasesOnlyAtFamilyEnd (110 ms)
+[----------] 1 test from S180Session (110 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (110 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.12 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Session.RunsExactlyOnceInFrozenWholePlotsAndReleasesOnlyAtFamilyEnd" end time: Nov 21 23:54 MSK
+"runner.s180.S180Session.RunsExactlyOnceInFrozenWholePlotsAndReleasesOnlyAtFamilyEnd" time elapsed: 00:00:00
+----------------------------------------------------------
+
+167/685 Testing: runner.s180.S180Session.FrozenFullMatrixCommonSourcesAndResourceEnvelopeValidate
+167/685 Test: runner.s180.S180Session.FrozenFullMatrixCommonSourcesAndResourceEnvelopeValidate
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Session.FrozenFullMatrixCommonSourcesAndResourceEnvelopeValidate" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Session.FrozenFullMatrixCommonSourcesAndResourceEnvelopeValidate" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Session.FrozenFullMatrixCommonSourcesAndResourceEnvelopeValidate
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Session
+[ RUN      ] S180Session.FrozenFullMatrixCommonSourcesAndResourceEnvelopeValidate
+[       OK ] S180Session.FrozenFullMatrixCommonSourcesAndResourceEnvelopeValidate (111 ms)
+[----------] 1 test from S180Session (111 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (111 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.11 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Session.FrozenFullMatrixCommonSourcesAndResourceEnvelopeValidate" end time: Nov 21 23:54 MSK
+"runner.s180.S180Session.FrozenFullMatrixCommonSourcesAndResourceEnvelopeValidate" time elapsed: 00:00:00
+----------------------------------------------------------
+
+161/685 Testing: runner.s180.S180Publication.CompletedWarmupSurvivesMeasurementFailureAndSinkFailureStops
+161/685 Test: runner.s180.S180Publication.CompletedWarmupSurvivesMeasurementFailureAndSinkFailureStops
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Publication.CompletedWarmupSurvivesMeasurementFailureAndSinkFailureStops" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Publication.CompletedWarmupSurvivesMeasurementFailureAndSinkFailureStops" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Publication.CompletedWarmupSurvivesMeasurementFailureAndSinkFailureStops
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Publication
+[ RUN      ] S180Publication.CompletedWarmupSurvivesMeasurementFailureAndSinkFailureStops
+[       OK ] S180Publication.CompletedWarmupSurvivesMeasurementFailureAndSinkFailureStops (35 ms)
+[----------] 1 test from S180Publication (35 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (35 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Publication.CompletedWarmupSurvivesMeasurementFailureAndSinkFailureStops" end time: Nov 21 23:54 MSK
+"runner.s180.S180Publication.CompletedWarmupSurvivesMeasurementFailureAndSinkFailureStops" time elapsed: 00:00:00
+----------------------------------------------------------
+
+160/685 Testing: runner.s180.S180Publication.OriginalSealedSourcesFlowThroughMappedCaptureAndPublication
+160/685 Test: runner.s180.S180Publication.OriginalSealedSourcesFlowThroughMappedCaptureAndPublication
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Publication.OriginalSealedSourcesFlowThroughMappedCaptureAndPublication" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Publication.OriginalSealedSourcesFlowThroughMappedCaptureAndPublication" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Publication.OriginalSealedSourcesFlowThroughMappedCaptureAndPublication
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Publication
+[ RUN      ] S180Publication.OriginalSealedSourcesFlowThroughMappedCaptureAndPublication
+[       OK ] S180Publication.OriginalSealedSourcesFlowThroughMappedCaptureAndPublication (32 ms)
+[----------] 1 test from S180Publication (32 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (32 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Publication.OriginalSealedSourcesFlowThroughMappedCaptureAndPublication" end time: Nov 21 23:54 MSK
+"runner.s180.S180Publication.OriginalSealedSourcesFlowThroughMappedCaptureAndPublication" time elapsed: 00:00:00
+----------------------------------------------------------
+
+159/685 Testing: runner.s180.S180Sources.HashSealsMembershipInlineWindowAndDeadlineDriftReject
+159/685 Test: runner.s180.S180Sources.HashSealsMembershipInlineWindowAndDeadlineDriftReject
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Sources.HashSealsMembershipInlineWindowAndDeadlineDriftReject" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Sources.HashSealsMembershipInlineWindowAndDeadlineDriftReject" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Sources.HashSealsMembershipInlineWindowAndDeadlineDriftReject
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Sources
+[ RUN      ] S180Sources.HashSealsMembershipInlineWindowAndDeadlineDriftReject
+[       OK ] S180Sources.HashSealsMembershipInlineWindowAndDeadlineDriftReject (10 ms)
+[----------] 1 test from S180Sources (10 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (10 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Sources.HashSealsMembershipInlineWindowAndDeadlineDriftReject" end time: Nov 21 23:54 MSK
+"runner.s180.S180Sources.HashSealsMembershipInlineWindowAndDeadlineDriftReject" time elapsed: 00:00:00
+----------------------------------------------------------
+
+162/685 Testing: runner.s180.S180Publication.UnobservedPreparationIsNeverInvented
+162/685 Test: runner.s180.S180Publication.UnobservedPreparationIsNeverInvented
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Publication.UnobservedPreparationIsNeverInvented" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Publication.UnobservedPreparationIsNeverInvented" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Publication.UnobservedPreparationIsNeverInvented
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Publication
+[ RUN      ] S180Publication.UnobservedPreparationIsNeverInvented
+[       OK ] S180Publication.UnobservedPreparationIsNeverInvented (13 ms)
+[----------] 1 test from S180Publication (13 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (13 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Publication.UnobservedPreparationIsNeverInvented" end time: Nov 21 23:54 MSK
+"runner.s180.S180Publication.UnobservedPreparationIsNeverInvented" time elapsed: 00:00:00
+----------------------------------------------------------
+
+163/685 Testing: runner.s180.S180Publication.FamilyCleanupRetainsActualReleaseCallsAndUnknownContexts
+163/685 Test: runner.s180.S180Publication.FamilyCleanupRetainsActualReleaseCallsAndUnknownContexts
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Publication.FamilyCleanupRetainsActualReleaseCallsAndUnknownContexts" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Publication.FamilyCleanupRetainsActualReleaseCallsAndUnknownContexts" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Publication.FamilyCleanupRetainsActualReleaseCallsAndUnknownContexts
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Publication
+[ RUN      ] S180Publication.FamilyCleanupRetainsActualReleaseCallsAndUnknownContexts
+[       OK ] S180Publication.FamilyCleanupRetainsActualReleaseCallsAndUnknownContexts (10 ms)
+[----------] 1 test from S180Publication (10 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (10 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Publication.FamilyCleanupRetainsActualReleaseCallsAndUnknownContexts" end time: Nov 21 23:54 MSK
+"runner.s180.S180Publication.FamilyCleanupRetainsActualReleaseCallsAndUnknownContexts" time elapsed: 00:00:00
+----------------------------------------------------------
+
+157/685 Testing: runner.s180.S180Sources.AggregateRetainedAndTransientMemoryIsMandatory
+157/685 Test: runner.s180.S180Sources.AggregateRetainedAndTransientMemoryIsMandatory
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Sources.AggregateRetainedAndTransientMemoryIsMandatory" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Sources.AggregateRetainedAndTransientMemoryIsMandatory" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Sources.AggregateRetainedAndTransientMemoryIsMandatory
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Sources
+[ RUN      ] S180Sources.AggregateRetainedAndTransientMemoryIsMandatory
+[       OK ] S180Sources.AggregateRetainedAndTransientMemoryIsMandatory (10 ms)
+[----------] 1 test from S180Sources (10 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (10 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Sources.AggregateRetainedAndTransientMemoryIsMandatory" end time: Nov 21 23:54 MSK
+"runner.s180.S180Sources.AggregateRetainedAndTransientMemoryIsMandatory" time elapsed: 00:00:00
+----------------------------------------------------------
+
+156/685 Testing: runner.s180.S180Sources.ExactOriginalVectorsSurviveCopiesMovesAndBorrowedOffset
+156/685 Test: runner.s180.S180Sources.ExactOriginalVectorsSurviveCopiesMovesAndBorrowedOffset
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Sources.ExactOriginalVectorsSurviveCopiesMovesAndBorrowedOffset" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Sources.ExactOriginalVectorsSurviveCopiesMovesAndBorrowedOffset" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Sources.ExactOriginalVectorsSurviveCopiesMovesAndBorrowedOffset
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Sources
+[ RUN      ] S180Sources.ExactOriginalVectorsSurviveCopiesMovesAndBorrowedOffset
+[       OK ] S180Sources.ExactOriginalVectorsSurviveCopiesMovesAndBorrowedOffset (10 ms)
+[----------] 1 test from S180Sources (10 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (10 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Sources.ExactOriginalVectorsSurviveCopiesMovesAndBorrowedOffset" end time: Nov 21 23:54 MSK
+"runner.s180.S180Sources.ExactOriginalVectorsSurviveCopiesMovesAndBorrowedOffset" time elapsed: 00:00:00
+----------------------------------------------------------
+
+158/685 Testing: runner.s180.S180Sources.ReservedAndDuplicatedPhysicalDescriptorsReject
+158/685 Test: runner.s180.S180Sources.ReservedAndDuplicatedPhysicalDescriptorsReject
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Sources.ReservedAndDuplicatedPhysicalDescriptorsReject" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Sources.ReservedAndDuplicatedPhysicalDescriptorsReject" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Sources.ReservedAndDuplicatedPhysicalDescriptorsReject
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Sources
+[ RUN      ] S180Sources.ReservedAndDuplicatedPhysicalDescriptorsReject
+[       OK ] S180Sources.ReservedAndDuplicatedPhysicalDescriptorsReject (10 ms)
+[----------] 1 test from S180Sources (10 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (10 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Sources.ReservedAndDuplicatedPhysicalDescriptorsReject" end time: Nov 21 23:54 MSK
+"runner.s180.S180Sources.ReservedAndDuplicatedPhysicalDescriptorsReject" time elapsed: 00:00:00
+----------------------------------------------------------
+
+198/685 Testing: runner.archive_channel.Stage17ArchiveChannel.MissingReplyAndExpiredOrWrongPeerFailClosed
+198/685 Test: runner.archive_channel.Stage17ArchiveChannel.MissingReplyAndExpiredOrWrongPeerFailClosed
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_archive_channel_tests" "--gtest_filter=Stage17ArchiveChannel.MissingReplyAndExpiredOrWrongPeerFailClosed" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.archive_channel.Stage17ArchiveChannel.MissingReplyAndExpiredOrWrongPeerFailClosed" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = Stage17ArchiveChannel.MissingReplyAndExpiredOrWrongPeerFailClosed
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from Stage17ArchiveChannel
+[ RUN      ] Stage17ArchiveChannel.MissingReplyAndExpiredOrWrongPeerFailClosed
+[       OK ] Stage17ArchiveChannel.MissingReplyAndExpiredOrWrongPeerFailClosed (10 ms)
+[----------] 1 test from Stage17ArchiveChannel (10 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (10 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"runner.archive_channel.Stage17ArchiveChannel.MissingReplyAndExpiredOrWrongPeerFailClosed" end time: Nov 21 23:54 MSK
+"runner.archive_channel.Stage17ArchiveChannel.MissingReplyAndExpiredOrWrongPeerFailClosed" time elapsed: 00:00:00
+----------------------------------------------------------
+
+166/685 Testing: runner.s180.S180ProspectiveLayout.LiveViewsInvalidSourcesAndWrongOneLineEvidenceReject
+166/685 Test: runner.s180.S180ProspectiveLayout.LiveViewsInvalidSourcesAndWrongOneLineEvidenceReject
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180ProspectiveLayout.LiveViewsInvalidSourcesAndWrongOneLineEvidenceReject" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180ProspectiveLayout.LiveViewsInvalidSourcesAndWrongOneLineEvidenceReject" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180ProspectiveLayout.LiveViewsInvalidSourcesAndWrongOneLineEvidenceReject
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180ProspectiveLayout
+[ RUN      ] S180ProspectiveLayout.LiveViewsInvalidSourcesAndWrongOneLineEvidenceReject
+[       OK ] S180ProspectiveLayout.LiveViewsInvalidSourcesAndWrongOneLineEvidenceReject (10 ms)
+[----------] 1 test from S180ProspectiveLayout (10 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (10 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180ProspectiveLayout.LiveViewsInvalidSourcesAndWrongOneLineEvidenceReject" end time: Nov 21 23:54 MSK
+"runner.s180.S180ProspectiveLayout.LiveViewsInvalidSourcesAndWrongOneLineEvidenceReject" time elapsed: 00:00:00
+----------------------------------------------------------
+
+164/685 Testing: runner.s180.S180ProspectiveLayout.MatchesLiveLayoutForEveryPackageWithoutInventingAMapping
+164/685 Test: runner.s180.S180ProspectiveLayout.MatchesLiveLayoutForEveryPackageWithoutInventingAMapping
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180ProspectiveLayout.MatchesLiveLayoutForEveryPackageWithoutInventingAMapping" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180ProspectiveLayout.MatchesLiveLayoutForEveryPackageWithoutInventingAMapping" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180ProspectiveLayout.MatchesLiveLayoutForEveryPackageWithoutInventingAMapping
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180ProspectiveLayout
+[ RUN      ] S180ProspectiveLayout.MatchesLiveLayoutForEveryPackageWithoutInventingAMapping
+[       OK ] S180ProspectiveLayout.MatchesLiveLayoutForEveryPackageWithoutInventingAMapping (10 ms)
+[----------] 1 test from S180ProspectiveLayout (10 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (10 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180ProspectiveLayout.MatchesLiveLayoutForEveryPackageWithoutInventingAMapping" end time: Nov 21 23:54 MSK
+"runner.s180.S180ProspectiveLayout.MatchesLiveLayoutForEveryPackageWithoutInventingAMapping" time elapsed: 00:00:00
+----------------------------------------------------------
+
+165/685 Testing: runner.s180.S180ProspectiveLayout.HugeDeclaredCountsAreSizedWithoutAllocatingTheirArrays
+165/685 Test: runner.s180.S180ProspectiveLayout.HugeDeclaredCountsAreSizedWithoutAllocatingTheirArrays
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180ProspectiveLayout.HugeDeclaredCountsAreSizedWithoutAllocatingTheirArrays" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180ProspectiveLayout.HugeDeclaredCountsAreSizedWithoutAllocatingTheirArrays" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180ProspectiveLayout.HugeDeclaredCountsAreSizedWithoutAllocatingTheirArrays
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180ProspectiveLayout
+[ RUN      ] S180ProspectiveLayout.HugeDeclaredCountsAreSizedWithoutAllocatingTheirArrays
+[       OK ] S180ProspectiveLayout.HugeDeclaredCountsAreSizedWithoutAllocatingTheirArrays (10 ms)
+[----------] 1 test from S180ProspectiveLayout (10 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (10 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180ProspectiveLayout.HugeDeclaredCountsAreSizedWithoutAllocatingTheirArrays" end time: Nov 21 23:54 MSK
+"runner.s180.S180ProspectiveLayout.HugeDeclaredCountsAreSizedWithoutAllocatingTheirArrays" time elapsed: 00:00:00
+----------------------------------------------------------
+
+199/685 Testing: runner.archive_channel.Stage17ArchiveDeadline.KernelTimerAddsNoThreadAndRejectsSecondActiveOwner
+199/685 Test: runner.archive_channel.Stage17ArchiveDeadline.KernelTimerAddsNoThreadAndRejectsSecondActiveOwner
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_archive_channel_tests" "--gtest_filter=Stage17ArchiveDeadline.KernelTimerAddsNoThreadAndRejectsSecondActiveOwner" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.archive_channel.Stage17ArchiveDeadline.KernelTimerAddsNoThreadAndRejectsSecondActiveOwner" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = Stage17ArchiveDeadline.KernelTimerAddsNoThreadAndRejectsSecondActiveOwner
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from Stage17ArchiveDeadline
+[ RUN      ] Stage17ArchiveDeadline.KernelTimerAddsNoThreadAndRejectsSecondActiveOwner
+[       OK ] Stage17ArchiveDeadline.KernelTimerAddsNoThreadAndRejectsSecondActiveOwner (1 ms)
+[----------] 1 test from Stage17ArchiveDeadline (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"runner.archive_channel.Stage17ArchiveDeadline.KernelTimerAddsNoThreadAndRejectsSecondActiveOwner" end time: Nov 21 23:54 MSK
+"runner.archive_channel.Stage17ArchiveDeadline.KernelTimerAddsNoThreadAndRejectsSecondActiveOwner" time elapsed: 00:00:00
+----------------------------------------------------------
+
+197/685 Testing: runner.archive_channel.Stage17ArchiveChannel.RejectsTruncatedOversizedDuplicateOrUnexpectedFields
+197/685 Test: runner.archive_channel.Stage17ArchiveChannel.RejectsTruncatedOversizedDuplicateOrUnexpectedFields
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_archive_channel_tests" "--gtest_filter=Stage17ArchiveChannel.RejectsTruncatedOversizedDuplicateOrUnexpectedFields" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.archive_channel.Stage17ArchiveChannel.RejectsTruncatedOversizedDuplicateOrUnexpectedFields" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = Stage17ArchiveChannel.RejectsTruncatedOversizedDuplicateOrUnexpectedFields
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from Stage17ArchiveChannel
+[ RUN      ] Stage17ArchiveChannel.RejectsTruncatedOversizedDuplicateOrUnexpectedFields
+[       OK ] Stage17ArchiveChannel.RejectsTruncatedOversizedDuplicateOrUnexpectedFields (1 ms)
+[----------] 1 test from Stage17ArchiveChannel (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"runner.archive_channel.Stage17ArchiveChannel.RejectsTruncatedOversizedDuplicateOrUnexpectedFields" end time: Nov 21 23:54 MSK
+"runner.archive_channel.Stage17ArchiveChannel.RejectsTruncatedOversizedDuplicateOrUnexpectedFields" time elapsed: 00:00:00
+----------------------------------------------------------
+
+179/685 Testing: runner.s180.S180Channel.WrongScopeLegacyAckOrFailedEvidenceCannotContinue
+179/685 Test: runner.s180.S180Channel.WrongScopeLegacyAckOrFailedEvidenceCannotContinue
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Channel.WrongScopeLegacyAckOrFailedEvidenceCannotContinue" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Channel.WrongScopeLegacyAckOrFailedEvidenceCannotContinue" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Channel.WrongScopeLegacyAckOrFailedEvidenceCannotContinue
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Channel
+[ RUN      ] S180Channel.WrongScopeLegacyAckOrFailedEvidenceCannotContinue
+[       OK ] S180Channel.WrongScopeLegacyAckOrFailedEvidenceCannotContinue (1 ms)
+[----------] 1 test from S180Channel (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Channel.WrongScopeLegacyAckOrFailedEvidenceCannotContinue" end time: Nov 21 23:54 MSK
+"runner.s180.S180Channel.WrongScopeLegacyAckOrFailedEvidenceCannotContinue" time elapsed: 00:00:00
+----------------------------------------------------------
+
+196/685 Testing: runner.archive_channel.Stage17ArchiveChannel.RejectsWrongCaptureScopeHashStatusAndReceiptPath
+196/685 Test: runner.archive_channel.Stage17ArchiveChannel.RejectsWrongCaptureScopeHashStatusAndReceiptPath
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_archive_channel_tests" "--gtest_filter=Stage17ArchiveChannel.RejectsWrongCaptureScopeHashStatusAndReceiptPath" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.archive_channel.Stage17ArchiveChannel.RejectsWrongCaptureScopeHashStatusAndReceiptPath" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = Stage17ArchiveChannel.RejectsWrongCaptureScopeHashStatusAndReceiptPath
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from Stage17ArchiveChannel
+[ RUN      ] Stage17ArchiveChannel.RejectsWrongCaptureScopeHashStatusAndReceiptPath
+[       OK ] Stage17ArchiveChannel.RejectsWrongCaptureScopeHashStatusAndReceiptPath (1 ms)
+[----------] 1 test from Stage17ArchiveChannel (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (1 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"runner.archive_channel.Stage17ArchiveChannel.RejectsWrongCaptureScopeHashStatusAndReceiptPath" end time: Nov 21 23:54 MSK
+"runner.archive_channel.Stage17ArchiveChannel.RejectsWrongCaptureScopeHashStatusAndReceiptPath" time elapsed: 00:00:00
+----------------------------------------------------------
+
+195/685 Testing: runner.archive_channel.Stage17ArchiveChannel.BindsOriginalCheckpointBeforeAcceptingCustodyReceipt
+195/685 Test: runner.archive_channel.Stage17ArchiveChannel.BindsOriginalCheckpointBeforeAcceptingCustodyReceipt
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_archive_channel_tests" "--gtest_filter=Stage17ArchiveChannel.BindsOriginalCheckpointBeforeAcceptingCustodyReceipt" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.archive_channel.Stage17ArchiveChannel.BindsOriginalCheckpointBeforeAcceptingCustodyReceipt" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = Stage17ArchiveChannel.BindsOriginalCheckpointBeforeAcceptingCustodyReceipt
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from Stage17ArchiveChannel
+[ RUN      ] Stage17ArchiveChannel.BindsOriginalCheckpointBeforeAcceptingCustodyReceipt
+[       OK ] Stage17ArchiveChannel.BindsOriginalCheckpointBeforeAcceptingCustodyReceipt (0 ms)
+[----------] 1 test from Stage17ArchiveChannel (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"runner.archive_channel.Stage17ArchiveChannel.BindsOriginalCheckpointBeforeAcceptingCustodyReceipt" end time: Nov 21 23:54 MSK
+"runner.archive_channel.Stage17ArchiveChannel.BindsOriginalCheckpointBeforeAcceptingCustodyReceipt" time elapsed: 00:00:00
+----------------------------------------------------------
+
+181/685 Testing: runner.s180.S180Channel.InvalidBoundsOrForeignCheckpointFailBeforeExchange
+181/685 Test: runner.s180.S180Channel.InvalidBoundsOrForeignCheckpointFailBeforeExchange
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Channel.InvalidBoundsOrForeignCheckpointFailBeforeExchange" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Channel.InvalidBoundsOrForeignCheckpointFailBeforeExchange" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Channel.InvalidBoundsOrForeignCheckpointFailBeforeExchange
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Channel
+[ RUN      ] S180Channel.InvalidBoundsOrForeignCheckpointFailBeforeExchange
+[       OK ] S180Channel.InvalidBoundsOrForeignCheckpointFailBeforeExchange (0 ms)
+[----------] 1 test from S180Channel (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Channel.InvalidBoundsOrForeignCheckpointFailBeforeExchange" end time: Nov 21 23:54 MSK
+"runner.s180.S180Channel.InvalidBoundsOrForeignCheckpointFailBeforeExchange" time elapsed: 00:00:00
+----------------------------------------------------------
+
+178/685 Testing: runner.s180.S180Channel.NewWireReturnsOnlyScopedS180CustodyAndLegacyRejectsIt
+178/685 Test: runner.s180.S180Channel.NewWireReturnsOnlyScopedS180CustodyAndLegacyRejectsIt
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Channel.NewWireReturnsOnlyScopedS180CustodyAndLegacyRejectsIt" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Channel.NewWireReturnsOnlyScopedS180CustodyAndLegacyRejectsIt" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Channel.NewWireReturnsOnlyScopedS180CustodyAndLegacyRejectsIt
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Channel
+[ RUN      ] S180Channel.NewWireReturnsOnlyScopedS180CustodyAndLegacyRejectsIt
+[       OK ] S180Channel.NewWireReturnsOnlyScopedS180CustodyAndLegacyRejectsIt (0 ms)
+[----------] 1 test from S180Channel (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Channel.NewWireReturnsOnlyScopedS180CustodyAndLegacyRejectsIt" end time: Nov 21 23:54 MSK
+"runner.s180.S180Channel.NewWireReturnsOnlyScopedS180CustodyAndLegacyRejectsIt" time elapsed: 00:00:00
+----------------------------------------------------------
+
+189/685 Testing: runner.s180.S180Worker.WholeSecondEpochRoundingCannotShortenTheMonotonicWindow
+189/685 Test: runner.s180.S180Worker.WholeSecondEpochRoundingCannotShortenTheMonotonicWindow
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Worker.WholeSecondEpochRoundingCannotShortenTheMonotonicWindow" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Worker.WholeSecondEpochRoundingCannotShortenTheMonotonicWindow" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Worker.WholeSecondEpochRoundingCannotShortenTheMonotonicWindow
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Worker
+[ RUN      ] S180Worker.WholeSecondEpochRoundingCannotShortenTheMonotonicWindow
+[       OK ] S180Worker.WholeSecondEpochRoundingCannotShortenTheMonotonicWindow (0 ms)
+[----------] 1 test from S180Worker (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Worker.WholeSecondEpochRoundingCannotShortenTheMonotonicWindow" end time: Nov 21 23:54 MSK
+"runner.s180.S180Worker.WholeSecondEpochRoundingCannotShortenTheMonotonicWindow" time elapsed: 00:00:00
+----------------------------------------------------------
+
+180/685 Testing: runner.s180.S180Channel.BridgeLatchesFailureButRetainsFinalFailurePublication
+180/685 Test: runner.s180.S180Channel.BridgeLatchesFailureButRetainsFinalFailurePublication
+Command: "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_io_tests" "--gtest_filter=S180Channel.BridgeLatchesFailureButRetainsFinalFailurePublication" "--gtest_also_run_disabled_tests"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180.S180Channel.BridgeLatchesFailureButRetainsFinalFailurePublication" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+Running main() from /usr/src/debug/gtest/googletest-1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = S180Channel.BridgeLatchesFailureButRetainsFinalFailurePublication
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from S180Channel
+[ RUN      ] S180Channel.BridgeLatchesFailureButRetainsFinalFailurePublication
+[       OK ] S180Channel.BridgeLatchesFailureButRetainsFinalFailurePublication (0 ms)
+[----------] 1 test from S180Channel (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180.S180Channel.BridgeLatchesFailureButRetainsFinalFailurePublication" end time: Nov 21 23:54 MSK
+"runner.s180.S180Channel.BridgeLatchesFailureButRetainsFinalFailurePublication" time elapsed: 00:00:00
+----------------------------------------------------------
+
+664/685 Testing: runner.s180_authority_v1
+664/685 Test: runner.s180_authority_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_authority_v1.py" "--worker" "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_runner"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180_authority_v1" start time: Nov 21 23:54 MSK
+Output:
+----------------------------------------------------------
+...........
+----------------------------------------------------------------------
+Ran 11 tests in 9.015s
+
+OK
+<end of output>
+Test time =   9.20 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180_authority_v1" end time: Nov 21 23:54 MSK
+"runner.s180_authority_v1" time elapsed: 00:00:09
+----------------------------------------------------------
+
+End testing: Nov 21 23:54 MSK
+
+archive =  46.19 sec*proc
+
+pilot =  65.82 sec*proc
+
+python =  59.71 sec*proc
+
+runner =  89.48 sec*proc
+
+synthetic =  88.22 sec*proc

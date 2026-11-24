@@ -1,0 +1,56 @@
+{
+  "schema_version": "cpu-prefetch-q15-r-bootstrap-root-d093-lifecycle-policy/1",
+  "policy_id": "Q15-R-BOOTSTRAP-D093-LIFECYCLE-POLICY-20260825-01",
+  "protocol_version": "2.0.0-pre.2",
+  "decision_id": "D-093",
+  "transaction_id": "Q15-R-BOOTSTRAP-D093-20260825-01",
+  "fingerprint": "SHA256:JuRM4SuWL9C1xvOes9z+CAKZV1rvel27VZ/+qiuVNs0",
+  "status": "ACCEPTED_POLICY_ROOT_CREATED_NOT_ACTIVATED_FOR_SIGNING",
+  "current_root_state": "CREATED",
+  "allowed_states": [
+    "CREATED",
+    "ACTIVE",
+    "REVOKED",
+    "COMPROMISED",
+    "LOST",
+    "SUPERSEDED"
+  ],
+  "governance": {
+    "single_owner_authority_under_d093": true,
+    "append_only_status_records_required": true,
+    "in_place_key_or_trust_mutation_allowed": false,
+    "activation_requires_separate_exact_authorization": true,
+    "every_signing_action_requires_separate_exact_authorization": true,
+    "rotation_requires_new_key_new_transaction_and_prospective_adr": true,
+    "revocation_is_terminal_for_this_fingerprint": true,
+    "suspected_compromise_stops_all_dependent_authorizations": true,
+    "key_loss_stops_all_dependent_authorizations": true,
+    "independent_recovery_exists": false,
+    "automatic_recovery_rotation_or_continuation_allowed": false
+  },
+  "transition_contract": [
+    {"from": "CREATED", "to": "ACTIVE", "gate": "SEPARATE_ROOT_ACTIVATION_AUTHORIZATION"},
+    {"from": "CREATED", "to": "REVOKED", "gate": "OWNER_REVOCATION_RECORD"},
+    {"from": "CREATED", "to": "COMPROMISED", "gate": "OWNER_COMPROMISE_RECORD"},
+    {"from": "CREATED", "to": "LOST", "gate": "OWNER_KEY_LOSS_RECORD"},
+    {"from": "ACTIVE", "to": "REVOKED", "gate": "OWNER_REVOCATION_RECORD"},
+    {"from": "ACTIVE", "to": "COMPROMISED", "gate": "OWNER_COMPROMISE_RECORD"},
+    {"from": "ACTIVE", "to": "LOST", "gate": "OWNER_KEY_LOSS_RECORD"},
+    {"from": "ACTIVE", "to": "SUPERSEDED", "gate": "NEW_ROOT_PROSPECTIVE_ADR_AND_ACTIVATION"}
+  ],
+  "public_trust_binding": {
+    "public_root_absolute_path": "/home/omaltsev/.local/share/cpu-prefetch-q15/bootstrap-root-v1/public",
+    "allowed_signers_sha256": "6c21b0d631a3842e182bd92e0856aa5073c949f5c5a6b4a8e85b48dd2016f33d",
+    "root_public_key_sha256": "3a8d2f9eeb799a9be2af035beb00f4a6ef822fd0dad963c4eaea91344ff95527",
+    "public_receipt_sha256": "3c97bf7d6d12079ee247f823b66c4fc164258e317820c592661ecf055039cbc9"
+  },
+  "authority_boundary": {
+    "policy_recording_authorized": true,
+    "root_activation_authorized": false,
+    "root_signing_authorized": false,
+    "p4_k_a_or_p4_k_r_authorized": false,
+    "stand_or_q15_authorized": false,
+    "qualification_calibration_pilot_measurement_or_confirmatory_authorized": false
+  },
+  "supersession_rule": "Any state transition, activation, signing, revocation, compromise, loss, rotation, path, fingerprint, or trust-byte change requires a new append-only record. Prior records and public artifacts are never edited."
+}

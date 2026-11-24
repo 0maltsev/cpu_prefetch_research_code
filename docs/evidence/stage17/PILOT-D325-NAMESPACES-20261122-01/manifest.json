@@ -1,0 +1,144 @@
+{
+  "actual_scoped_admission": false,
+  "baseline_revision": "b6e96f1bb577201f49f7b8fa0f41274afdd6b6db",
+  "evidence_files": {
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/COMMANDS.md": {
+      "sha256": "0833bb1fd1cfb1bc5baec48d53408925d8367ab2b20a5dd2d0a7e3f32c4a9ffd",
+      "size_bytes": 2762
+    },
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/REPORT.md": {
+      "sha256": "59c12408fbfae0d9f6fdb2f9597f3c35b36e4a93c3779dd49748edda4a43210e",
+      "size_bytes": 6899
+    },
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/final-checks.json": {
+      "sha256": "4cf367cd7237f9b3f817fa9952b9bc131c6a444c2818e2c495f580bfa284109e",
+      "size_bytes": 1785
+    },
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/historical-plan-transfer.json": {
+      "sha256": "2e7c8cb54b904fe68dadfe1e5dbebab5fbe18caf8e8f9ede97b27593abec21aa",
+      "size_bytes": 579
+    },
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/legacy-prequalification-stdout.txt": {
+      "sha256": "37d26cfb0208d17f521f57ac7a208304b792c8c0062911d6c517a542fb764f30",
+      "size_bytes": 489
+    },
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/local-namespace-final.json": {
+      "sha256": "3f27df630ab19beff209fbd78ee7a109fd16e300f9a977f33cd8aecc8eee5ac0",
+      "size_bytes": 12353668
+    },
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/local-namespace-initial-failure.json": {
+      "sha256": "2002d65707e64869b33ed585679057f860e54fa1ccbff227c0d1b4c0be0e5f7b",
+      "size_bytes": 12353052
+    },
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/log-normalization.json": {
+      "sha256": "3efa683d61ce105d95c7fb2e310cae25a6604d330288a1503c826cea686a1901",
+      "size_bytes": 574
+    },
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/namespace-final-14-tests.txt": {
+      "sha256": "597b936e48d68eafe7f184db22e6f06867d9648e3752bbf2380100b7a0022f60",
+      "size_bytes": 113
+    },
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/namespace-first-13-tests.txt": {
+      "sha256": "f2c331ce6aa98688a6256cf9e0f0dda42d5443b96a051179aa30b5c50e1c8f56",
+      "size_bytes": 112
+    },
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/namespace-syntax-failure.txt": {
+      "sha256": "b0210ce02624ef01cbefc192897e677491a86882b9c4dbb4d0f60531455b8909",
+      "size_bytes": 308
+    },
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/pc-cleanup.json": {
+      "sha256": "b523b5b366f8004d958295f8665336418ee894210382848bd4f36c53cfb5a851",
+      "size_bytes": 1194
+    },
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/publication-metadata-check.json": {
+      "sha256": "6ffec0158ed177db26fde99364cec885543bf4c05fe9a2a5df156226252bb253",
+      "size_bytes": 1056
+    },
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/q16c-matcher-regression.txt": {
+      "sha256": "d86dc0975765fc9e2d47a84e5a4f07caed73b84e23a0a14846a31d46d2d176f4",
+      "size_bytes": 101
+    },
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/registered-details-final.txt": {
+      "sha256": "0c6f3aab2544d8bd842cc8e2a55e72ffb83c0b2f700dc7e9baa6796b17db4a09",
+      "size_bytes": 2017
+    },
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/registered-tests-final.txt": {
+      "sha256": "2c9fb57ba42f9be23fe59396cd8dba7a9f9bb7846e462ae135e6cd1a962d6f2e",
+      "size_bytes": 955
+    },
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/repository-checks.txt": {
+      "sha256": "fd53241291fa22bb26e88c46d77270ca47594e982ba4e5e1dda6de5f397eb471",
+      "size_bytes": 6563
+    },
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/source-kernel-planning-estimate.json": {
+      "sha256": "1d8b70080e418efd1275ae19b7a8a154ffdf17db8596559171899bb66b92de78",
+      "size_bytes": 1636
+    },
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/stand-generator-kernel-timing.json": {
+      "sha256": "883406119ed8e11b265ed2ecafc9d6c2e62dbd5b70564b378742671736308cab",
+      "size_bytes": 885
+    },
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/stand-namespace-preview.json": {
+      "sha256": "939a9c2d6d1c7210dfcaadbe331e8ed42b8174644dbeb85966c6a3b6fb221217",
+      "size_bytes": 22329999
+    },
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/stand-preview-auditor-source.txt": {
+      "sha256": "08a8df0080dd7e0a6ef63b0ff8de2806b6958e5671c513cfe0d947d7db461190",
+      "size_bytes": 10275
+    },
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/stand-preview-source-vs-final.diff": {
+      "sha256": "dbfed95864ef74c0aa2314733d30f46e282740c9a9e80725c0196dc9e30a4b4c",
+      "size_bytes": 1330
+    },
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/stand-program-extents.json": {
+      "sha256": "7a41f892f626f741f6b49d724907c138a248bd891bf5b5c147191b267dfa176d",
+      "size_bytes": 1918
+    },
+    "docs/evidence/stage17/PILOT-D325-NAMESPACES-20261122-01/stand-readonly-status.json": {
+      "sha256": "70ca90b258d8bc9d531d9e9bfda2a576ed7517ec2c7557577ebf745d5bfbe78f",
+      "size_bytes": 26696
+    }
+  },
+  "execution_authority": false,
+  "namespace_registration_performed": false,
+  "phase18_authority": false,
+  "source_files": {
+    "CMakeLists.txt": {
+      "sha256": "bcc2b8896193bc144db743eeb46743038e16dd39324ffc8574bd6cfa4f0e52f0",
+      "size_bytes": 193279
+    },
+    "PLAN.md": {
+      "sha256": "e138e9e7e9c53537e35c29f8916f55c7d537f47cf0274fdbae35d5d07889e8ad",
+      "size_bytes": 116572
+    },
+    "README.md": {
+      "sha256": "a94b543336fe87afa69c6a1a6002ba75b7b70f45ea1a2844fa7f24ac0511de6b",
+      "size_bytes": 124025
+    },
+    "STATUS.md": {
+      "sha256": "03754e224883c241b0a6f8adcceb44da158b38573f3dc081f520cd611847945e",
+      "size_bytes": 142942
+    },
+    "config/stage17/d310-s180-identities-v1.json": {
+      "sha256": "a45a0182454be2fb77c59852502d4815cdbdfdd94b643a51494a5a8dc59b5b96",
+      "size_bytes": 64038
+    },
+    "docs/STAGE17_PILOT_PREPARATION.md": {
+      "sha256": "c762c3a7c9dc19259959d2b9f584b696c3b791424fa74781114b214856d2be38",
+      "size_bytes": 13769
+    },
+    "docs/decisions/0325-s180-prospective-identities-and-public-history.md": {
+      "sha256": "781ffa4da951f8bf1a23726023013f630acafe4a63f7e402ffdb871dfebbf9fe",
+      "size_bytes": 6208
+    },
+    "tests/test_stage17_s180_namespace_audit_v1.py": {
+      "sha256": "b21b5edd8458bb1601e9982e6eaf8e606a435856c71949dd3e38db18b990a515",
+      "size_bytes": 10868
+    },
+    "tools/stage17_s180_namespace_audit_v1.py": {
+      "sha256": "88c8c8b2fa792488392084c128008d6aecf0fe5dad61a39ab47b7340ead5adbc",
+      "size_bytes": 11320
+    }
+  },
+  "stand_preview_qualified": false
+}

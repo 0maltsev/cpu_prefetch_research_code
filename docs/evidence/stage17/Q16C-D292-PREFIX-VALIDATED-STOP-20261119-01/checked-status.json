@@ -1,0 +1,15 @@
+{
+  "checked_at_utc": "2026-11-19T17:14:01.919885+00:00",
+  "new_family_prepared": false,
+  "platform_guard_started": true,
+  "prefix_process_receipts": 86,
+  "prefix_report_count": 86,
+  "unit": {
+    "ActiveState": "failed",
+    "ExecMainExitTimestamp": "Thu 2026-11-19 18:59:11 MSK",
+    "ExecMainStatus": "1",
+    "InvocationID": "fc1bf0665f604aaaada2918d347d4d50",
+    "MainPID": "0",
+    "SubState": "failed"
+  }
+}

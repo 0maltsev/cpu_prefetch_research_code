@@ -1,0 +1,63 @@
+EXT007 original-prefix validation COMPLETE — 2026-11-09
+
+All177 original E23 captures passed independent validation of the retained
+archives, primary/demand streams and execution evidence. The accepted-prefix
+manifest contains exactly original ordinals0..176,59 in each of contexts0..2.
+Its SHA256 is dc0580e84f4bfde9cc7287bd624013c76ba533a500c6e3de3ace49f1d3e3dded.
+The analysis supervisor finished03:17:50.863028UTC (06:17 Moscow), exit0, with
+all owned children reaped. Elapsed47,838.163s; maximum sampled analysis scratch
+28,743,249,920B. Raw mutation=false. No experiment was rerun by this analysis.
+
+At06:59:41UTC, the installed E25 continuation validator also verified the
+complete prefix manifest, all177 bound reports, original source/authority/
+custody/ledger identities and zero-observation failed boundary. This was the
+existing prefix-admission interface, not a manufactured continuation plan or
+new execution authority. The full continuation still requires its own current
+qualification, compatibility proof, namespace checks and signed admission.
+
+Data validity and zero loss are distinct. All177 reports pass reconciliation
+and execution-evidence validation. Measurement zero loss is true for118 and
+false for59: original ordinals59..117 contain reconciled FULL observations.
+These remain valid data, but establish failure of the separate measurement
+zero-loss gate. They must not be replaced, omitted or relabeled to obtain a
+pass. The accepted D240/D230 method explicitly preserves that distinction.
+No complete Q16a calibration or Stage17 completion is claimed.
+
+The PC received only the manifest, small reports and provenance (about1.3MB).
+Every copied report hash was checked against the accepted manifest. Original
+raw archives and the failed ordinal177 remain on the stand. inventory.json
+binds the retained report bytes to their original stand paths.
+
+Qualification next step:
+E25 one-shot driver started07:02:07UTC (10:02 Moscow), PID115001, after prefix
+verification and confirmation that analysis/package workers were absent.
+Near clock started07:02:43UTC and passed; far started07:04:44UTC and passed.
+Clock helper exited0 and was reaped. Q15-R/W subsequently both passed:
+Q15_W_RESTORED_COMPLETE, restoration_verified=true, quarantined=false; the
+persistent supervisor exited0 and was reaped. EXT005 admission succeeded at
+journal000008, completing all six prerequisite resolutions.
+
+The following administrative append-transition failed07:17:38UTC because the
+original EXT001 one-hour authority expired on Nov8 at14:51:40UTC. The successful
+Q15 run is not reclassified as failed. The driver stopped dependent work and
+restored owned isolation/root CPU settings and maintenance at07:18:43UTC;
+restoration.verified=true, partition_absent=true and errors=[]. No Q16 started.
+The failed transition003 and unpublished journal000009.candidate stay intact;
+the committed state remains journal000008/PREFLIGHT_ACCEPTED.
+
+qualification/inventory.json binds the passed measurements, original failed
+transition/candidate and cleanup evidence. D242 is a proposed explicit owner
+decision for one new signed administrative transition-only authority. It does
+not extend or backdate the old authority and does not rerun completed work.
+Approval is pending; no recovery code or renewed transition has been executed.
+
+A root prelaunch import accidentally generated one Python bytecode-cache file
+inside the frozen packet. Packet membership rejected it before any experiment
+or qualification intent was created. The cache was moved to a retained sibling
+directory; original packet bytes were reverified. All subsequent verification
+used -B. This was a prelaunch housekeeping error, not a Q15/Q16 attempt/retry.
+
+Remaining sequence: approved administrative transition recovery; actual531 continuation authoring,
+namespace audit, signature/admission and one collection; suffix validation and
+authenticated177+531 composition; Q16b/Q16c, calibration freeze and EXT007.
+Any new Q15/Q16 failure stops dependent work with retention and restoration.

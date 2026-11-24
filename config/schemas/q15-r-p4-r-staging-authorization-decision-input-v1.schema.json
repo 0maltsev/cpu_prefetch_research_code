@@ -1,0 +1,333 @@
+{
+  "$id": "urn:cpu-prefetch:q15-r-p4-r-staging-authorization-decision-input:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Proposed exact Q15-R-P4-R staging and stand-prestate authorization decisions",
+  "type": "object",
+  "additionalProperties": false,
+  "$defs": {
+    "nonempty": {"type": "string", "minLength": 1},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "absolute_path": {"type": "string", "pattern": "^/[^\\u0000]*$"},
+    "string_array": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/nonempty"}},
+    "argv": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/nonempty"}},
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision_id", "classification", "subject", "options_considered", "recommended_option", "selected_option_if_accepted", "state", "evidence", "scientific_effect", "compatibility_effect", "owner", "deadline_gate", "supersession_rule"],
+      "properties": {
+        "decision_id": {"type": "string", "pattern": "^D-07[2-5]$"},
+        "classification": {"$ref": "#/$defs/nonempty"},
+        "subject": {"$ref": "#/$defs/nonempty"},
+        "options_considered": {"type": "array", "minItems": 4, "items": {"$ref": "#/$defs/nonempty"}, "uniqueItems": true},
+        "recommended_option": {"$ref": "#/$defs/nonempty"},
+        "selected_option_if_accepted": {"$ref": "#/$defs/nonempty"},
+        "state": {"type": "string", "pattern": "^PROPOSED_AWAITING_EXPLICIT_.*_OWNER_ACCEPTANCE$"},
+        "evidence": {"$ref": "#/$defs/string_array"},
+        "scientific_effect": {"$ref": "#/$defs/nonempty"},
+        "compatibility_effect": {"$ref": "#/$defs/nonempty"},
+        "owner": {"type": "array", "minItems": 4, "items": {"$ref": "#/$defs/nonempty"}, "uniqueItems": true},
+        "deadline_gate": {"$ref": "#/$defs/nonempty"},
+        "supersession_rule": {"$ref": "#/$defs/nonempty"}
+      }
+    },
+    "unresolved": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "state", "value"],
+      "properties": {
+        "name": {"$ref": "#/$defs/nonempty"},
+        "state": {"const": "UNRESOLVED"},
+        "value": {"type": "null"}
+      }
+    }
+  },
+  "required": ["schema_version", "bundle_id", "protocol_version", "stand_id", "prepared_at_utc", "status", "lineage", "decisions", "candidate_transaction", "unresolved_inputs", "acceptance_effect", "authority_boundary", "exact_acceptance_statement"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-q15-r-p4-r-staging-authorization-decision-input/1"},
+    "bundle_id": {"const": "Q15-R-P4-R-STAGING-AUTHORIZATION-DECISION-INPUT-20260825-01"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "stand_id": {"const": "XEON-CPU-FETCH"},
+    "prepared_at_utc": {"type": "string", "format": "date-time"},
+    "status": {"const": "PROPOSED_EXACT_CANDIDATES_AWAITING_OWNER_ACCEPTANCE_NO_AUTHORITY"},
+    "lineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository_commit", "repository_commit_subject", "p4_e_acceptance_path", "p4_e_acceptance_sha256", "p4_r_preparation_path", "p4_r_preparation_sha256", "p4_k_preparation_path", "p4_k_preparation_sha256", "collector_release_source_commit", "collector_release_archive_name", "collector_release_archive_bytes", "collector_release_archive_sha256", "collector_binary_sha256", "collector_contract_sha256", "reference_inventory_path", "reference_inventory_sha256", "reference_inventory_role"],
+      "properties": {
+        "repository_commit": {"const": "f30036e31acc8ae036f2f31086d493eeb30db9d7"},
+        "repository_commit_subject": {"const": "phase 17"},
+        "p4_e_acceptance_path": {"const": "config/q15/q15-r-p4-e-acceptance-v1.json"},
+        "p4_e_acceptance_sha256": {"const": "b4eec39ab9a5e760cf011ad79b5c2e416755ba40f2af1769033852e735dfd1f0"},
+        "p4_r_preparation_path": {"const": "config/q15/q15-r-p4-r.preparation-v2.json"},
+        "p4_r_preparation_sha256": {"const": "f8c63d1f95d69c6a9562cfec6d2635757c9dbba80137d68fdedf56bd189b6ba4"},
+        "p4_k_preparation_path": {"const": "config/q15/q15-r-p4-k.preparation.json"},
+        "p4_k_preparation_sha256": {"const": "c56ae3dc74142d244e448b9a6f638960f0cce1eb1a9e7a106fea90a4bcf55e0f"},
+        "collector_release_source_commit": {"const": "34da95d002e912069c959bfef8e88a23b4880cea"},
+        "collector_release_archive_name": {"const": "cpu-prefetch-q15-qualification-tool-2.0.0-34da95d-clean-5fc75063e1d1.tar.gz"},
+        "collector_release_archive_bytes": {"const": 4642298},
+        "collector_release_archive_sha256": {"const": "f45d25f4aa6bff56c39face088c46c4cccd21bfaf903c9c320100b561402ff3a"},
+        "collector_binary_sha256": {"const": "4716e1dfc2e65fd61dce1ea54a70fd876a0b4322b69d9ad1fde5c67a65c48a57"},
+        "collector_contract_sha256": {"const": "4123735a940da144e00247957d0210216cde4bf19fbdbea0378b52dab2161b87"},
+        "reference_inventory_path": {"const": "docs/evidence/stage16/STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-02/STAND-PREFLIGHT-XEON-CPU-FETCH-20260822-02.json"},
+        "reference_inventory_sha256": {"$ref": "#/$defs/sha256"},
+        "reference_inventory_role": {"const": "STALE_REFERENCE_ONLY_NOT_FRESH_EXECUTION_AUTHORITY"}
+      }
+    },
+    "decisions": {"type": "array", "minItems": 4, "maxItems": 4, "uniqueItems": true, "items": {"$ref": "#/$defs/decision"}},
+    "candidate_transaction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["transaction_id", "capture_id", "state", "stand_endpoint", "proposed_paths", "principal_contract", "validity_policy", "signature_and_review_contract", "fresh_identity_authorization", "staging_collection_authorization", "transfer_and_verification_contract", "rollback_contract", "stop_conditions"],
+      "properties": {
+        "transaction_id": {"const": "Q15-R-P4-R-TRANSACTION-XEON-CPU-FETCH-20260825-01"},
+        "capture_id": {"const": "Q15-R-P4-R-XEON-CPU-FETCH-20260825-01"},
+        "state": {"const": "PROPOSED_NOT_AUTHORIZED_NOT_ISSUED"},
+        "stand_endpoint": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["host", "ssh_account", "stand_id", "transport_role", "host_key_fingerprint", "host_key_state"],
+          "properties": {
+            "host": {"const": "185.184.131.153"},
+            "ssh_account": {"const": "root"},
+            "stand_id": {"const": "XEON-CPU-FETCH"},
+            "transport_role": {"const": "BOOTSTRAP_TRANSPORT_ONLY_NOT_AUTHORITY_OR_CUSTODY"},
+            "host_key_fingerprint": {"type": "null"},
+            "host_key_state": {"const": "UNRESOLVED_MANDATORY_BEFORE_FIRST_STAND_ACCESS"}
+          }
+        },
+        "proposed_paths": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["state", "local_archive_source", "local_sidecar_source", "stand_transaction_root", "stand_incoming_root", "stand_archive", "stand_sidecar", "stand_extraction_parent", "collector_release_root", "collector_executable", "custody_root", "identity_artifact", "identity_sidecar", "collector_stdout", "collector_stderr", "collector_sidecar", "transfer_receipt", "independent_review", "authorization_record", "detached_signature"],
+          "properties": {
+            "state": {"const": "PROPOSED_NOT_SELECTED_OR_CREATED"},
+            "local_archive_source": {"$ref": "#/$defs/absolute_path"},
+            "local_sidecar_source": {"$ref": "#/$defs/absolute_path"},
+            "stand_transaction_root": {"$ref": "#/$defs/absolute_path"},
+            "stand_incoming_root": {"$ref": "#/$defs/absolute_path"},
+            "stand_archive": {"$ref": "#/$defs/absolute_path"},
+            "stand_sidecar": {"$ref": "#/$defs/absolute_path"},
+            "stand_extraction_parent": {"$ref": "#/$defs/absolute_path"},
+            "collector_release_root": {"$ref": "#/$defs/absolute_path"},
+            "collector_executable": {"$ref": "#/$defs/absolute_path"},
+            "custody_root": {"$ref": "#/$defs/absolute_path"},
+            "identity_artifact": {"$ref": "#/$defs/absolute_path"},
+            "identity_sidecar": {"$ref": "#/$defs/absolute_path"},
+            "collector_stdout": {"$ref": "#/$defs/absolute_path"},
+            "collector_stderr": {"$ref": "#/$defs/absolute_path"},
+            "collector_sidecar": {"$ref": "#/$defs/absolute_path"},
+            "transfer_receipt": {"$ref": "#/$defs/absolute_path"},
+            "independent_review": {"$ref": "#/$defs/absolute_path"},
+            "authorization_record": {"$ref": "#/$defs/absolute_path"},
+            "detached_signature": {"$ref": "#/$defs/absolute_path"}
+          }
+        },
+        "principal_contract": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["named_authority_principal", "authorization_signature_principal", "authorization_signature_namespace", "executor_transport_account", "custody_principal", "independent_review_principal", "all_roles_distinct_required", "actual_identity_and_access_evidence_state", "root_or_ssh_access_is_authority"],
+          "properties": {
+            "named_authority_principal": {"const": "cpu-prefetch-q15-operator"},
+            "authorization_signature_principal": {"const": "cpu-prefetch-q15-authorization"},
+            "authorization_signature_namespace": {"const": "cpu-prefetch-q15-authorization"},
+            "executor_transport_account": {"const": "root"},
+            "custody_principal": {"const": "cpu-prefetch-q15-custodian"},
+            "independent_review_principal": {"const": "cpu-prefetch-q15-auditor"},
+            "all_roles_distinct_required": {"const": true},
+            "actual_identity_and_access_evidence_state": {"const": "UNRESOLVED"},
+            "root_or_ssh_access_is_authority": {"const": false}
+          }
+        },
+        "validity_policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["profile", "clock", "issued_at_utc", "expires_at_utc", "exact_validity_seconds", "external_collector_watchdog_seconds", "issued_and_expiry_instants_required_before_signature", "collection_must_start_and_finish_within_window", "renewal_allowed", "reuse_allowed", "expiry_action"],
+          "properties": {
+            "profile": {"const": "Q15-R-P4-R-SINGLE-USE-UTC-1800S-v1"},
+            "clock": {"const": "UTC"},
+            "issued_at_utc": {"type": "null"},
+            "expires_at_utc": {"type": "null"},
+            "exact_validity_seconds": {"const": 1800},
+            "external_collector_watchdog_seconds": {"const": 900},
+            "issued_and_expiry_instants_required_before_signature": {"const": true},
+            "collection_must_start_and_finish_within_window": {"const": true},
+            "renewal_allowed": {"const": false},
+            "reuse_allowed": {"const": false},
+            "expiry_action": {"const": "STOP_RETAIN_PARTIAL_NO_RETRY"}
+          }
+        },
+        "signature_and_review_contract": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["canonicalization", "signature_scheme", "signature_namespace", "signature_principal", "private_key_location", "authorization_sha256", "signer_key_fingerprint", "detached_signature_sha256", "independent_review_sha256", "p4_k_dependency_state", "independent_review_requirements"],
+          "properties": {
+            "canonicalization": {"const": "JCS-I64-v1"},
+            "signature_scheme": {"const": "OPENSSH-SSHSIG-ED25519-SHA512-v1"},
+            "signature_namespace": {"const": "cpu-prefetch-q15-authorization"},
+            "signature_principal": {"const": "cpu-prefetch-q15-authorization"},
+            "private_key_location": {"const": "OFF_STAND_ONLY"},
+            "authorization_sha256": {"type": "null"},
+            "signer_key_fingerprint": {"type": "null"},
+            "detached_signature_sha256": {"type": "null"},
+            "independent_review_sha256": {"type": "null"},
+            "p4_k_dependency_state": {"const": "UNRESOLVED_BLOCKS_SIGNATURE_AND_ISSUANCE"},
+            "independent_review_requirements": {"$ref": "#/$defs/string_array"}
+          }
+        },
+        "fresh_identity_authorization": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["gate_id", "state", "mutation_authorized", "transfer_authorized", "collector_execution_authorized", "required_fixed_observations", "required_output", "stop_after_identity_capture", "automatic_continuation_to_staging"],
+          "properties": {
+            "gate_id": {"const": "Q15-R-P4-R-I"},
+            "state": {"const": "NOT_ISSUED_SEPARATE_EXPLICIT_APPROVAL_REQUIRED"},
+            "mutation_authorized": {"const": false},
+            "transfer_authorized": {"const": false},
+            "collector_execution_authorized": {"const": false},
+            "required_fixed_observations": {
+              "type": "array",
+              "minItems": 4,
+              "maxItems": 4,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["id", "argv"],
+                "properties": {"id": {"type": "string", "pattern": "^P4RI-00[1-4]$"}, "argv": {"$ref": "#/$defs/argv"}}
+              }
+            },
+            "required_output": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["artifact_id", "artifact_sha256", "ssh_host_key_fingerprint", "independent_review_sha256", "status"],
+              "properties": {
+                "artifact_id": {"const": "Q15-R-P4-R-IDENTITY-XEON-CPU-FETCH-20260825-01"},
+                "artifact_sha256": {"type": "null"},
+                "ssh_host_key_fingerprint": {"type": "null"},
+                "independent_review_sha256": {"type": "null"},
+                "status": {"const": "UNRESOLVED_MUST_BE_ACCEPTED_BEFORE_Q15_R_P4_R_C"}
+              }
+            },
+            "stop_after_identity_capture": {"const": true},
+            "automatic_continuation_to_staging": {"const": false}
+          }
+        },
+        "staging_collection_authorization": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["gate_id", "state", "required_identity_predecessor_sha256", "create_exclusive", "overwrite_allowed", "symlink_allowed", "activation_link_allowed", "archive_transfer_count", "collector_attempt_count", "retry_count", "collector_invocation"],
+          "properties": {
+            "gate_id": {"const": "Q15-R-P4-R-C"},
+            "state": {"const": "NOT_ISSUED_SEPARATE_EXPLICIT_APPROVAL_REQUIRED"},
+            "required_identity_predecessor_sha256": {"type": "null"},
+            "create_exclusive": {"const": true},
+            "overwrite_allowed": {"const": false},
+            "symlink_allowed": {"const": false},
+            "activation_link_allowed": {"const": false},
+            "archive_transfer_count": {"const": 1},
+            "collector_attempt_count": {"const": 1},
+            "retry_count": {"const": 0},
+            "collector_invocation": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["argv", "fixed_environment", "shell", "glob", "inherited_environment", "stdout_destination", "stderr_destination", "direct_fixed_argv_transport_evidence_required", "transport_evidence_state"],
+              "properties": {
+                "argv": {"type": "array", "minItems": 6, "maxItems": 6, "items": {"$ref": "#/$defs/nonempty"}},
+                "fixed_environment": {"const": ["LANG=C", "LC_ALL=C", "TZ=UTC0"]},
+                "shell": {"const": false},
+                "glob": {"const": false},
+                "inherited_environment": {"const": false},
+                "stdout_destination": {"$ref": "#/$defs/absolute_path"},
+                "stderr_destination": {"$ref": "#/$defs/absolute_path"},
+                "direct_fixed_argv_transport_evidence_required": {"const": true},
+                "transport_evidence_state": {"const": "UNRESOLVED_BLOCKS_EXECUTION"}
+              }
+            }
+          }
+        },
+        "transfer_and_verification_contract": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["transport_profile", "archive_transfer_source_sha256", "archive_transfer_bytes", "ordered_actions", "per_command_timeout_seconds", "external_total_watchdog_seconds", "maximum_stdout_bytes_per_command", "maximum_stderr_bytes_per_command", "maximum_total_captured_bytes", "maximum_artifact_bytes", "partial_preservation_required", "promotion_or_activation_authorized"],
+          "properties": {
+            "transport_profile": {"const": "OPENSSH_PINNED_HOST_CREATE_EXCLUSIVE_FIXED_PATH_v1"},
+            "archive_transfer_source_sha256": {"const": "f45d25f4aa6bff56c39face088c46c4cccd21bfaf903c9c320100b561402ff3a"},
+            "archive_transfer_bytes": {"const": 4642298},
+            "ordered_actions": {"type": "array", "minItems": 13, "maxItems": 13, "items": {"$ref": "#/$defs/nonempty"}},
+            "per_command_timeout_seconds": {"const": 30},
+            "external_total_watchdog_seconds": {"const": 900},
+            "maximum_stdout_bytes_per_command": {"const": 1048576},
+            "maximum_stderr_bytes_per_command": {"const": 1048576},
+            "maximum_total_captured_bytes": {"const": 16777216},
+            "maximum_artifact_bytes": {"const": 67108864},
+            "partial_preservation_required": {"const": true},
+            "promotion_or_activation_authorized": {"const": false}
+          }
+        },
+        "rollback_contract": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["profile", "on_pre_mutation_failure", "on_post_mutation_failure", "delete_authorized", "overwrite_authorized", "rename_or_reuse_authorized", "automatic_cleanup_authorized", "operational_release_or_setup_touched", "future_cleanup_requires_separate_exact_authorization", "restoration_claim"],
+          "properties": {
+            "profile": {"const": "Q15-R-P4-R-STOP-RETAIN-NO-DELETE-v1"},
+            "on_pre_mutation_failure": {"const": "STOP_WITH_NO_STAND_CHANGE"},
+            "on_post_mutation_failure": {"const": "STOP_RETAIN_EXACT_PARTIAL_STAGING_AND_CUSTODY_BYTES"},
+            "delete_authorized": {"const": false},
+            "overwrite_authorized": {"const": false},
+            "rename_or_reuse_authorized": {"const": false},
+            "automatic_cleanup_authorized": {"const": false},
+            "operational_release_or_setup_touched": {"const": false},
+            "future_cleanup_requires_separate_exact_authorization": {"const": true},
+            "restoration_claim": {"const": "NONE_NEEDED_BECAUSE_NO_ACTIVATION_OR_EXISTING_OPERATIONAL_PATH_MUTATION_IS_AUTHORIZED"}
+          }
+        },
+        "stop_conditions": {"type": "array", "minItems": 11, "maxItems": 11, "uniqueItems": true, "items": {"$ref": "#/$defs/nonempty"}}
+      }
+    },
+    "unresolved_inputs": {"type": "array", "minItems": 7, "maxItems": 7, "uniqueItems": true, "items": {"$ref": "#/$defs/unresolved"}},
+    "acceptance_effect": {
+      "const": {
+        "acceptance_id_if_accepted": "Q15-R-P4-F-ACCEPTANCE-20260825-01",
+        "accepted_decisions_if_accepted": ["D-072", "D-073", "D-074", "D-075"],
+        "literal_candidate_paths_selected_if_accepted": true,
+        "repository_local_successor_templates_authorized_if_accepted": true,
+        "p4_r_i_authorized_if_accepted": false,
+        "p4_r_c_authorized_if_accepted": false,
+        "stand_access_authorized_if_accepted": false,
+        "transfer_or_extraction_authorized_if_accepted": false,
+        "collector_execution_authorized_if_accepted": false,
+        "signature_or_key_action_authorized_if_accepted": false,
+        "q15_r_or_q15_w_authorized_if_accepted": false,
+        "calibration_pilot_measurement_or_confirmatory_authorized_if_accepted": false
+      }
+    },
+    "authority_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository_local_decision_bundle_preparation_authorized", "repository_local_acceptance_or_authorization_record_creation_authorized", "stand_access_authorized", "literal_path_selection_authorized", "filesystem_mutation_authorized", "bundle_transfer_or_extraction_authorized", "collector_self_test_on_stand_authorized", "collector_execution_authorized", "key_creation_import_copy_or_use_authorized", "signing_or_issuance_authorized", "p4_r_i_authorized", "p4_r_c_authorized", "p4_k_authorized", "stand_setup_authorized", "q15_r_authorized", "q15_w_authorized", "pmu_msr_affinity_numa_authorized", "calibration_authorized", "pilot_authorized", "measurement_authorized", "confirmatory_authorized"],
+      "properties": {
+        "repository_local_decision_bundle_preparation_authorized": {"const": true},
+        "repository_local_acceptance_or_authorization_record_creation_authorized": {"const": false},
+        "stand_access_authorized": {"const": false},
+        "literal_path_selection_authorized": {"const": false},
+        "filesystem_mutation_authorized": {"const": false},
+        "bundle_transfer_or_extraction_authorized": {"const": false},
+        "collector_self_test_on_stand_authorized": {"const": false},
+        "collector_execution_authorized": {"const": false},
+        "key_creation_import_copy_or_use_authorized": {"const": false},
+        "signing_or_issuance_authorized": {"const": false},
+        "p4_r_i_authorized": {"const": false},
+        "p4_r_c_authorized": {"const": false},
+        "p4_k_authorized": {"const": false},
+        "stand_setup_authorized": {"const": false},
+        "q15_r_authorized": {"const": false},
+        "q15_w_authorized": {"const": false},
+        "pmu_msr_affinity_numa_authorized": {"const": false},
+        "calibration_authorized": {"const": false},
+        "pilot_authorized": {"const": false},
+        "measurement_authorized": {"const": false},
+        "confirmatory_authorized": {"const": false}
+      }
+    },
+    "exact_acceptance_statement": {"type": "string", "minLength": 500}
+  }
+}

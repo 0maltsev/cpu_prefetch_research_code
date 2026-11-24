@@ -1,0 +1,20 @@
+[1/20] Building CXX object CMakeFiles/cpu_prefetch_foundation.dir/src/repository_info.cpp.o
+[2/20] Building CXX object CMakeFiles/cpu_prefetch_calibration.dir/src/calibration/native_formal_ring_capture.cpp.o
+[3/20] Building CXX object CMakeFiles/cpu_prefetch_calibration.dir/src/calibration/native_formal_service_capture.cpp.o
+[4/20] Building CXX object CMakeFiles/cpu_prefetch_calibration.dir/src/calibration/native_formal_scheduled_capture.cpp.o
+[5/20] Linking CXX static library libcpu_prefetch_foundation.a
+[6/20] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_s180_sources.cpp.o
+[7/20] Building CXX object CMakeFiles/cpu_prefetch_calibration.dir/src/calibration/native_pilot_capture.cpp.o
+[8/20] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_s180_input.cpp.o
+[9/20] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_s180_worker.cpp.o
+[10/20] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_s180_session.cpp.o
+[11/20] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_s180_native_session.cpp.o
+[12/20] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_s180_channel_sink.cpp.o
+[13/20] Linking CXX static library libcpu_prefetch_calibration.a
+[14/20] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_discovery_publication.cpp.o
+[15/20] Linking CXX static library libcpu_prefetch_runner_core.a
+[16/20] Building CXX object CMakeFiles/cpu_prefetch_s180_io_tests.dir/tests/stage17_s180_io_test.cpp.o
+[17/20] Building CXX object CMakeFiles/cpu_prefetch_s180_io_tests.dir/tests/stage17_s180_channel_test.cpp.o
+[18/20] Building CXX object CMakeFiles/cpu_prefetch_s180_io_tests.dir/tests/stage17_s180_session_test.cpp.o
+[19/20] Building CXX object CMakeFiles/cpu_prefetch_s180_io_tests.dir/tests/stage17_s180_input_test.cpp.o
+[20/20] Linking CXX executable cpu_prefetch_s180_io_tests

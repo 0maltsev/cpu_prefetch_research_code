@@ -1,0 +1,114 @@
+{
+  "actual_scoped_admission": false,
+  "baseline_revision": "116dae76862d4bb71e51d732bd255291feb1f2ca",
+  "evidence_files": {
+    "docs/evidence/stage17/PILOT-D322-JOURNAL-20261122-01/COMMANDS.md": {
+      "sha256": "d6fb61cbaf7b571b0625c9d0f20799ba3f85c68f8dd4437e53f3c68159fdeabb",
+      "size_bytes": 1756
+    },
+    "docs/evidence/stage17/PILOT-D322-JOURNAL-20261122-01/REPORT.md": {
+      "sha256": "dfb9be86a9ab3cc6b6891ceec14e81cbaf71fcd3d8186d27ad0516ffbbbcc098",
+      "size_bytes": 5066
+    },
+    "docs/evidence/stage17/PILOT-D322-JOURNAL-20261122-01/authority-regression.txt": {
+      "sha256": "73ff6662095e41f933a1df84b92de8f38b0dc985568908dbcf746f7bec0a4522",
+      "size_bytes": 111
+    },
+    "docs/evidence/stage17/PILOT-D322-JOURNAL-20261122-01/final-checks.json": {
+      "sha256": "781af9b793b884e4015eb8ce7ff4b45d05c2058b5017797970b9daf13329b6e1",
+      "size_bytes": 1002
+    },
+    "docs/evidence/stage17/PILOT-D322-JOURNAL-20261122-01/journal-11-tests.txt": {
+      "sha256": "2700aae5c88680f6487f562d2ad1da181d357fffea492dd9cef247d8f7084b02",
+      "size_bytes": 115
+    },
+    "docs/evidence/stage17/PILOT-D322-JOURNAL-20261122-01/journal-14-tests.txt": {
+      "sha256": "7719a825052ed0c6b0f4a242419ef3b7b583a67df6259d7e8933f4643f47a766",
+      "size_bytes": 114
+    },
+    "docs/evidence/stage17/PILOT-D322-JOURNAL-20261122-01/journal-adapter-exception-mismatch.txt": {
+      "sha256": "afaf8bf067d80d00b6aa68a7b9f8cbff9212050aab17f02cdbd76fb9db51e62f",
+      "size_bytes": 2006
+    },
+    "docs/evidence/stage17/PILOT-D322-JOURNAL-20261122-01/journal-final-15-tests.txt": {
+      "sha256": "2700aae5c88680f6487f562d2ad1da181d357fffea492dd9cef247d8f7084b02",
+      "size_bytes": 115
+    },
+    "docs/evidence/stage17/PILOT-D322-JOURNAL-20261122-01/journal-initial-10-tests.txt": {
+      "sha256": "1779720dc441d71fbfa49ed014067373e3d0937db40dea9174a674ab12e01a56",
+      "size_bytes": 109
+    },
+    "docs/evidence/stage17/PILOT-D322-JOURNAL-20261122-01/journal-payload-exception-mismatch.txt": {
+      "sha256": "323bcaf49a8688bda4a08ec358a3abf12586622c53354f05d133f9e4c3b33042",
+      "size_bytes": 1229
+    },
+    "docs/evidence/stage17/PILOT-D322-JOURNAL-20261122-01/log-normalization.json": {
+      "sha256": "87f6813a6d366056d82f82172f340ab66e65d5224f4f628c137e6242b4773ee1",
+      "size_bytes": 249
+    },
+    "docs/evidence/stage17/PILOT-D322-JOURNAL-20261122-01/native-preservation.json": {
+      "sha256": "8913844931806b9002b291b2ee916fa030d5d6650002d2568a12e45e434e4161",
+      "size_bytes": 405
+    },
+    "docs/evidence/stage17/PILOT-D322-JOURNAL-20261122-01/pc-cleanup.json": {
+      "sha256": "f454ef82fe2d2f78a9b7472389a81b4836b0cffe444c3167be5de8efa8c67ff8",
+      "size_bytes": 132
+    },
+    "docs/evidence/stage17/PILOT-D322-JOURNAL-20261122-01/registered-before-input-guard-fix.txt": {
+      "sha256": "56e4f9ff17f3f2c1ecf9c550f269e13cbb9da3a77d7b50f327ce215cb8f83670",
+      "size_bytes": 2630
+    },
+    "docs/evidence/stage17/PILOT-D322-JOURNAL-20261122-01/registered-details-final.txt": {
+      "sha256": "916d2e2b5aa50b2272c598823d50b70ad4009d5b6166a9b53c0d6bc3d34ba635",
+      "size_bytes": 4625
+    },
+    "docs/evidence/stage17/PILOT-D322-JOURNAL-20261122-01/registered-final.txt": {
+      "sha256": "17092e9cae1327987c0ae1a0a9c1c6250ed5561f6aa20612c00b3f3ad55587a9",
+      "size_bytes": 1258
+    },
+    "docs/evidence/stage17/PILOT-D322-JOURNAL-20261122-01/repository-checks.txt": {
+      "sha256": "94feeb597e9e8a737e1658dfa795b9b5f00dc282d3fa2e21f09cf3d4538857b8",
+      "size_bytes": 6360
+    }
+  },
+  "execution_authority": false,
+  "phase18_authority": false,
+  "source_files": {
+    "CMakeLists.txt": {
+      "sha256": "0d34cf3f18a3c3981aececcc2a1a9da78daf855004063dcd9c4b66ac67c63863",
+      "size_bytes": 192436
+    },
+    "PLAN.md": {
+      "sha256": "10984ded962d621ceb4c6bbc603ae995ed86f21af5ea08b5d2c27cbf1caf6b5f",
+      "size_bytes": 114936
+    },
+    "README.md": {
+      "sha256": "7a2a3ee2f4bdc3b0165c2706ac18c8ad055e60fbf6a1f46c9dadf6dd6ba43033",
+      "size_bytes": 122389
+    },
+    "STATUS.md": {
+      "sha256": "da165dc3d48ed940033d397221f5d53d753ee9a8da0418fc7349c94374903d8e",
+      "size_bytes": 141306
+    },
+    "docs/STAGE17_PILOT_PREPARATION.md": {
+      "sha256": "cd5154f11a22cbd172a9e7704c9ec9112a109e29c39da3466b83058867f88326",
+      "size_bytes": 10633
+    },
+    "docs/decisions/0322-s180-signed-scoped-input-journal.md": {
+      "sha256": "9627ad2e8f849564ab68b64c624872db20188ddd0931d9a5a8ec99f25601a7c6",
+      "size_bytes": 6509
+    },
+    "tests/test_stage17_s180_journal_v1.py": {
+      "sha256": "37d79ae91a50c24d5222e9c2b40f8ff33b1340e79ba45d939b55d008f798636e",
+      "size_bytes": 17398
+    },
+    "tools/stage17_s180_authority_v1.py": {
+      "sha256": "b47b0737e85f758bfd8f00574422cc0c33ac55e978d2ca623aa07062a4bad23b",
+      "size_bytes": 14350
+    },
+    "tools/stage17_s180_journal_v1.py": {
+      "sha256": "e3841c6a75a0de9bc43351d32529754e43781033e6e7deab832889e5a0bc23f0",
+      "size_bytes": 24848
+    }
+  }
+}

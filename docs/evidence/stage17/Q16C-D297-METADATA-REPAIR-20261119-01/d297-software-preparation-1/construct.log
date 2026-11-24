@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/q16c-continuation-final-1/stage17_q16c_continuation_operator_v1.py", line 322, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/q16c-continuation-final-1/stage17_q16c_continuation_operator_v1.py", line 316, in main
+    if args.mode=='construct':result=construct(c,args.deadline_ns)
+                                     ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/q16c-continuation-final-1/stage17_q16c_continuation_operator_v1.py", line 190, in construct
+    configured = cli_for(c, configured=True)
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/q16c-continuation-final-1/stage17_q16c_continuation_operator_v1.py", line 79, in cli_for
+    cli.controller.configure_verified_descriptor(read(binding(packet / 'archive-overlay.json')), packet)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_archive_q16c_descriptive_overlay_v2.py", line 164, in configure_verified_descriptor
+    require(expected['path'] == str(root / (name + '.py')), 'packet source namespace differs')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-32/admission-root/tools/stage17_archive_q16c_descriptive_overlay_v2.py", line 50, in require
+    raise ValueError('cold archive daycap overlay: ' + message)
+ValueError: cold archive daycap overlay: packet source namespace differs

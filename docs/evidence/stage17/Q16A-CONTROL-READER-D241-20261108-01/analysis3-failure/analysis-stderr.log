@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/continuation-prefix-1/operator3/validate_prefix.py", line 322, in <module>
+    if __name__=='__main__':raise SystemExit(main())
+                                             ~~~~^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/continuation-prefix-1/operator3/validate_prefix.py", line 319, in main
+    return fn()
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/continuation-prefix-1/operator3/original_analysis.py", line 272, in main
+    resource.setrlimit(resource.RLIMIT_FSIZE,(SCRATCH,SCRATCH));coordinate(c,args.coordinate_deadline_ns);return 0
+                                                                ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/continuation-prefix-1/operator3/validate_prefix.py", line 284, in coordinate
+    outputs=base.ordered_pool(m,jobs,c,deadline)
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/continuation-prefix-1/operator3/original_analysis.py", line 188, in ordered_pool
+    results,_=private(packed,c['resources']['worker_count'],c['resources']['capture_as_bytes'],remaining,
+              ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        lambda ordinal,done,total:print(json.dumps(dict(capture_ordinal=ordinal,completed=done,total=total)),flush=True))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/continuation-prefix-1/operator3/stage17_discovery_validation_parallel_v2.py", line 101, in _parallel_captures
+    if kind=="error": raise ValidationError("analysis worker rejected capture: "+payload)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+stage17_discovery_validation_v3.ValidationError: analysis worker rejected capture: ValidationError: unsupported cumulative packed page capacity

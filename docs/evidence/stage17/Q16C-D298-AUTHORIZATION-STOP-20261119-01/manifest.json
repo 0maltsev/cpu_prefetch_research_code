@@ -1,0 +1,91 @@
+{
+  "files": [
+    {
+      "path": "REPORT.md",
+      "sha256": "93065d852a2e94f0557226dde74e74db2faf3120b0c549e898988dbd0900d794",
+      "size_bytes": 3867
+    },
+    {
+      "path": "clock-rearm-d298-1/restoration.json",
+      "sha256": "097b2ce4326efd725e9673921fac16309961515b18cdf4c01279ac84a1767b96",
+      "size_bytes": 842
+    },
+    {
+      "path": "d297-software-preparation-2/constructed-output/registration.json",
+      "sha256": "4bca243507d472a43dac205f0d5ae2bd0f88af6acc2694458bef93d3f58e0dba",
+      "size_bytes": 391
+    },
+    {
+      "path": "d298-independent-recovery-1.json",
+      "sha256": "0115ddd2c853ba1f264d5470fe9dad5e3388f00e4d4f606ce801a9db7d0df852",
+      "size_bytes": 923
+    },
+    {
+      "path": "d298-service-console-1.log",
+      "sha256": "304f088ba3a390ff4c9ba07e18a86e4d3ea5776a161a2cf2affdd85aaf0bfb68",
+      "size_bytes": 2910
+    },
+    {
+      "path": "d298-study-1/result.json",
+      "sha256": "55b0d78aaf9fac1dada6cf43700ccd3dbe249336129db045089a281ee6dd33a5",
+      "size_bytes": 1941
+    },
+    {
+      "path": "d298-study-1/sign-collect-result.json",
+      "sha256": "209c7b524799015bf2ff86aea580ed74bab6a71fe8156671c43fdfaea5496d45",
+      "size_bytes": 184
+    },
+    {
+      "path": "d298-study-1/sign-collect.log",
+      "sha256": "33b092a69b5e05a764e3b1c1553dd60175cd9927ffbdac5e47000aff9713a169",
+      "size_bytes": 2007
+    },
+    {
+      "path": "d300-actual-authoring.txt",
+      "sha256": "428a78a1656364ad6b3d3b93d7b72d2c94ffec8d1288f7d9318c38d51df95283",
+      "size_bytes": 1081
+    },
+    {
+      "path": "d300-authorization-draft.json",
+      "sha256": "7969af609369c6b6e2bd741f2099931d133ce31fc0afec0f2988378531e1af99",
+      "size_bytes": 2719
+    },
+    {
+      "path": "d300-focused-tests.txt",
+      "sha256": "ca13ae20cb3bac5455c3534b1d592e572ff0ba63c5abf49347caebc1d3f66bc4",
+      "size_bytes": 2857
+    },
+    {
+      "path": "d300-verification.json",
+      "sha256": "15a51e61f88d2e7d2c64e7b62ee03fe2507510a382688782d1df6ee0579b1e4d",
+      "size_bytes": 1146
+    },
+    {
+      "path": "d300_authoring_check.py",
+      "sha256": "32fbe77f3e668f3ccea632c69d68362c12d68f266524df3077b050e02ff27e10",
+      "size_bytes": 2375
+    },
+    {
+      "path": "q16c-study-d298-1/partition-restoration.json",
+      "sha256": "d9cb625aad234ff5af75170f41a76c404e7a1a88abe640e452fbd47618db1f34",
+      "size_bytes": 573
+    },
+    {
+      "path": "registered-empty-family.json",
+      "sha256": "53d22bb0038de9339c81a760216fb2e7f87391c400cf60303b5e3f198368bd30",
+      "size_bytes": 1231
+    },
+    {
+      "path": "status.json",
+      "sha256": "d3ae726187851c87d2d5783b13c6e53c4a054d932ccf9777f0cad95a232cd964",
+      "size_bytes": 756
+    },
+    {
+      "path": "verification-summary.json",
+      "sha256": "e880785608ce991b3da5effa071d87fbbc75295ef215d6ad2c0f78d81b82c41b",
+      "size_bytes": 409
+    }
+  ],
+  "raw_data_transferred": false,
+  "schema_version": "stage17-public-evidence-manifest/1"
+}

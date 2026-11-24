@@ -1,0 +1,267 @@
+{
+  "files": [
+    {
+      "removed": {
+        "path": "build/stage17-s180-platform-prep/stand-observation-first.json",
+        "sha256": "4a60c08e18f47dd2bb96617d1f9749b89bbe5ea8c30311bc048fabf5320c8516",
+        "size_bytes": 20076
+      },
+      "retained": {
+        "path": "docs/evidence/stage17/PILOT-D341-PLATFORM-GEOMETRY-20261123-01/stand-observation-first.json",
+        "sha256": "4a60c08e18f47dd2bb96617d1f9749b89bbe5ea8c30311bc048fabf5320c8516",
+        "size_bytes": 20076
+      },
+      "terminal_newlines_normalized": false
+    },
+    {
+      "removed": {
+        "path": "build/stage17-s180-platform-prep/stand-observation-canonical.json",
+        "sha256": "cb00d295e874fc80ab3c97b3ad5a26e911a77c6ba65e7d20a6ce236ef2bfc73e",
+        "size_bytes": 18790
+      },
+      "retained": {
+        "path": "docs/evidence/stage17/PILOT-D341-PLATFORM-GEOMETRY-20261123-01/stand-observation-canonical.json",
+        "sha256": "cb00d295e874fc80ab3c97b3ad5a26e911a77c6ba65e7d20a6ce236ef2bfc73e",
+        "size_bytes": 18790
+      },
+      "terminal_newlines_normalized": false
+    },
+    {
+      "removed": {
+        "path": "build/stage17-s180-platform-prep/stand-observation-final.json",
+        "sha256": "d21fb23247e95e7d176e1b10c65e9e10fdc3a4034ec6f4ca663b663db61a960b",
+        "size_bytes": 20647
+      },
+      "retained": {
+        "path": "docs/evidence/stage17/PILOT-D341-PLATFORM-GEOMETRY-20261123-01/stand-observation-final.json",
+        "sha256": "d21fb23247e95e7d176e1b10c65e9e10fdc3a4034ec6f4ca663b663db61a960b",
+        "size_bytes": 20647
+      },
+      "terminal_newlines_normalized": false
+    },
+    {
+      "removed": {
+        "path": "build/stage17-s180-platform-prep/observe_stand.py",
+        "sha256": "bfd013579bbb4962464e51c16dc4d352a7aecd1a569e4b5ceccadb2579cb13f6",
+        "size_bytes": 14342
+      },
+      "retained": {
+        "path": "docs/evidence/stage17/PILOT-D341-PLATFORM-GEOMETRY-20261123-01/observe_stand.py.txt",
+        "sha256": "bfd013579bbb4962464e51c16dc4d352a7aecd1a569e4b5ceccadb2579cb13f6",
+        "size_bytes": 14342
+      },
+      "terminal_newlines_normalized": false
+    },
+    {
+      "removed": {
+        "path": "build/stage17-s180-platform-prep/final_observe_stand.py",
+        "sha256": "48fd09fb623d89fead406526502821509942ed1255a161b6a0fbb7e77e5c356c",
+        "size_bytes": 16339
+      },
+      "retained": {
+        "path": "docs/evidence/stage17/PILOT-D341-PLATFORM-GEOMETRY-20261123-01/final_observe_stand.py.txt",
+        "sha256": "48fd09fb623d89fead406526502821509942ed1255a161b6a0fbb7e77e5c356c",
+        "size_bytes": 16339
+      },
+      "terminal_newlines_normalized": false
+    },
+    {
+      "removed": {
+        "path": "build/stage17-s180-platform-prep/actual-assessment-final.json",
+        "sha256": "57e9bfe8e4191d2b5961e3203a87b735e0a6629efa518db466edfd05d1498f74",
+        "size_bytes": 4613
+      },
+      "retained": {
+        "path": "docs/evidence/stage17/PILOT-D341-PLATFORM-GEOMETRY-20261123-01/actual-assessment.json",
+        "sha256": "57e9bfe8e4191d2b5961e3203a87b735e0a6629efa518db466edfd05d1498f74",
+        "size_bytes": 4613
+      },
+      "terminal_newlines_normalized": false
+    },
+    {
+      "removed": {
+        "path": "build/stage17-s180-platform-prep/footprint-source-lineage.json",
+        "sha256": "c177ebccad3605d2055b9a84fa52fffc47905e78ca7aa2afcc4a9cf3dd758cf0",
+        "size_bytes": 2849
+      },
+      "retained": {
+        "path": "docs/evidence/stage17/PILOT-D341-PLATFORM-GEOMETRY-20261123-01/footprint-source-lineage.json",
+        "sha256": "c177ebccad3605d2055b9a84fa52fffc47905e78ca7aa2afcc4a9cf3dd758cf0",
+        "size_bytes": 2849
+      },
+      "terminal_newlines_normalized": false
+    },
+    {
+      "removed": {
+        "path": "build/stage17-s180-platform-prep/footprint-library-lineage.json",
+        "sha256": "b69fba04f8c2ab997862e759173e7829ea58cae013ab27092090ed0c9657c129",
+        "size_bytes": 1447
+      },
+      "retained": {
+        "path": "docs/evidence/stage17/PILOT-D341-PLATFORM-GEOMETRY-20261123-01/footprint-library-lineage.json",
+        "sha256": "b69fba04f8c2ab997862e759173e7829ea58cae013ab27092090ed0c9657c129",
+        "size_bytes": 1447
+      },
+      "terminal_newlines_normalized": false
+    },
+    {
+      "removed": {
+        "path": "build/stage17-s180-platform-prep/check_actual_abi.py",
+        "sha256": "0e6d1408ef1a5682fe77c0f083505bec15051b1382f1d19a4844295129371f33",
+        "size_bytes": 2784
+      },
+      "retained": {
+        "path": "docs/evidence/stage17/PILOT-D341-PLATFORM-GEOMETRY-20261123-01/check_actual_abi.py.txt",
+        "sha256": "0e6d1408ef1a5682fe77c0f083505bec15051b1382f1d19a4844295129371f33",
+        "size_bytes": 2784
+      },
+      "terminal_newlines_normalized": false
+    },
+    {
+      "removed": {
+        "path": "build/stage17-s180-platform-prep/actual-abi.jsonl",
+        "sha256": "0bdd508774b4308000c5286e97886e315a14dbc65265256c88b269d2ac1b4011",
+        "size_bytes": 2011
+      },
+      "retained": {
+        "path": "docs/evidence/stage17/PILOT-D341-PLATFORM-GEOMETRY-20261123-01/actual-abi.jsonl",
+        "sha256": "0bdd508774b4308000c5286e97886e315a14dbc65265256c88b269d2ac1b4011",
+        "size_bytes": 2011
+      },
+      "terminal_newlines_normalized": false
+    },
+    {
+      "removed": {
+        "path": "build/stage17-s180-platform-prep/first-tests.txt",
+        "sha256": "b9df1abe004345018c4178ff2b8e7eb0df8b0c4369c2c4e07daea1ea048e2b5b",
+        "size_bytes": 29192
+      },
+      "retained": {
+        "path": "docs/evidence/stage17/PILOT-D341-PLATFORM-GEOMETRY-20261123-01/initial-unprivileged-tests.txt",
+        "sha256": "b9df1abe004345018c4178ff2b8e7eb0df8b0c4369c2c4e07daea1ea048e2b5b",
+        "size_bytes": 29192
+      },
+      "terminal_newlines_normalized": false
+    },
+    {
+      "removed": {
+        "path": "build/stage17-s180-platform-prep/namespace-tests.txt",
+        "sha256": "9afb4232463c5cef7c1df76c669845e93b84b5bd3ba09ba910c93271d7243186",
+        "size_bytes": 46682
+      },
+      "retained": {
+        "path": "docs/evidence/stage17/PILOT-D341-PLATFORM-GEOMETRY-20261123-01/initial-namespace-fixture-redirect-failure.txt",
+        "sha256": "9afb4232463c5cef7c1df76c669845e93b84b5bd3ba09ba910c93271d7243186",
+        "size_bytes": 46682
+      },
+      "terminal_newlines_normalized": false
+    },
+    {
+      "removed": {
+        "path": "build/stage17-s180-platform-prep/namespace-tests-corrected.txt",
+        "sha256": "3695e60817d2ba8a9b7feef752dfc4c6ae62dfd8b8156cadd9a4993a463041d5",
+        "size_bytes": 118
+      },
+      "retained": {
+        "path": "docs/evidence/stage17/PILOT-D341-PLATFORM-GEOMETRY-20261123-01/initial-18-tests-passing.txt",
+        "sha256": "3695e60817d2ba8a9b7feef752dfc4c6ae62dfd8b8156cadd9a4993a463041d5",
+        "size_bytes": 118
+      },
+      "terminal_newlines_normalized": false
+    },
+    {
+      "removed": {
+        "path": "build/stage17-s180-platform-prep/final-focused.txt",
+        "sha256": "fe4b20e26388fc7b2d3d329574452a3cb97826bf81cc36c88355d313cb900bc2",
+        "size_bytes": 120
+      },
+      "retained": {
+        "path": "docs/evidence/stage17/PILOT-D341-PLATFORM-GEOMETRY-20261123-01/intermediate-20-tests-passing.txt",
+        "sha256": "fe4b20e26388fc7b2d3d329574452a3cb97826bf81cc36c88355d313cb900bc2",
+        "size_bytes": 120
+      },
+      "terminal_newlines_normalized": false
+    },
+    {
+      "removed": {
+        "path": "build/stage17-s180-platform-prep/final-debug.txt",
+        "sha256": "09ae575090bc65b57282c1904be9778d2e6f08c5f6c469f331b349bf97144807",
+        "size_bytes": 121
+      },
+      "retained": {
+        "path": "docs/evidence/stage17/PILOT-D341-PLATFORM-GEOMETRY-20261123-01/full-debug-21.txt",
+        "sha256": "09ae575090bc65b57282c1904be9778d2e6f08c5f6c469f331b349bf97144807",
+        "size_bytes": 121
+      },
+      "terminal_newlines_normalized": false
+    },
+    {
+      "removed": {
+        "path": "build/stage17-s180-platform-prep/final-debug-targeted.txt",
+        "sha256": "16eb3b735d662c37005e2d7703a11c86d3692e02dc4d9f8f7fdac2f96e90658c",
+        "size_bytes": 100
+      },
+      "retained": {
+        "path": "docs/evidence/stage17/PILOT-D341-PLATFORM-GEOMETRY-20261123-01/final-debug-targeted.txt",
+        "sha256": "16eb3b735d662c37005e2d7703a11c86d3692e02dc4d9f8f7fdac2f96e90658c",
+        "size_bytes": 100
+      },
+      "terminal_newlines_normalized": false
+    },
+    {
+      "removed": {
+        "path": "build/stage17-s180-platform-prep/registered.txt",
+        "sha256": "e480ede00c841d7a559cf8dfe0a600fa6d2821f26caed07dddef025edc8d9439",
+        "size_bytes": 1255
+      },
+      "retained": {
+        "path": "docs/evidence/stage17/PILOT-D341-PLATFORM-GEOMETRY-20261123-01/registered.txt",
+        "sha256": "e480ede00c841d7a559cf8dfe0a600fa6d2821f26caed07dddef025edc8d9439",
+        "size_bytes": 1255
+      },
+      "terminal_newlines_normalized": false
+    },
+    {
+      "removed": {
+        "path": "build/stage17-s180-platform-prep/configure.txt",
+        "sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e",
+        "size_bytes": 177
+      },
+      "retained": {
+        "path": "docs/evidence/stage17/PILOT-D341-PLATFORM-GEOMETRY-20261123-01/configure.txt",
+        "sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e",
+        "size_bytes": 177
+      },
+      "terminal_newlines_normalized": false
+    },
+    {
+      "removed": {
+        "path": "build/stage17-s180-platform-prep/repository-checks.txt",
+        "sha256": "ba143bbd3c1cd1edcd9f0e24b46500fa38b2af11babf051815de34b7351b6ace",
+        "size_bytes": 6025
+      },
+      "retained": {
+        "path": "docs/evidence/stage17/PILOT-D341-PLATFORM-GEOMETRY-20261123-01/repository-checks.txt",
+        "sha256": "ba143bbd3c1cd1edcd9f0e24b46500fa38b2af11babf051815de34b7351b6ace",
+        "size_bytes": 6025
+      },
+      "terminal_newlines_normalized": false
+    },
+    {
+      "removed": {
+        "path": "build/stage17-s180-platform-prep/final-request-tamper-debug.txt",
+        "sha256": "d10ffbd9f0faa72cd6837063279524e199b59fbc3d035051302a1e8dbc4b36ad",
+        "size_bytes": 98
+      },
+      "retained": {
+        "path": "docs/evidence/stage17/PILOT-D341-PLATFORM-GEOMETRY-20261123-01/final-request-tamper-debug.txt",
+        "sha256": "d10ffbd9f0faa72cd6837063279524e199b59fbc3d035051302a1e8dbc4b36ad",
+        "size_bytes": 98
+      },
+      "terminal_newlines_normalized": false
+    }
+  ],
+  "removed_bytes": 187786,
+  "stand_raw_touched": false,
+  "verified_duplicate_files": 20
+}

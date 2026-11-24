@@ -1,0 +1,2 @@
+[1/2] Building CXX object CMakeFiles/cpu_prefetch_s180_io_tests.dir/tests/stage17_s180_input_test.cpp.o
+[2/2] Linking CXX executable cpu_prefetch_s180_io_tests

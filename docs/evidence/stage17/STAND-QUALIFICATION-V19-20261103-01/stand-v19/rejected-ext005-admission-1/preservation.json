@@ -1,0 +1,17 @@
+{
+  "reason": "Rejected unadmitted draft omitted MIXED repository evidence and authority summary; actual Q15-W remains unchanged",
+  "files": [
+    {
+      "original_path": "records/resolution-006-s17-ext-005.json",
+      "retained_path": "rejected-ext005-admission-1/resolution-006-s17-ext-005.json",
+      "size_bytes": 1419,
+      "sha256": "0a04568dc8f9b8cc32fed0c91d2d6e16724a2ca0dc3e38aaa0736480259c19d9"
+    },
+    {
+      "original_path": "journal/stage17-state-journal-000008.json.candidate",
+      "retained_path": "rejected-ext005-admission-1/stage17-state-journal-000008.json.candidate",
+      "size_bytes": 3595,
+      "sha256": "07faa326cfcc8c2b8921efcf9e9b137d07f6b091616a5742ec364fd012675964"
+    }
+  ]
+}

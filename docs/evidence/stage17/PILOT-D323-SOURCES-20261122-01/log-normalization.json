@@ -1,0 +1,7 @@
+{
+  "registered-details.txt": {
+    "original_sha256": "56284456b791825b546868cec61776ad597700eef5d3c077a82f20bbdd2349c0",
+    "original_size_bytes": 2935,
+    "transform": "strip trailing horizontal whitespace and surplus EOF newlines"
+  }
+}

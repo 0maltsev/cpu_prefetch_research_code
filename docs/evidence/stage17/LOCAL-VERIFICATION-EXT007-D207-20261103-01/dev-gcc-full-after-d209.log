@@ -1,0 +1,1361 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/accepted-dev-gcc
+        Start 572: runner.stage17_pid_namespace_supervisor
+        Start 554: runner.stage17_discovery_v2_policy
+  1/642 Test #572: runner.stage17_pid_namespace_supervisor ........................................................   Passed    1.02 sec
+        Start 555: runner.stage17_preflight_successor
+  2/642 Test #554: runner.stage17_discovery_v2_policy .............................................................***Failed   33.93 sec
+......
+----------------------------------------------------------------------
+Ran 6 tests in 0.182s
+
+OK
+stage17-preflight-successor: FAIL semantic policy v31 operational runtime drifted
+
+        Start 552: runner.discovery_v2_action_admission
+  3/642 Test #555: runner.stage17_preflight_successor .............................................................***Failed   40.86 sec
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.196s
+
+OK
+stage17-preflight-successor: FAIL command returned 1, expected 0: /home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/python3 -B /tmp/stage17-d146-attestation-jtxc_8hf/operational/admission-root/tools/stage17_operational_cli_v16.py --repository-root /tmp/stage17-d146-attestation-jtxc_8hf/operational/admission-root --evidence-root /tmp/stage17-d146-attestation-jtxc_8hf/operational --pilot-archive /tmp/stage17-d146-attestation-jtxc_8hf/candidate.tar.gz --pilot-sidecar /tmp/stage17-d146-attestation-jtxc_8hf/candidate.tar.gz.sha256 admit-resolution --input-id S17-EXT-001 --actor synthetic-owner --recorded-at-utc 2030-01-01T00:00:04Z --repository-evidence /tmp/stage17-d146-attestation-jtxc_8hf/operational/admission-root/evidence/ext001-d204/envelope-v14.json --authorization-file /tmp/stage17-d146-attestation-jtxc_8hf/operational/admission-root/evidence/ext001-d204/authorization-v11.json
+stdout=
+stderr=stage17-operational: FAIL: semantic policy v30 operational runtime drifted
+
+
+        Start 562: runner.stage17_state_journal
+  4/642 Test #562: runner.stage17_state_journal ...................................................................   Passed   24.62 sec
+        Start 213: Q15Collectors.ClockEligibilityComesFromRawEvaluatorOutputs
+  5/642 Test #552: runner.discovery_v2_action_admission ...........................................................   Passed   37.74 sec
+        Start 550: runner.discovery_action_admission
+  6/642 Test #213: Q15Collectors.ClockEligibilityComesFromRawEvaluatorOutputs .....................................   Passed   16.96 sec
+        Start 520: AnalysisPipeline.CompleteSyntheticKnownShiftIsDeterministicAndByteStable
+  7/642 Test #520: AnalysisPipeline.CompleteSyntheticKnownShiftIsDeterministicAndByteStable .......................   Passed   14.37 sec
+        Start 523: AnalysisPipeline.ValidFullAndLowEffectiveTailAreRetainedButBlockInference
+  8/642 Test #523: AnalysisPipeline.ValidFullAndLowEffectiveTailAreRetainedButBlockInference ......................   Passed   12.76 sec
+        Start 525: AnalysisPipeline.CompleteReplacementIsAcceptedAndBudgetFailureIsRefused
+  9/642 Test #550: runner.discovery_action_admission ..............................................................   Passed   42.49 sec
+        Start 564: runner.stage17_external_journal_preflight_v2
+ 10/642 Test #525: AnalysisPipeline.CompleteReplacementIsAcceptedAndBudgetFailureIsRefused ........................   Passed    9.27 sec
+        Start 522: AnalysisPipeline.RejectsMissingCellsCellRepairAndInvalidJoinEvidence
+ 11/642 Test #564: runner.stage17_external_journal_preflight_v2 ...................................................   Passed    8.73 sec
+        Start 574: runner.stage17_pilot_semantics_v4
+ 12/642 Test #522: AnalysisPipeline.RejectsMissingCellsCellRepairAndInvalidJoinEvidence ...........................   Passed    7.69 sec
+        Start 524: AnalysisPipeline.IncompleteActiveBlockIsRefused
+ 13/642 Test #574: runner.stage17_pilot_semantics_v4 ..............................................................   Passed    6.95 sec
+        Start 563: runner.stage17_external_journal_preflight
+ 14/642 Test #524: AnalysisPipeline.IncompleteActiveBlockIsRefused ................................................   Passed    6.44 sec
+        Start 553: calibration.discovery_v2_retained_validation
+ 15/642 Test #563: runner.stage17_external_journal_preflight ......................................................   Passed    6.28 sec
+        Start 628: calibration.schema
+ 16/642 Test #553: calibration.discovery_v2_retained_validation ...................................................   Passed    5.87 sec
+        Start 514: Stage14CrossRecord.ResolvesCompletePoolAndRejectsMissingSeedEvidence
+ 17/642 Test #628: calibration.schema .............................................................................   Passed    3.88 sec
+        Start 521: AnalysisPipeline.RejectsMixedVersionsAndFailedChecksums
+ 18/642 Test #514: Stage14CrossRecord.ResolvesCompletePoolAndRejectsMissingSeedEvidence ...........................   Passed    3.72 sec
+        Start 517: AnalysisPrecision.SelectsOnlyFromCompleteProspectiveFamilies
+ 19/642 Test #521: AnalysisPipeline.RejectsMixedVersionsAndFailedChecksums ........................................   Passed    3.72 sec
+        Start 526: AnalysisAccess.SealedOrIncompleteStage14LedgerCannotMintAReadGrant
+ 20/642 Test #517: AnalysisPrecision.SelectsOnlyFromCompleteProspectiveFamilies ...................................   Passed    2.85 sec
+        Start 557: calibration.discovery_retained_validation
+ 21/642 Test #526: AnalysisAccess.SealedOrIncompleteStage14LedgerCannotMintAReadGrant .............................   Passed    2.86 sec
+        Start 575: runner.stage17_raw_stream_decoder_v1
+ 22/642 Test #575: runner.stage17_raw_stream_decoder_v1 ...........................................................   Passed    2.51 sec
+        Start 583: runner.stage17_authorization_schema
+ 23/642 Test #583: runner.stage17_authorization_schema ............................................................   Passed    2.30 sec
+        Start 569: runner.stage17_authority_child_lifecycle
+ 24/642 Test #557: calibration.discovery_retained_validation ......................................................   Passed    5.81 sec
+        Start 505: Stage14BlockPlan.PropertySweepPreservesFactorialForFrozenKeys
+ 25/642 Test #569: runner.stage17_authority_child_lifecycle .......................................................   Passed    2.07 sec
+        Start 573: runner.stage17_pilot_semantics_v3
+ 26/642 Test #505: Stage14BlockPlan.PropertySweepPreservesFactorialForFrozenKeys ..................................   Passed    1.88 sec
+        Start 568: runner.stage17_openssh_snapshot_consumption
+ 27/642 Test #573: runner.stage17_pilot_semantics_v3 ..............................................................   Passed    1.63 sec
+        Start 561: runner.stage17_operational_successor
+ 28/642 Test #568: runner.stage17_openssh_snapshot_consumption ....................................................   Passed    1.48 sec
+        Start 619: q15.r_p4_r_c_d100_decision
+ 29/642 Test #561: runner.stage17_operational_successor ...........................................................   Passed    1.41 sec
+        Start 551: calibration.discovery_v2_contract
+ 30/642 Test #619: q15.r_p4_r_c_d100_decision .....................................................................   Passed    1.27 sec
+        Start 570: runner.stage17_process_group_quiescence
+ 31/642 Test #551: calibration.discovery_v2_contract ..............................................................   Passed    1.38 sec
+        Start 560: runner.stage17_calibration_mapping
+ 32/642 Test #570: runner.stage17_process_group_quiescence ........................................................   Passed    1.10 sec
+        Start 567: runner.stage17_preflight_terminal_compatibility
+ 33/642 Test #560: runner.stage17_calibration_mapping .............................................................   Passed    0.76 sec
+        Start 240: Q15StandPrestate.BackendCannotBypassPerCommandOutputLimit
+ 34/642 Test #567: runner.stage17_preflight_terminal_compatibility ................................................   Passed    0.74 sec
+        Start 618: q15.r_p4_r_i_d099_complete
+ 35/642 Test #240: Q15StandPrestate.BackendCannotBypassPerCommandOutputLimit ......................................   Passed    0.65 sec
+        Start 629: orchestration.schema
+ 36/642 Test #618: q15.r_p4_r_i_d099_complete .....................................................................   Passed    0.63 sec
+        Start 636: schema.protocol_fixtures
+ 37/642 Test #629: orchestration.schema ...........................................................................   Passed    0.56 sec
+        Start 571: runner.stage17_process_group_evidence
+ 38/642 Test #636: schema.protocol_fixtures .......................................................................   Passed    0.53 sec
+        Start 216: Q15ClockPairQualification.RegisteredV5PairCompletesBothCapturePhases
+ 39/642 Test #571: runner.stage17_process_group_evidence ..........................................................   Passed    0.44 sec
+        Start 214: Q15ClockPairQualification.RealTwoThreadRunOnNearPairCompletesWithNoFailuresOrRegressions
+ 40/642 Test #216: Q15ClockPairQualification.RegisteredV5PairCompletesBothCapturePhases ...........................   Passed    0.42 sec
+        Start 631: schedule.python_generator
+ 41/642 Test #214: Q15ClockPairQualification.RealTwoThreadRunOnNearPairCompletesWithNoFailuresOrRegressions .......   Passed    0.43 sec
+        Start 598: q15.r_p4_r_staging_authorization_decision
+ 42/642 Test #631: schedule.python_generator ......................................................................   Passed    0.42 sec
+        Start 549: calibration.discovery_plan_contract
+ 43/642 Test #598: q15.r_p4_r_staging_authorization_decision ......................................................   Passed    0.36 sec
+        Start 584: q15.split_authorization_schema
+ 44/642 Test #549: calibration.discovery_plan_contract ............................................................   Passed    0.58 sec
+        Start 612: q15.r_p4_k_a_d096_authorization
+ 45/642 Test #584: q15.split_authorization_schema .................................................................   Passed    0.30 sec
+        Start 586: q15.r_operational_prerequisite
+ 46/642 Test #612: q15.r_p4_k_a_d096_authorization ................................................................   Passed    0.31 sec
+        Start 608: q15.r_bootstrap_d093_authorization
+ 47/642 Test #586: q15.r_operational_prerequisite .................................................................   Passed    0.28 sec
+        Start 558: calibration.discovery_metadata_validation
+ 48/642 Test #608: q15.r_bootstrap_d093_authorization .............................................................   Passed    0.27 sec
+        Start 615: q15.r_p4_k_r_d097_authorization
+ 49/642 Test #558: calibration.discovery_metadata_validation ......................................................   Passed    0.32 sec
+        Start 362: CalibrationServiceRate.InvalidRunIsRetainedButCannotBeToppedUp
+ 50/642 Test #615: q15.r_p4_k_r_d097_authorization ................................................................   Passed    0.27 sec
+        Start 361: CalibrationServiceRate.ResolvesExactSixtyCellMinimumAndCandidateLoads
+ 51/642 Test #362: CalibrationServiceRate.InvalidRunIsRetainedButCannotBeToppedUp .................................   Passed    0.28 sec
+        Start 620: q15.d100_self_test_boundary
+ 52/642 Test #361: CalibrationServiceRate.ResolvesExactSixtyCellMinimumAndCandidateLoads ..........................   Passed    0.26 sec
+        Start 594: q15.r_p4_d_implementation
+ 53/642 Test #620: q15.d100_self_test_boundary ....................................................................   Passed    0.27 sec
+        Start 604: q15.r_p4_k_a_operational_input_decision
+ 54/642 Test #594: q15.r_p4_d_implementation ......................................................................   Passed    0.26 sec
+        Start 603: q15.r_p4_k_successor_templates
+ 55/642 Test #604: q15.r_p4_k_a_operational_input_decision ........................................................   Passed    0.23 sec
+        Start 585: q15.r_decision_input
+ 56/642 Test #603: q15.r_p4_k_successor_templates .................................................................   Passed    0.28 sec
+        Start 621: q15.fixed_controller_authorization_v2
+ 57/642 Test #585: q15.r_decision_input ...........................................................................   Passed    0.27 sec
+        Start 641: runner.schema
+ 58/642 Test #621: q15.fixed_controller_authorization_v2 ..........................................................   Passed    0.21 sec
+        Start 610: q15.r_bootstrap_d094_activation
+ 59/642 Test #641: runner.schema ..................................................................................   Passed    0.21 sec
+        Start 519: AnalysisH3.ExactTrainingTiesUseRegisteredCandidateOrder
+ 60/642 Test #610: q15.r_bootstrap_d094_activation ................................................................   Passed    0.19 sec
+        Start 635: storage.large_synthetic
+ 61/642 Test #519: AnalysisH3.ExactTrainingTiesUseRegisteredCandidateOrder ........................................   Passed    0.23 sec
+        Start 566: runner.stage17_pre_marker_runtime_cardinality
+ 62/642 Test #635: storage.large_synthetic ........................................................................   Passed    0.24 sec
+        Start 593: q15.r_external_input_acquisition_decision
+ 63/642 Test #566: runner.stage17_pre_marker_runtime_cardinality ..................................................   Passed    0.24 sec
+        Start 595: q15.r_p4_r_collector_release_decision
+ 64/642 Test #593: q15.r_external_input_acquisition_decision ......................................................   Passed    0.23 sec
+        Start 606: q15.r_p4_k_a_controller_profile
+ 65/642 Test #595: q15.r_p4_r_collector_release_decision ..........................................................   Passed    0.23 sec
+        Start 600: q15.r_p4_r_successor_templates
+ 66/642 Test #606: q15.r_p4_k_a_controller_profile ................................................................   Passed    0.24 sec
+        Start 601: q15.r_p4_k_decision_input
+ 67/642 Test #600: q15.r_p4_r_successor_templates .................................................................   Passed    0.23 sec
+        Start 590: q15.r_operational_release_decision
+ 68/642 Test #601: q15.r_p4_k_decision_input ......................................................................   Passed    0.20 sec
+        Start 609: q15.r_bootstrap_d093_evidence
+ 69/642 Test #590: q15.r_operational_release_decision .............................................................   Passed    0.20 sec
+        Start 626: q15.dynamic_implementation_profile
+ 70/642 Test #609: q15.r_bootstrap_d093_evidence ..................................................................   Passed    0.19 sec
+        Start 581: runner.qualification_schema
+ 71/642 Test #626: q15.dynamic_implementation_profile .............................................................   Passed    0.19 sec
+        Start 633: storage.schema_compatibility
+ 72/642 Test #581: runner.qualification_schema ....................................................................   Passed    0.24 sec
+        Start 597: q15.r_p4_r_preparation_v2
+ 73/642 Test #633: storage.schema_compatibility ...................................................................   Passed    0.26 sec
+        Start 624: q15.probe_collector_contract
+ 74/642 Test #597: q15.r_p4_r_preparation_v2 ......................................................................   Passed    0.22 sec
+        Start 607: q15.r_bootstrap_governance_root_decision
+ 75/642 Test #624: q15.probe_collector_contract ...................................................................   Passed    0.17 sec
+        Start 559: calibration.discovery_cpp_publication_validation
+ 76/642 Test #607: q15.r_bootstrap_governance_root_decision .......................................................   Passed    0.19 sec
+        Start 605: q15.r_p4_k_a_d_acceptance
+ 77/642 Test #605: q15.r_p4_k_a_d_acceptance ......................................................................   Passed    0.20 sec
+        Start 592: q15.r_stand_setup_authorization_preparation_v2
+ 78/642 Test #559: calibration.discovery_cpp_publication_validation ...............................................   Passed    0.41 sec
+        Start 622: q15.fixed_controller_profile
+ 79/642 Test #592: q15.r_stand_setup_authorization_preparation_v2 .................................................   Passed    0.20 sec
+        Start 627: calibration.python_statistics
+ 80/642 Test #622: q15.fixed_controller_profile ...................................................................   Passed    0.20 sec
+        Start 509: Stage14Access.EnforcesSealChronologyRolesAndOutcomeBoundaries
+ 81/642 Test #627: calibration.python_statistics ..................................................................   Passed    0.18 sec
+        Start 513: Stage14Amendment.RequiresAppendOnlyUnbranchedOutcomeBlindLineage
+ 82/642 Test #509: Stage14Access.EnforcesSealChronologyRolesAndOutcomeBoundaries ..................................   Passed    0.19 sec
+        Start 613: q15.r_p4_k_a_d096_complete_evidence
+ 83/642 Test #513: Stage14Amendment.RequiresAppendOnlyUnbranchedOutcomeBlindLineage ...............................   Passed    0.18 sec
+        Start 616: q15.r_p4_k_r_d097_complete_evidence
+ 84/642 Test #613: q15.r_p4_k_a_d096_complete_evidence ............................................................   Passed    0.20 sec
+        Start 634: reconciliation.schema
+ 85/642 Test #616: q15.r_p4_k_r_d097_complete_evidence ............................................................   Passed    0.21 sec
+        Start 611: q15.r_p4_k_a_d095_terminal_failure
+ 86/642 Test #634: reconciliation.schema ..........................................................................   Passed    0.20 sec
+        Start 589: q15.r_stand_setup_authorization_preparation
+ 87/642 Test #611: q15.r_p4_k_a_d095_terminal_failure .............................................................   Passed    0.17 sec
+        Start 625: q15.probe_implementation_profile
+ 88/642 Test #589: q15.r_stand_setup_authorization_preparation ....................................................   Passed    0.19 sec
+        Start 582: platform.hardware_prefetch_qualification_schema
+ 89/642 Test #625: q15.probe_implementation_profile ...............................................................   Passed    0.18 sec
+        Start 602: q15.r_p4_k_d_acceptance
+ 90/642 Test #582: platform.hardware_prefetch_qualification_schema ................................................   Passed    0.16 sec
+        Start 588: q15.trust_anchor_adapter_profile
+ 91/642 Test #602: q15.r_p4_k_d_acceptance ........................................................................   Passed    0.19 sec
+        Start 540: queue.concurrent_stress
+ 92/642 Test #588: q15.trust_anchor_adapter_profile ...............................................................   Passed    0.21 sec
+        Start 587: q15.r_p2_acceptance
+ 93/642 Test #540: queue.concurrent_stress ........................................................................   Passed    0.13 sec
+        Start 596: q15.r_p4_e_acceptance
+ 94/642 Test #587: q15.r_p2_acceptance ............................................................................   Passed    0.15 sec
+        Start 599: q15.r_p4_f_acceptance
+ 95/642 Test #596: q15.r_p4_e_acceptance ..........................................................................   Passed    0.17 sec
+        Start 506: Stage14BlockPlan.PoolEnforcesRolesUniquenessAndCounterbalance
+ 96/642 Test #599: q15.r_p4_f_acceptance ..........................................................................   Passed    0.17 sec
+        Start 614: q15.r_p4_k_r_d097_preparation
+ 97/642 Test #506: Stage14BlockPlan.PoolEnforcesRolesUniquenessAndCounterbalance ..................................   Passed    0.17 sec
+        Start 591: q15.r_p3_acceptance
+ 98/642 Test #614: q15.r_p4_k_r_d097_preparation ..................................................................   Passed    0.16 sec
+        Start 617: q15.r_p5_d098_preparation
+ 99/642 Test #591: q15.r_p3_acceptance ............................................................................   Passed    0.16 sec
+        Start 565: runner.stage17_historical_fixture_preservation
+100/642 Test #617: q15.r_p5_d098_preparation ......................................................................   Passed    0.18 sec
+        Start 363: CalibrationServiceRate.RejectsConfirmatoryOrContextMismatchedEvidence
+101/642 Test #565: runner.stage17_historical_fixture_preservation .................................................   Passed    0.16 sec
+        Start 556: calibration.discovery_environment_validation
+102/642 Test #363: CalibrationServiceRate.RejectsConfirmatoryOrContextMismatchedEvidence ..........................   Passed    0.15 sec
+        Start 503: Stage14BlockPlan.RejectsEveryStructuralFactorAndOrdinalDefect
+103/642 Test #556: calibration.discovery_environment_validation ...................................................   Passed    0.16 sec
+        Start 547: q15.p4_r_c_executor_no_network_self_test
+104/642 Test #503: Stage14BlockPlan.RejectsEveryStructuralFactorAndOrdinalDefect ..................................   Passed    0.13 sec
+        Start 512: Stage14Replacement.ExhaustedBudgetStopsUnresolvedAndBranchesFail
+105/642 Test #547: q15.p4_r_c_executor_no_network_self_test .......................................................   Passed    0.13 sec
+        Start 511: Stage14Replacement.AuthorizesOnlyCompleteRolePreservingNewBlocks
+106/642 Test #512: Stage14Replacement.ExhaustedBudgetStopsUnresolvedAndBranchesFail ...............................   Passed    0.12 sec
+        Start 502: Stage14BlockPlan.DeterministicPlanProvesExactFactorialAndSeedSharing
+107/642 Test #511: Stage14Replacement.AuthorizesOnlyCompleteRolePreservingNewBlocks ...............................   Passed    0.12 sec
+        Start 548: calibration.q16a_discovery_design
+108/642 Test #502: Stage14BlockPlan.DeterministicPlanProvesExactFactorialAndSeedSharing ...........................   Passed    0.12 sec
+        Start 632: storage.format_compatibility
+109/642 Test #548: calibration.q16a_discovery_design ..............................................................   Passed    0.12 sec
+        Start 630: storage.concurrent_private_streams
+110/642 Test #632: storage.format_compatibility ...................................................................   Passed    0.11 sec
+        Start 623: q15.bundle_profile_policy
+111/642 Test #630: storage.concurrent_private_streams .............................................................   Passed    0.09 sec
+        Start 436: DiscoveryRingBackend.LateObservationFailureRetainsExactRawButBlocksPhaseValidity
+112/642 Test #623: q15.bundle_profile_policy ......................................................................   Passed    0.10 sec
+        Start 304: DiscoveryNativeInput.BothDesignsPreserveAll36OrderedContextSlots
+113/642 Test #436: DiscoveryRingBackend.LateObservationFailureRetainsExactRawButBlocksPhaseValidity ...............   Passed    0.07 sec
+        Start 103: Manifest.IsCanonicalDeterministicCompleteAndHonestAboutEligibility
+114/642 Test #103: Manifest.IsCanonicalDeterministicCompleteAndHonestAboutEligibility .............................   Passed    0.05 sec
+        Start 368: CalibrationRingDistance.InvalidCellAndForbiddenOutcomeFailClosed
+115/642 Test #304: DiscoveryNativeInput.BothDesignsPreserveAll36OrderedContextSlots ...............................   Passed    0.08 sec
+        Start 253: LifecycleConcurrency.LegitimateLongProducerIdleGapCannotBecomeFailure
+116/642 Test #253: LifecycleConcurrency.LegitimateLongProducerIdleGapCannotBecomeFailure ..........................   Passed    0.05 sec
+        Start  28: RingSpsc.WrapAndRepeatedRecordIndicesDoNotUseMonotonicCounters
+117/642 Test #368: CalibrationRingDistance.InvalidCellAndForbiddenOutcomeFailClosed ...............................   Passed    0.05 sec
+        Start  22: BlockSemantics.DuplicateFactorCellAndInvalidReplacementLineageReject
+118/642 Test  #28: RingSpsc.WrapAndRepeatedRecordIndicesDoNotUseMonotonicCounters .................................   Passed    0.05 sec
+        Start 236: Q15StandPrestate.CompleteArtifactIsCanonicalDeterministicAndHashBound
+119/642 Test  #22: BlockSemantics.DuplicateFactorCellAndInvalidReplacementLineageReject ...........................   Passed    0.05 sec
+        Start 637: canonical.cross_language_fixtures
+120/642 Test #236: Q15StandPrestate.CompleteArtifactIsCanonicalDeterministicAndHashBound ..........................   Passed    0.05 sec
+        Start 412: DiscoverySession.EveryRejectedOrThrowingObservationBlocksSuccessAndRetainsDrain
+121/642 Test #637: canonical.cross_language_fixtures ..............................................................   Passed    0.06 sec
+        Start  21: BlockSemantics.OriginalAndReplacementBlocksPassExactProduct
+122/642 Test #412: DiscoverySession.EveryRejectedOrThrowingObservationBlocksSuccessAndRetainsDrain ................   Passed    0.05 sec
+        Start 435: DiscoveryRingBackend.PreparationAndPrivateResetRejectionDoNotReleaseMeasurement
+123/642 Test  #21: BlockSemantics.OriginalAndReplacementBlocksPassExactProduct ....................................   Passed    0.06 sec
+        Start 367: CalibrationRingDistance.AppliesQuarterCapAndDetectsCollapse
+124/642 Test #435: DiscoveryRingBackend.PreparationAndPrivateResetRejectionDoNotReleaseMeasurement ................   Passed    0.04 sec
+        Start  92: TimingCrossCoreExchange.SlotWaitForSurvivesADelayedPublishViaWallClockFallback
+125/642 Test #367: CalibrationRingDistance.AppliesQuarterCapAndDetectsCollapse ....................................   Passed    0.04 sec
+        Start  93: TimingCrossCoreExchange.SlotWaitForStillTimesOutWhenPeerNeverPublishesWithinMaxWaitTicks
+126/642 Test  #92: TimingCrossCoreExchange.SlotWaitForSurvivesADelayedPublishViaWallClockFallback .................   Passed    0.04 sec
+        Start 434: DiscoveryRingBackend.PersistentRealArenaStreamsDrainAndExactSequenceJoin
+127/642 Test  #93: TimingCrossCoreExchange.SlotWaitForStillTimesOutWhenPeerNeverPublishesWithinMaxWaitTicks .......   Passed    0.04 sec
+        Start 242: Q15StandPrestate.ValidatorRejectsCommandAndHashCorruption
+128/642 Test #434: DiscoveryRingBackend.PersistentRealArenaStreamsDrainAndExactSequenceJoin .......................   Passed    0.03 sec
+        Start 243: Q15StandPrestate.ValidatorRejectsForgedExecutionAndEncodingState
+129/642 Test #242: Q15StandPrestate.ValidatorRejectsCommandAndHashCorruption ......................................   Passed    0.03 sec
+        Start 366: CalibrationRingDistance.UsesConservativeMaxMinAndCommonDistance
+130/642 Test #243: Q15StandPrestate.ValidatorRejectsForgedExecutionAndEncodingState ...............................   Passed    0.03 sec
+        Start 496: MappedDiscovery.FailedOwnerMappingOrProtectionCancelsPeerBeforeWarmup
+131/642 Test #496: MappedDiscovery.FailedOwnerMappingOrProtectionCancelsPeerBeforeWarmup ..........................   Passed    0.03 sec
+        Start 642: property.framework_smoke
+132/642 Test #366: CalibrationRingDistance.UsesConservativeMaxMinAndCommonDistance ................................   Passed    0.04 sec
+        Start 458: DiscoveryResidency.WrongPageReadbackBlocksRealSessionBeforeAnyQueueAttempt
+133/642 Test #458: DiscoveryResidency.WrongPageReadbackBlocksRealSessionBeforeAnyQueueAttempt .....................   Passed    0.02 sec
+        Start 215: Q15ClockPairQualification.PinningFailsClosedForACpuOutsideTheAffinityRange
+134/642 Test #642: property.framework_smoke .......................................................................   Passed    0.03 sec
+        Start 360: CalibrationExactArithmetic.ReducesComparesAndFailsOnOverflow
+135/642 Test #215: Q15ClockPairQualification.PinningFailsClosedForACpuOutsideTheAffinityRange .....................   Passed    0.02 sec
+        Start 445: DiscoveryRingBackend.FiniteTraceExhaustionKeepsIncompleteHorizonAndExactActualData
+136/642 Test #360: CalibrationExactArithmetic.ReducesComparesAndFailsOnOverflow ...................................   Passed    0.03 sec
+        Start 104: Manifest.RetainsPartialFailureWithoutClaimingEligibility
+137/642 Test #445: DiscoveryRingBackend.FiniteTraceExhaustionKeepsIncompleteHorizonAndExactActualData .............   Passed    0.02 sec
+        Start  78: TimingClock.RealMonotonicRawReaderIsAnEngineeringSmokeOnly
+138/642 Test #104: Manifest.RetainsPartialFailureWithoutClaimingEligibility .......................................   Passed    0.03 sec
+        Start 359: CrossRecordValidation.EmptySyntheticCompletedRunResolvesEveryRelationship
+139/642 Test  #78: TimingClock.RealMonotonicRawReaderIsAnEngineeringSmokeOnly .....................................   Passed    0.02 sec
+        Start 237: Q15StandPrestate.AbsentAccountsAreAcceptedObservations
+140/642 Test #359: CrossRecordValidation.EmptySyntheticCompletedRunResolvesEveryRelationship ......................   Passed    0.02 sec
+        Start 166: PreparedFileSnapshot.NativeProcSmapsUsesBoundedAdvancingReads
+141/642 Test #237: Q15StandPrestate.AbsentAccountsAreAcceptedObservations .........................................   Passed    0.02 sec
+        Start 317: Stage17DiscoveryPublication.EnvironmentalSnapshotsRetainBytesPartialReadsAndGroupIdentity
+142/642 Test #166: PreparedFileSnapshot.NativeProcSmapsUsesBoundedAdvancingReads ..................................   Passed    0.02 sec
+        Start 491: MappedDiscovery.RuntimeCloseRetainsEveryCleanupAndCannotRunAgain
+143/642 Test #317: Stage17DiscoveryPublication.EnvironmentalSnapshotsRetainBytesPartialReadsAndGroupIdentity ......   Passed    0.03 sec
+        Start 398: DiscoverySession.MappedWorkersPersistAcrossBothPhases
+144/642 Test #491: MappedDiscovery.RuntimeCloseRetainsEveryCleanupAndCannotRunAgain ...............................   Passed    0.02 sec
+        Start 114: LinuxInventory.DevelopmentHostReadOnlySmoke
+145/642 Test #398: DiscoverySession.MappedWorkersPersistAcrossBothPhases ..........................................   Passed    0.01 sec
+        Start 487: MappedDiscovery.MappedControllerOwnsContextAndRetainedCoordinationStorage
+146/642 Test #114: LinuxInventory.DevelopmentHostReadOnlySmoke ....................................................   Passed    0.01 sec
+        Start 314: Stage17DiscoveryPublication.RetainsPartialSyscallsMonitorPreparationTlsAndMappingFacts
+147/642 Test #487: MappedDiscovery.MappedControllerOwnsContextAndRetainedCoordinationStorage ......................   Passed    0.01 sec
+        Start 310: Stage17DiscoveryPublication.RetainsFailedCurrentEventDrainAndSessionWithoutCompletenessClaim
+148/642 Test #314: Stage17DiscoveryPublication.RetainsPartialSyscallsMonitorPreparationTlsAndMappingFacts .........   Passed    0.02 sec
+        Start 493: MappedDiscovery.RuntimeRetainsWorkersThroughFinalControlReadback
+149/642 Test #310: Stage17DiscoveryPublication.RetainsFailedCurrentEventDrainAndSessionWithoutCompletenessClaim ...   Passed    0.02 sec
+        Start 315: Stage17DiscoveryPublication.RetainsPageErrorsAndArenaIntegrityAtPublication
+150/642 Test #493: MappedDiscovery.RuntimeRetainsWorkersThroughFinalControlReadback ...............................   Passed    0.02 sec
+        Start 494: MappedDiscovery.RealOwnerMappingsAndStacksCompleteBothPhasesAndExactJoin
+151/642 Test #315: Stage17DiscoveryPublication.RetainsPageErrorsAndArenaIntegrityAtPublication ....................   Passed    0.02 sec
+        Start 259: LifecycleConcurrency.RandomizedDeterministicStressHasNoDuplicateOrOmission
+152/642 Test #494: MappedDiscovery.RealOwnerMappingsAndStacksCompleteBothPhasesAndExactJoin .......................   Passed    0.02 sec
+        Start 316: Stage17DiscoveryPublication.CorruptArenaOrderRetainsControlAndRawArtifacts
+153/642 Test #259: LifecycleConcurrency.RandomizedDeterministicStressHasNoDuplicateOrOmission .....................   Passed    0.02 sec
+        Start 343: StorageFinalization.CompleteIndependentStreamsSealWithoutReconciliation
+154/642 Test #316: Stage17DiscoveryPublication.CorruptArenaOrderRetainsControlAndRawArtifacts .....................   Passed    0.02 sec
+        Start 232: Q15RTrustAnchorAdapter.ReceiptMustBeCanonicalIndependentAndFullyBound
+155/642 Test #343: StorageFinalization.CompleteIndependentStreamsSealWithoutReconciliation ........................   Passed    0.02 sec
+        Start 396: DiscoverySession.CallerStorageRetainsResultsAndRejectsReuseWithoutMutation
+156/642 Test #232: Q15RTrustAnchorAdapter.ReceiptMustBeCanonicalIndependentAndFullyBound ..........................   Passed    0.02 sec
+        Start 307: Stage17DiscoveryPublication.PreservesRawCodecRunIdsAndFourVectorOffsets
+157/642 Test #396: DiscoverySession.CallerStorageRetainsResultsAndRejectsReuseWithoutMutation .....................   Passed    0.01 sec
+        Start 532: PreparedWorkload.LookupRecordActionAndAllPackageOperationsAllocateNothing
+158/642 Test #307: Stage17DiscoveryPublication.PreservesRawCodecRunIdsAndFourVectorOffsets ........................   Passed    0.01 sec
+        Start  45: LinkedExternalStorage.OwnedAndBorrowedRefineFifoForEverySmallCapacity
+159/642 Test #532: PreparedWorkload.LookupRecordActionAndAllPackageOperationsAllocateNothing ......................   Passed    0.01 sec
+        Start 488: MappedDiscovery.RuntimeCompositionRunsOnMappedControllerAndRetainsOwnerTls
+160/642 Test  #45: LinkedExternalStorage.OwnedAndBorrowedRefineFifoForEverySmallCapacity ..........................   Passed    0.01 sec
+        Start 309: Stage17DiscoveryPublication.ConsumerIdentityIsRetainedWhenProducerMissing
+161/642 Test #488: MappedDiscovery.RuntimeCompositionRunsOnMappedControllerAndRetainsOwnerTls .....................   Passed    0.02 sec
+        Start 399: DiscoverySession.StackPreparationFailureCancelsBeforeBackendAndPhaseRelease
+162/642 Test #309: Stage17DiscoveryPublication.ConsumerIdentityIsRetainedWhenProducerMissing ......................   Passed    0.02 sec
+        Start 411: DiscoverySession.ControllerObservesBothFixedPhasesAndRetainsActualHookStatus
+163/642 Test #399: DiscoverySession.StackPreparationFailureCancelsBeforeBackendAndPhaseRelease ....................   Passed    0.01 sec
+        Start 308: Stage17DiscoveryPublication.MissingOwnersRetainSevenFilesAndNullFacts
+164/642 Test #411: DiscoverySession.ControllerObservesBothFixedPhasesAndRetainsActualHookStatus ...................   Passed    0.01 sec
+        Start  71: ScheduleDecoder.RejectsMalformedBytesCountsAndHashes
+165/642 Test #308: Stage17DiscoveryPublication.MissingOwnersRetainSevenFilesAndNullFacts ..........................   Passed    0.01 sec
+        Start 311: Stage17DiscoveryPublication.SinkFailureStopsImmediatelyWithoutRetryOrSuccess
+166/642 Test  #71: ScheduleDecoder.RejectsMalformedBytesCountsAndHashes ...........................................   Passed    0.01 sec
+        Start 239: Q15StandPrestate.SpawnTimeoutSignalAndOutputFailuresRemainDistinct
+167/642 Test #311: Stage17DiscoveryPublication.SinkFailureStopsImmediatelyWithoutRetryOrSuccess ...................   Passed    0.01 sec
+        Start  44: LinkedExternalStorage.CheckedRequirementsRetainTheOwnedLayout
+168/642 Test #239: Q15StandPrestate.SpawnTimeoutSignalAndOutputFailuresRemainDistinct .............................   Passed    0.01 sec
+        Start 518: AnalysisMaxT.SeparatesNullAndKnownShiftFamiliesByCompleteBlock
+169/642 Test  #44: LinkedExternalStorage.CheckedRequirementsRetainTheOwnedLayout ..................................   Passed    0.01 sec
+        Start 301: DiscoveryNativeInput.RejectsAbsentMalformedAndDuplicateEnvironmentSources
+170/642 Test #518: AnalysisMaxT.SeparatesNullAndKnownShiftFamiliesByCompleteBlock .................................   Passed    0.01 sec
+        Start 344: StorageFinalization.PartialFailurePreservesExistingStreamAndFabricatesNone
+171/642 Test #301: DiscoveryNativeInput.RejectsAbsentMalformedAndDuplicateEnvironmentSources ......................   Passed    0.01 sec
+        Start 105: Manifest.EmitsExactImportedPlatformSchemaWithoutInventingStandValues
+172/642 Test #344: StorageFinalization.PartialFailurePreservesExistingStreamAndFabricatesNone .....................   Passed    0.01 sec
+        Start 292: RunnerQualification.TypedArtifactProducersDeriveEligibilityAndCanonicalBytes
+173/642 Test #105: Manifest.EmitsExactImportedPlatformSchemaWithoutInventingStandValues ...........................   Passed    0.01 sec
+        Start  74: ScheduleSerialization.CanonicalSourceRoundTripsWithoutInformationLoss
+174/642 Test #292: RunnerQualification.TypedArtifactProducersDeriveEligibilityAndCanonicalBytes ...................   Passed    0.01 sec
+        Start 490: MappedDiscovery.RuntimePreservesPreparationFailureWithoutWarmupOrRetry
+175/642 Test  #74: ScheduleSerialization.CanonicalSourceRoundTripsWithoutInformationLoss ..........................   Passed    0.01 sec
+        Start  72: ScheduleDecoder.RejectsOrderingHorizonEncodingRateAndSuiteViolations
+176/642 Test #490: MappedDiscovery.RuntimePreservesPreparationFailureWithoutWarmupOrRetry .........................   Passed    0.01 sec
+        Start 339: StorageStore.PartialWriteAndReadbackMismatchRemainIncomplete
+177/642 Test  #72: ScheduleDecoder.RejectsOrderingHorizonEncodingRateAndSuiteViolations ...........................   Passed    0.01 sec
+        Start 341: StorageStore.CrashAfterPrimaryAndLedgerFailurePreserveVerifiedObjects
+178/642 Test #339: StorageStore.PartialWriteAndReadbackMismatchRemainIncomplete ...................................   Passed    0.01 sec
+        Start 527: AnalysisRun.RawRowsAreReconciledAndDerivedIntervalsCheckedExactly
+179/642 Test #341: StorageStore.CrashAfterPrimaryAndLedgerFailurePreserveVerifiedObjects ..........................   Passed    0.01 sec
+        Start 516: AnalysisDesign.FrozenModelIsFullRankAndContrastRegistriesAreExact
+180/642 Test #527: AnalysisRun.RawRowsAreReconciledAndDerivedIntervalsCheckedExactly ..............................   Passed    0.01 sec
+        Start 338: StorageStore.TwoCopiesAreReadBackAndDuplicateObjectCannotOverwrite
+181/642 Test #516: AnalysisDesign.FrozenModelIsFullRankAndContrastRegistriesAreExact ..............................   Passed    0.01 sec
+        Start 538: StorageHotWriter.DiscoveryPhaseCaptureDrainJoinAndResetAllocateNothing
+182/642 Test #338: StorageStore.TwoCopiesAreReadBackAndDuplicateObjectCannotOverwrite .............................   Passed    0.01 sec
+        Start 133: WorkerStack.EveryControlFailureIsRetainedWithoutFallbackOrRetry
+183/642 Test #538: StorageHotWriter.DiscoveryPhaseCaptureDrainJoinAndResetAllocateNothing .........................   Passed    0.01 sec
+        Start 413: DiscoverySession.EarlyControllerRejectionStopsCaptureWithoutSkippingBoundedDrain
+184/642 Test #133: WorkerStack.EveryControlFailureIsRetainedWithoutFallbackOrRetry ................................   Passed    0.01 sec
+        Start  94: TimingCrossCoreExchange.TwoThreadsCompleteManyCausallyOrderedRoundTripsInBothDirections
+185/642 Test #413: DiscoverySession.EarlyControllerRejectionStopsCaptureWithoutSkippingBoundedDrain ...............   Passed    0.01 sec
+        Start 238: Q15StandPrestate.UnexpectedExitStopsOnceAndPreservesPartialArtifact
+186/642 Test  #94: TimingCrossCoreExchange.TwoThreadsCompleteManyCausallyOrderedRoundTripsInBothDirections ........   Passed    0.01 sec
+        Start 441: DiscoveryRingBackend.PrimaryMutantsRejectWithoutRenumberingOrHashOnlyMatching
+187/642 Test #238: Q15StandPrestate.UnexpectedExitStopsOnceAndPreservesPartialArtifact ............................   Passed    0.01 sec
+        Start 284: RunnerAdmission.StaticDispatcherInstantiatesExactlyTheSelectedPackage
+188/642 Test #441: DiscoveryRingBackend.PrimaryMutantsRejectWithoutRenumberingOrHashOnlyMatching ..................   Passed    0.01 sec
+        Start 235: Q15StandPrestate.CompiledCommandContractExactlyMatchesAcceptedJson
+189/642 Test #284: RunnerAdmission.StaticDispatcherInstantiatesExactlyTheSelectedPackage ..........................   Passed    0.01 sec
+        Start 400: DiscoverySession.SecondThreadLaunchFailureCancelsAndJoinsFirstWorker
+190/642 Test #235: Q15StandPrestate.CompiledCommandContractExactlyMatchesAcceptedJson .............................   Passed    0.01 sec
+        Start 437: DiscoveryRingBackend.FullAttemptsAndRepeatedIndicesJoinOnlyByActualOrdinals
+191/642 Test #400: DiscoverySession.SecondThreadLaunchFailureCancelsAndJoinsFirstWorker ...........................   Passed    0.01 sec
+        Start 231: Q15RTrustAnchorAdapter.RejectsIncompleteMutableOrMisdirectedSnapshots
+192/642 Test #437: DiscoveryRingBackend.FullAttemptsAndRepeatedIndicesJoinOnlyByActualOrdinals ....................   Passed    0.01 sec
+        Start 321: Stage17FixedAction.CalibrationPrestateMatchesNamedMapping
+193/642 Test #231: Q15RTrustAnchorAdapter.RejectsIncompleteMutableOrMisdirectedSnapshots ..........................   Passed    0.01 sec
+        Start 498: MappedDiscovery.MissingPeerHasFinitePreparationBudgetAndCannotBeRetried
+194/642 Test #321: Stage17FixedAction.CalibrationPrestateMatchesNamedMapping ......................................   Passed    0.01 sec
+        Start 331: StorageFormat.CorruptionCountsVersionsAndOrderingAreRejected
+195/642 Test #498: MappedDiscovery.MissingPeerHasFinitePreparationBudgetAndCannotBeRetried ........................   Passed    0.01 sec
+        Start 247: LifecycleConcurrency.TerminationPublicationIsReleaseAcquireAndDedicated
+196/642 Test #247: LifecycleConcurrency.TerminationPublicationIsReleaseAcquireAndDedicated ........................   Passed    0.01 sec
+        Start  70: ScheduleGolden.AcceptedPhiloxAndDecodedArtifactMatch
+197/642 Test #331: StorageFormat.CorruptionCountsVersionsAndOrderingAreRejected ...................................   Passed    0.01 sec
+        Start 324: StorageFormat.AcceptedGoldenProducerConsumerAndJoinedVectorsMatch
+198/642 Test  #70: ScheduleGolden.AcceptedPhiloxAndDecodedArtifactMatch ...........................................   Passed    0.01 sec
+        Start 499: MappedDiscovery.CallerCannotChangeFrozenGeometryOrControlsAfterConstruction
+199/642 Test #324: StorageFormat.AcceptedGoldenProducerConsumerAndJoinedVectorsMatch ..............................   Passed    0.01 sec
+        Start 442: DiscoveryRingBackend.EmptyShapeIdentityAndOverflowChecksRemainMandatory
+200/642 Test #499: MappedDiscovery.CallerCannotChangeFrozenGeometryOrControlsAfterConstruction ....................   Passed    0.01 sec
+        Start 440: DiscoveryRingBackend.PrefixJoinAllowsOnlyThePendingAcceptedSuffix
+201/642 Test #442: DiscoveryRingBackend.EmptyShapeIdentityAndOverflowChecksRemainMandatory ........................   Passed    0.01 sec
+        Start 423: CallerOwnedDemandTrace.RealCapturePreservesEventActionAndFailedTraceDequeue
+202/642 Test #440: DiscoveryRingBackend.PrefixJoinAllowsOnlyThePendingAcceptedSuffix ..............................   Passed    0.01 sec
+        Start 438: DiscoveryRingBackend.ObservedDrainRetainsPrimaryBoundariesBeforeReset
+203/642 Test #423: CallerOwnedDemandTrace.RealCapturePreservesEventActionAndFailedTraceDequeue ....................   Passed    0.01 sec
+        Start 244: Q15StandPrestate.ValidatorRejectsForgedFailureCategory
+204/642 Test #438: DiscoveryRingBackend.ObservedDrainRetainsPrimaryBoundariesBeforeReset ..........................   Passed    0.01 sec
+        Start 135: WorkerStack.CannotReleaseLiveStackEvenAfterCallbackHasStarted
+205/642 Test #244: Q15StandPrestate.ValidatorRejectsForgedFailureCategory .........................................   Passed    0.01 sec
+        Start  73: ScheduleDecoder.RejectsDerivationMismatchAndRecordHashCorruption
+206/642 Test #135: WorkerStack.CannotReleaseLiveStackEvenAfterCallbackHasStarted ..................................   Passed    0.01 sec
+        Start 358: JoinAudit.PassedAndFailedArtifactsAreMutuallyExclusive
+207/642 Test  #73: ScheduleDecoder.RejectsDerivationMismatchAndRecordHashCorruption ...............................   Passed    0.01 sec
+        Start 340: StorageStore.SyncedStagingCanBePromotedOnlyWithExactIdentity
+208/642 Test #358: JoinAudit.PassedAndFailedArtifactsAreMutuallyExclusive .........................................   Passed    0.01 sec
+        Start 175: PreparedPrefetchReadback.RejectsUnpreparedInvalidStateAndOutputReuseWithoutIo
+209/642 Test #340: StorageStore.SyncedStagingCanBePromotedOnlyWithExactIdentity ...................................   Passed    0.01 sec
+        Start 325: StorageFormat.CallerOwnedBuffersPreserveGoldenBytesAndDecoding
+210/642 Test #175: PreparedPrefetchReadback.RejectsUnpreparedInvalidStateAndOutputReuseWithoutIo ..................   Passed    0.01 sec
+        Start 446: DiscoveryRingBackend.PreparedReaderRejectsGeometryAndTruncationBeforeReadingBody
+211/642 Test #325: StorageFormat.CallerOwnedBuffersPreserveGoldenBytesAndDecoding .................................   Passed    0.01 sec
+        Start 335: StorageArtifacts.IntegrityAndImportedRawEnvelopeAreCanonicalAndBound
+212/642 Test #446: DiscoveryRingBackend.PreparedReaderRejectsGeometryAndTruncationBeforeReadingBody ...............   Passed    0.01 sec
+        Start 132: WorkerStack.NativeWorkerUsesGuardedMappedStackAndPreservesLiveFrames
+213/642 Test #335: StorageArtifacts.IntegrityAndImportedRawEnvelopeAreCanonicalAndBound ...........................   Passed    0.01 sec
+        Start 497: MappedDiscovery.AlreadyFailedPeerPreventsNewMappingOrOwnerMutation
+214/642 Test #132: WorkerStack.NativeWorkerUsesGuardedMappedStackAndPreservesLiveFrames ...........................   Passed    0.01 sec
+        Start 306: DiscoveryNativeInput.V2RejectsBufferWarmupAndDeclaredLayoutDrift
+215/642 Test #497: MappedDiscovery.AlreadyFailedPeerPreventsNewMappingOrOwnerMutation .............................   Passed    0.01 sec
+        Start 298: DiscoveryNativeInput.RejectsScientificContextDriftAndNonIntegerInputs
+216/642 Test #306: DiscoveryNativeInput.V2RejectsBufferWarmupAndDeclaredLayoutDrift ...............................   Passed    0.01 sec
+        Start 329: StorageFormat.PreparedReadersReproduceEveryGoldenPrimaryByte
+217/642 Test #298: DiscoveryNativeInput.RejectsScientificContextDriftAndNonIntegerInputs ..........................   Passed    0.01 sec
+        Start 285: RunnerAdmission.FileHashVerificationRejectsMismatchAndSymlink
+218/642 Test #329: StorageFormat.PreparedReadersReproduceEveryGoldenPrimaryByte ...................................   Passed    0.01 sec
+        Start  40: RingExternalStorage.IndependentThreadsTransferEveryEventInOrder
+219/642 Test #285: RunnerAdmission.FileHashVerificationRejectsMismatchAndSymlink ..................................   Passed    0.01 sec
+        Start 211: Q15Collectors.SoftwarePrefetchReadsEveryFixedCpuAndDistinctReports
+220/642 Test  #40: RingExternalStorage.IndependentThreadsTransferEveryEventInOrder ................................   Passed    0.01 sec
+        Start 195: Q15ProbeValidation.RejectsMalformedOrNoncyclicBuffersAndInvalidCounts
+221/642 Test #211: Q15Collectors.SoftwarePrefetchReadsEveryFixedCpuAndDistinctReports .............................   Passed    0.01 sec
+        Start 280: RunnerAdmission.EveryEvidenceKindIsMandatoryAndUnique
+222/642 Test #195: Q15ProbeValidation.RejectsMalformedOrNoncyclicBuffersAndInvalidCounts ..........................   Passed    0.01 sec
+        Start 433: DiscoveryEventCapture.InvalidDequeuedPointerIsAnExplicitRecordFailure
+223/642 Test #280: RunnerAdmission.EveryEvidenceKindIsMandatoryAndUnique ..........................................   Passed    0.01 sec
+        Start 432: DiscoveryEventCapture.TraceExhaustionRetainsPrimaryRowsAndOrdinaryAction
+224/642 Test #433: DiscoveryEventCapture.InvalidDequeuedPointerIsAnExplicitRecordFailure ..........................   Passed    0.01 sec
+        Start 332: StorageFormat.InvalidObservationAndLogicalTimestampOrderAreRejected
+225/642 Test #432: DiscoveryEventCapture.TraceExhaustionRetainsPrimaryRowsAndOrdinaryAction .......................   Passed    0.01 sec
+        Start 229: Q15RTrustAnchorAdapter.ExactFixedDescriptorsProduceAdmissibleTrustAnchor
+226/642 Test #332: StorageFormat.InvalidObservationAndLogicalTimestampOrderAreRejected ............................   Passed    0.01 sec
+        Start  17: ManifestSemantics.SimultaneousGateFailuresDoNotInventReasonPrecedence
+227/642 Test #229: Q15RTrustAnchorAdapter.ExactFixedDescriptorsProduceAdmissibleTrustAnchor .......................   Passed    0.01 sec
+        Start 426: DiscoveryEventCapture.RetainsExactPrimaryBoundariesAndSameAcquireDemand
+228/642 Test  #17: ManifestSemantics.SimultaneousGateFailuresDoNotInventReasonPrecedence ..........................   Passed    0.01 sec
+        Start  60: EventArena.CallerOwnedOrderPreservesSeededLookupPayloadAndChecksums
+229/642 Test #426: DiscoveryEventCapture.RetainsExactPrimaryBoundariesAndSameAcquireDemand ........................   Passed    0.01 sec
+        Start 233: Q15RTrustAnchorAdapter.RawAuthorizationAndSignatureHashDriftFailsClosed
+230/642 Test  #60: EventArena.CallerOwnedOrderPreservesSeededLookupPayloadAndChecksums ............................   Passed    0.01 sec
+        Start 439: DiscoveryRingBackend.FailedFinalChecksumLeavesQueueCursorsWithoutReset
+231/642 Test #233: Q15RTrustAnchorAdapter.RawAuthorizationAndSignatureHashDriftFailsClosed ........................   Passed    0.01 sec
+        Start 117: PreparedResidency.RejectsScratchInsideObservedMappingBeforeWriting
+232/642 Test #439: DiscoveryRingBackend.FailedFinalChecksumLeavesQueueCursorsWithoutReset .........................   Passed    0.01 sec
+        Start 297: DiscoveryNativeInput.RejectsUnqualifiedLayoutSizesBeforeAnyMapping
+233/642 Test #117: PreparedResidency.RejectsScratchInsideObservedMappingBeforeWriting .............................   Passed    0.01 sec
+        Start 425: CallerOwnedDemandTrace.ConcurrentOwnerPreparationAndRecordingRemainIndependent
+234/642 Test #297: DiscoveryNativeInput.RejectsUnqualifiedLayoutSizesBeforeAnyMapping .............................   Passed    0.01 sec
+        Start 457: DiscoveryResidency.EveryDeclaredRegionRequiresCompletePhaseCoverage
+235/642 Test #425: CallerOwnedDemandTrace.ConcurrentOwnerPreparationAndRecordingRemainIndependent .................   Passed    0.01 sec
+        Start  31: QueueModel.DeterministicRandomHistoryRefinesBoundedFifo
+236/642 Test #457: DiscoveryResidency.EveryDeclaredRegionRequiresCompletePhaseCoverage ............................   Passed    0.01 sec
+        Start 444: DiscoveryRingBackend.FailedPrimaryPrefixAndLaterDrainKeepRealConsumedOrdinals
+237/642 Test  #31: QueueModel.DeterministicRandomHistoryRefinesBoundedFifo ........................................   Passed    0.01 sec
+        Start  18: ManifestSemantics.Pre2RequiresExhaustiveCanonicalBlockers
+238/642 Test #444: DiscoveryRingBackend.FailedPrimaryPrefixAndLaterDrainKeepRealConsumedOrdinals ..................   Passed    0.01 sec
+        Start 299: DiscoveryNativeInput.RejectsImplicitArenaSeedAndUnknownControlFields
+239/642 Test  #18: ManifestSemantics.Pre2RequiresExhaustiveCanonicalBlockers ......................................   Passed    0.01 sec
+        Start 318: Stage17DiscoveryPublication.EnvironmentalStorageExtentCannotBeInvented
+240/642 Test #299: DiscoveryNativeInput.RejectsImplicitArenaSeedAndUnknownControlFields ...........................   Passed    0.01 sec
+        Start 291: RunnerPreparation.AdmittedStaticPathUsesAffinedPreparationBeforeEmptyRun
+241/642 Test #318: Stage17DiscoveryPublication.EnvironmentalStorageExtentCannotBeInvented .........................   Passed    0.01 sec
+        Start 230: Q15RTrustAnchorAdapter.DescriptorFailureStopsWithoutRetryOrFallback
+242/642 Test #291: RunnerPreparation.AdmittedStaticPathUsesAffinedPreparationBeforeEmptyRun .......................   Passed    0.01 sec
+        Start 427: DiscoveryEventCapture.FullAndEmptyKeepActualOutcomesWithoutInventedBoundaries
+243/642 Test #230: Q15RTrustAnchorAdapter.DescriptorFailureStopsWithoutRetryOrFallback ............................   Passed    0.01 sec
+        Start 428: DiscoveryEventCapture.EveryProducerClockFailureRetainsItsActualOperationState
+244/642 Test #427: DiscoveryEventCapture.FullAndEmptyKeepActualOutcomesWithoutInventedBoundaries ..................   Passed    0.01 sec
+        Start 387: DiscoveryCaptureWindow.ConcurrentRealQueueWorkersStopAndReconcileAfterDrain
+245/642 Test #428: DiscoveryEventCapture.EveryProducerClockFailureRetainsItsActualOperationState ..................   Passed    0.01 sec
+        Start  69: Packages.AllFivePackagesDemandTheSameImmutableRecordAction
+246/642 Test #387: DiscoveryCaptureWindow.ConcurrentRealQueueWorkersStopAndReconcileAfterDrain ....................   Passed    0.01 sec
+        Start   7: Configuration.VersionEnumHashIdAndUnitErrorsAreStable
+247/642 Test  #69: Packages.AllFivePackagesDemandTheSameImmutableRecordAction .....................................   Passed    0.01 sec
+        Start 443: DiscoveryRingBackend.DrainClockFailureRetainsActualItemActionAndPartialRow
+248/642 Test   #7: Configuration.VersionEnumHashIdAndUnitErrorsAreStable ..........................................   Passed    0.01 sec
+        Start 447: DiscoveryRingBackend.CrossRowClockRegressionCannotPassLocallyOrderedRows
+249/642 Test #443: DiscoveryRingBackend.DrainClockFailureRetainsActualItemActionAndPartialRow .....................   Passed    0.01 sec
+        Start 504: Stage14BlockPlan.RejectsRoleNamespaceCollisionsAndPathIdentity
+250/642 Test #447: DiscoveryRingBackend.CrossRowClockRegressionCannotPassLocallyOrderedRows .......................   Passed    0.01 sec
+        Start 206: Q15DynamicSession.WrongPeerExpiryAndBufferMismatchFailTerminally
+251/642 Test #504: Stage14BlockPlan.RejectsRoleNamespaceCollisionsAndPathIdentity .................................   Passed    0.01 sec
+        Start 342: StorageStore.DuplicateRunDirectoryAndSameDomainAreRejected
+252/642 Test #206: Q15DynamicSession.WrongPeerExpiryAndBufferMismatchFailTerminally ...............................   Passed    0.01 sec
+        Start 330: StorageFormat.ExactCapacityZeroRowsAndOverflowFailClosed
+253/642 Test #342: StorageStore.DuplicateRunDirectoryAndSameDomainAreRejected .....................................   Passed    0.01 sec
+        Start 431: DiscoveryEventCapture.WorkerRetainsCountsAndOuterClockFailureAfterQueueAdvance
+254/642 Test #330: StorageFormat.ExactCapacityZeroRowsAndOverflowFailClosed .......................................   Passed    0.01 sec
+        Start  81: TimingCapture.ConsumerRetainsOnlySuccessfulPollAndCompletesAfterRecordAction
+255/642 Test #431: DiscoveryEventCapture.WorkerRetainsCountsAndOuterClockFailureAfterQueueAdvance .................   Passed    0.01 sec
+        Start 320: Stage17FixedAction.CalibrationAndPilotRejectPathWithoutTicketAndSchedule
+256/642 Test  #81: TimingCapture.ConsumerRetainsOnlySuccessfulPollAndCompletesAfterRecordAction ...................   Passed    0.01 sec
+        Start 429: DiscoveryEventCapture.EveryConsumerClockFailureStillActsOnAnActualDequeuedRecord
+257/642 Test #320: Stage17FixedAction.CalibrationAndPilotRejectPathWithoutTicketAndSchedule .......................   Passed    0.01 sec
+        Start 138: ThreadTls.MappedWorkerRetainsItsOwnTlsIdentityAndSeparatePayloads
+258/642 Test #429: DiscoveryEventCapture.EveryConsumerClockFailureStillActsOnAnActualDequeuedRecord ...............   Passed    0.01 sec
+        Start 300: DiscoveryNativeInput.RejectsCpuOverflowAndAbsentLimits
+259/642 Test #138: ThreadTls.MappedWorkerRetainsItsOwnTlsIdentityAndSeparatePayloads ..............................   Passed    0.01 sec
+        Start 535: WorkloadNoAllocation.DiscoveryEventAndDemandCaptureDoNotAllocate
+260/642 Test #300: DiscoveryNativeInput.RejectsCpuOverflowAndAbsentLimits .........................................   Passed    0.01 sec
+        Start  59: EventArena.DetectsUnexpectedPointersIndexCorruptionAndContentChanges
+261/642 Test #535: WorkloadNoAllocation.DiscoveryEventAndDemandCaptureDoNotAllocate ...............................   Passed    0.01 sec
+        Start  82: TimingCapture.ClockFailureDoesNotPublishOrFabricateAProducerRow
+262/642 Test  #59: EventArena.DetectsUnexpectedPointersIndexCorruptionAndContentChanges ...........................   Passed    0.01 sec
+        Start 397: DiscoverySession.InvalidPlanConsumesItsStorageWithoutStartingWorkers
+263/642 Test  #82: TimingCapture.ClockFailureDoesNotPublishOrFabricateAProducerRow ................................   Passed    0.01 sec
+        Start  66: WorkingSet.NodePlanIsDeterministicBijectionWithLineAndPageEvidence
+264/642 Test #397: DiscoverySession.InvalidPlanConsumesItsStorageWithoutStartingWorkers ...........................   Passed    0.01 sec
+        Start 205: Q15DynamicSession.ExactLegalSequenceRetainsOneBufferAcrossBothPhases
+265/642 Test  #66: WorkingSet.NodePlanIsDeterministicBijectionWithLineAndPageEvidence .............................   Passed    0.01 sec
+        Start 430: DiscoveryEventCapture.PreOperationFailureDoesNotCountAnAttemptOrReuseOldClockFacts
+266/642 Test #205: Q15DynamicSession.ExactLegalSequenceRetainsOneBufferAcrossBothPhases ...........................   Passed    0.01 sec
+        Start 212: Q15Collectors.MsrPrestateAndReadbackUseBackendObservationsNotRequestedState
+267/642 Test #430: DiscoveryEventCapture.PreOperationFailureDoesNotCountAnAttemptOrReuseOldClockFacts .............   Passed    0.01 sec
+        Start 200: Q15DynamicMemory.FakePreparationUsesRequiredOrderAndExternalInitializer
+268/642 Test #212: Q15Collectors.MsrPrestateAndReadbackUseBackendObservationsNotRequestedState ....................   Passed    0.01 sec
+        Start 536: StorageHotWriter.ProducerAndConsumerAppendAllocateNothingAfterPreparation
+269/642 Test #200: Q15DynamicMemory.FakePreparationUsesRequiredOrderAndExternalInitializer ........................   Passed    0.01 sec
+        Start  80: TimingCapture.ReleaseAcquirePublicationCarriesExactBoundariesAcrossThreads
+270/642 Test #536: StorageHotWriter.ProducerAndConsumerAppendAllocateNothingAfterPreparation ......................   Passed    0.00 sec
+        Start 196: Q15ProbeIntegrity.RequiresFullHashEqualityExactCycleAndExactClosure
+271/642 Test  #80: TimingCapture.ReleaseAcquirePublicationCarriesExactBoundariesAcrossThreads .....................   Passed    0.01 sec
+        Start 152: ThreadMonitor.ObservesNativeMappedWorkerWithVerifiedSingletonAffinity
+272/642 Test #196: Q15ProbeIntegrity.RequiresFullHashEqualityExactCycleAndExactClosure ............................   Passed    0.01 sec
+        Start 193: Q15ProbeDeterminism.CompleteCycleHasOneIndexPerLineAndZeroFilledRemainder
+273/642 Test #152: ThreadMonitor.ObservesNativeMappedWorkerWithVerifiedSingletonAffinity ..........................   Passed    0.01 sec
+        Start 192: Q15ProbeDeterminism.AcceptedMasterSeedKeyOrderAndRawBufferHashMatchGolden
+274/642 Test #193: Q15ProbeDeterminism.CompleteCycleHasOneIndexPerLineAndZeroFilledRemainder ......................   Passed    0.01 sec
+        Start 201: Q15DynamicProbe.FakePassUsesOneExactCounterLifecycleAndRetainsRawEvidence
+275/642 Test #192: Q15ProbeDeterminism.AcceptedMasterSeedKeyOrderAndRawBufferHashMatchGolden ......................   Passed    0.01 sec
+        Start 415: DiscoveryConsumerCapture.RetainsTheActualImmutableRecordForChecksumAction
+276/642 Test #201: Q15DynamicProbe.FakePassUsesOneExactCounterLifecycleAndRetainsRawEvidence ......................   Passed    0.01 sec
+        Start 194: Q15ProbeTraversal.RegularAndPointerBodiesCompleteExactDemandedLoads
+277/642 Test #415: DiscoveryConsumerCapture.RetainsTheActualImmutableRecordForChecksumAction ......................   Passed    0.01 sec
+        Start 326: StorageFormat.InvalidCallerBuffersRejectBeforeAnyExternalWrite
+278/642 Test #194: Q15ProbeTraversal.RegularAndPointerBodiesCompleteExactDemandedLoads ............................   Passed    0.01 sec
+        Start 286: RunnerAdmission.StrictJsonRejectsUnknownFieldsAndUnknownEvidence
+279/642 Test #326: StorageFormat.InvalidCallerBuffersRejectBeforeAnyExternalWrite .................................   Passed    0.01 sec
+        Start 220: P4KAController.EveryStepFailureStopsWithoutRetryAndRetainsPrefix
+280/642 Test #286: RunnerAdmission.StrictJsonRejectsUnknownFieldsAndUnknownEvidence ...............................   Passed    0.01 sec
+        Start 207: Q15DynamicSession.DisconnectRetainsActorTimestampAndPartialTransitions
+281/642 Test #220: P4KAController.EveryStepFailureStopsWithoutRetryAndRetainsPrefix ...............................   Passed    0.01 sec
+        Start 123: OwnerMapping.EveryFailedPreparationBoundaryRetainsFactsWithoutRetryOrNextStep
+282/642 Test #207: Q15DynamicSession.DisconnectRetainsActorTimestampAndPartialTransitions .........................   Passed    0.01 sec
+        Start 333: StorageCaptureBackend.CompleteCaptureCommitsIndependentRowsBeforeReporting
+283/642 Test #123: OwnerMapping.EveryFailedPreparationBoundaryRetainsFactsWithoutRetryOrNextStep ..................   Passed    0.01 sec
+        Start 334: StorageCaptureBackend.OverflowBecomesMeasurementFailureAfterExactCapture
+284/642 Test #333: StorageCaptureBackend.CompleteCaptureCommitsIndependentRowsBeforeReporting .....................   Passed    0.01 sec
+        Start 202: Q15DynamicProbe.CounterFailureClosesOnceWithoutRetryOrFallback
+285/642 Test #334: StorageCaptureBackend.OverflowBecomesMeasurementFailureAfterExactCapture .......................   Passed    0.01 sec
+        Start  62: EventArena.CallerRetainsBothRegionsAfterDestruction
+286/642 Test #202: Q15DynamicProbe.CounterFailureClosesOnceWithoutRetryOrFallback .................................   Passed    0.01 sec
+        Start  61: EventArena.RejectsInvalidExternalOrderWithoutWritingEitherRegion
+287/642 Test  #62: EventArena.CallerRetainsBothRegionsAfterDestruction ............................................   Passed    0.01 sec
+        Start  98: CapabilityValidation.FailsClosedForUnresolvedControlAndMissingAuthority
+288/642 Test  #61: EventArena.RejectsInvalidExternalOrderWithoutWritingEitherRegion ...............................   Passed    0.01 sec
+        Start  56: DeterministicSuite.ParsesSeedAndMatchesPhiloxAndHmacKnownAnswers
+289/642 Test  #98: CapabilityValidation.FailsClosedForUnresolvedControlAndMissingAuthority ........................   Passed    0.01 sec
+        Start  19: ManifestSemantics.Pre2MissingBlockersAndLegacyExtraBlockersFailClosed
+290/642 Test  #56: DeterministicSuite.ParsesSeedAndMatchesPhiloxAndHmacKnownAnswers ...............................   Passed    0.01 sec
+        Start  57: DeterministicSuite.PurposeDomainsProduceDistinctStableStreams
+291/642 Test  #19: ManifestSemantics.Pre2MissingBlockersAndLegacyExtraBlockersFailClosed ..........................   Passed    0.01 sec
+        Start 451: DiscoveryResidency.FailedQueryKeepsErrnoStatusesAndIndependentEarlierAndLaterSnapshots
+292/642 Test  #57: DeterministicSuite.PurposeDomainsProduceDistinctStableStreams ..................................   Passed    0.01 sec
+        Start 122: OwnerMapping.InvalidOrMismatchedPageGeometryCannotMapOrTouchMemory
+293/642 Test #451: DiscoveryResidency.FailedQueryKeepsErrnoStatusesAndIndependentEarlierAndLaterSnapshots .........   Passed    0.01 sec
+        Start 210: Q15Collectors.MigrationAndResidencyDeriveFailuresFromRawSamples
+294/642 Test #122: OwnerMapping.InvalidOrMismatchedPageGeometryCannotMapOrTouchMemory .............................   Passed    0.01 sec
+        Start 302: DiscoveryNativeInput.SizingBindsEnvironmentalStorageWithoutAdmittingPlaceholders
+295/642 Test #210: Q15Collectors.MigrationAndResidencyDeriveFailuresFromRawSamples ................................   Passed    0.01 sec
+        Start 449: DiscoveryResidency.BadPlansCannotMutateOutputOrHideMissingCoverage
+296/642 Test #302: DiscoveryNativeInput.SizingBindsEnvironmentalStorageWithoutAdmittingPlaceholders ...............   Passed    0.01 sec
+        Start  64: Integrity.MixerOrderAndSignedClosureDeltasAreExact
+297/642 Test #449: DiscoveryResidency.BadPlansCannotMutateOutputOrHideMissingCoverage .............................   Passed    0.01 sec
+        Start 203: Q15DynamicProbe.DisableFailureIsTerminalAndDoesNotRetryTraversal
+298/642 Test  #64: Integrity.MixerOrderAndSignedClosureDeltasAreExact .............................................   Passed    0.01 sec
+        Start 197: Q15ProbeClassification.AppliesRegularAndWherePossiblePointerRulesExactly
+299/642 Test #203: Q15DynamicProbe.DisableFailureIsTerminalAndDoesNotRetryTraversal ...............................   Passed    0.01 sec
+        Start 293: RunnerQualification.MissingCountsMigrationsAndUnavailablePagesStayIneligible
+300/642 Test #197: Q15ProbeClassification.AppliesRegularAndWherePossiblePointerRulesExactly .......................   Passed    0.01 sec
+        Start  58: EventArena.DeterministicOneLineRecordsAndCyclicLookup
+301/642 Test #293: RunnerQualification.MissingCountsMigrationsAndUnavailablePagesStayIneligible ...................   Passed    0.01 sec
+        Start 130: OwnerMappingLinux.NativeBindRequestPreservesNodeZeroAndEveryMaskBitWithoutMigration
+302/642 Test  #58: EventArena.DeterministicOneLineRecordsAndCyclicLookup ..........................................   Passed    0.01 sec
+        Start 305: DiscoveryNativeInput.V1DefaultRejectsTwoSecondsAndV2RejectsOldGrid
+303/642 Test #130: OwnerMappingLinux.NativeBindRequestPreservesNodeZeroAndEveryMaskBitWithoutMigration ............   Passed    0.01 sec
+        Start 336: StorageBudget.CheckedExactFormulasTailBoundsAndStageACounts
+304/642 Test #305: DiscoveryNativeInput.V1DefaultRejectsTwoSecondsAndV2RejectsOldGrid .............................   Passed    0.01 sec
+        Start  79: TimingCapture.AcceptedAndFullProducerRowsUseExactReadBoundaries
+305/642 Test #336: StorageBudget.CheckedExactFormulasTailBoundsAndStageACounts ....................................   Passed    0.01 sec
+        Start 198: Q15ProbeClassification.FailsClosedOnH1FaultMultiplexOrIntegrityMismatch
+306/642 Test  #79: TimingCapture.AcceptedAndFullProducerRowsUseExactReadBoundaries ................................   Passed    0.01 sec
+        Start  68: Packages.LinkedL1TargetsOnlyAcquiredSuccessorHeader
+307/642 Test #198: Q15ProbeClassification.FailsClosedOnH1FaultMultiplexOrIntegrityMismatch ........................   Passed    0.01 sec
+        Start 455: DiscoveryResidency.WorkerCompletionBeforeOrDuringQueryIsRetainedAndRejected
+308/642 Test  #68: Packages.LinkedL1TargetsOnlyAcquiredSuccessorHeader ............................................   Passed    0.01 sec
+        Start 403: DiscoverySession.FailedWarmupValidationOrPrivateResetCannotStartMeasurement
+309/642 Test #455: DiscoveryResidency.WorkerCompletionBeforeOrDuringQueryIsRetainedAndRejected ....................   Passed    0.01 sec
+        Start  63: EventArena.RejectsImplicitOrInvalidPlatformAndCapacityFacts
+310/642 Test  #63: EventArena.RejectsImplicitOrInvalidPlatformAndCapacityFacts ....................................   Passed    0.01 sec
+        Start  97: PlacementValidation.RejectsSiblingsNumaMismatchAndStageCPolicies
+311/642 Test #403: DiscoverySession.FailedWarmupValidationOrPrivateResetCannotStartMeasurement ....................   Passed    0.01 sec
+        Start  75: ScheduleRelationships.ExplicitNamespaceRolesAreDisjointAndKindCompatible
+312/642 Test  #97: PlacementValidation.RejectsSiblingsNumaMismatchAndStageCPolicies ...............................   Passed    0.01 sec
+        Start 379: DiscoveryCaptureWindow.ClockFailureRetainsTheAlreadyCompletedQueueAdvance
+313/642 Test  #75: ScheduleRelationships.ExplicitNamespaceRolesAreDisjointAndKindCompatible .......................   Passed    0.01 sec
+        Start 534: WorkloadNoAllocation.PreparedResidencyQueriesDoNotAllocate
+314/642 Test #379: DiscoveryCaptureWindow.ClockFailureRetainsTheAlreadyCompletedQueueAdvance ......................   Passed    0.01 sec
+        Start 414: DiscoverySession.PreparationAndInvalidPlanFailuresDoNotInventObservations
+315/642 Test #534: WorkloadNoAllocation.PreparedResidencyQueriesDoNotAllocate .....................................   Passed    0.01 sec
+        Start   9: Configuration.PlatformAndFailureRecordsLoadAsTypedVariants
+316/642 Test #414: DiscoverySession.PreparationAndInvalidPlanFailuresDoNotInventObservations ......................   Passed    0.01 sec
+        Start 422: CallerOwnedDemandTrace.ExhaustionDoesNotWriteOrGrowBuffers
+317/642 Test   #9: Configuration.PlatformAndFailureRecordsLoadAsTypedVariants .....................................   Passed    0.01 sec
+        Start 295: RunnerQualification.ActualCpuMigrationAcceptsSingleCpuSeriesBoundToProducerRole
+318/642 Test #422: CallerOwnedDemandTrace.ExhaustionDoesNotWriteOrGrowBuffers .....................................   Passed    0.01 sec
+        Start 146: ThreadMonitor.RejectsReusedTidAndIdentityChangesAcrossTheBracket
+319/642 Test #295: RunnerQualification.ActualCpuMigrationAcceptsSingleCpuSeriesBoundToProducerRole ................   Passed    0.01 sec
+        Start 480: NativeDiscovery.InvalidEnvironmentAndSummedOverflowRejectBeforeNativeAccess
+320/642 Test #146: ThreadMonitor.RejectsReusedTidAndIdentityChangesAcrossTheBracket ...............................   Passed    0.01 sec
+        Start 129: OwnerMappingLinux.NativeMappingHasActualPageGeometryAndIndependentLifecycle
+321/642 Test #480: NativeDiscovery.InvalidEnvironmentAndSummedOverflowRejectBeforeNativeAccess ....................   Passed    0.01 sec
+        Start 124: OwnerMapping.WrongAffinityCpuThreadOrFaultReadbackCannotBecomeReady
+322/642 Test #129: OwnerMappingLinux.NativeMappingHasActualPageGeometryAndIndependentLifecycle ....................   Passed    0.01 sec
+        Start  99: ControlFlow.DryRunNeverInvokesActuatorAndNeverClaimsVerification
+323/642 Test #124: OwnerMapping.WrongAffinityCpuThreadOrFaultReadbackCannotBecomeReady ............................   Passed    0.01 sec
+        Start  48: LinkedExternalStorage.CheckedGeometryRejectsInvalidBudgets
+324/642 Test  #99: ControlFlow.DryRunNeverInvokesActuatorAndNeverClaimsVerification ...............................   Passed    0.01 sec
+        Start 186: Q15FixedMsrAdapter.RejectsStaleOrUnregisteredTransition
+325/642 Test  #48: LinkedExternalStorage.CheckedGeometryRejectsInvalidBudgets .....................................   Passed    0.01 sec
+        Start   1: RepositoryInfo.CarriesProtocolAndBuildIdentity
+326/642 Test #186: Q15FixedMsrAdapter.RejectsStaleOrUnregisteredTransition ........................................   Passed    0.01 sec
+        Start 448: DiscoveryResidency.KeepsEveryRawSnapshotAndExplicitPartialDuringCoverage
+327/642 Test   #1: RepositoryInfo.CarriesProtocolAndBuildIdentity .................................................   Passed    0.01 sec
+        Start 353: RunStatus.FullIsValidButFailsOnlyZeroLoss
+328/642 Test #448: DiscoveryResidency.KeepsEveryRawSnapshotAndExplicitPartialDuringCoverage .......................   Passed    0.01 sec
+        Start 501: MappedDiscovery.RegionSizeAndProducerHomeMismatchRejectBeforePreparation
+329/642 Test #353: RunStatus.FullIsValidButFailsOnlyZeroLoss ......................................................   Passed    0.01 sec
+        Start 508: Stage14Precision.EnforcesCountsMinimaCeilingAndNoOutcomeSizing
+330/642 Test #501: MappedDiscovery.RegionSizeAndProducerHomeMismatchRejectBeforePreparation .......................   Passed    0.01 sec
+        Start 388: DiscoveryDrain.ReconcilesAcceptedEventsBeforeResettingTheSameRing
+331/642 Test #508: Stage14Precision.EnforcesCountsMinimaCeilingAndNoOutcomeSizing .................................   Passed    0.01 sec
+        Start 395: DiscoverySession.PersistentWorkersWarmupDrainResetMeasureAndReconcile
+332/642 Test #388: DiscoveryDrain.ReconcilesAcceptedEventsBeforeResettingTheSameRing ..............................   Passed    0.01 sec
+        Start 118: PreparedResidency.FailedOrPartialQueryCannotInheritAnEarlierSuccess
+333/642 Test #118: PreparedResidency.FailedOrPartialQueryCannotInheritAnEarlierSuccess ............................   Passed    0.01 sec
+        Start 134: WorkerStack.InvalidGeometryAndCpuCannotLaunchOrInventOwnerEvidence
+334/642 Test #395: DiscoverySession.PersistentWorkersWarmupDrainResetMeasureAndReconcile ..........................   Passed    0.01 sec
+        Start 147: ThreadMonitor.RejectsDeadAndMalformedTasksWithoutInventingDefaults
+335/642 Test #134: WorkerStack.InvalidGeometryAndCpuCannotLaunchOrInventOwnerEvidence .............................   Passed    0.01 sec
+        Start 226: Q15RController.MalformedDuplicateIncompleteAndWrongStepEvidenceFailClosed
+336/642 Test #147: ThreadMonitor.RejectsDeadAndMalformedTasksWithoutInventingDefaults .............................   Passed    0.01 sec
+        Start  76: ScheduleRelationships.MatchedTreatmentsRequireOneExactCommonSchedule
+337/642 Test #226: Q15RController.MalformedDuplicateIncompleteAndWrongStepEvidenceFailClosed ......................   Passed    0.01 sec
+        Start 420: CallerOwnedDemandTrace.RejectsBadGeometryBeforeTouchingSampleStorage
+338/642 Test  #76: ScheduleRelationships.MatchedTreatmentsRequireOneExactCommonSchedule ...........................   Passed    0.01 sec
+        Start 274: RunnerQ13Policy.SoftwarePrefetchMappingRegistryCoversAdr0047AndAdr0175Only
+339/642 Test #420: CallerOwnedDemandTrace.RejectsBadGeometryBeforeTouchingSampleStorage ...........................   Passed    0.01 sec
+        Start  83: TimingIntervals.ExactEquationsAllowTiesAndRejectNegativeOrFullInputs
+340/642 Test #274: RunnerQ13Policy.SoftwarePrefetchMappingRegistryCoversAdr0047AndAdr0175Only .....................   Passed    0.01 sec
+        Start  49: LinkedExternalStorage.RejectsEachWrongExtentBeforeTouchingQueueStorage
+341/642 Test  #83: TimingIntervals.ExactEquationsAllowTiesAndRejectNegativeOrFullInputs ...........................   Passed    0.01 sec
+        Start 369: CalibrationRingDistance.InverseEcdfUsesExactCeilingRank
+342/642 Test  #49: LinkedExternalStorage.RejectsEachWrongExtentBeforeTouchingQueueStorage .........................   Passed    0.01 sec
+        Start 500: MappedDiscovery.LayoutRejectsInvalidOrOverflowingProspectiveInputs
+343/642 Test #369: CalibrationRingDistance.InverseEcdfUsesExactCeilingRank ........................................   Passed    0.01 sec
+        Start 346: Reconciliation.EmptyScheduleJoinsExactly
+344/642 Test #500: MappedDiscovery.LayoutRejectsInvalidOrOverflowingProspectiveInputs .............................   Passed    0.01 sec
+        Start 131: OwnerMappingLinux.WorkerCanBindAndReadBackItsActualCpuWithoutAssumingTopology
+345/642 Test #346: Reconciliation.EmptyScheduleJoinsExactly .......................................................   Passed    0.01 sec
+        Start 394: DiscoveryDrain.FinalDrainPreservesCursorsWhenResetWasNotRequested
+346/642 Test #131: OwnerMappingLinux.WorkerCanBindAndReadBackItsActualCpuWithoutAssumingTopology ..................   Passed    0.01 sec
+        Start 101: ControlFlow.ApplySuccessIsNotVerificationAndMismatchFailsClosed
+347/642 Test #394: DiscoveryDrain.FinalDrainPreservesCursorsWhenResetWasNotRequested ..............................   Passed    0.01 sec
+        Start 365: CalibrationRingTrace.ExplicitCapacityFailsWithoutDynamicGrowth
+348/642 Test #101: ControlFlow.ApplySuccessIsNotVerificationAndMismatchFailsClosed ................................   Passed    0.01 sec
+        Start 372: DiscoveryCaptureWindow.TraceCapacityStopsBeforeAnOverflowingAttempt
+349/642 Test #365: CalibrationRingTrace.ExplicitCapacityFailsWithoutDynamicGrowth .................................   Passed    0.01 sec
+        Start 456: DiscoveryResidency.FiniteWaitExhaustionRetainsLastClockWithoutSamplingOrExtending
+350/642 Test #372: DiscoveryCaptureWindow.TraceCapacityStopsBeforeAnOverflowingAttempt ............................   Passed    0.01 sec
+        Start  84: TimingIntervals.MaximumTickBoundaryDoesNotWrap
+351/642 Test #456: DiscoveryResidency.FiniteWaitExhaustionRetainsLastClockWithoutSamplingOrExtending ..............   Passed    0.01 sec
+        Start 450: DiscoveryResidency.QueryAliasAndPartialPreRunCoverageAreRejected
+352/642 Test  #84: TimingIntervals.MaximumTickBoundaryDoesNotWrap .................................................   Passed    0.01 sec
+        Start 382: DiscoveryCaptureWindow.RealRingTraceRetainsFullAttemptsWithoutGrowingStorage
+353/642 Test #450: DiscoveryResidency.QueryAliasAndPartialPreRunCoverageAreRejected ...............................   Passed    0.01 sec
+        Start 287: RunnerPreparation.AffinityReadbackPrecedesOwnerPrivateFirstTouch
+354/642 Test #382: DiscoveryCaptureWindow.RealRingTraceRetainsFullAttemptsWithoutGrowingStorage ...................   Passed    0.01 sec
+        Start 126: OwnerMapping.DestructorReleasesOnlyItsOwnMappingAfterPartialPreparation
+355/642 Test #287: RunnerPreparation.AffinityReadbackPrecedesOwnerPrivateFirstTouch ...............................   Passed    0.01 sec
+        Start 294: RunnerQualification.SoftwarePrefetchT0OnlyMappingIsEligibleWithoutPrfchw
+356/642 Test #126: OwnerMapping.DestructorReleasesOnlyItsOwnMappingAfterPartialPreparation ........................   Passed    0.01 sec
+        Start 272: RunnerQ13Policy.ExactNearFarPairsAndOneStatelessPauseMappingAreFrozen
+357/642 Test #294: RunnerQualification.SoftwarePrefetchT0OnlyMappingIsEligibleWithoutPrfchw .......................   Passed    0.01 sec
+        Start 391: DiscoveryDrain.ResourceAndClockStopsRetainPartialDrainWithoutReset
+358/642 Test #272: RunnerQ13Policy.ExactNearFarPairsAndOneStatelessPauseMappingAreFrozen ..........................   Passed    0.01 sec
+        Start 537: StorageHotWriter.CallerOwnedPreparationAppendSealSnapshotAllocateNothing
+359/642 Test #391: DiscoveryDrain.ResourceAndClockStopsRetainPartialDrainWithoutReset .............................   Passed    0.01 sec
+        Start 141: ThreadMonitor.RetainsSeparateSamplesAndClosesDescriptorsExactlyOnce
+360/642 Test #537: StorageHotWriter.CallerOwnedPreparationAppendSealSnapshotAllocateNothing .......................   Passed    0.01 sec
+        Start 191: Q15WholePlotControl.RestoreExceptionDoesNotSkipOtherCpusOrClearFailure
+361/642 Test #141: ThreadMonitor.RetainsSeparateSamplesAndClosesDescriptorsExactlyOnce ............................   Passed    0.01 sec
+        Start 181: Q15FixedMsrAdapter.FailsClosedOnEveryIoBoundary
+362/642 Test #191: Q15WholePlotControl.RestoreExceptionDoesNotSkipOtherCpusOrClearFailure .........................   Passed    0.01 sec
+        Start 392: DiscoveryDrain.InvalidBudgetsMakeNoQueueOrClockAttempt
+363/642 Test #181: Q15FixedMsrAdapter.FailsClosedOnEveryIoBoundary ................................................   Passed    0.01 sec
+        Start 390: DiscoveryDrain.CountMismatchCannotResetEvenWhenTheQueueBecameEmpty
+364/642 Test #392: DiscoveryDrain.InvalidBudgetsMakeNoQueueOrClockAttempt .........................................   Passed    0.01 sec
+        Start 515: AnalysisQuantile.UsesExactInverseEcdfAndRetainsTies
+365/642 Test #515: AnalysisQuantile.UsesExactInverseEcdfAndRetainsTies ............................................   Passed    0.00 sec
+        Start 209: Q15Collectors.AtomicLayoutIsObservedFromActualLinkedTypes
+366/642 Test #390: DiscoveryDrain.CountMismatchCannotResetEvenWhenTheQueueBecameEmpty .............................   Passed    0.01 sec
+        Start 128: OwnerMappingLinux.InvalidInputsAreRejectedWithoutMappingOrChangingAffinity
+367/642 Test #209: Q15Collectors.AtomicLayoutIsObservedFromActualLinkedTypes ......................................   Passed    0.01 sec
+        Start 313: Stage17DiscoveryPublication.FinalResultRetainsCleanupFailuresAndMissingObservations
+368/642 Test #128: OwnerMappingLinux.InvalidInputsAreRejectedWithoutMappingOrChangingAffinity .....................   Passed    0.01 sec
+        Start  14: ManifestSemantics.PartialInvalidManifestDoesNotFabricateArtifacts
+369/642 Test #313: Stage17DiscoveryPublication.FinalResultRetainsCleanupFailuresAndMissingObservations ............   Passed    0.01 sec
+        Start 481: NativeDiscovery.EnvironmentSharesControlsBeforePageQueryAndRetainsSixGroups
+370/642 Test  #14: ManifestSemantics.PartialInvalidManifestDoesNotFabricateArtifacts ..............................   Passed    0.01 sec
+        Start 452: DiscoveryResidency.WrongNodeAndUnwrittenPageStatusCannotPass
+371/642 Test #481: NativeDiscovery.EnvironmentSharesControlsBeforePageQueryAndRetainsSixGroups ....................   Passed    0.01 sec
+        Start 419: CallerOwnedDemandTrace.MatchesExistingDemandAndAdvancingIssueDefinitions
+372/642 Test #452: DiscoveryResidency.WrongNodeAndUnwrittenPageStatusCannotPass ...................................   Passed    0.01 sec
+        Start 579: q15.tool_rejects_missing_authority_hash
+373/642 Test #419: CallerOwnedDemandTrace.MatchesExistingDemandAndAdvancingIssueDefinitions .......................   Passed    0.01 sec
+        Start  55: LinkedExternalStorage.TwoThreadsTransferExactFifoAcrossRecyclerWraps
+374/642 Test #579: q15.tool_rejects_missing_authority_hash ........................................................   Passed    0.01 sec
+        Start 380: DiscoveryCaptureWindow.TraceFailureRetainsTheAlreadyCompletedQueueAdvance
+375/642 Test  #55: LinkedExternalStorage.TwoThreadsTransferExactFifoAcrossRecyclerWraps ...........................   Passed    0.01 sec
+        Start  86: TimingQualification.CrossCoreIntervalsRetainHalfPicosecondMidpoints
+376/642 Test #380: DiscoveryCaptureWindow.TraceFailureRetainsTheAlreadyCompletedQueueAdvance ......................   Passed    0.01 sec
+        Start 112: HardwarePrefetchMapping.ReadbackOrRestoreFailureFailsClosed
+377/642 Test  #86: TimingQualification.CrossCoreIntervalsRetainHalfPicosecondMidpoints ............................   Passed    0.01 sec
+        Start 223: Q15RController.AdmissionRejectsGraphRoleLimitCustodyScopeAndDirtyDrift
+378/642 Test #112: HardwarePrefetchMapping.ReadbackOrRestoreFailureFailsClosed ....................................   Passed    0.01 sec
+        Start 180: Q15FixedMsrAdapter.ReadsOnlyFixedPathsAndOffset
+379/642 Test #223: Q15RController.AdmissionRejectsGraphRoleLimitCustodyScopeAndDirtyDrift .........................   Passed    0.01 sec
+        Start 462: DiscoveryResidency.MissingMandatoryControlGroupPreventsPhaseAcceptance
+380/642 Test #180: Q15FixedMsrAdapter.ReadsOnlyFixedPathsAndOffset ................................................   Passed    0.01 sec
+        Start 393: DiscoveryDrain.ExhaustedBudgetDoesNotInferAnObservedEmptyFromCounts
+381/642 Test #462: DiscoveryResidency.MissingMandatoryControlGroupPreventsPhaseAcceptance .........................   Passed    0.01 sec
+        Start 102: ControlFlow.RejectsStaleAndNonIndependentReadback
+382/642 Test #393: DiscoveryDrain.ExhaustedBudgetDoesNotInferAnObservedEmptyFromCounts ............................   Passed    0.01 sec
+        Start 371: DiscoveryCaptureWindow.AlreadyExpiredWindowMakesNoAttempt
+383/642 Test #102: ControlFlow.RejectsStaleAndNonIndependentReadback ..............................................   Passed    0.01 sec
+        Start 288: RunnerPreparation.AffinityMismatchFailsBeforePrivateFirstTouch
+384/642 Test #371: DiscoveryCaptureWindow.AlreadyExpiredWindowMakesNoAttempt ......................................   Passed    0.01 sec
+        Start 482: NativeDiscovery.EnvironmentStillReadsAllSourcesWhenControlsAndEarlierFileFail
+385/642 Test #288: RunnerPreparation.AffinityMismatchFailsBeforePrivateFirstTouch .................................   Passed    0.01 sec
+        Start 459: DiscoveryResidency.ControlsShareExactRequestAndRetainIndependentPageEvidence
+386/642 Test #482: NativeDiscovery.EnvironmentStillReadsAllSourcesWhenControlsAndEarlierFileFail ..................   Passed    0.01 sec
+        Start 350: Reconciliation.WrongRunIdentityAndOutcomeShapeFail
+387/642 Test #459: DiscoveryResidency.ControlsShareExactRequestAndRetainIndependentPageEvidence ...................   Passed    0.01 sec
+        Start 510: Stage14Access.EnforcesAuthoritySegregationAndExplicitOverlapEvidence
+388/642 Test #350: Reconciliation.WrongRunIdentityAndOutcomeShapeFail .............................................   Passed    0.01 sec
+        Start 275: RunnerQ13Policy.AcceptedCpuPairSelectionIdsCoverAdr0043AndAdr0173Only
+389/642 Test #510: Stage14Access.EnforcesAuthoritySegregationAndExplicitOverlapEvidence ...........................   Passed    0.01 sec
+        Start  25: RoundTrip.TypedSourceDocumentCanonicalRoundTripLosesNoInformation
+390/642 Test #275: RunnerQ13Policy.AcceptedCpuPairSelectionIdsCoverAdr0043AndAdr0173Only ..........................   Passed    0.01 sec
+        Start 475: NativeDiscovery.RejectsDuringOffsetsAndRangesOutsideTheirExactRegions
+391/642 Test  #25: RoundTrip.TypedSourceDocumentCanonicalRoundTripLosesNoInformation ..............................   Passed    0.01 sec
+        Start  88: TimingQueueBoundary.LinkedObservationPrecedesTreatmentPrefetch
+392/642 Test #475: NativeDiscovery.RejectsDuringOffsetsAndRangesOutsideTheirExactRegions ..........................   Passed    0.01 sec
+        Start 279: RunnerAdmission.SealedControllerProofProducesTicketWithoutPathReread
+393/642 Test  #88: TimingQueueBoundary.LinkedObservationPrecedesTreatmentPrefetch .................................   Passed    0.01 sec
+        Start 351: Reconciliation.ProducerLossAndNoncontiguousLogicalSequenceFail
+394/642 Test #279: RunnerAdmission.SealedControllerProofProducesTicketWithoutPathReread ...........................   Passed    0.01 sec
+        Start 149: ThreadMonitor.RetainsOtherObservationsWhenStatusCannotBeParsed
+395/642 Test #351: Reconciliation.ProducerLossAndNoncontiguousLogicalSequenceFail .................................   Passed    0.00 sec
+        Start 121: OwnerMapping.ControlsPrecedeOwnerTouchAndEveryActualPageIsPrefaulted
+396/642 Test #149: ThreadMonitor.RetainsOtherObservationsWhenStatusCannotBeParsed .................................   Passed    0.01 sec
+        Start 227: Q15RController.OutputLimitFailsAfterRetainingExactBoundedPrefix
+397/642 Test #121: OwnerMapping.ControlsPrecedeOwnerTouchAndEveryActualPageIsPrefaulted ...........................   Passed    0.01 sec
+        Start 281: RunnerAdmission.MissingStaleMutableOrIneligibleInputsFailClosed
+398/642 Test #227: Q15RController.OutputLimitFailsAfterRetainingExactBoundedPrefix ................................   Passed    0.01 sec
+        Start 150: ThreadMonitor.RetainsAffinityFailureAndDoesNotInventSingletonFromMultipleCpus
+399/642 Test #281: RunnerAdmission.MissingStaleMutableOrIneligibleInputsFailClosed ................................   Passed    0.01 sec
+        Start 416: DiscoveryConsumerCapture.EmptyPollDoesNotInventAnEvent
+400/642 Test #150: ThreadMonitor.RetainsAffinityFailureAndDoesNotInventSingletonFromMultipleCpus ..................   Passed    0.01 sec
+        Start 168: PreparedPrefetchReadback.RejectsUnregisteredAndMismatchedModelsBeforeOpen
+401/642 Test #416: DiscoveryConsumerCapture.EmptyPollDoesNotInventAnEvent .........................................   Passed    0.01 sec
+        Start 424: CallerOwnedDemandTrace.PreparedWindowAndValidatorUseTheSameCallerBuffers
+402/642 Test #168: PreparedPrefetchReadback.RejectsUnregisteredAndMismatchedModelsBeforeOpen ......................   Passed    0.01 sec
+        Start 276: RunnerQ13Policy.AcceptedWorkerPairsCoverAdr0043AndAdr0173NearAndFarOnly
+403/642 Test #424: CallerOwnedDemandTrace.PreparedWindowAndValidatorUseTheSameCallerBuffers .......................   Passed    0.01 sec
+        Start 421: CallerOwnedDemandTrace.PreparationAndFailuresPreserveIndependentPartialState
+404/642 Test #276: RunnerQ13Policy.AcceptedWorkerPairsCoverAdr0043AndAdr0173NearAndFarOnly ........................   Passed    0.01 sec
+        Start  20: ManifestSemantics.CompletedValidRunMissingEvidenceRejects
+405/642 Test #421: CallerOwnedDemandTrace.PreparationAndFailuresPreserveIndependentPartialState ...................   Passed    0.01 sec
+        Start 225: Q15RController.EveryStepFailureStopsWithoutRetryAndRetainsPriorEvidence
+406/642 Test  #20: ManifestSemantics.CompletedValidRunMissingEvidenceRejects ......................................   Passed    0.01 sec
+        Start 355: RunStatus.SimultaneousBlockersAreExhaustiveSortedAndNonPriority
+407/642 Test #225: Q15RController.EveryStepFailureStopsWithoutRetryAndRetainsPriorEvidence ........................   Passed    0.01 sec
+        Start 322: Stage17FixedAction.ExpandedOrMalformedScientificInputFailsClosed
+408/642 Test #355: RunStatus.SimultaneousBlockersAreExhaustiveSortedAndNonPriority ................................   Passed    0.01 sec
+        Start 528: PreparedWorkload.LinkedWarmStartResetPreservesStorageAndAllocatesNothing
+409/642 Test #322: Stage17FixedAction.ExpandedOrMalformedScientificInputFailsClosed ...............................   Passed    0.01 sec
+        Start 282: RunnerAdmission.EmptyIdentityAndMalformedBinaryHashFailClosed
+410/642 Test #528: PreparedWorkload.LinkedWarmStartResetPreservesStorageAndAllocatesNothing .......................   Passed    0.01 sec
+        Start  23: FreezeSemantics.ValidationUnsealRequiresHashesAndAffectedBlocks
+411/642 Test #282: RunnerAdmission.EmptyIdentityAndMalformedBinaryHashFailClosed ..................................   Passed    0.01 sec
+        Start  15: ManifestSemantics.ValidFullFailsZeroLossWithoutBecomingInvalid
+412/642 Test  #23: FreezeSemantics.ValidationUnsealRequiresHashesAndAffectedBlocks ................................   Passed    0.01 sec
+        Start 539: StorageHotWriter.PlannedResidencySnapshotsAllocateNothing
+413/642 Test  #15: ManifestSemantics.ValidFullFailsZeroLossWithoutBecomingInvalid .................................   Passed    0.01 sec
+        Start 190: Q15WholePlotControl.AmbiguousWriteIsRestoredAndFailureRemainsBlocking
+414/642 Test #539: StorageHotWriter.PlannedResidencySnapshotsAllocateNothing ......................................   Passed    0.01 sec
+        Start 178: PreparedPrefetchReadback.ReleaseBeforePreparationPreventsOpening
+415/642 Test #190: Q15WholePlotControl.AmbiguousWriteIsRestoredAndFailureRemainsBlocking ..........................   Passed    0.01 sec
+        Start 245: Q15CountedRegionNoAllocation.RegularAndPointerRegionsAllocateNothingBetweenCounterBoundaries
+416/642 Test #178: PreparedPrefetchReadback.ReleaseBeforePreparationPreventsOpening ...............................   Passed    0.01 sec
+        Start 277: RunnerAdmission.SyntheticFixtureUsingAdr0173FarPairPassesFieldValidation
+417/642 Test #245: Q15CountedRegionNoAllocation.RegularAndPointerRegionsAllocateNothingBetweenCounterBoundaries ...   Passed    0.01 sec
+        Start 454: DiscoveryResidency.LateObservationAndLateQueryCannotMasqueradeAsDuringCapture
+418/642 Test #277: RunnerAdmission.SyntheticFixtureUsingAdr0173FarPairPassesFieldValidation .......................   Passed    0.01 sec
+        Start 116: PreparedResidency.RejectsInvalidGeometryWithoutWritingScratch
+419/642 Test #454: DiscoveryResidency.LateObservationAndLateQueryCannotMasqueradeAsDuringCapture ..................   Passed    0.01 sec
+        Start  96: PlacementValidation.AcceptsExactNearAndFarAndRejectsImpossiblePairs
+420/642 Test #116: PreparedResidency.RejectsInvalidGeometryWithoutWritingScratch ..................................   Passed    0.01 sec
+        Start 140: ThreadMonitor.RejectsMalformedTruncatedOverflowingAndDuplicateFields
+421/642 Test  #96: PlacementValidation.AcceptsExactNearAndFarAndRejectsImpossiblePairs ............................   Passed    0.01 sec
+        Start 489: MappedDiscovery.RuntimeRejectsAliasedTlsStorageAndDisagreedGeometry
+422/642 Test #140: ThreadMonitor.RejectsMalformedTruncatedOverflowingAndDuplicateFields ...........................   Passed    0.01 sec
+        Start 474: NativeDiscovery.RejectsInvalidFinitePlansBeforeMapping
+423/642 Test #489: MappedDiscovery.RuntimeRejectsAliasedTlsStorageAndDisagreedGeometry ............................   Passed    0.01 sec
+        Start  91: TimingCrossCoreExchange.InitiatorTimesOutWhenResponderNeverAnswers
+424/642 Test #474: NativeDiscovery.RejectsInvalidFinitePlansBeforeMapping .........................................   Passed    0.01 sec
+        Start 545: q15.prestate_collector_self_test
+425/642 Test  #91: TimingCrossCoreExchange.InitiatorTimesOutWhenResponderNeverAnswers .............................   Passed    0.01 sec
+        Start 531: PreparedWorkload.LinkedResetHandlesEverySentinelAndRecyclerRotation
+426/642 Test #545: q15.prestate_collector_self_test ...............................................................   Passed    0.01 sec
+        Start  85: TimingQualification.SequenceAndStaticGatesAreExactAndSampleCountAware
+427/642 Test #531: PreparedWorkload.LinkedResetHandlesEverySentinelAndRecyclerRotation ............................   Passed    0.01 sec
+        Start 471: DiscoveryControls.RejectsAliasedScratchAndPriorEvidenceBeforeSampling
+428/642 Test  #85: TimingQualification.SequenceAndStaticGatesAreExactAndSampleCountAware ..........................   Passed    0.01 sec
+        Start 144: ThreadMonitor.RetainsEveryReadAndProbeFailureWithoutRetry
+429/642 Test #471: DiscoveryControls.RejectsAliasedScratchAndPriorEvidenceBeforeSampling ..........................   Passed    0.01 sec
+        Start 410: DiscoverySession.PostCaptureExceptionJoinsWorkersAndRetainsTheirResults
+430/642 Test #144: ThreadMonitor.RetainsEveryReadAndProbeFailureWithoutRetry ......................................   Passed    0.01 sec
+        Start 323: Stage17FixedAction.Q15OneShotDispatcherIsUnconditionallyRejected
+431/642 Test #323: Stage17FixedAction.Q15OneShotDispatcherIsUnconditionallyRejected ...............................   Passed    0.01 sec
+        Start 164: PreparedFileSnapshot.OpenAndCloseFailuresAreRetainedAndNeverRetried
+432/642 Test #410: DiscoverySession.PostCaptureExceptionJoinsWorkersAndRetainsTheirResults ........................   Passed    0.01 sec
+        Start 465: DiscoveryControls.InvalidEnumsCannotAliasAnotherGroup
+433/642 Test #164: PreparedFileSnapshot.OpenAndCloseFailuresAreRetainedAndNeverRetried ............................   Passed    0.01 sec
+        Start 157: PreparedFileSnapshot.EmptyAndArbitraryBinaryDataAreRetainedWithoutParsing
+434/642 Test #465: DiscoveryControls.InvalidEnumsCannotAliasAnotherGroup ..........................................   Passed    0.01 sec
+        Start 472: NativeDiscovery.LayoutAccountsForEveryMappingAndAllThreeGuards
+435/642 Test #157: PreparedFileSnapshot.EmptyAndArbitraryBinaryDataAreRetainedWithoutParsing ......................   Passed    0.01 sec
+        Start 106: HardwarePrefetchMapping.H0PreservesAndH1SetsOnlyDocumentedBits
+436/642 Test #472: NativeDiscovery.LayoutAccountsForEveryMappingAndAllThreeGuards .................................   Passed    0.01 sec
+        Start 296: DiscoveryNativeInput.ConvertsExactDurationsAndExplicitSeedWithoutHardwareAccess
+437/642 Test #106: HardwarePrefetchMapping.H0PreservesAndH1SetsOnlyDocumentedBits .................................   Passed    0.01 sec
+        Start 470: DiscoveryControls.RejectsCounterRegressionAgainstMostRecentGroup
+438/642 Test #296: DiscoveryNativeInput.ConvertsExactDurationsAndExplicitSeedWithoutHardwareAccess ................   Passed    0.01 sec
+        Start 151: ThreadMonitor.ObservesLiveStdThreadThenRejectsExitedAnchoredTask
+439/642 Test #470: DiscoveryControls.RejectsCounterRegressionAgainstMostRecentGroup ...............................   Passed    0.01 sec
+        Start 171: PreparedPrefetchReadback.WholeRegisterH0H1ExpectationsAreFrozenInResolvedOrder
+440/642 Test #151: ThreadMonitor.ObservesLiveStdThreadThenRejectsExitedAnchoredTask ...............................   Passed    0.01 sec
+        Start  50: LinkedExternalStorage.RejectsUnalignedAndAliasedRanges
+441/642 Test #171: PreparedPrefetchReadback.WholeRegisterH0H1ExpectationsAreFrozenInResolvedOrder .................   Passed    0.01 sec
+        Start 476: NativeDiscovery.RejectsOverflowAndUnacceptedHardwareWithoutNativeAccess
+442/642 Test  #50: LinkedExternalStorage.RejectsUnalignedAndAliasedRanges .........................................   Passed    0.01 sec
+        Start 120: PreparedResidency.LinuxAdapterRejectsBadLengthsWithoutInvokingSyscall
+443/642 Test #476: NativeDiscovery.RejectsOverflowAndUnacceptedHardwareWithoutNativeAccess ........................   Passed    0.01 sec
+        Start  95: LinuxTopology.ParsesCpuListsTopologyCachesNumaAndPci
+444/642 Test #120: PreparedResidency.LinuxAdapterRejectsBadLengthsWithoutInvokingSyscall ..........................   Passed    0.01 sec
+        Start 173: PreparedPrefetchReadback.RetainsEveryShortReadAndReadsRemainingCpusWithoutRetry
+445/642 Test  #95: LinuxTopology.ParsesCpuListsTopologyCachesNumaAndPci ...........................................   Passed    0.01 sec
+        Start 576: q15.controller_no_authority_execute
+446/642 Test #173: PreparedPrefetchReadback.RetainsEveryShortReadAndReadsRemainingCpusWithoutRetry ................   Passed    0.01 sec
+        Start 469: DiscoveryControls.UsesExplicitPhaseLimitsAndRetainsUnboundedObservations
+447/642 Test #576: q15.controller_no_authority_execute ............................................................   Passed    0.01 sec
+        Start 378: DiscoveryCaptureWindow.CaptureFailureAndWrongWorkerOutcomeStopPeers
+448/642 Test #469: DiscoveryControls.UsesExplicitPhaseLimitsAndRetainsUnboundedObservations .......................   Passed    0.01 sec
+        Start 182: Q15FixedMsrAdapter.AcceptsAdr0173CpuSetAndRejectsOtherMappingsCpus
+449/642 Test #378: DiscoveryCaptureWindow.CaptureFailureAndWrongWorkerOutcomeStopPeers ............................   Passed    0.01 sec
+        Start 483: NativeDiscovery.EnvironmentRejectsIncompleteRequiredFileWithoutSamplingOtherRows
+450/642 Test #182: Q15FixedMsrAdapter.AcceptsAdr0173CpuSetAndRejectsOtherMappingsCpus .............................   Passed    0.01 sec
+        Start  13: RawRecords.JoinedTimestampsAndEveryDerivedEquationAreChecked
+451/642 Test #483: NativeDiscovery.EnvironmentRejectsIncompleteRequiredFileWithoutSamplingOtherRows ...............   Passed    0.01 sec
+        Start 273: RunnerQ13Policy.SoftwarePrefetchT0OnlyMappingIsFrozenAndEmitsOnlyPrefetchT0
+452/642 Test  #13: RawRecords.JoinedTimestampsAndEveryDerivedEquationAreChecked ...................................   Passed    0.01 sec
+        Start 153: PreparedFileSnapshot.FreezesExactReadOnlyPathAndSixDistinctOneShotOutputs
+453/642 Test #273: RunnerQ13Policy.SoftwarePrefetchT0OnlyMappingIsFrozenAndEmitsOnlyPrefetchT0 ....................   Passed    0.01 sec
+        Start 356: RunStatus.Stage14EvidenceMustBeAuthoritativeBeforeFinalDisposition
+454/642 Test #153: PreparedFileSnapshot.FreezesExactReadOnlyPathAndSixDistinctOneShotOutputs ......................   Passed    0.01 sec
+        Start 155: PreparedFileSnapshot.ExactCapacityRequiresEofAndRetainsOverflowProbeByte
+455/642 Test #356: RunStatus.Stage14EvidenceMustBeAuthoritativeBeforeFinalDisposition .............................   Passed    0.01 sec
+        Start 167: PreparedPrefetchReadback.ResolvesBothModelsAndOpensExactReadOnlyPathsAfterIdentity
+456/642 Test #155: PreparedFileSnapshot.ExactCapacityRequiresEofAndRetainsOverflowProbeByte .......................   Passed    0.01 sec
+        Start 110: HardwarePrefetchMapping.MappingIdMembershipHelperAcceptsBothRegisteredIds
+457/642 Test #167: PreparedPrefetchReadback.ResolvesBothModelsAndOpensExactReadOnlyPathsAfterIdentity .............   Passed    0.01 sec
+        Start 217: P4KAController.CompleteExplicitAdmissionIsRequiredAndHashBound
+458/642 Test #110: HardwarePrefetchMapping.MappingIdMembershipHelperAcceptsBothRegisteredIds ......................   Passed    0.01 sec
+        Start 100: ControlFlow.PrivilegeAndPartialApplyFailuresRestoreAndRemainExplicit
+459/642 Test #217: P4KAController.CompleteExplicitAdmissionIsRequiredAndHashBound .................................   Passed    0.01 sec
+        Start 158: PreparedFileSnapshot.ReadFailuresIncludingEintrAreNeverRetried
+460/642 Test #100: ControlFlow.PrivilegeAndPartialApplyFailuresRestoreAndRemainExplicit ...........................   Passed    0.01 sec
+        Start 492: MappedDiscovery.RuntimeCanCloseWithoutStartingWorkers
+461/642 Test #158: PreparedFileSnapshot.ReadFailuresIncludingEintrAreNeverRetried .................................   Passed    0.01 sec
+        Start 495: MappedDiscovery.ColdStatusRejectsUnknownOwnerWithoutTerminating
+462/642 Test #492: MappedDiscovery.RuntimeCanCloseWithoutStartingWorkers ..........................................   Passed    0.01 sec
+        Start 384: DiscoveryCaptureWindow.UnpreparedOrMismatchedTraceCannotStart
+463/642 Test #495: MappedDiscovery.ColdStatusRejectsUnknownOwnerWithoutTerminating ................................   Passed    0.01 sec
+        Start 370: DiscoveryCaptureWindow.StopsAtDeadlineWithoutRequestingAnotherAttempt
+464/642 Test #384: DiscoveryCaptureWindow.UnpreparedOrMismatchedTraceCannotStart ..................................   Passed    0.01 sec
+        Start 183: Q15FixedMsrAdapter.DecodesSelectedFamilyAndModel
+465/642 Test #370: DiscoveryCaptureWindow.StopsAtDeadlineWithoutRequestingAnotherAttempt ..........................   Passed    0.01 sec
+        Start 184: Q15FixedMsrAdapter.AppliesAndRestoresOneExactTransitionWithoutSelfReadback
+466/642 Test #183: Q15FixedMsrAdapter.DecodesSelectedFamilyAndModel ...............................................   Passed    0.01 sec
+        Start 319: Stage17FixedAction.RingDistanceCaptureRequiresSealedRunnerAdmission
+467/642 Test #184: Q15FixedMsrAdapter.AppliesAndRestoresOneExactTransitionWithoutSelfReadback .....................   Passed    0.01 sec
+        Start 125: OwnerMapping.ReadOnlyAndCleanupFailuresRemainDistinctAndCannotRestartPreparation
+468/642 Test #319: Stage17FixedAction.RingDistanceCaptureRequiresSealedRunnerAdmission ............................   Passed    0.01 sec
+        Start 137: ThreadTls.FiniteCapacityRetainsPrefixAndNeverAcceptsTruncation
+469/642 Test #125: OwnerMapping.ReadOnlyAndCleanupFailuresRemainDistinctAndCannotRestartPreparation ...............   Passed    0.01 sec
+        Start 185: Q15FixedMsrAdapter.AppliesAdr0173TransitionOnItsOwnResolvedMapping
+470/642 Test #137: ThreadTls.FiniteCapacityRetainsPrefixAndNeverAcceptsTruncation .................................   Passed    0.01 sec
+        Start 187: Q15WholePlotControl.BothMappingsApplyAndRestoreOnlyTheirOwnCpus
+471/642 Test #185: Q15FixedMsrAdapter.AppliesAdr0173TransitionOnItsOwnResolvedMapping .............................   Passed    0.01 sec
+        Start 111: HardwarePrefetchMapping.H1VerifiesProbesAndRestoresCompletePrestate
+472/642 Test #187: Q15WholePlotControl.BothMappingsApplyAndRestoreOnlyTheirOwnCpus ................................   Passed    0.01 sec
+        Start 485: NativeDiscovery.TraceCapacityRequiresCompletedMandatorySessionEvidence
+473/642 Test #111: HardwarePrefetchMapping.H1VerifiesProbesAndRestoresCompletePrestate ............................   Passed    0.01 sec
+        Start 328: StorageFormat.CallerOwnershipZeroCapacityAndExhaustionRemainUnchanged
+474/642 Test #485: NativeDiscovery.TraceCapacityRequiresCompletedMandatorySessionEvidence .........................   Passed    0.01 sec
+        Start 159: PreparedFileSnapshot.ProbeErrorAndImpossibleCountsRetainActualCalls
+475/642 Test #328: StorageFormat.CallerOwnershipZeroCapacityAndExhaustionRemainUnchanged ..........................   Passed    0.01 sec
+        Start 464: DiscoveryControls.MissingScheduledRequestIsNotCompleteAndReuseIsRejected
+476/642 Test #159: PreparedFileSnapshot.ProbeErrorAndImpossibleCountsRetainActualCalls ............................   Passed    0.01 sec
+        Start  16: ManifestSemantics.ValidLowEffectiveCountFailsTailEstimabilityWithoutInvalidity
+477/642 Test #464: DiscoveryControls.MissingScheduledRequestIsNotCompleteAndReuseIsRejected .......................   Passed    0.01 sec
+        Start 107: HardwarePrefetchMapping.RejectsWrongModelMissingCpuAndTreatmentCollapse
+478/642 Test  #16: ManifestSemantics.ValidLowEffectiveCountFailsTailEstimabilityWithoutInvalidity .................   Passed    0.01 sec
+        Start 208: Q15Collectors.RegistryHasExactlySevenStableDistinctContracts
+479/642 Test #107: HardwarePrefetchMapping.RejectsWrongModelMissingCpuAndTreatmentCollapse ........................   Passed    0.01 sec
+        Start 224: Q15RController.ExactGraphExecutesOnceInOrderAndEndsWaitingForQ15W
+480/642 Test #208: Q15Collectors.RegistryHasExactlySevenStableDistinctContracts ...................................   Passed    0.01 sec
+        Start 376: DiscoveryCaptureWindow.BackwardOrBeforeOriginClockStopsWithoutAnotherAttempt
+481/642 Test #224: Q15RController.ExactGraphExecutesOnceInOrderAndEndsWaitingForQ15W ..............................   Passed    0.01 sec
+        Start 466: DiscoveryControls.FailedOwnerStillRetainsOtherOwnerAndHardware
+482/642 Test #376: DiscoveryCaptureWindow.BackwardOrBeforeOriginClockStopsWithoutAnotherAttempt ...................   Passed    0.01 sec
+        Start 453: DiscoveryResidency.EveryClockFailureAndClockRegressionRemainActualPartialFacts
+483/642 Test #466: DiscoveryControls.FailedOwnerStillRetainsOtherOwnerAndHardware .................................   Passed    0.01 sec
+        Start  67: Packages.RingTargetsAndDistanceValidationPreserveR1AndR2Semantics
+484/642 Test #453: DiscoveryResidency.EveryClockFailureAndClockRegressionRemainActualPartialFacts .................   Passed    0.01 sec
+        Start 479: NativeDiscovery.EnvironmentLayoutChargesAllSixGroupsIncludingUnrequested
+485/642 Test  #67: Packages.RingTargetsAndDistanceValidationPreserveR1AndR2Semantics ..............................   Passed    0.01 sec
+        Start 148: ThreadMonitor.RejectsIdentityChangeDuringPreparationAndDoesNotRetryClose
+486/642 Test #479: NativeDiscovery.EnvironmentLayoutChargesAllSixGroupsIncludingUnrequested .......................   Passed    0.01 sec
+        Start 143: ThreadMonitor.RetainsOpenFailuresAndCleansOnlyOpenedHandles
+487/642 Test #148: ThreadMonitor.RejectsIdentityChangeDuringPreparationAndDoesNotRetryClose .......................   Passed    0.01 sec
+        Start 580: runner.hardware_prefetch_plan_self_test
+488/642 Test #143: ThreadMonitor.RetainsOpenFailuresAndCleansOnlyOpenedHandles ....................................   Passed    0.01 sec
+        Start 204: Q15DynamicFraming.ExactU32BeCanonicalFramesRejectLengthAndJsonMutations
+489/642 Test #580: runner.hardware_prefetch_plan_self_test ........................................................   Passed    0.01 sec
+        Start   5: JsonModel.SharedJcsI64BoundaryFixturesPassInCpp
+490/642 Test #204: Q15DynamicFraming.ExactU32BeCanonicalFramesRejectLengthAndJsonMutations ........................   Passed    0.01 sec
+        Start 473: NativeDiscovery.AdditionalCallerBudgetsIncreaseDeclaredStorage
+491/642 Test   #5: JsonModel.SharedJcsI64BoundaryFixturesPassInCpp ................................................   Passed    0.01 sec
+        Start  51: LinkedExternalStorage.RejectsObjectOverlapAndAddressOverflowBeforeDereference
+492/642 Test #473: NativeDiscovery.AdditionalCallerBudgetsIncreaseDeclaredStorage .................................   Passed    0.01 sec
+        Start 189: Q15WholePlotControl.DestructionRestoresSuccessfulH1WithoutExplicitLeave
+493/642 Test  #51: LinkedExternalStorage.RejectsObjectOverlapAndAddressOverflowBeforeDereference ..................   Passed    0.01 sec
+        Start 389: DiscoveryDrain.ConsumerFailureRetainsTheDequeueAndPreventsReset
+494/642 Test #189: Q15WholePlotControl.DestructionRestoresSuccessfulH1WithoutExplicitLeave ........................   Passed    0.01 sec
+        Start 381: DiscoveryCaptureWindow.ClockFailureRetainsFullAndEmptyWithoutInventingAnAdvance
+495/642 Test #389: DiscoveryDrain.ConsumerFailureRetainsTheDequeueAndPreventsReset ................................   Passed    0.01 sec
+        Start 145: ThreadMonitor.RejectsFullEmptyPartialAndUnterminatedReads
+496/642 Test #381: DiscoveryCaptureWindow.ClockFailureRetainsFullAndEmptyWithoutInventingAnAdvance ................   Passed    0.01 sec
+        Start  11: ScheduleSemantics.CountOrderingBoundaryAndFamilyCombinationsReject
+497/642 Test #145: ThreadMonitor.RejectsFullEmptyPartialAndUnterminatedReads ......................................   Passed    0.01 sec
+        Start 136: ThreadTls.NativeSnapshotCoversActualExecutableAndLibcTls
+498/642 Test  #11: ScheduleSemantics.CountOrderingBoundaryAndFamilyCombinationsReject .............................   Passed    0.01 sec
+        Start 417: DiscoveryConsumerCapture.FailedClockRetainsTheEventAlreadyRemovedFromTheRing
+499/642 Test #136: ThreadTls.NativeSnapshotCoversActualExecutableAndLibcTls .......................................   Passed    0.01 sec
+        Start 348: Reconciliation.DuplicateAndReorderedObservationsFail
+500/642 Test #417: DiscoveryConsumerCapture.FailedClockRetainsTheEventAlreadyRemovedFromTheRing ...................   Passed    0.01 sec
+        Start 352: Reconciliation.CorruptedTimestampPreventsEveryDerivedRow
+501/642 Test #348: Reconciliation.DuplicateAndReorderedObservationsFail ...........................................   Passed    0.01 sec
+        Start 109: HardwarePrefetchMapping.IvyBridgeEpH0PreservesAndH1SetsOnlyDocumentedBits
+502/642 Test #352: Reconciliation.CorruptedTimestampPreventsEveryDerivedRow .......................................   Passed    0.01 sec
+        Start 478: NativeDiscovery.TlsCoverageRejectsUnallocatedOutsideAndOverflowingPayloads
+503/642 Test #109: HardwarePrefetchMapping.IvyBridgeEpH0PreservesAndH1SetsOnlyDocumentedBits ......................   Passed    0.01 sec
+        Start 174: PreparedPrefetchReadback.RetainsReadErrorsAndImpossibleCountsWithoutInventedValues
+504/642 Test #478: NativeDiscovery.TlsCoverageRejectsUnallocatedOutsideAndOverflowingPayloads .....................   Passed    0.01 sec
+        Start 507: Stage14Precision.RegistersExactFamiliesAndPostSelectionReporting
+505/642 Test #174: PreparedPrefetchReadback.RetainsReadErrorsAndImpossibleCountsWithoutInventedValues .............   Passed    0.01 sec
+        Start 160: PreparedFileSnapshot.ExplicitUnrequestedSlotsDoNoIoAndAreOneShot
+506/642 Test #507: Stage14Precision.RegistersExactFamiliesAndPostSelectionReporting ...............................   Passed    0.01 sec
+        Start 374: DiscoveryCaptureWindow.InvalidAndOverflowingPlansFailBeforeClockOrQueueWork
+507/642 Test #160: PreparedFileSnapshot.ExplicitUnrequestedSlotsDoNoIoAndAreOneShot ...............................   Passed    0.01 sec
+        Start  89: TimingCrossCoreExchange.AtomicSlotsAreAlwaysLockFreeAndCacheLineSeparated
+508/642 Test #374: DiscoveryCaptureWindow.InvalidAndOverflowingPlansFailBeforeClockOrQueueWork ....................   Passed    0.01 sec
+        Start  12: RawRecords.AcceptedAndFullProducerShapesAreIndependent
+509/642 Test  #89: TimingCrossCoreExchange.AtomicSlotsAreAlwaysLockFreeAndCacheLineSeparated ......................   Passed    0.01 sec
+        Start 347: Reconciliation.LostFirstLastAndInternalConsumerRowsFail
+510/642 Test  #12: RawRecords.AcceptedAndFullProducerShapesAreIndependent .........................................   Passed    0.01 sec
+        Start 218: P4KAController.UnsafeProcessSecretAndActionContractsFailClosed
+511/642 Test #347: Reconciliation.LostFirstLastAndInternalConsumerRowsFail ........................................   Passed    0.01 sec
+        Start 460: DiscoveryResidency.ControlTimeIsIncludedInTheDuringWindowCheck
+512/642 Test #218: P4KAController.UnsafeProcessSecretAndActionContractsFailClosed .................................   Passed    0.01 sec
+        Start 461: DiscoveryResidency.PriorControlResultCannotBeReusedAsFreshEvidence
+513/642 Test #460: DiscoveryResidency.ControlTimeIsIncludedInTheDuringWindowCheck .................................   Passed    0.01 sec
+        Start 221: P4KAController.UnsafeEvidenceLimitsAndExpiryStopBeforeContinuation
+514/642 Test #461: DiscoveryResidency.PriorControlResultCannotBeReusedAsFreshEvidence .............................   Passed    0.01 sec
+        Start  90: TimingCrossCoreExchange.SlotWaitForReturnsAlreadyPublishedPayloadWithoutSpinning
+515/642 Test #221: P4KAController.UnsafeEvidenceLimitsAndExpiryStopBeforeContinuation .............................   Passed    0.01 sec
+        Start 385: DiscoveryCaptureWindow.ClaimedAttemptsWithoutMatchingTraceFailClosed
+516/642 Test  #90: TimingCrossCoreExchange.SlotWaitForReturnsAlreadyPublishedPayloadWithoutSpinning ...............   Passed    0.01 sec
+        Start 542: q15.tool_self_test
+517/642 Test #385: DiscoveryCaptureWindow.ClaimedAttemptsWithoutMatchingTraceFailClosed ...........................   Passed    0.01 sec
+        Start 222: Q15RController.AdmissionBindsEveryAcceptedPolicyAndIndependentSignature
+518/642 Test #542: q15.tool_self_test .............................................................................   Passed    0.01 sec
+        Start 289: RunnerPreparation.T0OnlyPreparationPreservesAbsentPrfchwObservation
+519/642 Test #222: Q15RController.AdmissionBindsEveryAcceptedPolicyAndIndependentSignature ........................   Passed    0.01 sec
+        Start 162: PreparedFileSnapshot.AliasedOrWrongLengthStorageRejectsBeforeOpen
+520/642 Test #289: RunnerPreparation.T0OnlyPreparationPreservesAbsentPrfchwObservation ............................   Passed    0.01 sec
+        Start 170: PreparedPrefetchReadback.ResolverRejectsWrongMissingDuplicateAndCollapsedPrestate
+521/642 Test #162: PreparedFileSnapshot.AliasedOrWrongLengthStorageRejectsBeforeOpen ..............................   Passed    0.01 sec
+        Start 115: PreparedResidency.EnumeratesEveryPageAndRetainsActualCallerOwnedStatus
+522/642 Test #170: PreparedPrefetchReadback.ResolverRejectsWrongMissingDuplicateAndCollapsedPrestate ..............   Passed    0.01 sec
+        Start 139: ThreadMonitor.ParsesActualFieldPositionsAndArbitraryCommCharacters
+523/642 Test #115: PreparedResidency.EnumeratesEveryPageAndRetainsActualCallerOwnedStatus .........................   Passed    0.01 sec
+        Start 241: Q15StandPrestate.InvalidContextFailsBeforeExecutorCall
+524/642 Test #139: ThreadMonitor.ParsesActualFieldPositionsAndArbitraryCommCharacters .............................   Passed    0.01 sec
+        Start 463: DiscoveryControls.RetainsSixScheduledGroupsAndIndependentPageQuery
+525/642 Test #241: Q15StandPrestate.InvalidContextFailsBeforeExecutorCall .........................................   Passed    0.01 sec
+        Start 312: Stage17DiscoveryPublication.InvalidOrdinalPublishesNothing
+526/642 Test #463: DiscoveryControls.RetainsSixScheduledGroupsAndIndependentPageQuery .............................   Passed    0.01 sec
+        Start 154: PreparedFileSnapshot.AdvancesShortReadsByActualCountAndProbesAtActualEnd
+527/642 Test #312: Stage17DiscoveryPublication.InvalidOrdinalPublishesNothing .....................................   Passed    0.01 sec
+        Start 364: CalibrationRingTrace.BracketsAcquireAndIssuesOnlyForAdvancingOperations
+528/642 Test #154: PreparedFileSnapshot.AdvancesShortReadsByActualCountAndProbesAtActualEnd .......................   Passed    0.01 sec
+        Start 108: HardwarePrefetchMapping.RegistersIvyBridgeEpAsDistinctSiblingMappingWithOwnCpuSet
+529/642 Test #364: CalibrationRingTrace.BracketsAcquireAndIssuesOnlyForAdvancingOperations ........................   Passed    0.01 sec
+        Start 278: RunnerAdmission.CompleteSyntheticFixturePassesFieldValidation
+530/642 Test #108: HardwarePrefetchMapping.RegistersIvyBridgeEpAsDistinctSiblingMappingWithOwnCpuSet ..............   Passed    0.01 sec
+        Start 530: PreparedWorkload.LinkedResetRejectsCorruptCycleWithoutAllocationOrMutation
+531/642 Test #278: RunnerAdmission.CompleteSyntheticFixturePassesFieldValidation ..................................   Passed    0.01 sec
+        Start 228: Q15RController.EveryDirectResourceLimitFailsClosedBeforePromotion
+532/642 Test #530: PreparedWorkload.LinkedResetRejectsCorruptCycleWithoutAllocationOrMutation .....................   Passed    0.01 sec
+        Start  46: LinkedExternalStorage.FreezesOrderAndResetPreservesEveryRotation
+533/642 Test #228: Q15RController.EveryDirectResourceLimitFailsClosedBeforePromotion ..............................   Passed    0.01 sec
+        Start 375: DiscoveryCaptureWindow.ClockFailureRetainsPartialCountsAndTheActualStatus
+534/642 Test  #46: LinkedExternalStorage.FreezesOrderAndResetPreservesEveryRotation ...............................   Passed    0.01 sec
+        Start 199: Q15DynamicProfile.PerfRequestAndWorkingSetAreExactAndFailClosed
+535/642 Test #375: DiscoveryCaptureWindow.ClockFailureRetainsPartialCountsAndTheActualStatus ......................   Passed    0.01 sec
+        Start 156: PreparedFileSnapshot.RejectsReadBudgetExhaustionWithRetainedPrefix
+536/642 Test #199: Q15DynamicProfile.PerfRequestAndWorkingSetAreExactAndFailClosed ................................   Passed    0.01 sec
+        Start  65: WorkingSet.SelectsProtocolBoundariesForAllThreeClasses
+537/642 Test #156: PreparedFileSnapshot.RejectsReadBudgetExhaustionWithRetainedPrefix .............................   Passed    0.01 sec
+        Start 119: PreparedResidency.PreservesWrongNodesPageErrorsAndNonzeroSyscallResults
+538/642 Test  #65: WorkingSet.SelectsProtocolBoundariesForAllThreeClasses .........................................   Passed    0.01 sec
+        Start 377: DiscoveryCaptureWindow.CancellationDoesNotFabricateClockEvidence
+539/642 Test #119: PreparedResidency.PreservesWrongNodesPageErrorsAndNonzeroSyscallResults ........................   Passed    0.01 sec
+        Start 327: StorageFormat.MetadataOverlapRejectsBeforeInitializingEitherRegion
+540/642 Test #377: DiscoveryCaptureWindow.CancellationDoesNotFabricateClockEvidence ...............................   Passed    0.01 sec
+        Start 373: DiscoveryCaptureWindow.DeadlineWinsWhenTraceIsExactlyFullAtHorizon
+541/642 Test #327: StorageFormat.MetadataOverlapRejectsBeforeInitializingEitherRegion .............................   Passed    0.01 sec
+        Start 337: StorageBudget.OverflowAndImpossibleCountsFail
+542/642 Test #373: DiscoveryCaptureWindow.DeadlineWinsWhenTraceIsExactlyFullAtHorizon .............................   Passed    0.01 sec
+        Start 127: OwnerMapping.AcceptedBindingAndLockingDoNotStandInForActualPageResidency
+543/642 Test #337: StorageBudget.OverflowAndImpossibleCountsFail ..................................................   Passed    0.01 sec
+        Start 383: DiscoveryCaptureWindow.PreparationTouchesOnlyOwnerBuffersAndCannotEraseData
+544/642 Test #127: OwnerMapping.AcceptedBindingAndLockingDoNotStandInForActualPageResidency .......................   Passed    0.01 sec
+        Start 163: PreparedFileSnapshot.FrozenDescriptorsAndPrivateOneShotStatePreventReuse
+545/642 Test #383: DiscoveryCaptureWindow.PreparationTouchesOnlyOwnerBuffersAndCannotEraseData ....................   Passed    0.01 sec
+        Start 303: DiscoveryNativeInput.ResolvesOnlyExactVersionAndDesignPairs
+546/642 Test #163: PreparedFileSnapshot.FrozenDescriptorsAndPrivateOneShotStatePreventReuse .......................   Passed    0.01 sec
+        Start 529: PreparedWorkload.LinkedResetRejectsPendingEventsWithoutAllocationOrMutation
+547/642 Test #303: DiscoveryNativeInput.ResolvesOnlyExactVersionAndDesignPairs ....................................   Passed    0.01 sec
+        Start 113: HardwarePrefetchMapping.RequiresIndependentVerifierAndBothProbeFamilies
+548/642 Test #529: PreparedWorkload.LinkedResetRejectsPendingEventsWithoutAllocationOrMutation ....................   Passed    0.01 sec
+        Start 418: DiscoveryConsumerCapture.ExhaustedTraceRetainsTheSecondActualEvent
+549/642 Test #113: HardwarePrefetchMapping.RequiresIndependentVerifierAndBothProbeFamilies ........................   Passed    0.01 sec
+        Start 546: q15.prestate_collector_scope
+550/642 Test #418: DiscoveryConsumerCapture.ExhaustedTraceRetainsTheSecondActualEvent .............................   Passed    0.01 sec
+        Start 357: RunStatus.InvalidityWithoutFailureEvidenceIsRejected
+551/642 Test #546: q15.prestate_collector_scope ...................................................................   Passed    0.01 sec
+        Start 283: RunnerAdmission.PairProfilePackageAndBuildDriftFailClosed
+552/642 Test #357: RunStatus.InvalidityWithoutFailureEvidenceIsRejected ...........................................   Passed    0.01 sec
+        Start 486: NativeDiscovery.MandatoryCleanupFailureOverridesRetainedCapacityClassification
+553/642 Test #283: RunnerAdmission.PairProfilePackageAndBuildDriftFailClosed ......................................   Passed    0.01 sec
+        Start 290: RunnerPreparation.MissingPrfchwFailsBeforePrivateFirstTouch
+554/642 Test #486: NativeDiscovery.MandatoryCleanupFailureOverridesRetainedCapacityClassification .................   Passed    0.01 sec
+        Start 467: DiscoveryControls.RejectsWrongCpuAffinityAndIdentity
+555/642 Test #290: RunnerPreparation.MissingPrfchwFailsBeforePrivateFirstTouch ....................................   Passed    0.01 sec
+        Start 219: P4KAController.ExactGraphRunsOnceAndStopsForSeparateReview
+556/642 Test #467: DiscoveryControls.RejectsWrongCpuAffinityAndIdentity ...........................................   Passed    0.01 sec
+        Start 349: Reconciliation.MalformedProducerOrdinalsAndMappingFail
+557/642 Test #219: P4KAController.ExactGraphRunsOnceAndStopsForSeparateReview .....................................   Passed    0.01 sec
+        Start 533: WorkloadNoAllocation.CallerOwnedTracePreparationAndRecordingDoNotAllocate
+558/642 Test #349: Reconciliation.MalformedProducerOrdinalsAndMappingFail .........................................   Passed    0.01 sec
+        Start  77: TimingClock.TimespecAndRelativeConversionAreExactAndFailClosed
+559/642 Test #533: WorkloadNoAllocation.CallerOwnedTracePreparationAndRecordingDoNotAllocate ......................   Passed    0.01 sec
+        Start 640: runner.self_test
+560/642 Test  #77: TimingClock.TimespecAndRelativeConversionAreExactAndFailClosed .................................   Passed    0.01 sec
+        Start 345: Reconciliation.ExactKthJoinAllowsRepeatingRecordIndices
+561/642 Test #640: runner.self_test ...............................................................................   Passed    0.01 sec
+        Start 161: PreparedFileSnapshot.InvalidPlansRejectBeforeOpen
+562/642 Test #345: Reconciliation.ExactKthJoinAllowsRepeatingRecordIndices ........................................   Passed    0.01 sec
+        Start 234: Q15StandPrestate.ContractHasOnlyExactAbsoluteArgvAndNoPlaceholders
+563/642 Test #161: PreparedFileSnapshot.InvalidPlansRejectBeforeOpen ..............................................   Passed    0.01 sec
+        Start 179: PreparedPrefetchReadback.DestructorClosesEverySuccessfullyOpenedHandle
+564/642 Test #234: Q15StandPrestate.ContractHasOnlyExactAbsoluteArgvAndNoPlaceholders .............................   Passed    0.01 sec
+        Start 468: DiscoveryControls.RejectsHardwareMismatchWithoutLosingThreadFacts
+565/642 Test #179: PreparedPrefetchReadback.DestructorClosesEverySuccessfullyOpenedHandle .........................   Passed    0.01 sec
+        Start 638: smoke.executable
+566/642 Test #638: smoke.executable ...............................................................................   Passed    0.01 sec
+        Start 578: q15.tool_dynamic_scope
+567/642 Test #468: DiscoveryControls.RejectsHardwareMismatchWithoutLosingThreadFacts ..............................   Passed    0.02 sec
+        Start 407: DiscoverySession.ProducerResetFailureCancelsTheWaitingConsumer
+568/642 Test #578: q15.tool_dynamic_scope .........................................................................   Passed    0.01 sec
+        Start 169: PreparedPrefetchReadback.RetainsCpuidFailureBeforeAnyDeviceAccess
+569/642 Test #169: PreparedPrefetchReadback.RetainsCpuidFailureBeforeAnyDeviceAccess ..............................   Passed    0.01 sec
+        Start 165: PreparedFileSnapshot.ReleaseBeforePreparationPreventsOpening
+570/642 Test #407: DiscoverySession.ProducerResetFailureCancelsTheWaitingConsumer .................................   Passed    0.01 sec
+        Start 176: PreparedPrefetchReadback.OneShotPreparationAndPartialOpenCleanupRetainEveryFact
+571/642 Test #165: PreparedFileSnapshot.ReleaseBeforePreparationPreventsOpening ...................................   Passed    0.01 sec
+        Start  53: LinkedExternalStorage.PendingOrCorruptRecyclerRejectsResetWithoutLosingEvent
+572/642 Test #176: PreparedPrefetchReadback.OneShotPreparationAndPartialOpenCleanupRetainEveryFact ................   Passed    0.01 sec
+        Start  87: TimingQueueBoundary.PublicationPrecedesReleaseAndObservationPrecedesReuse
+573/642 Test  #53: LinkedExternalStorage.PendingOrCorruptRecyclerRejectsResetWithoutLosingEvent ...................   Passed    0.01 sec
+        Start 354: RunStatus.GenuineLowEffectiveCountIsValidAndRetained
+574/642 Test  #87: TimingQueueBoundary.PublicationPrecedesReleaseAndObservationPrecedesReuse ......................   Passed    0.01 sec
+        Start 188: Q15WholePlotControl.CpuIdentityDriftAndCrossedPrestateFailBeforeIo
+575/642 Test #354: RunStatus.GenuineLowEffectiveCountIsValidAndRetained ...........................................   Passed    0.01 sec
+        Start   8: Configuration.LoadedScientificConfigurationIsImmutable
+576/642 Test #188: Q15WholePlotControl.CpuIdentityDriftAndCrossedPrestateFailBeforeIo .............................   Passed    0.01 sec
+        Start 639: preflight.self_test
+577/642 Test   #8: Configuration.LoadedScientificConfigurationIsImmutable .........................................   Passed    0.01 sec
+        Start 386: DiscoveryCaptureWindow.NonpositiveObservationsFailWithoutDeletingTheirEvidence
+578/642 Test #639: preflight.self_test ............................................................................   Passed    0.01 sec
+        Start 172: PreparedPrefetchReadback.RejectsWrongDisableBitsAndChangedSentinelBits
+579/642 Test #386: DiscoveryCaptureWindow.NonpositiveObservationsFailWithoutDeletingTheirEvidence .................   Passed    0.01 sec
+        Start 177: PreparedPrefetchReadback.CloseFailuresAreRetainedAndNeverRetried
+580/642 Test #172: PreparedPrefetchReadback.RejectsWrongDisableBitsAndChangedSentinelBits .........................   Passed    0.01 sec
+        Start 142: ThreadMonitor.RejectsImplicitTidInvalidScratchAndOverlapsBeforeAnyIo
+581/642 Test #177: PreparedPrefetchReadback.CloseFailuresAreRetainedAndNeverRetried ...............................   Passed    0.01 sec
+        Start 577: q15.tool_scope
+582/642 Test #142: ThreadMonitor.RejectsImplicitTidInvalidScratchAndOverlapsBeforeAnyIo ...........................   Passed    0.01 sec
+        Start 544: q15.controller_scope
+583/642 Test #577: q15.tool_scope .................................................................................   Passed    0.01 sec
+        Start  24: FreezeSemantics.DuplicateH3ContextKeyFailsAtParsingBoundary
+584/642 Test #544: q15.controller_scope ...........................................................................   Passed    0.01 sec
+        Start  39: RingExternalStorage.RequirementsRejectInvalidGeometryAndOverflowBeforeAllocation
+585/642 Test  #24: FreezeSemantics.DuplicateH3ContextKeyFailsAtParsingBoundary ....................................   Passed    0.01 sec
+        Start 248: LifecycleConcurrency.StartBarrierPublishesOneExplicitMeasurementOrigin
+586/642 Test  #39: RingExternalStorage.RequirementsRejectInvalidGeometryAndOverflowBeforeAllocation ...............   Passed    0.00 sec
+        Start 477: NativeDiscovery.NativeEntrypointRejectsBeforeLaunchingOrPublishing
+587/642 Test #248: LifecycleConcurrency.StartBarrierPublishesOneExplicitMeasurementOrigin .........................   Passed    0.01 sec
+        Start 543: q15.controller_self_test
+588/642 Test #477: NativeDiscovery.NativeEntrypointRejectsBeforeLaunchingOrPublishing .............................   Passed    0.01 sec
+        Start  33: QueueProgress.RingOtherWorkerMayBeSuspendedAtEachHandoffPhase
+589/642 Test #543: q15.controller_self_test .......................................................................   Passed    0.01 sec
+        Start 263: LifecycleStateMachine.IllegalOrIncompleteTransitionDoesNotMutateState
+590/642 Test  #33: QueueProgress.RingOtherWorkerMayBeSuspendedAtEachHandoffPhase ..................................   Passed    0.01 sec
+        Start  26: QueueInput.NullCannotBecomeAStageAEventPointer
+591/642 Test #263: LifecycleStateMachine.IllegalOrIncompleteTransitionDoesNotMutateState ..........................   Passed    0.01 sec
+        Start 270: LifecycleSchedule.PreparedScheduleIsHalfOpenAndNondecreasing
+592/642 Test  #26: QueueInput.NullCannotBecomeAStageAEventPointer .................................................   Passed    0.00 sec
+        Start  52: LinkedExternalStorage.InvalidPermutationDoesNotConstructQueueObjects
+593/642 Test #270: LifecycleSchedule.PreparedScheduleIsHalfOpenAndNondecreasing ...................................   Passed    0.01 sec
+        Start 484: NativeDiscovery.MeasurementTraceCapacityIsDistinctRetainedInsufficientData
+594/642 Test  #52: LinkedExternalStorage.InvalidPermutationDoesNotConstructQueueObjects ...........................   Passed    0.01 sec
+        Start 257: LifecycleConcurrency.LegitimateBacklogDrainsPastFormerPollCap
+595/642 Test #484: NativeDiscovery.MeasurementTraceCapacityIsDistinctRetainedInsufficientData .....................   Passed    0.01 sec
+        Start 541: runner.qualification_self_test
+596/642 Test #257: LifecycleConcurrency.LegitimateBacklogDrainsPastFormerPollCap ..................................   Passed    0.01 sec
+        Start   4: JsonModel.CanonicalBinary64FormattingMatchesRfc8785Examples
+597/642 Test #541: runner.qualification_self_test .................................................................   Passed    0.02 sec
+        Start 254: LifecycleConcurrency.InvalidPreparedInputFailsBeforeWorkersStart
+598/642 Test   #4: JsonModel.CanonicalBinary64FormattingMatchesRfc8785Examples ....................................   Passed    0.01 sec
+        Start  54: LinkedExternalStorage.LinkedPackagePrefetchTargetsRemainTheSuccessorHeader
+599/642 Test #254: LifecycleConcurrency.InvalidPreparedInputFailsBeforeWorkersStart ...............................   Passed    0.01 sec
+        Start 269: LifecycleReset.EveryWarmStartLeakFailsClosed
+600/642 Test  #54: LinkedExternalStorage.LinkedPackagePrefetchTargetsRemainTheSuccessorHeader .....................   Passed    0.01 sec
+        Start 405: DiscoverySession.ExhaustedMeasurementCapacityIsRetainedWithoutAnExtension
+601/642 Test #269: LifecycleReset.EveryWarmStartLeakFailsClosed ...................................................   Passed    0.01 sec
+        Start  47: LinkedExternalStorage.BorrowedConstructionOperationsAndDestructionNeverAllocateOrFree
+602/642 Test  #47: LinkedExternalStorage.BorrowedConstructionOperationsAndDestructionNeverAllocateOrFree ..........   Passed    0.01 sec
+        Start 408: DiscoverySession.WarmupDrainClockFailurePreventsResetAndMeasurement
+603/642 Test #405: DiscoverySession.ExhaustedMeasurementCapacityIsRetainedWithoutAnExtension ......................   Passed    0.01 sec
+        Start 268: LifecycleReset.RingAndLinkedWarmStartEvidencePassDeterministically
+604/642 Test #268: LifecycleReset.RingAndLinkedWarmStartEvidencePassDeterministically .............................   Passed    0.00 sec
+        Start 258: LifecycleConcurrency.StartClockFailureCancelsBothWorkers
+605/642 Test #408: DiscoverySession.WarmupDrainClockFailurePreventsResetAndMeasurement ............................   Passed    0.01 sec
+        Start  36: RingExternalStorage.MatchesTheBoundedFifoModelAcrossWrapsAndFullReturns
+606/642 Test #258: LifecycleConcurrency.StartClockFailureCancelsBothWorkers .......................................   Passed    0.01 sec
+        Start  10: ScheduleSemantics.ExactRateAndHalfOpenDecodedSchedulePass
+607/642 Test  #36: RingExternalStorage.MatchesTheBoundedFifoModelAcrossWrapsAndFullReturns ........................   Passed    0.00 sec
+        Start 404: DiscoverySession.MeasurementClockFailureRetainsWarmupAndFailureEvidence
+608/642 Test  #10: ScheduleSemantics.ExactRateAndHalfOpenDecodedSchedulePass ......................................   Passed    0.01 sec
+        Start 256: LifecycleConcurrency.DrainFailureIsDistinctFromMeasurement
+609/642 Test #256: LifecycleConcurrency.DrainFailureIsDistinctFromMeasurement .....................................   Passed    0.00 sec
+        Start  30: LinkedSpsc.FixedArenaRepeatsTheExactCapacityPlusOneNodeCycle
+610/642 Test #404: DiscoverySession.MeasurementClockFailureRetainsWarmupAndFailureEvidence ........................   Passed    0.01 sec
+        Start  34: QueueProgress.LinkedSuspensionCannotPrematurelyRecycleAReachableNode
+611/642 Test  #30: LinkedSpsc.FixedArenaRepeatsTheExactCapacityPlusOneNodeCycle ...................................   Passed    0.00 sec
+        Start  41: LinkedWarmStart.RestoresEveryCycleRotationAndRejectsCorruption
+612/642 Test  #34: QueueProgress.LinkedSuspensionCannotPrematurelyRecycleAReachableNode ...........................   Passed    0.00 sec
+        Start 255: LifecycleConcurrency.ConsumerFailureRemainsPrimaryWhenProducerIsCancelled
+613/642 Test  #41: LinkedWarmStart.RestoresEveryCycleRotationAndRejectsCorruption .................................   Passed    0.00 sec
+        Start 246: LifecycleConcurrency.OwnerPreparationRunsOnceBeforeBarrierAndFailsClosed
+614/642 Test #255: LifecycleConcurrency.ConsumerFailureRemainsPrimaryWhenProducerIsCancelled ......................   Passed    0.00 sec
+        Start 250: LifecycleConcurrency.EmptyScheduleCompletesAndDrains
+615/642 Test #246: LifecycleConcurrency.OwnerPreparationRunsOnceBeforeBarrierAndFailsClosed .......................   Passed    0.00 sec
+        Start  43: QueueAudit.DuplicateOmissionCorruptionAndReorderingAreDetected
+616/642 Test #250: LifecycleConcurrency.EmptyScheduleCompletesAndDrains ...........................................   Passed    0.00 sec
+        Start  35: QueueLayout.RequiredPointerAtomicsAreLockFreeAndOwnershipIsSeparated
+617/642 Test  #43: QueueAudit.DuplicateOmissionCorruptionAndReorderingAreDetected .................................   Passed    0.01 sec
+        Start 266: LifecycleStateMachine.RecoveryIsExplicitAndOutsideMeasurement
+618/642 Test  #35: QueueLayout.RequiredPointerAtomicsAreLockFreeAndOwnershipIsSeparated ...........................   Passed    0.01 sec
+        Start 267: LifecycleStateMachine.WarmupAndMeasurementIdentitiesMustBeDisjoint
+619/642 Test #266: LifecycleStateMachine.RecoveryIsExplicitAndOutsideMeasurement ..................................   Passed    0.00 sec
+        Start 251: LifecycleConcurrency.FullGetsExactlyOneAttemptAndIsNotAFailure
+620/642 Test #267: LifecycleStateMachine.WarmupAndMeasurementIdentitiesMustBeDisjoint .............................   Passed    0.00 sec
+        Start 249: LifecycleConcurrency.BacklogDrainsAfterProducerCompletionWithoutLoss
+621/642 Test #251: LifecycleConcurrency.FullGetsExactlyOneAttemptAndIsNotAFailure .................................   Passed    0.00 sec
+        Start  29: LinkedSpsc.EmptyFullFifoAndExclusiveNodeOwnership
+622/642 Test #249: LifecycleConcurrency.BacklogDrainsAfterProducerCompletionWithoutLoss ...........................   Passed    0.00 sec
+        Start 260: LifecycleStateMachine.ExactInternalGraphAcceptsEveryAndOnlyRegisteredEdge
+623/642 Test  #29: LinkedSpsc.EmptyFullFifoAndExclusiveNodeOwnership ..............................................   Passed    0.00 sec
+        Start 262: LifecycleStateMachine.EveryFailurePhasePreservesExactStableFailureState
+624/642 Test #260: LifecycleStateMachine.ExactInternalGraphAcceptsEveryAndOnlyRegisteredEdge ......................   Passed    0.00 sec
+        Start 252: LifecycleConcurrency.ProducerFailurePreservesPartialCountsWithoutRetry
+625/642 Test #262: LifecycleStateMachine.EveryFailurePhasePreservesExactStableFailureState ........................   Passed    0.00 sec
+        Start   6: JsonModel.DuplicateObjectMembersFailClosed
+626/642 Test #252: LifecycleConcurrency.ProducerFailurePreservesPartialCountsWithoutRetry .........................   Passed    0.00 sec
+        Start  32: QueueOperations.OneAttemptRetainsFullWithoutInternalRetry
+627/642 Test   #6: JsonModel.DuplicateObjectMembersFailClosed .....................................................   Passed    0.00 sec
+        Start 271: LifecyclePreparation.InitializationAndWarmupMustBeCompleteAndIsolated
+628/642 Test  #32: QueueOperations.OneAttemptRetainsFullWithoutInternalRetry ......................................   Passed    0.00 sec
+        Start   2: JsonModel.CanonicalSerializationPreservesExactIntegersAndIsDeterministic
+629/642 Test #271: LifecyclePreparation.InitializationAndWarmupMustBeCompleteAndIsolated ..........................   Passed    0.00 sec
+        Start   3: JsonModel.CanonicalPropertyOrderUsesUtf16CodeUnits
+630/642 Test   #2: JsonModel.CanonicalSerializationPreservesExactIntegersAndIsDeterministic .......................   Passed    0.00 sec
+        Start  38: RingExternalStorage.RejectsWrongSizeUnalignedAndOverlappingStorage
+631/642 Test   #3: JsonModel.CanonicalPropertyOrderUsesUtf16CodeUnits .............................................   Passed    0.01 sec
+        Start  27: RingSpsc.EmptyFullFifoAndCapacityBoundaries
+632/642 Test  #38: RingExternalStorage.RejectsWrongSizeUnalignedAndOverlappingStorage .............................   Passed    0.00 sec
+        Start  42: QueueSetup.InvalidCapacityLineSizeAndNodeOrdersFailBeforeOperations
+633/642 Test  #27: RingSpsc.EmptyFullFifoAndCapacityBoundaries ....................................................   Passed    0.00 sec
+        Start 265: LifecycleStateMachine.FullAndLowEffectiveTailNeverBecomeFailuresOrRetries
+634/642 Test  #42: QueueSetup.InvalidCapacityLineSizeAndNodeOrdersFailBeforeOperations ............................   Passed    0.00 sec
+        Start  37: RingExternalStorage.CallerCanReuseStorageAfterQueueDestructionAndReset
+635/642 Test #265: LifecycleStateMachine.FullAndLowEffectiveTailNeverBecomeFailuresOrRetries ......................   Passed    0.00 sec
+        Start 264: LifecycleStateMachine.EarlyFailureRequiresExplicitAbsenceWithoutFabrication
+636/642 Test  #37: RingExternalStorage.CallerCanReuseStorageAfterQueueDestructionAndReset .........................   Passed    0.00 sec
+        Start 261: LifecycleStateMachine.HappyPathProjectsOntoImportedStableLifecycleEnum
+637/642 Test #264: LifecycleStateMachine.EarlyFailureRequiresExplicitAbsenceWithoutFabrication ....................   Passed    0.00 sec
+        Start 409: DiscoverySession.OverflowRetainsTheObservedClockWithoutReleasingWorkers
+638/642 Test #261: LifecycleStateMachine.HappyPathProjectsOntoImportedStableLifecycleEnum .........................   Passed    0.00 sec
+        Start 401: DiscoverySession.RejectedOrThrowingPreparationCannotStartEitherPhase
+639/642 Test #409: DiscoverySession.OverflowRetainsTheObservedClockWithoutReleasingWorkers ........................   Passed    0.01 sec
+        Start 402: DiscoverySession.OriginClockFailureCancelsBothPreparedWorkers
+640/642 Test #401: DiscoverySession.RejectedOrThrowingPreparationCannotStartEitherPhase ...........................   Passed    0.01 sec
+        Start 406: DiscoverySession.InvalidPlanDoesNotPrepareOrStartWorkers
+641/642 Test #402: DiscoverySession.OriginClockFailureCancelsBothPreparedWorkers ..................................   Passed    0.01 sec
+642/642 Test #406: DiscoverySession.InvalidPlanDoesNotPrepareOrStartWorkers .......................................   Passed    0.01 sec
+
+99% tests passed, 2 tests failed out of 642
+
+Label Time Summary:
+analysis            =  60.24 sec*proc (13 tests)
+authorization       =  58.64 sec*proc (44 tests)
+calibration         =  21.55 sec*proc (153 tests)
+contract            =   0.54 sec*proc (3 tests)
+controller          =  11.98 sec*proc (10 tests)
+custody             =   5.57 sec*proc (19 tests)
+decision            =   7.48 sec*proc (29 tests)
+diagnostic          = 128.80 sec*proc (11 tests)
+evidence            =   2.02 sec*proc (7 tests)
+external-journal    =  15.01 sec*proc (2 tests)
+failure             =   0.17 sec*proc (1 test)
+format              =   0.11 sec*proc (1 test)
+governance          =  26.19 sec*proc (3 tests)
+hermetic            =   0.27 sec*proc (1 test)
+historical          =  41.20 sec*proc (5 tests)
+lifecycle           =   4.94 sec*proc (34 tests)
+negative            =   0.02 sec*proc (2 tests)
+openssh             =   4.30 sec*proc (3 tests)
+orchestration       =   7.22 sec*proc (14 tests)
+p4-r-c              =   0.13 sec*proc (1 test)
+pid-namespace       =   1.02 sec*proc (1 test)
+pilot               =  11.09 sec*proc (3 tests)
+platform            =   0.81 sec*proc (87 tests)
+policy18            =  41.20 sec*proc (5 tests)
+pre-pilot           =  72.79 sec*proc (73 tests)
+preflight           =  16.00 sec*proc (5 tests)
+prestate            =   1.64 sec*proc (9 tests)
+process-group       =   2.56 sec*proc (3 tests)
+property            =   0.03 sec*proc (1 test)
+python              =   1.17 sec*proc (5 tests)
+q15                 =  29.92 sec*proc (119 tests)
+qualification       =  86.10 sec*proc (59 tests)
+queue               =   0.21 sec*proc (13 tests)
+raw                 =   9.46 sec*proc (2 tests)
+reconciliation      =   0.34 sec*proc (17 tests)
+regression          =   0.31 sec*proc (1 test)
+runner              = 218.47 sec*proc (78 tests)
+schedule            =   0.49 sec*proc (8 tests)
+schema              =  18.14 sec*proc (49 tests)
+security            =   5.57 sec*proc (19 tests)
+stage17b            =   1.63 sec*proc (1 test)
+stage17b2           =   9.46 sec*proc (2 tests)
+stand-bundle        =   0.10 sec*proc (2 tests)
+state-journal       =  28.18 sec*proc (3 tests)
+storage             =   0.91 sec*proc (29 tests)
+stress              =   0.47 sec*proc (3 tests)
+synthetic           = 248.04 sec*proc (89 tests)
+timing              =   0.19 sec*proc (18 tests)
+
+Total Test time (real) = 170.67 sec
+
+The following tests FAILED:
+	554 - runner.stage17_discovery_v2_policy (Failed)       diagnostic qualification runner synthetic
+	555 - runner.stage17_preflight_successor (Failed)       qualification runner synthetic
+Errors while running CTest

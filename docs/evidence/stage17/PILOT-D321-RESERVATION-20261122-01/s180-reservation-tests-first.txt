@@ -1,0 +1,103 @@
+EEEEEEE
+======================================================================
+ERROR: test_actual_inode_is_available_before_ext009_and_never_grants_capture (__main__.ReservationTests.test_actual_inode_is_available_before_ext009_and_never_grants_capture)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_reservation_v1.py", line 28, in setUp
+    store.prepare_family(self.prior)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 283, in prepare_family
+    self._before_write(os.statvfs(self.root).f_frsize)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 441, in _before_write
+    raise CustodyError("write would consume failure reserve or exhaust inodes")
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+======================================================================
+ERROR: test_ext009_can_be_bound_once_after_reservation_and_same_inode_is_reused (__main__.ReservationTests.test_ext009_can_be_bound_once_after_reservation_and_same_inode_is_reused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_reservation_v1.py", line 28, in setUp
+    store.prepare_family(self.prior)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 283, in prepare_family
+    self._before_write(os.statvfs(self.root).f_frsize)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 441, in _before_write
+    raise CustodyError("write would consume failure reserve or exhaust inodes")
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+======================================================================
+ERROR: test_legacy_replay_and_prior_family_remain_usable_without_new_ledger_kinds (__main__.ReservationTests.test_legacy_replay_and_prior_family_remain_usable_without_new_ledger_kinds)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_reservation_v1.py", line 28, in setUp
+    store.prepare_family(self.prior)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 283, in prepare_family
+    self._before_write(os.statvfs(self.root).f_frsize)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 441, in _before_write
+    raise CustodyError("write would consume failure reserve or exhaust inodes")
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+======================================================================
+ERROR: test_missing_partial_or_changed_admission_blocks_before_capture (__main__.ReservationTests.test_missing_partial_or_changed_admission_blocks_before_capture)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_reservation_v1.py", line 28, in setUp
+    store.prepare_family(self.prior)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 283, in prepare_family
+    self._before_write(os.statvfs(self.root).f_frsize)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 441, in _before_write
+    raise CustodyError("write would consume failure reserve or exhaust inodes")
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+======================================================================
+ERROR: test_orphan_directory_or_metadata_is_not_adopted_or_replaced (__main__.ReservationTests.test_orphan_directory_or_metadata_is_not_adopted_or_replaced)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_reservation_v1.py", line 28, in setUp
+    store.prepare_family(self.prior)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 283, in prepare_family
+    self._before_write(os.statvfs(self.root).f_frsize)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 441, in _before_write
+    raise CustodyError("write would consume failure reserve or exhaust inodes")
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+======================================================================
+ERROR: test_repeated_reservation_and_second_family_are_rejected_without_adoption (__main__.ReservationTests.test_repeated_reservation_and_second_family_are_rejected_without_adoption)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_reservation_v1.py", line 28, in setUp
+    store.prepare_family(self.prior)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 283, in prepare_family
+    self._before_write(os.statvfs(self.root).f_frsize)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 441, in _before_write
+    raise CustodyError("write would consume failure reserve or exhaust inodes")
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+======================================================================
+ERROR: test_wrong_directory_or_data_before_admission_blocks (__main__.ReservationTests.test_wrong_directory_or_data_before_admission_blocks)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_reservation_v1.py", line 28, in setUp
+    store.prepare_family(self.prior)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 283, in prepare_family
+    self._before_write(os.statvfs(self.root).f_frsize)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 441, in _before_write
+    raise CustodyError("write would consume failure reserve or exhaust inodes")
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.011s
+
+FAILED (errors=7)

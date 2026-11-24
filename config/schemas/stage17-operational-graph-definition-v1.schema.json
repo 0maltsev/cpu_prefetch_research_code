@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:operational-graph-definition:v1",
+  "title": "Immutable Stage 17 operational graph definition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "graph_id", "protocol_version", "initial_state", "state_order", "transitions", "pilot_ready_input_ids", "pilot_governance", "confirmatory_governance", "legacy_templates"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-operational-graph-definition/1"},
+    "graph_id": {"const": "STAGE17-OPERATIONAL-GRAPH-v1"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "initial_state": {"const": "PREPARED"},
+    "state_order": {"const": ["PREPARED", "AUTHORIZED_FOR_READ_ONLY_PREFLIGHT", "PREFLIGHT_ACCEPTED", "READY_FOR_STAGE17_PHASE_AUTHORIZATION"]},
+    "transitions": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["sequence_number", "from_state", "to_state", "required_input_ids", "authorization_input_ids", "authority_scope", "automatic_transition", "retry_allowed", "stage18_authority"],
+        "properties": {
+          "sequence_number": {"type": "integer", "minimum": 1, "maximum": 3},
+          "from_state": {"type": "string", "minLength": 1},
+          "to_state": {"type": "string", "minLength": 1},
+          "required_input_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"pattern": "^S17-EXT-[0-9]{3}$"}},
+          "authorization_input_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"pattern": "^S17-EXT-[0-9]{3}$"}},
+          "authority_scope": {"enum": ["READ_ONLY_PREFLIGHT_STATE_ADVANCE_ONLY", "PREFLIGHT_ACCEPTANCE_STATE_ADVANCE_ONLY", "STAGE17_PHASE_AUTHORIZATION_PREPARATION_ONLY"]},
+          "automatic_transition": {"const": false},
+          "retry_allowed": {"const": false},
+          "stage18_authority": {"const": false}
+        }
+      }
+    },
+    "pilot_ready_input_ids": {"type": "array", "minItems": 10, "maxItems": 10, "uniqueItems": true, "items": {"pattern": "^S17-EXT-[0-9]{3}$"}},
+    "pilot_governance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role_principal", "roles", "independent_review_claimed", "pki_ceremony_per_observation_required"],
+      "properties": {
+        "role_principal": {"const": "cpu-prefetch-stage17-pilot-owner"},
+        "roles": {"const": ["owner", "operator", "controller", "custodian", "auditor"]},
+        "independent_review_claimed": {"const": false},
+        "pki_ceremony_per_observation_required": {"const": false}
+      }
+    },
+    "confirmatory_governance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["strict_chronology_preserved", "pilot_role_collapse_applies", "access_state_order", "stage17_authority_may_authorize_stage18"],
+      "properties": {
+        "strict_chronology_preserved": {"const": true},
+        "pilot_role_collapse_applies": {"const": false},
+        "access_state_order": {"const": ["PLANNED", "COLLECTED_SEALED", "TRAINING_OPEN", "SELECTION_FROZEN", "VALIDATION_UNSEALED", "H3_EVALUATED", "H1H2_RELEASED", "ARCHIVED"]},
+        "stage17_authority_may_authorize_stage18": {"const": false}
+      }
+    },
+    "legacy_templates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["adr_0104_sha256", "successor_v1_sha256", "checklist_v1_sha256", "predecessor_manifest_sha256"],
+      "properties": {
+        "adr_0104_sha256": {"$ref": "#/$defs/sha256"},
+        "successor_v1_sha256": {"$ref": "#/$defs/sha256"},
+        "checklist_v1_sha256": {"$ref": "#/$defs/sha256"},
+        "predecessor_manifest_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    }
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

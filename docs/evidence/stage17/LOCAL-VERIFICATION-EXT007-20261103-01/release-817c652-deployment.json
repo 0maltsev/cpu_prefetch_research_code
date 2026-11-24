@@ -1,0 +1,136 @@
+{
+  "recorded_utc": "2026-11-03T02:38:25.628036+00:00",
+  "scope": "CLEAN_RELEASE_DEPLOYED_QUALIFICATION_NOT_STARTED",
+  "release_source_revision": "817c6522e3954efce53797e2bcc202a3bfc5d9af",
+  "archive_sha256": "df47dab36a85de010df337011beabf37eff411090f68cfdcaa5e498bacc6d6ff",
+  "worker_sha256": "99599ea8331b3238f1368b2651d5dabbced60c55f94bfbcda704687e3bb91431",
+  "bundle_profile": "STAGE17-PILOT-CANDIDATE-BUNDLE-v24",
+  "strict_release_codegen_gates": 7,
+  "bundle_verified_files": 1759,
+  "stand_evidence_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-17",
+  "stand_state": "PREPARED",
+  "resolutions": 0,
+  "transitions": 0,
+  "qualification_attempts": 0,
+  "discovery_captures": 0,
+  "formal_calibration_runs": 0,
+  "execution_authority": "NONE",
+  "logs": [
+    {
+      "path": "build/ext007-runtime-20261101/clean-817c652-release.log",
+      "size_bytes": 2217,
+      "sha256": "9ac26258bd213fcf45eac3b13d23ec5cd4957248ecff2fb9ccc2b02b7eb0943e"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/clean-817c652-bundle-verify.log",
+      "size_bytes": 1365,
+      "sha256": "c0dd22601a50b56d21a550dbfd4f1bff706f5e97430519167595b30388c36dee"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/deploy-817c652.log",
+      "size_bytes": 639,
+      "sha256": "1cb2927b6c823a95a7b2c089ba3b6f45ad95cfe1cf2900825194c5b2b0baa483"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/stand-v5-17-genesis-status.log",
+      "size_bytes": 258,
+      "sha256": "9234108b722d51db2b1addb806cf01603af84fe4992c776374f1674aa9cdbd3b"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/qualification-prefetch-gcc-817c652.log",
+      "size_bytes": 636,
+      "sha256": "ec7ed90ec8f28c3cdbf1a6698086f75f0111d40011936481b91e5c9d830915f3"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/qualification-prefetch-clang-817c652-sysroot.log",
+      "size_bytes": 7843,
+      "sha256": "c0705249f4e554df647b520d0babbda50d7a9e020f5c2b2f8eddcc32bffc637f"
+    }
+  ],
+  "prefetch_qualification_reports": [
+    {
+      "path": "build/accepted-release-gcc/software_prefetch_mapping_codegen_report.json",
+      "size_bytes": 3447,
+      "sha256": "ea3beb3ea3d440d6994ed884e2ece6a1376d7e158a4ea308c17b06cd2224071f"
+    },
+    {
+      "path": "build/accepted-release-gcc/runner_combined_codegen_report.json",
+      "size_bytes": 38486,
+      "sha256": "e59614e20deef0510e48b18b5203604440f1ced7f5fba63cd2aee9476c2fdf1b"
+    },
+    {
+      "path": "build/accepted-release-clang-libcxx/software_prefetch_mapping_codegen_report.json",
+      "size_bytes": 3465,
+      "sha256": "25c35df830a052dc35738ab9f73da93a35692685288392f64f92308cb8453762"
+    },
+    {
+      "path": "build/accepted-release-clang-libcxx/runner_combined_codegen_report.json",
+      "size_bytes": 80180,
+      "sha256": "c91781c76733006d20511854c4d7ed134db94dc31ca889d42679dca3a72cdcb9"
+    }
+  ],
+  "resource_proposal": {
+    "scope": "PROVISIONAL_RESOURCE_PLANNING_NO_EXECUTION_AUTHORITY",
+    "recommendation": {
+      "warmup_attempt_capacity": 5000000,
+      "measurement_attempt_capacities": [
+        1000000,
+        4000000,
+        5000000
+      ],
+      "durations_unchanged": true,
+      "drain_capacity_unchanged": "ring capacity+1",
+      "process_address_space_cap_proposal_bytes": 240518168576,
+      "fresh_memory_rule": "cap <= fresh MemAvailable - 16 GiB; decline if cap lacks explicit reserve above active allocation model",
+      "minimum_headroom_above_model_proposal_bytes": 17179869184,
+      "model_headroom_at_224GiB": 28246060320,
+      "publication_success_guaranteed": false,
+      "warmup_capacity_success_guaranteed": false
+    },
+    "existing_stand_snapshot": {
+      "timestamp": "2026-11-02T23:21:56.300807+00:00",
+      "MemAvailable_bytes": 262885806080,
+      "not_current_admission": true
+    },
+    "current_local_free_bytes": 407686266880,
+    "storage_counts": "one retained copy + one capture drain spool + explicit proposed 10 GiB reserve; no duplicate archive",
+    "preferred_5m_conservative_disk_bytes": 283420435960,
+    "alternative_6m_conservative_disk_bytes": 326288811752,
+    "model_limits": [
+      "Active allocation bound covers two complete C++ trees and canonical/vector alternatives, measured GCC Value64/mapnode128/SSO15 ABI, native mappings and129MiB scratch. It does not certify retained free allocator pages, other process mappings or RSS.",
+      "Fresh cap enforcement is a separate deployment control, not yet applied or a claim that current plan.memory_bytes enforces RLIMIT_AS.",
+      "A finite cap can produce publication allocation failure; such a run is retained as failure and supplies no duration selection.",
+      "All numeric sourceplans remain smaps-only sizing placeholders; final environmental source capacities must be added before freezing.",
+      "5m/6m layouts were read from clean817c652 binary99599ea8331b3238f1368b2651d5dabbced60c55f94bfbcda704687e3bb91431.",
+      "Warmup capacity remains mandatory stop; measurement capacity remains retained INSUFFICIENT. No observed rate or sufficiency claim."
+    ],
+    "parser_evidence": {
+      "full_geometry_scalars": 31944212,
+      "packed_capacity_bytes": 260308992,
+      "peak_rss_bytes": 298307584,
+      "full_json_parse_and_all_values_iterated": true,
+      "seconds": 92.198,
+      "test_log": "discovery-metadata-validation.log",
+      "fast_test_log": "discovery-metadata-focused.log",
+      "retained_test_log": "discovery-retained-packed-regression.log",
+      "bridge_test_log": "discovery-bridge-packed-regression.log"
+    },
+    "pc_validation_memory_scope": "Observed maxpage parser RSS284.49MiB; arena separately bounded128MiB. Next control parse can overlap previous local control, so account two packed controls (<=512MiB) plus raw byte lists/source parse/controller baseline; full maximum native-control end-to-end RSS not measured. 2GiB is a proposed process budget, not proved solely by page RSS."
+  },
+  "required_owner_input": {
+    "kind": "READ_ONLY_LOCAL_PRIVILEGED_EVIDENCE_SEARCH",
+    "reason": "D124 search cannot claim completeness while historical local evidence paths are inaccessible; passwordless sudo unavailable",
+    "script": {
+      "path": "build/stage17-step2-prep/search_d124_public_receipts.py",
+      "size_bytes": 11026,
+      "sha256": "ca78a6bc2f50cbba9bafa51569af8c827a1dd7a2044167ac71327179938d5762"
+    },
+    "expected_report": "build/stage17-step2-prep/d124-root-search-report.json"
+  },
+  "limitations": [
+    "No fresh operational resolution, qualification or capture is admitted by deployment.",
+    "Resource sizing is prospective, smaps-only and not a frozen execution plan; full environment sources and fresh resources still required.",
+    "Initial Clang configuration failed with BUILD_TESTING=OFF and then wrong include ordering; corrected to the already accepted compiler/sysroot/test dependency configuration without source changes.",
+    "Historical source817c652 remains the immutable deployed release identity; this documentation record does not create a different runtime."
+  ]
+}

@@ -1,0 +1,45 @@
+Running main() from build/ext007-toolchain-20261101/sources/googletest-1.17.0/googletest/src/gtest_main.cc
+[==========] Running 18 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 18 tests from InventoryTest
+[ RUN      ] InventoryTest.AccountsRootSixDirectoriesScopeAndLock
+[       OK ] InventoryTest.AccountsRootSixDirectoriesScopeAndLock (0 ms)
+[ RUN      ] InventoryTest.SparseHardlinksRetainedReceiptsAndPerObjectQuota
+[       OK ] InventoryTest.SparseHardlinksRetainedReceiptsAndPerObjectQuota (0 ms)
+[ RUN      ] InventoryTest.ExactReceiptGrammarPreservesRawWorkspaceExemption
+[       OK ] InventoryTest.ExactReceiptGrammarPreservesRawWorkspaceExemption (0 ms)
+[ RUN      ] InventoryTest.SharedFileLimitAndUncountedEmptyFamilies
+[       OK ] InventoryTest.SharedFileLimitAndUncountedEmptyFamilies (0 ms)
+[ RUN      ] InventoryTest.SpoolHoldAndUnlistedRootChildrenAreOutsideTheInventory
+[       OK ] InventoryTest.SpoolHoldAndUnlistedRootChildrenAreOutsideTheInventory (0 ms)
+[ RUN      ] InventoryTest.EveryInvocationObservesFreshStatsAndDirectoryEntries
+[       OK ] InventoryTest.EveryInvocationObservesFreshStatsAndDirectoryEntries (0 ms)
+[ RUN      ] InventoryTest.RetainedPathsAreNotRawExemptAndCannotTraverse
+[       OK ] InventoryTest.RetainedPathsAreNotRawExemptAndCannotTraverse (0 ms)
+[ RUN      ] InventoryTest.InvalidFamilyNamespacesAndNondirectoriesFailClosed
+[       OK ] InventoryTest.InvalidFamilyNamespacesAndNondirectoriesFailClosed (0 ms)
+[ RUN      ] InventoryTest.ChargedSymlinksDirectoriesAndSpecialFilesFailClosed
+[       OK ] InventoryTest.ChargedSymlinksDirectoriesAndSpecialFilesFailClosed (0 ms)
+[ RUN      ] InventoryTest.FixedDirectoriesRootAndEveryAncestorMustNotBeSymlinks
+[       OK ] InventoryTest.FixedDirectoriesRootAndEveryAncestorMustNotBeSymlinks (0 ms)
+[ RUN      ] InventoryTest.ScopeAndLockMustBePresentRegularFiles
+[       OK ] InventoryTest.ScopeAndLockMustBePresentRegularFiles (0 ms)
+[ RUN      ] InventoryTest.ZeroNullWrappedCountsAndExpiredDeadlinesFailClosed
+[       OK ] InventoryTest.ZeroNullWrappedCountsAndExpiredDeadlinesFailClosed (0 ms)
+[ RUN      ] InventoryTest.NoDescriptorLeaksOnRepeatedSuccessAndLateFailure
+[       OK ] InventoryTest.NoDescriptorLeaksOnRepeatedSuccessAndLateFailure (7 ms)
+[ RUN      ] InventoryTest.ClockAndInitialAndGrowthAllocationFailuresAreClosed
+[       OK ] InventoryTest.ClockAndInitialAndGrowthAllocationFailuresAreClosed (8 ms)
+[ RUN      ] InventoryTest.NegativeStatOperandsProductAndSumOverflowAreClosed
+[       OK ] InventoryTest.NegativeStatOperandsProductAndSumOverflowAreClosed (0 ms)
+[ RUN      ] InventoryTest.HardlinkFirstObservationWinsEvenIfLaterFieldsAreInvalid
+[       OK ] InventoryTest.HardlinkFirstObservationWinsEvenIfLaterFieldsAreInvalid (0 ms)
+[ RUN      ] InventoryTest.DeadlineIsCheckedDuringRawChildrenTraversal
+[       OK ] InventoryTest.DeadlineIsCheckedDuringRawChildrenTraversal (6 ms)
+[ RUN      ] InventoryTest.DeadlineIsCheckedDuringEmptyFamilyTraversal
+[       OK ] InventoryTest.DeadlineIsCheckedDuringEmptyFamilyTraversal (8 ms)
+[----------] 18 tests from InventoryTest (36 ms total)
+
+[----------] Global test environment tear-down
+[==========] 18 tests from 1 test suite ran. (36 ms total)
+[  PASSED  ] 18 tests.

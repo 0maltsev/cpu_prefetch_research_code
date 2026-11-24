@@ -1,0 +1,20 @@
+test_actual_nonzero_child_is_retained (__main__.LauncherTests.test_actual_nonzero_child_is_retained) ... ok
+test_actual_normal_exit_and_exclusive_logs (__main__.LauncherTests.test_actual_normal_exit_and_exclusive_logs) ... ok
+test_corrected_control_ceiling_accepts_above_old_and_exact_new_bound (__main__.LauncherTests.test_corrected_control_ceiling_accepts_above_old_and_exact_new_bound) ... ok
+test_exact_six_pins_including_launcher_and_exclusive_ownership (__main__.LauncherTests.test_exact_six_pins_including_launcher_and_exclusive_ownership) ... ok
+test_exclusive_retention_never_overwrites (__main__.LauncherTests.test_exclusive_retention_never_overwrites) ... ok
+test_fresh_resource_gate_exact_thresholds_and_failures (__main__.LauncherTests.test_fresh_resource_gate_exact_thresholds_and_failures) ... ok
+test_hard_as_and_file_limits_apply_only_inside_supervisor_subprocess (__main__.LauncherTests.test_hard_as_and_file_limits_apply_only_inside_supervisor_subprocess) ... ok
+test_installer_payload_and_manifest_self_binding_without_execution (__main__.LauncherTests.test_installer_payload_and_manifest_self_binding_without_execution) ... ok
+test_last_worker_join_between_snapshot_and_waitid_does_not_false_abort (__main__.LauncherTests.test_last_worker_join_between_snapshot_and_waitid_does_not_false_abort) ... ok
+test_leader_exit_with_orphan_descendant_is_failure_and_reaped (__main__.LauncherTests.test_leader_exit_with_orphan_descendant_is_failure_and_reaped) ... ok
+test_original_argv_ast_only_and_three_path_changes (__main__.LauncherTests.test_original_argv_ast_only_and_three_path_changes) ... ok
+test_retention_control_admission_bound_hash_size_full36 (__main__.LauncherTests.test_retention_control_admission_bound_hash_size_full36) ... ok
+test_symlink_duplicate_manifest_and_nonempty_scratch_rejected (__main__.LauncherTests.test_symlink_duplicate_manifest_and_nonempty_scratch_rejected) ... ok
+test_timeout_kills_escaped_descendant_and_preserves_unrelated_process (__main__.LauncherTests.test_timeout_kills_escaped_descendant_and_preserves_unrelated_process) ... ok
+test_unlinked_spool_counts_toward_monitored_budget (__main__.LauncherTests.test_unlinked_spool_counts_toward_monitored_budget) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 1.407s
+
+OK

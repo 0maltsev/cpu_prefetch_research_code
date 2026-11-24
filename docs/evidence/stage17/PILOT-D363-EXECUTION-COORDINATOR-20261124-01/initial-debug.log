@@ -1,0 +1,99 @@
+..FF.E..F.E
+======================================================================
+ERROR: test_full_coordinator_real_signed_journal_and_programme_bindings (__main__.ExecutionTests.test_full_coordinator_real_signed_journal_and_programme_bindings)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_execution_v1.py", line 164, in test_full_coordinator_real_signed_journal_and_programme_bindings
+    result=self.run_flow()
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_execution_v1.py", line 161, in run_flow
+    def run_flow(self):return execution._run(self.inputs,self.base)
+                              ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_execution_v1.py", line 300, in _run
+    collected=_collect(inputs,base,window,metadata)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_execution_v1.py", line 239, in _collect
+    reservation=store.reserve_family()['document']
+                ~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_archive_custody_v1.py", line 58, in reserve_family
+    return reservation.reserve_family(self)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_archive_reservation_v1.py", line 111, in reserve_family
+    store._extension_binding = store.retain_metadata(_names(store)[0], archive.canonical(_extension(store)))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 683, in retain_metadata
+    self._before_write(len(raw))
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 441, in _before_write
+    raise CustodyError("write would consume failure reserve or exhaust inodes")
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+======================================================================
+ERROR: test_stop_terminal_never_reaches_analysis_or_handoff (__main__.ExecutionTests.test_stop_terminal_never_reaches_analysis_or_handoff)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_execution_v1.py", line 176, in test_stop_terminal_never_reaches_analysis_or_handoff
+    with self.assertRaisesRegex(execution.ExecutionError,'native family stopped'):self.run_flow()
+                                                                                  ~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_execution_v1.py", line 161, in run_flow
+    def run_flow(self):return execution._run(self.inputs,self.base)
+                              ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_execution_v1.py", line 300, in _run
+    collected=_collect(inputs,base,window,metadata)
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_execution_v1.py", line 239, in _collect
+    reservation=store.reserve_family()['document']
+                ~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_archive_custody_v1.py", line 58, in reserve_family
+    return reservation.reserve_family(self)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_s180_archive_reservation_v1.py", line 111, in reserve_family
+    store._extension_binding = store.retain_metadata(_names(store)[0], archive.canonical(_extension(store)))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 683, in retain_metadata
+    self._before_write(len(raw))
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_formal_archive_custody_v1.py", line 441, in _before_write
+    raise CustodyError("write would consume failure reserve or exhaust inodes")
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+======================================================================
+FAIL: test_analysis_failure_never_retries_collected_native (__main__.ExecutionTests.test_analysis_failure_never_retries_collected_native)
+----------------------------------------------------------------------
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_execution_v1.py", line 197, in test_analysis_failure_never_retries_collected_native
+    with self.assertRaisesRegex(ValueError,'forced analysis'):self.run_flow()
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "forced analysis" does not match "write would consume failure reserve or exhaust inodes"
+
+======================================================================
+FAIL: test_clock_failure_does_not_call_q15_or_native (__main__.ExecutionTests.test_clock_failure_does_not_call_q15_or_native)
+----------------------------------------------------------------------
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_execution_v1.py", line 191, in test_clock_failure_does_not_call_q15_or_native
+    with self.assertRaisesRegex(ValueError,'forced clocks'):self.run_flow()
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "forced clocks" does not match "write would consume failure reserve or exhaust inodes"
+
+======================================================================
+FAIL: test_q15_failure_restores_releases_and_forbids_native (__main__.ExecutionTests.test_q15_failure_restores_releases_and_forbids_native)
+----------------------------------------------------------------------
+stage17_formal_archive_custody_v1.CustodyError: write would consume failure reserve or exhaust inodes
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_execution_v1.py", line 184, in test_q15_failure_restores_releases_and_forbids_native
+    with self.assertRaisesRegex(ValueError,'forced q15'):self.run_flow()
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "forced q15" does not match "write would consume failure reserve or exhaust inodes"
+
+----------------------------------------------------------------------
+Ran 11 tests in 3.760s
+
+FAILED (failures=3, errors=2)

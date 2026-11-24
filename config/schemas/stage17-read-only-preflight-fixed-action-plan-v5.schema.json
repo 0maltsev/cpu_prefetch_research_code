@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:read-only-preflight-fixed-action-plan:v5",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "plan_id", "protocol_version", "predecessor", "owner_command_bytes_allowed", "fixed_environment", "transport", "authority_transport_boundary", "ssh_child_lifecycle", "openssh_input_pinning", "local_openssh_consumption_capability", "authority_clock_boundary", "evidence_root_policy", "typed_owner_values", "observations", "record_formats", "forbidden_semantics", "authority_boundary"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-read-only-preflight-fixed-action-plan/5"},
+    "plan_id": {"const": "STAGE17-READ-ONLY-PREFLIGHT-FIXED-ACTION-PLAN-v5"},
+    "protocol_version": {"const": "2.0.0-pre.2"},
+    "predecessor": {"$ref": "#/$defs/file_binding"},
+    "owner_command_bytes_allowed": {"const": false},
+    "fixed_environment": {"const": {"LANG": "C", "LC_ALL": "C", "TZ": "UTC0"}},
+    "transport": {"type": "object", "minProperties": 15},
+    "authority_transport_boundary": {"type": "object", "minProperties": 7, "maxProperties": 7, "additionalProperties": {"const": true}},
+    "ssh_child_lifecycle": {"type": "object", "minProperties": 10, "maxProperties": 10},
+    "openssh_input_pinning": {"type": "object", "minProperties": 15},
+    "local_openssh_consumption_capability": {"type": "object", "minProperties": 12},
+    "authority_clock_boundary": {"type": "object", "minProperties": 7},
+    "evidence_root_policy": {"type": "object", "minProperties": 18},
+    "typed_owner_values": {"type": "array", "minItems": 10, "uniqueItems": true, "items": {"type": "string"}},
+    "observations": {"type": "array", "minItems": 6, "maxItems": 6, "items": {"type": "object"}},
+    "record_formats": {"type": "object", "minProperties": 4, "maxProperties": 4},
+    "forbidden_semantics": {"type": "object", "minProperties": 15, "additionalProperties": {"const": true}},
+    "authority_boundary": {"const": {"stand_read_only": true, "stand_mutation": false, "privileged_controls": false, "qualification": false, "calibration": false, "pilot_execution": false, "measurement": false, "stage18_authority": false}}
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "file_binding": {"type": "object", "additionalProperties": false, "required": ["path", "size_bytes", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "size_bytes": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/$defs/sha256"}}}}
+}

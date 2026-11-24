@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-24/operator-preparation-v24/v24-ext001-execute.py"
+  ],
+  "completed_monotonic_ns": 580154193522383,
+  "exit_code": 0,
+  "leader_reaped": true,
+  "operator": "v24-ext001-execute.py",
+  "retry_allowed": false,
+  "started_monotonic_ns": 580136643043623
+}

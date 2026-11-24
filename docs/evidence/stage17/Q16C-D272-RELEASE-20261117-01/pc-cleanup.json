@@ -1,0 +1,24 @@
+{
+  "removed": [
+    {
+      "path": "build/stage17-q16c-prep/release-919c486/pilot-candidate-bundle/cpu-prefetch-pilot-candidate-2.0.0-919c486-clean-2dda11ec716e.tar.gz",
+      "size_bytes": 87774997,
+      "sha256": "2abc1ec2083cd2ab8f9acb5918c84e35fc7a9666cd8a0e020d9ab31fb80999b1",
+      "reason": "verified stand archive and PC extracted software retained"
+    },
+    {
+      "path": "build/stage17-q16c-prep/source-f861f71/tools",
+      "removed_python_cache_files": 121,
+      "size_bytes": 2064751,
+      "reason": "regenerable PC build cache; qualified extracted bundle retained"
+    },
+    {
+      "path": "build/stage17-q16c-prep/source-919c486/tools",
+      "removed_python_cache_files": 147,
+      "size_bytes": 2596117,
+      "reason": "regenerable PC build cache; qualified extracted bundle retained"
+    }
+  ],
+  "stand_raw_removed": false,
+  "old_q16a_q16b_data_changed": false
+}

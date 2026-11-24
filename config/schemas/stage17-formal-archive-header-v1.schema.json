@@ -1,0 +1,216 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cpu-prefetch.invalid/schemas/stage17-formal-archive-header-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "artifact_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifact_role": {
+      "type": "string",
+      "minLength": 1
+    },
+    "canonical_format": {
+      "type": "string",
+      "minLength": 1
+    },
+    "run_id": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "minLength": 1
+        }
+      ]
+    },
+    "phase": {
+      "enum": [
+        null,
+        "warmup",
+        "measurement"
+      ]
+    },
+    "worker": {
+      "enum": [
+        null,
+        "producer",
+        "consumer"
+      ]
+    },
+    "canonical_size_bytes": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615
+    },
+    "canonical_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "codec_id": {
+      "enum": [
+        "RAW-U64LE-COLUMN-MODDELTA8192-ZSTD157-L3-v1",
+        "BYTES-4MIB-ZSTD157-L3-v1"
+      ]
+    },
+    "row_bytes": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "integer",
+          "minimum": 8,
+          "multipleOf": 8,
+          "maximum": 18446744073709551615
+        }
+      ]
+    },
+    "fallback_reason": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "minLength": 1
+        }
+      ]
+    },
+    "implementation_profile_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "encoder_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "zstd_library_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "schema_version": {
+      "const": "cpu-prefetch-formal-archive-header/1"
+    },
+    "policy_id": {
+      "const": "EXT007-FORMAL-LOSSLESS-STAND-PRIMARY-v1"
+    },
+    "row_count": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        }
+      ]
+    },
+    "block_size_bytes": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 18446744073709551615
+    },
+    "block_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615
+    },
+    "zstd_version": {
+      "const": "1.5.7"
+    },
+    "compression_level": {
+      "const": 3
+    },
+    "worker_threads": {
+      "const": 1
+    },
+    "window_log": {
+      "type": "integer",
+      "minimum": 10,
+      "maximum": 31
+    },
+    "checksum_flag": {
+      "const": 1
+    },
+    "content_size_flag": {
+      "const": 1
+    },
+    "dictionary_id_flag": {
+      "const": 0
+    }
+  },
+  "required": [
+    "artifact_id",
+    "artifact_role",
+    "canonical_format",
+    "run_id",
+    "phase",
+    "worker",
+    "canonical_size_bytes",
+    "canonical_sha256",
+    "codec_id",
+    "row_bytes",
+    "fallback_reason",
+    "implementation_profile_sha256",
+    "encoder_sha256",
+    "zstd_library_sha256",
+    "schema_version",
+    "policy_id",
+    "row_count",
+    "block_size_bytes",
+    "block_count",
+    "zstd_version",
+    "compression_level",
+    "worker_threads",
+    "window_log",
+    "checksum_flag",
+    "content_size_flag",
+    "dictionary_id_flag"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "codec_id": {
+            "const": "RAW-U64LE-COLUMN-MODDELTA8192-ZSTD157-L3-v1"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "row_bytes": {
+            "type": "integer",
+            "minimum": 8,
+            "multipleOf": 8
+          },
+          "row_count": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 18446744073709551615
+          },
+          "fallback_reason": {
+            "type": "null"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "row_bytes": {
+            "type": "null"
+          },
+          "row_count": {
+            "type": "null"
+          },
+          "block_size_bytes": {
+            "const": 4194304
+          }
+        }
+      }
+    }
+  ]
+}

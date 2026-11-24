@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d242-operators-1/register_authorize.py", line 90, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d242-operators-1/register_authorize.py", line 87, in main
+    (register if args.operation=='register' else authorize)(plan)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d242-operators-1/register_authorize.py", line 66, in authorize
+    cli.author_formal_authorization(**common,request_path=AUTH/'request.json',actor='maltsev.oiu@phystech.edu',
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        reviewer='OWNER',issued_at_utc=stamp(now),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        expires_at_utc=stamp(now+dt.timedelta(seconds=policy['session_max_wall_seconds'])),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        destination=AUTH/'authorization.json')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/admission-root/tools/stage17_operational_cli_v18.py", line 470, in author_formal_authorization
+    registry.validate_document(pinned, document, registry.schema_path("phase-action-authorization"), "formal authorization")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/admission-root/tools/stage17_output_registry_v4.py", line 198, in validate_document
+    raise OutputAdmissionError(
+        f"{label} schema rejection at {where}: {errors[0].message}"
+    )
+stage17_output_registry_v4.OutputAdmissionError: formal authorization schema rejection at expires_at_utc: '2026-12-11T09:59:51.717398Z' does not match '^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$'

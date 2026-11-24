@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cpu-prefetch.invalid/schemas/stage17-formal-archive-encoder-plan-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "artifact_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "artifact_role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "canonical_format": {
+          "type": "string",
+          "minLength": 1
+        },
+        "run_id": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "minLength": 1
+            }
+          ]
+        },
+        "phase": {
+          "enum": [
+            null,
+            "warmup",
+            "measurement"
+          ]
+        },
+        "worker": {
+          "enum": [
+            null,
+            "producer",
+            "consumer"
+          ]
+        },
+        "canonical_size_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "canonical_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "codec_id": {
+          "enum": [
+            "RAW-U64LE-COLUMN-MODDELTA8192-ZSTD157-L3-v1",
+            "BYTES-4MIB-ZSTD157-L3-v1"
+          ]
+        },
+        "row_bytes": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "integer",
+              "minimum": 8,
+              "multipleOf": 8,
+              "maximum": 18446744073709551615
+            }
+          ]
+        },
+        "fallback_reason": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "minLength": 1
+            }
+          ]
+        },
+        "implementation_profile_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "encoder_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "zstd_library_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "artifact_id",
+        "artifact_role",
+        "canonical_format",
+        "run_id",
+        "phase",
+        "worker",
+        "canonical_size_bytes",
+        "canonical_sha256",
+        "codec_id",
+        "row_bytes",
+        "fallback_reason",
+        "implementation_profile_sha256",
+        "encoder_sha256",
+        "zstd_library_sha256"
+      ]
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "maximum_header_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 18446744073709551615
+        },
+        "maximum_archive_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 18446744073709551615
+        },
+        "maximum_observed_context_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 18446744073709551615
+        },
+        "io_chunk_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 18446744073709551615
+        },
+        "maximum_io_calls": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 18446744073709551615
+        },
+        "deadline_monotonic_ns": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 18446744073709551615
+        },
+        "window_log": {
+          "type": "integer",
+          "minimum": 10,
+          "maximum": 31
+        },
+        "maximum_decoded_block_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "maximum_encoded_block_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        }
+      },
+      "required": [
+        "maximum_header_bytes",
+        "maximum_archive_bytes",
+        "maximum_observed_context_bytes",
+        "io_chunk_bytes",
+        "maximum_io_calls",
+        "deadline_monotonic_ns",
+        "window_log",
+        "maximum_decoded_block_bytes",
+        "maximum_encoded_block_bytes"
+      ]
+    }
+  },
+  "required": [
+    "identity",
+    "limits"
+  ]
+}

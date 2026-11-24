@@ -1,0 +1,1088 @@
+{
+  "observed_at_utc": "2026-11-15T14:48:28.940036+00:00",
+  "formal-capture-0-final-checkpoint.json": {
+    "mtime_ns": 1794753857520468166,
+    "size_bytes": 13409,
+    "document": {
+      "action_id": "Q16b",
+      "artifacts": [
+        {
+          "file_name": "q16b-c0-warmup-producer.bin",
+          "sha256": "3cd5741632c5301939da9f5ecfe40171428d432bdfef496ea12882280dbac867",
+          "size_bytes": 2184291648
+        },
+        {
+          "file_name": "q16b-c0-warmup-consumer.bin",
+          "sha256": "f9a9a3937716b92243e687a6768827bd6c8181a8af1181de4f89178cf608e169",
+          "size_bytes": 1541852928
+        },
+        {
+          "file_name": "q16b-c0-measurement-producer.bin",
+          "sha256": "552850a249110f262b5f2f6a37991539d5882a62292918b471702d621c635650",
+          "size_bytes": 510496808
+        },
+        {
+          "file_name": "q16b-c0-measurement-consumer.bin",
+          "sha256": "eb0bf5dc8e0cb2cc3d46ec5aabc25c8584bea3fd77ebdd785792009d5dc360b5",
+          "size_bytes": 360350688
+        },
+        {
+          "file_name": "q16b-c0-node-order.bin",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size_bytes": 0
+        },
+        {
+          "file_name": "q16b-c0-control.json",
+          "sha256": "d7306544d5591a2d6204258e466ec87d348e9d882caffbaa2335a2fbe93c93ec",
+          "size_bytes": 533144041
+        }
+      ],
+      "capture_identity": {
+        "hardware_state": "H0",
+        "measurement_run_id": "B26M00000000",
+        "warmup_run_id": "B26W00000000"
+      },
+      "capture_ordinal": 0,
+      "execution_authority": false,
+      "native_complete": true,
+      "native_result_after_cleanup": {
+        "clock_origin": {
+          "absolute_nanoseconds": 1190345166288717,
+          "status": 0
+        },
+        "controller_stack": {
+          "after_populate": {
+            "affinity": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "affinity_cpu_count": 1,
+            "current_cpu": {
+              "error_number": 0,
+              "return_value": 2
+            },
+            "faults": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "major_faults": 0,
+            "minor_faults": 512,
+            "requested_cpu_in_affinity": true,
+            "thread_id": {
+              "error_number": 0,
+              "return_value": 210880
+            }
+          },
+          "base_page_bytes": {
+            "error_number": 0,
+            "return_value": 4096
+          },
+          "before_populate": {
+            "affinity": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "affinity_cpu_count": 1,
+            "current_cpu": {
+              "error_number": 0,
+              "return_value": 2
+            },
+            "faults": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "major_faults": 0,
+            "minor_faults": 2,
+            "requested_cpu_in_affinity": true,
+            "thread_id": {
+              "error_number": 0,
+              "return_value": 210880
+            }
+          },
+          "binding": {
+            "error_number": 0,
+            "return_value": 0
+          },
+          "cleanup_attempted": true,
+          "guard": {
+            "error_number": 0,
+            "return_value": 0
+          },
+          "lock": {
+            "error_number": 0,
+            "return_value": 0
+          },
+          "mapping": {
+            "address": 139793027555328,
+            "error_number": 0
+          },
+          "minimum_stack_bytes": {
+            "error_number": 0,
+            "return_value": 16384
+          },
+          "no_huge_pages": {
+            "error_number": 0,
+            "return_value": 0
+          },
+          "populate": {
+            "error_number": 0,
+            "return_value": 0
+          },
+          "requested": {
+            "bytes": 2097152,
+            "owner_cpu": 2,
+            "requested_node": 0,
+            "verified_base_page_bytes": 4096
+          },
+          "stop": 11,
+          "thread": {
+            "attribute_affinity": 0,
+            "attribute_destroy": 0,
+            "attribute_guard": 0,
+            "attribute_init": 0,
+            "attribute_stack": 0,
+            "create": 0,
+            "join": 0
+          },
+          "unlock": {
+            "error_number": 0,
+            "return_value": 0
+          },
+          "unmap": {
+            "error_number": 0,
+            "return_value": 0
+          }
+        },
+        "core_mapping": {
+          "affinity_request": {
+            "error_number": 0,
+            "return_value": 0
+          },
+          "after_touch": {
+            "affinity": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "affinity_cpu_count": 1,
+            "current_cpu": {
+              "error_number": 0,
+              "return_value": 2
+            },
+            "faults": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "major_faults": 0,
+            "minor_faults": 517,
+            "requested_cpu_in_affinity": true,
+            "thread_id": {
+              "error_number": 0,
+              "return_value": 210880
+            }
+          },
+          "base_page_bytes": {
+            "error_number": 0,
+            "return_value": 4096
+          },
+          "before_touch": {
+            "affinity": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "affinity_cpu_count": 1,
+            "current_cpu": {
+              "error_number": 0,
+              "return_value": 2
+            },
+            "faults": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "major_faults": 0,
+            "minor_faults": 513,
+            "requested_cpu_in_affinity": true,
+            "thread_id": {
+              "error_number": 0,
+              "return_value": 210880
+            }
+          },
+          "binding": {
+            "error_number": 0,
+            "return_value": 0
+          },
+          "cleanup_attempted": true,
+          "lock": {
+            "error_number": 0,
+            "return_value": 0
+          },
+          "mapping": {
+            "address": 139793052856320,
+            "error_number": 0
+          },
+          "no_huge_pages": {
+            "error_number": 0,
+            "return_value": 0
+          },
+          "prefaulted_pages": 4,
+          "read_only": null,
+          "requested": {
+            "bytes": 16384,
+            "owner_cpu": 2,
+            "requested_node": 0,
+            "verified_base_page_bytes": 4096
+          },
+          "stop": 10,
+          "unlock": {
+            "error_number": 0,
+            "return_value": 0
+          },
+          "unmap": {
+            "error_number": 0,
+            "return_value": 0
+          }
+        },
+        "monitor_mapping": {
+          "affinity_request": {
+            "error_number": 0,
+            "return_value": 0
+          },
+          "after_touch": {
+            "affinity": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "affinity_cpu_count": 1,
+            "current_cpu": {
+              "error_number": 0,
+              "return_value": 2
+            },
+            "faults": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "major_faults": 0,
+            "minor_faults": 91514,
+            "requested_cpu_in_affinity": true,
+            "thread_id": {
+              "error_number": 0,
+              "return_value": 210880
+            }
+          },
+          "base_page_bytes": {
+            "error_number": 0,
+            "return_value": 4096
+          },
+          "before_touch": {
+            "affinity": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "affinity_cpu_count": 1,
+            "current_cpu": {
+              "error_number": 0,
+              "return_value": 2
+            },
+            "faults": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "major_faults": 0,
+            "minor_faults": 517,
+            "requested_cpu_in_affinity": true,
+            "thread_id": {
+              "error_number": 0,
+              "return_value": 210880
+            }
+          },
+          "binding": {
+            "error_number": 0,
+            "return_value": 0
+          },
+          "cleanup_attempted": true,
+          "lock": {
+            "error_number": 0,
+            "return_value": 0
+          },
+          "mapping": {
+            "address": 139792543092736,
+            "error_number": 0
+          },
+          "no_huge_pages": {
+            "error_number": 0,
+            "return_value": 0
+          },
+          "prefaulted_pages": 90997,
+          "read_only": null,
+          "requested": {
+            "bytes": 372723712,
+            "owner_cpu": 2,
+            "requested_node": 0,
+            "verified_base_page_bytes": 4096
+          },
+          "stop": 10,
+          "unlock": {
+            "error_number": 0,
+            "return_value": 0
+          },
+          "unmap": {
+            "error_number": 0,
+            "return_value": 0
+          }
+        },
+        "publication_attempted": true,
+        "publication_succeeded": true,
+        "session": {
+          "clock_origin": {
+            "absolute_nanoseconds": 1190345166288717
+          },
+          "phases": [
+            {
+              "after_observed": true,
+              "before_observed": true,
+              "consumer": {
+                "consumed_including_drain": 16060968,
+                "drained": true,
+                "empty": 10863090,
+                "last_clock_status": 0,
+                "last_observed_tick": 20385432671000,
+                "polls": 26924058
+              },
+              "drain_checkpoint": {
+                "absolute_nanoseconds": 1190366417967411,
+                "relative_picoseconds": 21251678694000,
+                "status": 0
+              },
+              "during_observed": true,
+              "observed_origin": 15385432048000,
+              "origin_sample": {
+                "absolute_nanoseconds": 1190360551720765,
+                "relative_picoseconds": 15385432048000
+              },
+              "origin_status": 0,
+              "producer": {
+                "accepted": 16060968,
+                "arrivals_finished_published": true,
+                "attempted": 16060968,
+                "deadline_reached": true,
+                "full": 0,
+                "last_clock_status": 0,
+                "last_observed_tick": 20385432095000
+              },
+              "released": true,
+              "validated": true,
+              "window": {
+                "drain_deadline_ticks": 50385432048000,
+                "duration_ticks": 5000000000000,
+                "origin_ticks": 15385432048000,
+                "producer_deadline_ticks": 20385432048000
+              }
+            },
+            {
+              "after_observed": true,
+              "before_observed": true,
+              "consumer": {
+                "consumed_including_drain": 3753653,
+                "drained": true,
+                "empty": 2662599,
+                "last_clock_status": 0,
+                "last_observed_tick": 25561066922000,
+                "polls": 6416252
+              },
+              "drain_checkpoint": {
+                "absolute_nanoseconds": 1190371593306662,
+                "relative_picoseconds": 26427017945000,
+                "status": 0
+              },
+              "during_observed": true,
+              "observed_origin": 24561066652000,
+              "origin_sample": {
+                "absolute_nanoseconds": 1190369727355369,
+                "relative_picoseconds": 24561066652000
+              },
+              "origin_status": 0,
+              "producer": {
+                "accepted": 3753653,
+                "arrivals_finished_published": true,
+                "attempted": 3753653,
+                "deadline_reached": true,
+                "full": 0,
+                "last_clock_status": 0,
+                "last_observed_tick": 25561066658000
+              },
+              "released": true,
+              "validated": true,
+              "window": {
+                "drain_deadline_ticks": 55561066652000,
+                "duration_ticks": 1000000000000,
+                "origin_ticks": 24561066652000,
+                "producer_deadline_ticks": 25561066652000
+              }
+            }
+          ],
+          "prepared": [
+            true,
+            true
+          ],
+          "private_reset": [
+            true,
+            true
+          ],
+          "queue_reset": true,
+          "stop": 1
+        },
+        "stop": 14,
+        "worker_mappings": [
+          {
+            "affinity_request": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "after_touch": {
+              "affinity": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "affinity_cpu_count": 1,
+              "current_cpu": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "faults": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "major_faults": 0,
+              "minor_faults": 521,
+              "requested_cpu_in_affinity": true,
+              "thread_id": {
+                "error_number": 0,
+                "return_value": 210882
+              }
+            },
+            "base_page_bytes": {
+              "error_number": 0,
+              "return_value": 4096
+            },
+            "before_touch": {
+              "affinity": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "affinity_cpu_count": 1,
+              "current_cpu": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "faults": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "major_faults": 0,
+              "minor_faults": 512,
+              "requested_cpu_in_affinity": true,
+              "thread_id": {
+                "error_number": 0,
+                "return_value": 210882
+              }
+            },
+            "binding": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "cleanup_attempted": true,
+            "lock": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "mapping": {
+              "address": 139793045274624,
+              "error_number": 0
+            },
+            "no_huge_pages": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "prefaulted_pages": 9,
+            "read_only": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "requested": {
+              "bytes": 36864,
+              "owner_cpu": 0,
+              "requested_node": 0,
+              "verified_base_page_bytes": 4096
+            },
+            "stop": 10,
+            "unlock": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "unmap": {
+              "error_number": 0,
+              "return_value": 0
+            }
+          },
+          {
+            "affinity_request": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "after_touch": {
+              "affinity": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "affinity_cpu_count": 1,
+              "current_cpu": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "faults": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "major_faults": 0,
+              "minor_faults": 4316929,
+              "requested_cpu_in_affinity": true,
+              "thread_id": {
+                "error_number": 0,
+                "return_value": 210882
+              }
+            },
+            "base_page_bytes": {
+              "error_number": 0,
+              "return_value": 4096
+            },
+            "before_touch": {
+              "affinity": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "affinity_cpu_count": 1,
+              "current_cpu": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "faults": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "major_faults": 0,
+              "minor_faults": 521,
+              "requested_cpu_in_affinity": true,
+              "thread_id": {
+                "error_number": 0,
+                "return_value": 210882
+              }
+            },
+            "binding": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "cleanup_attempted": true,
+            "lock": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "mapping": {
+              "address": 139762301321216,
+              "error_number": 0
+            },
+            "no_huge_pages": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "prefaulted_pages": 4316408,
+            "read_only": null,
+            "requested": {
+              "bytes": 17680007168,
+              "owner_cpu": 0,
+              "requested_node": 0,
+              "verified_base_page_bytes": 4096
+            },
+            "stop": 10,
+            "unlock": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "unmap": {
+              "error_number": 0,
+              "return_value": 0
+            }
+          },
+          {
+            "affinity_request": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "after_touch": {
+              "affinity": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "affinity_cpu_count": 1,
+              "current_cpu": {
+                "error_number": 0,
+                "return_value": 1
+              },
+              "faults": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "major_faults": 0,
+              "minor_faults": 3047387,
+              "requested_cpu_in_affinity": true,
+              "thread_id": {
+                "error_number": 0,
+                "return_value": 210883
+              }
+            },
+            "base_page_bytes": {
+              "error_number": 0,
+              "return_value": 4096
+            },
+            "before_touch": {
+              "affinity": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "affinity_cpu_count": 1,
+              "current_cpu": {
+                "error_number": 0,
+                "return_value": 1
+              },
+              "faults": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "major_faults": 0,
+              "minor_faults": 511,
+              "requested_cpu_in_affinity": true,
+              "thread_id": {
+                "error_number": 0,
+                "return_value": 210883
+              }
+            },
+            "binding": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "cleanup_attempted": true,
+            "lock": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "mapping": {
+              "address": 139779981328384,
+              "error_number": 0
+            },
+            "no_huge_pages": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "prefaulted_pages": 3046876,
+            "read_only": null,
+            "requested": {
+              "bytes": 12480004096,
+              "owner_cpu": 1,
+              "requested_node": 0,
+              "verified_base_page_bytes": 4096
+            },
+            "stop": 10,
+            "unlock": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "unmap": {
+              "error_number": 0,
+              "return_value": 0
+            }
+          }
+        ],
+        "worker_stacks": [
+          {
+            "after_populate": {
+              "affinity": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "affinity_cpu_count": 1,
+              "current_cpu": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "faults": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "major_faults": 0,
+              "minor_faults": 511,
+              "requested_cpu_in_affinity": true,
+              "thread_id": {
+                "error_number": 0,
+                "return_value": 210882
+              }
+            },
+            "base_page_bytes": {
+              "error_number": 0,
+              "return_value": 4096
+            },
+            "before_populate": {
+              "affinity": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "affinity_cpu_count": 1,
+              "current_cpu": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "faults": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "major_faults": 0,
+              "minor_faults": 1,
+              "requested_cpu_in_affinity": true,
+              "thread_id": {
+                "error_number": 0,
+                "return_value": 210882
+              }
+            },
+            "binding": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "cleanup_attempted": true,
+            "guard": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "lock": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "mapping": {
+              "address": 139793025454080,
+              "error_number": 0
+            },
+            "minimum_stack_bytes": {
+              "error_number": 0,
+              "return_value": 16384
+            },
+            "no_huge_pages": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "populate": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "requested": {
+              "bytes": 2097152,
+              "owner_cpu": 0,
+              "requested_node": 0,
+              "verified_base_page_bytes": 4096
+            },
+            "stop": 11,
+            "thread": {
+              "attribute_affinity": 0,
+              "attribute_destroy": 0,
+              "attribute_guard": 0,
+              "attribute_init": 0,
+              "attribute_stack": 0,
+              "create": 0,
+              "join": 0
+            },
+            "unlock": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "unmap": {
+              "error_number": 0,
+              "return_value": 0
+            }
+          },
+          {
+            "after_populate": {
+              "affinity": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "affinity_cpu_count": 1,
+              "current_cpu": {
+                "error_number": 0,
+                "return_value": 1
+              },
+              "faults": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "major_faults": 0,
+              "minor_faults": 511,
+              "requested_cpu_in_affinity": true,
+              "thread_id": {
+                "error_number": 0,
+                "return_value": 210883
+              }
+            },
+            "base_page_bytes": {
+              "error_number": 0,
+              "return_value": 4096
+            },
+            "before_populate": {
+              "affinity": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "affinity_cpu_count": 1,
+              "current_cpu": {
+                "error_number": 0,
+                "return_value": 1
+              },
+              "faults": {
+                "error_number": 0,
+                "return_value": 0
+              },
+              "major_faults": 0,
+              "minor_faults": 1,
+              "requested_cpu_in_affinity": true,
+              "thread_id": {
+                "error_number": 0,
+                "return_value": 210883
+              }
+            },
+            "binding": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "cleanup_attempted": true,
+            "guard": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "lock": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "mapping": {
+              "address": 139793023352832,
+              "error_number": 0
+            },
+            "minimum_stack_bytes": {
+              "error_number": 0,
+              "return_value": 16384
+            },
+            "no_huge_pages": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "populate": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "requested": {
+              "bytes": 2097152,
+              "owner_cpu": 1,
+              "requested_node": 0,
+              "verified_base_page_bytes": 4096
+            },
+            "stop": 11,
+            "thread": {
+              "attribute_affinity": 0,
+              "attribute_destroy": 0,
+              "attribute_guard": 0,
+              "attribute_init": 0,
+              "attribute_stack": 0,
+              "create": 0,
+              "join": 0
+            },
+            "unlock": {
+              "error_number": 0,
+              "return_value": 0
+            },
+            "unmap": {
+              "error_number": 0,
+              "return_value": 0
+            }
+          }
+        ]
+      },
+      "plan_sha256": "6302de1e50b6178004eb3a8e4d24579c0b5ef74e8a1504e254297faed9f1f847",
+      "schema_version": "cpu-prefetch-stage17-formal-capture-checkpoint/1",
+      "scientific_validity": "NOT_ASSESSED"
+    }
+  },
+  "formal-capture-0-archive-custody.json": {
+    "mtime_ns": 1794754096550825837,
+    "size_bytes": 5439,
+    "document": {
+      "artifacts": [
+        {
+          "archive_name": "b7d2ad0922d62218486a60036a3df9bf072d1eb33cc372551474a0a8d1875ab1.cpfa",
+          "artifact_id": "6302de1e50b6178004eb3a8e4d24579c0b5ef74e8a1504e254297faed9f1f847:q16b-c0-warmup-producer.bin",
+          "expected_logical": {
+            "file_name": "q16b-c0-warmup-producer.bin",
+            "sha256": "3cd5741632c5301939da9f5ecfe40171428d432bdfef496ea12882280dbac867",
+            "size_bytes": 2184291648
+          },
+          "failure_receipt": null,
+          "logical": {
+            "file_name": "q16b-c0-warmup-producer.bin",
+            "sha256": "3cd5741632c5301939da9f5ecfe40171428d432bdfef496ea12882280dbac867",
+            "size_bytes": 2184291648
+          },
+          "physical": {
+            "sha256": "c1cc24c9dd58c1ecfd7a4eda070a45aadcbf5a38bd4a9c3fdd2f76de80941dfb",
+            "size_bytes": 251528950
+          },
+          "released_record": {
+            "file_name": "0000000000059592.json",
+            "sha256": "80c59956f7ab787f398b4c99dc986fa0cf42028dc7ccb0c4351e21d75c35be58",
+            "size_bytes": 2449
+          }
+        },
+        {
+          "archive_name": "bf5b9c5f4a69d449bdd9d53de9538e3349ed88e8e169e484a9a22f3e5c33a5e4.cpfa",
+          "artifact_id": "6302de1e50b6178004eb3a8e4d24579c0b5ef74e8a1504e254297faed9f1f847:q16b-c0-warmup-consumer.bin",
+          "expected_logical": {
+            "file_name": "q16b-c0-warmup-consumer.bin",
+            "sha256": "f9a9a3937716b92243e687a6768827bd6c8181a8af1181de4f89178cf608e169",
+            "size_bytes": 1541852928
+          },
+          "failure_receipt": null,
+          "logical": {
+            "file_name": "q16b-c0-warmup-consumer.bin",
+            "sha256": "f9a9a3937716b92243e687a6768827bd6c8181a8af1181de4f89178cf608e169",
+            "size_bytes": 1541852928
+          },
+          "physical": {
+            "sha256": "add9bc9b5c8b0a651af77b537d432ca7059a699df264eed65e0dae61fe1f5092",
+            "size_bytes": 209164418
+          },
+          "released_record": {
+            "file_name": "0000000000059600.json",
+            "sha256": "c15e4cfb193a0a835072697a8bbf401d9965a9e1ec751082eefb623b85358bb7",
+            "size_bytes": 2447
+          }
+        },
+        {
+          "archive_name": "a07b47ed97c614d83df9b5508f93b7a0af30adbccdb002d2abd0fd705611f36d.cpfa",
+          "artifact_id": "6302de1e50b6178004eb3a8e4d24579c0b5ef74e8a1504e254297faed9f1f847:q16b-c0-measurement-producer.bin",
+          "expected_logical": {
+            "file_name": "q16b-c0-measurement-producer.bin",
+            "sha256": "552850a249110f262b5f2f6a37991539d5882a62292918b471702d621c635650",
+            "size_bytes": 510496808
+          },
+          "failure_receipt": null,
+          "logical": {
+            "file_name": "q16b-c0-measurement-producer.bin",
+            "sha256": "552850a249110f262b5f2f6a37991539d5882a62292918b471702d621c635650",
+            "size_bytes": 510496808
+          },
+          "physical": {
+            "sha256": "7410b10c007fb7c903cda9fb6d0968da681fe3e1f913d7df2cb5582d3b284e4a",
+            "size_bytes": 60272034
+          },
+          "released_record": {
+            "file_name": "0000000000059608.json",
+            "sha256": "786dab3a2ee340537224d55ea37f426fd8af759ca1acfacd700bbad4d2e3709d",
+            "size_bytes": 2468
+          }
+        },
+        {
+          "archive_name": "c23f0bab6842ba13e0dd1dd54cd70b97e2f570d442278c96227b817ef56ef6c1.cpfa",
+          "artifact_id": "6302de1e50b6178004eb3a8e4d24579c0b5ef74e8a1504e254297faed9f1f847:q16b-c0-measurement-consumer.bin",
+          "expected_logical": {
+            "file_name": "q16b-c0-measurement-consumer.bin",
+            "sha256": "eb0bf5dc8e0cb2cc3d46ec5aabc25c8584bea3fd77ebdd785792009d5dc360b5",
+            "size_bytes": 360350688
+          },
+          "failure_receipt": null,
+          "logical": {
+            "file_name": "q16b-c0-measurement-consumer.bin",
+            "sha256": "eb0bf5dc8e0cb2cc3d46ec5aabc25c8584bea3fd77ebdd785792009d5dc360b5",
+            "size_bytes": 360350688
+          },
+          "physical": {
+            "sha256": "72ab3a5d7493a119769e191e99679134c16d19dece9dbfda617d7eebb224d0bf",
+            "size_bytes": 48512282
+          },
+          "released_record": {
+            "file_name": "0000000000059616.json",
+            "sha256": "f906930d86e9522f3bea115716d16966af8b69ff0504b3f5db6e4004c8466a76",
+            "size_bytes": 2466
+          }
+        },
+        {
+          "archive_name": "9bc4b3d96b724c51e907cf1b4ba1fe83dd321f16e25122cf4bf3535a2bbeb5d2.cpfa",
+          "artifact_id": "6302de1e50b6178004eb3a8e4d24579c0b5ef74e8a1504e254297faed9f1f847:q16b-c0-node-order.bin",
+          "expected_logical": {
+            "file_name": "q16b-c0-node-order.bin",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "size_bytes": 0
+          },
+          "failure_receipt": null,
+          "logical": {
+            "file_name": "q16b-c0-node-order.bin",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "size_bytes": 0
+          },
+          "physical": {
+            "sha256": "aa6120c2f4d648ca590208e6c5ad9c24e63a6f1aa16860b935379b06842b6112",
+            "size_bytes": 1077
+          },
+          "released_record": {
+            "file_name": "0000000000059624.json",
+            "sha256": "a66e78215568972ddb4b34d8e4e1c16b422e68402536782ed3000058ec5b0a8e",
+            "size_bytes": 2342
+          }
+        },
+        {
+          "archive_name": "f14b236f471793c167a0a86ed2cbf211b717beae6a55109bafa21295dd6e3a88.cpfa",
+          "artifact_id": "6302de1e50b6178004eb3a8e4d24579c0b5ef74e8a1504e254297faed9f1f847:q16b-c0-control.json",
+          "expected_logical": {
+            "file_name": "q16b-c0-control.json",
+            "sha256": "d7306544d5591a2d6204258e466ec87d348e9d882caffbaa2335a2fbe93c93ec",
+            "size_bytes": 533144041
+          },
+          "failure_receipt": null,
+          "logical": {
+            "file_name": "q16b-c0-control.json",
+            "sha256": "d7306544d5591a2d6204258e466ec87d348e9d882caffbaa2335a2fbe93c93ec",
+            "size_bytes": 533144041
+          },
+          "physical": {
+            "sha256": "2d48064c01a1fe7463a9698ea7c08246a5c9d9e47e1f1a7a9a50777988cc62e5",
+            "size_bytes": 22946072
+          },
+          "released_record": {
+            "file_name": "0000000000059632.json",
+            "sha256": "27a9e949da92905328ba2bc97bd77d9e8873eadbff2a290f2014c0a7d221bc69",
+            "size_bytes": 2433
+          }
+        }
+      ],
+      "capture_ordinal": 0,
+      "checkpoint": {
+        "file_name": "formal-capture-0-final-checkpoint.json",
+        "sha256": "731724d812edd5f65686b4435c25bc2ab4ab27e9455b2c4533c48753a5cb902f",
+        "size_bytes": 13409
+      },
+      "execution_authority": false,
+      "ledger_tip": {
+        "file_name": "0000000000059633.json",
+        "sha256": "8f914e0744e8149e669b2cbcfa567edac14d04b9f42034df31d2b3fd25d0d358",
+        "size_bytes": 1331
+      },
+      "plan_sha256": "6302de1e50b6178004eb3a8e4d24579c0b5ef74e8a1504e254297faed9f1f847",
+      "program_scope_sha256": "4d0ddac91ec96bb7038f2903b965a2f1a785b63b108b5b05e645742ac8dcc0c2",
+      "schema_version": "cpu-prefetch-stage17-formal-archive-custody/1",
+      "scientific_validity": "NOT_ASSESSED",
+      "status": "ARCHIVED_AND_RELEASED"
+    }
+  },
+  "native_worker_alive": true,
+  "supervisor_alive": true
+}

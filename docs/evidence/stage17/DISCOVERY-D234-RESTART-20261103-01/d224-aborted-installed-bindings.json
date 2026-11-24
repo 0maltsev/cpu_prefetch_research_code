@@ -1,0 +1,99 @@
+{
+  "analysis_root": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-d224-2",
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-d224-2/validate_d207_retained_study_parallel_v1.py",
+    "--repository-root",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/admission-root",
+    "--output-root",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-output-r3-1",
+    "--scratch-directory",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-d224-2/scratch",
+    "--output",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-d224-2/scratch/full-study-validation-parallel-v1.json",
+    "--plan",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-preparation-r3-1/plan.json",
+    "--plan-sha256",
+    "b513b6a7592fe010bc9a4fa256a7b214252504920636b286ad1f0edb8bdb6fcf",
+    "--request",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/admission-root/evidence/discovery-r3-fresh/request.json",
+    "--request-sha256",
+    "94e15475dd2a6d418fa1fc988f56a118028478b77f209f518489f01f16eb3012",
+    "--authorization",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/admission-root/evidence/discovery-r3-fresh/authorization.json",
+    "--authorization-sha256",
+    "fa9443d7af1b6b35f36d0b0c21e22f9bfcc7a10e6d7b6f1614bb2d4d305421c6",
+    "--admitted-result-sha256",
+    "1c06f680ec090b23c462af697d93aadf298dba4d68ec5cf04df01517274ad898",
+    "--d206-acceptance",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-1/d206-owner-acceptance.json",
+    "--d206-acceptance-sha256",
+    "caa447f368053076b23cf296185cebe93c4318e93dcf99fd7480c89314b143c7",
+    "--d206-proposal",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-1/d206-proposal.md",
+    "--d206-proposal-sha256",
+    "c1d4d9cd0ec53b3aea9a4d8dd7b13c7b3f73552f1b475a4476b3b8a6ca10b92f",
+    "--supervisor-result",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-supervisor-result-r3-1.json",
+    "--supervisor-sha256",
+    "e9bf48ce2020a4d0fb8c93f90d7330383882002bbb35715df3050b74d8c81bd0",
+    "--admission-record",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-1/admission-record.json",
+    "--admission-sha256",
+    "ae5ab7f2ee13740cd539ccaa5aea9acd034dd0a3e8bbfa46ea2b22dc8dd765d3",
+    "--admission-stdout",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-1/admission-stdout.txt",
+    "--admission-stderr",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-1/admission-stderr.txt",
+    "--previous-validation",
+    "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-20/discovery-analysis-r3-1/scratch/full-study-validation-1.json",
+    "--previous-validation-sha256",
+    "9566b0f1d384949fbb5bff453ae6228f91ecc7ff8ece4bcf155425cc8f249667"
+  ],
+  "changed_argv_fields": [
+    "wrapper",
+    "--scratch-directory",
+    "--output"
+  ],
+  "execution_authority": false,
+  "expected_boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+  "files": [
+    {
+      "name": "stage17_discovery_validation_v3.py",
+      "sha256": "661613aedbc77fd538970b8c5e79a4bbaa3d2acb7f503cb802725239b25e94bf",
+      "size_bytes": 69410
+    },
+    {
+      "name": "stage17_discovery_validation_parallel_v1.py",
+      "sha256": "1a1e2cb6ab467b3e192ab3e64814bed7facef4577a1141ea8f92555ee42a19bf",
+      "size_bytes": 12461
+    },
+    {
+      "name": "validate_d207_retained_study_parallel_v1.py",
+      "sha256": "23c8cd9caea370e5bccb848cd77fdb19347838a9058e9268a9f6e8a6d55edb2c",
+      "size_bytes": 20371
+    },
+    {
+      "name": "0213-discovery-whole-plot-readback-validation.md",
+      "sha256": "55b4e21c3f10d7321dfa1162c748f5bd35bfc22cacfa506d5378d7088e56060a",
+      "size_bytes": 2963
+    },
+    {
+      "name": "0224-parallel-retained-discovery-validation.md",
+      "sha256": "f433ce21102f1f5cd0ce564584e6b47ea9070ae1c1f38d96e3a16c33165cde60",
+      "size_bytes": 5625
+    },
+    {
+      "name": "run_parallel_analysis.py",
+      "sha256": "a3ed284f7f99e939849537d06159085a72056f85bcfa5b421c7f9bf8ddaa610d",
+      "size_bytes": 19222
+    }
+  ],
+  "original_launcher": {
+    "path": "build/stage17-step4-prep/d213-reanalysis/run_reanalysis.py",
+    "sha256": "3c7072202e4b8dd5a42fed1d83531e4fb2c57a282570e1d95a3b0fdb14a78e94"
+  },
+  "raw_mutation": false,
+  "schema_version": "d224-analysis-installation/1"
+}

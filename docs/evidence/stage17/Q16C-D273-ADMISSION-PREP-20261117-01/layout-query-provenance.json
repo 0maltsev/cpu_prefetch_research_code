@@ -1,0 +1,90 @@
+{
+  "commands": [
+    [
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/g++",
+      "--sysroot=/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root",
+      "-I/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/verified-919c486/cpu-prefetch-pilot-candidate-2.0.0-919c486-clean-2dda11ec716e/include",
+      "-O3",
+      "-DNDEBUG",
+      "-std=c++20",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-Wconversion",
+      "-Wsign-conversion",
+      "-Wshadow",
+      "-Wformat=2",
+      "-Wundef",
+      "-Werror",
+      "-MD",
+      "-MF",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/layout-query-1/layout_query.d",
+      "-c",
+      "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_q16c_layout_query_v1.cpp",
+      "-o",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/layout-query-1/layout_query.o"
+    ],
+    [
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/g++",
+      "--sysroot=/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root",
+      "-I/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/verified-919c486/cpu-prefetch-pilot-candidate-2.0.0-919c486-clean-2dda11ec716e/include",
+      "-O3",
+      "-DNDEBUG",
+      "-std=c++20",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-Wconversion",
+      "-Wsign-conversion",
+      "-Wshadow",
+      "-Wformat=2",
+      "-Wundef",
+      "-Werror",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/layout-query-1/layout_query.o",
+      "-Wl,--start-group",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/verified-919c486/cpu-prefetch-pilot-candidate-2.0.0-919c486-clean-2dda11ec716e/release/lib/libcpu_prefetch_runner_core.a",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/verified-919c486/cpu-prefetch-pilot-candidate-2.0.0-919c486-clean-2dda11ec716e/release/lib/libcpu_prefetch_calibration.a",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/verified-919c486/cpu-prefetch-pilot-candidate-2.0.0-919c486-clean-2dda11ec716e/release/lib/libcpu_prefetch_storage.a",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/verified-919c486/cpu-prefetch-pilot-candidate-2.0.0-919c486-clean-2dda11ec716e/release/lib/libcpu_prefetch_lifecycle.a",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/verified-919c486/cpu-prefetch-pilot-candidate-2.0.0-919c486-clean-2dda11ec716e/release/lib/libcpu_prefetch_timing.a",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/verified-919c486/cpu-prefetch-pilot-candidate-2.0.0-919c486-clean-2dda11ec716e/release/lib/libcpu_prefetch_platform.a",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/verified-919c486/cpu-prefetch-pilot-candidate-2.0.0-919c486-clean-2dda11ec716e/release/lib/libcpu_prefetch_workload.a",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/verified-919c486/cpu-prefetch-pilot-candidate-2.0.0-919c486-clean-2dda11ec716e/release/lib/libcpu_prefetch_protocol.a",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/verified-919c486/cpu-prefetch-pilot-candidate-2.0.0-919c486-clean-2dda11ec716e/release/lib/libcpu_prefetch_queue.a",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/verified-919c486/cpu-prefetch-pilot-candidate-2.0.0-919c486-clean-2dda11ec716e/release/lib/libcpu_prefetch_foundation.a",
+      "-Wl,--end-group",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/libcrypto.so",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/libzstd.so.1.5.7",
+      "-ldl",
+      "-pthread",
+      "-Wl,-Map=/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/layout-query-1/layout-query.map",
+      "-Wl,--dynamic-linker=/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/ld-linux-x86-64.so.2",
+      "-Wl,-rpath,/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib",
+      "-o",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/layout-query-1/layout-query"
+    ],
+    [
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib/ld-linux-x86-64.so.2",
+      "--library-path",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/lib",
+      "--list",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/layout-query-1/layout-query"
+    ],
+    [
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/layout-query-1/layout-query",
+      "--identity"
+    ]
+  ],
+  "source_revision": "919c48637cbdba9e466a3104f5cbb39f7184e39b",
+  "bundle_inventory_sha256": "96c0fde264e2c965421318ac80225332d53c102ec12bc1087bfa284819a4ae82",
+  "source": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/tools/stage17_q16c_layout_query_v1.cpp",
+    "sha256": "a5de483cd957a6e4785b575c4bf0c85214f80becfb8ba12191fffd68c7486e5d"
+  },
+  "binary": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-prep/layout-query-1/layout-query",
+    "size_bytes": 1771272,
+    "sha256": "39db83f58eadd17ba0ed54d42a83834125a88d0d33516f14bfff9f5506f14923"
+  },
+  "experimental_actions": 0
+}

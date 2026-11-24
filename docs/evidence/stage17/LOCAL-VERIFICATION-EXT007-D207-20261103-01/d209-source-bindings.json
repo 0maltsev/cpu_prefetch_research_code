@@ -1,0 +1,14 @@
+[
+  {
+    "path": "tools/stage17_process_group_supervisor_v3.py",
+    "sha256": "37e3fb93fe2176f24d560608fd6d8fb3bcb02ef744ea6afa75db44b1d7be553b"
+  },
+  {
+    "path": "tools/check_stage17_pid_namespace_supervisor.py",
+    "sha256": "ef5870b21a7d6b596208c28a0fc3c9a273ca0e1647e80d025b35af65ef5d8f5e"
+  },
+  {
+    "path": "tools/stage17_process_group_supervisor_v2.py",
+    "sha256": "e32016e241822c5066519b66dff7553eaa57b2f487dbc605f8c7aff95f1cccc9"
+  }
+]

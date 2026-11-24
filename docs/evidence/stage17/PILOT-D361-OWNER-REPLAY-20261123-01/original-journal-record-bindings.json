@@ -1,0 +1,184 @@
+[
+  {
+    "actual_container_sha256": "7a6119a95334f3526fd28bfe05e78b06ffadf2c9210e1203cfe19e4445db8668",
+    "keys": [
+      "actor",
+      "authorization",
+      "automatic_resolution",
+      "catalog_sha256",
+      "evidence",
+      "graph_sha256",
+      "input_id",
+      "recorded_at_utc",
+      "resolution_id",
+      "retry_authority",
+      "schema_version",
+      "sequence_number",
+      "stage18_authority",
+      "verification_result",
+      "version_hashes"
+    ],
+    "reference": {
+      "path": "records/resolution-001-s17-ext-001.json",
+      "sha256": "7a6119a95334f3526fd28bfe05e78b06ffadf2c9210e1203cfe19e4445db8668"
+    },
+    "resolution_document_sha256": null,
+    "resolution_sha256": null
+  },
+  {
+    "actual_container_sha256": "a260dc4464195902810cf9f30401a23afdd3c243db95042bc5db517139c5bad3",
+    "keys": [
+      "actor",
+      "authorization",
+      "automatic_resolution",
+      "catalog_sha256",
+      "evidence",
+      "graph_sha256",
+      "input_id",
+      "recorded_at_utc",
+      "resolution_id",
+      "retry_authority",
+      "schema_version",
+      "sequence_number",
+      "stage18_authority",
+      "verification_result",
+      "version_hashes"
+    ],
+    "reference": {
+      "path": "records/resolution-002-s17-ext-002.json",
+      "sha256": "a260dc4464195902810cf9f30401a23afdd3c243db95042bc5db517139c5bad3"
+    },
+    "resolution_document_sha256": null,
+    "resolution_sha256": null
+  },
+  {
+    "actual_container_sha256": "b7b64d2be119b07c906718ca0811a71d26b44c22a2527b70727368f01d11040e",
+    "keys": [
+      "actor",
+      "authorization",
+      "automatic_resolution",
+      "catalog_sha256",
+      "evidence",
+      "graph_sha256",
+      "input_id",
+      "recorded_at_utc",
+      "resolution_id",
+      "retry_authority",
+      "schema_version",
+      "sequence_number",
+      "stage18_authority",
+      "verification_result",
+      "version_hashes"
+    ],
+    "reference": {
+      "path": "records/resolution-003-s17-ext-003.json",
+      "sha256": "b7b64d2be119b07c906718ca0811a71d26b44c22a2527b70727368f01d11040e"
+    },
+    "resolution_document_sha256": null,
+    "resolution_sha256": null
+  },
+  {
+    "actual_container_sha256": "0c45b4f94cd6229adea3a76ff9735c414f951e9fd088a7edaae88c04e28ac115",
+    "keys": [
+      "actor",
+      "authorization",
+      "automatic_resolution",
+      "catalog_sha256",
+      "evidence",
+      "graph_sha256",
+      "input_id",
+      "recorded_at_utc",
+      "resolution_id",
+      "retry_authority",
+      "schema_version",
+      "sequence_number",
+      "stage18_authority",
+      "verification_result",
+      "version_hashes"
+    ],
+    "reference": {
+      "path": "records/resolution-004-s17-ext-006.json",
+      "sha256": "0c45b4f94cd6229adea3a76ff9735c414f951e9fd088a7edaae88c04e28ac115"
+    },
+    "resolution_document_sha256": null,
+    "resolution_sha256": null
+  },
+  {
+    "actual_container_sha256": "df4bcac1985bab99716d91042f612ec1a59f7670706e6d1a354c2c34d56a16bf",
+    "keys": [
+      "actor",
+      "authorization",
+      "automatic_resolution",
+      "catalog_sha256",
+      "evidence",
+      "graph_sha256",
+      "input_id",
+      "recorded_at_utc",
+      "resolution_id",
+      "retry_authority",
+      "schema_version",
+      "sequence_number",
+      "stage18_authority",
+      "verification_result",
+      "version_hashes"
+    ],
+    "reference": {
+      "path": "records/resolution-005-s17-ext-004.json",
+      "sha256": "df4bcac1985bab99716d91042f612ec1a59f7670706e6d1a354c2c34d56a16bf"
+    },
+    "resolution_document_sha256": null,
+    "resolution_sha256": null
+  },
+  {
+    "actual_container_sha256": "9e162cfefc240eefa15d3c28c7a80af2a00f5dd5586f58967593129163c5b5d3",
+    "keys": [
+      "actor",
+      "authorization",
+      "automatic_resolution",
+      "catalog_sha256",
+      "evidence",
+      "graph_sha256",
+      "input_id",
+      "recorded_at_utc",
+      "resolution_id",
+      "retry_authority",
+      "schema_version",
+      "sequence_number",
+      "stage18_authority",
+      "verification_result",
+      "version_hashes"
+    ],
+    "reference": {
+      "path": "records/resolution-006-s17-ext-005.json",
+      "sha256": "9e162cfefc240eefa15d3c28c7a80af2a00f5dd5586f58967593129163c5b5d3"
+    },
+    "resolution_document_sha256": null,
+    "resolution_sha256": null
+  },
+  {
+    "actual_container_sha256": "fd4a2b1a1c0c9cf0ab6ecf47fa838de81e67746c67caebad8b15779f4c70f104",
+    "keys": [
+      "actor",
+      "authorization",
+      "automatic_resolution",
+      "catalog_sha256",
+      "evidence",
+      "graph_sha256",
+      "input_id",
+      "recorded_at_utc",
+      "resolution_id",
+      "retry_authority",
+      "schema_version",
+      "sequence_number",
+      "stage18_authority",
+      "verification_result",
+      "version_hashes"
+    ],
+    "reference": {
+      "path": "records/resolution-007-s17-ext-007.json",
+      "sha256": "fd4a2b1a1c0c9cf0ab6ecf47fa838de81e67746c67caebad8b15779f4c70f104"
+    },
+    "resolution_document_sha256": null,
+    "resolution_sha256": null
+  }
+]

@@ -1,0 +1,50 @@
+{
+  "declaration_binding": {
+    "path": "config/stage17/d362-s180-storage-commitments-v1.json",
+    "sha256": "a87db70744a25ffa98361c430e6f486e009960b7f7468e052b336b415093ef7a",
+    "size_bytes": 1532
+  },
+  "execution_authority": false,
+  "free_space_headroom_bytes": 5607882752,
+  "future_inventory_files": 14988,
+  "future_ledger_records": 9016,
+  "live_programme_replay_and_census_required": true,
+  "observed_retained_charge_bytes": 85885042688,
+  "operational_window_started": false,
+  "original_scope_sha256": "4d0ddac91ec96bb7038f2903b965a2f1a785b63b108b5b05e645742ac8dcc0c2",
+  "requested_custody_limits": {
+    "max_checkpoint_bytes": 2097152,
+    "max_inventory_files": 500000,
+    "max_ledger_records": 500000,
+    "max_record_bytes": 131072
+  },
+  "resource_declaration": {
+    "declaration_sha256": "a87db70744a25ffa98361c430e6f486e009960b7f7468e052b336b415093ef7a",
+    "reserved_bytes": 8589934592,
+    "reserved_inodes": 131072,
+    "scratch_committed_bytes": 94489280512,
+    "workspace_committed_bytes": 94489280512
+  },
+  "retained_charge_headroom_bytes": 8604237824,
+  "scratch_remaining_bytes": 104351787676,
+  "snapshot": {
+    "free_bytes": 6276411600896,
+    "free_inodes": 233491394,
+    "in_flight_reserved_bytes": 0,
+    "retained_bytes": 579599806464,
+    "unrelated_reserved_bytes": 8589934592,
+    "unrelated_reserved_inodes": 131072
+  },
+  "space_plan": {
+    "analysis_spool_bytes": 170526119268,
+    "archive_staging_bytes": 4836679680,
+    "canonical_capture_bytes": 4815268979,
+    "control_and_final_bytes": 528017211904,
+    "publication_staging_bytes": 4815268979,
+    "required_inodes": 29976,
+    "retained_metadata_bytes": 2464415744
+  },
+  "status": "PROSPECTIVE_POLICY_ARITHMETIC_PASS_NOT_LIVE_ADMISSION",
+  "workspace_remaining_bytes": 7271384346,
+  "workspace_used_upper_bytes": 542484429542
+}

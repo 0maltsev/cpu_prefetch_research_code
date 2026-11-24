@@ -591,12 +591,12 @@ auto validate_block_plan(const protocol::BlockPlan& block,
   const protocol::Stage4SemanticValidator local;
   const auto local_errors = local.validate(protocol::ProtocolRecord{block});
   errors.insert(errors.end(), local_errors.begin(), local_errors.end());
-  if (block.protocol_version != protocol::ProtocolVersion::v2_0_0_pre_2 ||
-      block.schema_version != protocol::ProtocolVersion::v2_0_0_pre_2 ||
+  if (block.protocol_version != block.schema_version ||
+      block.protocol_version == protocol::ProtocolVersion::v2_0_0_pre_1 ||
       block.stage != protocol::Stage::stage_a) {
     add(errors, protocol::ErrorCategory::unsupported_version, "$/block_plan",
         "BLK-CURRENT-STAGE-A",
-        "new Stage 14 plans must use protocol 2.0.0-pre.2 and STAGE_A");
+        "new Stage 14 plans must use matching pre.2/pre.3 and STAGE_A");
   }
   const auto expected_id = make_block_id(block.platform_id, block.build_id,
                                          block.block_role, block.block_ordinal);

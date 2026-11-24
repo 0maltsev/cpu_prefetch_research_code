@@ -1,0 +1,16 @@
+{
+  "observation_utc": "2026-11-15T14:48:28.940036+00:00",
+  "plan_sha256": "6302de1e50b6178004eb3a8e4d24579c0b5ef74e8a1504e254297faed9f1f847",
+  "fully_archived_captures": 1,
+  "planned_captures": 3540,
+  "artifact_count": 6,
+  "logical_bytes": 5130136113,
+  "archive_bytes": 592424833,
+  "archive_seconds": 239.030357671,
+  "previous_observed_archive_seconds": 505.489524,
+  "comparison_speed_ratio": 2.1147503142498447,
+  "comparison_time_reduction_percent": 52.713093680058144,
+  "scientific_validity": "NOT_ASSESSED",
+  "whole_family_eta": "NOT_ESTABLISHED",
+  "comparison_scope": "Earlier retained cycle versus first restarted capture; not a controlled performance experiment or steady-state estimate."
+}

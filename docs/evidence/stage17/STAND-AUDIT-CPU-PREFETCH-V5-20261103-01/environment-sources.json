@@ -1,0 +1,236 @@
+{
+  "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+  "execution_authority": false,
+  "frequency": [
+    {
+      "cpu": 0,
+      "path": "/sys/devices/system/cpu/cpu0/cpufreq",
+      "values": {
+        "cpuinfo_cur_freq": {
+          "errno": 2
+        },
+        "scaling_cur_freq": {
+          "text": "1200141"
+        },
+        "scaling_driver": {
+          "text": "intel_cpufreq"
+        },
+        "scaling_governor": {
+          "text": "schedutil"
+        },
+        "scaling_max_freq": {
+          "text": "4000000"
+        },
+        "scaling_min_freq": {
+          "text": "1200000"
+        }
+      }
+    },
+    {
+      "cpu": 1,
+      "path": "/sys/devices/system/cpu/cpu1/cpufreq",
+      "values": {
+        "cpuinfo_cur_freq": {
+          "errno": 2
+        },
+        "scaling_cur_freq": {
+          "text": "1200000"
+        },
+        "scaling_driver": {
+          "text": "intel_cpufreq"
+        },
+        "scaling_governor": {
+          "text": "schedutil"
+        },
+        "scaling_max_freq": {
+          "text": "4000000"
+        },
+        "scaling_min_freq": {
+          "text": "1200000"
+        }
+      }
+    },
+    {
+      "cpu": 2,
+      "path": "/sys/devices/system/cpu/cpu2/cpufreq",
+      "values": {
+        "cpuinfo_cur_freq": {
+          "errno": 2
+        },
+        "scaling_cur_freq": {
+          "text": "1200000"
+        },
+        "scaling_driver": {
+          "text": "intel_cpufreq"
+        },
+        "scaling_governor": {
+          "text": "schedutil"
+        },
+        "scaling_max_freq": {
+          "text": "4000000"
+        },
+        "scaling_min_freq": {
+          "text": "1200000"
+        }
+      }
+    },
+    {
+      "cpu": 8,
+      "path": "/sys/devices/system/cpu/cpu8/cpufreq",
+      "values": {
+        "cpuinfo_cur_freq": {
+          "errno": 2
+        },
+        "scaling_cur_freq": {
+          "text": "3300964"
+        },
+        "scaling_driver": {
+          "text": "intel_cpufreq"
+        },
+        "scaling_governor": {
+          "text": "schedutil"
+        },
+        "scaling_max_freq": {
+          "text": "4000000"
+        },
+        "scaling_min_freq": {
+          "text": "1200000"
+        }
+      }
+    }
+  ],
+  "observed_at": "2026-11-03T00:45:53.978768+00:00",
+  "proc_read_delivery": [
+    {
+      "eof_probe_bytes": 1,
+      "path": "/proc/cpuinfo",
+      "requested_bytes": 524288,
+      "returned_bytes": 3915,
+      "single_pread_complete": false
+    },
+    {
+      "eof_probe_bytes": 1,
+      "path": "/proc/interrupts",
+      "requested_bytes": 524288,
+      "returned_bytes": 3894,
+      "single_pread_complete": false
+    },
+    {
+      "eof_probe_bytes": 0,
+      "path": "/proc/stat",
+      "requested_bytes": 524288,
+      "returned_bytes": 4501,
+      "single_pread_complete": true
+    },
+    {
+      "eof_probe_bytes": 1,
+      "path": "/proc/self/smaps",
+      "requested_bytes": 524288,
+      "returned_bytes": 3807,
+      "single_pread_complete": false
+    }
+  ],
+  "read_only": true,
+  "thermal": [
+    {
+      "fields": {
+        "temp10_crit": "86000",
+        "temp10_crit_alarm": "0",
+        "temp10_input": "19000",
+        "temp10_label": "Core 8",
+        "temp10_max": "72000",
+        "temp11_crit": "86000",
+        "temp11_crit_alarm": "0",
+        "temp11_input": "26000",
+        "temp11_label": "Core 9",
+        "temp11_max": "72000",
+        "temp12_crit": "86000",
+        "temp12_crit_alarm": "0",
+        "temp12_input": "19000",
+        "temp12_label": "Core 10",
+        "temp12_max": "72000",
+        "temp13_crit": "86000",
+        "temp13_crit_alarm": "0",
+        "temp13_input": "20000",
+        "temp13_label": "Core 11",
+        "temp13_max": "72000",
+        "temp1_crit": "86000",
+        "temp1_crit_alarm": "0",
+        "temp1_input": "25000",
+        "temp1_label": "Package id 0",
+        "temp1_max": "72000",
+        "temp3_crit": "86000",
+        "temp3_crit_alarm": "0",
+        "temp3_input": "23000",
+        "temp3_label": "Core 1",
+        "temp3_max": "72000",
+        "temp4_crit": "86000",
+        "temp4_crit_alarm": "0",
+        "temp4_input": "18000",
+        "temp4_label": "Core 2",
+        "temp4_max": "72000",
+        "temp5_crit": "86000",
+        "temp5_crit_alarm": "0",
+        "temp5_input": "17000",
+        "temp5_label": "Core 3",
+        "temp5_max": "72000",
+        "temp6_crit": "86000",
+        "temp6_crit_alarm": "0",
+        "temp6_input": "23000",
+        "temp6_label": "Core 4",
+        "temp6_max": "72000"
+      },
+      "path": "/sys/devices/platform/coretemp.0/hwmon/hwmon1"
+    },
+    {
+      "fields": {
+        "temp10_crit": "86000",
+        "temp10_crit_alarm": "0",
+        "temp10_input": "26000",
+        "temp10_label": "Core 8",
+        "temp10_max": "72000",
+        "temp11_crit": "86000",
+        "temp11_crit_alarm": "0",
+        "temp11_input": "21000",
+        "temp11_label": "Core 9",
+        "temp11_max": "72000",
+        "temp12_crit": "86000",
+        "temp12_crit_alarm": "0",
+        "temp12_input": "22000",
+        "temp12_label": "Core 10",
+        "temp12_max": "72000",
+        "temp13_crit": "86000",
+        "temp13_crit_alarm": "0",
+        "temp13_input": "19000",
+        "temp13_label": "Core 11",
+        "temp13_max": "72000",
+        "temp1_crit": "86000",
+        "temp1_crit_alarm": "0",
+        "temp1_input": "31000",
+        "temp1_label": "Package id 1",
+        "temp1_max": "72000",
+        "temp3_crit": "86000",
+        "temp3_crit_alarm": "0",
+        "temp3_input": "21000",
+        "temp3_label": "Core 1",
+        "temp3_max": "72000",
+        "temp4_crit": "86000",
+        "temp4_crit_alarm": "0",
+        "temp4_input": "31000",
+        "temp4_label": "Core 2",
+        "temp4_max": "72000",
+        "temp5_crit": "86000",
+        "temp5_crit_alarm": "0",
+        "temp5_input": "21000",
+        "temp5_label": "Core 3",
+        "temp5_max": "72000",
+        "temp6_crit": "86000",
+        "temp6_crit_alarm": "0",
+        "temp6_input": "27000",
+        "temp6_label": "Core 4",
+        "temp6_max": "72000"
+      },
+      "path": "/sys/devices/platform/coretemp.1/hwmon/hwmon2"
+    }
+  ]
+}

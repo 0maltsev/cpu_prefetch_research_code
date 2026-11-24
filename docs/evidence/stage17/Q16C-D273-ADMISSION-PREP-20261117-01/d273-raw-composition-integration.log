@@ -1,0 +1,9 @@
+test_actual_raw_validator_report_is_accepted_by_descriptive_composition (test_stage17_formal_scheduled_capture_validation_v2.SourceCaptureTests.test_actual_raw_validator_report_is_accepted_by_descriptive_composition) ... ok
+test_changed_original_hash_changed_arrival_and_fake_inline_array_rejected (test_stage17_formal_scheduled_capture_validation_v2.SourceCaptureTests.test_changed_original_hash_changed_arrival_and_fake_inline_array_rejected) ... ok
+test_genuine_full_is_valid_with_separate_zero_loss_failure (test_stage17_formal_scheduled_capture_validation_v2.SourceCaptureTests.test_genuine_full_is_valid_with_separate_zero_loss_failure) ... ok
+test_original_source_reconstruction_and_every_independent_primary_row (test_stage17_formal_scheduled_capture_validation_v2.SourceCaptureTests.test_original_source_reconstruction_and_every_independent_primary_row) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.266s
+
+OK

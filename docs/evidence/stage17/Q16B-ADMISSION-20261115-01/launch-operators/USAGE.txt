@@ -1,0 +1,136 @@
+Q16b operator handoff, prospective only
+
+Owner/write surface: this ignored directory only. Native worker, original
+isolation_core.py and frozen candidate-3 plan are unchanged. No stand command,
+signing, isolation setup, registration or measurement was run to develop this.
+The current user task authorizes continued preparation for Q16b. The prior D243
+single Q16a continuation setup was consumed; it is never reused as authority.
+The real setup helper records Q16b-only scope against NEW phase authority and
+does not create or edit any historical owner acceptance.
+
+Install/review surfaces for the main operator:
+  E25=/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25
+  Operator destination: E25/q16b-launch-admission-1
+  Separate CLI20 packet: E25/q16b-admission-operators-2
+  Required packet schema: cpu-prefetch-stage17-formal-admin-packet/2
+  Frozen stored plan/proof: E25/formal-q16b-preparation-1
+  Fresh authority: E25/admission-root/evidence/formal-q16b-1
+  Setup: E25/isolation-preparation-v25-q16b-1
+  Launch: E25/formal-q16b-launch-1
+  Program: /home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/formal-archive-program-1
+  Family: Program/working/ba4f0eb1371d3a4dfb0945f9177c98993a08bd6c7ebcf188b4ab40cf5ac2f702
+
+path-contract.json expands EVERY bound fixed input locator. Those paths are
+validated at runtime. The original shared program admission follows the
+original E23/formal-q16a-authoring-v23-1/plan.json source/profile lineage, not
+the Q16a continuation's newer profile. The qualified new worker remains source
+42f2ebb96f751319cd55fc1fabdcf7f91ab1c8d0 and SHA
+7abf4cfac0051103f98b3f63f37efd1bde757d954c973460be6fe4d245f6a275.
+
+Copy only the reviewed Python operator files and isolation-config.json into
+the operator destination; keep the existing installed core at
+/run/cpu-prefetch-recovery-v25-qualified-1/isolation_core.py, root owned and
+unwritable by group/other. Its exact SHA remains
+49e20041be148142898e46bb6bc72d15cbb4b23859aee12403c5586594358a8a.
+The core in this local handoff is an unchanged reference, not a replacement.
+The unit must be ABSENT before setup:
+cpu-prefetch-recovery-v25-qualified-1.service.
+Reusing that absent name preserves ALL FIVE frozen cgroup monitor paths.
+
+isolation-config.json requests 13996800 seconds (162 days), protected work
+13827600000000000 ns, stop reserve 120 seconds. Admission checks the recorded
+actual monotonic deadline has strictly more remaining time than the full
+13827480000000000 ns family watchdog + 120-second family cleanup + 120-second
+keeper stop. This is a finite failure ceiling, not an estimated run duration.
+
+The final preparation proof's literal shape is supported: plan is a binding
+object, required_worker_as_bytes=240518168576, required_family_as_bytes=
+246960619520, native_cells enumerates all60 cells. Mapped memory is DERIVED
+from all3540 actual resources rows: maximum 30709854208. Native publication
+control bound is DERIVED from all60 metadata rows: 1058469140. No PC platform
+value is substituted. Requested limits and fresh observations are separate.
+The current task explicitly adds an 8GiB prospective operational reserve:
+8589934592 bytes. Required actual MemAvailable is the family ceiling plus
+that reserve, exactly 255550554112 bytes. This is an engineering admission
+guard, not a change to any native plan budget or experiment design.
+The signed plan retains its explicit capture publication budgets; native
+publication is never reconfigured by this launcher. No old 3.3GB analysis cap
+is used as a Q16b sizing proof.
+
+Required sequencing for the main operator, once its independent namespace and
+registration gates and fresh v6 signature exist:
+
+1. Bind actual inputs as owner1000. This is local metadata authoring on stand:
+   /usr/bin/python3.14 -B E25/q16b-launch-admission-1/render_q16b_config.py
+     --stage prelaunch --packet-manifest-sha256 <EXACT_REVIEWED_PACKET_SHA>
+     --output E25/q16b-launch-admission-1/prelaunch-config.json
+   Supply the printed exact config SHA in subsequent commands. The packet SHA
+   is a required actual input, never a guessed value. The bootstrap and all
+   packet members are independently authenticated by the existing qualified
+   source closure/D242 bootstrap before any formal signature check.
+   The v1 packet and its historical read-only receipts remain frozen. The
+   launcher retains one authenticated v2 bootstrap instance across repeated
+   signature checks and rejects foreign/replaced cached bootstrap objects.
+   Before compile/exec, its raw bound source must match the bootstrap member's
+   SHA and size in the bound v2 packet manifest. Reentry checks the private
+   source binding, sys.modules object, activation function and code identities.
+
+2. A root read-only check may be run using formal_launch_q16b.py --check,
+   --config E25/q16b-launch-admission-1/prelaunch-config.json,
+   --config-sha256 <PRINTED_CONFIG_SHA>, --address-space-bytes 240518168576,
+   --memlock-bytes 30709854208.
+
+3. The separately authorized root setup uses reapply_isolation_q16b.py
+   --prepare and the same config, SHA and limit arguments. It verifies the NEW
+   Q16b signature, original qualifications, current journal, boot/topology/MSR
+   prestate, fresh empty registered family and live program resources first.
+   It neither repeats Q15 nor records D243 approval. Partial failure cleans up
+   once and remains failed, with no automatic retry.
+
+4. Bind NEW actual setup receipts by running render_q16b_config.py again with
+   --stage launch --packet-manifest-sha256 <SAME_REVIEWED_PACKET_SHA>
+   --output E25/q16b-launch-admission-1/launch-config.json.
+   The isolated prestate/readback must be exact new Q16b outputs. If binding
+   fails AFTER setup, restore with the unchanged core --restore --config
+   E25/isolation-preparation-v25-q16b-1/prospective-prestate.json
+   --config-sha256 <ACTUAL_PRESTATE_SHA>. Do not leave setup unattended.
+
+5. Root formal_launch_q16b.py --launch uses the launch-stage config, its exact
+   SHA and the same explicit limits. It creates an exclusive namespace,
+   checks admission, and detaches exactly one root supervisor on CPU3.
+   Supervisor checks admission again. Its sole outer owner child checks again,
+   enters the reserved cgroup on CPU2, sets finite AS/MEMLOCK, clears groups,
+   and drops to UID/GID1000 with the exact reviewed capabilities. The owner
+   inner process rechecks identity and fresh signature, then execs:
+     /usr/bin/python3.14 -B
+     E25/q16b-admission-operators-2/stage17_formal_admin_v2.py
+     --packet-manifest-sha256 <EXACT_REVIEWED_PACKET_SHA> execute-formal
+     --repository-root E25/admission-root --evidence-root E25
+     --authorization E25/admission-root/evidence/formal-q16b-1/authorization.json
+     --signature E25/admission-root/evidence/formal-q16b-1/authorization.json.sig
+     --pilot-archive /home/omaltsev/stage17-owner-evidence/cpu-prefetch-pilot-candidate-2.0.0-42f2ebb-clean-e808f93edb5a.tar.gz
+     --pilot-sidecar /home/omaltsev/stage17-owner-evidence/cpu-prefetch-pilot-candidate-2.0.0-42f2ebb-clean-e808f93edb5a.tar.gz.sha256
+
+Every gate failure stops; there is no retry/top-up/namespace adoption. The
+native executor owns hardware restoration. Supervisor waits at most the
+declared family watchdog, then signals only its own outer group for bounded
+cleanup, escalates once if necessary and reaps. It does not invent successful
+hardware restoration from a zero exit status. Actual executor expected_hex
+readbacks must match the exact signed CPU0/1/8 prestate, with all cleanup facts
+true. Failure receipts can prove restoration without proving completion.
+Isolation restoration refuses live/unrelated tasks, uses pinned ownership and
+the original core, and retains independent failures. A surviving native group
+therefore blocks claimed restoration and is reported, never silently killed
+as if it were unrelated cleanup.
+
+Fresh shared-program admission preserves both Q16a families and the exact
+new Q16b registration, refuses pending reservations, recounts retained bytes,
+recomputes remaining quota plus workspace/scratch/reserve against the pinned
+filesystem and checks live MemAvailable. The old planning snapshot is not
+treated as a current capacity observation.
+
+Offline tests (no stand/measurements):
+  python3 -B -m unittest discover -s build/stage17-step6-q16b-prep/launch-admission-1 -p 'test*.py' -v
+Sanitizers: not applicable to these Python-only helpers; unchanged native
+release and original core are separately bound. Software tests give no
+empirical performance or live-admission credit.

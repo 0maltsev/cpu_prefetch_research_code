@@ -1,0 +1,36 @@
+[0/1] Re-running CMake...
+-- Configuring done (0.3s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-native-repair/release-5b7a036
+[1/23] Requiring dual-disassembler queue generated-code evidence
+queue-codegen-check: PASS (two disassemblers, four operations, one mutant)
+[2/23] Building CXX object CMakeFiles/cpu_prefetch_foundation.dir/src/repository_info.cpp.o
+[3/23] Linking CXX static library libcpu_prefetch_foundation.a
+[4/23] Requiring dual-disassembler Stage 6 generated-code evidence
+workload-codegen-check: PASS (two disassemblers, six operations, one mutant)
+[5/23] Linking CXX executable cpu_prefetch_runner
+[6/23] Linking CXX executable cpu_prefetch_runner_codegen_probe
+[7/23] Linking CXX executable cpu_prefetch_smoke
+[8/23] Linking CXX executable cpu_prefetch_runner_combined_codegen_probe
+[9/23] Linking CXX executable cpu_prefetch_preflight
+[10/23] Linking CXX executable cpu_prefetch_qualification
+[11/23] Linking CXX executable cpu_prefetch_q15_clock_qualification_tool
+[12/23] Linking CXX executable cpu_prefetch_q15_qualification_evidence_tool
+[13/23] Linking CXX executable cpu_prefetch_software_prefetch_mapping_codegen_probe
+[14/23] Requiring dual-disassembler Stage 8 timestamp evidence
+timing-codegen-check: PASS (11 operations, 6 source mutants, 3 machine mutants)
+[15/23] Requiring dual-disassembler Q13 one-PAUSE relax evidence
+runner-relax-codegen-check: PASS (two disassemblers, one PAUSE, mutant)
+[16/23] Requiring dual-disassembler Stage 11 bounded-writer evidence
+storage-codegen-check: PASS (two disassemblers, two append bodies, one mutant)
+[17/23] Requiring resolved Q14 combined-operation generated code
+runner-combined-codegen-check: PASS (two disassemblers, 16 operations, exact D-047/ADR-0175 mappings, five mutants)
+[18/23] Requiring both disassemblers to qualify the actual native discovery worker
+discovery-codegen-check: PASS
+[19/23] Linking CXX executable cpu_prefetch_runner_tests
+[20/23] Requiring dual-disassembler D-047 PREFETCHW/PREFETCHT0 mapping evidence
+software-prefetch-mapping-codegen-check: PASS (two disassemblers, three mapped sites, two mutants)
+[21/23] Requiring both disassemblers to audit actual formal native active-phase code
+formal-codegen-check: PASS
+[22/23] Creating the clean, no-authority Stage 17 pilot-candidate bundle; all strict codegen gates must pass
+pilot-candidate-bundle: PASS path=/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-q16c-native-repair/release-5b7a036/pilot-candidate-bundle/cpu-prefetch-pilot-candidate-2.0.0-7fb8944-clean-4f94fa5cf272.tar.gz sha256=54d017c8cabac7443c14dc863850e1e463b96bbbaf71885c1507a266e4dd11ab authority=NONE

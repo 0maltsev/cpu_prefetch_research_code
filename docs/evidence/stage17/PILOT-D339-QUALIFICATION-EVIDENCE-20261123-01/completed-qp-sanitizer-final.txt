@@ -1,0 +1,6 @@
+test_sanitized_cpp_peer_uses_same_real_signature_and_pipe_protocol (__main__.SessionTests.test_sanitized_cpp_peer_uses_same_real_signature_and_pipe_protocol) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 10.966s
+
+OK

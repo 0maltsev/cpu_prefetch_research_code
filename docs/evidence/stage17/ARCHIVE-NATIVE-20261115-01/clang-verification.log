@@ -1,0 +1,10 @@
++ cd /home/omaltsev/research/cpu_prefetch_research_code
++ OUT=build/stage17-archive-optimization/native-kernel
++ clang++ --version
+clang version 23.1.4
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+InstalledDir: /usr/bin
++ clang++ -O3 -std=c++20 -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wshadow -Werror -Wcast-align -Wundef tools/stage17_archive_inverse_native_v1.cpp tests/stage17_archive_inverse_native_tests.cpp -o build/stage17-archive-optimization/native-kernel/stage17_archive_inverse_native_tests_clang
++ build/stage17-archive-optimization/native-kernel/stage17_archive_inverse_native_tests_clang
+PASS: 2953 archive inverse checks

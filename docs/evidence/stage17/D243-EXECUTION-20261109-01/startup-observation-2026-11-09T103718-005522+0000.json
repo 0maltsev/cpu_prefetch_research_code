@@ -1,0 +1,55 @@
+{
+  "utc": "2026-11-09T10:37:18.005522+00:00",
+  "processes": [
+    {
+      "pid": 123370,
+      "command": [
+        "/usr/bin/python3.14",
+        "-B",
+        "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d243-operators-1/formal_launch_v2.py",
+        "--supervise",
+        "--config",
+        "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/formal-q16a-continuation-authoring-1/launch-config-2.json",
+        "--config-sha256",
+        "ea618df0fb8b4b1e397c1539c64eee4c798ce4acfefe15b0d3a2aabcbd8cd50e",
+        "--address-space-bytes",
+        "240518168576",
+        "--memlock-bytes",
+        "25769803776"
+      ],
+      "status": {
+        "Name": "python3.14",
+        "State": "S (sleeping)",
+        "PPid": "1",
+        "Uid": "0\t0\t0\t0",
+        "Cpus_allowed_list": "3"
+      }
+    },
+    {
+      "pid": 123640,
+      "command": [
+        "/usr/bin/python3.14",
+        "-B",
+        "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d243-operators-1/formal_launch_v2.py",
+        "--inner",
+        "--config",
+        "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/formal-q16a-continuation-authoring-1/launch-config-2.json",
+        "--config-sha256",
+        "ea618df0fb8b4b1e397c1539c64eee4c798ce4acfefe15b0d3a2aabcbd8cd50e",
+        "--address-space-bytes",
+        "240518168576",
+        "--memlock-bytes",
+        "25769803776"
+      ],
+      "status": {
+        "Name": "python3.14",
+        "State": "R (running)",
+        "PPid": "123370",
+        "Uid": "1000\t1000\t1000\t1000",
+        "Cpus_allowed_list": "2"
+      }
+    }
+  ],
+  "family_control_names": [],
+  "session_log_tail": ""
+}

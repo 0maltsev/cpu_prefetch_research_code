@@ -1,0 +1,13 @@
+{
+  "corrected_native_layouts_verified": 180,
+  "execution_window_started": false,
+  "experimental_actions": 0,
+  "phase18_authority": false,
+  "qualification_started": false,
+  "qualified_source_revision": "7fb894425c82fa7d7f1891f52b3bcdacc2c83585",
+  "qualified_worker_sha256": "7455fa2802ca5f655c41faddd070da51b0cf98ac9c8b2360152dc1a480f85f2a",
+  "schema_version": "cpu-prefetch-stage17-d282-software-preparation/1",
+  "software_sizing_elapsed_ns": 135919347816,
+  "successful_q16c_captures": 0,
+  "targeted_tests_passed": 34
+}

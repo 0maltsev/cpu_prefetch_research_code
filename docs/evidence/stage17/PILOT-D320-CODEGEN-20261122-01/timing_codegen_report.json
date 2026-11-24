@@ -1,0 +1,230 @@
+{
+  "schema_version": "cpu-prefetch-timing-codegen/1",
+  "scope": "correctness-only; no latency or performance inference",
+  "binary": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-34247ce/cpu_prefetch_timing_codegen_probe",
+    "sha256": "eb6ee753f3206888b24ddda96a766310bda174e69c7abf5bc342a4b49e345d5c"
+  },
+  "mutant": {
+    "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-34247ce/cpu_prefetch_timing_codegen_mutant",
+    "sha256": "bb41685356c8d7007ac0f66d8642ffbdc9466e2a4f5827f0ce604fef06bace26"
+  },
+  "rule_set_sha256": "a7be4eb6c4fdc85e654b78970a3007b9cf6add5f282e4fe5016f0fa11b9e9338",
+  "tools": {
+    "GNU_OBJDUMP": {
+      "status": "PASS",
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/objdump",
+      "version": "GNU Binutils 2.46.0",
+      "operations": {
+        "cpu_prefetch_timing_read": {
+          "status": "PASS",
+          "body_sha256": "cc62637e76136c5d4308f6a95af8ccd359fafca0d847a8c2ed7ca6562f180955",
+          "operation_closure_sha256": "af30df6bbfae28e9f0337e422677ce8df02e8243495c9453b9956c9682ced85c",
+          "selected_clock_call_present": true
+        },
+        "cpu_prefetch_timing_r0_enqueue": {
+          "status": "PASS",
+          "body_sha256": "e8c5b358cebda52432d4b0b0c7b2e060bc67cd4477bf88af05e4c1018c98286a",
+          "operation_closure_sha256": "0af20a6242e3ac1afb7e75e6d661f877d39881909f002155768dd5bc41d162a6",
+          "selected_clock_call_present": true
+        },
+        "cpu_prefetch_timing_r0_dequeue": {
+          "status": "PASS",
+          "body_sha256": "9524740231db7a5b9fbae9467450efb2cd8ee5cf58c331418d1f9c31b8ab4100",
+          "operation_closure_sha256": "8fffaec6751a152d3aa152f0fdba8a111902c9225b77a09ebb7b292f06816cdd",
+          "selected_clock_call_present": true
+        },
+        "cpu_prefetch_timing_r1_enqueue": {
+          "status": "PASS",
+          "body_sha256": "f0bb688733c80044ab746b52dcaaa78e7f955519c071beb82754ecf5eb522536",
+          "operation_closure_sha256": "c5ee078533ae6e96b0082167dcb8c40b8f90cb280829343129a40eac96bb75bf",
+          "selected_clock_call_present": true
+        },
+        "cpu_prefetch_timing_r1_dequeue": {
+          "status": "PASS",
+          "body_sha256": "36f2f5df8d347c9943fd5c8dadc73fb257cc5d79151163f9ef18b806f963bc12",
+          "operation_closure_sha256": "6aebee9fb18bf7050e793d03e419e2b0ce99ab8daafae4b9408704af97089ecd",
+          "selected_clock_call_present": true
+        },
+        "cpu_prefetch_timing_r2_enqueue": {
+          "status": "PASS",
+          "body_sha256": "d3a6b40814f033822d8531a08e1c76efa2fb7419a9b5dfb45df0a7e7124dacff",
+          "operation_closure_sha256": "4ca43d6c09271ebb41f2415db73d669f371d7a85125c571810f7a9f66377a36f",
+          "selected_clock_call_present": true
+        },
+        "cpu_prefetch_timing_r2_dequeue": {
+          "status": "PASS",
+          "body_sha256": "56ea785bb782efdb734be08e4052ef2d01fca4916e96eca1af5b3adc297b4453",
+          "operation_closure_sha256": "2a79e353483561f910dff9adb24d2df12da1ac44d56c74c782f903471419a496",
+          "selected_clock_call_present": true
+        },
+        "cpu_prefetch_timing_l0_enqueue": {
+          "status": "PASS",
+          "body_sha256": "cd3c97494885b8968b42eb7b24f20fa7d6556eba04313bb04ea275e81adf3d20",
+          "operation_closure_sha256": "56e05eaa1cd8ad040058bb2ad48a191f6224dca6b25179725dbc9b963a2c6c91",
+          "selected_clock_call_present": true
+        },
+        "cpu_prefetch_timing_l0_dequeue": {
+          "status": "PASS",
+          "body_sha256": "1389a70281601570e010095f4bec752814e2ad7ee164b299b8e5f9c77d487798",
+          "operation_closure_sha256": "440e614b6a381293bc9e18986b56f2b507fc737c2a7dee2136503c4fbe710493",
+          "selected_clock_call_present": true
+        },
+        "cpu_prefetch_timing_l1_enqueue": {
+          "status": "PASS",
+          "body_sha256": "daeb60270ae526573bb8c8e9a7df6fd89df42d233337367fe7410d117651f37a",
+          "operation_closure_sha256": "f8a70f5111c6c7f9ce5dfb1b5827d6b2df0b9b189ac39dd707f155f6552c1a14",
+          "selected_clock_call_present": true
+        },
+        "cpu_prefetch_timing_l1_dequeue": {
+          "status": "PASS",
+          "body_sha256": "65c615cb516bcb3d0cb5a7d982f274fef32d8b3720e17e09806f63079e985327",
+          "operation_closure_sha256": "f96c5bb6ccc68f305580b3cc7fdeecca0679efb470adf78c0ca06decdec89c7b",
+          "selected_clock_call_present": true
+        }
+      },
+      "negative_mutants": {
+        "cpu_prefetch_timing_syscall_mutant": {
+          "status": "EXPECTED_REJECTION",
+          "detected": [
+            "syscall"
+          ],
+          "body_sha256": "5087d32a7c2c0aa788a1d278246067141c5235b359cc46334ac26edb0fa78742"
+        },
+        "cpu_prefetch_timing_hardware_fence_mutant": {
+          "status": "EXPECTED_REJECTION",
+          "detected": [
+            "lock"
+          ],
+          "body_sha256": "dd8904cda32fbc0cd1c5438322edf3714d16d3184511e9d25405098ea814cd74"
+        },
+        "cpu_prefetch_timing_direct_counter_mutant": {
+          "status": "EXPECTED_REJECTION",
+          "detected": [
+            "rdtscp"
+          ],
+          "body_sha256": "32f6217d03210a4c38cecb522fb914f991bde0abc5c2984b42944c767fbc87aa"
+        }
+      },
+      "full_disassembly_sha256": "635c0465b48796be554d489af5b9232022a9bdf9380ad9e570628bb1f4ef4e4b"
+    },
+    "LLVM_OBJDUMP": {
+      "status": "PASS",
+      "path": "/home/omaltsev/research/cpu_prefetch_research_code/build/ext007-runtime-20261101/root/usr/bin/llvm-objdump",
+      "version": "LLVM 22.1.6",
+      "operations": {
+        "cpu_prefetch_timing_read": {
+          "status": "PASS",
+          "body_sha256": "b4ccbe5491fccdbf573f4b2ee78b445c381e98f32dad918167035851546c038c",
+          "operation_closure_sha256": "e7c98ddc2237548219836ebe711909711cd366aab54dd7572055123e351926c2",
+          "selected_clock_call_present": true
+        },
+        "cpu_prefetch_timing_r0_enqueue": {
+          "status": "PASS",
+          "body_sha256": "0704d3cfaefbcb3bf354e309ed4a574cfb529e145e7fbd7ab3e82592b9844729",
+          "operation_closure_sha256": "80d66c6c1fb5a8a6891563c9ff40aac32258cd066e5688cca893069655a970c3",
+          "selected_clock_call_present": true
+        },
+        "cpu_prefetch_timing_r0_dequeue": {
+          "status": "PASS",
+          "body_sha256": "7877cb23e0a1a95db66a498af8032a5168b8a1fe199d99abb1daf5d1c880252c",
+          "operation_closure_sha256": "ce1da62ad0f4243e44f0aac0653aacffdb294cc6434d5146d540d4e8e7024146",
+          "selected_clock_call_present": true
+        },
+        "cpu_prefetch_timing_r1_enqueue": {
+          "status": "PASS",
+          "body_sha256": "36c0ea5581727e75016e11a0253e63e65d830222e4f90c6bbd041d07c1bd15f4",
+          "operation_closure_sha256": "847b08919f4ade25342eaaaa65e08771506b0964757d4b4353bfbbf9c2e41cb0",
+          "selected_clock_call_present": true
+        },
+        "cpu_prefetch_timing_r1_dequeue": {
+          "status": "PASS",
+          "body_sha256": "db9cb34929ad240ac83cf336eaaee6365c9cce043916880c5aa37ead4488af26",
+          "operation_closure_sha256": "25134cba99351de0567e520420142c95b1c470c8e46bf9e23c1079aa019c1fc8",
+          "selected_clock_call_present": true
+        },
+        "cpu_prefetch_timing_r2_enqueue": {
+          "status": "PASS",
+          "body_sha256": "2851b8d924ca04a3089e859f356cbfd42ef617a45e63b820252aca874d54c025",
+          "operation_closure_sha256": "abd88807b2a20f2defaa52c79dd26885f1bdba34d1d30a6898d2f66738aef55a",
+          "selected_clock_call_present": true
+        },
+        "cpu_prefetch_timing_r2_dequeue": {
+          "status": "PASS",
+          "body_sha256": "f8dd843c9b565e06c06e406f0f0cfea20b60ca1ac46573290850f47f99e8cf5a",
+          "operation_closure_sha256": "922cf9e9bd88440a017bfffdf5a33e9acdcd7626526a6b0dae079b966e024894",
+          "selected_clock_call_present": true
+        },
+        "cpu_prefetch_timing_l0_enqueue": {
+          "status": "PASS",
+          "body_sha256": "8416560f05a50320d1781edb1c70adc43a0371f0af1c9deba14901279d069ef8",
+          "operation_closure_sha256": "43b77bd75d673d828c688da3f1cb3052e3cdafba24fdda9e497a656aa6d4cd5a",
+          "selected_clock_call_present": true
+        },
+        "cpu_prefetch_timing_l0_dequeue": {
+          "status": "PASS",
+          "body_sha256": "c83174d19c7346606b883f4a572398d606114a1ef2682c9ecf151a383ecd0113",
+          "operation_closure_sha256": "2e19b4f759a4351412dcc8089de5144d21491be4a175f24fec4e3efc3b943c9f",
+          "selected_clock_call_present": true
+        },
+        "cpu_prefetch_timing_l1_enqueue": {
+          "status": "PASS",
+          "body_sha256": "da9c3660a3c3c7e99a630f319ba8045c661cc75bcd4e3b92c47398aeeec8213b",
+          "operation_closure_sha256": "5c7b8931d051db9152644182f7dc690870f46782f3f30409401ab44a508ef5a5",
+          "selected_clock_call_present": true
+        },
+        "cpu_prefetch_timing_l1_dequeue": {
+          "status": "PASS",
+          "body_sha256": "ade4f20f37714b6b38c5479a06d4051da0f0311e104fbbbe7053cf13b074526e",
+          "operation_closure_sha256": "d2b5e07383c6a2a289ca57083c31a9966d2742a3818429e2edb644793540c051",
+          "selected_clock_call_present": true
+        }
+      },
+      "negative_mutants": {
+        "cpu_prefetch_timing_syscall_mutant": {
+          "status": "EXPECTED_REJECTION",
+          "detected": [
+            "syscall"
+          ],
+          "body_sha256": "52bc8e99f10a9870076f5faa6e5f58dd4f86e97fe33df406d16109e7932faa2b"
+        },
+        "cpu_prefetch_timing_hardware_fence_mutant": {
+          "status": "EXPECTED_REJECTION",
+          "detected": [
+            "lock"
+          ],
+          "body_sha256": "9467965b82e4f532f48ea8af5ebd10d69dd484e8bd9195afd89d2944b5f15bed"
+        },
+        "cpu_prefetch_timing_direct_counter_mutant": {
+          "status": "EXPECTED_REJECTION",
+          "detected": [
+            "rdtscp"
+          ],
+          "body_sha256": "76d4c6aaa0d72fd88d1bdda385d0d3a57b1144684d2465e1903e41c27bd34271"
+        }
+      },
+      "full_disassembly_sha256": "44f027005ce59fae3489b836008eef5bc833e450d33ef2fe602fd5b8b55292e9"
+    }
+  },
+  "source_audit": {
+    "status": "PASS",
+    "files": {
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-source-34247ce/include/cpu_prefetch/timing/clock.hpp": "9248e3fcf840c9274920791e582b2248446ec3cf45bf28bcab01dc9b3d06496e",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-source-34247ce/include/cpu_prefetch/queue/ring_spsc.hpp": "ba91404fe69120f79ed00e303c8666d7b042870a264ad10f9253c2309f560dad",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-source-34247ce/include/cpu_prefetch/queue/linked_spsc.hpp": "5513659adbe1d6da2c3c039ec9e47453a5d74e394c3fc4b13aea77710d11b291",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-source-34247ce/include/cpu_prefetch/timing/capture.hpp": "57c777753b0b64d1d09ec6e0c72dc7171ea23036860d0572f32825a01e506d67",
+      "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-release-source-34247ce/tools/timing_codegen_mutant.cpp": "dcff522a78ffca53d89d315d21f14b202a1ccb0d006d3773d61700f9027b9e19"
+    },
+    "boundary_rules": "PASS",
+    "negative_mutants": {
+      "p_moved_after_publication": "EXPECTED_REJECTION",
+      "q_moved_before_observation": "EXPECTED_REJECTION",
+      "compiler_fences_removed": "EXPECTED_REJECTION",
+      "clock_id_changed": "EXPECTED_REJECTION",
+      "syscall_forced": "EXPECTED_REJECTION",
+      "hardware_fence_added": "EXPECTED_REJECTION"
+    }
+  },
+  "status": "PASS",
+  "missing_tools": []
+}

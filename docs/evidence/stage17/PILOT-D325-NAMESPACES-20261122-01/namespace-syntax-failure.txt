@@ -1,0 +1,4 @@
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_namespace_audit_v1.py", line 73
+    with self.subTest(token=token),self.assertTrue(self.matcher().inspect(raw)[0])
+                                                                                  ^
+SyntaxError: expected ':'

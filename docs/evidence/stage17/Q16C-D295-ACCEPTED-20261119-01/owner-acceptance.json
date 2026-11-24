@@ -1,0 +1,18 @@
+{
+  "automatic_retry": false,
+  "decision_id": "D295",
+  "exact_decision_text_approved": true,
+  "interpretation": "Affirmative response to the immediately preceding explicit question approving the exact D295 proposal, five-to-eight-hour estimate and one additional bounded window; the owner wording is retained verbatim.",
+  "maximum_total_seconds": 39380,
+  "new_execution_windows": 1,
+  "owner_message": "continue",
+  "phase18_authority": false,
+  "recorded_at_utc": "2026-11-19T18:11:17.673377+00:00",
+  "recorded_decision_sha256": "49bc337f79bd5593d9d934a4c6aa1638c260c5654822d5dd046a3e705d650e8b",
+  "remaining_capture_count": 94,
+  "repeat_completed_measurements": false,
+  "repeat_completed_raw_validations": false,
+  "reused_capture_count": 86,
+  "schema_version": "cpu-prefetch-stage17-owner-decision/1",
+  "window_started": false
+}

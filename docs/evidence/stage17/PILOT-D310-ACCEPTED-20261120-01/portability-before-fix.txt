@@ -1,0 +1,15 @@
+test_repository_evidence_bindings_are_portable_to_the_stand (test_stage17_s180_blueprint_v1.BlueprintTests.test_repository_evidence_bindings_are_portable_to_the_stand) ... FAIL
+
+======================================================================
+FAIL: test_repository_evidence_bindings_are_portable_to_the_stand (test_stage17_s180_blueprint_v1.BlueprintTests.test_repository_evidence_bindings_are_portable_to_the_stand)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_blueprint_v1.py", line 91, in test_repository_evidence_bindings_are_portable_to_the_stand
+    self.assertFalse(Path(self.value[key]['path']).is_absolute(),key)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false : approval
+
+----------------------------------------------------------------------
+Ran 1 test in 0.057s
+
+FAILED (failures=1)

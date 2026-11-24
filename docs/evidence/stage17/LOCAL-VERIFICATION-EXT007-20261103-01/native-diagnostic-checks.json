@@ -1,0 +1,793 @@
+{
+  "recorded_utc": "2026-11-03T01:54:42.675522+00:00",
+  "authority": "NONE",
+  "empirical_results": false,
+  "release_qualified": false,
+  "discovery_captures": 0,
+  "source_base_commit": "f3625260b227e099a6922761732bb771a1090bd7",
+  "source_files": [
+    {
+      "path": "CMakeLists.txt",
+      "size_bytes": 147254,
+      "sha256": "8f2b10eed50c8f59fbc3b7c6b4b7b523ae4f08ff42dbe45dda2b9b3b4ff4c568"
+    },
+    {
+      "path": "config/queue-provenance/linked-spsc.json",
+      "size_bytes": 7170,
+      "sha256": "02eae674a915f725e4ffa52a8462153fa38389da01d3d7861bd61c9f32d4bbce"
+    },
+    {
+      "path": "config/schemas/stage17-discovery-retention-report-v1.schema.json",
+      "size_bytes": 3596,
+      "sha256": "c7da193af5b9761aefc5061f23bc30a993a5ec9b8cacc01bc48ce230f5135feb"
+    },
+    {
+      "path": "config/schemas/stage17-fixed-action-context-v5.schema.json",
+      "size_bytes": 2177,
+      "sha256": "29ccefa8874f55e2523f74888a71f0319ad82a705bff4a87c05d85494c1013db"
+    },
+    {
+      "path": "config/schemas/stage17-fixed-action-request-v5.schema.json",
+      "size_bytes": 4348,
+      "sha256": "562c90c1c736cd391ffd106c366c2b8ef0fe34a2698dbe3d4bccfb2013b2b8e4"
+    },
+    {
+      "path": "config/schemas/stage17-fixed-phase-actions-v7.schema.json",
+      "size_bytes": 7429,
+      "sha256": "de85901fec9cbad00bf228faf460ac4c8fdacce9428516183f50470677a729f3"
+    },
+    {
+      "path": "config/schemas/stage17-operational-evidence-admission-policy-v55.schema.json",
+      "size_bytes": 3965,
+      "sha256": "3837934443d6c96f8e7becc51c62fd5ad0ef11026ea57fa0dae14c00b5ae35dc"
+    },
+    {
+      "path": "config/schemas/stage17-phase-action-attempt-v5.schema.json",
+      "size_bytes": 1893,
+      "sha256": "0536cf0eaa49919f497fc297dd5e37c10282115c50484a73ef7a0df86a1a8b3d"
+    },
+    {
+      "path": "config/schemas/stage17-phase-action-authorization-v5.schema.json",
+      "size_bytes": 6003,
+      "sha256": "79427cc37fdc4b4ec5a94b0506d0c968dd407d6fa9048fae73f19ed54d5d49d0"
+    },
+    {
+      "path": "config/schemas/stage17-phase-action-completion-v5.schema.json",
+      "size_bytes": 3169,
+      "sha256": "6421951e8ce7870ce155a72bc0b29da1af95bafdc0ff1dc68a7e18946ecfde92"
+    },
+    {
+      "path": "config/schemas/stage17-phase-action-failure-v5.schema.json",
+      "size_bytes": 3227,
+      "sha256": "b7b5b079789df6ec1b1d7e8590ee67001f463ef57c0e91ce6760ae343467af77"
+    },
+    {
+      "path": "config/schemas/stage17-phase-action-result-v5.schema.json",
+      "size_bytes": 3394,
+      "sha256": "2c70ab89c3e19a5779634e2647965b77655523c0ffcd64a73b60721634029f13"
+    },
+    {
+      "path": "config/schemas/stage17-pilot-candidate-external-contract-v7.schema.json",
+      "size_bytes": 4812,
+      "sha256": "987bb8e2466ef6e5eeb2ba93379afbb42b947e4aa5d737c3de69282b019a8735"
+    },
+    {
+      "path": "config/schemas/stage17-runtime-release-provenance-v7.schema.json",
+      "size_bytes": 3283,
+      "sha256": "48287ddb26ebb869005cefe0e8d971714bea7f041675417fffa5ceaef0bc0e8d"
+    },
+    {
+      "path": "config/stage17/stage17-fixed-phase-actions-v7.json",
+      "size_bytes": 15304,
+      "sha256": "2c75be85dab121a455957d03e01ab5d7a5f3a4ee0224fb17d5a995fed308c9b9"
+    },
+    {
+      "path": "config/stage17/stage17-operational-evidence-admission-policy-v55.json",
+      "size_bytes": 147356,
+      "sha256": "72a2bb39e0e2a7c00fffecc18af65e9463406ec32b06a329891a0502b06ddab6"
+    },
+    {
+      "path": "include/cpu_prefetch/calibration/discovery_capture.hpp",
+      "size_bytes": 11796,
+      "sha256": "1b11afc8f6e729e0a14fe3c57a960ce52346b4a01993289a938ae082a4977710"
+    },
+    {
+      "path": "include/cpu_prefetch/calibration/mapped_discovery_preparation.hpp",
+      "size_bytes": 16643,
+      "sha256": "4efe50a378ffc75e348c60f11bb2722ab11c641c1ea3d59623db4f3032784536"
+    },
+    {
+      "path": "include/cpu_prefetch/calibration/mapped_discovery_runtime.hpp",
+      "size_bytes": 10285,
+      "sha256": "dfc2f49edd5f26c78cf6c3fad037e155eac066c584bd93b44d0d14079c6912e9"
+    },
+    {
+      "path": "include/cpu_prefetch/calibration/native_discovery_capture.hpp",
+      "size_bytes": 9797,
+      "sha256": "79a7c70355b4e7f0088e50fe675356e4383c4dda18fa5b2c9e46d03621fd530d"
+    },
+    {
+      "path": "include/cpu_prefetch/platform/prepared_file_snapshot.hpp",
+      "size_bytes": 5932,
+      "sha256": "f6edc2024688af6d7b5525c4413f924796d95c90947f04f98830274a8387fd41"
+    },
+    {
+      "path": "include/cpu_prefetch/queue/linked_spsc.hpp",
+      "size_bytes": 12041,
+      "sha256": "5513659adbe1d6da2c3c039ec9e47453a5d74e394c3fc4b13aea77710d11b291"
+    },
+    {
+      "path": "include/cpu_prefetch/runner/stage17_discovery_action.hpp",
+      "size_bytes": 1436,
+      "sha256": "f562ad19cdf778d8a1ab68ad331cde35b04801c7b57224a1ca2bf5a622b900ad"
+    },
+    {
+      "path": "include/cpu_prefetch/runner/stage17_discovery_publication.hpp",
+      "size_bytes": 2902,
+      "sha256": "bae743ebed28b19cd97b23c58cb6a1f34d0ca3d60dd3c05c0907d6e9c49b0c6f"
+    },
+    {
+      "path": "include/cpu_prefetch/runner/stage17_fixed_action.hpp",
+      "size_bytes": 5558,
+      "sha256": "043add291ddedcd4e8fbc0fae8d9b5056213694a5e452270918ce6c78e6c80d7"
+    },
+    {
+      "path": "src/calibration/native_discovery_capture.cpp",
+      "size_bytes": 36385,
+      "sha256": "a6dcfdd365f40373b0f1c46b345968c94052be92092314fcf9e586552f893ddf"
+    },
+    {
+      "path": "src/platform/prepared_file_snapshot.cpp",
+      "size_bytes": 8408,
+      "sha256": "85b04d8326ffc8d99bc027a7713303b1ea501eedc81ad9ff465732152dc88f45"
+    },
+    {
+      "path": "src/queue/linked_spsc.cpp",
+      "size_bytes": 15882,
+      "sha256": "3117a03c990f36ad0124f3532301453c2d0a087856a845cdabe056fffea263ae"
+    },
+    {
+      "path": "src/runner/stage17_discovery_action.cpp",
+      "size_bytes": 14004,
+      "sha256": "c8880100ca15d7d5c30133cd25ef9e321e48b0b38da922703047c25f90e234c0"
+    },
+    {
+      "path": "src/runner/stage17_discovery_publication.cpp",
+      "size_bytes": 48815,
+      "sha256": "361576cc7a977d90c887d20fe980297d25f5f52eaed7471db768ea35ff332cd6"
+    },
+    {
+      "path": "src/runner/stage17_fixed_action.cpp",
+      "size_bytes": 237664,
+      "sha256": "6ff11ced27d9fbd1c8cf43940bb08d2cf1b5dea12baa4eebaca69dcbb9edfa36"
+    },
+    {
+      "path": "tests/calibration_mapped_discovery_test.cpp",
+      "size_bytes": 25469,
+      "sha256": "e69914e591ece715fd5bbe080a7c6390f6a3ef5b32657ccbfb6a98b8e40eb788"
+    },
+    {
+      "path": "tests/calibration_native_discovery_test.cpp",
+      "size_bytes": 23531,
+      "sha256": "dd70edf2a5995ea8c5aca3685941a9bacc529cedf5c9520a289fe6ebc65327b0"
+    },
+    {
+      "path": "tests/platform_prepared_file_snapshot_test.cpp",
+      "size_bytes": 14618,
+      "sha256": "ab82ce26dc1b64555fbb6f667f1e76e6415bad1075b9311011f3b459729b5d57"
+    },
+    {
+      "path": "tests/queue_linked_storage_test.cpp",
+      "size_bytes": 18889,
+      "sha256": "7afc58750a4f7f4e70adf711a46eb2a7b09b78e1a73b82d8ef677fbaa2547add"
+    },
+    {
+      "path": "tests/stage17_discovery_action_test.cpp",
+      "size_bytes": 9547,
+      "sha256": "e026211e27dab794c7f75af534eb8cff979b224f383398a240751f7b01ab90bf"
+    },
+    {
+      "path": "tests/stage17_discovery_publication_test.cpp",
+      "size_bytes": 26572,
+      "sha256": "3911446832d309ef6778ce04e51e0e1bebee7d09ad1070467054b11b65e4f6c8"
+    },
+    {
+      "path": "tests/test_discovery_codegen.py",
+      "size_bytes": 10130,
+      "sha256": "4ab407fc213144017045c80e1f96caa3621718bd9fc729c97ddcd6fafb154e4c"
+    },
+    {
+      "path": "tests/test_stage17_discovery_cpp_bridge.py",
+      "size_bytes": 8345,
+      "sha256": "f3b256d7cd89b07206e961821e943e6edc6d97aa2e500c184d36e340ac2bd44c"
+    },
+    {
+      "path": "tests/test_stage17_discovery_environment.py",
+      "size_bytes": 17453,
+      "sha256": "9372f14e67ccc58241bf2878804f55b16293e092065e8e23a435a27d17e99e97"
+    },
+    {
+      "path": "tools/author_stage17_policy_v55.py",
+      "size_bytes": 5711,
+      "sha256": "bd6866b6f75b7e6ee7fdd860a86a857759761b0770b84092f91339cf5099aa2b"
+    },
+    {
+      "path": "tools/check_discovery_codegen.py",
+      "size_bytes": 31580,
+      "sha256": "c958dd52f8bcfdce049a656a7cfed714c98011dc514f8f032359be1d09818c7b"
+    },
+    {
+      "path": "tools/check_stage17_discovery_action.py",
+      "size_bytes": 41782,
+      "sha256": "f3dcd4c4c4f16cc1760ef48f43f8f527abba90cc120b282633899f18b1a4d745"
+    },
+    {
+      "path": "tools/check_stage17_discovery_validation.py",
+      "size_bytes": 35709,
+      "sha256": "b245997cbb98d88e235e5f85702a8003bb65b38e3be0741ac7add584e86d3b6d"
+    },
+    {
+      "path": "tools/create_stand_bundle.py",
+      "size_bytes": 51436,
+      "sha256": "f64afb5e74b9fc715e8e2d8493bc1dcf0e56d3db96557221199911ba5e58b24e"
+    },
+    {
+      "path": "tools/discovery_codegen_probe.cpp",
+      "size_bytes": 706,
+      "sha256": "4be3f171e8e181c2c0dbce0d0de9006768df63f7dbc3b8ef8a44f9c999116e84"
+    },
+    {
+      "path": "tools/runner_main.cpp",
+      "size_bytes": 10715,
+      "sha256": "e700df2186bf783084becb3c7168e600a052cac9d9878a2c8e1e72c460706caa"
+    },
+    {
+      "path": "tools/stage17_discovery_environment_v1.py",
+      "size_bytes": 18296,
+      "sha256": "75f12429addf06c0159c996374f2666fa38e6ac4ed512c6c0bc906a699551820"
+    },
+    {
+      "path": "tools/stage17_discovery_fixture_main.cpp",
+      "size_bytes": 15612,
+      "sha256": "691586bfe75fad67d08d32dd00a24be697f52256816ede5c427c9513c2af4b9c"
+    },
+    {
+      "path": "tools/stage17_discovery_validation_v1.py",
+      "size_bytes": 66167,
+      "sha256": "46ec19fd72dbe3f3d2b40f028892dd549d4624265c4461c38a66440af4697c2f"
+    },
+    {
+      "path": "tools/stage17_fixed_action_executor_v8.py",
+      "size_bytes": 19591,
+      "sha256": "6fa0769efa197bd5eb09638f5b67c5a21518db9f6ef9337f2ab5cb07272781ed"
+    },
+    {
+      "path": "tools/stage17_operational_cli_v15.py",
+      "size_bytes": 12892,
+      "sha256": "6b590158d893ccbde7dfde91ff984c5aed92ef57f3b3440c0c66dbe6e4670f5f"
+    },
+    {
+      "path": "tools/stage17_operational_semantics_v13.py",
+      "size_bytes": 2340,
+      "sha256": "871686735986ff0a34e773aa432b3705c3bd41cb6ab4f775011641bd52159a5d"
+    },
+    {
+      "path": "tools/stage17_output_registry_v9.py",
+      "size_bytes": 8456,
+      "sha256": "8bb72b240ed33983ba259a92a38bd21e63f18f7d109c063130b9557615d8f421"
+    },
+    {
+      "path": "tools/stage17_phase_controller_v22.py",
+      "size_bytes": 24551,
+      "sha256": "94e6d7a41a3a8576e719f78a8c1966192e38e0c8bae25c64ada04d9f818ab33d"
+    },
+    {
+      "path": "tools/stage17_pilot_candidate_artifact_v9.py",
+      "size_bytes": 17748,
+      "sha256": "2f04c44bcf7cb7687b7f0e81c638dc59e5fdaf031db824ea6f98dabdbd1d8f1b"
+    },
+    {
+      "path": "tools/stage17_q15_session_controller_v17.py",
+      "size_bytes": 823,
+      "sha256": "a07a04df0ebd486588cf05a0b8b48f67e1afdc885a04384aaeb909e92a42b50d"
+    },
+    {
+      "path": "tools/stage17_semantic_verifier_v55.py",
+      "size_bytes": 13867,
+      "sha256": "2611ce8b933e91e7ce21baddbe1fe9f5a6326f538fdb31badc90e99ce4a619bb"
+    },
+    {
+      "path": "tools/stage17_state_journal_v49.py",
+      "size_bytes": 1258,
+      "sha256": "59c50e0ef9fa69ccc964c1e13d07bec41aafc2fff54a2d5e3dc397d6a3fb1222"
+    },
+    {
+      "path": "tools/stage17_test_worker_main.cpp",
+      "size_bytes": 61352,
+      "sha256": "276622ad547795e6a7c5251f673715ea6149fa744604108b02e1a841b41234c8"
+    },
+    {
+      "path": "tools/verify_stand_bundle.py",
+      "size_bytes": 74071,
+      "sha256": "32a2cde1b2800dc69848e7ae64754252a17fd646942fa1dfc56a5e3f8e03599f"
+    }
+  ],
+  "checks": {
+    "dev-gcc": {
+      "tests": 631,
+      "status": "PASS",
+      "log": "build/ext007-runtime-20261101/native-frozen-dev-gcc-ctest.log"
+    },
+    "dev-clang-libcxx": {
+      "tests": 631,
+      "status": "PASS",
+      "log": "build/ext007-runtime-20261101/native-frozen-dev-clang-libcxx-ctest.log"
+    },
+    "asan-ubsan-gcc": {
+      "calibration": {
+        "tests": 142,
+        "status": "PASS",
+        "log": "build/ext007-runtime-20261101/native-frozen-asan-ubsan-gcc-calibration.log"
+      },
+      "runner": {
+        "tests": 24,
+        "status": "PASS",
+        "log": "build/ext007-runtime-20261101/native-frozen-asan-ubsan-gcc-runner.log"
+      },
+      "platform": {
+        "tests": 85,
+        "status": "PASS",
+        "log": "build/ext007-runtime-20261101/native-final-asan-ubsan-gcc-platform.log"
+      }
+    },
+    "tsan-gcc": {
+      "calibration": {
+        "tests": 142,
+        "status": "PASS",
+        "log": "build/ext007-runtime-20261101/native-frozen-tsan-gcc-calibration.log"
+      },
+      "runner": {
+        "tests": 24,
+        "status": "PASS",
+        "log": "build/ext007-runtime-20261101/native-frozen-tsan-gcc-runner.log"
+      },
+      "platform": {
+        "tests": 85,
+        "status": "PASS",
+        "log": "build/ext007-runtime-20261101/native-final-tsan-gcc-platform.log"
+      }
+    },
+    "asan-ubsan-clang-libcxx": {
+      "calibration": {
+        "tests": 142,
+        "status": "PASS",
+        "log": "build/ext007-runtime-20261101/native-frozen-asan-ubsan-clang-libcxx-calibration.log"
+      },
+      "runner": {
+        "tests": 24,
+        "status": "PASS",
+        "log": "build/ext007-runtime-20261101/native-frozen-asan-ubsan-clang-libcxx-runner.log"
+      },
+      "platform": {
+        "tests": 85,
+        "status": "PASS",
+        "log": "build/ext007-runtime-20261101/native-final-asan-ubsan-clang-libcxx-platform.log"
+      }
+    },
+    "tsan-clang-libcxx": {
+      "calibration": {
+        "tests": 142,
+        "status": "PASS",
+        "log": "build/ext007-runtime-20261101/native-frozen-tsan-clang-libcxx-calibration.log"
+      },
+      "runner": {
+        "tests": 24,
+        "status": "PASS",
+        "log": "build/ext007-runtime-20261101/native-frozen-tsan-clang-libcxx-runner.log"
+      },
+      "platform": {
+        "tests": 85,
+        "status": "PASS",
+        "log": "build/ext007-runtime-20261101/native-final-tsan-clang-libcxx-platform.log"
+      }
+    }
+  },
+  "linked_storage": "12 pass in five configurations; Clang TSan 11 pass and one existing allocation-hook skip",
+  "policy55": {
+    "status": "PASS",
+    "journal": "checked-in genesis PREPARED; zero resolutions/transitions; no authority",
+    "log": {
+      "path": "build/ext007-runtime-20261101/native-frozen-policy55.log",
+      "size_bytes": 503,
+      "sha256": "4110889bdf48725784f4159c8e877f6fe53229537d3ad5ad24b998d17b8d389f"
+    }
+  },
+  "codegen": {
+    "qualification": "DIRTY_SOURCE_VERIFICATION_ONLY",
+    "final_clean_release_rerun_required": true,
+    "production_runner_sha256": "d2c9b9df92d54f7c81026c8e0fa1076ae19248d5b596ff15aac993b496d13c85",
+    "discovery_report_sha256": "3eac7234367a797576c1281bcbec65fc08dc1d2b82c006427918f1e30cfb52f5",
+    "discovery_source_binding_check": "PASS",
+    "tools": {
+      "GNU_OBJDUMP": "2.46.0",
+      "LLVM_OBJDUMP": "22.1.6"
+    },
+    "strict_gate_statuses": {
+      "queue": "PASS",
+      "workload": "PASS",
+      "timing": "PASS",
+      "storage": "PASS",
+      "runner_relax": "PASS",
+      "runner_combined": "PASS",
+      "discovery": "PASS"
+    },
+    "elf_tests": {
+      "count": 16,
+      "status": "PASS",
+      "binary_sha256": "ce227722879dc6d9055cc51c8cbbb9293ef9f4e52d0fbc7bf9996c996a325114",
+      "scope": "Before three cold fixes; final rebuilt runner positive discovery gate passed; full mutant suite not repeated per instruction"
+    },
+    "combined_prefetch_vectors": {
+      "GNU_OBJDUMP": {
+        "cpu_prefetch_combined_r0_producer": [],
+        "cpu_prefetch_combined_r0_consumer": [],
+        "cpu_prefetch_combined_r1_producer": [
+          "prefetchw"
+        ],
+        "cpu_prefetch_combined_r1_consumer": [
+          "prefetcht0"
+        ],
+        "cpu_prefetch_combined_r2_producer": [
+          "prefetchw"
+        ],
+        "cpu_prefetch_combined_r2_consumer": [
+          "prefetcht0"
+        ],
+        "cpu_prefetch_combined_l0_producer": [],
+        "cpu_prefetch_combined_l0_consumer": [],
+        "cpu_prefetch_combined_l1_producer": [],
+        "cpu_prefetch_combined_l1_consumer": [
+          "prefetcht0"
+        ],
+        "cpu_prefetch_combined_t0only_r1_producer": [
+          "prefetcht0"
+        ],
+        "cpu_prefetch_combined_t0only_r1_consumer": [
+          "prefetcht0"
+        ],
+        "cpu_prefetch_combined_t0only_r2_producer": [
+          "prefetcht0"
+        ],
+        "cpu_prefetch_combined_t0only_r2_consumer": [
+          "prefetcht0"
+        ],
+        "cpu_prefetch_combined_t0only_l1_producer": [],
+        "cpu_prefetch_combined_t0only_l1_consumer": [
+          "prefetcht0"
+        ]
+      },
+      "LLVM_OBJDUMP": {
+        "cpu_prefetch_combined_r0_producer": [],
+        "cpu_prefetch_combined_r0_consumer": [],
+        "cpu_prefetch_combined_r1_producer": [
+          "prefetchw"
+        ],
+        "cpu_prefetch_combined_r1_consumer": [
+          "prefetcht0"
+        ],
+        "cpu_prefetch_combined_r2_producer": [
+          "prefetchw"
+        ],
+        "cpu_prefetch_combined_r2_consumer": [
+          "prefetcht0"
+        ],
+        "cpu_prefetch_combined_l0_producer": [],
+        "cpu_prefetch_combined_l0_consumer": [],
+        "cpu_prefetch_combined_l1_producer": [],
+        "cpu_prefetch_combined_l1_consumer": [
+          "prefetcht0"
+        ],
+        "cpu_prefetch_combined_t0only_r1_producer": [
+          "prefetcht0"
+        ],
+        "cpu_prefetch_combined_t0only_r1_consumer": [
+          "prefetcht0"
+        ],
+        "cpu_prefetch_combined_t0only_r2_producer": [
+          "prefetcht0"
+        ],
+        "cpu_prefetch_combined_t0only_r2_consumer": [
+          "prefetcht0"
+        ],
+        "cpu_prefetch_combined_t0only_l1_producer": [],
+        "cpu_prefetch_combined_t0only_l1_consumer": [
+          "prefetcht0"
+        ]
+      }
+    }
+  },
+  "cpp_python_bridge": {
+    "scope": "SOFTWARE_ONLY_CPP_PUBLISHER_TO_PYTHON_PHASE_VALIDATION",
+    "hardware_claim": false,
+    "production_codegen_authority": false,
+    "source_sha256": {
+      "tools/stage17_discovery_fixture_main.cpp": "691586bfe75fad67d08d32dd00a24be697f52256816ede5c427c9513c2af4b9c",
+      "tests/test_stage17_discovery_cpp_bridge.py": "f3b256d7cd89b07206e961821e943e6edc6d97aa2e500c184d36e340ac2bd44c",
+      "tools/stage17_discovery_validation_v1.py": "46ec19fd72dbe3f3d2b40f028892dd549d4624265c4461c38a66440af4697c2f"
+    },
+    "checks": {
+      "normal": "5/5 PASS",
+      "gcc_asan_ubsan_fully_instrumented": "5/5 PASS",
+      "gcc_tsan_fully_instrumented": "5/5 PASS",
+      "clang_format": "PASS",
+      "clang_tidy": "PASS"
+    },
+    "scenarios": [
+      "fixed deadline and actual retained drain",
+      "consumer admission before deadline with invocation afterward",
+      "trace capacity and peer in-flight completion after its last admission poll"
+    ],
+    "uncovered": [
+      "native mapping/stack observations",
+      "TLS",
+      "MSR",
+      "thread monitor",
+      "smaps",
+      "complete scientific admission"
+    ]
+  },
+  "logs": [
+    {
+      "path": "build/accepted-release-gcc/discovery-after-cold-fixes.log",
+      "size_bytes": 1012,
+      "sha256": "8a1d4702d7dd7d2eee3fd6cddf5bb10ce8fb1be8897fc0d9895348b531844811"
+    },
+    {
+      "path": "build/accepted-release-gcc/discovery-production-build.log",
+      "size_bytes": 1742,
+      "sha256": "6491f28cffb3d9fc9719d5bf1a745f508c64260d28e1c98dbb7548d67918d350"
+    },
+    {
+      "path": "build/accepted-release-gcc/discovery-production-elf-tests.log",
+      "size_bytes": 1967,
+      "sha256": "0a479f7ff478b708f36ec57a5dc954bceec00432b22dcb0265d556d20a80ae90"
+    },
+    {
+      "path": "build/accepted-release-gcc/discovery-seven-strict-gates.log",
+      "size_bytes": 2236,
+      "sha256": "2a99aca10c380b44c39192af370cef66df1a1b5bcde886fad32eb759edc88238"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-bridge-integrated-build.log",
+      "size_bytes": 381,
+      "sha256": "bea5214801a5aab40c242215063d662921479e4a2b61f2538fffd9ad5e400381"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-bridge-integrated-tests.log",
+      "size_bytes": 1086,
+      "sha256": "af9a1ea9f89a4bfd6a8dbd1d9f45ac8e6d70279f626a5b690320219b63bf7772"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-corrected-asan-ubsan-clang-libcxx-linked.log",
+      "size_bytes": 2563,
+      "sha256": "52a17f6de3d5c46a82f149799504f332d679e1230bcc0cb02f53604da285e15a"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-corrected-asan-ubsan-clang-libcxx-queue.log",
+      "size_bytes": 4239,
+      "sha256": "0b02fa9b76aaae65018441edda8a1fed30caf6fe5152f4c57883857ff410e22d"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-corrected-asan-ubsan-clang-libcxx-workload.log",
+      "size_bytes": 2983,
+      "sha256": "705faa1c43afe48f9c0099c24e69f13b34a678d595a67649c59f6b92af6690cf"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-corrected-asan-ubsan-gcc-linked.log",
+      "size_bytes": 2493,
+      "sha256": "6c4f00790a3cfc6c84b7632b11d48d57be17929c64cb48036cae4ac1f677c9a1"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-corrected-asan-ubsan-gcc-queue.log",
+      "size_bytes": 4170,
+      "sha256": "e1ce3b98183f44aee47699e94373aa176eae9f1f45303025790cabe88b2e03aa"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-corrected-asan-ubsan-gcc-workload.log",
+      "size_bytes": 2913,
+      "sha256": "3e8bfaf6797975b86162a242ee9cd2192c2aebe321aa465108777fffcb05deff"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-corrected-dev-clang-libcxx-linked.log",
+      "size_bytes": 2560,
+      "sha256": "6d91b9ed866b39b9f7304fbb7fcd4c30409a671ceb9ac6ff0b936e23c18e7a3d"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-corrected-dev-clang-libcxx-queue.log",
+      "size_bytes": 4233,
+      "sha256": "44443a2a3c235915e4dbf62cebab327e2c8c1b19ef19a5aeb33484d0a4a1c022"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-corrected-dev-clang-libcxx-workload.log",
+      "size_bytes": 2982,
+      "sha256": "01e198dbe0adb26b7ab2f40fd1f9bcf327200d899630ec06b371d58bd5835db3"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-corrected-dev-gcc-linked.log",
+      "size_bytes": 2490,
+      "sha256": "40708de353b7a88e9b94a35798550cf3d04d94230d09c7076cc833409ce5260f"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-corrected-dev-gcc-queue.log",
+      "size_bytes": 4163,
+      "sha256": "8a93e5263f2c777e1bf9bda14e7b94e05bc966230ca5679d9db2176782fc6d9a"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-corrected-dev-gcc-workload.log",
+      "size_bytes": 2912,
+      "sha256": "0ffbb12850b0771c8c67279dc8f756a4edd5de678e4cd417f96967cf5b7aed57"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-corrected-tsan-clang-libcxx-linked.log",
+      "size_bytes": 2913,
+      "sha256": "3d7495a8d7d87b091c281e59a85ce76393688b9fab6ec3fc1e61e0dd2f7aaf0b"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-corrected-tsan-clang-libcxx-queue.log",
+      "size_bytes": 4240,
+      "sha256": "a88e66f76d6e58798d7a97b3b55b86a9ac5c571c0b0167556fa81a1ec7efd8ec"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-corrected-tsan-clang-libcxx-workload.log",
+      "size_bytes": 2983,
+      "sha256": "c9cd56fb9b476fb139635fd679c6c89335b68729d12e2220f0ed876df5aa46c8"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-corrected-tsan-gcc-linked.log",
+      "size_bytes": 2493,
+      "sha256": "86b18514c494474ac84c5e0b818782c029067f82249e9fdd46111a402aa37b6e"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-corrected-tsan-gcc-queue.log",
+      "size_bytes": 4170,
+      "sha256": "8cd9ca129c677248a19dc6ae5b8c33d4fda57c0b0aa68e0e06ca820040070c32"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-corrected-tsan-gcc-workload.log",
+      "size_bytes": 2912,
+      "sha256": "d4194234be62ec0a902b41fa509878774c670f2c7e750c21b95d7b4ba51fff84"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-final-asan-ubsan-clang-libcxx-platform.log",
+      "size_bytes": 16352,
+      "sha256": "3d1cb21c3d182363a594a668d9a9899d63a4c1a57110893a4b0b1a85164d6c6e"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-final-asan-ubsan-gcc-platform.log",
+      "size_bytes": 16277,
+      "sha256": "bf77557911c736df4df32af863498722663474e2e9e6abd7e1963453edfcb19c"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-final-main-tidy-corrected.log",
+      "size_bytes": 619,
+      "sha256": "12b2796f109421b99c86ec87dd5f4817fc6dff2294ee909ae258ad5722010830"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-final-main-tidy.log",
+      "size_bytes": 3667,
+      "sha256": "fdcaff75f3240d91b5fe265234dc1063a11cb0d13ff37958360d8876d37772a4"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-final-tsan-clang-libcxx-platform.log",
+      "size_bytes": 16352,
+      "sha256": "b3aa992aa6b98054e14d48602fe1cd994f101cbb515cef6c2510216eda8e6dcc"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-final-tsan-gcc-platform.log",
+      "size_bytes": 16275,
+      "sha256": "893ff7da9933a34f2737085d0d943dd0bcbd86d69588d595d685af1af1df6fbf"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-frozen-asan-ubsan-clang-libcxx-calibration.log",
+      "size_bytes": 26805,
+      "sha256": "960628ba83b9c4832c29e9953ee41d65f3a625b124d4cd2e00347404bec0b9ea"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-frozen-asan-ubsan-clang-libcxx-runner.log",
+      "size_bytes": 5136,
+      "sha256": "b6c9c961e4d19b7ef8eff937dccc1e31d2bdcc196d1482fb45abaa09c5dbc7f5"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-frozen-asan-ubsan-gcc-calibration.log",
+      "size_bytes": 26734,
+      "sha256": "1b9689a2948539896f09fc63f19164e50adcad45455cc28643e1edf6e18c48e2"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-frozen-asan-ubsan-gcc-runner.log",
+      "size_bytes": 5069,
+      "sha256": "5a44dc1d4c9051c577bee366f601ed6920706f80710ee8a186129b58822a0a1c"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-frozen-dev-clang-libcxx-build.log",
+      "size_bytes": 3248,
+      "sha256": "3d822b8cf4b8a2088d25298c84b2d2d323b136cc352eb9de1ea3598667c1db10"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-frozen-dev-clang-libcxx-calibration.log",
+      "size_bytes": 26774,
+      "sha256": "04ebff58d717d7f3caa67972ae9aeb01447efd37be99674e7c34f07a6665d310"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-frozen-dev-clang-libcxx-ctest.log",
+      "size_bytes": 140152,
+      "sha256": "3d4d75e0d52b65ebb4c1a20c3ab8b9acf9280a203bb5c20caa9f799ff03977cf"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-frozen-dev-clang-libcxx-runner.log",
+      "size_bytes": 5122,
+      "sha256": "c11dc9132143457269cbdb5ecdfbed5ad07f989b526dc33bb6d470c41f1b666c"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-frozen-dev-gcc-build.log",
+      "size_bytes": 2854,
+      "sha256": "fa8fe187a0c75f88b97128cca065d4ec783ae0141d6b243937a811df8e7eb5ec"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-frozen-dev-gcc-calibration.log",
+      "size_bytes": 26703,
+      "sha256": "21768254e21b7d594ca05f7383372d08b73425738da55d15d4d77c390f8e9559"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-frozen-dev-gcc-ctest.log",
+      "size_bytes": 140143,
+      "sha256": "b2571c7383bac2528b5d4b33a053a43cf39f3c600bbb091dde4ca4a4fea4877e"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-frozen-dev-gcc-runner.log",
+      "size_bytes": 5050,
+      "sha256": "b4311aa94f2fa61f16732d0020dfcb91b11d38e82d878462a72d70cd91e6f499"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-frozen-policy55.log",
+      "size_bytes": 503,
+      "sha256": "4110889bdf48725784f4159c8e877f6fe53229537d3ad5ad24b998d17b8d389f"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-frozen-qualification-schema-corrected.log",
+      "size_bytes": 5473,
+      "sha256": "006f0c1c47f1d46bcd7f03947e1b7d73db0fe82f39211d8f8cec8fde1925bab7"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-frozen-structural-checks.log",
+      "size_bytes": 9204,
+      "sha256": "5e4424a211aac13d5144b89b8d7020dd13429d5505c1eaf6060e878f0b470c37"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-frozen-tsan-clang-libcxx-calibration.log",
+      "size_bytes": 26817,
+      "sha256": "fab68442a9991a6863025a01202afc9eff9ae6cb71bb9d1723f31833889ccabe"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-frozen-tsan-clang-libcxx-runner.log",
+      "size_bytes": 5136,
+      "sha256": "7eb5538477b74477ee6cceab4a57125ce7bdaadcb0add62ae2f18ceeb003e0e8"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-frozen-tsan-gcc-calibration.log",
+      "size_bytes": 26743,
+      "sha256": "6b7af1f2498a8948e56ad30790621d06ebfdb631d8c89d53a5c55126d9f955b4"
+    },
+    {
+      "path": "build/ext007-runtime-20261101/native-frozen-tsan-gcc-runner.log",
+      "size_bytes": 5066,
+      "sha256": "7e19d0de1214c99a9a1982eefc06d38d98c8eeb873f872682ca538c6bf84c463"
+    }
+  ],
+  "limitations": [
+    "Dirty-source codegen verification; rebuild all seven gates after clean commit.",
+    "Local software results do not qualify native stand controls or scientific observations.",
+    "Initial aggregate historical policy18 check failed on current schemas; corrected to existing D185 historical fixtures. Current policy55 independently passes.",
+    "Initial strict analysis failures corrected; retained initial and corrected logs distinguish evidence.",
+    "No duration selected; no formal calibration executed; EXT007 remains incomplete."
+  ]
+}

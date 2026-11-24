@@ -1,0 +1,21 @@
+{
+  "files": [
+    {
+      "path": "formal-q16a-continuation-authoring-1/launch-check-2.json",
+      "sha256": "e894c55b3fb2c2e531ad49685958326f0393f319d7f11cc553a5faec31f45dc2",
+      "size_bytes": 722
+    },
+    {
+      "path": "formal-q16a-continuation-authoring-1/launch-check-2.stdout.json",
+      "sha256": "ca8aeca513b0cf5c98a0d3c2dfbf46041ac4b9db99210381c011c10c61642eb4",
+      "size_bytes": 6513
+    },
+    {
+      "path": "formal-q16a-continuation-authoring-1/launch-check-2.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    }
+  ],
+  "raw_transferred": false,
+  "recorded_at_utc": "2026-11-09T10:30:20.372641+00:00"
+}

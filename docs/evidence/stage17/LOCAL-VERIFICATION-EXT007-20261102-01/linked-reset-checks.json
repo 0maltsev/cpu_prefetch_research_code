@@ -1,0 +1,140 @@
+{
+  "authority": "NONE",
+  "empirical_results": false,
+  "source_base_commit": "8f12fb6",
+  "source_state": "ADR0189 pending commit",
+  "source_sha256": {
+    "src/queue/linked_spsc.cpp": "be21b2ede5b5ea9b3a6b7410af682df022e3f256714e1d43728eaa0c1e4fc2db",
+    "tests/workload_noalloc_test.cpp": "4d3b81728bb2e99fd93a544e13974d1945bdb6fa1a2e4f89eecad696f1e2c9c2",
+    "tests/queue_model_test.cpp": "789502914d539e2348880595e3fb32a3131c9e7192999254c479c8c717cfb46e",
+    "tests/queue_phase_test_access.hpp": "f05036ad65581fec6bbfdeb1624f78bc198ee42c9127fcda18c4a425c1516469",
+    "config/queue-provenance/linked-spsc.json": "12c63fad648e1efe2244e11898e71858f8817248fa19932e983a509c4c934b6a"
+  },
+  "full_ctest": {
+    "gcc": {
+      "cases": 424,
+      "exit_code": 0,
+      "log_sha256": "04a7be5217a10ce62d9c1534f91a56d98716505b64331a42349fcd9ce76e0a40"
+    },
+    "clang": {
+      "cases": 424,
+      "exit_code": 0,
+      "log_sha256": "b222f1a263831707fd3f9c03a5df4e8d6f940509444e5955363e9a3bdeff1706"
+    }
+  },
+  "allocation_counter_cases": 5,
+  "allocation_counter_passing_configurations": [
+    "GCC development",
+    "Clang/libc++ development",
+    "GCC ASan/UBSan",
+    "GCC TSan",
+    "Clang/libc++ ASan/UBSan"
+  ],
+  "clang_tsan": {
+    "allocation_counter": "EXCLUDED_BY_EXISTING_CMAKE_POLICY_INTERCEPTOR_CONFLICT",
+    "functional_queue_cases": 18,
+    "reset_functional_coverage": "all 72 cursor/sentinel rotations, pending rejection and corrupted-cycle rejection",
+    "queue_stress": "PASS"
+  },
+  "other_sanitizer_queue_cases": 18,
+  "queue_stress_all_four_configurations": "PASS",
+  "strict_codegen_exit_code": 0,
+  "strict_codegen_reports": [
+    {
+      "path": "build/accepted-release-gcc/queue_codegen_report.json",
+      "sha256": "a1517b5a13c7f112c12cbf5f6a778065deac5cf702300009ddfa1536e2fa509a",
+      "status": "PASS",
+      "tools": {
+        "GNU_OBJDUMP": {
+          "status": "PASS",
+          "version": "GNU Binutils 2.46.0"
+        },
+        "LLVM_OBJDUMP": {
+          "status": "PASS",
+          "version": "LLVM 22.1.6"
+        }
+      }
+    },
+    {
+      "path": "build/accepted-release-gcc/runner_combined_codegen_report.json",
+      "sha256": "80842cbc11fc20c75e4ea86c2ed0fbcaecc1caf54621a0f738cd61b3b5d585a5",
+      "status": "PASS",
+      "tools": {
+        "GNU_OBJDUMP": {
+          "status": "PASS",
+          "version": "GNU Binutils 2.46.0"
+        },
+        "LLVM_OBJDUMP": {
+          "status": "PASS",
+          "version": "LLVM 22.1.6"
+        }
+      }
+    },
+    {
+      "path": "build/accepted-release-gcc/runner_relax_codegen_report.json",
+      "sha256": "5dd838a4b6e4c6719136d2d496b1f01bcc32d4fef95a3733413f1332cf402c32",
+      "status": "PASS",
+      "tools": {
+        "GNU_OBJDUMP": {
+          "status": "PASS",
+          "version": "GNU Binutils 2.46.0"
+        },
+        "LLVM_OBJDUMP": {
+          "status": "PASS",
+          "version": "LLVM 22.1.6"
+        }
+      }
+    },
+    {
+      "path": "build/accepted-release-gcc/storage_codegen_report.json",
+      "sha256": "264f5237c492be339e7a3fb48702e7f24e8f473e0e9643bd63e373e6e5a5af95",
+      "status": "PASS",
+      "tools": {
+        "GNU_OBJDUMP": {
+          "status": "PASS",
+          "version": "GNU Binutils 2.46.0"
+        },
+        "LLVM_OBJDUMP": {
+          "status": "PASS",
+          "version": "LLVM 22.1.6"
+        }
+      }
+    },
+    {
+      "path": "build/accepted-release-gcc/timing_codegen_report.json",
+      "sha256": "1553ef6cbf0fef34c61a6751cb4977b1674f30e9feb47b8755d7cc777311b51d",
+      "status": "PASS",
+      "tools": {
+        "GNU_OBJDUMP": {
+          "status": "PASS",
+          "version": "GNU Binutils 2.46.0"
+        },
+        "LLVM_OBJDUMP": {
+          "status": "PASS",
+          "version": "LLVM 22.1.6"
+        }
+      }
+    },
+    {
+      "path": "build/accepted-release-gcc/workload_codegen_report.json",
+      "sha256": "a6831ef0f1b974db892e04d6deca1b853fc1483190f2cc38efbfc27af4d4979f",
+      "status": "PASS",
+      "tools": {
+        "GNU_OBJDUMP": {
+          "status": "PASS",
+          "version": "GNU Binutils 2.46.0"
+        },
+        "LLVM_OBJDUMP": {
+          "status": "PASS",
+          "version": "LLVM 22.1.6"
+        }
+      }
+    }
+  ],
+  "queue_probe_binary_unchanged": true,
+  "format_exit_code": 0,
+  "focused_static_exit_code": 0,
+  "provenance_exit_code": 0,
+  "stand_capture_performed": false,
+  "release_qualified": false
+}

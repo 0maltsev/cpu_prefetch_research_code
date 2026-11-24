@@ -1,0 +1,214 @@
+Start testing: Nov 23 22:55 MSK
+----------------------------------------------------------
+653/719 Testing: runner.s180_archive_broker_v1
+653/719 Test: runner.s180_archive_broker_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_broker_v1.py" "--encoder" "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_stage17_archive_encoder" "--channel-fixture" "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_channel_fixture"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180_archive_broker_v1" start time: Nov 23 22:55 MSK
+Output:
+----------------------------------------------------------
+...................
+----------------------------------------------------------------------
+Ran 19 tests in 54.998s
+
+OK
+<end of output>
+Test time =  55.23 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180_archive_broker_v1" end time: Nov 23 22:55 MSK
+"runner.s180_archive_broker_v1" time elapsed: 00:00:55
+----------------------------------------------------------
+
+654/719 Testing: runner.s180_parent_v1
+654/719 Test: runner.s180_parent_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_parent_v1.py" "--encoder" "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_stage17_archive_encoder" "--channel-fixture" "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_s180_channel_fixture"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180_parent_v1" start time: Nov 23 22:55 MSK
+Output:
+----------------------------------------------------------
+...............
+----------------------------------------------------------------------
+Ran 15 tests in 25.170s
+
+OK
+<end of output>
+Test time =  25.46 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180_parent_v1" end time: Nov 23 22:56 MSK
+"runner.s180_parent_v1" time elapsed: 00:00:25
+----------------------------------------------------------
+
+685/719 Testing: runner.s180_tail_numerics_v1
+685/719 Test: runner.s180_tail_numerics_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_tail_numerics_v1.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180_tail_numerics_v1" start time: Nov 23 22:56 MSK
+Output:
+----------------------------------------------------------
+................
+----------------------------------------------------------------------
+Ran 16 tests in 2.131s
+
+OK
+<end of output>
+Test time =   2.25 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180_tail_numerics_v1" end time: Nov 23 22:56 MSK
+"runner.s180_tail_numerics_v1" time elapsed: 00:00:02
+----------------------------------------------------------
+
+686/719 Testing: runner.s180_raw_join_v1
+686/719 Test: runner.s180_raw_join_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_raw_join_v1.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180_raw_join_v1" start time: Nov 23 22:56 MSK
+Output:
+----------------------------------------------------------
+..................
+----------------------------------------------------------------------
+Ran 18 tests in 0.053s
+
+OK
+<end of output>
+Test time =   0.26 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180_raw_join_v1" end time: Nov 23 22:56 MSK
+"runner.s180_raw_join_v1" time elapsed: 00:00:00
+----------------------------------------------------------
+
+688/719 Testing: runner.s180_capture_validation_v1
+688/719 Test: runner.s180_capture_validation_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_capture_validation_v1.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180_capture_validation_v1" start time: Nov 23 22:56 MSK
+Output:
+----------------------------------------------------------
+.....................
+----------------------------------------------------------------------
+Ran 21 tests in 4.614s
+
+OK
+<end of output>
+Test time =   4.94 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180_capture_validation_v1" end time: Nov 23 22:56 MSK
+"runner.s180_capture_validation_v1" time elapsed: 00:00:04
+----------------------------------------------------------
+
+689/719 Testing: runner.s180_family_validation_v1
+689/719 Test: runner.s180_family_validation_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_family_validation_v1.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180_family_validation_v1" start time: Nov 23 22:56 MSK
+Output:
+----------------------------------------------------------
+...............
+----------------------------------------------------------------------
+Ran 15 tests in 42.706s
+
+OK
+<end of output>
+Test time =  43.26 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180_family_validation_v1" end time: Nov 23 22:57 MSK
+"runner.s180_family_validation_v1" time elapsed: 00:00:43
+----------------------------------------------------------
+
+691/719 Testing: runner.s180_archive_analysis_v1
+691/719 Test: runner.s180_archive_analysis_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_analysis_v1.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180_archive_analysis_v1" start time: Nov 23 22:57 MSK
+Output:
+----------------------------------------------------------
+............
+----------------------------------------------------------------------
+Ran 12 tests in 6.027s
+
+OK
+<end of output>
+Test time =   6.44 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180_archive_analysis_v1" end time: Nov 23 22:57 MSK
+"runner.s180_archive_analysis_v1" time elapsed: 00:00:06
+----------------------------------------------------------
+
+692/719 Testing: runner.s180_analysis_pool_v1
+692/719 Test: runner.s180_analysis_pool_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_analysis_pool_v1.py"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180_analysis_pool_v1" start time: Nov 23 22:57 MSK
+Output:
+----------------------------------------------------------
+...............
+----------------------------------------------------------------------
+Ran 15 tests in 24.479s
+
+OK
+<end of output>
+Test time =  25.01 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180_analysis_pool_v1" end time: Nov 23 22:57 MSK
+"runner.s180_analysis_pool_v1" time elapsed: 00:00:25
+----------------------------------------------------------
+
+693/719 Testing: runner.s180_family_analysis_v1
+693/719 Test: runner.s180_family_analysis_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_family_analysis_v1.py" "--encoder" "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_stage17_archive_encoder"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180_family_analysis_v1" start time: Nov 23 22:57 MSK
+Output:
+----------------------------------------------------------
+...........
+----------------------------------------------------------------------
+Ran 11 tests in 29.757s
+
+OK
+<end of output>
+Test time =  30.10 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180_family_analysis_v1" end time: Nov 23 22:58 MSK
+"runner.s180_family_analysis_v1" time elapsed: 00:00:30
+----------------------------------------------------------
+
+695/719 Testing: runner.s180_archive_bundle_profile_v1
+695/719 Test: runner.s180_archive_bundle_profile_v1
+Command: "/usr/bin/python3.14" "-B" "/home/omaltsev/research/cpu_prefetch_research_code/tests/test_stage17_s180_archive_bundle_profile_v1.py" "--encoder" "/home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16/cpu_prefetch_stage17_archive_encoder"
+Directory: /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+"runner.s180_archive_bundle_profile_v1" start time: Nov 23 22:58 MSK
+Output:
+----------------------------------------------------------
+...........
+----------------------------------------------------------------------
+Ran 11 tests in 17.187s
+
+OK
+<end of output>
+Test time =  17.41 sec
+----------------------------------------------------------
+Test Passed.
+"runner.s180_archive_bundle_profile_v1" end time: Nov 23 22:58 MSK
+"runner.s180_archive_bundle_profile_v1" time elapsed: 00:00:17
+----------------------------------------------------------
+
+End testing: Nov 23 22:58 MSK
+
+archive = 159.65 sec*proc
+
+pilot = 210.37 sec*proc
+
+python = 210.37 sec*proc
+
+runner = 210.37 sec*proc
+
+synthetic = 210.37 sec*proc
+

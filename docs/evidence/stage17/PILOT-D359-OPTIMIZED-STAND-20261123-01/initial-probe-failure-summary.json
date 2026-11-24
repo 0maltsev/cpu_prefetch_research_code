@@ -1,0 +1,11 @@
+{
+  "bounded_diagnostic_lines": [
+    "  File \"<stdin>\", line 3",
+    "SyntaxError: unterminated string literal (detected at line 3)"
+  ],
+  "execution_started": false,
+  "exit_code": 1,
+  "original_stderr_bytes": 26380,
+  "original_stderr_sha256": "3506f096cb090c7108eca4be05bc687689c6630b3021f4851d7480b9a3303bdc",
+  "reason": "GENERATED_SOURCE_LITERAL_MODIFIED_BY_WRAPPER_TEXT_REPLACEMENT"
+}

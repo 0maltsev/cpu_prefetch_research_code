@@ -1,0 +1,93 @@
+{
+  "analysis_seconds": 1385.771647076,
+  "calibration_freeze_admitted": false,
+  "checked_at_utc": "2026-11-20T03:36:50.274553+00:00",
+  "collection_seconds": 10633.335880375,
+  "collector_method_id": "MATRIX-FULL-RUNCLUSTER-WHOEFFDING-BONFERRONI-v1",
+  "configuration_sha256": "bf817971e193d8e4fa1e1ba0ba947583467561aa95a6a1f64db259571c43d6c0",
+  "coverage": {
+    "invalid": 0,
+    "missing": 0,
+    "new": 94,
+    "planned": 180,
+    "retained": 86,
+    "valid": 180
+  },
+  "evidence_strength": "DESCRIPTIVE_SINGLE_CAPTURE_PER_SETTING_WITH_PLATFORM_STRATA",
+  "execution_authority": false,
+  "ext007_admitted": false,
+  "final_matrix_feasibility": "NOT_EVALUATED",
+  "final_scale_selection": null,
+  "finalized_file_mtime_utc": "2026-11-20T02:03:24.049810+00:00",
+  "independent_recovery_verified": true,
+  "measurements_repeated": false,
+  "method_id": "MATRIX-FULL-DESCRIPTIVE-CONTINUED-PLATFORM-STRATA-v1",
+  "native_executor_completed": true,
+  "native_quarantined": false,
+  "phase18_authority": false,
+  "platform_strata": [
+    {
+      "captures": 86,
+      "regime": "UNRECORDED"
+    },
+    {
+      "captures": 94,
+      "regime": "VERIFIED_ZERO"
+    }
+  ],
+  "qualification_repeated": false,
+  "raw_decoding_repeated": false,
+  "reaped_suffix_process_receipts_verified": 94,
+  "report_hashes_verified": 180,
+  "restoration_verified": true,
+  "signed_lifecycle_terminal_binding": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-23/formal-archive-program-1/working/1212db59b9c12dd50837ca4b79897ddcd76a06fc4c3ea99b1fabd9b2b23b36a6/stage17-q16c-completion-v6.json",
+    "sha256": "42885ce8edd0d4fd2751bce7f48b2ddc98e063e821021c7701d5b440cd56a1c1",
+    "size_bytes": 137405
+  },
+  "stage17_complete": false,
+  "status": "ALL_180_EXISTING_REPORTS_AND_COMPOSITION_VERIFIED",
+  "whole_composition_recomputed_from_reports": true,
+  "zero_loss": {
+    "measurement": {
+      "full_bearing_capture_count": 3,
+      "gate": "FAIL",
+      "original_ordinals": [
+        20,
+        28,
+        56
+      ]
+    },
+    "warmup": {
+      "full_bearing_capture_count": 25,
+      "gate": "FAIL",
+      "original_ordinals": [
+        0,
+        1,
+        2,
+        9,
+        10,
+        27,
+        28,
+        38,
+        90,
+        100,
+        110,
+        118,
+        119,
+        127,
+        128,
+        136,
+        137,
+        145,
+        146,
+        154,
+        155,
+        163,
+        164,
+        172,
+        173
+      ]
+    }
+  }
+}

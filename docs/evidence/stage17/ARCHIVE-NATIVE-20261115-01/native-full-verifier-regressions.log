@@ -1,0 +1,13 @@
+test_actual_zstd_frame_window_expansion_rejected_before_output (test_stage17_formal_archive_v1.ArchiveTests.test_actual_zstd_frame_window_expansion_rejected_before_output) ... ok
+test_budgets_deadlines_partial_sink_and_hashes (test_stage17_formal_archive_v1.ArchiveTests.test_budgets_deadlines_partial_sink_and_hashes) ... ok
+test_bytes_empty_full_partial_and_entire_failed_tail (test_stage17_formal_archive_v1.ArchiveTests.test_bytes_empty_full_partial_and_entire_failed_tail) ... ok
+test_external_geometry_identity_and_options_mandatory (test_stage17_formal_archive_v1.ArchiveTests.test_external_geometry_identity_and_options_mandatory) ... ok
+test_frame_options_and_concat_rejected_even_rehashed (test_stage17_formal_archive_v1.ArchiveTests.test_frame_options_and_concat_rejected_even_rehashed) ... ok
+test_header_duplicate_noncanonical_and_oversize (test_stage17_formal_archive_v1.ArchiveTests.test_header_duplicate_noncanonical_and_oversize) ... ok
+test_missing_reordered_duplicate_truncated_corrupt_frames (test_stage17_formal_archive_v1.ArchiveTests.test_missing_reordered_duplicate_truncated_corrupt_frames) ... ok
+test_rows_boundaries_wraps_opaque_all_bytes (test_stage17_formal_archive_v1.ArchiveTests.test_rows_boundaries_wraps_opaque_all_bytes) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.119s
+
+OK

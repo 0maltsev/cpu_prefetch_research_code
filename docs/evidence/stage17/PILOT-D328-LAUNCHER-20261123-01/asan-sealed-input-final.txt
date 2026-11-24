@@ -1,0 +1,6 @@
+test_sanitized_cpp_harness_parses_exact_sealed_context_and_all_sources (__main__.LauncherTests.test_sanitized_cpp_harness_parses_exact_sealed_context_and_all_sources) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 4.396s
+
+OK

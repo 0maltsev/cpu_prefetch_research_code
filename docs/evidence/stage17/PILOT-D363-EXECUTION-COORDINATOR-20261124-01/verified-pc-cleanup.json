@@ -1,0 +1,115 @@
+{
+  "needed_frozen_builds_and_original_local_audit_preserved": true,
+  "removed": [
+    {
+      "path": "build/stage17-s180-execution-prep/filesystem-fixed-debug.log",
+      "reason": "BYTE_IDENTICAL_EVIDENCE_STAGING",
+      "sha256": "6a0f0801d6dc89b837662d511cbb438c54e33822605c4daff92e271640ce31f9",
+      "size_bytes": 111
+    },
+    {
+      "path": "build/stage17-s180-execution-prep/stage-software.stderr",
+      "reason": "BYTE_IDENTICAL_EVIDENCE_STAGING",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "build/stage17-s180-execution-prep/final-registered-last-test.log",
+      "reason": "BYTE_IDENTICAL_EVIDENCE_STAGING",
+      "sha256": "b24baa4c29c9c81c0f94ebd29ed3077a37638b760708b0afb103325e69f48391",
+      "size_bytes": 1174
+    },
+    {
+      "path": "build/stage17-s180-execution-prep/verified-debug.log",
+      "reason": "BYTE_IDENTICAL_EVIDENCE_STAGING",
+      "sha256": "7d38a3d8e93997a67a9a7a15230c4b4c5b40542aaa04f1d262b3eabf5b180cad",
+      "size_bytes": 4825
+    },
+    {
+      "path": "build/stage17-s180-execution-prep/final-contract.log",
+      "reason": "BYTE_IDENTICAL_EVIDENCE_STAGING",
+      "sha256": "ad0bf80897c8f303cef1ec9fefd9ef18682c3af4eee76ad82a11ec89f7ac3ca0",
+      "size_bytes": 462
+    },
+    {
+      "path": "build/stage17-s180-execution-prep/final-registered.log",
+      "reason": "BYTE_IDENTICAL_EVIDENCE_STAGING",
+      "sha256": "7dbc8735d2122d45ffedbddc7fbf9facdbeb18140802d4fef90bbc9b624cc49d",
+      "size_bytes": 473
+    },
+    {
+      "path": "build/stage17-s180-execution-prep/final-supervision-debug.log",
+      "reason": "BYTE_IDENTICAL_EVIDENCE_STAGING",
+      "sha256": "7386a904d24f527988255b241d1cf1ebca1dc0a2c8d026539b776108aca87dda",
+      "size_bytes": 120
+    },
+    {
+      "path": "build/stage17-s180-execution-prep/initial-debug.log",
+      "reason": "BYTE_IDENTICAL_EVIDENCE_STAGING",
+      "sha256": "849080bd58d2d1344dfac5854211dd089acf6cffa56f1b009828574beb4c7400",
+      "size_bytes": 7456
+    },
+    {
+      "path": "build/stage17-s180-execution-prep/stand-status.json",
+      "reason": "BYTE_IDENTICAL_EVIDENCE_STAGING",
+      "sha256": "670c25afea7296556994490aca6f642b85000bed844bb282b25cc920e3148606",
+      "size_bytes": 627
+    },
+    {
+      "path": "build/stage17-s180-execution-prep/stage-software.log",
+      "reason": "BYTE_IDENTICAL_EVIDENCE_STAGING",
+      "sha256": "fe3bec899906f8f79d5346d8ea6cd2e7015a96df2585e92353371c6d6cf62ff9",
+      "size_bytes": 65
+    },
+    {
+      "path": "build/stage17-s180-execution-prep/api-contract-debug.log",
+      "reason": "BYTE_IDENTICAL_EVIDENCE_STAGING",
+      "sha256": "2ee6a7cd9b6cdf20f858d27049225e1345d9496d2f3b1700a8c6140375bf65d6",
+      "size_bytes": 4823
+    },
+    {
+      "path": "build/stage17-s180-execution-prep/registered-last-test.log",
+      "reason": "BYTE_IDENTICAL_EVIDENCE_STAGING",
+      "sha256": "3697e1cb124ebbd3519b8b605f286e95d486e63225db7081739c1a2fedb4ce0f",
+      "size_bytes": 7836
+    },
+    {
+      "path": "build/stage17-s180-execution-prep/stand-cold-check.stderr",
+      "reason": "BYTE_IDENTICAL_EVIDENCE_STAGING",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "build/stage17-s180-execution-prep/registered.log",
+      "reason": "BYTE_IDENTICAL_EVIDENCE_STAGING",
+      "sha256": "303008388952f8fd7e95f5d1cee22d14f9089e7c0db55bc3802ed7554ed6190d",
+      "size_bytes": 1332
+    },
+    {
+      "path": "build/stage17-s180-execution-prep/final-api-debug.log",
+      "reason": "BYTE_IDENTICAL_EVIDENCE_STAGING",
+      "sha256": "585e38124f1532e53459621a3f4167bf59c21cee35df55836d8d96d9e3607faf",
+      "size_bytes": 119
+    },
+    {
+      "path": "build/stage17-s180-execution-prep/stand-cold-check.json",
+      "reason": "BYTE_IDENTICAL_EVIDENCE_STAGING",
+      "sha256": "a2c84ece0988f9985460356c1cdc7d62cc8e0b4e9b7288ebb6634af8b82a0822",
+      "size_bytes": 1475
+    },
+    {
+      "path": "build/stage17-s180-execution-prep/stand-cold-check.py",
+      "reason": "BYTE_IDENTICAL_EVIDENCE_STAGING",
+      "sha256": "a111675e6b2510ff99c39067bb5494185ca30008d311d86a422918fe6cee59dc",
+      "size_bytes": 2003
+    },
+    {
+      "path": "build/stage17-s180-execution-prep/stage-software.py",
+      "reason": "REGENERABLE_BASE64_SOFTWARE_TRANSFER",
+      "sha256": "7904bf63c08ae29c266e74e9b54dc114ef8931e464dbd193db4b2f2d840a921b",
+      "size_bytes": 33363
+    }
+  ],
+  "research_raw_transferred": false,
+  "stand_research_data_deleted": false
+}

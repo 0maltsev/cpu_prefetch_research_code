@@ -1,0 +1,20 @@
+{
+  "execution_authority": false,
+  "full_capture_validator_implemented": false,
+  "initial_fixture_correction": "Use named private candidate files, preserving nlink1; retain anonymous-file rejection log.",
+  "initial_fixture_exit_code": 1,
+  "native_code_changed": false,
+  "new_cases": 16,
+  "new_debug_exit_code": 0,
+  "operational_window_started": false,
+  "original_raw_analyzed": false,
+  "recorded_at_utc": "2026-11-23T15:33:42.733879+00:00",
+  "registered_cases": 65,
+  "registered_exit_codes": [
+    0,
+    0
+  ],
+  "registered_suites": 5,
+  "related_debug_cases": 49,
+  "related_debug_exit_code": 0
+}

@@ -1,0 +1,27 @@
+{
+  "$id": "urn:cpu-prefetch:q15-r-signature-verification-receipt:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "allowed_signers_artifact_id": {"type": "string", "minLength": 1},
+    "allowed_signers_path": {"const": "/etc/cpu-prefetch/q15/allowed_signers"},
+    "allowed_signers_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "artifact_id": {"type": "string", "minLength": 1},
+    "authorization_core_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "authorization_principal": {"const": "cpu-prefetch-q15-authorization"},
+    "detached_signature_artifact_id": {"type": "string", "minLength": 1},
+    "detached_signature_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "private_key_present_on_stand": {"const": false},
+    "schema_version": {"const": "cpu-prefetch-q15-r-signature-verification-receipt/1"},
+    "signature_namespace": {"const": "cpu-prefetch-q15-authorization"},
+    "signature_scheme": {"const": "OPENSSH-SSHSIG-ED25519-SHA512-v1"},
+    "signer_key_fingerprint": {"type": "string", "minLength": 1},
+    "verification_executable": {"const": "/usr/bin/ssh-keygen"},
+    "verification_exit_code": {"const": 0},
+    "verification_succeeded": {"const": true},
+    "verifier_principal_id": {"const": "cpu-prefetch-q15-auditor"}
+  },
+  "required": ["allowed_signers_artifact_id", "allowed_signers_path", "allowed_signers_sha256", "artifact_id", "authorization_core_sha256", "authorization_principal", "detached_signature_artifact_id", "detached_signature_sha256", "private_key_present_on_stand", "schema_version", "signature_namespace", "signature_scheme", "signer_key_fingerprint", "verification_executable", "verification_exit_code", "verification_succeeded", "verifier_principal_id"],
+  "title": "Canonical independent Q15-R SSHSIG verification receipt",
+  "type": "object"
+}

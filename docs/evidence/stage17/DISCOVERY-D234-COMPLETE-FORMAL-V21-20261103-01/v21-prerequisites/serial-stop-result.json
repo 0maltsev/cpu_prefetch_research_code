@@ -1,0 +1,20 @@
+{
+  "child_exit_observed": true,
+  "child_pid": 31527,
+  "child_start_ticks": 15386043,
+  "finished_at_utc": "2026-11-03T19:37:29.589376+00:00",
+  "full_result_sha256": "3e129bca9fda358de857a813beecddbcc2c96ab3d0a9613ba93eac3ef06a8967",
+  "original_supervisor_result": {
+    "capture_authority": false,
+    "exit_code": -2,
+    "finished_at_utc": "2026-11-03T19:37:29.510358+00:00"
+  },
+  "original_supervisor_result_sha256": "d619ca4b987e6a9d6eb6a91bcaaa5aea7fc0b245daba4a7a7fdbe4ad94d73a03",
+  "parent_pid": 31525,
+  "parent_start_ticks": 15386039,
+  "raw_mutation": false,
+  "reason": "Complete independently validated D234 result supersedes serial duplicate",
+  "requested_at_utc": "2026-11-03T19:37:29.404356+00:00",
+  "signal": "SIGINT",
+  "supervisor_result_sha256": "91657ef540d8c3c28ee6dec79ad666de7b98c354c95dfb65b77abb0bc3730d10"
+}

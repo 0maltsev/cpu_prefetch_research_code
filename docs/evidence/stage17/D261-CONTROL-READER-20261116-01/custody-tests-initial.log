@@ -1,0 +1,18 @@
+test_bad_actual_readback_retains_recovery_intent_and_original (test_stage17_post_exit_custody_v1.RecoveryTests.test_bad_actual_readback_retains_recovery_intent_and_original) ... ok
+test_boolean_or_failed_post_exit_proof_never_writes_intent (test_stage17_post_exit_custody_v1.RecoveryTests.test_boolean_or_failed_post_exit_proof_never_writes_intent) ... ok
+test_changed_checkpoint_and_missing_retained_copy_rejected (test_stage17_post_exit_custody_v1.RecoveryTests.test_changed_checkpoint_and_missing_retained_copy_rejected) ... ok
+test_changed_original_cannot_be_released (test_stage17_post_exit_custody_v1.RecoveryTests.test_changed_original_cannot_be_released) ... ok
+test_corrupted_archive_cannot_use_ledger_as_readback (test_stage17_post_exit_custody_v1.RecoveryTests.test_corrupted_archive_cannot_use_ledger_as_readback) ... ok
+test_lost_post_exit_condition_after_intent_prevents_release (test_stage17_post_exit_custody_v1.RecoveryTests.test_lost_post_exit_condition_after_intent_prevents_release) ... ok
+test_missing_or_changed_retained_proof_prevents_recovery (test_stage17_post_exit_custody_v1.RecoveryTests.test_missing_or_changed_retained_proof_prevents_recovery) ... ok
+test_missing_pending_or_changed_family_identity_rejected (test_stage17_post_exit_custody_v1.RecoveryTests.test_missing_pending_or_changed_family_identity_rejected) ... ok
+test_post_exit_release_and_receipt_use_original_custody_contract (test_stage17_post_exit_custody_v1.RecoveryTests.test_post_exit_release_and_receipt_use_original_custody_contract) ... ok
+test_real_interrupted_release_intent_is_outside_this_recovery (test_stage17_post_exit_custody_v1.RecoveryTests.test_real_interrupted_release_intent_is_outside_this_recovery) ... ok
+test_reopened_published_control_inspected_without_science_or_writes (test_stage17_post_exit_custody_v1.RecoveryTests.test_reopened_published_control_inspected_without_science_or_writes) ... ok
+test_unpublished_state_or_unsourced_record_rejected (test_stage17_post_exit_custody_v1.RecoveryTests.test_unpublished_state_or_unsourced_record_rejected) ... ok
+test_wrong_original_capture_or_checkpoint_rejected (test_stage17_post_exit_custody_v1.RecoveryTests.test_wrong_original_capture_or_checkpoint_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 4.449s
+
+OK

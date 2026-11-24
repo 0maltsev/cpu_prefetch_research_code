@@ -1,0 +1,87 @@
+Cold service layout utility (software verification only)
+
+All artifacts are below build/stage17-step6-q16b-prep/native-sizing/.
+New caller is separately hashed; source_revision/source_dirty in its output
+identify the linked qualified foundation/native libraries, not a new qualified
+release of the caller.
+
+Build (fresh output directory required; preserves existing evidence):
+  python3 -B build/stage17-step6-q16b-prep/native-sizing/build_and_record.py
+  python3 -B build/stage17-step6-q16b-prep/native-sizing/build_and_record.py --sanitizers
+Both have already completed successfully. Compiler/sysroot, ELF interpreter,
+shared libraries, and all project includes/static archives use the existing
+managed runtime and qualified extracted 42f2ebb package. No working-tree native
+source or accepted-release-gcc archive substitutes are used.
+
+Cold query:
+  build/stage17-step6-q16b-prep/native-sizing/release/service-layout --describe INPUT.json
+  build/stage17-step6-q16b-prep/native-sizing/release/service-layout --verify-declared INPUT.json
+  build/stage17-step6-q16b-prep/native-sizing/release/service-layout --identity
+
+INPUT.json contains exactly capture, resources, monitoring, hardware_prestate.
+The first three are the existing native service-input objects. hardware_prestate
+is an explicit three-row [{"cpu": <uint32>, "value": <uint64>}, ...] declaration
+from approved retained metadata. No value is inferred or read from hardware.
+All native parser fields/monitoring paths must be supplied; paths are sized as
+strings, never sampled. Resources may contain placeholder layout fields in
+--describe; all seven region entries must exist. The capture memory ceiling
+still applies. --verify-declared rejects stale native sizes.
+
+Output layout contains exact core_bytes, monitor_bytes, total_mapping_bytes,
+and seven region_bytes from describe_native_formal_service_layout. Output
+workers contains every field of NativeFormalServiceCaptureLayout.workers,
+including both phase raw requirements and offsets, optional ring/linked storage
+requirements, object offsets and schedule offsets/counts. The ordinary native
+parser rechecks the computed declarations before success is returned.
+Total mapping includes the three native stack guard pages.
+
+Link requirements established by successful build and link map:
+  qualified release/lib/libcpu_prefetch_{runner_core,calibration,storage,
+    lifecycle,timing,platform,workload,protocol,queue,foundation}.a
+  GNU --start-group/--end-group handles archive dependencies;
+  managed libcrypto.so, libzstd.so.1.5.7, -ldl, -pthread complete linkage.
+Every project archive supplies object members, as recorded by service-layout.map.
+Native capture execution code shares archive objects with pure layout code;
+its presence in the link does not imply invocation. The caller only invokes
+repository_info, JSON parsing/canonicalization, describe_native_formal_service_layout,
+parse_native_formal_service_capture and native_formal_service_layout. Layout
+construction performs checked arithmetic/storage sizing and static registry
+lookup; it constructs no queue, starts no worker, reads no clock and accesses no
+MSR/platform observations. The only input file read is INPUT.json; stdout/stderr
+and local process resource limits are ordinary utility behavior.
+
+Proof files:
+  release/provenance.json and asan-ubsan/provenance.json bind the exact
+  qualified inventory, retained verifier result, complete packaged include/src
+  closure, static archives, original qualified worker, new source/build script,
+  compiler, linker, loader, actual header dependencies and shared libraries.
+  Each build checks original inputs before/after compilation and confirms clean
+  42f2ebb linked identity. Full commands and linker maps are retained.
+  */cold-checks/verification.json contains 64 checks per build.
+  ASan/UBSan instrument the new caller only; qualified archives remain original.
+  LeakSanitizer is disabled under the managed ptrace boundary.
+
+Local cold tests derive declarations from the retained Q16a request whose
+SHA256 is aa780db91ceaaedca11fe3b4036c3506e9de80b5a25c6189c69c7a065ed8026a.
+Five packages x five contexts cover the three actual capacities and H0/H1,
+NEAR/FAR. Thirty-million phase bounds are retained test inputs only, not future
+Q16b cap approval. One explicit small-cap synthetic case tests sizing response.
+The approved future Q16b 1s measurement/5s warmup/59 repetitions x 60 cells does
+not select finite attempt, poll, memory, publication or archive caps here.
+No collection identities or seeds are reserved by these test fixtures.
+
+Review conclusion and remaining integration limits are recorded in review.json.
+All changes made by this task are confined to this ignored artifact directory.
+
+Owner candidate-cap update: explicit 100M warmup / 30M measurement attempt
+and poll ceilings were cold-checked across all 60 cells. These are finite
+prospective caps, never observations or measured rates. See startup-and-caps/
+verification.json: 121 guarded calls passed (identity plus describe/recheck for
+60 cells), with 12 positive-control file-open interceptions. Monitoring paths
+were retained as data. No utility rebuild or production behavior change was
+needed. Largest native mapping: 30,709,854,208 bytes (28.6008 GiB), below the
+retained 240,518,168,576-byte (224 GiB) ceiling. Candidate builder still must
+requery final run IDs/capture objects and prove publication + metadata + other
+worker allocations fit. The guard is test-only libc interposition; dynamic
+loader dependency reads occur before it, and it is not a kernel syscall trace.
+Source call-path inspection independently confirms no observation backend runs.

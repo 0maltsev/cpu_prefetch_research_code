@@ -1,0 +1,86 @@
+{
+  "schema_version": "cpu-prefetch-q15-r-p4-k-d-acceptance/1",
+  "acceptance_id": "Q15-R-P4-K-D-ACCEPTANCE-20260825-01",
+  "protocol_version": "2.0.0-pre.2",
+  "decision_input_binding": {
+    "bundle_id": "Q15-R-P4-K-DECISION-INPUT-20260825-01",
+    "path": "config/q15/q15-r-p4-k-decision-input-v1.json",
+    "sha256": "cf05bbfdfeb92e9f4de438beac7a05f9f77bfc316c8dc3793e76cf2a47f52ff5"
+  },
+  "accepted_decisions": [
+    {
+      "decision_id": "D-076",
+      "selected_option": "NEW_OFFLINE_ED25519_KEY_CEREMONY_UNDER_LATER_SEPARATE_EXACT_AUTHORIZATION",
+      "state": "ACCEPTED_REPOSITORY_LOCAL_POLICY_AND_TEMPLATE_PREPARATION_ONLY"
+    },
+    {
+      "decision_id": "D-077",
+      "selected_option": "OWNER_SUPPLIED_NON_STAND_CUSTODY_DOMAIN_DISTINCT_CUSTODIAN_AND_CREATE_EXCLUSIVE_PUBLIC_ARTIFACT_PATH",
+      "state": "ACCEPTED_LOGICAL_IDENTIFIERS_ONLY_OPERATIONAL_EVIDENCE_ABSENT"
+    },
+    {
+      "decision_id": "D-078",
+      "selected_option": "P4_K_A_ONE_SHOT_OFFLINE_ACQUISITION_AND_PUBLIC_ARTIFACT_CONSTRUCTION_THEN_STOP_FOR_P4_K_R_INDEPENDENT_REVIEW",
+      "state": "ACCEPTED_REPOSITORY_LOCAL_POLICY_AND_TEMPLATE_PREPARATION_ONLY"
+    },
+    {
+      "decision_id": "D-079",
+      "selected_option": "CPU_PREFETCH_Q15_OPERATOR_NONRENEWABLE_1800S_JCS_I64_SSHSIG_WITH_DISTINCT_AUDITOR",
+      "state": "ACCEPTED_REPOSITORY_LOCAL_POLICY_AND_TEMPLATE_PREPARATION_ONLY"
+    }
+  ],
+  "delegated_owner_choice": {
+    "selection_basis": "OWNER_DELEGATED_RECOMMENDED_CHOICES_NO_EXTERNAL_EVIDENCE_ASSERTED",
+    "key_source_mode": "NEW_OFFLINE_ED25519_KEY_CEREMONY_UNDER_LATER_SEPARATE_EXACT_AUTHORIZATION",
+    "custody_domain_id": "OWNER-OFFLINE-Q15-KEY-CUSTODY",
+    "custodian_principal_id": "cpu-prefetch-q15-custodian",
+    "custody_domain_is_logical_identifier_only": true,
+    "custodian_is_existing_accepted_logical_role": true,
+    "custody_domain_operational_existence_or_control_verified": false,
+    "private_key_or_public_artifact_evidence_present": false,
+    "private_key_path_or_secret_recorded": false
+  },
+  "selection_effect": {
+    "new_offline_ceremony_source_mode_frozen": true,
+    "logical_custody_domain_and_custodian_ids_frozen": true,
+    "split_p4_k_a_then_p4_k_r_graph_frozen": true,
+    "principal_validity_signature_and_review_policy_frozen": true,
+    "repository_local_acceptance_adr_and_unissued_template_creation_authorized": true,
+    "key_read_generated_imported_copied_fingerprinted_or_used": false,
+    "public_key_or_allowed_signers_artifact_created": false,
+    "custody_or_public_artifact_path_created": false,
+    "authorization_signed_or_issued": false
+  },
+  "predecessor_preservation": {
+    "p4_k_preparation_path": "config/q15/q15-r-p4-k.preparation.json",
+    "p4_k_preparation_sha256": "c56ae3dc74142d244e448b9a6f638960f0cce1eb1a9e7a106fea90a4bcf55e0f",
+    "p4_k_preparation_state": "UNCHANGED_EIGHT_EXTERNAL_INPUTS_UNRESOLVED_NOT_ISSUED",
+    "p4_r_i_template_path": "config/q15/q15-r-p4-r-i.authorization-template-v1.json",
+    "p4_r_i_template_sha256": "38223ea7ff54b3a0ae748f670fcfd00a723272b03211e4eddda997d5b603f1d8",
+    "p4_r_i_state": "UNCHANGED_STILL_UNISSUED",
+    "p4_r_c_template_path": "config/q15/q15-r-p4-r-c.authorization-template-v1.json",
+    "p4_r_c_template_sha256": "22d4aa6f4c4ffa60c3fb31c08f3eea4831a790a0b46907b2aab5af3dcc0377df",
+    "p4_r_c_state": "UNCHANGED_STILL_UNISSUED"
+  },
+  "authority_boundary": {
+    "repository_local_acceptance_adr_and_unissued_template_creation_authorized": true,
+    "stand_access_authorized": false,
+    "key_read_generation_import_copy_fingerprint_or_use_authorized": false,
+    "public_key_or_allowed_signers_artifact_creation_authorized": false,
+    "private_key_in_repository_or_on_stand_authorized": false,
+    "custody_or_public_artifact_path_creation_authorized": false,
+    "signing_or_issuance_authorized": false,
+    "p4_k_a_authorized": false,
+    "p4_k_r_authorized": false,
+    "p4_r_i_or_p4_r_c_authorized": false,
+    "transfer_install_or_setup_authorized": false,
+    "q15_r_or_q15_w_authorized": false,
+    "platform_controls_authorized": false,
+    "calibration_pilot_measurement_or_confirmatory_authorized": false
+  },
+  "user_acceptance_messages": [
+    "I accept any og your choices.",
+    "do it"
+  ],
+  "bounded_interpretation": "Select the recommended D-076 through D-079 options and non-secret logical identifiers for repository-local acceptance, ADRs, and still-unissued P4-K-A/P4-K-R templates only, under the immediately preceding explicit prohibition on key, artifact, stand, signature, issuance, setup, Q15, calibration, pilot, measurement, and confirmatory actions."
+}

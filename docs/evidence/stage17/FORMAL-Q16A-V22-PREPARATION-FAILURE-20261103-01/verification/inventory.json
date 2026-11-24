@@ -1,0 +1,36 @@
+{
+  "execution_authority": false,
+  "files": [
+    {
+      "path": "before-path.log",
+      "sha256": "1016f6f6171c8dc5d916e7624766e39c928785de2e5d085979d04177f81f137d",
+      "size_bytes": 2425
+    },
+    {
+      "path": "after-1.log",
+      "sha256": "015f7ff513eaec662e7848a1df56c98daf4c9c5b03a80030e078c8b52c5ffb76",
+      "size_bytes": 106
+    },
+    {
+      "path": "main-integration.log",
+      "sha256": "d6f0ab2d076470be94102ac9ffa35b27259fda55c28f0a07414232fd3a9bace8",
+      "size_bytes": 285
+    },
+    {
+      "path": "policy-test.log",
+      "sha256": "953053b277fa36899e69db3947db56a9b83cae81c6c691a63488f1bfe32abfb8",
+      "size_bytes": 229
+    },
+    {
+      "path": "stand-diagnostic-1.json",
+      "sha256": "52d6b8d7640f6b69d8dc5836f25f8e4dc47eac821cb656fd99097c906056ee27",
+      "size_bytes": 76256
+    },
+    {
+      "path": "check_candidate_controller.py",
+      "sha256": "f91b07734df8d847a64642c175c2ee93e894b6040833c7a312f3a27c05fe7d32",
+      "size_bytes": 5541
+    }
+  ],
+  "schema_version": "stage17-cold-controller-verification-inventory/1"
+}

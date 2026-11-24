@@ -1,0 +1,23 @@
+test_1062_phase_identities_and_numeric_seed_reuse_not_collisions (test_namespace_audit.NamespaceTests.test_1062_phase_identities_and_numeric_seed_reuse_not_collisions) ... ok
+test_bound_input_rejects_wrong_hash_symlink_and_oversize (test_namespace_audit.NamespaceTests.test_bound_input_rejects_wrong_hash_symlink_and_oversize) ... ok
+test_exact_parent_contract_and_registry_bindings (test_namespace_audit.NamespaceTests.test_exact_parent_contract_and_registry_bindings) ... ok
+test_only_exact_own_e25_directory_may_be_excluded (test_namespace_audit.NamespaceTests.test_only_exact_own_e25_directory_may_be_excluded) ... ok
+test_original_root_selection_scanner_and_finite_limits_unchanged (test_namespace_audit.NamespaceTests.test_original_root_selection_scanner_and_finite_limits_unchanged) ... ok
+test_real_cli_local_fixture_with_actual_parent_contract (test_namespace_audit.NamespaceTests.test_real_cli_local_fixture_with_actual_parent_contract) ... ok
+test_scoped_scan_exclusion_errors_bounds_and_raw_not_read (test_namespace_audit.NamespaceTests.test_scoped_scan_exclusion_errors_bounds_and_raw_not_read) ... ok
+test_stand_allowlist_ignores_unselected_raw_and_old_prospective_dirs (test_namespace_audit.NamespaceTests.test_stand_allowlist_ignores_unselected_raw_and_old_prospective_dirs) ... ok
+test_actual_bundle_compatibility_all_sources_and_dual_machine_reports (test_renderer.RendererTests.test_actual_bundle_compatibility_all_sources_and_dual_machine_reports) ... ok
+test_actual_parent_exact_531_preserved_numeric_seeds_science_budgets (test_renderer.RendererTests.test_actual_parent_exact_531_preserved_numeric_seeds_science_budgets) ... ok
+test_all_five_monitor_paths_required_and_no_other_changes (test_renderer.RendererTests.test_all_five_monitor_paths_required_and_no_other_changes) ... ok
+test_bound_hash_limits_symlinks_and_no_overwrite (test_renderer.RendererTests.test_bound_hash_limits_symlinks_and_no_overwrite) ... ok
+test_changed_hot_source_inventory_rejected (test_renderer.RendererTests.test_changed_hot_source_inventory_rejected) ... ok
+test_mutating_preserved_seed_or_shared_quota_rejected (test_renderer.RendererTests.test_mutating_preserved_seed_or_shared_quota_rejected) ... ok
+test_prefix_incomplete_fails_before_qualification_or_output (test_renderer.RendererTests.test_prefix_incomplete_fails_before_qualification_or_output) ... ok
+test_qualification_failure_creates_no_output (test_renderer.RendererTests.test_qualification_failure_creates_no_output) ... ok
+test_qualification_receives_actual_archive_and_sidecar_no_synthetic (test_renderer.RendererTests.test_qualification_receives_actual_archive_and_sidecar_no_synthetic) ... ok
+test_synthetic_final_pipeline_canonical_three_files_and_proof_failure (test_renderer.RendererTests.test_synthetic_final_pipeline_canonical_three_files_and_proof_failure) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 138.969s
+
+OK

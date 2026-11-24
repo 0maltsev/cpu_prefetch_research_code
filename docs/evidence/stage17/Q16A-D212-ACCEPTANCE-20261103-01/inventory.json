@@ -1,0 +1,14 @@
+{
+  "files": [
+    {
+      "path": "owner-acceptance.json",
+      "size_bytes": 710,
+      "sha256": "2b34220f9a6b870214df1e31682237c9b3bc90988b07b49bc3613025f1d19ed9"
+    },
+    {
+      "path": "proposal.md",
+      "size_bytes": 6177,
+      "sha256": "7aa48d00e76a9c01d2a83a6de8c0d864b0e00d13d1c6afb89811fd3d5f79cebc"
+    }
+  ]
+}

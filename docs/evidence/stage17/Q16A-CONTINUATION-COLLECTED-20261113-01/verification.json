@@ -1,0 +1,20 @@
+{
+  "verdict": "COLLECTION_COMPLETE_VALIDATION_PENDING",
+  "captured": 531,
+  "archived": 531,
+  "original_validated_prefix": 177,
+  "completed_at_utc": "2026-11-13T00:36:47.027100Z",
+  "executor_exit_code": 0,
+  "original_supervisor_success": false,
+  "reproduced_supervisor_error": "invalid hardware restoration readback",
+  "mechanism": "restoration_status expects requested_hex; qualified completion/6 uses expected_hex",
+  "receipt_restoration_matches": true,
+  "partition_restoration_verified": true,
+  "raw_validation_performed": false,
+  "raw_transferred": false,
+  "raw_mutation": false,
+  "source_changes": false,
+  "phase18_authority": false,
+  "logical_bytes": 2887830161387,
+  "archive_bytes": 325743896774
+}

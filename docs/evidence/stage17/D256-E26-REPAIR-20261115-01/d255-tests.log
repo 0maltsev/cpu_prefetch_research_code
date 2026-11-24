@@ -1,0 +1,14 @@
+test_actual_retained_ext006_has_no_stand_and_derivation_preserves_all_original_release_facts (test_stage17_daycap_administration_v1.AssociationTests.test_actual_retained_ext006_has_no_stand_and_derivation_preserves_all_original_release_facts) ... ok
+test_contradictory_existing_release_association_is_rejected (test_stage17_daycap_administration_v1.AssociationTests.test_contradictory_existing_release_association_is_rejected) ... ok
+test_current_trust_context_must_agree_when_present (test_stage17_daycap_administration_v1.AssociationTests.test_current_trust_context_must_agree_when_present) ... ok
+test_native_qualification_identities_are_never_relabelled (test_stage17_daycap_administration_v1.AssociationTests.test_native_qualification_identities_are_never_relabelled) ... ok
+test_wrong_platform_cannot_supply_a_release_association (test_stage17_daycap_administration_v1.AssociationTests.test_wrong_platform_cannot_supply_a_release_association) ... ok
+test_activation_selects_fixed_controller_without_replacing_qualified_source_modules (test_stage17_daycap_administration_v1.GraphTests.test_activation_selects_fixed_controller_without_replacing_qualified_source_modules) ... ok
+test_each_administrative_instance_has_isolated_configuration (test_stage17_daycap_administration_v1.GraphTests.test_each_administrative_instance_has_isolated_configuration) ... ok
+test_only_fixed_handoff_changes_and_authority_bodies_remain_original (test_stage17_daycap_administration_v1.GraphTests.test_only_fixed_handoff_changes_and_authority_bodies_remain_original) ... ok
+test_actual_context_export_passes_preserved_historical_loading_without_invented_original_field (test_stage17_daycap_administration_v1.HistoricalLoadTests.test_actual_context_export_passes_preserved_historical_loading_without_invented_original_field) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.009s
+
+OK

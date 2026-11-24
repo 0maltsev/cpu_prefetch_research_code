@@ -1,0 +1,56 @@
+{
+  "actual_original_resolutions": 7,
+  "actual_original_transitions": 3,
+  "actual_qualification_performed": false,
+  "actual_reader_uid_gid": 1000,
+  "actual_source_preparation_performed": false,
+  "actual_supervised_stand_reader_exit": 0,
+  "contract_checks_exit": 0,
+  "execution_authority": false,
+  "native_code_changed": false,
+  "native_sanitizer_relevance": "NO_CHANGED_NATIVE_PATH",
+  "operational_window_started": false,
+  "original_journal_and_key_unchanged": true,
+  "original_reader_elapsed_ns": 41191423786,
+  "phase18_authority": false,
+  "python_sanitizer_mode": "-X dev / PYTHONMALLOC=debug / isolated user+PID namespace",
+  "qualified_outer_operator_complete": false,
+  "recorded_at_utc": "2026-11-23T20:50:05.340770+00:00",
+  "registered_cases": 58,
+  "registered_exit": 0,
+  "registered_suite_cases": [
+    15,
+    17,
+    14,
+    12
+  ],
+  "registered_suites": 4,
+  "stand_reader_cleanup": {
+    "cleanup_deadline_overrun": false,
+    "cleanup_diagnostics": [],
+    "descendants_detected_after_leader_exit": false,
+    "leader_reaped": true,
+    "leader_wait_timed_out": false,
+    "maximum_descendant_count": 0,
+    "namespace_snapshot": {
+      "local_pgid": 390046,
+      "local_pid": 390046,
+      "namespace_inode": "4026531836",
+      "nspgid": [
+        390046
+      ],
+      "nspid": [
+        390046
+      ],
+      "procfs_namespace_inode": "4026531836",
+      "visible_pgid": 390046,
+      "visible_pid": 390046
+    },
+    "process_group_gone": true,
+    "returncode": 0,
+    "terminal_cleanup_outcome": "NORMAL_LEADER_REAPED_GROUP_QUIESCENT"
+  },
+  "targeted_python_development_cases": 17,
+  "targeted_python_development_exit": 0,
+  "whole_run_eta_verified": false
+}

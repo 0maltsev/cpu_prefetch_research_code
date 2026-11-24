@@ -6,6 +6,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <optional>
 #include <span>
 #include <stdexcept>
 #include <string>
@@ -43,6 +44,16 @@ struct RowLayout final {
 
 [[nodiscard]] auto make_row_layout(std::string_view run_id) -> RowLayout;
 
+struct RawStreamStorageRequirements final {
+  std::size_t producer_bytes;
+  std::size_t consumer_bytes;
+};
+
+[[nodiscard]] auto raw_stream_storage_requirements(const protocol::RunId& run_id,
+                                                   std::uint64_t producer_rows,
+                                                   std::uint64_t consumer_rows)
+    -> RawStreamStorageRequirements;
+
 enum class AppendStatus : std::uint8_t {
   appended,
   buffer_overflow,
@@ -70,9 +81,30 @@ struct RawStreamSnapshot final {
   bool overflowed;
 };
 
+// Read only after the stream owner is quiescent. Layout is precomputed during
+// preparation with make_row_layout. These allocation-free in-process readers
+// check physical row shape/identity; they do not replace external artifact
+// hash/envelope/semantic admission or cross-stream reconciliation.
+[[nodiscard]] auto prepared_primary_stream_shape(const RawStreamSnapshot& snapshot,
+                                                 const RowLayout& layout,
+                                                 protocol::StreamKind kind) noexcept
+    -> bool;
+[[nodiscard]] auto read_prepared_producer_row(const RawStreamSnapshot& snapshot,
+                                              const RowLayout& layout,
+                                              std::uint64_t index) noexcept
+    -> std::optional<timing::ProducerObservation>;
+[[nodiscard]] auto read_prepared_consumer_row(const RawStreamSnapshot& snapshot,
+                                              const RowLayout& layout,
+                                              std::uint64_t index) noexcept
+    -> std::optional<timing::ConsumerObservation>;
+
 class ProducerObservationStream final {
 public:
   ProducerObservationStream(const protocol::RunId& run_id, std::uint64_t row_capacity);
+  // Caller owns both this object and the exact-size aligned buffer. Prepare
+  // both on their owner worker, verify placement, and retain their lifetimes.
+  ProducerObservationStream(const protocol::RunId& run_id, std::uint64_t row_capacity,
+                            std::span<std::byte> external_storage);
   ~ProducerObservationStream();
 
   ProducerObservationStream(const ProducerObservationStream&) = delete;
@@ -111,12 +143,17 @@ private:
   RowLayout layout_{};
   std::byte* storage_{nullptr};
   std::uint64_t allocated_bytes_{0U};
+  // Use existing padding before the aligned control block, preserving its
+  // hot offsets and the stream object's size in the supported ABIs.
+  bool owns_storage_{true};
   ControlBlock control_{};
 };
 
 class ConsumerObservationStream final {
 public:
   ConsumerObservationStream(const protocol::RunId& run_id, std::uint64_t row_capacity);
+  ConsumerObservationStream(const protocol::RunId& run_id, std::uint64_t row_capacity,
+                            std::span<std::byte> external_storage);
   ~ConsumerObservationStream();
 
   ConsumerObservationStream(const ConsumerObservationStream&) = delete;
@@ -155,6 +192,7 @@ private:
   RowLayout layout_{};
   std::byte* storage_{nullptr};
   std::uint64_t allocated_bytes_{0U};
+  bool owns_storage_{true};
   ControlBlock control_{};
 };
 

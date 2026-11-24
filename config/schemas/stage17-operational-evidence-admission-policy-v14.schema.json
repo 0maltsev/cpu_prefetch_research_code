@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cpu-prefetch:stage17:operational-evidence-admission-policy:v14",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "policy_id", "policy_version", "protocol_version", "predecessor", "predecessor_status", "graph_sha256", "catalog_sha256", "genesis_record_sha256", "resolution_schema_sha256", "bindings", "runtime_import_roots", "runtime_closure", "entries", "admission_contract", "checked_in_state", "stage18_authority"],
+  "properties": {
+    "schema_version": {"const": "cpu-prefetch-stage17-operational-evidence-admission-policy/14"},
+    "policy_id": {"const": "STAGE17-OPERATIONAL-EVIDENCE-ADMISSION-POLICY-v14"},
+    "policy_version": {"const": "14"},
+    "protocol_version": {"const": "2.0.0-pre.3"},
+    "predecessor": {"$ref": "#/$defs/binding"},
+    "predecessor_status": {"const": "SUPERSEDED_MISSING_CANONICAL_SERIALIZER_IMPORT"},
+    "graph_sha256": {"$ref": "#/$defs/sha256"},
+    "catalog_sha256": {"$ref": "#/$defs/sha256"},
+    "genesis_record_sha256": {"$ref": "#/$defs/sha256"},
+    "resolution_schema_sha256": {"$ref": "#/$defs/sha256"},
+    "bindings": {"type": "object", "minProperties": 20, "additionalProperties": {"$ref": "#/$defs/binding"}},
+    "runtime_import_roots": {"type": "array", "minItems": 5, "uniqueItems": true, "items": {"type": "string", "pattern": "^stage17_[a-z0-9_]+$"}},
+    "runtime_closure": {"type": "object", "minProperties": 15, "additionalProperties": {"$ref": "#/$defs/binding"}},
+    "entries": {"type": "array", "minItems": 10, "maxItems": 10, "items": {"type": "object", "additionalProperties": false, "required": ["input_id", "status", "verifier_id", "verifier_version"], "properties": {"input_id": {"pattern": "^S17-EXT-[0-9]{3}$"}, "status": {"const": "IMPLEMENTED"}, "verifier_id": {"const": "STAGE17-SEMANTIC-ADMISSION-VERIFIER"}, "verifier_version": {"const": "14"}}}},
+    "admission_contract": {"const": {"closed_role_schema_registry": true, "actual_json_schema_validation": true, "exact_artifact_bytes_rehashed": true, "clean_release_provenance_required": true, "generic_payload_sufficient": false, "boolean_only_claim_sufficient": false, "self_selected_trust_root": false, "fixed_worker_snapshot": true, "pinned_schema_bytes": true, "streaming_raw_verification": true, "typed_result_required": true, "synthetic_resolves_checked_in_state": false}},
+    "checked_in_state": {"const": {"current_state": "PREPARED", "resolutions": 0, "transitions": 0, "action_ready": false, "pilot_ready": false, "stand": "NOT_ACCESSED"}},
+    "stage18_authority": {"const": false}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "binding": {"type": "object", "additionalProperties": false, "required": ["path", "size_bytes", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "size_bytes": {"type": "integer", "minimum": 1}, "sha256": {"$ref": "#/$defs/sha256"}}}
+  }
+}

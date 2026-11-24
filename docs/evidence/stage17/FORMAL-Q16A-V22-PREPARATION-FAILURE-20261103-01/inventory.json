@@ -1,0 +1,37 @@
+{
+  "execution_authority": false,
+  "files": [
+    {
+      "path": "originals/formal-q16a-preparation-1.log",
+      "sha256": "902264995a483e12002bee0cfafd7fc1ad7d1f9be5a723f724ee21b0debe71d6",
+      "size_bytes": 5733
+    },
+    {
+      "path": "originals/formal-q16a-preparation-failure-1.json",
+      "sha256": "f379c0850cf6110e09bb27e896eca1947d64b28d439231a38a2afc6f2aef998f",
+      "size_bytes": 1530
+    },
+    {
+      "path": "originals/clock-qualification-v22-1/restoration.json",
+      "sha256": "86443f0bb3c92599f5728af41183ff26f9a8634e4c62eae543707fd8851a849f",
+      "size_bytes": 332
+    },
+    {
+      "path": "originals/admission-root/evidence/formal-q16a-1/family-registration.json",
+      "sha256": "2fd6ed5cb111798c7c93315fef2905027bc86d48db55e3729df3a2dc3afb8409",
+      "size_bytes": 404
+    },
+    {
+      "path": "originals/ext002-runtime-release-provenance.json",
+      "sha256": "c41349163b688116d2b197a541724e2d7e8871c258f220c8f5c03f3d0ad2c17a",
+      "size_bytes": 1930
+    }
+  ],
+  "schema_version": "stage17-public-original-evidence-inventory/1",
+  "source_inventory": {
+    "path": "build/stage17-step5-prep/v22-formal-preparation-failure-1/inventory.json",
+    "sha256": "9a80a27625983fa04524c1d28292f98532dd3305305bdf69ce971afb8f542a89",
+    "size_bytes": 692
+  },
+  "source_revision": "c962fd757f0b215088e6a91e760af0616ab9636b"
+}

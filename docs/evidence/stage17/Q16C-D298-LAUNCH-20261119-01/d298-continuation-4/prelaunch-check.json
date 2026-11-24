@@ -1,0 +1,23 @@
+{
+  "actual_owner_signature_verified": true,
+  "actual_uid1000_journal_and_inventory_audit_passed": true,
+  "administrative_source_revision": "54f933a66cb8f653f73c89f4f8d75e66a0dd3386",
+  "checked_at_utc": "2026-11-19T20:07:50.597934+00:00",
+  "configuration_sha256": "afef345d8a0183d51a469266ad159dc337d969d76ebb3770341ce44b66543c63",
+  "execution_authority": false,
+  "experiments_started": 0,
+  "fresh_isolation_paths_verified": true,
+  "full_remaining_envelope_seconds": 31460,
+  "hardware_prestate_verified": true,
+  "measured_libraries_verified": 9,
+  "near_far_retained_raw_verified": true,
+  "new_execution_window": false,
+  "original_total_deadline_ns": 1589604784571258,
+  "qualification_receipts_verified": 7,
+  "qualification_repeated": false,
+  "qualified_native_source_revision": "7b7c263cb850690cf333df0d196b18c875b4a53c",
+  "raw_validation_repeated": false,
+  "retained_reports_verified": 86,
+  "same_original_window": true,
+  "status": "D298_ACTUAL_INSTALLED_ADMISSION_PASS"
+}

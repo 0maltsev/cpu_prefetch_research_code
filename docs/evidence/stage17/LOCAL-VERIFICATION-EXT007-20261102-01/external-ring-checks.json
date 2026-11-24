@@ -1,0 +1,139 @@
+{
+  "authority": "NONE",
+  "empirical_results": false,
+  "source_base_commit": "0efe4e7",
+  "source_state": "ADR0188 pending commit",
+  "source_sha256": {
+    "include/cpu_prefetch/queue/ring_spsc.hpp": "dba17f1ff68bff418270566618a35c65fe5362c199c160edad94230f234d470b",
+    "src/queue/ring_spsc.cpp": "1a218f6a1933435db4538ea9992158a17c608b4d8a27fbc9c9d3b8700c5c43c3",
+    "tests/queue_model_test.cpp": "759dac1b1015cddcd41dac62ff99a7d1d6685ebc3dae8e99b15f7e4a556d99d5",
+    "config/queue-provenance/ring-spsc.json": "861df24220326b2f0ceab82c8a3f487aed7b77c9d218fd37c45d829236d6b047",
+    "config/queue-provenance/linked-spsc.json": "929eea1838205c289914a947dc5968303e5f83868e5a824d4578ed73e2c00975"
+  },
+  "full_gcc_ctest": {
+    "cases": 419,
+    "exit_code": 0,
+    "log_sha256": "f4dad306f0d628fbcee2596a0fbc2a22f1956a967f5c77b7e4a5a8a2ebe42c03"
+  },
+  "affected_sanitizer_cases": {
+    "queue": 17,
+    "calibration": 50,
+    "queue_stress": "PASS",
+    "configurations": [
+      "GCC ASan/UBSan",
+      "GCC TSan",
+      "Clang/libc++ ASan/UBSan",
+      "Clang/libc++ TSan"
+    ],
+    "strengthened_storage_write_rejection_cases": 5,
+    "strengthened_cases_all_configurations": "PASS"
+  },
+  "development_clang": {
+    "queue": 17,
+    "calibration": 50,
+    "queue_stress": "PASS",
+    "rapidcheck_properties": 6,
+    "cases_per_property": 100
+  },
+  "strict_codegen_exit_code": 0,
+  "strict_codegen_reports": [
+    {
+      "path": "build/accepted-release-gcc/queue_codegen_report.json",
+      "sha256": "a1517b5a13c7f112c12cbf5f6a778065deac5cf702300009ddfa1536e2fa509a",
+      "status": "PASS",
+      "tools": {
+        "GNU_OBJDUMP": {
+          "status": "PASS",
+          "version": "GNU Binutils 2.46.0"
+        },
+        "LLVM_OBJDUMP": {
+          "status": "PASS",
+          "version": "LLVM 22.1.6"
+        }
+      }
+    },
+    {
+      "path": "build/accepted-release-gcc/runner_combined_codegen_report.json",
+      "sha256": "80842cbc11fc20c75e4ea86c2ed0fbcaecc1caf54621a0f738cd61b3b5d585a5",
+      "status": "PASS",
+      "tools": {
+        "GNU_OBJDUMP": {
+          "status": "PASS",
+          "version": "GNU Binutils 2.46.0"
+        },
+        "LLVM_OBJDUMP": {
+          "status": "PASS",
+          "version": "LLVM 22.1.6"
+        }
+      }
+    },
+    {
+      "path": "build/accepted-release-gcc/runner_relax_codegen_report.json",
+      "sha256": "5dd838a4b6e4c6719136d2d496b1f01bcc32d4fef95a3733413f1332cf402c32",
+      "status": "PASS",
+      "tools": {
+        "GNU_OBJDUMP": {
+          "status": "PASS",
+          "version": "GNU Binutils 2.46.0"
+        },
+        "LLVM_OBJDUMP": {
+          "status": "PASS",
+          "version": "LLVM 22.1.6"
+        }
+      }
+    },
+    {
+      "path": "build/accepted-release-gcc/storage_codegen_report.json",
+      "sha256": "264f5237c492be339e7a3fb48702e7f24e8f473e0e9643bd63e373e6e5a5af95",
+      "status": "PASS",
+      "tools": {
+        "GNU_OBJDUMP": {
+          "status": "PASS",
+          "version": "GNU Binutils 2.46.0"
+        },
+        "LLVM_OBJDUMP": {
+          "status": "PASS",
+          "version": "LLVM 22.1.6"
+        }
+      }
+    },
+    {
+      "path": "build/accepted-release-gcc/timing_codegen_report.json",
+      "sha256": "1553ef6cbf0fef34c61a6751cb4977b1674f30e9feb47b8755d7cc777311b51d",
+      "status": "PASS",
+      "tools": {
+        "GNU_OBJDUMP": {
+          "status": "PASS",
+          "version": "GNU Binutils 2.46.0"
+        },
+        "LLVM_OBJDUMP": {
+          "status": "PASS",
+          "version": "LLVM 22.1.6"
+        }
+      }
+    },
+    {
+      "path": "build/accepted-release-gcc/workload_codegen_report.json",
+      "sha256": "a6831ef0f1b974db892e04d6deca1b853fc1483190f2cc38efbfc27af4d4979f",
+      "status": "PASS",
+      "tools": {
+        "GNU_OBJDUMP": {
+          "status": "PASS",
+          "version": "GNU Binutils 2.46.0"
+        },
+        "LLVM_OBJDUMP": {
+          "status": "PASS",
+          "version": "LLVM 22.1.6"
+        }
+      }
+    }
+  ],
+  "queue_probe_binary_unchanged": true,
+  "all_four_queue_operation_bodies_unchanged_under_both_disassemblers": true,
+  "format_exit_code": 0,
+  "focused_static_exit_code": 0,
+  "provenance_exit_code": 0,
+  "linked_reset_allocation_blocker": "RETAINED_EXISTING_NOT_REPAIRED_IN_ADR0188",
+  "stand_capture_performed": false,
+  "release_qualified": false
+}

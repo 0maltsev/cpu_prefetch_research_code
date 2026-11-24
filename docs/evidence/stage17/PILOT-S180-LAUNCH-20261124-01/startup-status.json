@@ -1,0 +1,19 @@
+{
+  "compaction_control": "1",
+  "controller_intent_exists": false,
+  "operational_root_exists": false,
+  "runtime_exists": true,
+  "unit": {
+    "ActiveState": "active",
+    "ControlPID": "0",
+    "ExecMainStartTimestamp": "Tue 2026-11-24 11:03:53 MSK",
+    "ExecMainStatus": "0",
+    "ExecStartPre": "{ path=/usr/bin/python3.14 ; argv[]=/usr/bin/python3.14 -B /opt/cpu-prefetch-s180-service-1/stage17_s180_service_v1.py prepare-runtime --profile-sha256 548884312b7508d76d697863caf57ba0656ba0c2c114021e692c7c83c54df718 ; ignore_errors=no ; start_time=[Tue 2026-11-24 11:03:47 MSK] ; stop_time=[Tue 2026-11-24 11:03:53 MSK] ; pid=396679 ; code=exited ; status=0 }",
+    "InvocationID": "b9e25b8ac2764d4b9922c9563de2af76",
+    "LoadState": "loaded",
+    "MainPID": "396684",
+    "Result": "success",
+    "SubState": "running"
+  },
+  "utc": "2026-11-24T08:04:43.524722+00:00"
+}

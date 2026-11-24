@@ -1,0 +1,78 @@
+{
+  "error": "owned original replay failed: S180 owner replay: original-reader failure or abnormal cleanup",
+  "report": {
+    "actual_owner_reader_completed": false,
+    "cleanup": {
+      "cleanup_deadline_overrun": false,
+      "cleanup_diagnostics": [],
+      "descendants_detected_after_leader_exit": false,
+      "leader_reaped": true,
+      "leader_wait_timed_out": false,
+      "maximum_descendant_count": 0,
+      "namespace_snapshot": {
+        "local_pgid": 388984,
+        "local_pid": 388984,
+        "namespace_inode": "4026531836",
+        "nspgid": [
+          388984
+        ],
+        "nspid": [
+          388984
+        ],
+        "procfs_namespace_inode": "4026531836",
+        "visible_pgid": 388984,
+        "visible_pid": 388984
+      },
+      "process_group_gone": true,
+      "returncode": 1,
+      "terminal_cleanup_outcome": "NORMAL_LEADER_REAPED_GROUP_QUIESCENT"
+    },
+    "completed_monotonic_ns": 1903036056326606,
+    "console_prefix": "TypeError: unsupported JSON value: <class 'pathlib.PosixPath'>\n",
+    "deadline_monotonic_ns": 1903594777067317,
+    "execution_authority": false,
+    "failure": "S180 owner replay: original-reader failure or abnormal cleanup",
+    "observed_reader": {
+      "actual_gid_fields": [
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "actual_uid_fields": [
+        1000,
+        1000,
+        1000,
+        1000
+      ],
+      "address_space_bytes": [
+        8589934592,
+        8589934592
+      ],
+      "file_size_bytes": [
+        268435456,
+        268435456
+      ],
+      "gid": 1000,
+      "session_id": 388985,
+      "start_ticks": 190299478,
+      "uid": 1000
+    },
+    "phase18_authority": false,
+    "pid": 388985,
+    "root_parent_credentials_preserved": true,
+    "root_uids_after": [
+      0,
+      0,
+      0
+    ],
+    "root_uids_before": [
+      0,
+      0,
+      0
+    ],
+    "schema_version": "cpu-prefetch-stage17-s180-owned-original-replay/1",
+    "started_monotonic_ns": 1902994779570784
+  },
+  "status": "OWNED_REPLAY_DIAGNOSTIC_FAILURE"
+}

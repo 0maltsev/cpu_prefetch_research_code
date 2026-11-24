@@ -1,6 +1,7 @@
 # Stage A Stand Runbook
 
-Status: **planning and read-only inventory document only**. This runbook does
+Status: **Stage 17B.2 repository-local engineering closed; operational successor `PREPARED`;
+all ten real external inputs required**. This runbook does
 not authorize a platform mutation, calibration, pilot, or confirmatory
 execution. Commands in the read-only section only observe state and do not make
 the current machine an eligible stand. It becomes operational only after the
@@ -49,20 +50,134 @@ implementation only in the
 [Stage 17 entry bundle](STAGE17_ENTRY_DECISION_BUNDLE.md); it grants no stand
 control or execution authority.
 
-The proposed
-[pre-Stage-17 blocker-closure and pilot-authorization bundle](STAGE17_PILOT_AUTHORIZATION_DECISION_BUNDLE.md)
-defines three non-collapsible gates: Q14 may authorize repository-local
-closure only, a later complete Q15 may authorize exact stand qualification,
-and later dependency-ready Q16a through Q16d records may authorize individual
-Stage 17 phases. While Q14 is pending, none of those actions is authorized.
+The prospective
+[finite Stage 17 operational successor](STAGE17_OPERATIONAL_AUTHORIZATION.md)
+now owns pilot admission. Its current state is `PREPARED`; it may advance only
+through `AUTHORIZED_FOR_READ_ONLY_PREFLIGHT`, `PREFLIGHT_ACCEPTED`, and
+`READY_FOR_STAGE17_PHASE_AUTHORIZATION`. ADR-0105 derives state only from
+canonical genesis plus sequential append-only evidence-resolution and
+transition records. ADR-0106 leaves the v1 graph/catalog/genesis immutable and
+adds a default-deny semantic policy. A file, generic JSON object, generic
+receipt, boolean claim, self-selected trust root, or metadata hash cannot
+resolve an input. ADR-0115/policy v11 is an immutable incomplete predecessor.
+ADR-0116 amends the pilot warm-up bootstrap in protocol pre.3, and
+ADR-0117/policy v12 implements the durable production verifier for all ten
+inputs, full bundle/EXT006 closure, supervised Q15, durable complete pilot
+semantics, and the closed six-action controller/worker boundary. This is local
+engineering closure only: every input still requires real exact bytes and the
+checked-in journal remains empty. The legacy successor/checklist are
+definition/templates, not current status. The last graph state permits
+preparation of an exact phase authorization; it is not execution permission.
+
+ADR-0107 leaves v1/v2 bytes unchanged, ADR-0108 leaves all v1/v2/v3 bytes
+unchanged, ADR-0109 preserves every v1-v4 predecessor, ADR-0110 preserves the
+complete v5 predecessor, ADR-0111 preserves the complete v6 predecessor, and
+ADR-0112 preserves the complete v7 predecessor. ADR-0113/policy v9 is rejected;
+ADR-0114/policy v10 and ADR-0115/policy v11 are immutable incomplete
+predecessors. ADR-0118/policy v13 and executor v8 are immutable predecessors
+after the first T1 action stopped before marker/transport on its missing
+canonical-serializer import. ADR-0119/0120 remain immutable compatibility
+predecessors. The real D-120 T1 successor stopped before marker/transport on
+the attempt-v7 17-versus-policy-v11 19 runtime-cardinality mismatch.
+The D-121 policy-v16 transaction then created attempt v8 but stopped before
+`Popen`: its local OpenSSH capability left adopted descendants under PID 1,
+and its older terminal schemas could not retain the 20-key runtime failure.
+ADR-0122/policy v17 remains the terminal-record predecessor. The subsequent
+D-122 transaction reached T1 but stopped before marker/transport during
+action-time terminal-schema revalidation. ADR-0123/policy v18, preflight
+policy v14, journal v16, executor v12, controller v8, Q15 controller v6, and
+CLI v10 are current. They keep
+repository definitions under the verified release root and
+require journal, resolution, and transition lineage under the distinct
+external operational evidence root. Policy v12 executor v7 must not be used
+for a new preflight because it rejects the documented external journal before
+its marker. A typed D-120 blocker proves its prior output root is empty. The
+separate D-121 blocker rehashes its marker, journal, authorization, resolution,
+and T1 and proves the output root remains marker-only. The D-123 blocker
+rehashes the empty-output action-revalidation stop. None grants authority or
+retry. A fresh `S17-EXT-001` uses the policy-bound v11 authorization,
+contract v12, and envelope v14. Snapshot broker v2 must report zero remaining
+fixture children before marker. Predecessor controllers/CLIs must not
+be used. Do not write an SSH
+command, argv, stdin, output filename, timeout, retry, or permission into an
+owner record. The immutable fixed action plan and hash-bound production
+executor/collector own those values. The owner may supply only the typed
+target, pinned-key/known-hosts, transport identity locator/size/hash, archive/sidecar/
+extracted-root locators, capture identity/time, executable paths, UTC window,
+and one pre-existing safe local evidence root. The root may not be the
+repository or `/etc`, `/proc`, or `/sys`, and it may contain no symlink
+component.
+
+Before the first read-only preflight, follow the exact ordered handoff in
+[`STAGE17_STAND_HANDOFF.md`](STAGE17_STAND_HANDOFF.md) and complete the exact
+[`S17-EXT-001` draft](STAGE17_S17_EXT_001_AUTHORIZATION_DRAFT.md). The owner
+must provide only the listed typed authorization/contract-v12 values and the
+typed immutable D-120, D-121, and D-123 blocker receipts; raw
+action bytes are forbidden.
+Do not use the draft itself as evidence. Create the typed supporting contract
+first; hash-bind its path, byte count, SHA-256, schema identity, and fixed plan
+in the v11 authorization; then bind policy, authorization, contract, plan and
+the complete verifier/executor/collector/journal/broker/supervisor/helper
+closure in one envelope-v14
+semantic envelope. Remote runtime
+executable/module/dependency identities remain read-only `S17-EXT-002` outputs,
+not prospective values. Admission alone is not action readiness: exact
+transition 1 must bind the resolution and authorization, the computed state
+must be `AUTHORIZED_FOR_READ_ONLY_PREFLIGHT`, and prospective/status evaluation
+must find a live authorization with every bound byte still valid and no prior
+attempt. Production execution does not accept `as_of_utc`: after all long
+validation and preparation, it takes a final actual system-UTC sample and
+stops future or expired authority before any marker. It samples again after
+the durable marker immediately before the first transport; expiry, future
+authority, or rollback retains a typed failure and opens no transport. Local
+`ssh -G` checks option expansion only; it is not credential-consumption proof.
+Before the marker, verified known-hosts and identity bytes are copied into
+sealed `memfd` snapshots held open by executor v6. OpenSSH receives
+`/proc/<procfs-visible-parent>/fd/N` locators and inherits no credential
+descriptor. Before the final authority sample, a hermetic local
+`/usr/bin/ssh` plus `/usr/sbin/sshd -i` pipe fixture must authenticate with both
+snapshots after their disposable owner sources are changed. It opens no socket
+and grants no stand authority. Missing/denied procfs, failed reopen identity,
+seal/size/hash drift, identity parse failure, or capability failure stops
+before marker and transport. The executor also validates its actually loaded
+runtime closure, exact SSH argv, safe owner-owned evidence-root identity, and
+all six compiled programs. It then creates children relative to an
+`O_DIRECTORY|O_NOFOLLOW` descriptor and fsyncs the marker and directory. Both
+snapshots are reverified before a final live system/monotonic authority guard
+inside the transport boundary; `Popen` follows without intervening blocking or
+fallible preparation. Each child starts in a new process group under a Linux
+subreaper. The supervisor observes leader exit without reaping it, holds that
+PID/PGID while it independently detects and stops descendants, reaps adopted
+children, and reaps the leader last. Pipe EOF is not completion evidence.
+Bounded TERM/KILL retains the primary error and consumes the global cleanup
+reserve; signals occur before leader reap, eliminating the PGID-reuse window.
+Receipt, failure, completion, and snapshot close require
+`leader_reaped=true` and `process_group_gone=true`. A typed fallback makes
+full-failure retention errors visible. There are no retries.
+Success, typed failure, receipts, and partial output bytes are retained; none
+has Stage 18 authority.
 
 ### 3. Privileged capability verification
 
 A separately named platform operator reviews the read-only inventory and
 creates the prospective authority/whitelist/readback/probe/restoration plan.
+Its future envelope must conform to the current
+[`stage17-authorization-v2.schema.json`](../config/schemas/stage17-authorization-v2.schema.json)
+and the semantic validator before owner review; schema conformance does not
+grant authority.
 There is no automatic privileged path in the bundle. Do not use `sudo`, write
 sysfs/MSRs, stop services, change boot state, or apply a control until the exact
 target/value/inverse and independent verification have been approved.
+
+ADR-0104 supersedes ADR-0050's distinct-identity requirement for Stage 17 pilot
+operations only. The declared principal `cpu-prefetch-stage17-pilot-owner` may
+act as owner, operator, controller, custodian, and auditor, and every review
+must state `distinct_auditor=false` and `independent_review_claimed=false`.
+This role collapse does not grant privilege: commands, targets, limits,
+readbacks, restoration, and storage paths still require exact evidence and
+authorization. The proposed primary qualification-output domain remains the
+candidate stand filesystem on `/dev/md3`; an actual independent secondary
+custody domain remains external evidence.
 
 ### 4. Safe restoration
 
@@ -72,14 +187,34 @@ steps in reverse order on failure, independently reread every restored value,
 and retain both success and failure artifacts. Quarantine the stand if
 restoration cannot be proved.
 
+For ADR-0049, the only accepted hardware-prefetch mapping is family 06 model
+55H, MSR 0x1A4, CPUs 0/1/26, H0 complete unmodified prestate, and H1
+`prestate|0x0f`. Preserve bits 63:4, independently read the complete value, run
+both regular and pointer-stream probes, restore the complete prestate in
+reverse order, and independently reread it. The repository currently has no
+production MSR adapter, so these steps cannot be run from the Q15-P0 measurement
+candidate. Q15-S1 adds a separate fixed-scope tool, but this runbook does not
+authorize its dynamic options. Those require a clean hash-bound tool bundle,
+exact signed Q15-R and later Q15-W records, and effective role separation.
+D-052 freezes `Q15-PROBE-COLLECTOR-CONTRACT-v1`; the bundle's contract and
+validator are documentation/self-test inputs only. There is not yet an
+authorized probe/collector command, and the runbook must not improvise one.
+
 ### 5. Calibration/pilot preparation
 
-Only after the readiness report's `BLOCKED_BEFORE_PILOT` items are closed and
-the exact Q15 qualification has passed may owners create an explicit
-dependency-ready calibration/pilot plan and request the applicable Q16 phase
-authorization. Bundle verification, inventory, Q14, and Q15 do not authorize
-calibration or pilot. Confirmatory namespaces and outcomes remain
-inaccessible.
+Only after the successor reaches `READY_FOR_STAGE17_PHASE_AUTHORIZATION` and
+all entries in `STAGE17-EXTERNAL-INPUT-CATALOG-v1` have verified semantic,
+append-only resolutions may the owner issue the
+exact phase-scoped pilot authorization. Bundle verification, inventory, or
+preflight acceptance does not authorize calibration or pilot. Confirmatory
+namespaces and outcomes remain inaccessible.
+
+`S17-EXT-006` is not resolved by the historical release metadata. Supply the
+real archive and sidecar to the explicit integration checker documented in
+[`STAGE17_OPERATIONAL_AUTHORIZATION.md`](STAGE17_OPERATIONAL_AUTHORIZATION.md).
+It checks exact bytes, safe extraction, manifest identity, internal bundle
+verification, and no-authority flags. Missing or nonidentical bytes keep the
+input external-required.
 
 ### 6. Artifact transfer to the development repository
 
@@ -105,6 +240,12 @@ kernel and firmware, CPU vendor/model/stepping/microcode, selected core pairs,
 NUMA/cache ancestry, measurement build and dependencies, approved platform
 operator, allowed targets/values, verification mechanisms, and rollback tests.
 Missing evidence remains missing; it is not replaced by a package default.
+
+D-047 fixes `X86-64-PREFETCHW-PREFETCHT0-v1`. Under a future exact Q15, each
+already-affined selected worker must independently retain its maximum extended
+CPUID leaf and `CPUID.80000001H:ECX`; bit 8 must be set before private-stream
+first touch. Inventory CPUID bytes support planning but do not replace this
+release-bound dynamic record. No fallback instruction is permitted.
 
 ## Privilege model
 
@@ -241,6 +382,15 @@ operations are stand-specific evidence still awaiting approval.
 
 ## 1. Roles and separation
 
+ADR-0104's single-owner collapse applies only through Stage 17 pilot
+operations. It is an explicitly accepted loss of independent operational
+review, not a claim that one identity is independent of itself. One owner
+authorization may cover one frozen set of read-only preflight observations;
+do not create one PKI ceremony per observation.
+
+The following role separation remains mandatory for Stage 18 confirmatory
+sealing and access. Pilot role collapse cannot satisfy it:
+
 Before stand access, record named identities and approved combinations for:
 
 - freeze authority;
@@ -260,6 +410,12 @@ The access design must keep validation outcomes technically inaccessible through
 ### Before any pilot
 
 Require all of the following as immutable, source-hashed evidence:
+
+- the operational successor has reached
+  `READY_FOR_STAGE17_PHASE_AUTHORIZATION`, every item in
+  `STAGE17-EXTERNAL-INPUT-CATALOG-v1` has a verified resolution, the latest
+  journal has one valid predecessor chain, and the exact phase authorization
+  binds those record and snapshot hashes;
 
 - accepted queue provenance/licenses/modes, atomic mapping, refinement/progress arguments;
 - supported platform inventory with eligible near/far topology;
@@ -287,7 +443,7 @@ Verify `Rtotal = max(max(R_H1,R_H2), Rtrain + Rval)` and `Nruns = 180*Rtotal` wi
 For each authorized session:
 
 1. Verify protocol/import, implementation revision, build artifact, dependencies, and accepted ADR/freeze hashes.
-2. Verify the machine identity matches the platform record, including CPU, stepping, microcode, topology, cache line, memory, kernel/OS, firmware/power, and SMT state.
+2. Verify the machine identity matches the platform record, including CPU, stepping, microcode, topology, cache line, memory, kernel/OS, firmware/power, SMT state, and the D-047 PRFCHW requirement on both selected workers.
 3. Verify authorized storage locations, free capacity, custody/access controls, append-only behavior, clock source, and rollback/recovery readiness.
 4. Verify role-specific namespaces and block plans have not been used, mutated, unsealed, or branched.
 5. Record the session admission decision. On mismatch, create a pre-run/platform/protocol failure record and do not launch workers.

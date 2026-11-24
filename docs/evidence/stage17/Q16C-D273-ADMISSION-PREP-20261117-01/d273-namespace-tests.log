@@ -1,0 +1,8 @@
+test_all792_seeds_and_all360_sources_are_included (test_stage17_q16c_namespace_audit_v1.NamespaceTests.test_all792_seeds_and_all360_sources_are_included) ... ok
+test_decimal_hex_escaped_embedded_and_jsonl_collisions_cannot_hide (test_stage17_q16c_namespace_audit_v1.NamespaceTests.test_decimal_hex_escaped_embedded_and_jsonl_collisions_cannot_hide) ... ok
+test_duplicates_and_old_prospective_exceptions_are_not_allowed (test_stage17_q16c_namespace_audit_v1.NamespaceTests.test_duplicates_and_old_prospective_exceptions_are_not_allowed) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.098s
+
+OK

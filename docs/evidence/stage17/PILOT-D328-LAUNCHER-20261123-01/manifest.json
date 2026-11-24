@@ -1,0 +1,135 @@
+{
+  "actual_scoped_admission": false,
+  "baseline_revision": "37a2841493b554eebfc08c40c9029e543748a473",
+  "evidence_files": {
+    "docs/evidence/stage17/PILOT-D328-LAUNCHER-20261123-01/COMMANDS.md": {
+      "sha256": "8c2e1325f8ceaf1703e089f60e7cc530156859ba6f7c6b295d5eed92a37843a6",
+      "size_bytes": 3676
+    },
+    "docs/evidence/stage17/PILOT-D328-LAUNCHER-20261123-01/REPORT.md": {
+      "sha256": "b727e6843c1f6d64389ad1b955b782123d233677bcb2ccf7de5c10ccd1605fbd",
+      "size_bytes": 2886
+    },
+    "docs/evidence/stage17/PILOT-D328-LAUNCHER-20261123-01/asan-build-final.txt": {
+      "sha256": "3f78c431cb2018cb67cb7a58578e605fc01e88b74e38a3c063e6557059aa1467",
+      "size_bytes": 390
+    },
+    "docs/evidence/stage17/PILOT-D328-LAUNCHER-20261123-01/asan-configure.txt": {
+      "sha256": "b9750c3c6401ea5e48ee59552439389125d235fbad8003b03186a0cde5a1a402",
+      "size_bytes": 182
+    },
+    "docs/evidence/stage17/PILOT-D328-LAUNCHER-20261123-01/asan-sealed-input-final.txt": {
+      "sha256": "cd915a8917c3d82c6015402ebe1e99d5eb2f71462b2af951d1b459f71bfaaaf5",
+      "size_bytes": 271
+    },
+    "docs/evidence/stage17/PILOT-D328-LAUNCHER-20261123-01/configure.txt": {
+      "sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e",
+      "size_bytes": 177
+    },
+    "docs/evidence/stage17/PILOT-D328-LAUNCHER-20261123-01/final-checks.json": {
+      "sha256": "055e8dda72c982f2028fc83feb53ffb5204041fa0e9cbafbb74c88d91d483e0b",
+      "size_bytes": 733
+    },
+    "docs/evidence/stage17/PILOT-D328-LAUNCHER-20261123-01/fixture-build-final.txt": {
+      "sha256": "641cf7e79bac490283bfe5d2856edd2f276ea3d675437864ec8cac30f63a6bc0",
+      "size_bytes": 385
+    },
+    "docs/evidence/stage17/PILOT-D328-LAUNCHER-20261123-01/fixture-static-analysis-final.txt": {
+      "sha256": "900a52ea5da7bcabc9e77f9cf6ede26e77f606e711534d2d64615a5f1fb97c45",
+      "size_bytes": 228
+    },
+    "docs/evidence/stage17/PILOT-D328-LAUNCHER-20261123-01/initial-archive-deadline-rejection.txt": {
+      "sha256": "073007fd7ec088da1bd6ded341a7a98aaba29b56cfb15db0771c1971c0761f42",
+      "size_bytes": 1143
+    },
+    "docs/evidence/stage17/PILOT-D328-LAUNCHER-20261123-01/initial-fixture-compile-error.txt": {
+      "sha256": "ae583679a8bca644fecaef702a831360ad8eb46e4307644532ddc5a857278ec2",
+      "size_bytes": 1766
+    },
+    "docs/evidence/stage17/PILOT-D328-LAUNCHER-20261123-01/initial-fixture-static-errors.txt": {
+      "sha256": "e0884f7a7bc9cd20b3acb34452c4f9f040154487e72d36f9365e864345c67210",
+      "size_bytes": 3906
+    },
+    "docs/evidence/stage17/PILOT-D328-LAUNCHER-20261123-01/initial-fixture-tests.txt": {
+      "sha256": "66f1ad966d7f3615471a892da9a7b3699aea9cd86baee94954deac8a20f90584",
+      "size_bytes": 3274
+    },
+    "docs/evidence/stage17/PILOT-D328-LAUNCHER-20261123-01/launcher-intermediate-15-cases.txt": {
+      "sha256": "a12b7c084629ffd511c751ffcf478ab75e1ca668fe623c3d4143f8e1adf82f00",
+      "size_bytes": 2502
+    },
+    "docs/evidence/stage17/PILOT-D328-LAUNCHER-20261123-01/log-normalization.json": {
+      "sha256": "f63bc21d4be4842e2837d2473b2a2d97fb7c91926b51df1c4599451c9967ba4c",
+      "size_bytes": 5142
+    },
+    "docs/evidence/stage17/PILOT-D328-LAUNCHER-20261123-01/pc-cleanup.json": {
+      "sha256": "7485acda483deb29880b198d49bd7bf9b22b64de2029d1bf413b595a6d64cdda",
+      "size_bytes": 214
+    },
+    "docs/evidence/stage17/PILOT-D328-LAUNCHER-20261123-01/python-debug-final-15-cases.txt": {
+      "sha256": "4c2c8c47d02f359fbdbde2fd5e02e90729fa7f3b59ec4e525a623144719a943a",
+      "size_bytes": 115
+    },
+    "docs/evidence/stage17/PILOT-D328-LAUNCHER-20261123-01/registered-final-106-cases.txt": {
+      "sha256": "de09a442120b1f6e0a723169f17c1d6508d1789a1acef80cc24b92426a8587db",
+      "size_bytes": 1465
+    },
+    "docs/evidence/stage17/PILOT-D328-LAUNCHER-20261123-01/registered-final-details.txt": {
+      "sha256": "9c5ea6b86aea50964c5dace604ab8ef32fbf858f8357c30a2f09665c7b72fe7b",
+      "size_bytes": 8944
+    },
+    "docs/evidence/stage17/PILOT-D328-LAUNCHER-20261123-01/repository-checks-final.txt": {
+      "sha256": "c92b7acfe6bff6e0100c68557ccc01e448c5483ba1d59de45e637cb6a0acb823",
+      "size_bytes": 6025
+    }
+  },
+  "execution_authority": false,
+  "implementation_files": {
+    "CMakeLists.txt": {
+      "sha256": "2717b46e93a76b588051b617c0931d741988ccbf0fe6ae053ef87884b2ab621d",
+      "size_bytes": 195003
+    },
+    "PLAN.md": {
+      "sha256": "9538237776db9cc003e26f143b795ca329643d528ac462d9f518928b62436eff",
+      "size_bytes": 118572
+    },
+    "README.md": {
+      "sha256": "56409bd29890a94f515aef464a19c2c83aba38a3b74aa70759615d950daebbe9",
+      "size_bytes": 126025
+    },
+    "STATUS.md": {
+      "sha256": "080ff20c3ad448a160ea8b0d5b1d7159f6df9db019a2e9fdb5605ada59721500",
+      "size_bytes": 144942
+    },
+    "docs/STAGE17_PILOT_PREPARATION.md": {
+      "sha256": "67d2338e40156c21ee81e5a7b95971742597d7831d3ed16cdec6713c33c97827",
+      "size_bytes": 16882
+    },
+    "docs/decisions/0328-s180-owned-native-dispatch-and-terminal-gates.md": {
+      "sha256": "52f62e902dae65200efbdc448567e112c42b1355cfede630f4d5723e3467d03c",
+      "size_bytes": 7560
+    },
+    "tests/stage17_s180_launcher_fixture.cpp": {
+      "sha256": "15a6338cfffbaf6bb30163c1bea4118f1c8d5abddb1598babeb7423c83ca451d",
+      "size_bytes": 8254
+    },
+    "tests/test_stage17_s180_archive_broker_v1.py": {
+      "sha256": "1adc47e2bf3862f986466e3c94e200e3658532a715e1d3d61eb5fded56e4c673",
+      "size_bytes": 21436
+    },
+    "tests/test_stage17_s180_launcher_v1.py": {
+      "sha256": "9fcc5762b3189d2ae0cc42889b399699240881992e5080e5da77b49272a5377b",
+      "size_bytes": 20958
+    },
+    "tools/stage17_s180_archive_custody_v1.py": {
+      "sha256": "94c4935b966f690a0656afd09e21a3edc827e269cb0a9b92215d0b28ebf1e671",
+      "size_bytes": 8994
+    },
+    "tools/stage17_s180_launcher_v1.py": {
+      "sha256": "dadba37efc17f13dd065bb64475e1b4b05a98319176d6184678f4b2d81d30290",
+      "size_bytes": 25682
+    }
+  },
+  "operational_window_started": false,
+  "phase18_authority": false
+}

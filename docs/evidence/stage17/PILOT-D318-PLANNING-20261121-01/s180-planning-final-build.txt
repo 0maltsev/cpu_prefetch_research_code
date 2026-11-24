@@ -1,0 +1,20 @@
+[1/20] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_s180_input.cpp.o
+[2/20] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_s180_worker.cpp.o
+[3/20] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_s180_session.cpp.o
+[4/20] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_s180_native_session.cpp.o
+[5/20] Building CXX object CMakeFiles/cpu_prefetch_runner_core.dir/src/runner/stage17_s180_channel_sink.cpp.o
+[6/20] Linking CXX static library libcpu_prefetch_runner_core.a
+[7/20] Building CXX object CMakeFiles/cpu_prefetch_runner.dir/tools/runner_main.cpp.o
+[8/20] Building CXX object CMakeFiles/cpu_prefetch_s180_io_tests.dir/tests/stage17_s180_session_test.cpp.o
+[9/20] Building CXX object CMakeFiles/cpu_prefetch_s180_io_tests.dir/tests/stage17_s180_channel_test.cpp.o
+[10/20] Building CXX object CMakeFiles/cpu_prefetch_s180_channel_fixture.dir/tests/stage17_s180_channel_fixture.cpp.o
+[11/20] Building CXX object CMakeFiles/cpu_prefetch_s180_io_tests.dir/tests/stage17_s180_input_test.cpp.o
+[12/20] Linking CXX executable cpu_prefetch_runner
+[13/20] Building CXX object CMakeFiles/cpu_prefetch_pilot_capture_tests.dir/tests/calibration_mapped_pilot_capture_test.cpp.o
+[14/20] Linking CXX executable cpu_prefetch_runner_tests
+[15/20] Linking CXX executable cpu_prefetch_s180_channel_fixture
+[16/20] Linking CXX executable cpu_prefetch_s180_io_tests
+[17/20] Linking CXX executable cpu_prefetch_archive_channel_tests
+[18/20] Linking CXX executable cpu_prefetch_schedule_source_tests
+[19/20] Linking CXX executable cpu_prefetch_pilot_capture_tests
+[20/20] Linking CXX executable cpu_prefetch_calibration_tests

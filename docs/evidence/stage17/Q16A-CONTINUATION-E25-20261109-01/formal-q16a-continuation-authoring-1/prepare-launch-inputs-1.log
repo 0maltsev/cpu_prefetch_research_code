@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import sys,runpy;sys.path[:0]=[sys.argv.pop(1),sys.argv.pop(1)];import stage17_operational_cli_v18 as cli;cli.activate();sys.argv=sys.argv[1:];runpy.run_path(sys.argv[0],run_name='__main__')
+                                                                                                                                                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 287, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d242-admin-1/prepare_launch_inputs.py", line 160, in <module>
+    main()
+    ~~~~^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/d242-admin-1/prepare_launch_inputs.py", line 112, in main
+    process = reader.document(process_binding)
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/admission-root/tools/stage17_q16a_continuation_admission_v1.py", line 121, in document
+    return _json(self.read(binding))
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/admission-root/tools/stage17_q16a_continuation_admission_v1.py", line 77, in _json
+    contract._no_floats(value)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/admission-root/tools/stage17_formal_ring_continuation_v1.py", line 54, in _no_floats
+    _no_floats(item)
+    ~~~~~~~~~~^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/admission-root/tools/stage17_formal_ring_continuation_v1.py", line 51, in _no_floats
+    _require(not isinstance(value, float), "floating-point input is forbidden")
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/admission-root/tools/stage17_formal_ring_continuation_v1.py", line 39, in _require
+    raise ContractError("continuation: " + message)
+stage17_discovery_contract_v2.ContractError: continuation: floating-point input is forbidden

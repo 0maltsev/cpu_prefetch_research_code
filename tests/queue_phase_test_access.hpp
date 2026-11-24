@@ -7,6 +7,15 @@
 namespace cpu_prefetch::queue::testing {
 
 struct QueuePhaseTestAccess final {
+  // Inject an otherwise unique/full recycler whose order violates its frozen
+  // cycle. This is a correctness-failure fixture, never an operational action.
+  static void swap_first_linked_recycler_nodes(LinkedSpscQueue& queue) noexcept {
+    auto* first = queue.recycler_slots_[0U].value.load(std::memory_order_relaxed);
+    auto* second = queue.recycler_slots_[1U].value.load(std::memory_order_relaxed);
+    queue.recycler_slots_[0U].value.store(second, std::memory_order_relaxed);
+    queue.recycler_slots_[1U].value.store(first, std::memory_order_relaxed);
+  }
+
   template <typename Observer>
   [[nodiscard]] static EnqueueResult
   ring_enqueue(RingSpscQueue& queue, EventPointer event, Observer& observer) noexcept {

@@ -1,0 +1,32 @@
+{
+  "removed": [
+    {
+      "path": "build/stage17-s180-analysis-input-prep/contract.log",
+      "sha256": "ad0bf80897c8f303cef1ec9fefd9ef18682c3af4eee76ad82a11ec89f7ac3ca0",
+      "size_bytes": 462
+    },
+    {
+      "path": "build/stage17-s180-analysis-input-prep/final-family-debug.log",
+      "sha256": "3ccde2bd2092875f7fb48fdcd76e8c89a161bd1800438dd50366ed5f2ba43abf",
+      "size_bytes": 111
+    },
+    {
+      "path": "build/stage17-s180-analysis-input-prep/initial-archive-debug.log",
+      "sha256": "6b359a4b61bbbb4ecdb09b934c5c7ea7e41d7670626b72377517f349c880f161",
+      "size_bytes": 111
+    },
+    {
+      "path": "build/stage17-s180-analysis-input-prep/initial-family-debug.log",
+      "sha256": "333264e86af4e3effdf651696e1feff68302eea3bda2bd0a28fd3d62072acc0f",
+      "size_bytes": 111
+    },
+    {
+      "path": "build/stage17-s180-analysis-input-prep/registered.log",
+      "sha256": "4a0edc835bbe8fb759c5c5619ed058a974d123f2cbc665e2672fc71f3c0c1d5d",
+      "size_bytes": 1684
+    }
+  ],
+  "removed_bytes": 2479,
+  "required_local_audit_preserved": true,
+  "research_raw_deleted": false
+}

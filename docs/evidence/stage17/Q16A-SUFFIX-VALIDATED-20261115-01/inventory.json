@@ -1,0 +1,39 @@
+{
+  "files": [
+    {
+      "path": "analysis-process-result.json",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-suffix-preparation-1/analysis/analysis-process-result.json",
+      "size_bytes": 402,
+      "sha256": "69c9ebc63ecd8b642b80d3b824f1106b9c765439df72c3d4774d568a0eabe8cd"
+    },
+    {
+      "path": "analysis-stderr.log",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-suffix-preparation-1/analysis/analysis-stderr.log",
+      "size_bytes": 1535,
+      "sha256": "f5c92e1121ffaa493a0365102e95b09d81d22347a4f4c138eb3ffd4b8283e025"
+    },
+    {
+      "path": "validated-suffix-manifest.json",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-suffix-preparation-1/analysis/validated-suffix-manifest.json",
+      "size_bytes": 185831,
+      "sha256": "7f540e5b54f83b0719995038920fb17598c5af9ed506c78f7a035638816ca9f8"
+    },
+    {
+      "path": "finalization-result.json",
+      "source_path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-25/offline-suffix-finalization-1/finalization-result.json",
+      "size_bytes": 2120,
+      "sha256": "2cdfb97565f3fbf03ba368e662acee92a0fc01c9a02441d430870f99469e6855"
+    }
+  ],
+  "observation": {
+    "utc": "2026-11-15T06:37:07.754036+00:00",
+    "reports": 531,
+    "all_manifest_report_hashes_match": true,
+    "all_raw_validation_flags_true": true,
+    "raw_redecode_performed": false,
+    "raw_mutation": false,
+    "raw_transferred": false,
+    "analysis_pid_absent": true,
+    "finalizer_pid_absent": true
+  }
+}

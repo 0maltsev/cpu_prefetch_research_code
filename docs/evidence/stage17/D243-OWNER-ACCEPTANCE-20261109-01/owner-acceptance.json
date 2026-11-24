@@ -1,0 +1,15 @@
+{
+  "additional_isolation_preparations": 1,
+  "approved": true,
+  "approved_proposal_sha256": "251d69945f01f6df95167dd679bd7274dc4fd9a935c6c8de1962b082c4ca9da2",
+  "decision_id": "D243",
+  "execution_scope": "D243 exact approved preparation and existing signed D240 family only",
+  "owner_check_wall_seconds": 600,
+  "owner_message": "confirm",
+  "phase18_authority": false,
+  "plan_sha256": "91c83558b5c5d891cabdd4d875da1292120df5940397298063d55c901a8866c2",
+  "record_time_is_message_time": false,
+  "recorded_at_utc": "2026-11-09T10:20:28.291593+00:00",
+  "repeat_qualification": false,
+  "schema_version": "owner-conversation-acceptance/1"
+}

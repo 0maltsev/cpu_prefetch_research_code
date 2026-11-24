@@ -23,11 +23,45 @@ struct LinkedQuiescentAudit final {
   bool positions_in_range;
 };
 
+struct LinkedStorageRequirements final {
+  std::size_t node_bytes;
+  std::size_t recycler_bytes;
+  std::size_t ownership_bytes;
+  std::size_t node_stride_bytes;
+  std::size_t order_count;
+  std::size_t validation_bytes;
+};
+
+struct LinkedStorageView final {
+  std::span<std::byte> nodes;
+  std::span<std::byte> recycler;
+  std::span<std::byte> ownership;
+  std::span<std::size_t> initial_order;
+  std::span<std::byte> permutation_scratch;
+};
+
 class LinkedSpscQueue final {
 public:
+  // Pure checked geometry; no allocation, platform query or requested-state proof.
+  [[nodiscard]] static auto
+  storage_requirements(QueueCapacity capacity, CacheLineBytes cache_line_bytes,
+                       ArenaAlignmentBytes arena_alignment_bytes)
+      -> LinkedStorageRequirements;
   LinkedSpscQueue(QueueCapacity capacity, CacheLineBytes cache_line_bytes,
                   ArenaAlignmentBytes arena_alignment_bytes,
                   std::span<const std::size_t> node_order);
+  // Exact caller-owned extents, mutually disjoint and disjoint from this object
+  // and input node_order. Nodes use arena alignment; recycler/ownership use line
+  // alignment; initial_order uses size_t alignment. The constructor validates
+  // permutation with caller scratch, then freezes a copy in initial_order.
+  // Successful construction/reset/destruction allocate and free nothing.
+  // All but permutation_scratch and input node_order must outlive the queue;
+  // caller must not modify initial_order while the queue is alive. Scratch and
+  // input may be reused after construction. Invalid input throws QueueSetupError.
+  // This storage boundary does not establish affinity, page policy or residency.
+  LinkedSpscQueue(QueueCapacity capacity, CacheLineBytes cache_line_bytes,
+                  ArenaAlignmentBytes arena_alignment_bytes,
+                  std::span<const std::size_t> node_order, LinkedStorageView storage);
   ~LinkedSpscQueue();
 
   LinkedSpscQueue(const LinkedSpscQueue&) = delete;
@@ -108,14 +142,19 @@ public:
     return node_arena_alignment_bytes_;
   }
   [[nodiscard]] const void* node_arena_base() const noexcept {
-    return node_storage_.data();
+    return node_bytes_.data();
   }
   [[nodiscard]] AtomicLockFreeEvidence atomic_lock_free_evidence() const noexcept;
   [[nodiscard]] LayoutEvidence layout_evidence() const noexcept;
   [[nodiscard]] LinkedQuiescentAudit audit_quiescent() const;
+  // Controller-only warm-up reset.  The original permutation is restored in
+  // place after a complete drain; no allocation or remapping occurs.
+  [[nodiscard]] bool reset_quiescent() noexcept;
 
 private:
   friend struct testing::QueuePhaseTestAccess;
+  void initialize_storage(std::span<const std::size_t> node_order,
+                          LinkedStorageView storage);
 
   template <typename Observer>
   [[nodiscard]] EnqueueResult try_enqueue_observed(EventPointer event,
@@ -250,6 +289,9 @@ private:
   ConsumerState* consumer_{nullptr};
   RecyclerPosition* recycler_producer_{nullptr};
   RecyclerPosition* recycler_consumer_{nullptr};
+  std::vector<std::size_t> owned_initial_node_order_;
+  std::span<const std::size_t> initial_node_order_;
+  std::span<std::byte> node_bytes_;
 };
 
 } // namespace cpu_prefetch::queue

@@ -1,0 +1,77 @@
+{
+  "status": "RESOURCE_ADMITTED_ANALYSIS_STARTED_RESULT_PENDING",
+  "files": [
+    {
+      "path": "run_parallel_analysis.py",
+      "size_bytes": 19222,
+      "sha256": "a3ed284f7f99e939849537d06159085a72056f85bcfa5b421c7f9bf8ddaa610d"
+    },
+    {
+      "path": "test_parallel_launcher.py",
+      "size_bytes": 17629,
+      "sha256": "0456d4b2ce0384e1d5456138d4aa6522f2b1db447b4c600a31a02df3cbf5e237"
+    },
+    {
+      "path": "prepare_install.py",
+      "size_bytes": 7567,
+      "sha256": "a8ba019321a714ce95aee2dbab5bd0a51db968326eb32334393660a35caa2fa6"
+    },
+    {
+      "path": "prepare_wrapper.py",
+      "size_bytes": 3275,
+      "sha256": "812a714331fa06a22dfce533a8508f2c27b92ae996720b01dcd425fb10e2fec3"
+    },
+    {
+      "path": "validate_d207_retained_study_parallel_v1.py",
+      "size_bytes": 20371,
+      "sha256": "23c8cd9caea370e5bccb848cd77fdb19347838a9058e9268a9f6e8a6d55edb2c"
+    },
+    {
+      "path": "test_wrapper_parallel.py",
+      "size_bytes": 2811,
+      "sha256": "3bf1b442553c5e8e5e69cb1e58337702619b45e57f82daca68468983f5f6b28e"
+    },
+    {
+      "path": "launcher-tests.log",
+      "size_bytes": 2317,
+      "sha256": "8baa397c942061428d322e34f74512eda9ad6df1173db21dfab6d4cf2bce8f9b"
+    },
+    {
+      "path": "wrapper-tests.log",
+      "size_bytes": 1755,
+      "sha256": "449c5481d4c44c136bd06ffd1ea101dd13e8d0c963fe7b77bce086f2debaa414"
+    },
+    {
+      "path": "installed-bindings.json",
+      "size_bytes": 4825,
+      "sha256": "8420ec6e7d0ee5cb1469408aaee6c53400e3cf2d1e4934be62ab15b8ffad181f"
+    },
+    {
+      "path": "preparation-summary.json",
+      "size_bytes": 1625,
+      "sha256": "9a6b89e6a6d4c33880575d6df096a883a80e058b28870945c39ea07af2e9577f"
+    },
+    {
+      "path": "stand-launch-receipt.json",
+      "size_bytes": 597,
+      "sha256": "d3260ed3167576dc1606f94a26862ae435775b2d11bc5ffa4ed98442637939e5"
+    },
+    {
+      "path": "stand-start-check.txt",
+      "size_bytes": 6076,
+      "sha256": "2c97455c843c014aae977da640c5cd46b01f18c6933a2f534896062ae7eeb97d"
+    },
+    {
+      "path": "rejected-stand-launch-receipt.json",
+      "size_bytes": 597,
+      "sha256": "7c3bea32d545659f4c3e907af9db3939725fcb5813feaee6324f9f2968816578"
+    },
+    {
+      "path": "rejected-stand-supervisor-console.log",
+      "size_bytes": 73,
+      "sha256": "3485a56060fffc875924bab0c8c1e3909b0921f6e600a395dd32390c9b55dced"
+    }
+  ],
+  "raw_data_copied": false,
+  "experiment_authority": false
+}

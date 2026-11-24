@@ -1,0 +1,14 @@
+{
+  "capsule_files_unchanged_after_tests": true,
+  "scientific_raw_deleted": false,
+  "verified_pc_transfer_removed": {
+    "path": "build/stage17-supervisor-esrch-fix/capsule.tar",
+    "sha256": "ab6d3f2214d158d7f68d792e8a9dc9b29cd87d24b2d45a994a3b7d921b29b17c",
+    "size_bytes": 276480
+  },
+  "verified_stand_transfer_removed": {
+    "path": "/tmp/cpu-prefetch-d258-supervision-1.tar",
+    "sha256": "ab6d3f2214d158d7f68d792e8a9dc9b29cd87d24b2d45a994a3b7d921b29b17c",
+    "size_bytes": 276480
+  }
+}

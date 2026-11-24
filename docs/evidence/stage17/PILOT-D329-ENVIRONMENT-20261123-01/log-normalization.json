@@ -1,0 +1,128 @@
+[
+  {
+    "path": "configure.txt",
+    "source": "build/stage17-s180-operator-prep/configure.txt",
+    "original_sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e",
+    "original_size_bytes": 177,
+    "normalized_sha256": "1a671857bb46d06e53e1defa9cba76eab4c5cdda856a9347e57c31648d1cf87e"
+  },
+  {
+    "path": "stand-operator-readonly.json",
+    "source": "build/stage17-s180-operator-prep/stand-operator-readonly.json",
+    "original_sha256": "2661ab0fad1982d1b76844515c4ef5b294ad6baa9f0e2ce450f2f4838111eceb",
+    "original_size_bytes": 1806,
+    "normalized_sha256": "2661ab0fad1982d1b76844515c4ef5b294ad6baa9f0e2ce450f2f4838111eceb"
+  },
+  {
+    "path": "describe-managed-packet.py",
+    "source": "build/stage17-s180-operator-prep/describe-managed-packet.py",
+    "original_sha256": "341dad6456372acd00588030322b264e2408bab94b926a841c006cf27b35d6a2",
+    "original_size_bytes": 2817,
+    "normalized_sha256": "341dad6456372acd00588030322b264e2408bab94b926a841c006cf27b35d6a2"
+  },
+  {
+    "path": "managed-packet-build.txt",
+    "source": "build/stage17-s180-operator-prep/managed-packet-build.txt",
+    "original_sha256": "7e064e8f5e0c80a28ddb4dcf4ff556d289946cddb8ceb45e21605c8c3d45875a",
+    "original_size_bytes": 770,
+    "normalized_sha256": "7e064e8f5e0c80a28ddb4dcf4ff556d289946cddb8ceb45e21605c8c3d45875a"
+  },
+  {
+    "path": "managed-packet-summary.json",
+    "source": "build/stage17-s180-operator-prep/managed-packet-summary.json",
+    "original_sha256": "598d32a33d41b4cd0ad897f5a0d8b2e5fec47ac78bfdcac73b26114b46860213",
+    "original_size_bytes": 744,
+    "normalized_sha256": "598d32a33d41b4cd0ad897f5a0d8b2e5fec47ac78bfdcac73b26114b46860213"
+  },
+  {
+    "path": "managed-sizing-v2.json",
+    "source": "build/stage17-s180-operator-prep/managed-sizing-v2.json",
+    "original_sha256": "0269ca1d6fd598d41d3bfce0d7139f7852591a8affe5deb1203789fea7e35448",
+    "original_size_bytes": 3071698,
+    "normalized_sha256": "0269ca1d6fd598d41d3bfce0d7139f7852591a8affe5deb1203789fea7e35448"
+  },
+  {
+    "path": "managed-native-description-v2.json",
+    "source": "build/stage17-s180-operator-prep/managed-native-description-v2.json",
+    "original_sha256": "61bd81a06966676ac4d322a4f39b04fa0987ba89cc8755bc8a999cce8c9edfbd",
+    "original_size_bytes": 131888,
+    "normalized_sha256": "61bd81a06966676ac4d322a4f39b04fa0987ba89cc8755bc8a999cce8c9edfbd"
+  },
+  {
+    "path": "managed-resource-envelope-v2.json",
+    "source": "build/stage17-s180-operator-prep/managed-resource-envelope-v2.json",
+    "original_sha256": "ad12c97ad81b3eb4526aa10eca33409d2a18f773ecc7c012c2c9f8b40879618d",
+    "original_size_bytes": 92256,
+    "normalized_sha256": "ad12c97ad81b3eb4526aa10eca33409d2a18f773ecc7c012c2c9f8b40879618d"
+  },
+  {
+    "path": "managed-process-envelope-v2.json",
+    "source": "build/stage17-s180-operator-prep/managed-process-envelope-v2.json",
+    "original_sha256": "8a354beb3835481093f150aa2b6a05089add1161cf46469fd962404f7d510d89",
+    "original_size_bytes": 1317,
+    "normalized_sha256": "8a354beb3835481093f150aa2b6a05089add1161cf46469fd962404f7d510d89"
+  },
+  {
+    "path": "managed-time-envelope-v2.json",
+    "source": "build/stage17-s180-operator-prep/managed-time-envelope-v2.json",
+    "original_sha256": "5d7bb367536f51aaae88fb9d4a32afe52071b9303920b12632f8ee77b061a346",
+    "original_size_bytes": 575,
+    "normalized_sha256": "5d7bb367536f51aaae88fb9d4a32afe52071b9303920b12632f8ee77b061a346"
+  },
+  {
+    "path": "launcher-placement-tests.txt",
+    "source": "build/stage17-s180-operator-prep/launcher-placement-tests.txt",
+    "original_sha256": "5b4244ed8cc2463431607d79ae41f29fb4a2acb54bfd76882f231f24f47fb51b",
+    "original_size_bytes": 3120,
+    "normalized_sha256": "5b4244ed8cc2463431607d79ae41f29fb4a2acb54bfd76882f231f24f47fb51b"
+  },
+  {
+    "path": "placement-diagnostic.txt",
+    "source": "build/stage17-s180-operator-prep/placement-diagnostic.txt",
+    "original_sha256": "ee80ee12aa4bf71854af555f48a90eee12416a6ed3da5a0b7a35cbadcf3bf263",
+    "original_size_bytes": 2788,
+    "normalized_sha256": "ee80ee12aa4bf71854af555f48a90eee12416a6ed3da5a0b7a35cbadcf3bf263"
+  },
+  {
+    "path": "launcher-placement-tests-final.txt",
+    "source": "build/stage17-s180-operator-prep/launcher-placement-tests-final.txt",
+    "original_sha256": "f3106693d3aebb20a3848d85726e35c8e7703b1c7a08a8e2af882ce09a1a8d90",
+    "original_size_bytes": 3042,
+    "normalized_sha256": "f3106693d3aebb20a3848d85726e35c8e7703b1c7a08a8e2af882ce09a1a8d90"
+  },
+  {
+    "path": "environment-debug-final.txt",
+    "source": "build/stage17-s180-operator-prep/environment-debug-final.txt",
+    "original_sha256": "41cfa7f2952df3df3e41c2522dd1f37493a1414e54fc903d94fbcfbebde46431",
+    "original_size_bytes": 2677,
+    "normalized_sha256": "41cfa7f2952df3df3e41c2522dd1f37493a1414e54fc903d94fbcfbebde46431"
+  },
+  {
+    "path": "launcher-debug-tests.txt",
+    "source": "build/stage17-s180-operator-prep/launcher-debug-tests.txt",
+    "original_sha256": "911c0d9f6608cbed5143dd8949a8e050781582a3cde59918c96b853cda23d394",
+    "original_size_bytes": 118,
+    "normalized_sha256": "911c0d9f6608cbed5143dd8949a8e050781582a3cde59918c96b853cda23d394"
+  },
+  {
+    "path": "registered-final.txt",
+    "source": "build/stage17-s180-operator-prep/registered-final.txt",
+    "original_sha256": "b7140d028f0d1aee598e1985e29de67026693f1c1f092c6cea615d7acaddc089",
+    "original_size_bytes": 1627,
+    "normalized_sha256": "b7140d028f0d1aee598e1985e29de67026693f1c1f092c6cea615d7acaddc089"
+  },
+  {
+    "path": "repository-checks.txt",
+    "source": "build/stage17-s180-operator-prep/repository-checks.txt",
+    "original_sha256": "ad71f070c21a3c519ad49f967177bc6b1a504fbdf717a0f6c9338b747a70f32f",
+    "original_size_bytes": 6025,
+    "normalized_sha256": "ad71f070c21a3c519ad49f967177bc6b1a504fbdf717a0f6c9338b747a70f32f"
+  },
+  {
+    "path": "registered-final-details.txt",
+    "source": "build/stage17-s180-native/dev-gcc16/Testing/Temporary/LastTest.log",
+    "original_sha256": "fd6f45e91f09083d5d42eb6581abf1e60fb7e09a41bf5ddc5e04baefe74ca7ac",
+    "original_size_bytes": 9781,
+    "normalized_sha256": "ad4d89a5f2ddd86c492281b55445b65951864c41939b794f97c2a0a253e3ed50"
+  }
+]

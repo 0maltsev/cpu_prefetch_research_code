@@ -1,0 +1,23 @@
+{
+  "analysis_reserve_ns": 13500000000000,
+  "automatic_retries": 0,
+  "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+  "cleanup_reserve_ns": 1800000000000,
+  "deadline_monotonic_ns": 1345017879790668,
+  "formal_execution_authority": false,
+  "last_safe_collection_start_ns": 1273857879790668,
+  "owner_proposal_sha256": "ae6f7d141c0a439f0aa96a963166a63909a1441c5295bdd16be03d32a51114f1",
+  "phase18_authority": false,
+  "prefix": {
+    "path": "/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv5-26/d260-prefix-custody-complete-1/complete.json",
+    "sha256": "24a2926078396c2efe43eac6ac06887ca7e54d562a587a9bced2f62c355cd202",
+    "size_bytes": 16540
+  },
+  "qualification_deadline_monotonic_ns": 1265817879790668,
+  "qualification_packet_sha256": "7eaa83f6bf303b15f43834a7c236aed1378cd8b361c299b3da6c43f6a8f37e90",
+  "schema_version": "cpu-prefetch-stage17-d260-continuation-window/1",
+  "source_revision": "07a93fb4cfbf423ab4ed29912d3aa3ce4aaebbe8",
+  "started_at_utc": "2026-11-16T09:41:23.582962+00:00",
+  "started_monotonic_ns": 1258617879790668,
+  "suffix_watchdog_ns": 55860000000000
+}

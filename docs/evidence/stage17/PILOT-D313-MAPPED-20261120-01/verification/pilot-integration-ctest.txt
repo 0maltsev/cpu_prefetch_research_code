@@ -1,0 +1,132 @@
+Test project /home/omaltsev/research/cpu_prefetch_research_code/build/stage17-s180-native/dev-gcc16
+      Start  25: ServiceSession.AllFiveActualPackagesPersistAcrossWarmupResetAndMeasurement
+      Start 269: calibration.pilot.MappedPilotCapture.AllFivePackagesRetainTheSameDataAcrossTenCaptures
+ 1/61 Test #269: calibration.pilot.MappedPilotCapture.AllFivePackagesRetainTheSameDataAcrossTenCaptures ......................   Passed    0.09 sec
+      Start  28: ServiceSession.ValidationAndEveryResetFailurePreventMeasurement
+ 2/61 Test  #25: ServiceSession.AllFiveActualPackagesPersistAcrossWarmupResetAndMeasurement ..................................   Passed    0.12 sec
+      Start  29: ServiceSession.ObservationFailuresCancelBeforeNextPhase
+ 3/61 Test  #28: ServiceSession.ValidationAndEveryResetFailurePreventMeasurement .............................................   Passed    0.07 sec
+      Start 234: MappedFormalScheduled.AllFivePackagesExecuteOnlyMappedSchedulesAndDrain
+ 4/61 Test  #29: ServiceSession.ObservationFailuresCancelBeforeNextPhase .....................................................   Passed    0.06 sec
+      Start  33: ServiceSession.AttemptAndPollLimitsFailWithoutExtendingWarmup
+ 5/61 Test #234: MappedFormalScheduled.AllFivePackagesExecuteOnlyMappedSchedulesAndDrain .....................................   Passed    0.04 sec
+      Start  27: ServiceSession.PreparationFailureOrExceptionNeverStartsWarmup
+ 6/61 Test  #33: ServiceSession.AttemptAndPollLimitsFailWithoutExtendingWarmup ...............................................   Passed    0.04 sec
+      Start  32: ServiceSession.ClockFailureAndOverflowCannotReleaseWarmup
+ 7/61 Test  #27: ServiceSession.PreparationFailureOrExceptionNeverStartsWarmup ...............................................   Passed    0.03 sec
+      Start  26: ServiceSession.NoHotOrLogicalResetAllocation
+ 8/61 Test  #32: ServiceSession.ClockFailureAndOverflowCannotReleaseWarmup ...................................................   Passed    0.04 sec
+      Start 272: calibration.pilot.NativePilotCapture.LayoutIncludesBothPersistentMappingsAndRejectsMissingCoverage
+ 9/61 Test  #26: ServiceSession.NoHotOrLogicalResetAllocation ................................................................   Passed    0.03 sec
+      Start 273: calibration.pilot.NativePilotCapture.ModelMappingAndOwnerDriftRejectBeforeNativeAccess
+10/61 Test #272: calibration.pilot.NativePilotCapture.LayoutIncludesBothPersistentMappingsAndRejectsMissingCoverage ..........   Passed    0.02 sec
+      Start 270: calibration.pilot.MappedPilotCapture.FailedMeasurementRetainsOriginalWarmupAndSharedData
+11/61 Test #270: calibration.pilot.MappedPilotCapture.FailedMeasurementRetainsOriginalWarmupAndSharedData ....................   Passed    0.02 sec
+      Start  30: ServiceSession.SecondThreadStartFailureJoinsFirstWithoutCapture
+12/61 Test #273: calibration.pilot.NativePilotCapture.ModelMappingAndOwnerDriftRejectBeforeNativeAccess ......................   Passed    0.02 sec
+      Start 120: FormalServiceSession.AllFivePackagesUsePersistentOwnersJoinAndD211Count
+13/61 Test  #30: ServiceSession.SecondThreadStartFailureJoinsFirstWithoutCapture .............................................   Passed    0.01 sec
+      Start 121: FormalServiceSession.ExistingPrefetchPrimitivesAndPrimaryRowsAreUnchanged
+14/61 Test #120: FormalServiceSession.AllFivePackagesUsePersistentOwnersJoinAndD211Count .....................................   Passed    0.02 sec
+      Start 122: FormalServiceSession.ColdIntervalUsesActionCompletionAndKeepsZeroThroughputValid
+15/61 Test #122: FormalServiceSession.ColdIntervalUsesActionCompletionAndKeepsZeroThroughputValid ............................   Passed    0.01 sec
+      Start 224: NativeFormalRing.MappedOwnersKeepRawStreamsAndJoinBeforeRelease
+16/61 Test #121: FormalServiceSession.ExistingPrefetchPrimitivesAndPrimaryRowsAreUnchanged ...................................   Passed    0.02 sec
+      Start 123: FormalServiceSession.ProducerClockFailureRetainsExactCurrentWithoutGuessingOutcome
+17/61 Test #224: NativeFormalRing.MappedOwnersKeepRawStreamsAndJoinBeforeRelease .............................................   Passed    0.01 sec
+      Start 252: calibration.pilot.PilotScheduledCapture.AllFiveTreatmentsRetainBothPhasesInTheSameContext
+18/61 Test #123: FormalServiceSession.ProducerClockFailureRetainsExactCurrentWithoutGuessingOutcome ..........................   Passed    0.01 sec
+      Start 128: FormalServiceSession.FailedJoinAndMalformedOriginNeverProduceIntervalCount
+19/61 Test #128: FormalServiceSession.FailedJoinAndMalformedOriginNeverProduceIntervalCount ..................................   Passed    0.01 sec
+      Start 264: calibration.pilot.MappedPilotData.RetainsOneMappedArenaAndBothQueuesAcrossPairedResets
+20/61 Test #252: calibration.pilot.PilotScheduledCapture.AllFiveTreatmentsRetainBothPhasesInTheSameContext ...................   Passed    0.01 sec
+      Start 225: NativeFormalRing.OwnerPreparationFailureRetainsRejectedSessionAndCleanup
+21/61 Test #264: calibration.pilot.MappedPilotData.RetainsOneMappedArenaAndBothQueuesAcrossPairedResets ......................   Passed    0.01 sec
+      Start 257: calibration.pilot.PilotScheduledCapture.NoAllocationOrReleaseFromPreparedOwnersThroughResetAndMeasurement
+22/61 Test #225: NativeFormalRing.OwnerPreparationFailureRetainsRejectedSessionAndCleanup ....................................   Passed    0.01 sec
+      Start 126: FormalServiceSession.FailedWarmupResetPreventsMeasurementAndKeepsWarmupBytes
+23/61 Test #126: FormalServiceSession.FailedWarmupResetPreventsMeasurementAndKeepsWarmupBytes ................................   Passed    0.01 sec
+      Start 124: FormalServiceSession.ExistingConsumerClockFailureBeforeChecksumIsPreserved
+24/61 Test #257: calibration.pilot.PilotScheduledCapture.NoAllocationOrReleaseFromPreparedOwnersThroughResetAndMeasurement ...   Passed    0.01 sec
+      Start 127: FormalServiceSession.FailedObservationPreventsColdIntervalClaim
+25/61 Test #124: FormalServiceSession.ExistingConsumerClockFailureBeforeChecksumIsPreserved ..................................   Passed    0.01 sec
+      Start 130: ScheduledSession.AllFivePackagesPreserveOneAttemptLateDrainAndNoD211Filter
+26/61 Test #127: FormalServiceSession.FailedObservationPreventsColdIntervalClaim .............................................   Passed    0.01 sec
+      Start 267: calibration.pilot.MappedPilotData.NodeOrderUsesTheExistingGeneratorWithNoRegenerationDuringReset
+27/61 Test #130: ScheduledSession.AllFivePackagesPreserveOneAttemptLateDrainAndNoD211Filter ..................................   Passed    0.01 sec
+      Start 271: calibration.pilot.MappedPilotCapture.ChangedSeedLayoutOrReleasedDataRejectCold
+28/61 Test #267: calibration.pilot.MappedPilotData.NodeOrderUsesTheExistingGeneratorWithNoRegenerationDuringReset ............   Passed    0.01 sec
+      Start  36: ServiceSession.TerminalEmptyPollCannotPassAfterDeadlineOrClockFailure
+29/61 Test  #36: ServiceSession.TerminalEmptyPollCannotPassAfterDeadlineOrClockFailure .......................................   Passed    0.01 sec
+      Start 133: ScheduledSession.ColdMappedSourceMismatchStopsBeforeAnyPhaseRelease
+30/61 Test #271: calibration.pilot.MappedPilotCapture.ChangedSeedLayoutOrReleasedDataRejectCold ..............................   Passed    0.01 sec
+      Start 262: calibration.pilot.PilotSharedData.ExactlySixPlacementWorkingSetContextsWithNoLoadOrTreatmentKey
+31/61 Test #262: calibration.pilot.PilotSharedData.ExactlySixPlacementWorkingSetContextsWithNoLoadOrTreatmentKey .............   Passed    0.01 sec
+      Start 265: calibration.pilot.MappedPilotData.OwnershipOrReadOnlyFailureCannotExposeAReadyContext
+32/61 Test #133: ScheduledSession.ColdMappedSourceMismatchStopsBeforeAnyPhaseRelease .........................................   Passed    0.01 sec
+      Start 258: calibration.pilot.PilotScheduledCapture.BadPreparedSourceReleasesNeitherPhaseAndRetainsIncompleteEvidence
+33/61 Test #258: calibration.pilot.PilotScheduledCapture.BadPreparedSourceReleasesNeitherPhaseAndRetainsIncompleteEvidence ...   Passed    0.01 sec
+      Start 259: calibration.pilot.PilotScheduledCapture.UsedSessionStorageRejectsAnotherCaptureWithoutOverwritingWarmup
+34/61 Test #265: calibration.pilot.MappedPilotData.OwnershipOrReadOnlyFailureCannotExposeAReadyContext .......................   Passed    0.01 sec
+      Start 254: calibration.pilot.PilotScheduledCapture.RejectedOwnerResetKeepsWarmupAndDoesNotReleaseMeasurement
+35/61 Test #259: calibration.pilot.PilotScheduledCapture.UsedSessionStorageRejectsAnotherCaptureWithoutOverwritingWarmup .....   Passed    0.01 sec
+      Start 135: ScheduledSession.ResetFailureAndStorageReuseNeverStartAnotherMeasurement
+36/61 Test #254: calibration.pilot.PilotScheduledCapture.RejectedOwnerResetKeepsWarmupAndDoesNotReleaseMeasurement ...........   Passed    0.01 sec
+      Start 132: ScheduledSession.SparseOrEmptyWarmupCannotWaiveMandatoryDuringObservation
+37/61 Test #135: ScheduledSession.ResetFailureAndStorageReuseNeverStartAnotherMeasurement ....................................   Passed    0.01 sec
+      Start 131: ScheduledSession.EmptyMeasurementRejectedBeforePreparingOrStartingWorkers
+38/61 Test #132: ScheduledSession.SparseOrEmptyWarmupCannotWaiveMandatoryDuringObservation ...................................   Passed    0.01 sec
+      Start 253: calibration.pilot.PilotScheduledCapture.MeasurementObservationFailureKeepsCompletedWarmupBytes
+39/61 Test #131: ScheduledSession.EmptyMeasurementRejectedBeforePreparingOrStartingWorkers ...................................   Passed    0.01 sec
+      Start 227: NativeFormalRing.InvalidBoundsRejectBeforeHardwareOrPublication
+40/61 Test #253: calibration.pilot.PilotScheduledCapture.MeasurementObservationFailureKeepsCompletedWarmupBytes ..............   Passed    0.01 sec
+      Start  37: ServiceSession.MeasurementOriginCannotRegressBehindCompletedWarmupDrain
+41/61 Test #227: NativeFormalRing.InvalidBoundsRejectBeforeHardwareOrPublication .............................................   Passed    0.00 sec
+      Start 260: calibration.pilot.PilotScheduledCapture.R2RequiresDistanceForThisSharedGeometry
+42/61 Test  #37: ServiceSession.MeasurementOriginCannotRegressBehindCompletedWarmupDrain .....................................   Passed    0.01 sec
+      Start 256: calibration.pilot.PilotScheduledCapture.AliasedWarmupAndMeasurementStorageIsRejectedBeforeWorkers
+43/61 Test #260: calibration.pilot.PilotScheduledCapture.R2RequiresDistanceForThisSharedGeometry .............................   Passed    0.01 sec
+      Start 226: NativeFormalRing.ExactLayoutChargesIndependentRawCapacitiesAndBorrowedControls
+44/61 Test #256: calibration.pilot.PilotScheduledCapture.AliasedWarmupAndMeasurementStorageIsRejectedBeforeWorkers ...........   Passed    0.01 sec
+      Start 261: calibration.pilot.PilotScheduledCapture.UndrainedPriorDataBlocksWarmupWithoutDiscardingTheEvent
+45/61 Test #226: NativeFormalRing.ExactLayoutChargesIndependentRawCapacitiesAndBorrowedControls ..............................   Passed    0.00 sec
+      Start  35: ServiceSession.DrainTimeoutRetainsIncompleteWarmupAndPreventsMeasurement
+46/61 Test #261: calibration.pilot.PilotScheduledCapture.UndrainedPriorDataBlocksWarmupWithoutDiscardingTheEvent .............   Passed    0.01 sec
+      Start 129: FormalServiceSession.RejectsDirtyPhaseStateAndBoundsBeforeCapture
+47/61 Test  #35: ServiceSession.DrainTimeoutRetainsIncompleteWarmupAndPreventsMeasurement ....................................   Passed    0.01 sec
+      Start 255: calibration.pilot.PilotScheduledCapture.FullOutcomesRemainReconciledInBothRetainedPhases
+48/61 Test #129: FormalServiceSession.RejectsDirtyPhaseStateAndBoundsBeforeCapture ...........................................   Passed    0.01 sec
+      Start  31: ServiceSession.InvalidBoundsAndOneShotStorageCannotLaunchWorkers
+49/61 Test #255: calibration.pilot.PilotScheduledCapture.FullOutcomesRemainReconciledInBothRetainedPhases ....................   Passed    0.01 sec
+50/61 Test  #31: ServiceSession.InvalidBoundsAndOneShotStorageCannotLaunchWorkers ............................................   Passed    0.01 sec
+      Start 125: FormalServiceSession.AppendFailurePreservesIndependentCurrentAndPrimaryPrefix
+      Start 263: calibration.pilot.PilotSharedData.RegistryRejectsPartiallyOverlappingArenasAtDifferentBases
+51/61 Test #125: FormalServiceSession.AppendFailurePreservesIndependentCurrentAndPrimaryPrefix ...............................   Passed    0.01 sec
+52/61 Test #263: calibration.pilot.PilotSharedData.RegistryRejectsPartiallyOverlappingArenasAtDifferentBases .................   Passed    0.01 sec
+      Start  34: ServiceSession.FinalEnqueueRacingEarlierEmptyPollIsConsumedDuringDrain
+      Start 134: ScheduledSession.PlanIdentityBootstrapAndResourceBoundsAreExplicit
+53/61 Test #134: ScheduledSession.PlanIdentityBootstrapAndResourceBoundsAreExplicit ..........................................   Passed    0.00 sec
+      Start  24: ServiceSession.BorrowedTerminationConstructionDoesNotAllocate
+54/61 Test  #34: ServiceSession.FinalEnqueueRacingEarlierEmptyPollIsConsumedDuringDrain ......................................   Passed    0.01 sec
+      Start 235: MappedFormalScheduled.OverflowingSourceExtentRejectsBeforeReading
+55/61 Test  #24: ServiceSession.BorrowedTerminationConstructionDoesNotAllocate ...............................................   Passed    0.00 sec
+      Start 136: ScheduledSession.CheckedSourceTranslationPreservesHalfOpenDeadlineTies
+56/61 Test #235: MappedFormalScheduled.OverflowingSourceExtentRejectsBeforeReading ...........................................   Passed    0.00 sec
+      Start 236: MappedFormalScheduled.SourceMismatchAndUnorderedOrEndpointInputRejectCold
+57/61 Test #136: ScheduledSession.CheckedSourceTranslationPreservesHalfOpenDeadlineTies ......................................   Passed    0.01 sec
+      Start 268: calibration.pilot.MappedPilotData.ReleaseBeforePreparationNeverReopensMappings
+58/61 Test #236: MappedFormalScheduled.SourceMismatchAndUnorderedOrEndpointInputRejectCold ...................................   Passed    0.00 sec
+      Start  38: ServiceSession.CheckedWindowDoesNotInventDefaultsOrOverflow
+59/61 Test #268: calibration.pilot.MappedPilotData.ReleaseBeforePreparationNeverReopensMappings ..............................   Passed    0.00 sec
+60/61 Test  #38: ServiceSession.CheckedWindowDoesNotInventDefaultsOrOverflow .................................................   Passed    0.00 sec
+      Start 266: calibration.pilot.MappedPilotData.InvalidGeometryAndNamespaceDriftFailCold
+61/61 Test #266: calibration.pilot.MappedPilotData.InvalidGeometryAndNamespaceDriftFailCold ..................................   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 61
+
+Label Time Summary:
+calibration    =   0.94 sec*proc (61 tests)
+pilot          =   0.27 sec*proc (22 tests)
+synthetic      =   0.27 sec*proc (22 tests)
+
+Total Test time (real) =   0.50 sec

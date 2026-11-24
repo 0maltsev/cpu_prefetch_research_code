@@ -1,0 +1,37 @@
+{
+  "operational_window_started": false,
+  "operator_profile_sha256": "548884312b7508d76d697863caf57ba0656ba0c2c114021e692c7c83c54df718",
+  "qualification_performed": false,
+  "source_revision": "7efa351c4820790ff4a4d928da9023a0f2ef61bf",
+  "status": "FIXED_S180_UNITS_LOADED_NOT_STARTED",
+  "units": {
+    "cpu-prefetch-s180-exit-1.service": {
+      "ActiveState": "inactive",
+      "ExecStart": "{ path=/usr/bin/python3.14 ; argv[]=/usr/bin/python3.14 -B /opt/cpu-prefetch-s180-service-1/stage17_s180_service_v1.py exit --profile-sha256 548884312b7508d76d697863caf57ba0656ba0c2c114021e692c7c83c54df718 ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }",
+      "KillMode": "control-group",
+      "LoadState": "loaded",
+      "MainPID": "0",
+      "NeedDaemonReload": "no",
+      "Restart": "no",
+      "RuntimeMaxUSec": "30min",
+      "SendSIGKILL": "yes",
+      "Slice": "-.slice",
+      "SubState": "dead"
+    },
+    "cpu-prefetch-s180-operator-1.service": {
+      "ActiveState": "inactive",
+      "ExecStart": "{ path=/usr/bin/python3.14 ; argv[]=/usr/bin/python3.14 -B /opt/cpu-prefetch-s180-service-1/stage17_s180_service_v1.py run --profile-sha256 548884312b7508d76d697863caf57ba0656ba0c2c114021e692c7c83c54df718 ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }",
+      "ExecStopPost": "{ path=/usr/bin/python3.14 ; argv[]=/usr/bin/python3.14 -B /run/cpu-prefetch-s180-operator-1/stop_post.py ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }",
+      "KillMode": "control-group",
+      "LoadState": "loaded",
+      "MainPID": "0",
+      "NeedDaemonReload": "no",
+      "Restart": "no",
+      "RuntimeMaxUSec": "1d",
+      "SendSIGKILL": "yes",
+      "Slice": "-.slice",
+      "SubState": "dead"
+    }
+  },
+  "verify_stderr": "/usr/lib/systemd/system/system-xfs_scrub.slice:15: Support for option CPUAccounting= has been removed and it is ignored\n/usr/lib/systemd/system/xfs_scrub_all.service:26: Support for option CPUAccounting= has been removed and it is ignored\n"
+}

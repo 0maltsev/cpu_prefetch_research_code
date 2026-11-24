@@ -1,0 +1,30 @@
+{
+  "after": {
+    "ActiveState": "activating",
+    "ControlPID": "396679",
+    "ExecMainStartTimestamp": "",
+    "InvocationID": "b9e25b8ac2764d4b9922c9563de2af76",
+    "Job": "1196252",
+    "LoadState": "loaded",
+    "MainPID": "0",
+    "Result": "success",
+    "SubState": "start-pre"
+  },
+  "automatic_retry": false,
+  "before": {
+    "ActiveState": "inactive",
+    "ControlPID": "0",
+    "ExecMainStartTimestamp": "",
+    "InvocationID": "",
+    "Job": "",
+    "LoadState": "loaded",
+    "MainPID": "0",
+    "Result": "success",
+    "SubState": "dead"
+  },
+  "estimated_hours": 16,
+  "hard_cap_hours": 24,
+  "operator_profile_sha256": "548884312b7508d76d697863caf57ba0656ba0c2c114021e692c7c83c54df718",
+  "requested_at_utc": "2026-11-24T08:03:47.426925+00:00",
+  "status": "ONCE_ONLY_S180_SERVICE_START_REQUESTED"
+}

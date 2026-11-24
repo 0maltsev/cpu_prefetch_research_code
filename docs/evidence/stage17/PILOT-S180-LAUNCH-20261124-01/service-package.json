@@ -1,0 +1,11 @@
+{
+  "execution_authority": false,
+  "files": 22,
+  "operational_window_started": false,
+  "profile_sha256": "548884312b7508d76d697863caf57ba0656ba0c2c114021e692c7c83c54df718",
+  "profile_size_bytes": 3280,
+  "source_clean_verified": true,
+  "source_revision": "7efa351c4820790ff4a4d928da9023a0f2ef61bf",
+  "transport_sha256": "d8c52e24816892175c131a5238750ae99d67d8e296dffb0f303c0e11d86f00bf",
+  "transport_size_bytes": 317440
+}

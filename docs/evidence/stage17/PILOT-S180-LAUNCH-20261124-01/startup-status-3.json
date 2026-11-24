@@ -1,0 +1,37 @@
+{
+  "approx_window_end_utc": "2026-11-25T08:06:39.115518+00:00",
+  "compaction_control": "1",
+  "controller-intent.json": {
+    "automatic_retry": false,
+    "execution_authority": false,
+    "operator_profile_sha256": "548884312b7508d76d697863caf57ba0656ba0c2c114021e692c7c83c54df718",
+    "operator_revision": "7efa351c4820790ff4a4d928da9023a0f2ef61bf",
+    "phase18_authority": false,
+    "window_binding": {
+      "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+      "end_monotonic_ns": 2030533412337510,
+      "start_monotonic_ns": 1944133412337510
+    }
+  },
+  "operational_root_exists": true,
+  "original_window_remaining_seconds": 86373.1,
+  "present_metadata": [
+    {
+      "name": "controller-intent.json",
+      "size_bytes": 377
+    }
+  ],
+  "unit": {
+    "ActiveState": "active",
+    "ControlPID": "0",
+    "ExecMainStartTimestamp": "Tue 2026-11-24 11:03:53 MSK",
+    "ExecMainStatus": "0",
+    "ExecStopPost": "{ path=/usr/bin/python3.14 ; argv[]=/usr/bin/python3.14 -B /run/cpu-prefetch-s180-operator-1/stop_post.py ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }",
+    "InvocationID": "b9e25b8ac2764d4b9922c9563de2af76",
+    "MainPID": "396684",
+    "NRestarts": "0",
+    "Result": "success",
+    "SubState": "running"
+  },
+  "utc": "2026-11-24T08:07:06.018669+00:00"
+}

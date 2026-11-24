@@ -1,0 +1,154 @@
+{
+  "approx_window_end_utc": "2026-11-25T08:06:39.114112+00:00",
+  "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+  "compaction_control": "1",
+  "completed_source_jobs": 9,
+  "controller-intent.json": {
+    "automatic_retry": false,
+    "execution_authority": false,
+    "operator_profile_sha256": "548884312b7508d76d697863caf57ba0656ba0c2c114021e692c7c83c54df718",
+    "operator_revision": "7efa351c4820790ff4a4d928da9023a0f2ef61bf",
+    "phase18_authority": false,
+    "window_binding": {
+      "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+      "end_monotonic_ns": 2030533412337510,
+      "start_monotonic_ns": 1944133412337510
+    }
+  },
+  "metadata": [
+    {
+      "name": "controller-intent.json",
+      "size_bytes": 377
+    },
+    {
+      "name": "source-author/intent.json",
+      "size_bytes": 1550
+    },
+    {
+      "name": "source-author/child-ready.json",
+      "size_bytes": 284
+    }
+  ],
+  "operational_root_exists": true,
+  "source-author/child-ready.json": {
+    "actual_rlimit_as": [
+      8589934592,
+      8589934592
+    ],
+    "inherited_cgroup": "0::/cpu-prefetch-s180-operator-1.service",
+    "observed_cpus": [
+      3
+    ],
+    "pid": 397400,
+    "process_group": 397400,
+    "requested_cpu": 3,
+    "schema_version": "cpu-prefetch-stage17-s180-source-author/1",
+    "session": 397400,
+    "start_ticks": "194432336"
+  },
+  "source-author/intent.json": {
+    "automatic_retry": false,
+    "execution_authority": false,
+    "full_ext008_admission": false,
+    "partial_source_admission": {
+      "complete_programme_quota_checked": false,
+      "execution_authority": false,
+      "free_filesystem_bytes": 6276100345856,
+      "free_filesystem_inodes": 233483471,
+      "full_resource_admission": false,
+      "observed_platform": {
+        "base_page_bytes": 4096,
+        "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+        "highest_observed_fd": 6,
+        "memory_ancestors": [
+          {
+            "current_bytes": 906137600,
+            "maximum_bytes": null,
+            "path": "/sys/fs/cgroup/cpu-prefetch-s180-operator-1.service"
+          }
+        ],
+        "memory_available_bytes": 261433982976,
+        "observed_monotonic_ns": 1944323024407735,
+        "pid": 396684,
+        "rlimit_as": [
+          4294967296,
+          68719476736
+        ],
+        "rlimit_memlock": [
+          68719476736,
+          68719476736
+        ],
+        "rlimit_nofile": [
+          1024,
+          1024
+        ]
+      },
+      "protected_remaining_ns": 56281000000000,
+      "required_source_filesystem_bytes": 843487650176,
+      "source_commitments_checked": true,
+      "source_requirements": {
+        "execution_authority": false,
+        "full_resource_admission": false,
+        "maximum_source_bytes": 1443373440,
+        "maximum_vector_bytes": 1496831712,
+        "phase18_authority": false,
+        "source_bank_upper_bytes": 1518870912,
+        "source_bank_upper_inodes": 109,
+        "source_metadata_upper_bytes": 20971520,
+        "source_metadata_upper_inodes": 64,
+        "source_process_and_page_upper_bytes": 14328373248
+      }
+    },
+    "schema_version": "cpu-prefetch-stage17-s180-source-author/1",
+    "sizing_sha256": "ece6975ba86ea0b18547915df4817b11661c9e3cc6603f95d24d4b230f1f97f5",
+    "source_deadline_ns": 1973122529277260,
+    "window_binding": {
+      "boot_id": "4c08cd05-b362-49dd-b37f-629e9c7ad79a",
+      "end_monotonic_ns": 2030533412337510,
+      "start_monotonic_ns": 1944133412337510
+    }
+  },
+  "source_bank_files": 27,
+  "source_process": {
+    "cpu_seconds": 3260.53,
+    "matches_ready_identity": true,
+    "observed_affinity": [
+      3
+    ],
+    "pid": 397400,
+    "start_ticks": "194432336",
+    "state": "R"
+  },
+  "units": {
+    "cpu-prefetch-s180-exit-1.service": {
+      "ActiveState": "inactive",
+      "ControlPID": "0",
+      "ExecMainExitTimestamp": "",
+      "ExecMainStartTimestamp": "",
+      "ExecMainStatus": "0",
+      "InvocationID": "",
+      "LoadState": "loaded",
+      "MainPID": "0",
+      "NRestarts": "0",
+      "Result": "success",
+      "SubState": "dead"
+    },
+    "cpu-prefetch-s180-operator-1.service": {
+      "ActiveState": "active",
+      "ControlPID": "0",
+      "ExecMainExitTimestamp": "",
+      "ExecMainStartTimestamp": "Tue 2026-11-24 11:03:53 MSK",
+      "ExecMainStatus": "0",
+      "ExecStopPost": "{ path=/usr/bin/python3.14 ; argv[]=/usr/bin/python3.14 -B /run/cpu-prefetch-s180-operator-1/stop_post.py ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }",
+      "InvocationID": "b9e25b8ac2764d4b9922c9563de2af76",
+      "LoadState": "loaded",
+      "MainPID": "396684",
+      "NRestarts": "0",
+      "Result": "success",
+      "SubState": "running"
+    }
+  },
+  "utc": "2026-11-24T09:04:10.545733+00:00",
+  "window_elapsed_seconds": 3451.4,
+  "window_remaining_seconds": 82948.6
+}

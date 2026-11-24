@@ -93,6 +93,29 @@ class OriginalTests(unittest.TestCase):
         self.assertEqual(len(value['registry_proof']['artifacts']),8)
         self.assertEqual(before,{p.name:p.read_bytes() for p in (self.f.root/'ledger').iterdir()})
 
+    def test_original_archive_epochs_require_full_inverse_separately_and_detect_same_byte_rewrite(self):
+        record=self.load(self.software_phase())
+        with self.f.store() as store:
+            snapshot=analysis._archive_snapshot(store,[record]);self.assertEqual(len(snapshot),8)
+            self.assertEqual(snapshot,analysis._archive_snapshot(store,[record]))
+            path=store.root/'archives'/snapshot[0]['archive_name'];original=path.read_bytes();path.write_bytes(original)
+            self.assertEqual(path.read_bytes(),original)
+            self.assertNotEqual(snapshot,analysis._archive_snapshot(store,[record]))
+        self.assertTrue(record['registry_proof']['physical_sha256_verification_pending'])
+
+    def test_duplicate_or_missing_original_cannot_have_a_complete_epoch_snapshot(self):
+        record=self.load(self.software_phase())
+        with self.f.store() as store:
+            with self.assertRaisesRegex(ValueError,'duplicate original'):analysis._archive_snapshot(store,[record,record])
+            path=store.root/'archives'/record['registry_proof']['artifacts'][0]['archive_name'];path.unlink()
+            with self.assertRaises(OSError):analysis._archive_snapshot(store,[record])
+
+    def test_unprotected_original_permissions_block_epoch_publication(self):
+        record=self.load(self.software_phase())
+        with self.f.store() as store:
+            path=store.root/'archives'/record['registry_proof']['artifacts'][0]['archive_name'];path.chmod(0o666)
+            with self.assertRaisesRegex(ValueError,'snapshot file is unsafe'):analysis._archive_snapshot(store,[record])
+
     def test_changed_original_checkpoint_and_native_reference_hash_are_rejected(self):
         self.native['artifacts'][9]['sha256']='f'*64
         with self.assertRaises(ValueError):self.load()

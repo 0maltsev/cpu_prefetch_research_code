@@ -7,7 +7,9 @@ deadline reset or Stage18 authority exists in this callable.
 from __future__ import annotations
 from dataclasses import asdict,replace
 import contextlib
+import hashlib
 import os
+import stat
 from pathlib import Path
 
 import stage17_s180_analysis_pool_v1 as pool
@@ -20,7 +22,7 @@ import stage17_s180_analysis_input_v1 as analysis_input
 archive=pool.archive
 require=pool.require
 exact=pool.worker.exact
-SCHEMA='cpu-prefetch-stage17-s180-validated-family-analysis/3'
+SCHEMA='cpu-prefetch-stage17-s180-validated-family-analysis/4'
 
 
 def _binding(reference):
@@ -98,6 +100,28 @@ def _outputs(store,root,pool_result,records):
     return records
 
 
+def _archive_snapshot(store,records):
+    """Original file epochs spanning the actual full inverse, no payload read.
+
+    The signed final family report carries these epochs to the independent
+    service-exit observer. A stat snapshot is never a substitute for inverse
+    byte/hash verification; publication follows both checks and unchanged epochs.
+    """
+    rows=[];seen=set();device=store.root.stat(follow_symlinks=False).st_dev
+    for record in records:
+        for item in record['registry_proof']['artifacts']:
+            identity=item['artifact_id'];name=hashlib.sha256(identity.encode()).hexdigest()+'.cpfa'
+            exact(item['archive_name'],name,'original snapshot archive identity')
+            require(name not in seen,'duplicate original snapshot archive');seen.add(name)
+            path=store.root/'archives'/name;s=path.stat(follow_symlinks=False)
+            require(stat.S_ISREG(s.st_mode) and s.st_nlink==1 and not s.st_mode&0o022
+                and s.st_dev==device,'original snapshot file is unsafe')
+            exact(s.st_size,item['physical']['size_bytes'],'original snapshot archive extent')
+            rows.append(dict(archive_name=name,expected_physical=dict(item['physical']),
+                stamp=list(archive.file_stamp(s)),mode=stat.S_IMODE(s.st_mode),uid=s.st_uid,gid=s.st_gid))
+    return sorted(rows,key=lambda row:row['archive_name'])
+
+
 def _publish(root,report,check):
     """Actual complete metadata is provisional until its final deadline check."""
     root,identity=pool.worker.directory(root,owned=True);published=False
@@ -167,6 +191,8 @@ def analyze_family(*,phase_owner,verified_request,terminal_binding,program_root,
                 record=_capture(store,request,native,ordinal,archive_profile,decoder_limits,phase_owner=phase_owner)
                 exact(record['parent_receipt']['request_sha256'],verified_request.request_sha256,'actual original request receipt')
                 records.append(record)
+            originals=_archive_snapshot(store,records)
+            require(len(originals)==1440,'all1440 original archive epochs required')
             result=pool.run_analysis(phase_owner=phase_owner,inputs=[dict(checkpoint=r['checkpoint'],registry_proof=r['registry_proof']) for r in records],
                 native_result=native,session_id=request['session_id'],program_root=program_root,archive_profile=archive_profile,
                 decode_limits=decoder_limits,output_directory=output_directory,
@@ -175,6 +201,7 @@ def analyze_family(*,phase_owner,verified_request,terminal_binding,program_root,
             consistency=pool.family.validate_family(plan=request['plan'],session_id=request['session_id'],
                 request_sha256=verified_request.request_sha256,native_result=native,records=records,
                 window_binding=authorization['window_binding'],deadline_ns=phase_owner.deadline_ns)
+            exact(_archive_snapshot(store,records),originals,'original archive epochs changed through inverse/family validation')
             exact(asdict(store.ledger_binding()),tip,'original custody unchanged through analysis')
             phase_owner.check()
             final_environment=phase_owner.environment_owner.final_restoration_observation(
@@ -184,13 +211,19 @@ def analyze_family(*,phase_owner,verified_request,terminal_binding,program_root,
                 plan_sha256=store.family_id,request_sha256=verified_request.request_sha256,terminal_binding=terminal_binding,
                 original_ledger_tip=tip,archive_originals_inversely_verified=1440,actual_worker_completion_verified=True,
                 original_archive_custody_verified=True,family_data_consistency=consistency,
+                original_archive_epochs=originals,original_archive_epochs_unchanged_through_inverse=True,
                 archive_verification_order='ORIGINAL_LEDGER_HEADERS_THEN_OWNED_PARALLEL_FULL_PHYSICAL_AND_CANONICAL_INVERSE',
                 original_generation_binding=phase_owner.source_owner.released_proof(plan_sha256=store.family_id),
                 prior_owned_environment_restoration_verified=True,final_live_restoration_verified=True,
                 final_environment_observation=final_environment,
                 operational_exit_verified=False,inferential_freeze_established=False,
                 execution_authority=False,phase18_authority=False)
-            return _publish(Path(output_directory),report,phase_owner.check)
+            def final_check():
+                phase_owner.check()
+                exact(_archive_snapshot(store,records),originals,'original archive epochs changed before final publication')
+                exact(asdict(store.ledger_binding()),tip,'original custody changed before final publication')
+                phase_owner.check()
+            return _publish(Path(output_directory),report,final_check)
     except BaseException:
         phase_owner.failed=True
         raise

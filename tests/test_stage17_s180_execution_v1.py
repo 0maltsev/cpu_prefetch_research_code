@@ -76,7 +76,8 @@ class ExecutionTests(unittest.TestCase):
         self.patch(execution.q15,'prepare',lambda **kwargs:SimpleNamespace(execute=self.q15,completed=lambda:self.event('q15-completed')))
         self.patch(execution.qualification,'publish',lambda **kwargs:self.event('export'))
         self.patch(execution.platform,'verify_platform',lambda **kwargs:self.event('platform'))
-        self.patch(execution.admission,'verify_plan',lambda **kwargs:SimpleNamespace(payload={'SOFTWARE_PLAN':'only'}))
+        self.patch(execution.admission,'verify_plan',lambda **kwargs:SimpleNamespace(payload={'SOFTWARE_PLAN':'only'},
+            report=lambda:execution.archive.canonical(dict(software_fixture_only=True))))
         self.patch(execution.resources,'verify_resources',lambda **kwargs:SimpleNamespace(report=lambda:b'SOFTWARE-RESOURCE'))
         self.patch(execution.admission,'ScopedSemantics',lambda **kwargs:self.semantic)
         self.patch(execution.launcher,'launch',self.launch)
@@ -101,8 +102,11 @@ class ExecutionTests(unittest.TestCase):
     @contextlib.contextmanager
     def sources(self,**kwargs):
         self.event('source-start')
-        try:yield SimpleNamespace(plan=self.plan,source_owner=self.source)
-        finally:self.source.released=True;self.event('source-released')
+        source_root=self.root/'source-author';source_root.mkdir()
+        (source_root/'plan.json').write_bytes(execution.archive.canonical(self.plan))
+        with mock.patch.object(execution.author,'ROOT',source_root):
+            try:yield SimpleNamespace(plan=self.plan,source_owner=self.source)
+            finally:self.source.released=True;self.event('source-released')
 
     @contextlib.contextmanager
     def environment(self,**kwargs):
@@ -163,6 +167,8 @@ class ExecutionTests(unittest.TestCase):
         return dict(binding=dict(file_name='family-validation.json',size_bytes=1,sha256='f'*64),
             report=dict(schema_version=execution.analysis.SCHEMA,status='VALIDATED_DESCRIPTIVE_FAMILY_PENDING_OPERATIONAL_EXIT',
                 archive_originals_inversely_verified=1440,actual_worker_completion_verified=True,original_archive_custody_verified=True,
+                original_archive_epochs_unchanged_through_inverse=True,
+                original_archive_epochs=[dict(software_fixture_only=True) for _ in range(1440)],
                 final_live_restoration_verified=True,operational_exit_verified=False,inferential_freeze_established=False,
                 execution_authority=False,phase18_authority=False))
 

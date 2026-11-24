@@ -46,7 +46,7 @@ PROGRAM=Path('/home/omaltsev/stage17-owner-evidence/local-authoring-cpuprefetchv
 KEY=Path('/home/omaltsev/.ssh/id_ed25519')
 NAMESPACE='stage17-owner-acceptance'
 PRINCIPAL='maltsev.oiu@phystech.edu'
-SCHEMA='cpu-prefetch-stage17-s180-controller-handoff/1'
+SCHEMA='cpu-prefetch-stage17-s180-controller-handoff/2'
 DECLARATION_SHA='a87db70744a25ffa98361c430e6f486e009960b7f7468e052b336b415093ef7a'
 NS=10**9
 GIB=1024**3
@@ -277,6 +277,10 @@ def _collect(inputs,base,window,metadata):
                         worker=inputs.native_image,archive_profile=inputs.archive_profile,program_root=PROGRAM,native_limits=native,
                         custody_limits=ledger,unrelated_reservations=inputs.unrelated_reservations,deadline_ns=deadline,
                         programme_owner=owned_programme)
+                    # Preserve the actual owned evidence for historical exit;
+                    # these bytes cannot construct another live resource owner.
+                    plan_evidence=_bytes(ROOT/'qualified-plan-admission.json',planned.report())
+                    resource_evidence=_bytes(ROOT/'resource-admission.json',resource.report())
                     semantics=admission.ScopedSemantics(plan_owner=planned,resource_owner=resource)
                     book=journal.ScopedJournal(ROOT/'scoped-journal',base_validation=base,plan=plan,
                         semantic_policy_sha256=admission.POLICY_SHA,semantic_replay=semantics,synthetic_test_only=False)
@@ -290,8 +294,12 @@ def _collect(inputs,base,window,metadata):
                         authority.verify_authorization(authorization_bytes=raw,signature_path=sig,plan=plan,validation=view)
                         view=_append(book,'S17-EXT-010',dict(authorization=bound,signature=_binding(sig)),deadline)
                         verified=authority.verify_admitted_authorization(authorization_bytes=raw,signature_path=sig,plan=plan,validation=view)
-                        _save('admission-complete.json',dict(plan_sha256=family,
-                            request_sha256=verified.request_sha256,window_binding=window,execution_authority=False,phase18_authority=False))
+                        admission_binding=_save('admission-complete.json',dict(plan_sha256=family,
+                            request_sha256=verified.request_sha256,window_binding=window,
+                            plan_evidence=plan_evidence,resource_evidence=resource_evidence,
+                            derived_contexts={key:view.resolutions[key].semantic_context
+                                for key in ('S17-EXT-008','S17-EXT-009','S17-EXT-010')},
+                            live_owner_reconstruction_allowed=False,execution_authority=False,phase18_authority=False))
                         metadata.stop()
                         result=launcher.launch(journal=book,authorization_bytes=raw,signature_path=sig,source_owner=source_owner,
                             native_image=inputs.native_image,archive_profile=inputs.archive_profile,program_root=PROGRAM,
@@ -301,7 +309,9 @@ def _collect(inputs,base,window,metadata):
                             and document['failure'] is None and document['acknowledged_captures']==180
                             and document['quarantined'] is False,'native family stopped; analysis and retries forbidden')
                         return dict(plan=plan,source_owner=source_owner,environment_owner=env,verified=verified,
-                            terminal=result['terminal'],view=view,ledger=ledger,decoder=decoder)
+                            terminal=result['terminal'],view=view,ledger=ledger,decoder=decoder,
+                            admission_binding=admission_binding,authorization_binding=bound,authorization_signature=_binding(sig),
+                            source_plan=_binding(author.ROOT/'plan.json'))
     finally:owner.close()
 
 
@@ -328,10 +338,12 @@ def _run(inputs,base):
                 other_scratch_committed_bytes=inputs.unrelated_reservations['scratch_committed_bytes'])
         for key,value in dict(schema_version=analysis.SCHEMA,status='VALIDATED_DESCRIPTIVE_FAMILY_PENDING_OPERATIONAL_EXIT',
                 archive_originals_inversely_verified=1440,actual_worker_completion_verified=True,original_archive_custody_verified=True,
+                original_archive_epochs_unchanged_through_inverse=True,
                 final_live_restoration_verified=True,operational_exit_verified=False,inferential_freeze_established=False,
                 execution_authority=False,phase18_authority=False).items():
             require(type(final['report'][key]) is type(value) and final['report'][key]==value,
                 'independent analysis has no valid complete handoff: '+key)
+        require(len(final['report']['original_archive_epochs'])==1440,'all original archive epochs required for service exit')
         inputs.base_owner.view();require(time.monotonic_ns()<window['end_monotonic_ns'],'original24h window expired')
         report=dict(schema_version=SCHEMA,status='VALIDATED_PILOT_PENDING_INDEPENDENT_OPERATIONAL_EXIT',
             operator_revision=inputs.operator_revision,operator_profile_sha256=inputs.operator_profile_sha256,
@@ -339,6 +351,10 @@ def _run(inputs,base):
             controller_pid=os.getpid(),original_seven=[authority.binding(base.resolutions[f'S17-EXT-{i:03d}']) for i in range(1,8)],
             scoped_resolutions=[authority.binding(collected['view'].resolutions[f'S17-EXT-{i:03d}']) for i in range(8,11)],
             family_validation=final['binding'],family_validation_status=final['report']['status'],
+            admission_complete=collected['admission_binding'],pilot_authorization=collected['authorization_binding'],
+            pilot_authorization_signature=collected['authorization_signature'],
+            scoped_journal=_binding(ROOT/'scoped-journal/journal-3.json'),
+            source_plan=collected['source_plan'],
             archive_originals_inversely_verified=final['report']['archive_originals_inversely_verified'],
             original_source_release=collected['source_owner'].released_proof(plan_sha256=family),
             controller_still_running=True,independent_service_exit_verified=False,inferential_freeze_established=False,

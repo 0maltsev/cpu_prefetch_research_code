@@ -1,0 +1,20 @@
+{
+  "cpu": 3,
+  "execution_authority": false,
+  "fixture_boundaries": "EXPLICIT_SOFTWARE_PHASE_AND_SYNTHETIC_NATIVE_PARENT_FAMILY_METADATA",
+  "fixture_preparation_ns": 8891932192,
+  "operational_window_started": false,
+  "original_header_receipt_metadata_180_repeated_same_capture_ns": 7900050742,
+  "original_research_raw_bytes_read": 0,
+  "phase18_authority": false,
+  "qualification_performed": false,
+  "scientific_captures_collected": 0,
+  "source_preparation_performed": false,
+  "status": "SOFTWARE_METADATA_TIMING_PASS",
+  "synthetic_complete_family_consistency_ns": 5314072535,
+  "synthetic_family_canonical_json_bytes": 10841714,
+  "synthetic_family_preparation_ns": 2747864891,
+  "synthetic_family_roundtrip_ns": 2609222920,
+  "total_measured_metadata_components_ns": 15823346197,
+  "utc": "2026-11-23T22:10:16.307600+00:00"
+}

@@ -1920,6 +1920,15 @@ if(BUILD_TESTING)
       --worker "$<TARGET_FILE:cpu_prefetch_runner>")
   set_tests_properties(runner.s180_execution_v1 PROPERTIES
     LABELS "runner;pilot;synthetic;python" TIMEOUT 180)
+  add_test(NAME runner.s180_exit_v1
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_s180_exit_v1.py"
+      --worker "$<TARGET_FILE:cpu_prefetch_runner>")
+  set_tests_properties(runner.s180_exit_v1 PROPERTIES
+    LABELS "runner;pilot;synthetic;python" TIMEOUT 180)
+  add_test(NAME runner.s180_service_v1
+    COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_s180_service_v1.py")
+  set_tests_properties(runner.s180_service_v1 PROPERTIES
+    LABELS "runner;pilot;synthetic;python" TIMEOUT 120)
   add_test(NAME runner.s180_plan_admission_v1
     COMMAND "${Python3_EXECUTABLE}" -B "${PROJECT_SOURCE_DIR}/tests/test_stage17_s180_plan_admission_v1.py")
   set_tests_properties(runner.s180_plan_admission_v1 PROPERTIES
